@@ -1,0 +1,228 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+  <!-- Page Title -->
+  <% provide(:title, @user.fullname) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->  
+
+  <% content_for(:side_bar) do %>
+      <%= render 'layouts/sidebar_settings' %>
+  <% end %>
+    
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="standard-content" >
+            <div class="textbox">
+            
+              <h1>Settings</h1>
+              <h5>Edit your account settings.</h5>
+              <!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+            <!-- end of textbox-->
+            </div>
+            <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'no_ajaxify' }, :validate => true) do |f| %> 
+
+
+                <div class="lightbox2-bordered">
+              
+
+              <!-- Account Info-->
+              <div class="textbox-mini">
+              <h2>Username</h2>
+              </div>
+
+              <!-- username -->
+              <div class="lightbox3">
+
+                <div class="inputlabel">
+                  <li>Username</li>
+                </div>
+
+                <div class="input-placer">
+                      <%= f.text_field :username, class: "inputbox settingsinput" %>
+                      <ul>Change your username. It will make up the permanent link of your profile page (alphanumerics only).</ul>
+
+                    </div>
+
+                  </div> 
+
+                  <!-- Current Password -->
+                  <div class="lightbox3">
+                  
+                <div class="inputlabel">
+                  <li>Current Password</li>
+                </div>
+
+                    <div class="input-placer">
+                      <%= f.password_field :current_password, class: "inputbox settingsinput"%>
+                      <ul>We need your current password to confirm your changes</ul>
+                    </div>
+
+                  </div>      
+                
+                <!-- end of lightbox2 -->
+            </div>
+                                    
+              
+              <ol style="margin-top: 15px; padding-left: 168px;">
+              
+                <div>
+                  <%= f.submit "Update", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green" %>
+                </div>
+              </ol>
+
+            <% end %>
+
+        <!-- Cutter --><ol style="margin-top: 70px;"></ol>
+
+            <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'no_ajaxify' }, :validate => true) do |f| %> 
+
+
+                <div class="lightbox2-bordered">
+              
+
+              <!-- Account Info-->
+              <div class="textbox-mini">
+              <h2>Email</h2>
+              </div>
+
+              <!-- Email -->
+              <div class="lightbox3">
+
+                <div class="inputlabel">
+                  <li>Email</li>
+                </div>
+
+                <div class="input-placer">
+                      <%= f.text_field :email, class: "inputbox settingsinput" %>
+                        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                      <ul>Currently waiting confirmation for: <%= resource.unconfirmed_email %></ul>
+                      <% else %>
+                      <ul>New email address.</ul>
+                      <% end %>
+                      
+
+                    </div>
+
+                  </div>
+
+                  <!-- Current Password -->
+                  <div class="lightbox3">
+                  
+                <div class="inputlabel">
+                  <li>Current Password</li>
+                </div>
+
+                    <div class="input-placer">
+                      <%= f.password_field :current_password, class: "inputbox settingsinput"%>
+                      <ul>We need your current password to confirm your changes</ul>
+                    </div>
+
+                  </div>      
+                
+                <!-- end of lightbox2 -->
+            </div>
+                                    
+              
+              <ol style="margin-top: 15px; padding-left: 168px;">
+              
+                <div>
+                  <%= f.submit "Update", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green" %>
+                </div>
+              </ol>
+
+            <% end %>
+        <!-- Cutter --><ol style="margin-top: 70px;"></ol>
+
+            <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'no_ajaxify' }, :validate => true) do |f| %> 
+
+
+                <div class="lightbox2-bordered">
+              
+
+              <!-- Account Info-->
+              <div class="textbox-mini">
+              <h2>Password</h2>
+              </div>
+
+                  <!-- Password-->
+                  <div class="lightbox3">
+                  
+                <div class="inputlabel">
+                  <li>New Password</li>
+                </div>
+
+                    <div class="input-placer">
+                      <%= f.password_field :password, class: "inputbox settingsinput"%>
+                      <ul>Leave blank if you don't want to change it</ul>
+                    </div>
+
+                  </div>
+
+                  <!-- Password Confirmation -->
+                  <div class="lightbox3">
+                  
+                <div class="inputlabel">
+                  <li>Re-enter</li>
+                </div>
+
+                    <div class="input-placer">
+                      <%= f.password_field :password_confirmation, class: "inputbox settingsinput"%>
+                      <ul>Re-enter your new password.</ul>
+                    </div>
+
+                  </div>      
+
+                  <!-- Current Password -->
+                  <div class="lightbox3">
+                  
+                <div class="inputlabel">
+                  <li>Current Password</li>
+                </div>
+
+                    <div class="input-placer">
+                      <%= f.password_field :current_password, class: "inputbox settingsinput"%>
+                      <ul>We need your current password to confirm your changes</ul>
+                    </div>
+
+                  </div>      
+                
+                <!-- end of lightbox2 -->
+            </div>
+                                    
+              
+              <ol style="margin-top: 15px; padding-left: 168px;">
+              
+                <div>
+                  <%= f.submit "Save Changes", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green" %>
+                </div>
+              </ol>
+
+            <% end %>
+        <!-- Cutter --><ol style="margin-top: 70px;"></ol>
+
+                <div class="lightbox2-bordered">
+              
+
+              <!-- Account Info-->
+              <div class="textbox-mini">
+              <h2>Disable Account</h2>
+              </div>
+
+                
+                <!-- end of lightbox2 -->
+            </div>
+
+            <ol style="margin-top: 15px; padding-left: 168px;">
+              
+                  <%= link_to "Disable Account", disable_user_path(resource), :data => { :confirm => "Are you sure to disable your account? <p>Review the following changes to your account once it is disabled:</p><p>1. You will not be able to login.</p><p>2. You will not be able to register another account with the same information.</p><p>3. The link to your profile page will be disabled.</p><p>4. Your profile picture will be removed.</p> <p>5. All your current subscriptions will be canceled including the subscriptions you made to other users and the subscriptions made to you.</p>" }, :method => :post, class: "btn btn-medium2 btn-medium-white no_ajaxify" %>
+              </ol>
+
+
+            <!-- Cutter --><ol style="margin-top: 70px;"></ol>
+            </div><!-- Footer -->
+        <%= render 'layouts/footer' %>
+
+      </div><!-- end of main-content-->
+  

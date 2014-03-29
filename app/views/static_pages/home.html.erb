@@ -1,0 +1,42 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+		<!-- Home Page Beta Pic -->
+		<div class="Home-page-bg">
+		<%= image_tag("betabg.jpg") %>
+		</div>
+
+
+			<div class="center" >
+
+				<!-- Logo Image -->
+				<div style="margin-top:40px;"><%= image_tag("ratafire.png", alt: "Ratafire") %></div>
+	
+				<!-- Home Page Comment -->
+				<div id="Home-page-comment">
+					<h2 style="color:#666;">
+						Create what you love. 
+					</h2>
+				</div>
+
+				<!-- Home Page Buttons -->
+				<div id="Home-page-btn">
+
+						<%= link_to "SIGN UP", beta_path , class: "btn btn-small2 btn-small-green Home-page-margin no_ajaxify"%>
+
+						<%= link_to "SIGN IN", new_user_session_path , class: "btn btn-small2 btn-small-blue Home-page-margin no_ajaxify" %>
+
+						<!-- Who is Ratatoskr? -->
+						<span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >Who is Ratatoskr?</a></span>
+
+						<!-- Footer -->
+						<div id="Home-footer-push"></div>
+						<div style="padding: 0px 20px 18px 0;">
+						<%= render 'layouts/footer' %>
+						</div>
+				</div>
+
+			</div>
+
+

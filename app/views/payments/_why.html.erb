@@ -1,0 +1,26 @@
+<div class="user-why-edit">
+	<h4>To subscribers</h4>
+		<div class="user-why-passage">
+			<%= simple_format(@user.why)%>
+		</div>	
+	<h4>I am currently working on</h4>
+		<!-- display project-->
+		<div class="user-why-passage" style="padding: 15px 0 5px 20px;">
+			<%=  render "projects/project_one"%>
+		</div>
+	<h4>If I reach my subscription amount goal</h4>
+	<div class="user-why-passage">
+		<div class="goals" style="width:100%;">
+			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription Amount</span> <%= render :text => @user.subscription_amount.to_s %>/<%= render :text => @user.goals_monthly%></ol>
+			<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
+		</div>	
+	</div>	
+	<h4>My intended update frequency or plans will be</h4>
+		<div class="user-why-passage">
+			<%= simple_format(@user.plan)%>
+		</div>	
+	<!-- Subscription Button-->		
+	<div style="margin: 15px -2px 0 0; text-align:right;">
+		<%= link_to "Next Step", subscribe_path(@user), class:"btn btn-medium btn-medium-green no_ajaxify"%>
+	</div>					
+</div>

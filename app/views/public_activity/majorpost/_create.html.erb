@@ -1,0 +1,254 @@
+<!-- Script to show Edit button 
+<script>
+	$(document).ready(function() {
+	$('#<%= activity.id %>activity').hover(function() {
+  		$("#<%= activity.id %>").toggle();
+	});
+	});
+</script>-->
+
+<% if activity.trackable %>
+<% if activity.trackable.video != nil && activity.trackable.video.external != nil && activity.trackable.video.external != "" && activity.trackable.video.youtube_vimeo == false %>
+	<script>
+		//get vimeo thumbnails
+		var vimeoVideoID = "<%= activity.trackable.video.external %>";
+		$.getJSON('http://www.vimeo.com/api/v2/video/' + vimeoVideoID + '.json?callback=?', {format: "json"}, function(data) {
+         $("#<%= activity.trackable.video.external %>").attr('style', "background-image:url("+data[0].thumbnail_medium+");");
+		});
+	</script>
+<% end %>
+<% end %>
+
+<div class="lightbox" id="<%= activity.id %>activity">
+		<!-- Delete
+		<div class="toolbox4">
+			<% if current_user == @user %>
+			<div class="btn-edit-right" id="<%= activity.id %>">
+			<%= link_to "Hide", activity_delete_path(@user, activity), :method => :delete, class:"btn-delete no_ajaxify",:confirm => "Are you sure to hide this post from activities feed? It cannot be undone." %>
+			</div>
+			<% end %>
+		</div>-->
+	<div class="textbox3">
+		<!-- user icon holder-->
+		<%= link_to activity.trackable.user, class:"no_ajaxify" do %>
+			<div class="majorpost-usericon" style="background-image:url(<%= activity.trackable.user.profilephoto.url(:small64) %>);"></div>
+		<% end %>
+		<% if activity.trackable %>
+<!-- Majorpost Title for Majorpost User -->
+<% if activity.trackable.user == current_user %>
+	<!-- published -->
+	<% if activity.trackable.published == true %>
+		<div class="majorpost-title">
+		<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at project 
+			<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
+		</div>
+	<% else %>
+	<!-- not published -->
+		<div class="majorpost-title">
+		<li><%= link_to activity.trackable.title, edit_user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> <span>(Draft)</span> at project 
+			<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
+		</div>		
+	<% end %>
+<% else %>				
+<!-- Majorpost Title for Normal People -->
+	<!-- published -->		
+	<% if activity.trackable.published == true %>
+		<div class="majorpost-title">
+		<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at project 
+			<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
+		</div>
+	<% else %>
+	<!-- not published -->
+		<div class="majorpost-title">
+		<li><%= activity.trackable.title %></li> <span>(Draft)</span> at project 
+			<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
+		</div>	
+	<% end %>
+<% end %>
+<!-- end of majorpost title -->
+		<div id="majorpost-comments">
+			C <%= activity.trackable.comments.count %>
+		</div>
+		<div id="majorpost-time">
+			Posted by <%= link_to activity.trackable.user.fullname,user_path(activity.trackable.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago. <% if activity.trackable.comments.count >0 then%>Commented by <%= link_to activity.trackable.comments.last.user.fullname,user_path(activity.trackable.comments.last.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.commented_at)%> ago.<% end %>
+		</div>
+
+		<!-- When It is not a draft -->
+		<% if activity.trackable.published == true %>
+		<div id="majorpost-excerpt">
+			<!-- When there are artwork and video -->
+			<% if activity.trackable.video != nil || activity.trackable.artwork != nil %>
+				<!-- With Video but without artwork -->
+				<% if activity.trackable.video != nil && activity.trackable.artwork == nil %>
+					<!-- video holder-->
+					<div class="majorpost-video-one">
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+							<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
+								<% if activity.trackable.video.youtube_vimeo == true %>
+									<!-- Youtube Thumbnail -->
+									<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
+								<% else %>
+									<!-- Vimeo Thumbnail -->
+									<div class="majorpost-video-small-holder" id="<%= activity.trackable.video.external %>" >
+								<% end %>
+							<% else %>
+								<!-- Internal Thumbnail-->
+								<% if activity.trackable.video.encoded_state == "finished" %>
+									<div class="majorpost-video-small-holder" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
+								<% else %>
+									<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
+								<% end %>	
+							<% end %>
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+						<% end %>
+					</div><!-- end.majorpost-video-one -->	
+					<!-- excerpt holder-->
+					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
+					</div>
+					<!-- Tags -->
+					<div id="majorpost-tags">
+						<% if activity.trackable.tags.any? %>
+						<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>	
+				<% end %><!-- end of with video but without artwork-->
+				<!-- With Artwork without Video -->
+				<% if activity.trackable.video == nil && activity.trackable.artwork != nil %>
+					<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+						<div class="majorpost-postimages-one">
+							<img src="<%= activity.trackable.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+						</div>
+						<div class="majorpost-thumbnail-bar">Artwork</div>
+					<% end %>	
+						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
+						</div>
+					<!-- Tags-->
+					<div id="majorpost-tags">
+						<% if activity.trackable.tags.any? %>
+						<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>
+				<% end %>	
+				<!-- With Artwork and with Video -->
+				<% if activity.trackable.video != nil && activity.trackable.artwork != nil %>				
+					<div class="majorpost-video-one">
+							<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+								<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>	
+									<% if activity.trackable.video.youtube_vimeo == true %>
+										<!-- Youtube Thumbnail-->
+										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
+									<% else %>
+										<!-- Vimeo Thumbnail-->
+										<div class="majorpost-video-small-holder vimeo" id="<%= activity.trackable.video.external %>" >
+									<% end %>
+								<% else %>
+									<!-- Internal Thumbnail-->
+									<% if activity.trackable.video.encoded_state == "finished" %>
+										<div class="majorpost-video-small-holder" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
+									<% else %>
+										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+									<% end %>
+								<% end %>
+										<div class="majorpost-video-small">
+										</div>
+									</div>
+							<% end %>
+					</div>
+					<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+						<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.artwork.image.url(:thumbnail)%>);">
+						</div>
+						<div class="majorpost-thumbnail-bar2">Artwork</div>
+					<% end %>
+					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
+						</div>
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if activity.trackable.tags.any? %>
+							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>						
+				<% end %>							
+			<% else %>
+				<!-- If there are images-->
+				<% if activity.trackable.postimages.count > 0 %>
+					<!-- one postimage -->
+					<% if activity.trackable.postimages.count == 1 %>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.postimages.first.thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>	
+						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
+						</div>
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if activity.trackable.tags.any? %>
+							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+						</div>
+					<% end %>
+					<!-- two postimages three postimages -->
+					<% if activity.trackable.postimages.count == 2 || activity.trackable.postimages.count == 3 %>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.postimages.first.thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.postimages[1].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>	
+						<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
+						</div>
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if activity.trackable.tags.any? %>
+							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+						</div>						
+					<% end %>
+					<!-- four postimages -->
+					<% if activity.trackable.postimages.count >= 3 %>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.postimages.first.thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.postimages[1].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.postimages[2].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>	
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if activity.trackable.tags.any? %>
+							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+						</div>												
+					<% end %>
+				<% else %>
+					<!-- Normal Post-->
+					<div>
+						<%= sanitize truncate(activity.trackable.excerpt, :length => 200) %>
+					</div>
+					<!-- Tags-->
+					<div id="majorpost-tags">
+					<% if activity.trackable.tags.any? %>
+						<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>	
+				<% end %>
+			<% end %><!-- end of when there are artwork and video -->
+		</div><!-- end:#majorpost-excerpt -->
+		<% end %><!-- end when it is not a draft-->
+		<% else %>
+		 The post was removed.
+		<% end %>
+	</div>
+</div>

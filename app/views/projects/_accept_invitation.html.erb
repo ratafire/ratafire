@@ -1,0 +1,17 @@
+<div class="lightbox4" style="border-top:0;border-bottom: 1px solid #e2e2e2;background-color:#f9f9f9;">
+		<!-- add contributors -->
+		<div class="add-contributors-title">
+			<ol>You are invited!</ol>
+			<span><%= @project.creator.fullname %> invited you to join <%= @project.title %>.</span>
+			<!-- form to accept invitation -->
+			<%= form_for [@project.creator,@project,@invited], :html => {:class => 'no_ajaxify'} do |f| %>
+				<div id='bifrost-fields' style="text-align:right;">
+					<%= f.hidden_field :accept, :value => true %>
+					<%= link_to heimdall_close_path(@project.creator, @project, @invited),method: :delete, class:"no_ajaxify" do %>
+						<div class="btn btn-small btn-small-white">Decline</div>
+					<% end %>	
+					<%= f.submit "Accept", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+				</div>
+			<% end %><!-- end form for ibifrost-->				
+		</div>
+</div><!-- end of lightbox4-->

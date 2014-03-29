@@ -1,0 +1,16 @@
+<!-- Convert the value of the artwork id to json-->
+<script id="veringicon">
+	<%= icon.id.to_json %>
+</script>
+
+<!-- parse the json -->
+<script>
+$(document).ready(function(){
+
+    var myVarsJSON4 = $("#veringicon").html(),
+        myVars4     = $.parseJSON(myVarsJSON4);
+    //parse the value into majorpost.artwork_id input field
+	$("#majorpost-icon-id").val(myVars4); //so it is on project edit page, find this #in the page and you shall see!
+	$("#project-form").delay(5000).submit();
+});	
+</script>

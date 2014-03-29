@@ -1,0 +1,18 @@
+<!-- Source Code-->
+<% if @project.source_code_title != nil %>
+								<!-- Source Code Title -->
+								<div class="inspiration-bg">
+									<div class="textbox-mini">
+										<div class="post-about-title">
+											<li style="font-size: 1.4em;">Source Code</li>
+										</div>
+									</div>
+								</div>
+
+							<!-- Inspired By Content -->
+							<div class="lightbox2 inspiration-display">
+								<div class="textbox-mini" >
+									<ul><%= link_to @project.source_code_title, @project.source_code %></ul>
+								</div>
+							</div>	
+<% end %>

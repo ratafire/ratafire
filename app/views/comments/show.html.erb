@@ -1,0 +1,74 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @project.title) %>
+
+	<!-- External Link -->
+	<%= render 'shared/externallink'%><!-- script -->	
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+    <!-- Radius Image-->
+	<%= render 'shared/radius_image' %><!-- script -->	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Extra Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<!-- Include extra javascript -->
+	<% content_for(:extra_javascript) do %>
+		<%= javascript_include_tag "rainbow/rainbow" %>
+		<%= mathjax_tag %>
+	<% end %>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'projects/project_header' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_project' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+	<!-- Main Content -->
+	<div class="main-content-project">
+					<!-- Post Content -->
+					<div class="post-content">
+						<div class="textbox2">
+							<!-- Post User Icon -->
+							<span id="post-usericon" style="float:left;">
+								<div class="project-icon-small">
+									<div class="user-icon-small-wrapper" >
+										<div id="user-icon-mask">
+											<%= link_to image_tag(@comment.user.profilephoto.url(:small64)), @comment.user, class:"no_ajaxify" %>
+										</div>
+									</div>
+								</div>
+							</span>
+
+							<!-- Post Title -->
+							<div id="post-title">
+								<h2>Comment on <%= link_to @comment.majorpost.title, user_project_majorpost_path(@comment.project.creator,@comment.project, @comment.majorpost), class:"no_ajaxify" %></h2>
+								<ul></ul>
+								<ol><%= link_to @comment.user.fullname , @comment.user,class:"no_ajaxify" %><% unless @comment.user.tagline.blank?%><span>,</span> <%= @comment.user.tagline%><% end %></ol>
+								<ol style="margin-top:0px;"><%= time_ago_in_words(@majorpost.created_at) %> ago</ol>
+							</div>
+
+							<!-- Post Content -->
+							<div class="post-content-c">
+								<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+								<%= sanitize @comment.content, tags: %w(p img a pre blockquote) %>
+							</div>
+
+
+						</div><!-- end of textbox2 -->
+					</div><!-- end of post-content -->
+
+
+					<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->

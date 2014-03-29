@@ -1,0 +1,7 @@
+<!-- Flag for completion -->
+<div class="flag-holder">
+	<div class="textbox-mini">
+		<ul>Congratulations <%= current_user.fullname %>! You have reached your major post goal.</ul>
+		<ul>Go to <%= link_to 'settings',project_settings_path(@project.creator,@project),class:"no_ajaxify" %> to increase your goal or complete this project.</ul>
+	</div>
+</div>

@@ -1,0 +1,241 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_settings' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+						
+							<h1>Profile</h1>
+							<h5>Edit your profile information.</h5>
+							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+						<!-- end of textbox-->
+						</div>
+
+						<!-- Edit Photo -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+
+								<!-- Photo -->
+								<h2>Photo</h2>
+
+									<div id="image-placer">
+									<li><%= image_tag(@user.profilephoto.url(:medium), class: "tipsy-tipsy sidebar-profile-shade", title: "Large Profile Photo") %></li>
+									<li><%= image_tag(@user.profilephoto.url(:small), class: "image-wrap tipsy-tipsy sidebar-profile-shade", title: "Small Profile Photo") %></li>
+									<li>
+										<% if @user.profilephoto? %><%= link_to "x", photo_delete_path(@user), method: :delete, title:"Remove",class:"no_ajaxify btn-delete tipsy-tipsy" %><% end %>
+									</li>
+									<li>
+										<!-- Cutter --><ol style="margin-top: 10px;"></ol>
+									<%= form_for(@user, :html => { :multipart => true, :class => 'no_ajaxify' },:validate => true) do |f| %>
+									<ol class="photo-input">
+										<%= f.file_field :profilephoto %>
+									</ol>
+
+										<ol style="color:#999999">
+										<!-- Cutter --><ol style="margin-top: 10px;"></ol>
+										#Beta: Large Profile Photo size: 128x171 <p> 
+										       Small Profile Photo size: 128x128 <p>
+										       Image croping comming soon.
+									</ol>
+									<!-- Cutter --><ol style="margin-top: 10px;"></ol>
+									<ol>
+										<%= f.submit "Upload", class: "btn-submit btn-submit-medium btn btn-medium2 btn-medium-blue" %>
+									</ol>
+
+									<% end %>
+									</li>
+
+									<!-- Cutter --><ol style="margin-top: 70px;"></ol>
+									</div><!-- end#image-placer-->
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->
+							
+						<!-- Signup Form -->
+						<div class="lightbox2-bordered">
+							
+							<%= form_for(@user,:validate => true,:html => {:class => "no_ajaxify"}) do |f| %>
+							
+
+							<!-- Basic Info-->
+							<div class="textbox-mini">
+							<h2>Basic Info</h2>
+							</div>
+
+							<!-- Name -->
+							<div class="lightbox3">
+
+								<div class="inputlabel">
+									<li>Name</li>
+								</div>
+
+								<div class="input-placer">
+      								<%= f.text_field :fullname, class: "inputbox settingsinput" %>
+      								<ul>Enter your name. It will be displayed on your profile page.</ul>
+
+      							</div>
+
+      						</div>
+
+      						<!-- Tagline-->
+      						<div class="lightbox3">
+      						
+								<div class="inputlabel">
+									<li>Tagline</li>
+								</div>
+
+      							<div class="input-placer">
+      								<%= f.text_field :tagline, class: "inputbox settingsinput input-transition", type: "tagline"%>
+      								<ul>Enter your tagline. It will appear under your name. 42 characters or less.</ul>
+      							</div>
+
+      						</div>
+
+      						<!-- Website -->
+      						<div class="lightbox3">
+      						
+								<div class="inputlabel">
+									<li>Website</li>
+								</div>
+
+      							<div class="input-placer" id="bio-edit">
+      								<%= f.text_field :website, class: "inputbox settingsinput"%>
+      								<ul>Your website or blog.</ul>
+      							</div>
+
+      						</div>      
+
+      						<!-- Bio -->
+      						<div class="lightbox3">
+      						
+								<div class="inputlabel">
+									<li>Bio</li>
+								</div>
+
+      							<div class="input-placer" >
+      								<%= f.text_area :bio, class: "inputbox settingsarea noResize"%>
+      								<ul>About yourself in 214 characters or less.</ul>
+      								<ul>#Beta: you can use simple html, but over length content will be hidden.</ul>
+      							</div>
+
+      						</div>    
+      					
+      					<!-- end of lightbox2 -->
+						</div>
+						
+      						<!-- Cutter --><ol style="margin-top: 20px;"></ol>	
+
+
+							<!-- Social Media -->
+							<div class="lightbox2-bordered">
+								
+								<!-- Social Media -->
+								<div class="textbox-mini">
+									<h2>Social Media</h2>
+								</div>
+      							
+      							<!-- Facebook -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("facebook.png", class:"tipsy-tipsy", title:"Facebook") %>
+									</div>
+
+
+      								<div class="input-placer socialmedia-placer">
+      									<ul><%= link_to "Connect your account to facebook",'#', id:"facebook-connect" %></ul>
+      									<span></span>
+      								</div>
+
+      							</div>
+
+      							<!-- Twitter -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("twitter.png", class:"tipsy-tipsy", title:"Twitter") %>
+									</div>
+
+
+      								<div class="input-placer socialmedia-placer">
+      									<ul><%= link_to "Connect your account to Twitter",'#', id:"twitter-connect" %></ul>
+      									<span></span>
+      								</div>
+
+      							</div>
+
+      							<!-- Github -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("github.png", class:"tipsy-tipsy", title:"Github") %>
+									</div>
+
+
+      								<div class="input-placer socialmedia-placer">
+      									<ul><%= link_to "Connect your account to Github",'#', id:"github-connect" %></ul>
+      									<span></span>
+      								</div>
+
+      							</div>
+
+      							<!-- Deviantart -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("deviantart.png", class:"tipsy-tipsy", title:"Deviantart") %>
+									</div>
+
+
+      								<div class="input-placer">
+       									<ul><%= link_to "Connect your account to DeviantArt",'#', id:"deviantart-connect" %></ul>
+      									<span></span>
+      								</div>
+
+
+      							</div>
+
+      							<!-- Vimeo -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("vimeo.png", class:"tipsy-tipsy", title:"Github") %>
+									</div>
+
+
+      								<div class="input-placer socialmedia-placer">
+       									<ul><%= link_to "Connect your account to Vimeo",'#', id:"vimeo-connect" %></ul>
+      									<span></span>
+      								</div>
+
+      							</div>      							
+
+
+      						<!-- end of lightbox 3-->
+							</div> 												
+							
+							<ol style="margin-top: 15px; padding-left: 161px;">
+							
+								<div>
+									<%= f.submit "Save Changes", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green" %>
+								</div>
+							</ol>
+
+						<% end %>
+
+						<!-- Cutter --><ol style="margin-top: 70px;"></ol>
+						</div><!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+			</div><!-- end of main-content-->

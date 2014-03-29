@@ -1,0 +1,29 @@
+		<script type="text/javascript">
+
+
+			$(document).ready(OnOff);
+			$(document).on('ajaxify:content_loaded', OnOff);
+
+			function OnOff(){
+				$('.turn-on-subscription').click(function() {
+
+					$('#off').removeClass("subscription-status-false");
+					$('#on').removeClass("subscription-status-false");
+					$('#off').addClass("subscription-status-true");
+					$('#on').addClass("subscription-status-true");
+					$('#off-holder').hide();
+					$('#on-holder').show();
+					});
+				$('.turn-off-subscription').click(function() {
+
+					$('#on').removeClass("subscription-status-true");
+					$('#off').removeClass("subscription-status-true");
+					$('#on').addClass("subscription-status-false");
+					$('#off').addClass("subscription-status-false");
+					$('#off-holder').show();
+					$('#on-holder').hide();
+					});				
+			}
+
+
+		</script>

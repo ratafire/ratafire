@@ -1,0 +1,58 @@
+<script type="text/javascript">
+
+//--------Tools---------
+$(document).ready(function(){
+
+	$("#tools-open").hide();
+
+$('#tools-open').click(function() {
+
+    
+    $('#case').show();
+    $('#tools-open').hide();
+    $('#tools-close').show();
+
+});
+
+
+$('#tools-close').click(function() {
+   $('#case').hide();
+    $('#tools-open').show();
+    $('#tools-close').hide();
+});
+
+});
+
+//-----Video-------
+$(document).ready(function(){
+
+
+$('#video-close').click(function() {
+
+    
+    $('#video-case').slideToggle();
+});
+
+
+});
+
+//-----Inspiration Questions-------
+$(document).ready(function(){
+
+    $("#inspiration-answers").hide();
+
+$("#inspiration-question").click(function(){
+    $("#inspiration-answers").slideToggle();
+      if ($(this).text() == "(?)") 
+  { 
+     $(this).text("(!)"); 
+  } 
+  else 
+  { 
+     $(this).text("(?)"); 
+  }; 
+});
+
+});
+
+</script>

@@ -1,0 +1,28 @@
+<div class="archive-media">
+	<div class="archive-inner">
+					<!-- With Video but without artwork -->
+					<% if artwork.majorpost_id == nil %>
+						<%= link_to project_about_path(@project.creator, @project),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+					<% else %>
+						<%= link_to user_project_archive_path(@project.creator, @project, artwork.archive),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+					<% end %>	
+					<!-- Title and Time-->
+					<% if artwork.majorpost_id == nil %>
+						<ul><%= link_to truncate(artwork.archive.title, :length => 47),project_about_path(@project.creator, @project),class:"no_ajaxify" %></ul>
+						<ol>Posted by <%= link_to artwork.project.creator.fullname,artwork.project.creator %></ol>
+						<ol><%= time_ago_in_words(artwork.archive.created_time) %> ago</ol>
+					<% else %>	
+						<ul><%= link_to truncate(artwork.archive.title, :length => 47),user_project_archive_path(@project.creator, @project, artwork.archive),class:"no_ajaxify" %></ul>
+						<ol>Posted by <%= link_to artwork.majorpost.user.fullname,artwork.majorpost.user %></ol>
+						<ol><%= time_ago_in_words(artwork.archive.created_time) %> ago</ol>
+					<% end %>
+	</div>
+</div>

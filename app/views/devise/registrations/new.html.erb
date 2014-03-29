@@ -1,0 +1,74 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <!-- Page Title -->
+      <% provide(:title, 'Sign up') %>
+
+      <!-- Page Background -->
+      <!DOCTYPE html>
+      <html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+       -o-background-size: cover;
+      background-size: cover;"><!-- Signup Page Background -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+                  <!-- Sign In -->
+                  <div class="user-links">
+                        Have an account? <%= link_to 'Sign in', new_user_session_path %>
+                  </div>
+
+                  <div class="center" style="width: 310px;">
+
+                        <!-- Cutter --><ol style="margin-top: 80px;"></ol>
+
+                        <span id="Join-Ratafire">Join Ratafire.</span>
+
+                        <!-- Cutter --><ol style="margin-top: 18px;"></ol>
+
+                        <div id="Signup-box">
+
+                              <!-- Signup Form -->
+                              <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true, :html => { :class => 'no_ajaxify'}) do |f| %>
+                                    <ol>
+
+                                          <%= f.text_field :fullname, class: "inputbox signupbox", placeholder: "Full name", :live => true %>
+                                    </ol>
+                                    <ol>
+                                          <%= f.text_field :email, class: "inputbox signupbox", placeholder: "Email" %>
+                                    </ol>
+                                    <ol>
+                                          <%= f.password_field :password, class: "inputbox signupbox", placeholder: "Password" %>
+                                    </ol>
+                                    <ol>
+                                          <%= f.text_field :username, class: "inputbox signupbox",  placeholder: "Pick a username"%>
+                                    </ol>
+                                    <ol style="margin-top: 15px; padding-left: 161px;">
+                                                <%= f.submit "SIGN UP", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+                                    </ol>
+                              <% end %>
+                        <!-- end of Signup-box-bg --> 
+                        </div>
+
+                        <!-- Terms -->
+                        <div id="Signup-agreement">
+                              By clicking the button, you agree to
+                              <%= link_to "Privacy Policy", privacy_path, class:"no_ajaxify"%> and
+                              <%= link_to "Terms of Use", terms_path, class:"no_ajaxify"%> of Ratafire.
+                        </div>
+
+                  </div><!-- end of center -->
+
+                  <!-- Footer -->
+                  <div style="padding: 0px 20px 18px 0; margin-top: 35px;">
+                  <%= render 'layouts/footer' %>
+                  </div>
+
+                  <script type="text/javascript">
+                              /*--- Tipsy ---*/
+                  $(document).ready(function() {
+                        $('.message').tipsy({fade:true,gravity:'ne'});
+                  });
+
+                  </script>

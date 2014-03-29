@@ -1,0 +1,14 @@
+<!-- Video-->
+<% if @video != nil %>
+	<%= render 'archives/videoplayer'%>
+<% end %>
+
+<!-- Artwork without video -->
+<% if @artwork != nil && @video == nil %>
+	<%= render 'archives/artworkdisplay'%>
+<% end %>
+
+<!-- Artwork with video -->
+<% if @artwork != nil && @video != nil  %>
+	<%= render 'archives/artwork_small_display'%>
+<% end %>

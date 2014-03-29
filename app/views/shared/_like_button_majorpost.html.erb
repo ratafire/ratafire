@@ -1,0 +1,19 @@
+<!-- Like Button -->
+<script>
+$(document).ready(LikeButtonMajorpost);
+$(document).on('ajaxify:content_loaded', LikeButtonMajorpost);
+
+function LikeButtonMajorpost(){
+	//Majorpost
+	$("#<%= @majorpost.id%>majorpost-like").click(function() {
+		$("#<%= @majorpost.id%>majorpost-like").hide();
+		$("#<%= @majorpost.id%>majorpost-unlike").show();
+		$("#<%= @majorpost.id%>liked-count").html(
+			$(this).html()+1);
+	});
+	$("#<%= @majorpost.id%>majorpost-unlike").click(function() {
+		$("#<%= @majorpost.id%>majorpost-unlike").hide();
+		$("#<%= @majorpost.id%>majorpost-like").show();
+	});
+}
+</script>

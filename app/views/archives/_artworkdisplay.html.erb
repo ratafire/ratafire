@@ -1,0 +1,23 @@
+<!-- Hover JS-->
+<script>
+$(document).ready(function(){
+
+//download button hover
+$('.artwork-download').hover(function() {
+    $('#artwork-control-bar').toggle("fade");
+});
+
+});
+</script>
+
+<!-- Artwork Display -->
+<div id="artwork-toggle">
+			<%= image_tag(@artwork.image.url(:preview), class: "image-wrap artwork-display")%>
+	<div id="artwork-control-bar">
+		Download <%= @artwork.image_file_name %>
+	</div>
+	<div class="artwork-download-holder">
+		<%= link_to '', user_project_artwork_path(@project.creator,@project,@artwork), :id => @artwork.id, class:"artwork-download no_ajaxify", :confirm => "Are you sure to delete this artwork?"%>
+	</div>
+</div>
+<!-- Cutter --><ol style="margin-top:45px;"></ol>

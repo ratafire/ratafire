@@ -1,0 +1,126 @@
+<!-- Script to view Project button -->
+<script>
+	$(document).ready(function() {
+	//Project-header-case	
+	$('#project-header-case').hover(function() {
+  		$("#edit-project-header").toggle();
+
+	});
+
+	//icon-delete
+	$('#icon-upload-box').hover(function() {
+  		$("#delete-icon").toggle();
+	});
+
+});
+</script>
+
+<div class="project-header-wrapper" id="project-header-case">
+					<!-- Flag for completion -->
+					<% if @project.flag == true && project_edit(@project) %>
+						<%= render 'projects/flag' %>
+					<% end %>		
+								<!-- if current user has the right to edit -->
+								<% if @project.creator == current_user && @project.published != false %>
+									<!-- artwork delete button-->
+									<div class="btn-edit-right" id="edit-project-header">
+										<%= link_to 'View Project',user_project_path(@project.creator,@project),class:"btn-delete no_ajaxify"%>
+									</div>
+								<% end %><!-- end if @artwork.project == nil-->	
+
+	<!-- project icon-->
+	<div id="project-icon">
+		<% if @project.icon_id == nil %>
+		   <div id="icon-upload-box" style="background-image: url(<%= @icon.image.url(:pageview) %>); height: 126px; width:126px; border-radius:6px;">
+		   	<!-- When there is no icon -->
+		   	
+		   		<div id="project-icon-upload" class="artwork-button fileinput-button">
+		   			<%= form_for [@project.creator,@project,@icon],id:"artwork-form",:html => {:class => 'no_ajaxify' } do |i|%>
+		   			<%= i.hidden_field :project_id, value: @project.id %>
+		   			<%= i.hidden_field :content_temp, id:"content_temp_icon" %>
+		   			<%= i.hidden_field :tags_temp, id:"content_temp_icon" %>
+					<%= i.file_field :image, multiple: false, class:"artwork-choose" %>
+					<script>
+										$('#project-icon-upload').fileupload({
+  dropZone: $('#icon-drop'),
+  pasteZone: null,
+  dataType: "script",
+  add: function(e, data) {
+    var file, types;
+    types = /(\.|\/)(jpe?g|png|bmp)$/i;
+    file = data.files[0];
+    if (types.test(file.type) || types.test(file.name)) {
+      data.context = $(tmpl("template-upload223", file));
+      $('#icon-upload-data').append(data.context);
+      data.submit();
+      var callback = $.proxy();
+    } else {
+      return alert("" + file.name + " is not a jpg, png, or bmp image file");
+    }
+  },
+  progress: function(e, data) {
+    var progress;
+    if (data.context) {
+      progress = parseInt(data.loaded / data.total * 100, 10);
+      return data.context.find('.bar-icon').css('width', progress + '%');
+    }
+  },
+  temp_save: function(){
+  	var content_temp = $('#redactor_majorpost').val(),
+        tags_temp = $('#tags').val();
+   $('#content_temp_icon').val(content_temp
+    );
+   $('#tags_temp_icon').val(tags_temp
+    );
+  }
+
+});
+</script>
+					<div id="icon-upload-data"></div>
+		   		</div><!-- end fileupload buttom-->
+		   		<script id="template-upload223" type="text/x-tmpl"><div class="bar-icon" style="height:128px; width:0%; background-color:rgba(34,151,206,.5);"></div></script>
+		   </div>
+		   
+		   <% end %>
+	
+<% else %>
+		 <div id="icon-upload-box" style="background-image: url(<%= @icon.image.url(:pageview) %>); height: 126px; width:126px; border-radius:6px;">
+		 	<!-- artwork delete button-->
+			<div id="delete-icon" style="margin:7px 5px 0 0;float:right;display:none;">
+				<%= link_to 'Delete',icon_delete_path(@project.creator,@project,@icon),method: :delete,class:"btn-delete no_ajaxify"%>
+			</div>
+	 	</div>
+<% end %>
+</div><!-- end:.project-icon -->
+					
+					
+	<div id="project-title">
+						<!-- Project Name -->
+						<h1 >
+							<!-- Completed?-->
+							<% if @project.complete == true %>
+								<li class="tipsy-tipsy", title="Completed!">[C]</li>
+							<% end %>
+							<!-- Completion Flag? -->
+							<% if @project.flag == true %>
+								<li class="tipsy-tipsy", title="Completed?">[C?]</li>
+							<% end %>		
+							<% if @project.complete == true %>	
+								<%= @project.title %>
+							<% else %>				
+								<%= best_in_place [@project.creator, @project], :title, :path => project_update_path(@project.creator,@project), :classes =>"best_title" %> <span class="btn btn-edit" id="best_title-edit" style="display:none;"></span>
+							<% end %>
+						</h1>
+						<ul>
+							<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= best_in_place [@project.creator, @project], :tagline, :path => project_update_path(@project.creator,@project),:classes =>"best_tagline" %> <span class="btn btn-edit" id="best_tagline-edit" style="margin:-2px 0 0 0; display:none;"></span></h5>
+						</ul>
+	</div>
+
+	<div id="project-goals">
+		<%= goals_percentage(@majorpost_count, @project.goal)%><%= progress_bar(goals_count(@majorpost_count, @project.goal), :color => 'pink', :rounded => true) %>
+
+	</div>
+
+
+
+</div>

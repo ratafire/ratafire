@@ -1,0 +1,61 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Sign in")%>
+
+      <!-- Page Background -->
+      <!DOCTYPE html>
+      <html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+       -o-background-size: cover;
+      background-size: cover;"><!-- Signup Page Background -->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Sign Up -->
+			<div class="user-links">
+				<%= link_to 'Sign up', beta_path, class:"no_ajaxify" %>
+			</div>
+
+			<div class="center" style="width: 310px;">
+
+				<!-- Cutter --><ol style="margin-top: 80px;"></ol>
+
+				<span id="Join-Ratafire">Sign in.</span>
+
+				<!-- Cutter --><ol style="margin-top: 18px;"></ol>
+
+				<div id="Signin-box">
+
+					<!-- Signin Form -->
+					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name),:html => {:class => "no_ajaxify"}) do |f| %>
+
+      					<ol>
+      						<%= f.text_field :email, class: "inputbox signupbox", placeholder: "Email" %>
+      					</ol>
+      					<ol>
+      						<%= f.password_field :password, class: "inputbox signupbox", placeholder: "Password" %>
+      					</ol>
+      					<ul>
+      						<% if devise_mapping.rememberable? -%>
+    						<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  							<% end -%>
+  							<%= link_to "Forgot password?", new_password_path(resource_name) %>
+      					</ul>
+						<ol style="margin-top: 15px; padding-left: 157px;">
+								<%= f.submit "SIGN IN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-blue" %>
+						</ol>
+					<% end %>
+
+				<!-- end of Signin-box -->	
+				</div>
+				
+			<!-- end of center-->
+			</div>
+
+			<!-- Footer -->
+			<div style="padding: 0px 20px 18px 0; margin-top: 287px;">
+			<%= render 'layouts/footer' %>
+			</div>
+            
+</html>

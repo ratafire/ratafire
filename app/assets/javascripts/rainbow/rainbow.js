@@ -1,0 +1,17 @@
+//= require rainbow/rainbow.min
+//= require rainbow/language/c
+//= require rainbow/language/coffeescript
+//= require rainbow/language/csharp
+//= require rainbow/language/css
+//= require rainbow/language/generic
+//= require rainbow/language/go
+//= require rainbow/language/html
+//= require rainbow/language/java
+//= require rainbow/language/javascript
+//= require rainbow/language/lua
+//= require rainbow/language/php
+//= require rainbow/language/python
+//= require rainbow/language/r
+//= require rainbow/language/ruby
+//= require rainbow/language/scheme
+//= require rainbow/language/shell

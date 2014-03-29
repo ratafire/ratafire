@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<%= stylesheet_link_tag "jquery.Jcrop" %>
+<%= javascript_include_tag "jquery.Jcrop.min" %>
+
+<html style="background-color: #f9f9f9;">
+
+	<body>
+
+		<!-- Photo Box -->
+		<div class="wrapper">
+
+			<div class="center" style="width: 800px;">
+
+				<div id="Profile-photo">
+					<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+					<h1>Crop your Profile Photo.</h1>
+					<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+					<div id="Profile-photo-within">
+					
+					<%= image_tag @user.profilelarge.url(:large), :id => "cropbox" %>
+
+					</div>
+
+					<div id="Profile-photo-within">
+					<%= image_tag @user.profilelarge.url(:medium), :id => "preview" %>
+					</div>
+				<!-- end of Signin-box -->	
+				</div>
+									
+
+
+			</div><!-- end of center-->
+		</div><!-- end of wrapper-->
+	
+	
+					<%= form_for(@user, :html => { :multipart => true },:validate => true) do |f| %>
+							<% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+    								<%= f.hidden_field attribute, :id => attribute %>
+  							<% end %>
+							<div class="btn btn-small btn-small-white">
+								<%= f.submit "Crop", class: "btn-submit" %>
+							</div>
+
+					<% end %>
+	</body>
+
+	<script type="text/javascript">
+$(function() {
+  $('#cropbox').Jcrop({
+    onChange: update_crop,
+    onSelect: update_crop,
+    setSelect: [0, 0, 500, 500],
+    aspectRatio: 128/171
+  });
+});
+
+function update_crop(coords) {
+  $("#crop_x").val(coords.x);
+  $("#crop_y").val(coords.y);
+  $("#crop_w").val(coords.w);
+  $("#crop_h").val(coords.h);
+}
+	</script>
+
+</html>

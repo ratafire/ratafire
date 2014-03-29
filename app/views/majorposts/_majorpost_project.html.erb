@@ -1,0 +1,246 @@
+<!-- Script to show Edit button -->
+<script>
+	$(document).ready(function() {
+	$('#<%= majorpost.id %>majorpost').hover(function() {
+  		$("#<%= majorpost.id %>").toggle();
+	});
+	});
+
+</script>
+
+<% if majorpost.video != nil && majorpost.video.external != nil && majorpost.video.external != "" && majorpost.video.youtube_vimeo == false %>
+<script>
+	//get vimeo thumbnails
+	
+	var vimeoVideoID = "<%= majorpost.video.external %>";
+
+	$.getJSON('http://www.vimeo.com/api/v2/video/' + vimeoVideoID + '.json?callback=?', {format: "json"}, function(data) {
+         $("#<%= majorpost.video.external %>").attr('style', "background-image:url("+data[0].thumbnail_medium+");");
+	});
+</script>
+<% end %>
+
+<div class="lightbox" id="<%= majorpost.id %>majorpost" style="padding: 10px 20px 20px 20px;">
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~ Majorpost User ~~~~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<% if majorpost_edit(majorpost) %>
+<div class="btn-edit-right" id="<%= majorpost.id %>">
+		<% if majorpost_delete(majorpost) %>
+			<%= link_to 'Throw Away',throw_majorpost_draft_path(@project.creator,@project, majorpost),method: :delete,class:"btn-delete no_ajaxify", id:majorpost.id, :confirm => "Are you sure to delete this post? It cannot be undone." %> <%= link_to 'Edit',edit_user_project_majorpost_path(@project.creator,@project, majorpost),class:"btn-delete no_ajaxify" %>
+		<%else%>
+		<%= link_to 'Edit',edit_user_project_majorpost_path(@project.creator,@project, majorpost),class:"btn-delete no_ajaxify" %>
+		<% end %>
+</div>
+<!-- Majorpost Title for Majorpost User -->
+<div class="textbox-mini">
+			<!-- user icon holder-->
+		<%= link_to majorpost.user, class:"no_ajaxify" do %>
+			<div class="majorpost-usericon" style="background-image:url(<%= majorpost.user.profilephoto.url(:small64) %>);"></div>
+		<% end %>
+		<div class="majorpost-title">
+			<% if majorpost.published == false %>
+				<li><%= link_to majorpost.title, edit_user_project_majorpost_path(@project.creator,@project, majorpost), class:"no_ajaxify" %></li> <span>(Draft)</span>
+			<% else %>
+				<li><%= link_to majorpost.title, user_project_majorpost_path(@project.creator,@project, majorpost), class:"no_ajaxify" %></li>
+			<% end %> 
+		</div>
+<% else %>
+<!-- Majorpost Title for Normal People -->
+<div class="textbox-mini">
+				<!-- user icon holder-->
+		<%= link_to majorpost.user, class:"no_ajaxify" do %>
+			<div class="majorpost-usericon" style="background-image:url(<%= majorpost.user.profilephoto.url(:small64) %>);"></div>
+		<% end %>
+		<div class="majorpost-title">
+			<% if majorpost.published == false %>
+				<li><%= majorpost.title %></li> <span>(Draft)</span>
+			<% else %>
+				<li><%= link_to majorpost.title, user_project_majorpost_path(@project.creator,@project, majorpost), class:"no_ajaxify" %></li>
+			<% end %> 
+		</div>
+<% end %><!-- end of if majorpost.user == current_user -->
+		<div id="majorpost-comments">
+			C <%= majorpost.comments.count %>
+
+		</div>
+		<div id="majorpost-time">
+			Posted by <%= link_to majorpost.user.fullname,majorpost.user,class:"no_ajaxify"  %>, <%= time_ago_in_words(majorpost.created_at)%> ago.
+		</div>
+
+	<!-- When It is not a Draft -->
+	<% if majorpost.published == true %>	
+		<div id="majorpost-excerpt" style="vertical-align: top;">
+			<!-- When there are artwork and video -->
+			<% if majorpost.video != nil || majorpost.artwork != nil %>
+				<!-- With Video but without artwork -->
+				<% if majorpost.video != nil && majorpost.artwork == nil %>
+					<div class="majorpost-video-one">
+							<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+								<% if majorpost.video.external != "" && majorpost.video.external != nil %>	
+									<% if majorpost.video.youtube_vimeo == true %>
+										<!-- Youtube Thumbnail-->
+										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= majorpost.video.external %>/mqdefault.jpg);">
+									<% else %>
+										<!-- Vimeo Thumbnail-->
+										<div class="majorpost-video-small-holder" id="<%= majorpost.video.external %>" >
+									<% end %>
+								<% else %>
+									<!-- Internal Thumbnail-->
+									<% if majorpost.video.encoded_state == "finished" %>
+										<div class="majorpost-video-small-holder" style="background-image:url(<%=majorpost.video.thumbnail.url(:thumb)%>);">
+									<% else %>
+										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+									<% end %>
+								<% end %>
+										<div class="majorpost-video-small">
+										</div>
+									</div>
+							<% end %>
+					</div>
+					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<%= sanitize truncate(majorpost.excerpt, :length => 300) %>
+					</div>
+					<!-- Tags-->
+					<div id="majorpost-tags">
+					<% if majorpost.tags.any? %> 
+						<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>
+				<% end %><!-- end f majorpost.video != nil && majorpost.artwork == nil -->
+				<!-- With Artwork without Video -->
+				<% if majorpost.video == nil && majorpost.artwork != nil %>
+					<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+						<div class="majorpost-postimages-one">
+							<img src="<%= majorpost.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+						</div>
+						<div class="majorpost-thumbnail-bar">Artwork</div>
+					<% end %>	
+						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(majorpost.excerpt, :length => 300) %>
+						</div>
+					
+					<!-- Tags-->
+					<div id="majorpost-tags">
+						<% if majorpost.tags.any? %> 
+						<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>
+				<% end %>
+				<!-- With Artwork and with Video -->
+				<% if majorpost.video != nil && majorpost.artwork != nil %>				
+					<div class="majorpost-video-one">
+							<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+								<% if majorpost.video.external != "" && majorpost.video.external != nil %>	
+									<% if majorpost.video.youtube_vimeo == true %>
+										<!-- Youtube Thumbnail-->
+										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= majorpost.video.external %>/mqdefault.jpg);">
+									<% else %>
+										<!-- Vimeo Thumbnail-->
+										<div class="majorpost-video-small-holder vimeo" id="<%= majorpost.video.external %>" >
+									<% end %>
+								<% else %>
+									<!-- Internal Thumbnail-->
+									<% if majorpost.video.encoded_state == "finished" %>
+										<div class="majorpost-video-small-holder" style="background-image:url(<%=majorpost.video.thumbnail.url(:thumb)%>);">
+									<% else %>
+										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+									<% end %>
+								<% end %>
+										<div class="majorpost-video-small">
+										</div>
+									</div>
+							<% end %>
+					</div>
+					<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+						<div class="majorpost-postimages-one">
+							<img src="<%= majorpost.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+						</div>
+						<div class="majorpost-thumbnail-bar2">Artwork</div>
+					<% end %>
+					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(majorpost.excerpt, :length => 180) %>
+						</div>
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if majorpost.tags.any? %> 
+							<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>						
+				<% end %>
+			<% else %>
+				<!-- If there are images-->
+				<% if majorpost.postimages.count > 0 %>
+					<!-- one postimage -->
+					<% if majorpost.postimages.count == 1 %>
+						<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%=majorpost.postimages.first.thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>	
+						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(majorpost.excerpt, :length => 300) %>
+						</div>
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if majorpost.tags.any? %> 
+							<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+						</div>
+					<% end %>
+					<!-- two postimages three postimages -->
+					<% if majorpost.postimages.count == 2 || majorpost.postimages.count == 3 %>
+						<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%=majorpost.postimages.first.thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%=majorpost.postimages[1].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>	
+						<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;">
+							<%= sanitize truncate(majorpost.excerpt, :length => 180) %>
+						</div>
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if majorpost.tags.any? %> 
+							<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+						</div>						
+					<% end %>
+					<!-- four postimages -->
+					<% if majorpost.postimages.count >= 3 %>
+						<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%=majorpost.postimages.first.thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%=majorpost.postimages[1].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%=majorpost.postimages[2].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>	
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if majorpost.tags.any? %> 
+							<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+						</div>												
+					<% end %>
+				<% else %>
+					<!-- Normal Post-->
+					<div>
+						<%= sanitize truncate(majorpost.excerpt, :length => 200) %>
+					</div>
+					<!-- Tags-->
+					<div id="majorpost-tags">
+					<% if majorpost.tags.any? %> 
+						<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>	
+				<% end %>
+			<% end %>
+			
+		</div><!-- end of majorpost-excerpt -->
+		<% end %><!-- end of if this is not a draft -->
+	</div>
+
+</div>

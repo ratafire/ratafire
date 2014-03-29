@@ -1,0 +1,28 @@
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$("#open-recent-major-post").hide();
+
+$('#open-recent-major-post').click(function() {
+
+    
+    $('#recent-majorposts').slideDown();
+
+    $('#open-recent-major-post').hide();
+    $('#close-recent-major-post').show();
+    $('.majorpost-thumbnail-bar2').delay(2000).fadeIn();
+    $('.majorpost-usericon').delay(500).fadeIn();
+});
+
+
+$('#close-recent-major-post').click(function() {
+   $('#recent-majorposts').slideUp();
+   $('.majorpost-thumbnail-bar2').hide();
+   $('.majorpost-usericon').hide();
+    $('#open-recent-major-post').show();
+    $('#close-recent-major-post').hide();
+});
+
+});
+
+</script>

@@ -1,0 +1,102 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @project.title) %>
+
+	<!-- External Link -->
+	<%= render 'shared/externallink'%><!-- script -->	
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+    <!-- Radius Image-->
+	<%= render 'shared/radius_image' %><!-- script -->
+
+	<!-- Like Button -->
+	<%= render 'shared/like_button'%><!-- script -->
+	<% if @majorpost != nil%><%= render 'shared/like_button_majorpost'%><% end %>
+	
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Extra Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<!-- Include extra javascript -->
+	<% content_for(:extra_javascript) do %>
+		<%= javascript_include_tag "rainbow/rainbow" %>
+		<%= mathjax_tag %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Fullscreen ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Fullscreen -->
+	<% if @majorpost_count > 0 %>
+		<%= render 'majorposts/fullscreen.html.erb'%>	
+	<% end %>
+
+<div class="hide-when-fullscreen">
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'projects/project_header' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_project' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+	<!-- Main Content -->
+	<div class="main-content-project">
+					<!-- Video and Artwork-->
+					<%= render 'projects/video_artwork'%>
+					<!-- About View -->
+					<%= render 'projects/about_view'%>
+					<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+					<!-- Majorpost -->
+					<% if @project.majorposts.where(:published => true).any? %>
+					
+						<%= render 'majorposts/majorpost_view_projectpage'%>
+
+					<!-- Comments -->
+					<% if @majorpost.comments.any? %>
+						<%= render @comments %>
+					<% end %>
+					<!-- Comment Page -->
+					<div id="comment-page">
+						<%= will_paginate @comments, :param_name => 'comments', class:"rata_pagination" %>
+					</div>
+
+					<!-- Add Comment -->
+					<% if signed_in? %>
+
+						<div id="comment-input">
+							<div class="textbox2">
+
+										<!-- Post User Icon -->
+							<span id="post-usericon" style="float:left;">
+
+												<div class="user-icon-small-holder tipsy-tipsy" title="you" style="background-image:url(<%= current_user.profilephoto.url(:tiny) %>);"></div>
+							</span>
+
+							<div id= "comment-input-area">
+							<ul>Comment</ul>
+								<%= render "comments/comment_form" %>
+							</div>
+
+							</div>	
+						</div>
+
+					<% end %><!-- end of if signed_in for Add Comment-->
+
+					<% end %><!-- end of if @majorpost.any? -->
+
+					<!-- License -->
+					<%= render 'shared/license'%>
+					
+					<!-- Footer -->
+					<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->
+</div><!-- end:hide when fullscreen-->
+

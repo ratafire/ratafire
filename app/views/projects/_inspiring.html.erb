@@ -1,0 +1,30 @@
+							<!-- Inspiring -->
+							<% if @project.inspired_projects.any? || @project.inspired_majorposts.any? %>
+							<!-- Inspiring Title -->
+							<div class="inspiration-bg">
+								<div class="textbox-mini">
+									<div class="post-about-title">
+										<li style="font-size: 1.4em;">Inspiring</li>
+									</div>
+								</div>
+							</div>
+							<!-- Inspiring Content -->
+							<div class="lightbox2 inspiration-display">
+								<div class="textbox-mini" >
+									<!-- projects-->
+									<% if @project.inspired_projects.any? %>
+									<ul><% if @project.inspired_projects.count >1 %>Projects <% else %>Project <% end %><li>
+										<!-- content-->
+										<%= raw @project.inspired_projects.map { |t| "#{link_to t.title, user_project_path(t.creator,t)}" " (#{t.creator.fullname})" }.join(', ') %>
+									</li></ul>
+									<% end %>
+									<!-- majorposts -->
+									<% if @project.inspired_majorposts.any? %>
+									<ul><% if @project.inspired_majorposts.count >1 %>Major Posts <% else %>Major Post <% end %><li>
+										<!-- content-->
+										<%= raw @project.inspired_majorposts.map { |t| "#{link_to t.title, user_project_majorpost_path(@project.creator,@project,t)}" " (#{t.user.fullname})" }.join(', ') %>
+									</li></ul>
+									<% end %>								
+								</div>
+							</div>
+							<% end %>

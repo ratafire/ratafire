@@ -1,0 +1,51 @@
+		<!-- Title -->
+		<div class="update-title2">
+			<!-- Tag Name -->
+			<h1><%= link_to @tag_name,tag_path(@tag.name) %></h1>
+			<ul style="margin-top: -15px;">
+					<h5><%= link_to @wikipedialink, target:"_blank" do %><%= truncate(wikipedia(@tag_name), :length => 110) %><% end %> <%= link_to tag_followers_path(@tag.name) do %><span class="btn-delete-light"><%= @follower_count %> Followers</span><% end %>
+					  
+					  <!-- See if the user is following this tag-->
+					  <% if @following == true %>
+					  	<!-- When following -->
+					  	<!-- Follow -->
+					  	<%= link_to follow_tag_path(current_user.id,@tag.id), class:"no_ajaxify", remote: true do %>
+					  		<span class="btn-delete" id="follow-holder" style="display: none;">Follow</span>
+					  	<% end %>
+					  	<!-- Unfollow -->
+					  	<%= link_to unfollow_tag_path(current_user.id,@tag.id), class:"no_ajaxify", method: :delete, remote: true do %>
+					  		<span class="btn-delete-light" id="following-holder">
+					  			<span class="before">Following</span>
+					  			<span class="hover">Unfollow</span>
+					 		</span>
+					  	<% end %>					  	
+					  <% else %>
+					  	<!-- When not following-->
+					  	<!-- Follow-->
+					  	<%= link_to follow_tag_path(current_user.id,@tag.id), class:"no_ajaxify", remote: true do %>
+					  		<span class="btn-delete" id="follow-holder">Follow</span>	
+					  	<% end %>
+					  	<!-- Unfollow-->
+					  	<%= link_to unfollow_tag_path(current_user.id,@tag.id), class:"no_ajaxify", method: :delete, remote: true do %>
+					  		<span class="btn-delete-light" id="following-holder" style="display: none;">
+					  			<span class="before">Following</span>
+					  			<span class="hover">Unfollow</span>
+					 		</span>
+					  	<% end %>					  	
+					  <% end %><!-- end.if @following == true -->	
+					  
+
+					</h5>
+			</ul>	
+		</div><!-- end.update-title-->
+
+	<script>
+		$("#follow-holder").click(function(){
+			$("#follow-holder").hide();
+			$("#following-holder").show();
+		});
+		$("#following-holder").click(function(){
+			$("#follow-holder").show();
+			$("#following-holder").hide();
+		});
+	</script>	

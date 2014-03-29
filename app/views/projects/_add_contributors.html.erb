@@ -1,0 +1,43 @@
+<div class="lightbox4" style="border-top:0;border-bottom: 1px solid #e2e2e2;min-height:160px;height:auto;">
+		<!-- add contributors -->
+		<div class="add-contributors-title">
+			<ol>Add Contributors</ol>
+			<span>First add your friends to the invited list of this project via the form below, then send your friends the url of this page: <input onclick="this.select();" class="inputbox" type="contributors" value=<%= @link %>>. When they arrive at this page, they can choose to accept the invitation. There can at most be five pending invitations at the same time.</span>
+			<!-- add contributors -->
+			<%= nested_form_for [current_user,@ibifrost], :url => heimdall_open_path(current_user, @ibifrost), :html => {:class => 'no_ajaxify'} do |f| %>
+				<div id='bifrost-fields'>
+					<%= f.hidden_field :project_id, :value => @project.id %>
+					<%= f.link_to_add "", :inviteds, class:"add-ibifrost", :data => {:target => "#bifrost-fields"} %>
+					<%= f.fields_for :inviteds do |c|%>
+						<%= c.link_to_remove "", class:"remove-ibifrost", title:"remove", 'ibifrost-disable-first' => ''%>
+						<div class="majorpost-user-inspirer-holder">
+							<%= c.text_field :username,class:"user_autocomplete", type:"user-inspirer", style:"width:658px;", placeholder:"Enter Username" %>
+						</div>
+					<% end %><!-- end of inviteds -->
+					<%= f.submit "", class: "btn-submit ibifrost-submit tipsy-tipsy no_ajaxify", title:"Invite" %>
+				</div>
+			<% end %><!-- end form for ibifrost-->			
+		</div>
+</div><!-- end of lightbox4-->
+								<script type="text/javascript">
+
+//let validation work
+$(document).ready(function(){
+$('form').on('nested:fieldAdded', function(event) {
+  $(event.target).find(':input').enableClientSideValidations();
+});
+});
+
+//Hide the first user remove button
+$(function() {
+  $('a[ibifrost-disable-first]').each(function() {
+    var nested_container = $(this).closest('.fields');
+
+    // check if is first
+    if (!nested_container.prev().is('.fields')) {
+        $(this).remove();
+    }
+  });
+});
+
+								</script>

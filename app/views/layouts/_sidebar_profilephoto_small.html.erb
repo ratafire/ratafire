@@ -1,0 +1,7 @@
+<%= link_to user_path(current_user), class:"no_ajaxify" do %>
+	<% if @user.profilephoto.url(:medium) != "/assets/usericon_medium.png" %>
+			<%= image_tag(@user.profilephoto.url(:medium), class: "image-wrap-profile sidebar-profile-shade2") %>
+		<% else %>
+			<%= image_tag(@user.profilephoto.url(:medium), class: "image-wrap-profile sidebar-profile-shade") %>
+	<% end %>
+<% end %>

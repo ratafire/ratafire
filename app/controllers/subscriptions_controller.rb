@@ -1,0 +1,292 @@
+class SubscriptionsController < ApplicationController
+	layout 'application'
+	before_filter :signed_in_user,
+				  only: [:new,:create,:destroy,:unsub,:amazon]
+	before_filter :not_subscribed,
+				  only: [:new,:amazon]
+	before_filter :subscription_permission,
+				  only: [:new, :create, :amazon]
+
+	def subscribers
+		@user = User.find(params[:id])
+		@subscribers = @user.subscribers.paginate(page: params[:subscribers], :per_page =>32)
+	end
+
+	def subscribers_past
+		@user = User.find(params[:id])
+		@subscribers = @user.past_subscribers.paginate(page: params[:subscribers], :per_page => 32)
+	end
+
+	def subscribing
+		@user = User.find(params[:id])
+		@subscribing = @user.subscribed.paginate(page: params[:subscribing], :per_page =>32)
+	end
+
+	def subscribing_past
+		@user = User.find(params[:id])
+		@subscribing = @user.past_subscribed.paginate(page: params[:subscribing], :per_page => 32)
+	end
+
+	def new
+		@user = User.find(params[:id])
+		@current_user = current_user
+		@subscription = Subscription.new
+	end	
+
+	def create
+		@subscription = Subscription.new(params[:subscription])
+		@user = User.find(params[:id])
+		@subscriber = User.find(@subscription.subscriber_id)
+		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id
+		unless @user.subscribed_by?(@subscriber) || @subscriber.subscribed_by?(@user) then
+			if @subscription.save
+				@amazon_recurring = AmazonRecurring.prefill!(
+					:subscription_id => @subscription.id, 
+					:transactionAmount => @subscription.amount.to_s,
+					:recipientToken => @user.amazon_recipient.tokenID)
+				@subscription.uuid = @amazon_recurring.uuid
+				@subscription.save
+				port = Rails.env.production? ? "" : ":3000"
+				callback_url = "#{request.scheme}://#{request.host}#{port}/r/subscriptions/amazon_payments/subscribe/post_subscribe"
+				payment_reason = "Monthly subscription to "+@user.fullname+" to support "+@user.fullname+"'s projects."
+				#Create a recurring pipeline with Amazon
+				redirect_to AmazonFlexPay.recurring_pipeline(@amazon_recurring.uuid, callback_url,
+					:transaction_amount => @amazon_recurring.transactionAmount,
+					:validity_start => @amazon_recurring.validityStart.to_time.to_i,
+					:recipient_token => @amazon_recurring.recipientToken,
+					:recurring_period => @amazon_recurring.recurringPeriod,
+					:payment_reason => payment_reason)
+			else
+				redirect_to(:back)
+			end
+		else
+			redirect_to(@user)
+		end	
+	end
+
+	def why
+		@user = User.find(params[:id])
+		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+	end
+
+	def amazon
+		@user = User.find(params[:id])
+	end	
+
+	def settings
+		@user = User.find(params[:id])
+		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+	end
+
+	def turnon
+		@user = User.find(params[:id])
+		@user.subscription_switch = true
+		if @user.save then
+			redirect_to(:back)
+		else
+			redirect_to(:back)
+			flash[:success] = "Check your To Subscribers and Intended Update Frequency or Plans."
+		end
+	end
+
+	def turnoff
+		@user = User.find(params[:id])
+		@user.subscription_switch = false
+		if @user.save then
+			render nothing: true
+		else
+			redirect_to(:back)
+			flash[:success] = "Check your To Subscribers and Intended Update Frequency or Plans."
+		end
+	end
+
+	def destroy
+		@subscription = Subscription.find_by_subscriber_id_and_subscribed_id(params[:subscriber_id],params[:id])
+		@user = User.find(@subscription.subscriber_id)
+		@subscription.deleted_reason = 2
+		@subscription.deleted_at = Time.now
+		@subscription.save	
+		#Mark Subscription Records as having pasts
+		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
+		@subscription_record.past = true
+		if @subscription_record.duration == nil then
+			@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
+		else
+			@subscription_record.duration = @subscription_record.duration + @subscription.deleted_at - @subscription.created_at
+		end
+		@subscription_record.save		
+		#destroy activities as well if accumulated total is 0
+		if @subscription.accumulated_total == nil || @subscription.accumulated_total == 0 then
+			PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|
+				if activity != nil then 
+					activity.deleted = true
+					activity.deleted_at = Time.now
+					activity.save
+				end
+			end
+		end
+		flash[:success] = "You removed "+@user.fullname+"!"
+		redirect_to(:back)
+	end
+
+	def unsub
+		@subscription = Subscription.find_by_subscriber_id_and_subscribed_id(params[:id],params[:subscribed_id])
+		@user = User.find(@subscription.subscribed_id)
+		#Cancel Amazon Payments Token
+		response = AmazonFlexPay.cancel_token(@subscription.amazon_recurring.tokenID)
+		@subscription.deleted_reason = 1
+		@subscription.deleted = true
+		@subscription.deleted_at = Time.now
+		@subscription.save
+		#Mark Subscription Records as having pasts
+		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
+		@subscription_record.past = true
+		if @subscription_record.duration == nil then
+			@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
+		else
+			@subscription_record.duration = @subscription_record.duration + @subscription.deleted_at - @subscription.created_at
+		end				
+		@subscription_record.save
+		#destroy activities as well if accumulated total is 0
+		if @subscription.accumulated_total == nil || @subscription.accumulated_total == 0 then
+			PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|
+				if activity != nil then 
+					activity.deleted = true
+					activity.deleted_at = Time.now
+					activity.save
+				end
+			end
+		end		
+		flash[:success] = "You unsubscribed from "+@user.fullname+"!"
+		redirect_to(:back)
+	end
+
+private
+	
+	#See if the user is signed in?
+    def signed_in_user
+      unless signed_in?
+        redirect_to new_user_session_path, notice:"Please sign in." unless signed_in?
+      end
+    end	
+
+    #See if the user is in a subscription
+    def not_subscribed
+    	@user = User.find(params[:id])
+    	if @user.subscribed_by?(current_user) || current_user.subscribed_by?(@user) then
+    		redirect_to @user
+    	end
+    end	
+
+    #See if the subscription is permitted
+    def subscription_permission
+    	@subscribed = User.find(params[:id])
+    	@subscriber = current_user
+    	#Check History to see if the last subscription is within one month
+    	if subscription_permission_30days then
+    		redirect_to(:back)
+    	else
+        	#Check if the subscribed has opened subscription
+    		if subscription_permission_opened?	then
+    			redirect_to(:back)
+    		else
+    			#Check if the subscribed does not have a subscription note
+    			if subscription_permission_note? then
+    				redirect_to(:back)
+    			else
+    				#Check if the subscribed has an on going project
+    				if subscription_permission_project? then
+    					redirect_to(:back)
+    				else
+    					#Check if the subscribed is banned
+    					if subscription_permission_subscribed_banned? then
+    						redirect_to(:back)
+    					else
+    						#Check if the subscriber is banned
+    						if subscription_permission_subscriber_banned? then
+	    						redirect_to(:back)
+	    					else
+	    						#Check if the subscribed reached her goal
+	    						if subscription_maximum_amount? then
+	    							redirect_to(:back)
+	    						end
+    						end
+    					end
+    				end
+    			end
+    		end
+    	end	
+
+    	
+    end	
+
+    def subscription_permission_30days 
+    	#Check History to see if the last subscription is within one month
+    	if Subscription.find_by_subscriber_id_and_subscribed_id(@subscriber.id,@subscribed.id) != nil then
+    		@history = Subscription.find_by_subscriber_id_and_subscribed_id(@subscriber.id,@subscribed.id).class.where(:deleted => true).first
+    		if @history != nil then
+    			@days = ((Time.now - @history.deleted_at)/1.day).round
+    			if @days <= 30 then
+    				@indays = 30-@days
+    				flash[:success] = "Your previous subscription to "+@subscribed.fullname+" ended "+@days.to_s+" days ago. You may subscribe to "+ @subscribed.fullname+" again in "+@indays.to_s+" days."
+    				return true
+    			end
+    		end    	
+    	end	
+    	return false
+    end	
+
+    def subscription_permission_opened?
+    	#Check if the subscribed has opened subscription
+    	if @subscribed.subscription_switch != true || @subscribed.amazon_authorized != true then
+    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+" has not turned on subscription."
+    		return true
+    	end
+    	return false
+    end	
+
+    def subscription_permission_note?
+		#Check if the subscribed does not have a subscription note
+    	if @subscribed.why == nil || @subscribed.why == "" || @subscribed.plan == nil || @subscribed.plan == "" then
+    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+" has not writtened a note on subscription."
+    		return true
+    	end
+    	return false
+    end	
+
+    def subscription_permission_project?
+    	#Check if the subscribed has an on going project
+    	if @subscribed.projects.where(:published => true, :complete => false, :abandoned => false).first == nil then
+    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+" does not have an ongoing project."
+    		return true
+    	end
+    	return false
+    end	   
+
+    def subscription_permission_subscribed_banned?
+    	#Check if the subscribed is banned
+    	if @subscribed.subscribed_permission == "frozen" then
+    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+"'s account is frozen due to violations of Ratafire's rules."
+    		return true
+    	end
+    	return false
+    end 	
+
+    def subscription_permission_subscriber_banned?
+    	#Check if the subscriber is banned
+    	if @subscriber.subscriber_permission == "frozen" then
+    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because your account is frozen due to violations of Ratafire's rules."
+    		return true
+    	end	
+    	return false
+    end	
+
+    def subscription_maximum_amount?
+    	#Check if the subscribed reached her goal
+    	if @subscribed.subscription_amount > @subscribed.goals_monthly then
+    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+"has reached subscription goal."
+    		return true
+    	end
+    	return false
+    end
+end

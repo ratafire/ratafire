@@ -1,0 +1,3 @@
+<div class="archive-item">
+	<ol><%= link_to archive.title,user_project_archive_path(@project.creator,@project,archive), class:"no_ajaxify" %><span> <%= time_ago_in_words(archive.created_time)%> ago</span></ol>
+</div>

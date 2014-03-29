@@ -1,0 +1,18 @@
+										<% if @user.projects.any? %>
+											<%= render @currentprojects %>
+										<% else %>
+											<%= render 'projects/sample_project'%>
+										<% end %>
+
+																			<!-- Pagination -->
+									<div id="Profile-page-load-more">
+										<% if @currentprojects.count >3 %><!-- check if pagination exist-->
+											<div class="textbox-mini">
+											 	<span><%= will_paginate @currentprojects, :param_name => 'current_p', class:"rata_pagination non_ajaxify" %></span>
+											
+											</div>
+										<% else%>
+											<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+										<% end %>
+										
+									</div>	

@@ -1,0 +1,51 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @tag_name) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Additional Background Slot ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:additional_background) do %>
+		<%= render 'updates/title_background'%>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Right Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar_right) do %>
+    	<%= render 'layouts/sidebar_tags'%>
+	<% end %>
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->		
+
+	<!-- Main Content -->
+	<div class="main-content-update">
+
+		<!-- Tag Title -->
+		<%= render 'updates/tag_title'%>
+
+		<!-- post-content-->
+		<div class="post-content-update">
+			<!-- Activities -->
+			<% if @activities.any? %>
+				<%= render_activities(@activities) %>
+			<% else %>
+				<div style="text-align:center;margin-top:31px;">
+					<h5>No projects or major posts are tagged with <%= @tag.name %></h5>	
+				</div>
+			<% end %>
+
+			<!-- Pagination -->
+			<div id="profile-paginate">
+				<div class="textbox-mini">
+					<span><%= will_paginate @activities, :param_name => 'page', class:"rata_pagination" %></span>	
+				</div>	
+			</div>	
+
+			<!-- Cutter --><ol style="height: 80px;"></ol>
+
+		</div><!-- end.post-content-->	
+
+		<!-- Footer -->
+		<%= render 'layouts/footer' %>
+	</div><!-- end.main-content-->	

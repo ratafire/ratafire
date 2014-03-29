@@ -1,0 +1,6 @@
+monthly_subscriptions:
+  cron: "* * 1 * *"
+  custom_job_class: "SubscriptionWorker"
+  queue: high
+  args:
+  description: "This worker queues subscription fee transactions."

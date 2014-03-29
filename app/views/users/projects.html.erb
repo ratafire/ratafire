@@ -1,0 +1,98 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+	<!-- Best in Place -->
+	<%= render 'shared/best_in_place'%>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_profile' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Main Content -->
+	<div class="main-content">
+				<div>
+
+					<!-- Full Name -->
+					<%= render 'shared/fullname'%>
+
+					<!-- Cutter --><ol style="margin-top: -5px;"></ol>
+
+					<!-- Tabs Nav -->
+					<div class="tab">
+							<%= link_to "About", user_path , style:"margin-left:0px;", class: "tab tab-size tab-content"%>
+							<%= link_to "Projects", projects_path , class: "tab tab-size tab-content-current tab-left-shadow"%>		
+					</div>
+
+					<!-- Content of Projects -->
+					<div class="profile-content">
+							
+							<!-- Now/Past -->
+							<div class="now-past-holder">
+								<%= link_to projects_past_path(@user) do %><span class="btn-delete-light-solid" style="position:relative;z-index:1;padding-right:10px;">
+									Past
+								</span><% end %>	
+								<span class="btn-delete-solid" style="position:relative;z-index:2;">
+									Now
+								</span>
+							</div>	
+
+							<!-- Cutter --><ol style="margin-top: 38px;"></ol>
+							
+								<!-- Current Projects -->
+								<div class="current-projects">
+
+									<!-- Indicator -->
+									<div class="textbox-mini">
+										<li style="font-size: 1.4em;">Current</li>
+										<li class="counter">[<%= @currentprojects.count %>]</li>
+									</div>
+									
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+									<!-- Content -->
+									<div id="current-projects">
+										<%= render 'users/current_projects'%>
+									</div><!-- end of current-projects ajax-->
+
+
+								</div><!-- end.current-projects-->
+
+
+								<div class="completed-projects">
+
+									<!-- Indicator -->
+									<div class="textbox-mini">
+										<li style="font-size: 1.4em;">Completed</li>
+										<li class="counter">[<%= @completedprojects.count %>]</li>
+									</div>
+									
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+									<!-- Content -->
+									<div id="completed-projects">
+										<%= render 'users/completed_projects'%>
+									</div><!-- end of completed-projects-ajax -->
+
+								</div><!--end.completed-projects -->
+
+								<!-- Cutter --><ol style="height: 80px;"></ol>
+							
+					<!-- end of profile-content-->
+					</div>
+
+				<!-- end of div -->
+				</div>
+							<!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+
+	<!-- end of main-content-->
+	</div>
+
+

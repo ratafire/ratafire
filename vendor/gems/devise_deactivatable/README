@@ -1,0 +1,47 @@
+= devise_deactivatable
+
+Super simple extension to allow accounts to be de-activated.
+
+May only work on Rails 3, I've not tested any other versions, nor do
+I have any intention of doing so.
+
+Yes, it's almost the same thing as devise_suspendable, and I could
+probably have used suspendable, but I enjoy re-inventing the wheel.
+Suspendable also looks like it might not work with Devise 2, does
+more than I want it to right now, and, call me picky but I think
+this stuff matters, the name just doesn't match our terminology (we
+talk about activating and de-activating accounts).
+
+== Setup
+
+You need to create a migration, manually (there is no magic here):
+
+    class DeviseDeactivatableForUsers < ActiveRecord::Migration
+      def up
+        add_column :users, :deactivated_at, :datetime
+        add_index :users, :deactivated_at
+      end
+      def down
+        remove_index :users, :deactivated_at
+        remove_column :users, :deactivated_at
+      end
+    end
+
+== Usage
+
+Include in your model:
+
+    devise ..., :deactivatable, ...
+
+Receive three wonderful new methods, and modifications to two other methods:
+
+   u = User.create(:name => 'Foo')
+   u.deactivated? # false
+   u.deactivate!
+   u.deactivated? # true
+   u.active_for_authentication? # false
+   u.inactive_message # :deactivated
+
+== License
+
+Public domain, use and abuse at will, but I take no responsibility for your use or abuse.

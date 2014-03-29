@@ -1,0 +1,39 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <!-- Page Title -->
+      <% provide(:title, 'Beta') %>
+
+      <!-- Page Background -->
+      <!DOCTYPE html>
+      <html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+       -o-background-size: cover;
+      background-size: cover;"><!-- Signup Page Background -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+                  <!-- Sign In -->
+                  <div class="user-links">
+                        Have an account? <%= link_to 'Sign in', new_user_session_path %>
+                  </div>
+
+                  <div class="center" style="width: 310px;">
+                  		<!-- Cutter --><ol style="margin-top: 80px;"></ol>
+                  		<span id="Join-Ratafire">Set your Password.</span>
+                  		<!-- Cutter --><ol style="margin-top: 18px;"></ol>
+
+                  		 <div id="Signup-box">
+                  		 		<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post}, :html => {:class => 'no_ajaxify'}, do |f| %>
+                  		 		
+                  		 		
+                  		 			<% resource.class.invite_key_fields.each do |field| -%>
+  									<p><%= f.label field %><br />
+  									<%= f.text_field field %></p>
+									<% end -%>
+
+  									<p><%= f.submit t("devise.invitations.new.submit_button") %></p>
+  								<% end %>	
+                  		 </div><!--#Signup-box -->	
+                  </div><!--end.center -->	

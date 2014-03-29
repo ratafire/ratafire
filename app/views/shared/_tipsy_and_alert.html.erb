@@ -1,0 +1,15 @@
+		<script type="text/javascript">
+
+
+			$(document).ready(TipsyAlert);
+			$(document).on('ajaxify:content_loaded', TipsyAlert);
+			$(document).on('ajaxify:content_loaded', ClientSide);
+
+			function TipsyAlert(){
+				$('#Sign_In').tipsy({fade:true,gravity:'ne'});
+				$('.tipsy-tipsy').tipsy({fade:true});
+				$('.alert').delay(6000).fadeOut(1000);
+			}
+
+
+		</script>

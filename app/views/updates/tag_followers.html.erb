@@ -1,0 +1,54 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @tag_name) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Additional Background Slot ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:additional_background) do %>
+		<%= render 'updates/title_background'%>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Right Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar_right) do %>
+    	<%= render 'layouts/sidebar_tags'%>
+	<% end %>
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->		
+
+	<!-- Main Content -->
+	<div class="main-content-update">
+
+		<!-- Tag Title -->
+		<%= render 'updates/tag_title_followers'%>
+
+		<!-- post-content-->
+		<div class="post-content">
+			<!-- Activities -->
+				<% if @followers.any? %>
+					<div id="current-subscribers">
+						<%= render partial: "updates/tag_followers", collection: @followers, :as => :user %>
+					</div><!-- end:.current-subscribers-->	
+				<% else %>
+					<div class='blank-update-box'>
+						<h5><%= @tag_name %> has no follower.</h5>	
+					</div>
+				<% end %>
+			
+
+			<!-- Pagination -->
+			<div id="profile-paginate">
+				<div class="textbox-mini">
+					<span><%= will_paginate @followers, :param_name => 'page', class:"rata_pagination no_ajaxify" %></span>	
+				</div>	
+			</div>	
+
+			<!-- Cutter --><ol style="height: 80px;"></ol>
+
+		</div><!-- end.post-content-->	
+
+		<!-- Footer -->
+		<%= render 'layouts/footer' %>
+	</div><!-- end.main-content-->	

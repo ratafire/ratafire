@@ -1,0 +1,56 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Additional Background Slot ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:additional_background) do %>
+		<%= render 'updates/title_background'%>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Right Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar_right) do %>
+    	<%= render 'layouts/sidebar_update_plain'%>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<!-- Main Content -->
+	<div class="main-content-update">
+
+		<!-- Title -->
+		<div class="update-title">
+			<h1>Search: <%= params[:search]%></h1>
+			<ul style="margin-top: -8px;">
+				<h5><%= link_to @wikipedialink, target:"_blank" do %><%= truncate(wikipedia_search(@search), :length => 110) %><% end %></h5>
+			</ul>	
+		</div>	
+
+		<!-- post-content-->
+		<div class="post-content-update">
+
+			<!-- Activities -->
+			<% if @projects.any? %>
+				<%= render partial: "updates/project", collection: @projects, :as => :project %>
+			<% else %>
+				<div class="blank-update-box">
+					<h5>No result.</h5>
+				</div>						
+			<% end %>
+
+			<!-- Pagination -->
+			<div id="profile-paginate">
+				<div class="textbox-mini">
+					<span><%= will_paginate @projects, :param_name => 'page', class:"rata_pagination" %></span>	
+				</div>	
+			</div>	
+
+			<!-- Cutter --><ol style="height: 80px;"></ol>
+
+		</div><!-- end.post-content-->	
+
+		<!-- Footer -->
+		<%= render 'layouts/footer' %>
+	</div><!-- end.main-content-->	

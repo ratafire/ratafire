@@ -1,0 +1,11 @@
+<div class="lightbox4" style="border-top:0;border-bottom: 1px solid #e2e2e2;">
+	<div class="add-contributors-title">
+		<ol>Invited<span style="color:#999;font-size:0.8em;"> [<%= @project.inviteds.count %>/5]</span></ol>
+		<!-- for porject creator-->
+		<% if @project.creator == current_user then %>
+			<%= raw @project.inviteds.map { |t| "#{link_to t.user.fullname, user_path(t),class:"no_ajaxify"}" " (#{time_ago_in_words(t.created_at)} ago) " "#{link_to "x", user_project_invited_path(@project.creator, @project, t),method: :delete,class:"no_ajaxify btn-delete-small tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this invitation?"}"}.join(' , ') %>
+		<% else %>
+			<%= raw @project.inviteds.map { |t| "#{link_to t.user.fullname, user_path(t),class:"no_ajaxify"}" " (#{time_ago_in_words(t.created_at)} ago) "}.join(' , ') %>
+		<% end %>
+	</div>
+</div><!-- end of lightbox4-->

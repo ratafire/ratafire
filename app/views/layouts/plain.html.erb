@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+  		<title><%= full_title(yield(:title)) %></title>
+  		<%= stylesheet_link_tag    "application", :media => "all" %>
+  		<%= csrf_meta_tags %>
+  		<%= javascript_include_tag "application" %>
+  		<%= render 'layouts/shim' %>
+
+	</head>
+
+	<body>
+		<%= yield %>
+	</body>
+</html>

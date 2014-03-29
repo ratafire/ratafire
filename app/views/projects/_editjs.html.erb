@@ -1,0 +1,55 @@
+<script type="text/javascript">
+
+        $(document).ready(function() {
+
+              //script to show delete artwork button
+              $('#has-artwork-case').hover(function() {
+                  $("#delete-artwork").toggle();
+                });
+                    
+              //publish-button
+              $('#project-publish-button').click(function() {
+                showConfirmDialog3();
+                return false;
+
+              });
+
+              //Best_in_place in place editing & hover
+               $('.best_in_place').best_in_place();//init
+               $('.best_title').hover(function() {
+                  $("#best_title-edit").toggle();
+                });
+               $('.best_tagline').hover(function() {
+                  $("#best_tagline-edit").toggle();
+                });
+
+              //Project Icon Hover
+               $('#project-icon').hover(function(){
+                $('#project-icon-upload').toggle();
+               });
+
+                  showConfirmDialog3 = function() {   
+  html = "<div id=\"dialog-confirm\" title=\"Confirmation\">\n  <p>" + "Are you sure to publish this project? Once your project is published, you cannot delete it." + "</p>\n</div>";
+  return $(html).dialog({
+    resizable: false,
+    modal: true,
+    buttons: {
+        Cancel: function() {
+        return $(this).dialog("close");
+      },
+      OK: function() {
+                          $("#project-published").val("t");
+                  $("#project-edit-permission").val("edit");
+                  $("#project-form").submit();
+        return $(this).dialog("close");
+      }
+
+    }
+  });
+
+};  
+
+
+
+        });
+</script>

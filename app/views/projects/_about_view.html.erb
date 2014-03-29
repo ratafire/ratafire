@@ -1,0 +1,61 @@
+<!-- Script to show Edit button -->
+<script>
+	$(document).ready(function() {
+	$('#about-case').hover(function() {
+  		$("#edit-project").toggle();
+	});
+	});
+</script>
+					<!-- Post Content -->
+					<div class="post-content" id="about-case">
+								<!-- if current user has the right to edit -->
+								<% if project_edit(@project) %>
+									<!-- artwork delete button-->
+									<div class="btn-edit-right" id="edit-project">
+										<%= link_to 'Edit',edit_user_project_path(@project.creator,@project),class:"btn-delete no_ajaxify"%>
+									</div>
+								<% end %><!-- end if @artwork.project == nil-->
+							<!-- About Title -->
+							<div class="post-about-bg">
+								<div class="textbox-mini">
+									<div class="post-about-title">
+										<li style="font-size: 1.4em;">About</li>
+									</div>
+								</div>
+							</div>
+							<!-- About Content -->
+							<div class="lightbox2" style="border-color: #bbbbbb">
+
+								<div class="textbox-mini">
+									<div class="post-content-c" style="margin-top:0px;">
+										<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+										<%= sanitize @project.about, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+										<!-- archive if any -->
+										<% if @project.complete == true && @project.archives[0] != nil %>About has <%= link_to 'an archive', user_project_archive_about_path(@project.creator, @project, @project.archives[0]), class:"no_ajaxify"%>.<% end %>
+									</div>
+								</div>
+							</div>
+
+							<!-- Source Code -->
+							<%= render 'projects/source_code'%>
+
+							<!-- Inspired By -->
+							<%= render 'projects/inspired_by' %>
+
+							<!-- Inspiring -->
+							<%= render 'projects/inspiring' %>
+
+							<!-- Tools -->
+							<% if signed_in? %>
+								<%= render 'projects/toolbox'%>
+							<% end %>
+
+							<!-- Tags -->
+							<% unless @project.tags.blank? %>
+								<div class="post-tags">
+									<%= raw @project.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %> 
+								</div>
+							<% end %>
+
+						
+					</div><!-- end of post-content -->
