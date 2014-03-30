@@ -1,12 +1,12 @@
 require 'resque_scheduler'
 
 #Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
-Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
-#if Rails.env.production?
-	
-#else
-#	Resque.redis = 'localhost:6379'
-#end
+if Rails.env.production?
+	redis_config = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
+	Resque.redis = redis_config[:host]+":"+redis_config[:port]
+else
+	Resque.redis = 'localhost:6379'
+end
 
 Resque.redis.namespace = "resque:SchedulerExample"
 

@@ -1,0 +1,4 @@
+production:
+  host: ip-172-31-28-146.ec2.internal
+  port: 6379
+  namespace: cache
