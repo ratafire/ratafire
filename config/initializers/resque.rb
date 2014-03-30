@@ -3,7 +3,7 @@ require 'resque_scheduler'
 #Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
 if Rails.env.production?
 	redis_config = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
-	Resque.redis = Redis.new(redis_config[Rails.env])
+	Resque.redis = Redis.new(host: redis_config['host'], port: redis_config['port']) 
 else
 	Resque.redis = 'localhost:6379'
 end
