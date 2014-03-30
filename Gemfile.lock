@@ -478,6 +478,7 @@ DEPENDENCIES
   paperclip (= 3.5.4)
   public_activity!
   rails (= 3.2.13)
+  rake (= 10.2.2)
   rb-fsevent
   redactor-rails!
   redis

@@ -7,6 +7,8 @@ gem 'hiredis'
 gem 'em-synchrony'
 gem 'redis-rails'
 
+gem 'rake', '10.2.2'
+
 #gem 'sidekiq' #for background tasks
 gem 'resque', :require => "resque/server" #for background tasks
 gem 'resque-scheduler', :require => "resque_scheduler/server"
