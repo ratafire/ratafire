@@ -2,14 +2,14 @@ require 'resque_scheduler'
 
 #Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
 #if Rails.env.production?
-	redis_config = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
-	Resque.redis = Redis.new(host: redis_config['host'], port: redis_config['port']) 
-	#Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
+#	redis_config = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
+#	Resque.redis = Redis.new(host: redis_config['host'], port: redis_config['port']) 
+#	Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
 #else
 #	Resque.redis = 'localhost:6379'
 #end
 
-Resque.redis.namespace = "resque:SchedulerExample"
+#Resque.redis.namespace = "resque:SchedulerExample"
 
 # If you want to be able to dynamically change the schedule,
 # uncomment this line.  A dynamic schedule can be updated via the
