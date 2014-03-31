@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/ratafire/amazon_flex_pay.git
+  revision: 6a6983fd82f07a1302110e30f2b2b6469e0fe65f
+  specs:
+    amazon_flex_pay (0.10.0)
+      activesupport (>= 3.0.14)
+      multi_xml (>= 0.5.2)
+      rest-client (~> 1.6.1)
+
+GIT
   remote: git://github.com/ratafire/redactor-rails.git
   revision: 68e7b3117f6a3f9f4108da84f65fd19538e2c8cc
   specs:
@@ -71,10 +80,6 @@ GEM
     addressable (2.3.6)
     ajaxify_rails (0.9.5)
       rails (>= 3.2.0)
-    amazon_flex_pay (0.10.0)
-      activesupport (>= 3.0.14)
-      multi_xml (>= 0.5.2)
-      rest-client (~> 1.6.1)
     annotate (2.5.0)
       rake
     arel (3.0.3)
@@ -420,7 +425,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   ajaxify_rails
-  amazon_flex_pay
+  amazon_flex_pay!
   annotate (= 2.5.0)
   aws-s3
   aws-sdk
