@@ -5,7 +5,7 @@ ruby "1.9.3" #Ruby 2.0 will cause S3 connection timeout, omg
 gem 'redis'
 gem 'hiredis'
 gem 'em-synchrony'
-gem 'redis-rails'
+#gem 'redis-rails'
 
 gem 'rake', '10.2.2'
 
