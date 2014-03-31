@@ -79,8 +79,7 @@ module Ratafire
     #config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
     #if Rails.env.production?
         redis_config = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
-        redis_config_string = "redis://"+redis_config['host'].to_s+':'+redis_config['port'].to_s+'/0/cache'
-        config.cache_store = :redis_store, redis_config_string, { expires_in: 90.minutes }
+        config.cache_store = :redis_store, redis_config.symbolize_keys, { expires_in: 90.minutes }
     #else
     #    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
     #end
