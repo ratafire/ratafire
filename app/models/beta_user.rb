@@ -22,4 +22,6 @@ class BetaUser < ActiveRecord::Base
 	validates_length_of :fullname, :maximum => 50, :message => "Aww, this is such a long name! (maximum 50)"
 
 	validates_presence_of :realm, :message => "Please select a realm."	
+
+	default_scope order: 'beta_users.created_at DESC'
 end
