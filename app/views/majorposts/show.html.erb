@@ -16,6 +16,41 @@
 	<%= render 'shared/like_button'%>
 	<%= render 'shared/like_button_majorpost'%>
 
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:type:profile:username", content: @majorpost.user.fullname %>
+		<%= tag :meta, property: "og:type", content: "Ratafire:project" %>
+		<%= tag :meta, property: "og:title", content: @majorpost.title %>
+		<%= tag :meta, property: "og:url", content: user_project_majorpost_path(@project.creator, @project, @majorpost) %>
+			
+		<% if @majorpost.artwork != nil %>
+			<%= tag :meta, property: "og:image", content: @majorpost.artwork.image.url(:preview) %>
+		<% else %>
+			<% if @majorpost.projectimages.count > 0 %>
+				<%= tag :meta, property: "og:image", content: @project.projectimages.first.url %>	
+			<% end %>	
+		<% end %>	
+
+		<%if @majorpost.video != nil %>
+			<% if @majorpost.video.external != nil && @majorpost.video.external != "" %>
+				<% if @majorpost.video.youtube_vimeo == ture %>
+					<!-- Youtube-->
+					<%= tag :meta, property: "og:video", content: "http://www.youtube.com/embed/#{@video.external}"%>
+				<% else %>
+					<!-- Vimeo -->
+					<%= tag :meta, property: "og:video", content: "//player.vimeo.com/video/#{@video.external}"%>
+				<% end %>	
+			<% else %>
+				<%= tag :meta, property: "og:video", content: @video.output_url %>
+				<%= tag :meta, property: "og:video:width", content: "444.375" %>
+				<%= tag :meta, property: "og:video:height", content: "790" %>
+			<% end %>
+		<% end %>
+
+		<%= tag :meta, property: "og:description", content: truncate(@majorpost.excerpt, :length => 180) %>
+	<% end %><!-- end.content_for :head do -->		
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Extra Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 
 	<!-- Include extra javascript -->

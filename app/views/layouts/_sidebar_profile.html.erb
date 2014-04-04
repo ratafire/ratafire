@@ -68,11 +68,11 @@
 		
 		<!-- Personal Link -->
 		<% if @user.website.blank? %>
-			<div class="btn btn-personallink tipsy-tipsy" title="Website">
+			<!--<div class="btn btn-personallink tipsy-tipsy" title="Website">
 			</div>
 			<div id="Sidebar-personal-link">
 				...
-			</div>
+			</div>-->
 		<% else %>
 			<div>
 				<%= link_to '', "#{@user.website}", class:"btn btn-personallink tipsy-tipsy no_ajaxify", title:"Website"%>
@@ -85,39 +85,39 @@
 		<!-- Social Media -->
 		<div style="margin: 5px 0 0 18px;">
 			<li><!-- Facebook-->
-				<% if @user.facebook.blank? %>
+				<% if @user.facebook == nil %>
 					<!--<div class="btn btn-socialmedia btn-socialmedia-facebook-non tipsy-tipsy" title="Facebook"></div>-->
 				<% else %>
-				<%= link_to "", "http://facebook.com/#{@user.facebook}", class:"btn btn-socialmedia btn-socialmedia-facebook tipsy-tipsy no_ajaxify", title:"Facebook"%>
+				<%= link_to "", @user.facebook.link, class:"btn btn-socialmedia btn-socialmedia-facebook tipsy-tipsy no_ajaxify", title:"Facebook", target: "_blank"%>
 				<% end %>
 			</li>
 
 			<li><!-- Twitter-->
-				<% if @user.twitter.blank? %>
+				<% if @user.twitter == nil %>
 					<!--<div class="btn btn-socialmedia btn-socialmedia-twitter-non tipsy-tipsy" title="Twitter"></div>-->
 				<% else %>
-				<%= link_to "", "http://twitter.com/#{@user.twitter}", class:"btn btn-socialmedia btn-socialmedia-twitter tipsy-tipsy no_ajaxify", title:"Twitter"%>
+				<%= link_to "", @user.twitter.link, class:"btn btn-socialmedia btn-socialmedia-twitter tipsy-tipsy no_ajaxify", title:"Twitter", target: "_blank"%>
 				<% end %>
 			</li>
 
 			<li><!-- github-->
-				<% if @user.github.blank? %>
+				<% if @user.github == nil %>
 					<!--<div class="btn btn-socialmedia btn-socialmedia-github-non tipsy-tipsy" title="Github"></div>-->
 				<% else %>
-				<%= link_to "", "http://github.com/#{@user.github}", class:"btn btn-socialmedia btn-socialmedia-github tipsy-tipsy no_ajaxify", title:"Github"%>
+				<%= link_to "", @user.github.link, class:"btn btn-socialmedia btn-socialmedia-github tipsy-tipsy no_ajaxify", title:"GitHub", target: "_blank"%>
 				<% end %>
 			</li>
 
 			<li><!-- deviantart-->
-				<% if @user.deviantart.blank? %>
+				<% if @user.deviantart == nil %>
 					<!--<div class="btn btn-socialmedia btn-socialmedia-deviantart-non tipsy-tipsy" title="Deviantart"></div>-->
 				<% else %>
-				<%= link_to "", "http://#{@user.deviantart}.deviantart.com", class:"btn btn-socialmedia btn-socialmedia-deviantart tipsy-tipsy no_ajaxify", title:"Deviantart"%>
+				<%= link_to "", @user.deviantart.link, class:"btn btn-socialmedia btn-socialmedia-deviantart tipsy-tipsy no_ajaxify", title:"Deviantart", target: "_blank"%>
 				<% end %>
 			</li>
 
 			<li><!-- vimeo-->
-				<% if @user.vimeo.blank? %>
+				<% if @user.vimeo == nil %>
 					<!--<div class="btn btn-socialmedia btn-socialmedia-vimeo-non tipsy-tipsy" title="Vimeo"></div>-->
 				<% else %>
 				<%= link_to "", "http://vimeo.com/#{@user.vimeo}", class:"btn btn-socialmedia btn-socialmedia-vimeo tipsy-tipsy no_ajaxify", title:"Vimeo"%>

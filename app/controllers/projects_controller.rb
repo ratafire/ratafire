@@ -132,28 +132,18 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
-		@project = Project.new()
-		#new project attributes
-		@project.creator = current_user
-		@project.title = project_draft_title
-		@project.tagline = pine_nuts + " pine nuts on the tree"
-		@project.goal = 5
-		@project.edit_permission = "free"
-		@project.perlink = pine_nuts + (Project.count+1).to_s
-		#Mysterious multiple users bug that I only know this way of fixing...
-		@project.assigned_projects.each do |as|
-			as.destroy
-		end
-		@project.published = false
-		@project.complete = false
-		@project.commented_at = Time.now
-		@project.save
+		@project = Project.prefill!(:user_id => current_user.id)
 		#AssignedProject
 		@assignedproject = AssignedProject.new()
 		@assignedproject.user_id = current_user.id
 		@assignedproject.project_id = @project.id
 		@assignedproject.save
-		redirect_to project_realms_path(@project.creator, @project)
+		#render :text => @project.errors.full_messages to debug
+		if @project != nil then
+			redirect_to project_realms_path(@project.creator, @project)
+		else
+			redirect_to(:back)
+		end
 	end
 
 	def settings
@@ -266,18 +256,18 @@ private
 		end
 
     	#Set Draft for project title
-    	def project_draft_title
-    		time = DateTime.now.strftime("%H:%M").to_s
-    		title = 'New Project ' + time
-    		return title
-    	end
+    	#def project_draft_title
+    	#	time = DateTime.now.strftime("%H:%M").to_s
+    	#	title = 'New Project ' + time
+    	#	return title
+    	#end
 
     	#Set pine nuts
     	def pine_nuts
     		s = DateTime.now.strftime("%S").to_i
     		m = DateTime.now.strftime("%M").to_i
     		h = DateTime.now.strftime("%H").to_i
-    		e = (s*m*Math.log(h+2)).to_i.to_s
+    		e = s.to_s+m.to_s+h.to_s
     		return e
     	end
 

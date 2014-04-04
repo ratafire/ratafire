@@ -85,7 +85,9 @@
 
 
 						<% end %><!-- end. form-->
-						<% end %><!-- end if allow edit goals-->
+
+						<% else %>
+						
 
 						<!-- If Not Allow Edit Goals -->		
 						<div class="lightbox2-bordered">			
@@ -122,7 +124,7 @@
 								</div><!-- end.lightbox2 -->
 							</div><!-- end.textbox-mini -->	
 						</div><!-- end.lightbox2-bordered -->
-
+						<% end %><!-- end if allow edit goals-->
 						<!-- Cutter --><ol style="margin-top: 70px;"></ol>
 						</div><!-- Footer -->
 				<%= render 'layouts/footer' %>

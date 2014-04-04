@@ -123,7 +123,7 @@
 									<li>Bio</li>
 								</div>
 
-      							<div class="input-placer" >
+      							<div class="input-placer">
       								<%= f.text_area :bio, class: "inputbox settingsarea noResize"%>
       								<ul>About yourself in 214 characters or less.</ul>
       								<ul>#Beta: you can use simple html, but over length content will be hidden.</ul>
@@ -138,7 +138,7 @@
 
 
 							<!-- Social Media -->
-							<div class="lightbox2-bordered">
+							<div class="lightbox2-bordered"  id="social-media">
 								
 								<!-- Social Media -->
 								<div class="textbox-mini">
@@ -154,7 +154,11 @@
 
 
       								<div class="input-placer socialmedia-placer">
-      									<ul><%= link_to "Connect your account to facebook",'#', id:"facebook-connect" %></ul>
+      									<% if @user.facebook == nil %>
+      									<ul><%= link_to "Connect your account to Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %></ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from Facebook",disconnect_path(@user,:facebook),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<% end %>
       									<span></span>
       								</div>
 
@@ -169,7 +173,11 @@
 
 
       								<div class="input-placer socialmedia-placer">
-      									<ul><%= link_to "Connect your account to Twitter",'#', id:"twitter-connect" %></ul>
+      									<% if @user.twitter == nil %>
+      									<ul><%= link_to "Connect your account to Twitter",user_omniauth_authorize_path(:twitter),class:"no_ajaxify" %></ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from Twitter",disconnect_path(@user,:twitter),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<% end %>
       									<span></span>
       								</div>
 
@@ -179,12 +187,16 @@
       							<div class="lightbox3">
       						
 									<div class="inputlabel-social">
-										<%= image_tag("github.png", class:"tipsy-tipsy", title:"Github") %>
+										<%= image_tag("github.png", class:"tipsy-tipsy", title:"GitHub") %>
 									</div>
 
 
       								<div class="input-placer socialmedia-placer">
-      									<ul><%= link_to "Connect your account to Github",'#', id:"github-connect" %></ul>
+      									<% if @user.github == nil %>
+      									<ul><%= link_to "Connect your account to GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %></ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from GitHub",disconnect_path(@user,:github),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<% end %>
       									<span></span>
       								</div>
 
@@ -199,7 +211,11 @@
 
 
       								<div class="input-placer">
-       									<ul><%= link_to "Connect your account to DeviantArt",'#', id:"deviantart-connect" %></ul>
+      									<% if @user.deviantart == nil %>
+       									<ul><%= link_to "Connect your account to DeviantArt",user_omniauth_authorize_path(:deviantart),class:"no_ajaxify" %></ul>
+       									<% else %>
+       									<ul><%= link_to "Disconnect your account from DeviantArt",disconnect_path(@user,:deviantart),class:"no_ajaxify",style:"color:#999;" %></ul>
+       									<% end %>
       									<span></span>
       								</div>
 
@@ -215,8 +231,12 @@
 
 
       								<div class="input-placer socialmedia-placer">
-       									<ul><%= link_to "Connect your account to Vimeo",'#', id:"vimeo-connect" %></ul>
+      									<% if @user.vimeo == nil %>
+       									<ul><%= link_to "Connect your account to Vimeo",user_omniauth_authorize_path(:vimeo),class:"no_ajaxify" %></ul>
       									<span></span>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from Vimeo",disconnect_path(@user,:vimeo),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<% end %>
       								</div>
 
       							</div>      							

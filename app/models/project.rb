@@ -1,11 +1,13 @@
 class Project < ActiveRecord::Base
   #friendly id
+
   extend FriendlyId
   friendly_id :perlink, :use => :slugged
 
   attr_accessible :tagline, :title, :user_id,:perlink, :about,:published,:complete, :tag_list, :p_u_inspirations_attributes, :p_m_inspirations_attributes, :p_p_inspirations_attributes, :p_e_inspirations_attributes, :artwork_id, :video_id, :icon_id, :goal, :source_code, :edit_permission, :realm
   default_scope order: 'projects.created_at DESC'
   default_scope where(:deleted => false)
+  
 
   #track activities
   include PublicActivity::Model
@@ -91,7 +93,35 @@ class Project < ActiveRecord::Base
 
 #------ Before Save  
 
-protected
+  def self.prefill!(options = {})
+    @project = Project.new
+    begin
+      @project.uuid = SecureRandom.random_number(8388608).to_s
+    end while Project.find_by_uuid(@project.uuid).present?
+    @project.creator_id = options[:user_id]
+    @project.title = 'New Project ' + DateTime.now.strftime("%H:%M:%S").to_s
+    @project.perlink = @project.uuid.to_s
+    @project.tagline = @project.uuid.to_s + " pine nuts on the tree"
+    @project.goal = 5
+    @project.edit_permission = "free"
+    #Mysterious multiple users bug that I only know this way of fixing...
+    @project.assigned_projects.each do |as|
+      as.destroy
+    end
+    @project.published = false
+    @project.complete = false
+    @project.commented_at = Time.now
+    @project.save
+    @project
+  end
+
+private
+
+  def generate_pine_nuts!
+    begin
+      self.uuid = SecureRandom.random_number(8388608).to_s
+    end while Project.find_by_uuid(self.uuid).present?
+  end
 
 	
 end

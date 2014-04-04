@@ -24,7 +24,13 @@
     	<%= render 'shared/tipsy_and_alert' %><!-- script -->
 
 		<!-- Back to Top -->
-		<%= render 'shared/back_to_top'%><!-- script -->	
+		<%= render 'shared/back_to_top'%><!-- script -->
+
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+		<%= tag :meta, property: "fb:app_id", content: ENV["FACEBOOK_KEY"] %>
+		<%= tag :meta, property: "og:site_name", content: "Ratafire" %>
+		<%= yield :head %>
 
   		<!--~~~~~~~~~~~~~~~~~~~~~~~~ Universial Header ~~~~~~~~~~~~~~~~~~~~~~~~-->
 		<div id="header">

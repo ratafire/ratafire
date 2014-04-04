@@ -1,3 +1,13 @@
+<!-- Facebook SDK-->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=249146721904203";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="textbox-mini">
 							<div class="toolbox">
 									<% if @liked_project then %>
@@ -15,8 +25,19 @@
 										<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unlike" id="<%= @project.id%>project-unlike" style="display:none;">
 										</div><% end %>										
 									<% end %>	
-								</li>  <span id="<%= @project.id %>liked-count"><%= @project.liked_projects.count %></span> /
-								<li><%= link_to "Inspire", '#' , class:"no_ajaxify"%></li> /
-								<li><%= link_to "Share", '#', class:"tipsy-tipsy no_ajaxify", title:"comming soon." %></li>
+								</li>  <span id="<%= @project.id %>liked-count"><%= @project.liked_projects.count %></span> 
+								<li>
+									<!-- Twitter -->
+									<div class="btn btn-twitter">
+										<a href="https://twitter.com/share" class="twitter-share-button" data-count="none"></a>
+										<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+									</div><!-- end.btn-twitter-->
+									<!-- Facebook -->
+									<div class="btn btn-facebook">
+										<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="icon">
+										</div>
+									</div><!-- end.btn-facebook-->	
+									
+								</li>
 							</div><!-- end.toolbox-->
 							</div><!-- end.textbox-mini-->

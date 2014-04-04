@@ -245,4 +245,30 @@ module ApplicationHelper
 		return path = realm+"_path"
 	end
 
+	#Subscription Status
+	def subscription_status
+		if @user.subscription_switch == true && @user.amazon_authorized == true && @user.why != nil && @user.plan != nil && @user.subscription_amount < @user.goals_monthly && @project != nil then
+			if @user.facebook != nil || @user.github != nil then
+				return true
+			else
+				return false
+			end
+		else
+			return false
+		end
+	end
+
+	#Subscriber Status
+	def subscriber_status
+		if current_user.profilephoto? then
+			if current_user.github != nil || current_user.facebook != nil then
+				return true
+			else
+				return false
+			end
+		else
+			return false
+		end
+	end
+
 end

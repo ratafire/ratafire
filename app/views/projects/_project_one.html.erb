@@ -6,7 +6,7 @@
 		<div class="project-icon-small">
 			<% if @project.icon != nil %>
 				<%= link_to user_project_path(@project.creator,@project), class:"no_ajaxify" do %>
-					<div class="user-icon-small-holder" style="background-image:url(<%= project.icon.image.url(:small) %>);"></div>
+					<div class="user-icon-small-holder" style="background-image:url(<%= @project.icon.image.url(:small) %>);"></div>
 				<% end %>	
 			<% else %>
 				<%= link_to user_project_path(@project.creator,@project), class:"no_ajaxify" do %>
@@ -28,12 +28,12 @@
 		<ol><%= @project.tagline %> </ol>
 		<span><% if @project.tags.any? %><% if @project.tags.count >1 %>Tags: <% else %>Tag: <% end %><% end %> 
 				<%= raw @project.tag_list.map { |t| link_to t, '#', class:"no_ajaxify" }.join(', ') %></span>
-		<ol style="color:#999;">Project created <%= time_ago_in_words(@project.created_at) %> ago in <span class="realm-color"><%= project_realm(@project.realm)%></span></ol>					
+		<ol style="color:#999;">Project created <%= time_ago_in_words(@project.created_at) %> ago <% if @project.realm != nil %> in <%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(@project.realm)%></span><% end %><else>.<% end %></ol>					
 		</div><!-- end.project-show-title-->
 	</div><!-- end.project-show-content-->	
 <% else %>
 	<div  style="text-align:center;padding-top:40px;font-size:0.9em;">
-	<span>You do not have an on going project.</span>
+	<span>You do not have an on going project. <%= link_to "Create a Project", new_project_path(@user), method: :post,class: " no_ajaxify"%></span>
 	</div>
 <% end %>
 </div>	

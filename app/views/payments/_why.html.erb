@@ -20,7 +20,22 @@
 			<%= simple_format(@user.plan)%>
 		</div>	
 	<!-- Subscription Button-->		
+	<% if subscriber_status then%>
 	<div style="margin: 15px -2px 0 0; text-align:right;">
 		<%= link_to "Next Step", subscribe_path(@user), class:"btn btn-medium btn-medium-green no_ajaxify"%>
-	</div>					
+	</div>
+	<% else %>
+		<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<h4 style="color:#2297ce;">To subscribe to other users you must</h4>
+								<% unless current_user.profilephoto? then %>
+								<div class="user-why-passage">Have a profile photo ~ <%= link_to "Edit Profile", edit_user_path(current_user), class:"no_ajaxify"%></div>	
+								<% end %>
+								<% unless current_user.github != nil || current_user.facebook != nil then %>						
+								<div class="user-why-passage">Connect your Ratafire account to <%= link_to "GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %> or <%= link_to "Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %>.</div>
+								<% end %>
+							</div><!-- end.textbox-mini-->
+
+						</div><!-- end.lightbox2-bordered-->
+	<% end %>					
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140329200047) do
+ActiveRecord::Schema.define(:version => 20140401224159) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -190,6 +190,39 @@ ActiveRecord::Schema.define(:version => 20140329200047) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "deviantarts", :force => true do |t|
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "user_id"
+    t.string   "uid"
+    t.string   "nickname"
+    t.string   "image"
+    t.string   "oauth_token"
+    t.string   "oauth_token_expires_at"
+    t.string   "link"
+  end
+
+  create_table "facebooks", :force => true do |t|
+    t.string   "uid"
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "link"
+    t.string   "username"
+    t.string   "gender"
+    t.string   "locale"
+    t.integer  "age_min"
+    t.integer  "age_max"
+    t.integer  "user_id"
+    t.string   "oauth_token"
+    t.string   "oauth_expires_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "user_birthday"
+    t.string   "email"
+    t.string   "image"
+  end
+
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
     t.integer  "sluggable_id",                 :null => false
@@ -200,6 +233,21 @@ ActiveRecord::Schema.define(:version => 20140329200047) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "githubs", :force => true do |t|
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "user_id"
+    t.string   "uid"
+    t.string   "email"
+    t.string   "image"
+    t.string   "link"
+    t.string   "oauth_token"
+    t.string   "username"
+    t.string   "name"
+    t.string   "hireable"
+    t.string   "public_repos"
+  end
 
   create_table "ibifrosts", :force => true do |t|
     t.integer  "project_id"
@@ -324,6 +372,7 @@ ActiveRecord::Schema.define(:version => 20140329200047) do
     t.datetime "deleted_at"
     t.boolean  "deleted",         :default => false
     t.boolean  "featured"
+    t.string   "uuid"
   end
 
   create_table "p_e_inspirations", :force => true do |t|
@@ -427,6 +476,7 @@ ActiveRecord::Schema.define(:version => 20140329200047) do
     t.datetime "deleted_at"
     t.boolean  "deleted",           :default => false
     t.boolean  "featured",          :default => false
+    t.string   "uuid"
   end
 
   create_table "redactor_assets", :force => true do |t|
@@ -534,6 +584,24 @@ ActiveRecord::Schema.define(:version => 20140329200047) do
     t.string   "amount"
   end
 
+  create_table "twitters", :force => true do |t|
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "user_id"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "image"
+    t.string   "location"
+    t.string   "description"
+    t.string   "link"
+    t.string   "oauth_token"
+    t.string   "oauth_secret"
+    t.string   "lang"
+    t.integer  "followers_count"
+    t.string   "entities"
+    t.string   "nickname"
+  end
+
   create_table "updates", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -558,11 +626,6 @@ ActiveRecord::Schema.define(:version => 20140329200047) do
     t.boolean  "admin"
     t.text     "website"
     t.text     "bio"
-    t.string   "facebook"
-    t.string   "twitter"
-    t.string   "github"
-    t.string   "deviantart"
-    t.string   "vimeo"
     t.string   "profilelarge_file_name"
     t.string   "profilelarge_content_type"
     t.integer  "profilelarge_file_size"
@@ -593,10 +656,6 @@ ActiveRecord::Schema.define(:version => 20140329200047) do
     t.string   "unconfirmed_email"
     t.string   "provider"
     t.string   "uid"
-    t.string   "oauth_token"
-    t.datetime "oauth_expires_at"
-    t.string   "facebook_oauth_token"
-    t.datetime "facebook_oauth_expired_at"
     t.decimal  "subscription_amount",        :precision => 8, :scale => 2, :default => 0.0
     t.text     "why"
     t.boolean  "subscription_status",                                      :default => false
@@ -648,6 +707,12 @@ ActiveRecord::Schema.define(:version => 20140329200047) do
     t.text     "tags_temp"
     t.integer  "archive_id"
     t.string   "thumbnail"
+  end
+
+  create_table "vimeos", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
 end

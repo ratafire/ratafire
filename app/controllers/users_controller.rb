@@ -53,6 +53,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    gon.user_id = @user.id
   end
 
   #def settings
@@ -98,7 +99,7 @@ class UsersController < ApplicationController
   def goals
     @user = User.find(params[:id])
     if @user.goals_updated_at != nil then
-      @edit_again = 30-(Time.now.to_date - @user.goals_updated_at.to_date).to_i
+      @edit_again = 30-((Time.now - @user.goals_updated_at)/1.day).round
       if @edit_again < 1 then
         @allow_edit_goals = true
       else
@@ -106,6 +107,33 @@ class UsersController < ApplicationController
       end 
     end
   end
+
+
+  def disconnect
+    case params[:provider]
+    when "facebook"
+      facebook = current_user.facebook
+      facebook.destroy
+      redirect_to(:back)
+      flash[:success] = "Disconnected from Facebook."
+    when "twitter"
+      twitter = current_user.twitter
+      twitter.destroy
+      redirect_to(:back)
+      flash[:success] = "Disconnected from Twitter."
+    when "github"
+      github = current_user.github
+      github.destroy
+      redirect_to(:back)
+      flash[:success] = "Disconnected from Github."
+    when "deviantart"
+      deviantart = current_user.deviantart
+      deviantart.destroy
+      redirect_to(:back)
+      flash[:success] = "Disconnected from Deviantart."
+    end
+  end
+  
 
   def connect_with_facebook
     @user = User.find(params[:id])

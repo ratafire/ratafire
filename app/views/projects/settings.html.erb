@@ -92,7 +92,7 @@
 							You have traveled far! Once you click the button below, this project will be marked as completed, a copy of the project at its completion time will be archived permanently. You cannot edit project title, goal, and permanent link after a project's completion. Check everything twice before clicking the completion button!
 							</div>
 							<div  style="text-align:right;margin-right:17px;margin-top:40px;">
-								<%= link_to "Complete",you_completed_me_path(@project.creator,@project),class:"btn-light btn-medium btn-medium-snow no_ajaxify btn-completion-submit-special",:method => :get,:confirm => "Are you sure to complete this project? It cannot be undone. <p>Review the following changes to your project after its completion: </p> <p>1. This project will be marked as completed.</p> <p>2. A copy of the project at its completion time will be archived permanently.</p> <p>3. You cannot edit project title, goal, and permanent link.</p>"%>
+								<%= link_to "Complete",you_completed_me_path(@project.creator,@project),class:"btn btn-medium btn-medium-blue no_ajaxify btn-completion-submit-special",:method => :get,:confirm => "Are you sure to complete this project? It cannot be undone. <p>Review the following changes to your project after its completion: </p> <p>1. This project will be marked as completed.</p> <p>2. A copy of the project at its completion time will be archived permanently.</p> <p>3. You cannot edit project title, goal, and permanent link.</p>"%>
 							</div>
 
 <% else %>

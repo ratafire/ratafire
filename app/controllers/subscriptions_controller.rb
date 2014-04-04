@@ -209,6 +209,11 @@ private
 	    						#Check if the subscribed reached her goal
 	    						if subscription_maximum_amount? then
 	    							redirect_to(:back)
+	    						#Check if the subscriber is ok to subscribe
+	    						else
+	    							if subscriber_status? then
+	    								redirect_to(:back)
+	    							end
 	    						end
     						end
     					end
@@ -289,4 +294,18 @@ private
     	end
     	return false
     end
+
+    def subscriber_status?
+		if @subscriber.profilephoto? then
+			if @subscriber.github != nil || @subscriber.facebook != nil then
+				return false
+			else
+				flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because you are not connected to GitHub or Facebook."
+				return true
+			end
+		else
+			flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because you do not have a profile photo."
+			return true
+		end
+	end
 end

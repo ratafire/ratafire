@@ -2,14 +2,18 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
+
+
+		<!-- Window 1 -->
+		<section class="window" id="window1">
+
 		<!-- Home Page Beta Pic -->
+	
 		<div class="Home-page-bg">
-		<%= image_tag("betabg.jpg") %>
+			<%= image_tag("betabg.jpg") %>
 		</div>
 
-
-			<div class="center" >
-
+			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
 				<!-- Logo Image -->
 				<div style="margin-top:40px;"><%= image_tag("ratafire.png", alt: "Ratafire") %></div>
 	
@@ -22,7 +26,6 @@
 
 				<!-- Home Page Buttons -->
 				<div id="Home-page-btn">
-
 						<%= link_to "SIGN UP", beta_path , class: "btn btn-small2 btn-small-green Home-page-margin no_ajaxify"%>
 
 						<%= link_to "SIGN IN", new_user_session_path , class: "btn btn-small2 btn-small-blue Home-page-margin no_ajaxify" %>
@@ -30,13 +33,39 @@
 						<!-- Who is Ratatoskr? -->
 						<span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >Who is Ratatoskr?</a></span>
 
-						<!-- Footer -->
-						<div id="Home-footer-push"></div>
-						<div style="padding: 0px 20px 18px 0;">
+				</div><!-- end#Home-page0btn-->
+			</div><!-- end.center-->
+			<div class="Home-page-learn-more tipsy-tipsy" title="Learn More"><%= image_tag("learnmore.png") %></div>
+			<script>
+				$('.Home-page-learn-more').click(function(){
+					$('html, body').animate({
+        				scrollTop: $("#window2").offset().top
+    				});
+				});
+			</script>
+									<!-- Footer -->
+						<div style="padding: 0px 20px 18px 0;bottom:0;right:0;position:fixed;">
 						<%= render 'layouts/footer' %>
 						</div>
+		</section><!-- end.first window -->
+		
+		<!-- Window 2 -->
+		<section class="window" id="window2">
+			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
+				<div class="Home-page-container">
+					<h2>Ratafire is a site for you to share, collaborate and fund open creative and research works. </h2>
 				</div>
+				<%= image_tag("arrow.png") %>
+			</div><!-- end.center-->
+		</section><!-- end.second window-->	
 
-			</div>
-
-
+		<!-- Window 2 -->
+		<section class="window" id="window3">
+			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
+				<div class="Home-page-container2">
+					<h2>Post and collaborate on your projects under an open license. </h2>
+					<h2>Help bring projects you love to reality by subscribe to project creators with monthly subscription fees.</h2>
+					<%= link_to image_tag("join.jpg"), beta_path , class: "no_ajaxify tipsy-tipsy", title:"❤"%>
+				</div>
+			</div><!-- end.center-->
+		</section><!-- end.second window-->	

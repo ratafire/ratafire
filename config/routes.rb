@@ -8,7 +8,7 @@ Ratafire::Application.routes.draw do
   devise_scope :user do
     get "/users/sign_up",  :to => "users#no_sign_up"
   end
-  devise_for :users, :controllers => { :invitations => 'users/invitations' }
+  devise_for :users, :controllers => { :invitations => 'users/invitations', :omniauth_callbacks => "users/omniauth_callbacks" }
 
   mount RedactorRails::Engine => '/redactor_rails'
   mount Resque::Server, :at => "/resque"
@@ -99,6 +99,7 @@ Ratafire::Application.routes.draw do
   match ':id/r/settings/goals', to: 'users#goals', as: :goals
   match ':id/r/settings/profile', to: 'users#edit', as: :edit_user
   match ':id/r/settings/profile#bio-edit', to: 'users#edit', as: :edit_bio
+  match ':id/r/settings/profile#social-media', to: 'users#edit', as: :edit_socialmedia
   match ':id/r/settings/subscription', to: 'subscriptions#settings', as: :subscription_settings
   match ':id/r/settings/profilephoto/delete', to: 'users#profile_photo_delete', via: :delete, as: :photo_delete
   match ':id/r/users/disable/user', to: 'users#disable', via: :post, as: :disable_user
@@ -117,7 +118,7 @@ Ratafire::Application.routes.draw do
    match ':user_id/projects/:project_id/icons/:id', to: 'icons#destroy', via: :delete, as: :icon_delete
 
 #---Social Meida---
-  match ':user_id/:provider/callback', to: 'users#connect_with_facebook'
+  match ':user_id/:provider/disconnect/farewell', to: 'users#disconnect', as: :disconnect
   match 'auth/failure', to: redirect('/')
 
 #---Bifrost----

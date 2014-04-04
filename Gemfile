@@ -65,8 +65,12 @@ gem 'redactor-rails', :git => "git://github.com/ratafire/redactor-rails.git" #im
 gem 'mathjax-rails'
 
 #Social Media
+gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'koala'
+gem 'omniauth-twitter'
+gem 'omniauth-github'
+gem 'omniauth-deviantart'
+gem 'omniauth-vimeo', :git => "git://github.com/lomography/omniauth-vimeo"
 
 #Sanitize
 gem 'sanitize'

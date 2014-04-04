@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # :registerable is currently disabled
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:facebook, :twitter, :github, :deviantart, :vimeo]
 
 	#Accessable to outside users, are you sure you want them to change name?
 	#Profilelarge is the large profilelarge, profielmedium is the medium profilelarge
@@ -46,6 +46,12 @@ class User < ActiveRecord::Base
 	has_many :comments, :conditions => { :deleted_at => nil }
 
 	has_many :inviteds
+
+	has_one :facebook
+	has_one :twitter
+	has_one :github
+	has_one :deviantart
+	has_one :vimeo
 
 	#--- Payments ---
 	#Subscriptions
@@ -174,10 +180,6 @@ class User < ActiveRecord::Base
   def subscription_project_find(subscriber_id, subscribed_id)
   	subscription = Subscription.find_by_subscriber_id_and_subscribed_id(subscriber_id,subscribed_id).class.first
   	return Project.find(subscription.project_id)
-  end
-
-  def facebook
-  	@facebook ||= Koala::Facebook::API.new(oauth_token)
   end
 
   def soft_delete

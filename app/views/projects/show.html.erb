@@ -15,6 +15,35 @@
 	<!-- Like Button -->
 	<%= render 'shared/like_button'%><!-- script -->
 	<% if @majorpost != nil%><%= render 'shared/like_button_majorpost'%><% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:type:profile:username", content: @project.creator.fullname %>
+		<%= tag :meta, property: "og:type", content: "Ratafire:project" %>
+		<%= tag :meta, property: "og:title", content: @project.title %>
+		<%= tag :meta, property: "og:url", content: user_project_path(@project.creator, @project) %>
+			
+		<% if @project.artwork != nil %>
+			<%= tag :meta, property: "og:image", content: @project.artwork.image.url(:preview) %>
+		<% else %>
+			<% if @icon != nil %>
+				<%= tag :meta, property: "og:image", content: @icon.image.url(:pageview) %>	
+			<% else %>
+				<% if @project.projectimages.count > 0 %>
+					<%= tag :meta, property: "og:image", content: @project.projectimages.first.url %>	
+				<% end %>	
+			<% end %>
+		<% end %>	
+
+		<% if @project.video_id != nil %>
+			<%= tag :meta, property: "og:video", content: @video.output_url %>
+			<%= tag :meta, property: "og:video:width", content: "444.375" %>
+			<%= tag :meta, property: "og:video:height", content: "790" %>
+		<% end %>
+
+		<%= tag :meta, property: "og:description", content: truncate(@project.excerpt, :length => 180) %>
+	<% end %><!-- end.content_for :head do -->	
 	
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Extra Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 

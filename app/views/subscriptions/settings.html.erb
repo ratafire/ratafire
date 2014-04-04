@@ -30,8 +30,8 @@
 						<div class="lightbox2-bordered">
 							<div class="textbox-mini">
 
-
-							<% if @user.subscription_switch == true && @user.amazon_authorized == true && @user.why != nil && @user.plan != nil && @user.subscription_amount < @user.goals_monthly && @project != nil && @user.facebook_oauth_token != nil then %>
+							<!-- In application helper-->
+							<% if subscription_status then %>
 								<!-- Photo -->
 								<h2>Status: <span class="subscription-status-true">On</span></h2>
 
@@ -95,8 +95,8 @@
 										<% if @user.subscription_amount < @user.goals_monthly then %><ul class="subscription-status-true">Have not reached subscription amount goal</ul><% else %><ul class="subscription-status-false">You have reached your subscription amount goal</ul><% end %>
 										<!-- Amazon Payments -->
 										<% if @user.amazon_authorized %><ul class="subscription-status-true">Connected to Amazon Payments</ul><% else %><ul class="subscription-status-false">Connected to Amazon Payments</ul><% end %>
-										<!-- Facebook -->
-										<% if @user.facebook_oauth_token %><ul class="subscription-status-true">Connected to Facebook</ul><% else %><ul class="subscription-status-false">Connected to Facebook</ul><% end %>
+										<!-- GitHub or Facebook -->
+										<% if @user.facebook != nil || @user.github != nil %><ul class="subscription-status-true">Connected to GitHub or Facebook</ul><% else %><ul class="subscription-status-false">Connected to GitHub or Facebook</ul><% end %>
 									</div><!-- end.subscription-requirements-->										
 								</div><!-- end.textbox2-->	
 
@@ -114,7 +114,7 @@
 									<div class="user-why-edit">
 										<h4>To subscribers</h4>
 											<div class="user-why-passage">
-												<ol style="font-size: 0.9em;margin-bottom: 10px;">Read guidelines of To Subscribers before writing down why you need the support of your subscribers (200 - 1000 characters).</ol>
+												<ol style="font-size: 0.9em;margin-bottom: 10px;">Write down why you need the support of your subscribers (200 - 1000 characters).</ol>
 												<%= f.text_area :why, class: "subscription-why-input noResize" %>
 											</div>	
 										<h4>I am currently working on</h4>
@@ -191,7 +191,7 @@
 										<%= image_tag("amazon.png", class:"tipsy-tipsy", title:"Amazon") %>
 									</div>
       								<div class="input-placer socialmedia-placer">
-      									<ul><%= link_to "Disconnect your account from Amazon Payments",cancel_recipient_path(@user), id:"amazon-connect", class:"no_ajaxify"%></ul>
+      									<ul><%= link_to "Disconnect your account from Amazon Payments",cancel_recipient_path(@user), id:"amazon-connect", class:"no_ajaxify",style:"color:#999;"%></ul>
       									<ul>You are connected to Amazon Payments!</ul>
       									<ul>Your recipient token: <input onclick="this.select();" class="inputbox" type="recipient" value= <%= @user.amazon_recipient.tokenID %>></ul>
       									<ul>If you need to contact Amazon regarding transaction issues, contact them with the recipient token above.</ul>
@@ -201,6 +201,47 @@
 
 							</div><!-- end.textbox-mini-->
 						</div><!-- end.lightbox2-bordered-->										
+
+
+						<!-- Amazon Payments -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<h2>GitHub or Facebook</h2>
+
+								<!-- Amazon Payments Not Connected -->
+      							<div class="lightbox3">
+      								<!-- GitHub-->
+									<div class="inputlabel-social">
+										<%= image_tag("github.png", class:"tipsy-tipsy", title:"GitHub") %>
+									</div>
+      								<div class="input-placer socialmedia-placer">
+      									<% if @user.github == nil %>
+      									<ul><%= link_to "Connect your account to GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %></ul>
+      									<ul>Welcome, GitHuber! You must have a connected GitHub or Facebook account to accept subscription.</ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from GitHub",disconnect_path(@user,:github),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<ul>Welcome, GitHuber! </ul>
+      									<% end %>
+      								</div>      								
+      								<!-- Facebook -->
+									<div class="inputlabel-social">
+										<%= image_tag("facebook.png", class:"tipsy-tipsy", title:"Facebook") %>
+									</div>
+      								<div class="input-placer socialmedia-placer">
+      									<% if @user.facebook == nil %>
+      									<ul><%= link_to "Connect your account to Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %></ul>
+      									<ul>You must have a connected GitHub or Facebook account to accept subscription.</ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from Facebook",disconnect_path(@user,:facebook),class:"no_ajaxify",style:"color:#999;" %></ul>
+										<ul>You are connected to Facebook.</ul>
+      									<% end %>
+      									
+      								</div>
+      							</div><!-- end.lightbox3-->
+
+
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->	
 
 						<!-- Cutter --><ol style="margin-top: 70px;"></ol>
 						</div><!-- Footer -->

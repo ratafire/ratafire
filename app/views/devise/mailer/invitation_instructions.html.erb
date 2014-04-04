@@ -1,6 +1,55 @@
-<p>You have discovered <%= link_to "Ratafire", root_path %>, and are invited to our beta, traveler! You can accept it through the link below.</p>
+<html>
+<head>
 
-<p><%= link_to 'Accept Invitation', accept_invitation_url(@resource, :invitation_token => @token) %></p>
+</head>
+<body style="background-color: #f9f9f9;margin: 0;padding: 0;">
+<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+    <tr>
+        <td align="center" valign="top">
+            <table border="0" cellspacing="0" width="600" id="emailContainer">
+                <tr>
+                    <td align="center" valign="top">
+                        <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                            <tr>
+                                <td align="center" valign="top">
+                                    <img src="http://i646.photobucket.com/albums/uu183/fariliang/ratafire.png" border="0" alt="Ratafire"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top">
+                        <table border="0"  cellspacing="0" width="100%" id="emailBody" class="profile-content2" style="width: 600px;border: 1px solid #cccccc;position: auto;z-index: 30;border-radius: 8px;padding: 20px 20px 40px 20px;-moz-border-radius: 0px 5px 5px 5px;-webkit-border-radius: 0px 5px 5px 5px;transition: box-shadow 1s;background-color: rgba(255,255,255,1);-webkit-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);-moz-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);">
+                            <tr>
+                                <td align="center" valign="top">
+                                  		<p style="color: #666;">You have discovered <a href="http://www.ratafire.com" target="_blank" style="color: #2297ce;">Ratafire</a>, and are invited to our beta, traveler! You can accept it through the link below.</p>
 
-<p>If you don't want to accept the invitation, please ignore this email.</p>
-<p>Your account won't be created until you access the link above and set your password.</p>
+										<%= link_to accept_invitation_url(@resource, :invitation_token => @token),style:"text-decoration:none;" do %><p class="btn2" style="color: #fff;background-position: top;background: #4cbaed;padding: 10px 40px 10px 40px;border-radius: 5px;">Accept Invitation</p><% end %>
+
+										<p style="color: #666;">If you don't want to accept the invitation, please ignore this email.</p>
+										<p style="color: #666;">Your account won't be created until you access the link above and set your password.</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top">
+                        <table border="0" cellspacing="0" width="100%" height="300" id="emailFooter" class="footer2" style="color: #ccc;">
+                            <tr>
+                                <td align="center" valign="top">
+                                	<p style="color: #999;">Ratafire is a site for you to share, collaborate and fund open creative and research works.</p>
+                                    <p style="color: #999;"><a style="color: #999;" href="http://www.ratafire.com" target="_blank">Ratafire</a> | <%= link_to "Privacy Policy", privacy_path, style:"color: #999;"%> | <%= link_to "Terms of Use", terms_path, style:"color: #999;"%></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -12,8 +12,11 @@ class MajorpostsController < ApplicationController
 		@majorpost.published = false
 		@majorpost.project = @project
 		@majorpost.commented_at = Time.now
-		@majorpost.save
+		if @majorpost.save then
 		redirect_to edit_user_project_majorpost_path(@project.creator, @project, @majorpost)
+		else
+		redirect_to(:back)
+		end
 	end
 
 	def update
@@ -142,7 +145,7 @@ class MajorpostsController < ApplicationController
 private
 
 	def majorpost_draft_title
-		time = DateTime.now.strftime("%H:%M").to_s
+		time = DateTime.now.strftime("%H:%M:%S").to_s
 		title = "New Major Post " + time
 		return title	
 	end

@@ -10,6 +10,7 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+
 //= require jquery
 //= require jquery_ujs
 //= require confirmation
@@ -18,7 +19,6 @@
 //= require jquery-ui
 //= require rails.validations
 //= require rails.validations.nested_form
-//= require confirm_destroy
 //= require jquery_nested_form
 //= require tag-it.js
 //= require jquery-fileupload/basic
@@ -30,6 +30,7 @@
 //= require redactor-rails
 //= require ajaxify_rails.js.coffee
 //= require autocomplete-rails.js
+//= require facebook.js.coffee
 //= require_directory .
 //= require_directory ./redactor-rails
 

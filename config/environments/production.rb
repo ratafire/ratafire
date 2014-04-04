@@ -69,7 +69,8 @@ Ratafire::Application.configure do
   config.assets.precompile += %w( video-js.swf vjs.eot vjs.svg vjs.ttf vjs.woff )
 
   #Devise Mailing
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => '#{request.scheme}://#{request.host}#{port}' }
+  config.action_mailer.asset_host = '#{request.scheme}://#{request.host}#{port}'
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
