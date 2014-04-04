@@ -1,6 +1,7 @@
 class BetaUsersController < ApplicationController
 	
 	layout 'application'
+	before_filter :admin_user, only: [:show]
 
 	def new
 		@user = BetaUser.new
@@ -15,4 +16,15 @@ class BetaUsersController < ApplicationController
 			redirect_to :back
 		end
 	end
+
+	def show
+		
+	end
+
+private
+
+	def admin_user
+      redirect_to(root_url) unless current_user.admin == true
+    end
+
 end

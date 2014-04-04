@@ -1,0 +1,30 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_admin' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+						
+							<h1>Beta Users</h1>
+							<h5>View and approve beta users.</h5>
+							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+						<!-- end of textbox-->
+						</div>						
+
+
+						</div><!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+			</div><!-- end of main-content-->

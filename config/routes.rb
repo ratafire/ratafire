@@ -194,6 +194,10 @@ Ratafire::Application.routes.draw do
   match '/beta', to: 'beta_users#new', as: :beta
   match '/beta/user/beta/beta/betainvite', to: 'beta_users#create', via: :post,as: :beta_create
 
+#---Admin---
+
+  match '/beta_admin', to: 'beta_users#show', as: :beta_admin
+
 #---Resources---
   resources :users, :path => '/' do
     resources :projects, :except => :index do
