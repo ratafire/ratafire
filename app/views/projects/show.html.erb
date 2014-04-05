@@ -20,7 +20,7 @@
 
 	<% content_for :head do %>
 		<%= tag :meta, property: "og:type:profile:username", content: @project.creator.fullname %>
-		<%= tag :meta, property: "og:type", content: "Ratafire:project" %>
+		<%= tag :meta, property: "og:type", content: "object" %>
 		<%= tag :meta, property: "og:title", content: @project.title %>
 		<%= tag :meta, property: "og:url", content: user_project_path(@project.creator, @project) %>
 			
