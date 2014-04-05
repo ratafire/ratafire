@@ -306,5 +306,5 @@ Devise.setup do |config|
   require "omniauth-deviantart"
   config.omniauth :deviantart, ENV['DEVIANTART_KEY'], ENV['DEVIANTART_SECRET']
   require "omniauth-vimeo"
-  config.omniauth :vimeo, ENV['VIMEO_KEY'], ENV['VIMEO_SECRET'], redirect_uri: :omniauth_callbacks 
+  config.omniauth :vimeo, ENV['VIMEO_KEY'], ENV['VIMEO_SECRET']
 end

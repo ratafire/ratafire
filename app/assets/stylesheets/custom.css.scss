@@ -2299,10 +2299,12 @@ textarea.noResize { resize:none; }
 	margin:-3px 0 -2px -3px;
 	font-family: Arial, sans-serif;
 	padding: 3px;
+
 }
 
 .best_user_bio {
 	@extend .ratafire-readable;
+	color: #999;
 }
 
 .purr {

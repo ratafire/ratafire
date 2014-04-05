@@ -75,10 +75,10 @@
 			</div>-->
 		<% else %>
 			<div>
-				<%= link_to '', @user_website, class:"btn btn-personallink tipsy-tipsy no_ajaxify", title:"Website"%>
+				<%= link_to '', @user_website, class:"btn btn-personallink tipsy-tipsy no_ajaxify", title:"Website", target: "_blank"%>
 			</div>
 			<div id="Sidebar-personal-link">
-				<%= link_to @user.website, @user_website,class:"no_ajaxify" %>
+				<%= link_to @user.website, @user_website,class:"no_ajaxify", target: "_blank" %>
 			</div>
 		<% end %>
 
