@@ -48,7 +48,7 @@ gem 'zencoder-fetcher' #only for development
 gem 'i18n', '0.6.1'
 
 #Tags
-gem 'acts-as-taggable-on' #important 
+gem 'acts-as-taggable-on', '2.4.1' #important 
 
 #File Upload
 gem 'paperclip', "3.5.4" #important

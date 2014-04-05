@@ -82,10 +82,8 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    acts-as-taggable-on (3.1.1)
-      actionpack (>= 3, < 5)
-      activerecord (>= 3, < 5)
-      activesupport (>= 3, < 5)
+    acts-as-taggable-on (2.4.1)
+      rails (>= 3, < 5)
     ajaxify_rails (0.9.5)
       rails (>= 3.2.0)
     annotate (2.5.0)
@@ -440,7 +438,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts-as-taggable-on
+  acts-as-taggable-on (= 2.4.1)
   ajaxify_rails
   amazon_flex_pay!
   annotate (= 2.5.0)
