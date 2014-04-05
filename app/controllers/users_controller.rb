@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   layout 'application'
   before_filter :signed_in_user,
-                only: [:show,:index, :edit, :settings, :goals, :update, :destroy]
+                only: [:index, :edit, :settings, :goals, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :settings, :goals, :update, :photo]
   before_filter :admin_user,     only: :destroy
 
