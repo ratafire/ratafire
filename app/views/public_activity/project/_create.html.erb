@@ -59,9 +59,9 @@
 		<% if activity.trackable.published == true %>
 		<div id="majorpost-excerpt">
 			<!-- When there are artwork and video -->
-			<% if activity.trackable.video_id != "" || activity.trackable.artwork != nil %>
+			<% if activity.trackable.video_id != nil || activity.trackable.artwork != nil %>
 				<!-- With Video but without artwork -->
-				<% if activity.trackable.video_id != "" && activity.trackable.artwork == nil %>
+				<% if activity.trackable.video_id != nil && activity.trackable.artwork == nil %>
 					<div class="majorpost-video-one">
 						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 								<!-- Internal Thumbnail-->
