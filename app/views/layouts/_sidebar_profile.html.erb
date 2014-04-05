@@ -120,7 +120,7 @@
 				<% if @user.vimeo == nil %>
 					<!--<div class="btn btn-socialmedia btn-socialmedia-vimeo-non tipsy-tipsy" title="Vimeo"></div>-->
 				<% else %>
-				<%= link_to "", "http://vimeo.com/#{@user.vimeo}", class:"btn btn-socialmedia btn-socialmedia-vimeo tipsy-tipsy no_ajaxify", title:"Vimeo"%>
+				<%= link_to "", @user.vimeo.link, class:"btn btn-socialmedia btn-socialmedia-vimeo tipsy-tipsy no_ajaxify", title:"Vimeo", target: "_blank"%>
 				<% end %>
 			</li>
 

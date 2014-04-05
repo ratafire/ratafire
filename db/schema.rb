@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140404213937) do
+ActiveRecord::Schema.define(:version => 20140405055658) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -711,9 +711,17 @@ ActiveRecord::Schema.define(:version => 20140404213937) do
   end
 
   create_table "vimeos", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "user_id"
+    t.string   "oauth_token"
+    t.string   "oauth_secret"
+    t.string   "link"
+    t.string   "nickname"
+    t.string   "uid"
+    t.string   "name"
+    t.text     "description"
+    t.string   "image"
   end
 
 end

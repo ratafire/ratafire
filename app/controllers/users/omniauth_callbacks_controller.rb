@@ -50,7 +50,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 	end
 
 	def vimeo
-		render :text => request.env['omniauth.auth'].to_yaml
+		@user = current_user
+		vimeo = Vimeo.find_for_vimeo_oauth(request.env['omniauth.auth'], @user.id)
+		if vimeo.persisted?
+			flash[:success] = "Connected to Vimeo."
+			redirect_to edit_user_path(current_user)
+		else
+			flash[:success] = "Fail to connect to Vimeo."
+			redirect_to edit_user_path(current_user)
+		end
 	end
 
 end

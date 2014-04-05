@@ -136,6 +136,11 @@ class UsersController < ApplicationController
       deviantart.destroy
       redirect_to(:back)
       flash[:success] = "Disconnected from Deviantart."
+    when "vimeo"
+      vimeo = current_user.vimeo
+      vimeo.destroy
+      redirect_to(:back)
+      flash[:success] = "Disconnected from Vimeo."      
     end
   end
   
