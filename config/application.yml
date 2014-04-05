@@ -27,3 +27,4 @@ VIMEO_KEY: dfef82c16a58e709ec5f9916f3ecdf35c93e5f30
 VIMEO_SECRET: eda766229b43563482bce0a7315677264b0140aa
 
 ZENCODER_API_KEY: 8fa049ee1d0050ea8bd520d085f128a9
+ZENCODER_NOTIFICATION: https://www.ratafire.com/videos/notification/r/encode_notify

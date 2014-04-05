@@ -11,7 +11,7 @@ class Zencoder
   
   def initialize(encode_bucket_url = nil, notification_url = nil)
     @encode_bucket_url = encode_bucket_url
-    @notification_url = notification_url
+    @notification_url = ENV['ZENCODER_NOTIFICATION']
   end
   
   # encode a provided input_video at a given width and height, and dump the thumbnail into the thumbnail_destination
@@ -29,7 +29,7 @@ class Zencoder
         :public => 1,
         :notifications => [{
           :format => "json",
-          :url => @notification_url
+          :url => ENV['ZENCODER_NOTIFICATION']
         }],
         :thumbnails => {
           :number => 1,
