@@ -1,6 +1,5 @@
 class MajorpostsController < ApplicationController
 	layout "application"
-	before_filter :signed_in_user
 	#autocomplete :tag_list, :name
 
 	def create

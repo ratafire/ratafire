@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
 	layout 'application'
 	require 'will_paginate/array'
-	before_filter :signed_in_user
 	before_filter :assigned_user, only: [:newmajorpost]
 	before_filter :project_creator, only: [:edit, :settings, :destroy]
 
