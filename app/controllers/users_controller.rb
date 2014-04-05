@@ -18,6 +18,11 @@ class UsersController < ApplicationController
   		#Find user by username
 		@user = User.find(params[:id])
     active_user
+    unless @user.website[/\Ahttp:\/\//] || @user.website[/\Ahttps:\/\//]
+      @user_website = "http://#{@user.website}"
+    else
+      @user_website = @user.website
+    end
     @majorpost = @user.majorposts
     @project = @majorpost.project
     @comments = @user.comments
