@@ -17,7 +17,7 @@
 		<%= tag :meta, property: "og:url", content: request.scheme+"://"+request.host+"/"+@user.username %>
 		<%= tag :meta, property: "og:title", content: "Ratafire - "+@user.fullname %>
 		<%= tag :meta, property: "og:image", content: @user.profilephoto.url(:preview) %>
-		<%= tag :meta, property: "og:type", content: "article" %>
+		<%= tag :meta, property: "og:type", content: "website" %>
 	<% end %>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
