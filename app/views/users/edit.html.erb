@@ -36,7 +36,9 @@
 									<li>
 										<% if @user.profilephoto? %><%= link_to "x", photo_delete_path(@user), method: :delete, title:"Remove",class:"no_ajaxify btn-delete tipsy-tipsy" %><% end %>
 									</li>
+									<% if @user.profilephoto == nil %>
 									<li>
+
 										<!-- Cutter --><ol style="margin-top: 10px;"></ol>
 									<%= form_for(@user, :html => { :multipart => true, :class => 'no_ajaxify' },:validate => true) do |f| %>
 									<ol class="photo-input">
@@ -56,7 +58,7 @@
 
 									<% end %>
 									</li>
-
+									<% end %>
 									<!-- Cutter --><ol style="margin-top: 70px;"></ol>
 									</div><!-- end#image-placer-->
 							</div><!-- end.textbox-mini-->
