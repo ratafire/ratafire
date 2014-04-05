@@ -46,9 +46,7 @@
 							<%= render 'projects/inspiring' %>
 
 							<!-- Tools -->
-							<% if signed_in? %>
 								<%= render 'projects/toolbox'%>
-							<% end %>
 
 							<!-- Tags -->
 							<% unless @project.tags.blank? %>

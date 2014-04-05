@@ -10,7 +10,9 @@
 
 <div class="textbox-mini">
 							<div class="toolbox">
+								<% if user_signed_in? then %>
 									<% if @liked_project then %>
+									<li>
 										<!-- like -->
 										<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= @project.id%>project-like" style="display:none;">
 										</div><% end %>
@@ -24,9 +26,12 @@
 										<!-- unlike -->
 										<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unlike" id="<%= @project.id%>project-unlike" style="display:none;">
 										</div><% end %>										
-									<% end %>	
-								</li>  <span id="<%= @project.id %>liked-count"><%= @project.liked_projects.count %></span> 
+									<% end %><!-- end.@liked_project-->
+										
+								</li>  
+								<% end %> <!-- end.if user_signed_in? --><li id="<%= @project.id %>liked-count"><%= @project.liked_projects.count %></li>
 								<li>
+
 									<!-- Twitter -->
 									<div class="btn btn-twitter">
 										<a href="https://twitter.com/share" class="twitter-share-button" data-count="none"></a>

@@ -35,16 +35,18 @@ class ProjectsController < ApplicationController
 		@bifrost = Bifrost.new(params[:bifrost])
 		@bifrost.connections.build(params[:connection])
 		#likes
-		if LikedProject.find_by_project_id_and_user_id(@project.id,current_user.id) != nil then
-			@liked_project = true
-		else
-			@liked_project = false
-		end
-		if @majorpost != nil && LikedMajorpost.find_by_majorpost_id_and_user_id(@majorpost.id,current_user.id) != nil then
-			@liked = true
-		else
-			@liked = false
-		end
+		if user_signed_in? then
+			if LikedProject.find_by_project_id_and_user_id(@project.id,current_user.id) != nil then
+				@liked_project = true
+			else
+				@liked_project = false
+			end
+			if @majorpost != nil && LikedMajorpost.find_by_majorpost_id_and_user_id(@majorpost.id,current_user.id) != nil then
+				@liked = true
+			else
+				@liked = false
+			end
+		end	
 	end
 
 	def update

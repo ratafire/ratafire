@@ -260,7 +260,7 @@ module ApplicationHelper
 
 	#Subscriber Status
 	def subscriber_status
-		if current_user.profilephoto? then
+		if user_signed_in? && current_user.profilephoto? then
 			if current_user.github != nil || current_user.facebook != nil then
 				return true
 			else

@@ -25,7 +25,8 @@
 		<%= link_to "Next Step", subscribe_path(@user), class:"btn btn-medium btn-medium-green no_ajaxify"%>
 	</div>
 	<% else %>
-		<div class="lightbox2-bordered">
+		<% if user_signed_in? %>
+						<div class="lightbox2-bordered">
 							<div class="textbox-mini">
 								<h4 style="color:#2297ce;">To subscribe to other users you must</h4>
 								<% unless current_user.profilephoto? then %>
@@ -37,5 +38,13 @@
 							</div><!-- end.textbox-mini-->
 
 						</div><!-- end.lightbox2-bordered-->
+		<% else %>
+								<div class="lightbox2-bordered">
+							<div class="textbox-mini" style="text-align:right;color:#999;margin-top:20px;">
+									<%= link_to "Sign in", new_user_session_path , class: "no_ajaxify" %> to subscribe to <%= @user.fullname %>. Don't have an account? <%= link_to 'Sign up', beta_path, class:"no_ajaxify" %> for Beta.	
+										</div><!-- end.textbox-mini-->
+
+						</div><!-- end.lightbox2-bordered-->			
+		<% end %><!-- end.if user_signed_in?-->				
 	<% end %>					
 </div>
