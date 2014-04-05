@@ -95,11 +95,13 @@ class MajorpostsController < ApplicationController
 		@bifrost = Bifrost.new(params[:bifrost])
 		@bifrost.connections.build(params[:connection])	
 		#likes majorpost
-		if LikedMajorpost.find_by_majorpost_id_and_user_id(@majorpost.id,current_user.id) != nil then
-			@liked = true
-		else
-			@liked = false
-		end
+		if user_signed_in? then
+			if LikedMajorpost.find_by_majorpost_id_and_user_id(@majorpost.id,current_user.id) != nil then
+				@liked = true
+			else
+				@liked = false
+			end
+		end	
 	end
 
 	def chapter

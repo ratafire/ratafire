@@ -27,9 +27,11 @@
 									</div>
 								<% else %>
 									<!-- Reopoen -->
-									<div class="btn-edit-right" id="edit-project-header">
-										<%= link_to i_will_be_back_path(@project.creator, @project), class:"no_ajaxify" do %><div class="btn-delete" style="width: 45px;">Reopen</div><% end %>
-									</div>	
+									<% if @project.creator == current_user %>
+										<div class="btn-edit-right" id="edit-project-header">
+											<%= link_to i_will_be_back_path(@project.creator, @project), class:"no_ajaxify" do %><div class="btn-delete" style="width: 45px;">Reopen</div><% end %>
+										</div>
+									<% end %>		
 								<% end %><!-- end if @artwork.project == nil-->	
 
 
