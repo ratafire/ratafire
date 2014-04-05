@@ -1,4 +1,13 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:title", content: "Ratafire" %>
+		<%= tag :meta, property: "og:description", content: "Ratafire is a site for you to share, collaborate and fund open creative and research works." %>
+		<%= tag :meta, property: "og:image", content: image_tag("betabg.jpg") %>	
+	<% end %>
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
