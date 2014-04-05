@@ -2,6 +2,9 @@ class UpdatesController < ApplicationController
 	layout 'application'
 	require 'will_paginate/array'
 
+	before_filter :signed_in_user, 
+				only: [:subscribing_update, :followed_tags, :liked]
+
 	def interesting
 		@user = User.find(params[:id])
 		#If subscribing anyone, route to subscribing
@@ -82,67 +85,56 @@ class UpdatesController < ApplicationController
 	end
 
 	def art
-		@user = current_user
 		gon.activebutton = "art"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "art").paginate(page: params[:page], :per_page => 20)
 	end
 
 	def music
-		@user = current_user
 		gon.activebutton = "music"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "music").paginate(page: params[:page], :per_page => 20)
 	end
 
 	def games
-		@user = current_user
 		gon.activebutton = "games"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "games").paginate(page: params[:page], :per_page => 20)
 	end	
 
 	def writing
-		@user = current_user
 		gon.activebutton = "writing"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "writing").paginate(page: params[:page], :per_page => 20)
 	end
 
 	def videos
-		@user = current_user
 		gon.activebutton = "videos"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "videos").paginate(page: params[:page], :per_page => 20)
 	end	
 
 	def math
-		@user = current_user
 		gon.activebutton = "math"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "math").paginate(page: params[:page], :per_page => 20)
 	end		
 
 	def science
-		@user = current_user
 		gon.activebutton = "science"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "science").paginate(page: params[:page], :per_page => 20)
 	end			
 
 	def humanity
-		@user = current_user
 		gon.activebutton = "humanity"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "humanity").paginate(page: params[:page], :per_page => 20)
 	end			
 
 	def engineering
-		@user = current_user
 		gon.activebutton = "engineering"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "engineering").paginate(page: params[:page], :per_page => 20)
 	end			
 
 	def featured
-		@user = current_user
 		gon.activebutton = "staffpicks"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(featured: true).paginate(page: params[:page], :per_page => 20)
 	end
 
 	def all
-		@user = current_user
 		gon.activebutton = "all"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Project"]).paginate(page: params[:page], :per_page => 20)
 	end		
@@ -175,4 +167,15 @@ private
 		end	
 	end 
 
+  	#Devise 
+    def current_user?(user)
+      user == current_user
+    end
+
+  	#See if the user is signed in?
+    def signed_in_user
+      unless signed_in?
+        redirect_to new_user_session_path, notice:"Please sign in." unless signed_in?
+      end
+    end    
 end
