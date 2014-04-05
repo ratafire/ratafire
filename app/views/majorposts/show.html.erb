@@ -22,7 +22,7 @@
 		<%= tag :meta, property: "og:type:profile:username", content: @majorpost.user.fullname %>
 		<%= tag :meta, property: "og:type", content: "object" %>
 		<%= tag :meta, property: "og:title", content: @majorpost.title %>
-		<%= tag :meta, property: "og:url", content: user_project_majorpost_path(@project.creator, @project, @majorpost) %>
+		<%= tag :meta, property: "og:url", content: request.scheme+"://"+request.host+user_project_majorpost_path(@project.creator, @project, @majorpost) %>
 			
 		<% if @majorpost.artwork != nil %>
 			<%= tag :meta, property: "og:image", content: @majorpost.artwork.image.url(:preview) %>

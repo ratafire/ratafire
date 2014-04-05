@@ -16,7 +16,7 @@
 	<% content_for :head do %>	
 		<%= tag :meta, property: "og:url", content: request.scheme+"://"+request.host+"/"+@user.username %>
 		<%= tag :meta, property: "og:title", content: "Ratafire - "+@user.fullname %>
-		<%= tag :meta, property: "og:image", content: @user.profilephoto.url(:preview) %>
+		<%= tag :meta, property: "og:image", content: @user.profilephoto.url(:small) %>
 		<%= tag :meta, property: "og:type", content: "website" %>
 	<% end %>
 
@@ -64,7 +64,7 @@
 												<% if @user == current_user %>
 													<%= best_in_place @user, :bio, :classes =>"best_user_bio", :type => "textarea" %> <span class="btn btn-edit" id="best_user_bio-edit" style="display:none;"></span>
 												<% else %>
-													<%= sanitize @user.bio %> 
+													<div class="best_user_bio"><%= sanitize @user.bio %></div> 
 												<% end %>
 											</ul>
 										<% end %>
