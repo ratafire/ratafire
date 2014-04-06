@@ -54,9 +54,9 @@
 		<% if activity.trackable.published == true %>
 		<div id="majorpost-excerpt">
 			<!-- When there are artwork and video -->
-			<% if (activity.trackable.video_id != nil && activity.trackable.video_id != "") || activity.trackable.artwork != nil %>
+			<% if video_true_or_artwork_true(activity.trackable.id) %>
 				<!-- With Video but without artwork -->
-				<% if (activity.trackable.video_id != nil && activity.trackable.video_id != "") && activity.trackable.artwork == nil %>
+				<% if video_true_and_artwork_false(activity.trackable.id) %>
 					<div class="majorpost-video-one">
 						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 								<!-- Internal Thumbnail-->
@@ -80,7 +80,7 @@
 					</div>	
 				<% end %><!-- end of with video but without artwork-->
 				<!-- With Artwork without Video -->
-				<% if (activity.trackable.video_id != nil && activity.trackable.video_id != "") && activity.trackable.artwork != nil %>
+				<% if video_false_and_artwork_true(activity.trackable.id) %>
 					<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 						<div class="majorpost-postimages-one">
 							<img src="<%= activity.trackable.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
@@ -97,7 +97,7 @@
 					</div>
 				<% end %>	
 				<!-- With Artwork and with Video -->
-				<% if activity.trackable.video_id != "" && activity.trackable.artwork != nil %>				
+				<% if video_true_and_artwork_true(activity.trackable.id) %>				
 					<div class="majorpost-video-one">
 							<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 									<!-- Internal Thumbnail-->

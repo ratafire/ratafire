@@ -271,4 +271,63 @@ module ApplicationHelper
 		end
 	end
 
+	#Create Project Activity Helpers
+
+	#Video true or Artwork true
+	def video_true_or_artwork_true(project_id)
+		activity = Project.find(project_id)
+		if activity.video_id != nil && activity.video_id != "" then
+			return true
+		else
+			if activity.artwork != nil then
+				return true
+			else
+				return false
+			end
+		end
+	end
+
+	#Video true and Artwork false
+	def video_true_and_artwork_false(project_id)
+		activity = Project.find(project_id)
+		if activity.video_id != nil && activity.video_id != "" then
+			if activity.artwork == nil then
+				return true
+			else
+				return false	
+			end
+		else
+			return false	
+		end
+	end
+
+	#Video false and Artwork true
+	def video_false_and_artwork_true(project_id)
+		activity = Project.find(project_id)
+		if activity.video_id == nil || activity.video_id == "" then
+			if activity.artwork != nil then
+				return true
+			else
+				return false	
+			end
+		else
+			return false	
+		end		
+	end
+
+	#Video true and artwork true
+	def video_true_and_artwork_true(project_id)
+		activity = Project.find(project_id)
+		if activity.video_id != nil && activity.video_id != "" then
+			if activity.artwork != nil then
+				return true
+			else
+				return false
+			end	
+		else
+			return false	
+		end
+	end
+
+
 end
