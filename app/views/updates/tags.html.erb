@@ -3,6 +3,15 @@
 	<!-- Page Title -->
 	<% provide(:title, @tag_name) %>
 
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>	
+		<%= tag :meta, property: "og:url", content: request.scheme+"://"+request.host+"/"+@user.username %>
+		<%= tag :meta, property: "og:title", content: "Ratafire - "+@tag_name %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:description", content: truncate(wikipedia(@tag_name), :length => 110) %>
+	<% end %>	
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Additional Background Slot ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 	<% content_for(:additional_background) do %>
