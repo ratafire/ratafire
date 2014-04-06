@@ -48,7 +48,7 @@
 		<div id="majorpost-comments">
 		</div>
 		<div id="majorpost-time">
-			Created by <%= activity.trackable.creator.fullname %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago.
+			Created by <%= link_to activity.trackable.creator.fullname,user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago.
 		</div>
 		<!-- When it is not a draft-->
 		<% if activity.trackable.published == true %>
