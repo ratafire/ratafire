@@ -27,8 +27,8 @@
 		<% if @majorpost.artwork != nil %>
 			<%= tag :meta, property: "og:image", content: @majorpost.artwork.image.url(:preview) %>
 		<% else %>
-			<% if @majorpost.majorpostimages.count > 0 %>
-				<%= tag :meta, property: "og:image", content: @majorpost.majorpostimages.first.url %>	
+			<% if @majorpost.postimages.count > 0 %>
+				<%= tag :meta, property: "og:image", content: @majorpost.postimages.first.url %>	
 			<% end %>	
 		<% end %>	
 
