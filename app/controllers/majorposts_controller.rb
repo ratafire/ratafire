@@ -71,6 +71,10 @@ class MajorpostsController < ApplicationController
 		if @majorpost.video_id != "" && @majorpost.video_id != nil then
 			@video = Video.find(@majorpost.video_id)
 		end
+		#Icon
+		if @project.icon_id != "" && @project.icon_id != nil then
+			@icon = Icon.find(@project.icon_id)	
+		end		
 	end
 
 	def show
