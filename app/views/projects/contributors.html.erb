@@ -41,6 +41,7 @@
 									</div>
 								</div>
 							</div>
+						<% if signed_in? %>	
 							<!-- Accept Invitation -->
 							<% if invited?(current_user) then%>
 								<%= render 'projects/accept_invitation' %>
@@ -51,6 +52,7 @@
 									<%= render 'projects/invited_list' %>
 								<% end %>
 							<% end %>
+						<% end %>
 							<!-- Add Contributors -->
 							<% if project_edit(@project) %>
 								<%= render 'projects/add_contributors'%>

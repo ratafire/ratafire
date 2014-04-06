@@ -192,7 +192,9 @@ class ProjectsController < ApplicationController
 		@ibifrost = Ibifrost.new(params[:ibifrost])
 		@ibifrost.inviteds.build(params[:invited])	
 		#Inviteds
-		@invited = @project.inviteds.find_by_user_id(current_user.id)	
+		if signed_in? then
+			@invited = @project.inviteds.find_by_user_id(current_user.id)
+		end	
 	end
 
 	def mplist
