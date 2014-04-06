@@ -159,11 +159,13 @@ private
 		#Follower count
 		@follower_count = @tag.taggings.where(:taggable_type => "User").count
 		#Check if the current user is following this tag
-		following_tag?(@tag.name)
-		if @tag_name_slug == nil
-			@wikipedialink = "http://en.wikipedia.org/wiki/" + @tag.name
-		else
-			@wikipedialink = "http://en.wikipedia.org/wiki/" + tag_name_slug
+		if signed_in? 
+			following_tag?(@tag.name)
+			if @tag_name_slug == nil
+				@wikipedialink = "http://en.wikipedia.org/wiki/" + @tag.name
+			else
+				@wikipedialink = "http://en.wikipedia.org/wiki/" + tag_name_slug
+			end	
 		end	
 	end 
 

@@ -72,9 +72,7 @@
 							<%= render 'majorposts/inspiring'%>
 
 							<!-- Tools -->
-							<% if signed_in? %>
-								<%= render 'majorposts/toolbox'%>
-							<% end %>
+							<%= render 'majorposts/toolbox'%>
 
 							<!-- Tags -->
 							<% unless @majorpost.tags.blank? %>

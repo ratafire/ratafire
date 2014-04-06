@@ -6,6 +6,7 @@
 					<h5><%= link_to @wikipedialink, target:"_blank" do %><%= truncate(wikipedia(@tag_name), :length => 110) %><% end %> <%= link_to tag_followers_path(@tag.name) do %><span class="btn-delete-light"><%= @follower_count %> Followers</span><% end %>
 					  
 					  <!-- See if the user is following this tag-->
+					<% if signed_in? %>  
 					  <% if @following == true %>
 					  	<!-- When following -->
 					  	<!-- Follow -->
@@ -33,7 +34,7 @@
 					 		</span>
 					  	<% end %>					  	
 					  <% end %><!-- end.if @following == true -->	
-					  
+					<% end %><!-- end.if signed_in?-->  
 
 					</h5>
 			</ul>	
