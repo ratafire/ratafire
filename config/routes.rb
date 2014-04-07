@@ -11,9 +11,8 @@ Ratafire::Application.routes.draw do
   devise_for :users, :controllers => { :invitations => 'users/invitations', :omniauth_callbacks => "users/omniauth_callbacks" }
 
   mount RedactorRails::Engine => '/redactor_rails'
-  authenticate :admin do
-    mount Resque::Server, :at => "/resque"
-  end  
+  
+  mount Resque::Server, :at => "/resque"
 
   get "users/new"
 
