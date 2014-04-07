@@ -1,19 +1,19 @@
 class DisableWorker
 	@queue = :disable_queue
 
-	def perform(user_id)
+	def self.perform(user_id)
 		@user = User.find(user_id)
 		#User as subscribed
-		user_as_subscribed
+		self.user_as_subscribed
 		#User as subscriber
-		user_as_subscriber
+		self.user_as_subscriber
 		
 	end
 
 private
 	
 	#User as subscribed
-	def user_as_subscribed
+	def self.user_as_subscribed
 		if @user.subscriptions.count != 0 then
 			@user.subscriptions.each do |s|
 				@history = SubscriptionHistory.new
@@ -45,7 +45,7 @@ private
 
 
 	#User as subscriber
-	def user_as_subscriber
+	def self.user_as_subscriber
 		if @user.reverse_subscriptions.count != 0 then
 			@user.reverse_subscriptions.each do |s|
 				@history = SubscriptionHistory.new

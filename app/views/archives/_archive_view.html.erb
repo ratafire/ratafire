@@ -30,7 +30,7 @@
 			<h2><%= link_to @archive.title, user_project_archive_path(@majorpost.user,@project,@majorpost), class:"no_ajaxify" %></h2>
 			<ul></ul>
 			<ol><%= link_to @archive.user.fullname , @archive.user, class:"no_ajaxify" %> <span>[</span><%= @archive.user.username %><span>]</span><% unless @archive.user.tagline.blank?%><span>,</span> <%= @archive.user.tagline%><% end %></ol>
-			<ol style="margin-top:0px;"><%= time_ago_in_words(@archive.created_time) %> ago. This is an archive, <%= link_to 'view original', user_project_majorpost_path(@project.creator, @project,@archive.majorpost), class:"no_ajaxify"%>.</ol>
+			<ol style="margin-top:0px;"><%= time_ago_in_words(@archive.created_time) %> ago.<span class="has-archive"> This is an archive, <%= link_to 'view original', user_project_majorpost_path(@project.creator, @project,@archive.majorpost), class:"no_ajaxify"%>.</span></ol>
 		</div>
 
 		<!-- Post Content -->

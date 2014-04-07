@@ -2,13 +2,13 @@ class ArchiveWorker
 	@queue = :archive_queue
 	#could be retrying all the time, this has to be thread save
 
-	def perform(project_id)
+	def self.perform(project_id)
 		@project = Project.find(project_id)
 		#save the project archive
-		project_archiver
+		self.project_archiver
 		#start archiving the majorposts		
 		@project.majorposts.where(:published => true).each do |majorpost|
-			majorpost_archiver(majorpost)
+			self.majorpost_archiver(majorpost)
 			if majorpost.edit_permission == "free" then
 				majorpost.edit_permission = "edit"
 				majorpost.save
@@ -21,7 +21,7 @@ class ArchiveWorker
 private
 
 		#Project archive maker
-		def project_archiver 
+		def self.project_archiver 
 			archive = Archive.create
 			archive.title = @project.title
 			archive.content = @project.about
@@ -76,7 +76,7 @@ private
 		end
 
 		#Majorpost archive maker
-		def majorpost_archiver(majorpost)
+		def self.majorpost_archiver(majorpost)
 			archive = Archive.create
 			archive.title = majorpost.title
 			archive.content = majorpost.content

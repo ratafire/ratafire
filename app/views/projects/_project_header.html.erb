@@ -8,6 +8,7 @@
 </script>
 
 <div class="project-header-wrapper" id="project-header-case">
+				<% if user_signed_in? %>
 					<!-- Flag for completion -->
 					<% if @project.flag == true && project_edit(@project) %>
 						<%= render 'projects/flag' %>
@@ -16,6 +17,7 @@
 					<% if @project.edit_permission == "freeze" && @project.abandoned != true %>
 						<%= render 'projects/archiving' %>	
 					<% end %>
+				<% end %>	
 								<!-- if current user has the right to edit -->
 								<% if @project.creator == current_user && @project.abandoned != true %>
 									<!-- Settings/Edit -->
@@ -52,6 +54,7 @@
 	<div id="project-title">
 						<!-- Project Name -->
 						<h1 >
+
 							<!-- Completed?-->
 							<% if @project.complete == true %>
 								<li class="tipsy-tipsy", title="Completed!">[C]</li>
@@ -63,7 +66,7 @@
 							<!-- Abandoned Flag? -->
 							<% if @project.abandoned == true %>
 								<li class="tipsy-tipsy" style="color:#ccc;", title="Abandoned">[A]</li>
-							<% end %>
+							<% end %>	
 							<%= link_to @project.title, user_project_path(@project.creator,@project), class:"no_ajaxify" %>
 						</h1>
 						<ul>

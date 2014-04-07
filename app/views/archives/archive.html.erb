@@ -36,17 +36,20 @@
 							</div>
 							</div>
 							<!-- Completion notice -->
-							<div class="lightbox4" style="border-bottom: 1px solid #e2e2e2;">
+							<div class="lightbox4-archive" style="border-bottom: 1px solid #e2e2e2;">
 									<!-- User Profile Photo -->
-								<li>
+								<div class="project-show-icon">
+									<div class="project-icon-small">
 									<% if @project_archive.icon != nil %>
 										<div class="user-icon-small-holder" style="background-image:url(<%= @project_archive.icon.image.url(:small)%>);"></div>
 									<% else %>
 										<div class="user-icon-small-holder" style="background-image:url(/assets/projecticon_small.jpg);"></div>
 									<% end %>
-								</li>
-								<ul><h2 style="color:#2297ce;"><%= @project_archive.title %> is completed on <%= @project.completion_time.to_formatted_s(:long_ordinal) %>, <%= time_ago_in_words(@project.completion_time)%> ago.</h2>
-								</ul>
+									</div><!-- end.project-icon-small-->
+								</div><!-- end.project-show-icon-->
+								<div class="project-show-title" style="margin-left:60px;margin-top:4px;">
+									<h2 style="color:#2297ce;"><%= @project_archive.title %> is completed on <%= @project.completion_time.to_formatted_s(:long_ordinal) %>, <%= time_ago_in_words(@project.completion_time)%> ago.</h2>
+								</div>
 							</div>
 							<!-- Major Posts -->
 							<div class="archive-case-majorpost">

@@ -52,7 +52,7 @@
 								<h2><%= link_to @majorpost.title, user_project_majorpost_path(@majorpost.user,@project,@majorpost), class:"no_ajaxify" %></h2>
 								<ul></ul>
 								<ol><%= link_to @majorpost.user.fullname , @majorpost.user, class:"no_ajaxify" %> <span>[</span><%= @majorpost.user.username %><span>]</span><% unless @majorpost.user.tagline.blank?%><span>,</span> <%= @majorpost.user.tagline%><% end %></ol>
-								<ol style="margin-top:0px;"><%= time_ago_in_words(@majorpost.created_at) %> ago<% if @majorpost.archive != nil%>. This post has <%= link_to 'an archive', user_project_archive_path(@project.creator, @project, @majorpost.archive), class:"no_ajaxify"%>.<% end %></ol>
+								<ol style="margin-top:0px;"><div class="has-archive"><%= time_ago_in_words(@majorpost.created_at) %> ago<% if @majorpost.archive != nil%>. This post has <%= link_to 'an archive', user_project_archive_path(@project.creator, @project, @majorpost.archive), class:"no_ajaxify"%>.<% end %></div></ol>
 															<!-- Fullscreen Button -->
 							</div>
 							

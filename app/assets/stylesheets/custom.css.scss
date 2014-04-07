@@ -1306,6 +1306,18 @@ box-shadow: inset 0px 0px 34px 0px rgba(75,132,172,0.1);
 
 }
 
+.lightbox4-archive {
+
+	border-top: 1px solid #e2e2e2;
+	color:#999999;
+	padding: 10px 0 20px 0;
+				    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+
+}
+
 .lightbox5 {
 	color:#333;
 	padding: 0 0 20px 0 !important;
@@ -4433,6 +4445,13 @@ box-shadow: inset 0px 0px 34px 0px rgba(75,132,172,0.1);
 	ol {
 		font-size: 0.9em;
 		color: #999;
+	}
+}
+
+.has-archive{
+	color: #ccc;
+	a {
+		color: #ccc;
 	}
 }
 
