@@ -17,6 +17,9 @@ class BetaUsersController < ApplicationController
 		end
 	end
 
+	def status
+	end
+
 	def show
 		@beta_users = BetaUser.where(:approved => nil, :ignore => nil).paginate(page: params[:page], :per_page => 50)
 		
@@ -68,6 +71,7 @@ class BetaUsersController < ApplicationController
 		redirect_to(:back)
 		flash[:success] = "You ignored "+@beta_user.fullname+" !"
 	end
+
 
 private
 

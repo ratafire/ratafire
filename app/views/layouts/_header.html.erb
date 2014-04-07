@@ -49,6 +49,7 @@
 
 			<!-- User Name -->
 			<div id="namebox" >
+				<%= link_to "Beta", beta_status_path, class:"no_ajaxify home"%>
 				<%if current_user.admin? %><%= link_to "Admin",beta_admin_path, class:"no_ajaxify home"%><% end %>
 				<%= link_to "Home",interesting_homepage_path(current_user), class:"no_ajaxify home"%>
 				<%= link_to "Realms", featured_path, class:"no_ajaxify home"%>
@@ -60,6 +61,7 @@
 
 				<!-- Settings Button -->
 				<div id="namebox" >
+					<%= link_to "Beta", beta_status_path, class:"no_ajaxify home"%>
 					<%= link_to "Realms", all_path, class:"no_ajaxify home2"%>
 				</div>	
 				<div id="settingsbox" >	
