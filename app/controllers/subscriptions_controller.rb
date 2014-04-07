@@ -52,7 +52,6 @@ class SubscriptionsController < ApplicationController
 				#Create a recurring pipeline with Amazon
 				redirect_to AmazonFlexPay.recurring_pipeline(@amazon_recurring.uuid, callback_url,
 					:transaction_amount => @amazon_recurring.transactionAmount,
-					:validity_start => @amazon_recurring.validityStart.to_time.to_i,
 					:recipient_token => @amazon_recurring.recipientToken,
 					:recurring_period => @amazon_recurring.recurringPeriod,
 					:payment_reason => payment_reason)
@@ -112,7 +111,8 @@ class SubscriptionsController < ApplicationController
 		if @subscription_record.duration == nil then
 			@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
 		else
-			@subscription_record.duration = @subscription_record.duration + @subscription.deleted_at - @subscription.created_at
+			duration = @subscription.deleted_at - @subscription.created_at
+			@subscription_record.duration = @subscription_record.duration + duration
 		end
 		@subscription_record.save		
 		#destroy activities as well if accumulated total is 0
@@ -144,7 +144,8 @@ class SubscriptionsController < ApplicationController
 		if @subscription_record.duration == nil then
 			@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
 		else
-			@subscription_record.duration = @subscription_record.duration + @subscription.deleted_at - @subscription.created_at
+			duration = @subscription.deleted_at - @subscription.created_at
+			@subscription_record.duration = @subscription_record.duration + duration
 		end				
 		@subscription_record.save
 		#destroy activities as well if accumulated total is 0
@@ -183,7 +184,7 @@ private
     	@subscribed = User.find(params[:id])
     	@subscriber = current_user
     	#Check History to see if the last subscription is within one month
-    	if subscription_permission_30days then
+    	if subscription_permission_30days == false then
     		redirect_to(:back)
     	else
         	#Check if the subscribed has opened subscription

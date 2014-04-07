@@ -12,19 +12,19 @@ class AmazonRecurring < ActiveRecord::Base
  	 	@amazon_recurring.recurringPeriod = "1 month"
  	 	@amazon_recurring.recipientToken = options[:recipientToken]
 
- 	 	year = Time.now.year.to_i
-		month = Time.now.month.to_i
+ 	 	#year = Time.now.year.to_i
+		#month = Time.now.month.to_i
 		#if no change of year
-		if month < 12 then
-			month = month + 1
-		else
-			year = year + 1
-			month = 1
-		end
-		day = 1
-		date = DateTime.new(year,month,day)
+		#if month < 12 then
+		#	month = month + 1
+		#else
+		#	year = year + 1
+		#	month = 1
+		#end
+		#day = 1
+		#date = DateTime.new(year,month,day)
 
- 	 	@amazon_recurring.validityStart = date
+ 	 	#@amazon_recurring.validityStart = date
  	 	@amazon_recurring.save
  	 	@amazon_recurring
  	 end

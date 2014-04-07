@@ -5,7 +5,7 @@ class Subscription < ActiveRecord::Base
 
   #track activities
   include PublicActivity::Model
-  tracked except: [:update, :destroy], owner: ->(controller, model) { controller && controller.current_user }  
+  tracked except: [:create, :update, :destroy], owner: ->(controller, model) { controller && controller.current_user }  
 
   belongs_to :subscriber, class_name: "User"
   belongs_to :subscribed, class_name: "User"

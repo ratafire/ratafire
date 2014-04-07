@@ -8,7 +8,7 @@ class AmazonController < ApplicationController
 		port = Rails.env.production? ? "" : ":3000"
 		callback_url = "#{request.scheme}://#{request.host}#{port}/r/subscriptions/amazon_payments/recipient/postfill"
 		redirect_to AmazonFlexPay.recipient_pipeline(@amazon_recipient.uuid, callback_url,
-			:recipient_pays_fee => true)
+			:recipient_pays_fee => true, :max_variable_fee => 9.00)
 	end
 
 	def post_create_recipient
@@ -70,13 +70,24 @@ class AmazonController < ApplicationController
 		#SB 		Success status for the ACH (bank account) payment method
 		#SC 		Success status for the credit card payment method
 		if params['status'] == 'SA' || params['status'] == 'SB' || params['status'] == 'SC' then
+			#Create Subscription
+
 			@subscription.activated = true
 			@subscription.activated_at = Time.now
 			#Create activity
+			#For subscribed
 			@activity = PublicActivity::Activity.new
 			@activity.trackable_id = @subscription.id
 			@activity.trackable_type = "Subscription"
 			@activity.owner_id = @subscription.subscribed.id
+			@activity.owner_type = "User"
+			@activity.key = "subscription.create"
+			@activity.save
+			#For subscriber
+			@activity = PublicActivity::Activity.new
+			@activity.trackable_id = @subscription.id
+			@activity.trackable_type = "Subscription"
+			@activity.owner_id = @subscription.subscriber.id
 			@activity.owner_type = "User"
 			@activity.key = "subscription.create"
 			@activity.save
@@ -95,6 +106,13 @@ class AmazonController < ApplicationController
 			flash[:success] = "You subscribed to "+@subscription.subscribed.fullname+"!"
 		else
 			@subscription.destroy
+			PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|
+				if activity != nil then 
+					activity.deleted = true
+					activity.deleted_at = Time.now
+					activity.save
+				end
+			end
 			flash[:success] = "The subscription to "+@subscription.subscribed.fullname+" did not go through."
 		end
 		redirect_to subscribers_path(@subscription.subscribed_id)

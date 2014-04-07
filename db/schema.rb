@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140405055658) do
+ActiveRecord::Schema.define(:version => 20140407084639) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -507,8 +507,8 @@ ActiveRecord::Schema.define(:version => 20140405055658) do
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
-    t.decimal  "duration",             :precision => 32, :scale => 6
     t.boolean  "accumulated",                                         :default => false
+    t.decimal  "duration",             :precision => 32, :scale => 6
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -583,6 +583,7 @@ ActiveRecord::Schema.define(:version => 20140405055658) do
     t.string   "status"
     t.integer  "subscription_record_id"
     t.string   "amount"
+    t.string   "uuid"
   end
 
   create_table "twitters", :force => true do |t|
