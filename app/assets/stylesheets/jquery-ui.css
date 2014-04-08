@@ -294,7 +294,7 @@ margin: 0 10px 0 0;
 .ui-widget-content { 
 	border: 1px solid #dddddd; 
 	background-color: rgba(255,255,255,0.98);
-	color: #333333; 
+	color: #666; 
 }
 .ui-widget-content2 { 
 	border: 1px solid #cccccc; 

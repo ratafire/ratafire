@@ -3,12 +3,16 @@ class AmazonController < ApplicationController
 	def pre_create_recipient
 		@user = User.find(params[:id])
 		user_id = @user.id
+		#Destroy existed recipients
+		if @user.amazon_recipient != nil then
+			@user.amazon_recipient.destroy
+		end
 		@amazon_recipient = AmazonRecipient.prefill!(:user_id => user_id)
 		#Create a recipient pipeline with Amazon
 		port = Rails.env.production? ? "" : ":3000"
 		callback_url = "#{request.scheme}://#{request.host}#{port}/r/subscriptions/amazon_payments/recipient/postfill"
 		redirect_to AmazonFlexPay.recipient_pipeline(@amazon_recipient.uuid, callback_url,
-			:recipient_pays_fee => true, :max_variable_fee => 9.00)
+			:recipient_pays_fee => true, :max_variable_fee => 9 )
 	end
 
 	def post_create_recipient
@@ -18,7 +22,10 @@ class AmazonController < ApplicationController
 		if params['status'] == 'SR' then
 			@user = User.find(@amazon_recipient.user_id)
 			@user.amazon_authorized = true
-			@user.save
+			@user.save	
+		end
+		if @amazon_recipient.tokenID == nil then 
+			@amazon_recipient.destroy
 		end
 		redirect_to subscription_settings_path(current_user)
 	end
@@ -36,6 +43,8 @@ class AmazonController < ApplicationController
 			@user = User.find(params[:id])
 			@user.amazon_authorized = false
 			@user.save
+			#Unsubscribe the subscribers of the user
+			Resque.enqueue(UnsubscribeWorker, @user.id, 7)
 			flash[:success] = "You are disconnected from Amazon Payments."
 		end
 		redirect_to(:back)
@@ -100,6 +109,24 @@ class AmazonController < ApplicationController
 				@subscription_record.subscribed_id = @subscription.subscribed_id
 				@subscription_record.save
 			end
+
+			#Add to User's Subscription amount
+			@subscribed = User.find(@subscription.subscribed_id)
+			case @subscription.amount
+  			when 7.71
+  				@subscribed.subscription_amount = @subscribed.subscription_amount + 7.00
+  			when 13.16
+  				@subscribed.subscription_amount = @subscribed.subscription_amount + 12.00
+  			when 19.24
+  				@subscribed.subscription_amount = @subscribed.subscription_amount + 17.00
+  			when 27.03
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount + 24.00
+  			when 57.54
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount + 50.00
+ 	 		when 114.78
+	  			@subscribed.subscription_amount = @subscribed.subscription_amount + 100.00
+ 	 		end	
+ 	 		@subscribed.save
 
 			@subscription.subscription_record_id = @subscription_record.id
 			@subscription.save

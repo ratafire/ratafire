@@ -32,6 +32,9 @@ class MajorpostsController < ApplicationController
 				if @activity != nil then
 					@activity.tag_list = @majorpost.tag_list
 					@activity.commented_at = @majorpost.commented_at
+					if @majorpost.published == true then
+						@activity.draft = false
+					end
 					@activity.save
 				end				
 				#artwork

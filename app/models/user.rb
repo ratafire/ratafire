@@ -164,9 +164,8 @@ class User < ActiveRecord::Base
 
   #@user.subscribed_by(current_user) => current_user is subscribing @user
   def subscribed_by?(subscriber_id)
-  	subscriptions.find_by_subscriber_id(subscriber_id)
   	if subscriptions != nil then
-  		if subscriptions.where(:deleted => nil).count == 1 then
+  		if subscriptions.where(:deleted => false, :activated => true, :subscriber_id => subscriber_id).count != 0 then
   			return true
   		else
   			return false

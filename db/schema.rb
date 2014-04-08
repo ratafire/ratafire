@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140407084639) do
+ActiveRecord::Schema.define(:version => 20140408090516) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20140407084639) do
     t.boolean  "deleted",        :default => false
     t.boolean  "featured",       :default => false
     t.string   "realm"
+    t.boolean  "draft"
   end
 
   add_index "activities", ["owner_id", "owner_type"], :name => "index_activities_on_owner_id_and_owner_type"
@@ -46,8 +47,8 @@ ActiveRecord::Schema.define(:version => 20140407084639) do
   create_table "amazon_recipients", :force => true do |t|
     t.string   "callerReference"
     t.string   "callerReferenceRefund"
-    t.decimal  "maxFixedFee",                  :precision => 10, :scale => 0
-    t.decimal  "maxVariableFee",               :precision => 10, :scale => 0
+    t.decimal  "maxFixedFee",                  :precision => 10, :scale => 2
+    t.decimal  "maxVariableFee",               :precision => 10, :scale => 2
     t.string   "recipientPaysFee"
     t.datetime "validityExpiry"
     t.datetime "validityStart"
@@ -500,10 +501,10 @@ ActiveRecord::Schema.define(:version => 20140407084639) do
   create_table "subscription_records", :force => true do |t|
     t.integer  "subscriber_id"
     t.integer  "subscribed_id"
-    t.decimal  "accumulated_receive",  :precision => 10, :scale => 0
-    t.decimal  "accumulated_amazon",   :precision => 10, :scale => 0
-    t.decimal  "accumulated_ratafire", :precision => 10, :scale => 0
-    t.decimal  "accumulated_total",    :precision => 10, :scale => 0
+    t.decimal  "accumulated_receive",  :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_amazon",   :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_ratafire", :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_total",    :precision => 10, :scale => 2, :default => 0.0
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
@@ -516,12 +517,12 @@ ActiveRecord::Schema.define(:version => 20140407084639) do
     t.integer  "subscribed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "amount",                 :precision => 10, :scale => 0
+    t.decimal  "amount",                 :precision => 10, :scale => 2
     t.datetime "deleted_at"
-    t.decimal  "accumulated_receive",    :precision => 10, :scale => 0
-    t.decimal  "accumulated_amazon",     :precision => 10, :scale => 0
-    t.decimal  "accumulated_ratafire",   :precision => 10, :scale => 0
-    t.decimal  "accumulated_total",      :precision => 10, :scale => 0
+    t.decimal  "accumulated_receive",    :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_amazon",     :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_ratafire",   :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_total",      :precision => 10, :scale => 2, :default => 0.0
     t.boolean  "amazon_valid",                                          :default => false
     t.integer  "subscription_record_id"
     t.integer  "project_id"
@@ -565,10 +566,10 @@ ActiveRecord::Schema.define(:version => 20140407084639) do
 
   create_table "transactions", :force => true do |t|
     t.datetime "created_at",                                            :null => false
-    t.decimal  "receive",                :precision => 10, :scale => 0
-    t.decimal  "amazon",                 :precision => 10, :scale => 0
-    t.decimal  "ratafire",               :precision => 10, :scale => 0
-    t.decimal  "total",                  :precision => 10, :scale => 0
+    t.decimal  "receive",                :precision => 10, :scale => 2
+    t.decimal  "amazon",                 :precision => 10, :scale => 2
+    t.integer  "ratafire"
+    t.decimal  "total",                  :precision => 10, :scale => 2
     t.boolean  "sucess"
     t.integer  "subscriber_id"
     t.integer  "subscribed_id"
@@ -584,6 +585,8 @@ ActiveRecord::Schema.define(:version => 20140407084639) do
     t.integer  "subscription_record_id"
     t.string   "amount"
     t.string   "uuid"
+    t.decimal  "ratafire_fee",           :precision => 10, :scale => 2
+    t.string   "error"
   end
 
   create_table "twitters", :force => true do |t|

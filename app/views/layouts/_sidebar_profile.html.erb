@@ -14,12 +14,13 @@
 		<% end %>
 	</div>
 
+<% if user_signed_in?%>
 	<% if @user == current_user %>
 		<!-- Create New Button -->
 		<div style="margin-top: 10px;">
 			<%= link_to "CREATE", new_project_path(@user), method: :post,class: "btn btn-medium btn-medium-white no_ajaxify"%>
 		</div>		
-	<% else %>	
+	<% else %>		
 		<% if @user.subscribed_by?(current_user)%>
 			<!-- Subscribing-->
 			<%= link_to unsubscribe_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsubscribe from "+@user.fullname+"? If unsubscribed, you cannot resubscribe to "+@user.fullname+" in one month." do %>
@@ -27,32 +28,33 @@
 					<span class="before">Subscribing</span>
 					<span class="hover">Unsubscribe</span>
 				</div>
-			<% end %>	
-		<% else %>
-			<% if user_signed_in?%>
-				<% if current_user.subscribed_by?(@user)%>
-					<!-- Subscribes you-->
-					<%= link_to remove_subscriber_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from subscribing you? If removed, "+@user.fullname+" cannot resubscribe to you in one month." do%>
-						<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
-							<span class="before">Subscribes You</span>
-							<span class="hover">Remove</span>
-						</div>	
-					<% end %>
-				<% else %>
+			<% end %><!-- end.link_to 
+			-->	
+		<% else %>	
+			<% if current_user.subscribed_by?(@user)%>
+				<!-- Subscribes you-->
+				<%= link_to remove_subscriber_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from subscribing you? If removed, "+@user.fullname+" cannot resubscribe to you in one month." do%>
+					<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
+						<span class="before">Subscribing You</span>
+						<span class="hover">Remove</span>
+					</div>	
+				<% end %>
+
+			<% else %>
 					<!-- Subscribe Button -->
 					<div style="margin-top: 10px;">
 						<%= link_to "SUBSCRIBE", why_path(@user), class: "btn btn-medium btn-medium-green"%>
 					</div>
-				<% end %><!-- end.current_user.subscribed_by?-->
-			<% else %>
-										<!-- Subscribe Button -->
-					<div style="margin-top: 10px;">
-						<%= link_to "SUBSCRIBE", why_path(@user), class: "btn btn-medium btn-medium-green"%>
-					</div>
-			<% end %><!-- end.if user_signed_in?-->		
-		<% end %><!-- end.if@user.subscribed_by?-->	
-	<% end %>
-
+			<% end %><!-- end.current_user.subscribed_by?-->
+		<% end %><!-- end.if @user.subscribed_by?(current_user)-->	
+	<% end %><!-- end.if if @user == current_user-->
+				
+<% else %>
+	<!-- Subscribe Button -->
+	<div style="margin-top: 10px;">
+		<%= link_to "SUBSCRIBE", why_path(@user), class: "btn btn-medium btn-medium-green"%>
+	</div>	
+<% end %><!-- end.if user_signed_in?-->	
 	<!-- Subscribed -->
 	<%= link_to subscribers_path(@user), class:"subscription" do %>
 	<div id="sidebar-subscribed">

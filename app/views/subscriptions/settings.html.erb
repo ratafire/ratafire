@@ -170,6 +170,7 @@
 
       							<!-- Amazon Payments Not Verified -->
       							<% if @user.amazon_authorized != true && @user.amazon_recipient != nil then %>
+      							<% unless @user.amazon_recipient.Status == nil %>
       							<div class="lightbox3">
 									<div class="inputlabel-social">
 										<%= image_tag("amazon.png", class:"tipsy-tipsy", title:"Amazon") %>
@@ -179,9 +180,10 @@
       									<ul>Your Amazon Payments account is not verified.</ul>
       									<ul>Your recipient token: <input onclick="this.select();" class="inputbox" type="recipient" value= <%= @user.amazon_recipient.tokenID %>></ul>
       									<ul>If you need to contact Amazon regarding transaction issues, contact them with the recipient token above.</ul>
-      									<ul><%= link_to "Disconnect your account from Amazon Payments",cancel_recipient_path(@user), id:"amazon-connect", class:"no_ajaxify", style:"color:#999;"%></ul>
+      									<ul><%= link_to "Disconnect your account from Amazon Payments",cancel_recipient_path(@user), id:"amazon-connect", class:"no_ajaxify", style:"color:#999;", :method => :get, :confirm => "Are you sure to disconnect? Disconnect from Amazon Payments will result in losing all your current subscribers."%></ul>
       								</div>
       							</div><!-- end.lightbox3--> 
+      							<% end %>
       							<% end %>
 
       							<!-- Amazon Payments Verified -->  
@@ -191,7 +193,7 @@
 										<%= image_tag("amazon.png", class:"tipsy-tipsy", title:"Amazon") %>
 									</div>
       								<div class="input-placer socialmedia-placer">
-      									<ul><%= link_to "Disconnect your account from Amazon Payments",cancel_recipient_path(@user), id:"amazon-connect", class:"no_ajaxify",style:"color:#999;"%></ul>
+      									<ul><%= link_to "Disconnect your account from Amazon Payments",cancel_recipient_path(@user), id:"amazon-connect", class:"no_ajaxify",style:"color:#999;", :method => :get, :confirm => "Are you sure to disconnect? Disconnect from Amazon Payments will result in losing all your current subscribers."%></ul>
       									<ul>You are connected to Amazon Payments!</ul>
       									<ul>Your recipient token: <input onclick="this.select();" class="inputbox" type="recipient" value= <%= @user.amazon_recipient.tokenID %>></ul>
       									<ul>If you need to contact Amazon regarding transaction issues, contact them with the recipient token above.</ul>

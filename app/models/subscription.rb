@@ -20,6 +20,7 @@ class Subscription < ActiveRecord::Base
   #4. Subscribed failed to maintain status
   #5. Subscribed deactivated account
   #6. Subscriber deactivated account
+  #7. Subscribed changed payments account
 
   #--- Validations ---
 

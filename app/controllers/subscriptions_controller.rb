@@ -125,6 +125,23 @@ class SubscriptionsController < ApplicationController
 				end
 			end
 		end
+			#Add to User's Subscription amount
+			@subscribed = User.find(@subscription.subscribed_id)
+			case @subscription.amount
+  			when 7.71
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - 7.00
+  			when 13.16
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - 12.00
+  			when 19.24
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - 17.00
+  			when 27.03
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - 24.00
+  			when 57.54
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - 50.00
+ 	 		when 114.78
+	  			@subscribed.subscription_amount = @subscribed.subscription_amount - 100.00
+ 	 		end	
+ 	 		@subscribed.save		
 		flash[:success] = "You removed "+@user.fullname+"!"
 		redirect_to(:back)
 	end
@@ -158,6 +175,22 @@ class SubscriptionsController < ApplicationController
 				end
 			end
 		end		
+		#Change User's subscription amount
+			case @subscription.amount
+  			when 7.71
+  				@user.subscription_amount = @user.subscription_amount - 7.00
+  			when 13.16
+  				@user.subscription_amount = @user.subscription_amount - 12.00
+  			when 19.24
+  				@user.subscription_amount = @user.subscription_amount - 17.00
+  			when 27.03
+ 	 			@user.subscription_amount = @user.subscription_amount - 24.00
+  			when 57.54
+ 	 			@user.subscription_amount = @user.subscription_amount - 50.00
+ 	 		when 114.78
+	  			@user.subscription_amount = @user.subscription_amount - 100.00
+ 	 		end	
+ 	 		@user.save		
 		flash[:success] = "You unsubscribed from "+@user.fullname+"!"
 		redirect_to(:back)
 	end

@@ -143,7 +143,7 @@ Ratafire::Application.routes.draw do
   #Amazon Payments
   match ':id/r/subscriptions/amazon_payments_connect', to: 'amazon#pre_create_recipient', as: :connect_to_amazon_payments
   match 'r/subscriptions/amazon_payments/recipient/postfill', to: 'amazon#post_create_recipient', :via => [:get, :post]
-  match ':id/subscriptions/amazon_payments/recipient/cancel', to: 'amazon#cancel_recipient', as: :cancel_recipient
+  match ':id/subscriptions/amazon_payments/recipient/cancel', to: 'amazon#cancel_recipient', via: :get, as: :cancel_recipient
   match ':id/subscriptions/amazon_payments/recipient/reconnect', to: 'amazon#reconnect_recipient', as: :reconnect_recipient
   match 'r/subscriptions/amazon_payments/subscribe/post_subscribe', to: 'amazon#post_subscribe', :via => [:get, :post]
 #---Payments---

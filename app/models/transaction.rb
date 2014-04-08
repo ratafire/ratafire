@@ -10,20 +10,22 @@ class Transaction < ActiveRecord::Base
   		@subscription = Subscription.find(options[:subscription_id])
   		@transaction.amount = @subscription.amount.to_s
   		case @transaction.amount
-  		when "7.50"
-  			@transaction.ratafire = 0
-  		when "12.80"
-  			@transaction.ratafire = 0
+  		when "7.71"
+  			@transaction.ratafire = 3
+  		when "13.16"
+  			@transaction.ratafire = 3
   		when "19.24"
-  			@transaction.ratafire = 1.19
+  			@transaction.ratafire = 6
   		when "27.03"
-  			@transaction.ratafire = 1.68
+  			@transaction.ratafire = 6
   		when "57.54"
-  			@transaction.ratafire = 5.00
+  			@transaction.ratafire = 9
   		when "114.78"
-  			@transaction.ratafire = 10.00
+  			@transaction.ratafire = 9
   		end	
-  		@transaction.SenderTokenId = @subscription.amazon_recurring.tokenID
+  		@transaction.subscribed_id = @subscription.subscribed_id
+      @transaction.subscriber_id = @subscription.subscriber_id
+      @transaction.SenderTokenId = @subscription.amazon_recurring.tokenID
   		@transaction.RecipientTokenId = @subscription.amazon_recurring.recipientToken
   		@transaction.subscription_record_id = @subscription.subscription_record_id
   		@transaction.save

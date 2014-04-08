@@ -63,6 +63,9 @@ class ProjectsController < ApplicationController
 					@activity.realm = @project.realm
 					@activity.tag_list = @project.tag_list
 					@activity.commented_at = @project.commented_at
+					if @project.published == true then
+						@activity.draft = false
+					end
 					@activity.save
 				end								
 				if @project.published == true

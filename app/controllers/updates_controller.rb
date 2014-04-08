@@ -19,13 +19,13 @@ class UpdatesController < ApplicationController
 		@user = current_user
 		@subscribed = @user.subscribed
 		gon.activebutton = "subscription"
-		@activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @subscribed, owner_type: "User").paginate(page: params[:subscribing], :per_page => 20)
+		@activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @subscribed, owner_type: "User", trackable_type: ["Majorpost","Project","Comment"]).paginate(page: params[:subscribing], :per_page => 20)
 	end
 
 	#Show projects and majorposts under a specific tag
 	def tags
 		tag_tag
-		@activities = PublicActivity::Activity.order("commented_at desc").tagged_with(params[:tag]).paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(:draft => false).tagged_with(params[:tag]).paginate(page: params[:page], :per_page => 20)
 	end
 
 	#Show tag followers
@@ -41,7 +41,7 @@ class UpdatesController < ApplicationController
 	def followed_tags
 		@user = current_user
 		gon.activebutton = "followed_tags"
-		@activities = PublicActivity::Activity.order("commented_at desc").tagged_with(@user.tag_list, :any => true).paginate(page: params[:subscribing], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").tagged_with(@user.tag_list, :any => true, :draft => false).paginate(page: params[:subscribing], :per_page => 20)
 	end
 
 	def liked
@@ -86,47 +86,47 @@ class UpdatesController < ApplicationController
 
 	def art
 		gon.activebutton = "art"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "art").paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "art", :draft => false).paginate(page: params[:page], :per_page => 20)
 	end
 
 	def music
 		gon.activebutton = "music"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "music").paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "music", :draft => false).paginate(page: params[:page], :per_page => 20)
 	end
 
 	def games
 		gon.activebutton = "games"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "games").paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "games", :draft => false).paginate(page: params[:page], :per_page => 20)
 	end	
 
 	def writing
 		gon.activebutton = "writing"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "writing").paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "writing", :draft => false).paginate(page: params[:page], :per_page => 20)
 	end
 
 	def videos
 		gon.activebutton = "videos"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "videos").paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "videos", :draft => false).paginate(page: params[:page], :per_page => 20)
 	end	
 
 	def math
 		gon.activebutton = "math"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "math").paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "math", :draft => false).paginate(page: params[:page], :per_page => 20)
 	end		
 
 	def science
 		gon.activebutton = "science"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "science").paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "science", :draft => false).paginate(page: params[:page], :per_page => 20)
 	end			
 
 	def humanity
 		gon.activebutton = "humanity"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "humanity").paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "humanity", :draft => false).paginate(page: params[:page], :per_page => 20)
 	end			
 
 	def engineering
 		gon.activebutton = "engineering"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "engineering").paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(realm: "engineering", :draft => false).paginate(page: params[:page], :per_page => 20)
 	end			
 
 	def featured
@@ -136,7 +136,7 @@ class UpdatesController < ApplicationController
 
 	def all
 		gon.activebutton = "all"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Project"]).paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Project"], :draft => false).paginate(page: params[:page], :per_page => 20)
 	end		
 
 private
