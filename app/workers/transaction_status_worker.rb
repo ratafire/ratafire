@@ -12,10 +12,11 @@ class TransactionStatusWorker
 				#Add to subscription record
 				subscription_record = SubscriptionRecord.find(transaction.subscription_record_id)
 				subscription_record.accumulated_total += response.transaction_amount.value.to_f.round(2)
-					transaction.receive = response.transaction_amount.value.to_f.round(2) - transaction.amazon - transaction.ratafire_fee
-					subscription_record.accumulated_amazon += transaction.amazon
-					subscription_record.accumulated_ratafire += transaction.ratafire_fee
-					subscription_record.accumulated_receive += transaction.receive	
+				transaction.receive = response.transaction_amount.value.to_f.round(2) - transaction.amazon - transaction.ratafire_fee
+				subscription_record.accumulated_amazon += transaction.amazon
+				subscription_record.accumulated_ratafire += transaction.ratafire_fee
+				subscription_record.accumulated_receive += transaction.receive	
+				subscription_record.accumulated = true
 				#Add to subscription
 				subscription = subscription_record.subscriptions.first
 				subscription.accumulated_total += response.transaction_amount.value.to_f.round(2)

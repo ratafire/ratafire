@@ -44,10 +44,24 @@
 			<!-- First Block -->
 			<div id="current-subscribers">
 				<% if @user.subscribers.count == 0 %>
-					<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
-						<h5><%= @user.fullname %> does't have a subscriber. <span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
-						<!-- Cutter --><ol style="margin-top: 40px;"></ol>
-					</div>
+					<% if user_signed_in? %>
+						<% if @user == current_user && subscription_status == false %>
+							<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
+								<h5>You have not set up subscription to accept subscribers. Set up subscription in <%= link_to "Subscription Settings", subscription_settings_path(current_user), class:"no_ajaxify" %>.<span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
+								<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+							</div>									
+						<% else %>
+							<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
+								<h5><%= @user.fullname %> does't have a subscriber. <span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
+								<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+							</div>						
+						<% end %><!-- end. @user == current_user -->
+					<% else %>
+						<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
+							<h5><%= @user.fullname %> does't have a subscriber. <span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
+							<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+						</div>
+					<% end %><!-- end. if user_signed_in?-->
 				<% else %>
 					<%= render partial: "subscriptions/current_subscribers", collection: @subscribers, :as => :user %>
 				<% end %>				
