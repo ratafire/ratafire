@@ -47,7 +47,7 @@
 					<% if user_signed_in? %>
 						<% if @user == current_user && subscription_status == false %>
 							<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
-								<h5>You have not set up subscription to accept subscribers. Set up subscription in <%= link_to "Subscription Settings", subscription_settings_path(current_user), class:"no_ajaxify" %>.<span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
+								<h5>You have not setup subscription to accept subscribers. Setup subscription in <%= link_to "Subscription Settings", subscription_settings_path(current_user), class:"no_ajaxify" %>.<span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
 								<!-- Cutter --><ol style="margin-top: 40px;"></ol>
 							</div>									
 						<% else %>
