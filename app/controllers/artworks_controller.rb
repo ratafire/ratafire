@@ -42,14 +42,7 @@ def create
 end
 
 def download
-	@artwork = Artwork.find(params[:id])
-	#If not S3
-	#send_file @artwork.image.path,
-	#:type => @artwork.image.content_type,
-	#:disposition => 'attachment', :x_sendfile => true
-	#If S3
-	data = open(@artwork.image.url)
-  	send_data data.read, :type => data.content_type, :x_sendfile => true
+	Resque.enqueue(ArtworkDownloadWorker,params[:id])
 end
 
 def destroy
