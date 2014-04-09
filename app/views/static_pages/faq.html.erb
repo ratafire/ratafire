@@ -1,0 +1,93 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "FAQ") %>
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:description", content: "Frequently asked questions." %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+	<% end %><!-- end.content_for :head do -->	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<div  id="faq-131641" class="static-content">
+	<h1>FAQ</h1>
+
+<h2>What is Ratafire’s licensing policy and why this license?</h2>
+
+	<p style="padding-left: 30px;"><b></b>We believe that both creative and research works should be more open, and we think that the creators and researchers should be recognized and reworded. A more open environment can improve the quality of the works, while the creators and researchers deserve both material and reputational rewords for their hard work.</p>
+
+	<p style="padding-left: 30px;">We also believe that it is better for the public to see how the creators and researchers use the subscriptions they gain from Ratafire on their works.</p>
+
+	<p style="padding-left: 30px;">Therefore, when you use Ratafire to share your projects, you are required to license the content you choose to post, except from its software components if any, under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+
+	<p id="faq-7472456" style="padding-left: 30px;">This means others can view, adapt your content, with your name properly attributed, but cannot use your content for commercial reasons without your permission.</p>
+
+<h2>Can I still sell my works after I posted them on Ratafire?</h2>
+
+	<p id="faq-6469881" style="padding-left: 30px;">Yes. You have full commercial right to your content. You can further grant commercial licenses of your Content for a fee outside of Ratafire.</p>
+
+<h2>Can I make my content fully open? Can I make my software open source?</h2>
+
+	<p id="faq-5911545" style="padding-left: 30px;">Yes. On top of the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International License</a>, you can add any additional license you wish for the content you post.</p>
+
+<h2>Why do we choose monthly subscription fees instead of a one time pledge?</h2>
+	
+	<p id="faq-3863418" style="padding-left: 30px;">A monthly subscription fee is expensive, but we believe that creators or researchers should be able to work on projects for the long term. A bit more of long term thinking can make a difference in the quality of the work.</p>
+
+<h2>What rewords do subscribers have?</h2>
+
+	<p style="padding-left: 30px;">If you subscribe to a user, you will show up in the user’s Subscribers list, with the subscription time and amount. This list is public so your subscription is not anonymous.</p>
+
+	<p style="padding-left: 30px;">In your <% if user_signed_in? %><%= link_to "Home", interesting_homepage_path(current_user), class:"no_ajaxify"%><% else %>Home<% end %> tab, you will see the updates from users you subscribed to, including the notifications of their new drafts. In this way you get to see the process of creation.</p>
+
+	<p id="faq-1287738" style="padding-left: 30px;">It is a benevolent act to support someone to work on their creative or research projects. We encourage you not only to subscribe but also subscribe to the best creators or researchers. By doing so you are also a part of selecting the best works out there.</p>
+
+<h2>Why does Ratafire have price limits?</h2>
+
+	<p style="padding-left: 30px;">We have six prices for subscription, read our <%= link_to "Pricing", pricing_path, class:"no_ajaxify"%> page for details. The rationality behind it is: first the lowest price cannot be too low, because creative or research works takes a great length of time and efforts to make.</p>
+
+	<p id="faq-7350619" style="padding-left: 30px;">Our second concern is the highest price cannot be too high, because if it is too high, one creator or researcher may be completely dependent on one subscriber, which can lead to the subscriber has too much potential power to determine the content of the work.</p>
+
+<h2>Why does Ratafire insist on the independence of an individual creator or researcher?</h2>
+
+	<p id="faq-5493741" style="padding-left: 30px;">We believe we should be in a golden age of creativity and knowledge. It is only logical to say great works require the independence of mind.</p>
+
+<h2>Why can’t I only post some previews of my content if someone is subscribing to me?</h2>
+
+	<p id="faq-7510653" style="padding-left: 30px;">First it violates our <%= link_to "Terms of Use", terms_path, class:"no_ajaxify"%>, but more importantly, since your subscribers subscribed to you with monthly subscription fees, you should post your project and try to keep your update frequency for the purpose of transparency.</p>
+
+<h2>Why do I have to wait for 30 days before subscribing to the same user again?</h2>
+
+	<p id="faq-2310305" style="padding-left: 30px;">This policy is designed to anti-spam. Think carefully before you subscribe.</p>
+
+<h2>Why can’t I subscribe to someone who has met his or her subscription goal?</h2>
+
+	<p id="faq-8186171" style="padding-left: 30px;"><b></b>Creators or researchers should be able to refuse over subscribing.</p>
+
+<h2>Can non-subscribers see my projects?</h2>
+
+	<p id="faq-3757352" style="padding-left: 30px;"><b></b><span style="line-height: 1.5;">Yes. Subscription does not grant the subscribers exclusive access to your content.</span></p>
+
+<h2>I want to work at Ratafire! What should I do?</h2>
+
+	<p style="padding-left: 30px;">Good question. If you are a developer, you know the usual stuff: Github account or Stackoverflow account or show us the best thing you have built. If you are neither a developer nor a designer, read <%= link_to "The Mythical Man-Month", "https://archive.org/details/mythicalmanmonth00fred", class:"no_ajaxify", target:"_blank"%>, tell us your comments on it and also tell us the books you read last year.</p>
+
+	<p style="padding-left: 30px;">But these are merely the usual stuff. If you have something you want to build upon Ratafire, tell us. If it is great, you will be able to work on your own ideas in Ratafire, as long as they fit Ratafire’s goal.</p>
+
+	<p id="faq-1316805" style="padding-left: 30px;">Email: <a href="mailto:jobs@ratafire.com">jobs@ratafire.com</a></p>
+
+<h2>I want to add more questions to this FAQ. What should I do?</h2>
+
+	<ul style="padding-left: 30px;"><span style="line-height: 1.5;">For short questions, <a href="https://twitter.com/intent/tweet?screen_name=Ratafirer" class="twitter-mention-button" data-related="Ratafirer">Tweet to @Ratafirer</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>.</span></ul>
+	<ul style="padding-left: 30px;">For private questions, email <a href="mailto:info@ratafire.com">info@ratafire.com</a>.</ul>
+	<ul style="padding-left: 30px;">For philosophical questions, ask on our <%= link_to "Quora Topic", "http://www.quora.com/Ratafire", class:"no_ajaxify", target:"_blank"%>.</ul>	
+
+</div>	
+<%= render 'layouts/footer' %>

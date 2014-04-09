@@ -28,4 +28,13 @@ class StaticPagesController < ApplicationController
   def privacy
   end
 
+  def guidelines
+  end
+
+  def faq
+  end
+
+  def pricing
+  end
+
 end

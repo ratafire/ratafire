@@ -217,7 +217,7 @@ private
     	@subscribed = User.find(params[:id])
     	@subscriber = current_user
     	#Check History to see if the last subscription is within one month
-    	if subscription_permission_30days == false then
+    	if subscription_permission_30days then
     		redirect_to(:back)
     	else
         	#Check if the subscribed has opened subscription
@@ -261,17 +261,17 @@ private
 
     def subscription_permission_30days 
     	#Check History to see if the last subscription is within one month
-    	if Subscription.find_by_subscriber_id_and_subscribed_id(@subscriber.id,@subscribed.id) != nil then
-    		@history = Subscription.find_by_subscriber_id_and_subscribed_id(@subscriber.id,@subscribed.id).class.where(:deleted => true).first
-    		if @history != nil then
-    			@days = ((Time.now - @history.deleted_at)/1.day).round
-    			if @days <= 30 then
-    				@indays = 30-@days
-    				flash[:success] = "Your previous subscription to "+@subscribed.fullname+" ended "+@days.to_s+" days ago. You may subscribe to "+ @subscribed.fullname+" again in "+@indays.to_s+" days."
-    				return true
-    			end
-    		end    	
-    	end	
+    		if Subscription.find_by_subscriber_id_and_subscribed_id(@subscriber.id,@subscribed.id) != nil then
+    			@history = Subscription.find_by_subscriber_id_and_subscribed_id(@subscriber.id,@subscribed.id).class.where(:deleted => true).first
+    			if @history != nil then
+    				@days = ((Time.now - @history.deleted_at)/1.day).round
+    				if @days <= 30 then
+    					@indays = 30-@days
+    					flash[:success] = "Your previous subscription to "+@subscribed.fullname+" ended "+@days.to_s+" days ago. You may subscribe to "+ @subscribed.fullname+" again in "+@indays.to_s+" days."
+    					return true
+   	 				end
+    			end    	
+    		end	
     	return false
     end	
 

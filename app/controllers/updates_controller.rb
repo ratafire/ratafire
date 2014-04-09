@@ -6,13 +6,17 @@ class UpdatesController < ApplicationController
 				only: [:subscribing_update, :followed_tags, :liked]
 
 	def interesting
-		@user = User.find(params[:id])
-		#If subscribing anyone, route to subscribing
-		if @user.subscribed.count > 0 then
-			redirect_to subscribing_update_path(params[:id])
+		if user_signed_in? then
+			@user = User.find(params[:id])
+			#If subscribing anyone, route to subscribing
+			if @user.subscribed.count > 0 then
+				redirect_to subscribing_update_path(params[:id])
+			else
+				redirect_to followed_tags_path(params[:id])
+			end
 		else
-			redirect_to followed_tags_path(params[:id])
-		end
+			redirect_to new_user_session_path
+		end	
 	end
 
 	def subscribing_update #Only current user can see

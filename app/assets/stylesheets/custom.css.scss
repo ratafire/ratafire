@@ -3337,6 +3337,21 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 
 }
 
+.general-content {
+		border: 1px solid #cccccc;
+
+	z-index: 30;
+	/* Border Radius */
+	border-radius: 5px; 
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+			transition: box-shadow 1s;
+			background-color: rgba(255,255,255,1);
+	-webkit-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
+-moz-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
+box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
+}
+
 .post-content-update {
 	@extend .radius;
 	z-index: 10000;
@@ -4800,11 +4815,11 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 
 .subscription-why-input {
 	font-size: 1em;
-	width: 629px;
-	height: 426px;	
+	width: 610px;
+	height: 340px;	
 	padding: 20px 20px 20px 20px;
 
-	border: 1px solid #cecece;
+	border: 1px solid #ddd;
 	border-radius: 5px;
 	transition: box-shadow 1s;
 
@@ -4817,11 +4832,11 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 
 .subscription-plan-input {
 	font-size: 1em;
-	width: 629px;
+	width: 610px;
 	height: 100px;	
 	padding: 20px 20px 20px 20px;
 
-	border: 1px solid #cecece;
+	border: 1px solid #ddd;
 	border-radius: 5px;
 	transition: box-shadow 1s;
 

@@ -33,6 +33,9 @@ Ratafire::Application.routes.draw do
   match '/help', to: 'static_pages#help'
   match '/terms', to: 'static_pages#terms', as: :terms
   match '/privacy', to: 'static_pages#privacy', as: :privacy
+  match '/guidelines', to: 'static_pages#guidelines', as: :guidelines
+  match '/pricing', to: 'static_pages#pricing', as: :pricing
+  match '/faq', to: 'static_pages#faq', as: :faq
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
   match '/discovered', to: 'static_pages#discovered', as: :discovered_path
