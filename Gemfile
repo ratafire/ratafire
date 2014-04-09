@@ -77,6 +77,9 @@ gem 'thinking-sphinx', '3.1.0'
 #sql
 gem 'mysql2'
 
+#google 
+gem 'google-analytics-rails'
+
 #Amazon Payments
 #gem "rest-client", :require => "rest_client"
 #gem 'netrc' #rest-client dependency
