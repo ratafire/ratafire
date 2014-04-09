@@ -50,7 +50,6 @@
 			Created by <%= project.creator.fullname %>, <%= time_ago_in_words(project.created_at) %> ago.
 		</div>
 		<!-- When it is not a draft-->
-		<% if project.published == true %>
 		<div id="majorpost-excerpt">
 			<!-- When there are artwork and video -->
 			<% if project.video_id != "" || project.artwork != nil %>
@@ -205,8 +204,15 @@
 					</div>	
 				<% end %>
 			<% end %><!-- end of when there are artwork and video -->
+								<!-- Normal Post-->
+					<div>
+						<%= sanitize truncate(project.excerpt, :length => 200) %>
+					</div>
+					<!-- Tags-->
+					<div id="majorpost-tags">
+					<% if project.tags.any? %>
+						<%= raw project.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>	
 		</div><!-- end:#majorpost-excerpt -->
-		<% end %><!-- end: when it is not a draft -->
 	</div>
-
 </div>

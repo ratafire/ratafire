@@ -8,5 +8,10 @@ ThinkingSphinx::Index.define :project, :with => :active_record do
     indexes realm
     indexes featured
     indexes commented_at
-    indexes tagline    
+    indexes tagline
+    indexes excerpt
+    indexes video_id
+    indexes video
+    indexes artwork
+    indexes projectimages    
 end
