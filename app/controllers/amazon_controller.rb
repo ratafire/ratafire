@@ -24,8 +24,10 @@ class AmazonController < ApplicationController
 			@user.amazon_authorized = true
 			@user.save	
 		end
-		if @amazon_recipient.tokenID == nil then 
-			@amazon_recipient.destroy
+		if @amazon_recipient != nil then
+			if @amazon_recipient.tokenID == nil then 
+				@amazon_recipient.destroy
+			end
 		end
 		redirect_to subscription_settings_path(current_user)
 	end

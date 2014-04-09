@@ -18,8 +18,6 @@ class AmazonRecipient < ActiveRecord::Base
  	 	@amazon_recipient.tokenID = options[:tokenID]
  	 	if @amazon_recipient.tokenID.present? then
  	 		@amazon_recipient.Status = options[:status]
- 	 	else
- 	 		redirect_to(:back)	
  	 	end
  	 	@amazon_recipient.save
  	 	@amazon_recipient
