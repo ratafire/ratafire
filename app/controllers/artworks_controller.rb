@@ -43,6 +43,7 @@ end
 
 def download
 	Resque.enqueue(ArtworkDownloadWorker,params[:id])
+	respond_to do |format| format.html { render :nothing => true }
 end
 
 def destroy
