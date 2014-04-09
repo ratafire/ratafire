@@ -51,7 +51,7 @@ class UpdatesController < ApplicationController
 	end
 
 	def search
-		@projects = Project.search(params[:search], page: 1, per_page: 20)
+		@projects = Project.search(params[:search], page: 1, per_page: 20, conditions: {published: 1, :deleted => nil}).paginate(page: params[:page], :per_page => 20)
 		@search = params[:search].titleize
 		search_slug = params[:search].gsub(/\s/, "_")
 		if search_slug == nil

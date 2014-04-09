@@ -22,12 +22,12 @@
 	<!-- published -->
 	<% if project.published == true %>
 		<div class="majorpost-title">
-		<li><%= link_to project.title, user_project_path(project.creator,project), class:"no_ajaxify" %></li> new project <%= time_ago_in_words(project.created_at) %> ago in <span class="realm-color"><%= project_realm(project.realm)%></span>
+		<li><%= link_to project.title, user_project_path(project.creator,project), class:"no_ajaxify" %></li> new project <%= time_ago_in_words(project.created_at) %> ago in <%= link_to realm_selector_path(project.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(project.realm)%></span><% end %>
 		</div>
 	<% else %>
 	<!-- not published -->
 		<div class="majorpost-title">
-		<li><%= link_to project.title, edit_user_project_path(project.creator,project), class:"no_ajaxify" %></li> <span>(Draft)</span> new project <%= time_ago_in_words(project.created_at) %> ago in <span class="realm-color"><%= project_realm(project.realm)%></span>
+		<li><%= link_to project.title, edit_user_project_path(project.creator,project), class:"no_ajaxify" %></li> <span>(Draft)</span> new project <%= time_ago_in_words(project.created_at) %> ago in <%= link_to realm_selector_path(project.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(project.realm)%></span><% end %>
 		</div>	
 	<% end %>	
 <% else %>
