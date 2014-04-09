@@ -1,10 +1,4 @@
 <div class="subscription-box">
-	<!-- Remove Button -->
-	<% if @user == current_user %>
-		<div class="btn-edit-right13">
-			<%= link_to 'Remove',remove_subscriber_path(@user.id,user.id), method: :delete,class:"btn-delete-light no_ajaxify",:confirm => "Are you sure to stop "+user.fullname+" from subscribing you? If removed, "+user.fullname+" cannot resubscribe to you in one month."%>
-		</div>
-	<% end %>	
 	<!-- photo -->
 	<%= link_to user, class:"no_ajaxify" do %>
 		<div class="subscription-photo" style="background-image:url(<%=user.profilephoto.url(:small64)%>);"></div>

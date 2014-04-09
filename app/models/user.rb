@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
 	has_many :past_subscriptions, foreign_key: "subscribed_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past => true }
 	has_many :past_subscribers, through: :past_subscriptions, source: :subscriber, :conditions => {:subscription_records => { :past => true, :accumulated => true}}
 
-	has_many :reverse_past_subscription_histories, foreign_key: "subscriber_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past => true }
+	has_many :reverse_past_subscriptions, foreign_key: "subscriber_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past => true }
 	has_many :past_subscribed, through: :reverse_past_subscriptions, source: :subscribed, :conditions => {:subscription_records => { :past => true, :accumulated => true}}
 
 	#Subscription_records
