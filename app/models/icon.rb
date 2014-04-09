@@ -11,6 +11,8 @@ class Icon < ActiveRecord::Base
       :storage => :s3,
       :s3_credentials => "#{Rails.root}/config/s3_icon.yml"  
 
+  process_in_background :image, :only_process => [:small]    
+
   validates_attachment :image, 
     :content_type => { :content_type => ["image/jpeg","image/jpg","image/png"]},
     :size => { :in => 0..10240.kilobytes}

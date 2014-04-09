@@ -36,7 +36,7 @@
 									<li>
 										<% if @user.profilephoto? %><%= link_to "x", photo_delete_path(@user), method: :delete, title:"Remove",class:"no_ajaxify btn-delete tipsy-tipsy" %><% end %>
 									</li>
-									<% if @user.profilephoto == nil %>
+									<% unless @user.profilephoto? %>
 									<li>
 
 										<!-- Cutter --><ol style="margin-top: 10px;"></ol>

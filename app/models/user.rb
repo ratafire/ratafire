@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
 	      :storage => :s3,
 	      :s3_credentials => "#{Rails.root}/config/s3_profile.yml"
 
+	process_in_background :profilephoto, :only_process => [:small64, :tiny]           
+
 	#profilephoto
 	validates_attachment :profilephoto, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
 

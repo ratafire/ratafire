@@ -18,6 +18,8 @@ require 'aws/s3'
   has_attached_file :thumbnail, :styles => { :thumb => "171x96#"},
       :storage => :s3, # this is redundant if you are using S3 for all your storage requirements
     :s3_credentials => "#{Rails.root}/config/s3.yml"
+
+  process_in_background :thumbnail, :only_process => [:small, :thumbnail]
     
   after_destroy :remove_encoded_video
 

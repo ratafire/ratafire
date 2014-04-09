@@ -45,6 +45,7 @@ gem 'acts-as-taggable-on', '2.4.1' #important
 
 #File Upload
 gem 'paperclip', "3.5.4" #important
+gem 'delayed_paperclip', :git => "git://github.com/jrgifford/delayed_paperclip.git"
 gem 'carrierwave','0.10.0' #important
 gem 'fog','1.21.0'
 gem 'mini_magick','3.7.0' #important

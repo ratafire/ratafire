@@ -6,7 +6,7 @@ class Artwork < ActiveRecord::Base
   belongs_to :archive
     #--- Artwork Attachment ---
   has_attached_file :image, 
-  					:styles => { :preview => ["790", :jpg], :sucess => ["84x84#", :jpg], :small => ["64x64#", :jpg], :thumbnail => ["171x96#",:jpg] }, :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
+  					:styles => { :preview => ["790", :jpg], :small => ["64x64#", :jpg], :thumbnail => ["171x96#",:jpg] }, :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
   :url =>  "/:class/:id/:style/:escaped_filename",
   #If s3
   :path => "/:class/:id/:style/:escaped_filename",
@@ -16,6 +16,8 @@ class Artwork < ActiveRecord::Base
   validates_attachment :image, 
     :content_type => { :content_type => ["image/jpeg","image/jpg","image/png","image/psd","image/vnd.adobe.photoshop","image/bmp"]},
     :size => { :in => 0..524288.kilobytes}
+
+  process_in_background :image, :only_process => [:small, :thumbnail]  
 
   Paperclip.interpolates :escaped_filename do |attachment, style|
     attachment.instance.normalized_video_file_name
