@@ -80,7 +80,7 @@ gem 'mysql2'
 #Amazon Payments
 #gem "rest-client", :require => "rest_client"
 #gem 'netrc' #rest-client dependency
-gem 'amazon_flex_pay', :git => "git://github.com/ratafire/amazon_flex_pay.git" #changed for reacurring pipeline
+gem 'amazon_flex_pay'#, :git => "git://github.com/ratafire/amazon_flex_pay.git" #changed for reacurring pipeline
 gem "figaro" #configuration
 
 #Pass value from controller to javascript

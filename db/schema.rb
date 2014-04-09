@@ -508,8 +508,8 @@ ActiveRecord::Schema.define(:version => 20140408090516) do
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
-    t.boolean  "accumulated",                                         :default => false
     t.decimal  "duration",             :precision => 32, :scale => 6
+    t.boolean  "accumulated",                                         :default => false
   end
 
   create_table "subscriptions", :force => true do |t|
