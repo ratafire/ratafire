@@ -60,14 +60,14 @@
 					<!-- Permanent Link-->	
 					<h2>Permanent Link</h2>
 						<div class="goals-placer" style="text-align:left;">
-							<ul>https://www.ratafire.com/<%= @project.creator.username %>/</ul>
-							<ul><%= f.text_field :perlink, style:"width:300px;", class:"inputbox goals-input" %></ul>
+							<ul style="color:#999;">https://www.ratafire.com/<%= @project.creator.username %>/</ul>
+							<ul><%= f.text_field :perlink, style:"width:472px;", class:"inputbox completion-input" %></ul>
 						</div>
 
 					<!-- Source Code-->	
 					<h2>Source Code</h2>
 						<div class="source-code-placer" style="margin-left:21px;">
-							<%= f.text_field :source_code, placeholder:"Enter project source code url if any", class:"goals-input inputbox",style:"width:695px; margin-left:0px;" %>
+							<%= f.text_field :source_code, placeholder:"Enter project source code url if any", class:"completion-input inputbox",style:"width:695px; margin-left:0px;" %>
 						</div>
 							
 						<div style="text-align:right;margin-right:17px;margin-top:40px;">
@@ -91,12 +91,10 @@
 							<div class="btn-completion-bg">
 							You have traveled far! Once you click the button below, this project will be marked as completed, a copy of the project at its completion time will be archived permanently. You cannot edit project title, goal, and permanent link after a project's completion. Check everything twice before clicking the completion button!
 							</div>
-							<div style="margin:5px 0 0 25px;color:#999;">We are trouble troubleshooting the completion button. It should be done within an hour. Please come back later.</div>
-							<% if current_user.admin? %>
 							<div  style="text-align:right;margin-right:17px;margin-top:40px;">
 								<%= link_to "Complete",you_completed_me_path(@project.creator,@project),class:"btn btn-medium btn-medium-blue no_ajaxify btn-completion-submit-special",:method => :get,:confirm => "Are you sure to complete this project? It cannot be undone. <p>Review the following changes to your project after its completion: </p> <p>1. This project will be marked as completed.</p> <p>2. A copy of the project at its completion time will be archived permanently.</p> <p>3. You cannot edit project title, goal, and permanent link.</p>"%>
 							</div>
-							<% end %>
+
 
 <% else %>
 		<%= form_for [@project.creator, @project], :url => project_update_path(@project.creator,@project),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f|%>
