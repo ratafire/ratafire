@@ -1,0 +1,41 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_admin' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+						
+							<h1>Tests</h1>
+							<h5>This is your canvas.</h5>
+							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+						<!-- end of textbox-->
+						</div>						
+
+						<!-- Realm Balance -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+
+								<h2>Test Resque Jobs</h2>
+
+								<div><%= link_to "Use this link to test Resque worker: TestWorker", test_resque, class:"no_ajaxify"%></div>
+
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->								
+										
+
+						</div><!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+			</div><!-- end of main-content-->
