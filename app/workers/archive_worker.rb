@@ -4,24 +4,8 @@ class ArchiveWorker
 
 	def self.perform(project_id)
 		@project = Project.find(project_id)
-		#save the project archive
-		self.project_archiver
-		#start archiving the majorposts		
-		@project.majorposts.where(:published => true).each do |majorpost|
-			self.majorpost_archiver(majorpost)
-			if majorpost.edit_permission == "free" then
-				majorpost.edit_permission = "edit"
-				majorpost.save
-			end
-		end
-		@project.edit_permission = "edit"
-		@project.save
-	end
 
-private
-
-		#Project archive maker
-		def self.project_archiver 
+		#save the project archive begin -----------------
 			archive = Archive.create
 			archive.title = @project.title
 			archive.content = @project.about
@@ -73,10 +57,13 @@ private
 			end
 			#save the archive for project
 			archive.save
-		end
 
-		#Majorpost archive maker
-		def self.majorpost_archiver(majorpost)
+		#save the project archive end -----------------
+			
+		#start archiving the majorposts		
+		@project.majorposts.where(:published => true).each do |majorpost|
+
+		#save the project archive begin -----------------	
 			archive = Archive.create
 			archive.title = majorpost.title
 			archive.content = majorpost.content
@@ -133,7 +120,15 @@ private
 			 
 			#save the archive for majorpost
 			archive.save
-		end
+		#save the project archive end -----------------	
 
+			if majorpost.edit_permission == "free" then
+				majorpost.edit_permission = "edit"
+				majorpost.save
+			end
+		end
+		@project.edit_permission = "edit"
+		@project.save
+	end
 
 end

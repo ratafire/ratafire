@@ -3,17 +3,8 @@ class DisableWorker
 
 	def self.perform(user_id)
 		@user = User.find(user_id)
-		#User as subscribed
-		self.user_as_subscribed
-		#User as subscriber
-		self.user_as_subscriber
-		
-	end
 
-private
-	
-	#User as subscribed
-	def self.user_as_subscribed
+		#User as subscribed begin -------
 		if @user.subscriptions.count != 0 then
 			@user.subscriptions.each do |s|
 				#Cancel Amazon Payments Token
@@ -60,11 +51,9 @@ private
  	 		@user.save							
 			end
 		end		
-	end
+		#User as subscribed end ------
 
-
-	#User as subscriber
-	def self.user_as_subscriber
+		#User as subscriber begin -----
 		if @user.reverse_subscriptions.count != 0 then
 			@user.reverse_subscriptions.each do |s|
 				#Cancel Amazon Payments Token
@@ -111,7 +100,10 @@ private
  		 		end	
  	 			subscribed.save					
 			end
-		end		
+		end				
+		#User as subscriber end -----
+		
 	end
+
 
 end

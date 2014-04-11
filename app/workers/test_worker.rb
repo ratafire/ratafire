@@ -3,12 +3,8 @@ class TestWorker
 
 	def self.perform
 		test = 1+1
-		self.privatework
+		test = 2+1
+
 	end
 
-private
-
-	def self.privatework
-		test = 2+1
-	end	
 end
