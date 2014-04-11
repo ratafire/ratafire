@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140408090516) do
+ActiveRecord::Schema.define(:version => 20140411163812) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20140408090516) do
     t.boolean  "featured",       :default => false
     t.string   "realm"
     t.boolean  "draft"
+    t.boolean  "test",           :default => false
   end
 
   add_index "activities", ["owner_id", "owner_type"], :name => "index_activities_on_owner_id_and_owner_type"
@@ -508,8 +509,8 @@ ActiveRecord::Schema.define(:version => 20140408090516) do
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
-    t.decimal  "duration",             :precision => 32, :scale => 6
     t.boolean  "accumulated",                                         :default => false
+    t.decimal  "duration",             :precision => 32, :scale => 6
   end
 
   create_table "subscriptions", :force => true do |t|

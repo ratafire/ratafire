@@ -4,3 +4,9 @@ monthly_subscriptions:
   queue: subscriptions_queue
   args:
   description: "This worker queues subscription fee transactions."
+test_schedule:
+  cron: "* * * * *"
+  custom_job_class: "TestWorker"
+  queue: test_queue
+  args:
+  description: "This worker queues subscription fee transactions."  

@@ -177,6 +177,7 @@ Ratafire::Application.routes.draw do
 
   match '/r/realms/veryseriously/more/:realm', to: 'updates#realm_selector', as: :realm_selector
 
+  match '/test', to: "updates#test", as: :test
 #---Tags---
   match 'tags/-/-/:tag', to: 'updates#tags', as: :tag 
   match 'tags/follow_tag/:user_id/:tag_id', to: 'tag_relationships#follow', as: :follow_tag 

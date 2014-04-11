@@ -32,6 +32,9 @@
 
 <div class="update2">
 	<%= link_to featured_path do %><ol id="update-staffpicks">Staff Picks</ol><% end %>
+	<% if user_signed_in?%>
+		<%= link_to test_path do %><ol id="update-tests">Tests</ol><% end %>
+	<% end %>
 	<%= link_to all_path do %><ol id="update-all" class="archive-sidebar-active">All</ol><% end %>
 </div>
 <!-- Script for changing tags -->
