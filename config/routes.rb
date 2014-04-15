@@ -7,7 +7,7 @@ Ratafire::Application.routes.draw do
   #devise_for :users, :controllers => { :registrations => "registrations"}
   devise_scope :user do
     get "/users/sign_up",  :to => "users#no_sign_up"
-    get "/early_access_path" => "devise/registrations#new"
+    get "/early_access" => "devise/registrations#new"
   end
   devise_for :users, :controllers => { :invitations => 'users/invitations', :omniauth_callbacks => "users/omniauth_callbacks",:registrations => "registrations" }
   match "/signup" => "devise/registrations#new"
