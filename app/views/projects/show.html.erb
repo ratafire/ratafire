@@ -45,7 +45,6 @@
 		<% end %>	
 
 		<% if @project.video_id != nil && @project.video_id != "" %>
-			<%= tag :meta, property: "og:video", content: @project.title %>
 			<%= tag :meta, property: "og:video:url", content: @video.output_url %>
 			<%= tag :meta, property: "og:video:width", content: "444" %>
 			<%= tag :meta, property: "og:video:height", content: "790" %>

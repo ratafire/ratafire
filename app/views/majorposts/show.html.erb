@@ -52,7 +52,6 @@
 					<%= tag :meta, property: "og:video", content: "//player.vimeo.com/video/#{@video.external}"%>
 				<% end %>	
 			<% else %>
-				<%= tag :meta, property: "og:video", content: @majorpost.title %>
 				<%= tag :meta, property: "og:video:url", content: @video.output_url %>
 				<%= tag :meta, property: "og:video:width", content: "444" %>
 				<%= tag :meta, property: "og:video:height", content: "790" %>
