@@ -130,11 +130,15 @@ module ApplicationHelper
 				return false	
 			end
 		else
-			if current_user.admin? then
-				return true
+			if user_signed_in? then
+				if current_user.admin? then
+					return true
+				else
+					return false
+				end	
 			else
 				return false
-			end	
+			end
 		end
 	end
 
