@@ -583,9 +583,11 @@ def inspiring_project_majorpost
 				existed_inspired_projects_majorposts.push(rppm.id)
 			end
 		end
-		if existed_inspired_projects_majorposts.include? @p_m_inspiration.inspirer.id then
-			@p_m_inspiration.destroy
-			@connection_count -= 1
+		if @p_m_inspiration != nil then
+			if existed_inspired_projects_majorposts.include? @p_m_inspiration.inspirer.id then
+				@p_m_inspiration.destroy
+				@connection_count -= 1
+			end
 		end
 	end
 end
@@ -599,9 +601,11 @@ def inspiring_project_user
 				existed_inspired_projects_users.push(rppu.id)
 			end
 		end	
-		if existed_inspired_projects_users.include? @p_u_inspiration.inspirer.id then
-			@p_u_inspiration.destroy
-			@connection_count -= 1
+		if @p_u_inspiration != nil then
+			if existed_inspired_projects_users.include? @p_u_inspiration.inspirer.id then
+				@p_u_inspiration.destroy
+				@connection_count -= 1
+			end
 		end
 	end
 end
@@ -613,10 +617,12 @@ def inspiring_project_majorpost_project
 		@project.inspired_majorposts.each do |rpm|
 			existed_inspired_majorposts_projects.push(rpm.project.id)
 		end
-		if existed_inspired_majorposts_projects.include? @p_p_inspiration.inspirer.id  then
-			@p_p_inspiration.destroy
-			@connection_count -= 1
-		end
+		if @p_p_inspiration != nil then
+			if existed_inspired_majorposts_projects.include? @p_p_inspiration.inspirer.id  then
+				@p_p_inspiration.destroy
+				@connection_count -= 1
+			end
+		end	
 	end
 end
 
@@ -627,10 +633,12 @@ def inspiring_project_majorpost
 		@project.inspired_majorposts.each do |rpm|
 			exited_inspired_majorposts.push(rpm.id)
 		end
-		if exited_inspired_majorposts.include? @p_m_inspiration.inspirer.id then
-			@p_m_inspiration.destroy
-			@connection_count -= 1
-		end
+		if @p_m_inspiration != nil then
+			if exited_inspired_majorposts.include? @p_m_inspiration.inspirer.id then
+				@p_m_inspiration.destroy
+				@connection_count -= 1
+			end
+		end	
 	end
 end
 
@@ -642,10 +650,12 @@ def inspiring_project_majorpost_user
 		@project.inspired_majorposts.each do |rpm|
 			exited_inspired_majorposts_users.push(rpm.user.id)
 		end
-		if exited_inspired_majorposts_users.include? @p_u_inspiration.inspirer.id then
-			@p_u_inspiration.destroy
-			@connection_count -= 1
-		end
+		if @p_u_inspiration != nil then
+			if exited_inspired_majorposts_users.include? @p_u_inspiration.inspirer.id then
+				@p_u_inspiration.destroy
+				@connection_count -= 1
+			end
+		end	
 	end
 end
 
@@ -656,10 +666,12 @@ def inspiring_majorpost_project
 		@majorpost.inspired_projects.each do |rmp|
 			existed_inspired_projects.push(rmp.id)
 		end
-		if existed_inspired_projects.include? @m_p_inspiration.inspirer.id then
-			@m_p_inspiration.destroy
-			@connection_count -= 1
-		end
+		if @m_p_inspiration != nil then
+			if existed_inspired_projects.include? @m_p_inspiration.inspirer.id then
+				@m_p_inspiration.destroy
+				@connection_count -= 1
+			end
+		end	
 	end
 end
 
@@ -672,10 +684,12 @@ def inspiring_majorpost_majorpost
 				existed_inspired_projects_majorposts.push(rmpm.id)
 			end
 		end
-		if existed_inspired_projects_majorposts.include? @m_m_inspiration.inspirer.id then
-			@m_m_inspiration.destroy
-			@connection_count -= 1
-		end
+		if @m_m_inspiration != nil then
+			if existed_inspired_projects_majorposts.include? @m_m_inspiration.inspirer.id then
+				@m_m_inspiration.destroy
+				@connection_count -= 1
+			end
+		end	
 	end
 end
 
@@ -688,10 +702,12 @@ def inspiring_majorpost_user
 				existed_inspired_projects_users.push(rmpu.id)
 			end
 		end
-		if existed_inspired_projects_users.include? @m_u_inspiration.inspirer.id then
-			@m_u_inspiration.destroy
-			@connection_count -= 1
-		end
+		if @m_u_inspiration != nil then
+			if existed_inspired_projects_users.include? @m_u_inspiration.inspirer.id then
+				@m_u_inspiration.destroy
+				@connection_count -= 1
+			end
+		end	
 	end
 end
 
@@ -702,10 +718,12 @@ def inspiring_majorpost_majorpost_project
 		@majorpost.inspired_majorposts.each do |rmm|
 			existed_inspired_majorposts_projects.push(rmm.project.id)
 		end
-		if existed_inspired_majorposts_projects.include? @m_p_inspiration.inspirer.id then
-			@m_p_inspiration.destroy
-			@connection_count -= 1
-		end
+		if @m_p_inspiration != nil then
+			if existed_inspired_majorposts_projects.include? @m_p_inspiration.inspirer.id then
+				@m_p_inspiration.destroy
+				@connection_count -= 1
+			end
+		end	
 	end
 end
 
@@ -716,10 +734,12 @@ def inspiring_majorpost_majorpost
 		@majorpost.inspired_majorposts.each do |rmm|
 			existed_inspired_majorposts.push(rmm.id)
 		end
-		if existed_inspired_majorposts.include? @m_m_inspiration.inspirer.id then
-			@m_m_inspiration.destroy
-			@connection_count -= 1
-		end
+		if @m_m_inspiration != nil then
+			if existed_inspired_majorposts.include? @m_m_inspiration.inspirer.id then
+				@m_m_inspiration.destroy
+				@connection_count -= 1
+			end
+		end	
 	end
 end
 
@@ -730,10 +750,12 @@ def inspiring_majorpost_majorpost_user
 		@majorpost.inspired_majorposts.each do |rmm|
 			existed_inspired_majorposts_users.push(rmm.user.id)
 		end
-		if existed_inspired_majorposts_users.include? @m_u_inspiration.inspirer.id then
-			@m_u_inspiration.destroy
-			@connection_count -= 1
-		end
+		if @m_u_inspiration != nil then
+			if existed_inspired_majorposts_users.include? @m_u_inspiration.inspirer.id then
+				@m_u_inspiration.destroy
+				@connection_count -= 1
+			end
+		end	
 	end
 end	
 
