@@ -15,14 +15,14 @@
 									<% if @project.inspired_projects.any? %>
 									<ul><% if @project.inspired_projects.count >1 %>Projects <% else %>Project <% end %><li>
 										<!-- content-->
-										<%= raw @project.inspired_projects.map { |t| "#{link_to t.title, user_project_path(t.creator,t)}" " (#{t.creator.fullname})" }.join(', ') %>
+										<%= raw @project.inspired_projects.map { |t| "#{link_to t.title, user_project_path(t.creator,t), class:"no_ajaxify"}" " (#{t.creator.fullname})" }.join(', ') %>
 									</li></ul>
 									<% end %>
 									<!-- majorposts -->
 									<% if @project.inspired_majorposts.any? %>
 									<ul><% if @project.inspired_majorposts.count >1 %>Major Posts <% else %>Major Post <% end %><li>
 										<!-- content-->
-										<%= raw @project.inspired_majorposts.map { |t| "#{link_to t.title, user_project_majorpost_path(@project.creator,@project,t)}" " (#{t.user.fullname})" }.join(', ') %>
+										<%= raw @project.inspired_majorposts.map { |t| "#{link_to t.title, user_project_majorpost_path(@project.creator,@project,t), class:"no_ajaxify"}" " (#{t.user.fullname})" }.join(', ') %>
 									</li></ul>
 									<% end %>								
 								</div>
