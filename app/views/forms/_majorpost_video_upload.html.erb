@@ -36,12 +36,18 @@
 							<div class="majorpost-user-inspirer-indicator">Upload</div>
 							<div class="video-upload-box-holder">
 								<!-- Video Upload-box -->
+								<% unless current_user.admin? %>
+								<div id="video-upload-box">
+									<div class="video-upload-words artwork-button fileinput-button">
+										<span>+_+ We are updating the video upload system</span>
+										<ul>Sorry you cannot upload videos now.</ul>
+								<% else %>
 								<div id="video-upload-box">
 									<div class="video-upload-words artwork-button fileinput-button" id="video-drop">
 										<span>Click to choose or drop video file here</span>
 										<ul>Maximum size: 2GB. Recommanded resolution: 1080p.</li></ul>
 				<!-- fields for video -->
-
+								<% end %>
 					<%= form_for [@project.creator,@project,@video],:html => {:class => 'no_ajaxify',:id => "majorpost_video_upload_form" } do |v|%>
 						<%= v.hidden_field :project_id, value: @project.id %>
 						<%= v.hidden_field :majorpost_id, value: @majorpost.id %>
@@ -118,7 +124,7 @@
 								</div><!-- end of external video input-->
 							</div>
 
-
+							
 						</div><!-- end videoupload box holder-->
 						<div class="majorpost-external-inspirer-indicator">External</div>
 

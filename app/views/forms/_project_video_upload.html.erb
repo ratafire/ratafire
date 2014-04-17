@@ -35,11 +35,20 @@
 							<!-- Upload-->
 							<div class="majorpost-user-inspirer-indicator">Upload</div>
 							<div class="video-upload-box-holder">
+								<% unless current_user.admin? %>
+								<div id="video-upload-box">
+									<div class="video-upload-words artwork-button fileinput-button">
+										<span>+_+ We are updating the video upload system</span>
+										<ul>Sorry you cannot upload videos now.</ul>
+									</div>	
+								</div>	
+								<% else %>
 								<!-- Video Upload-box -->
 								<div id="video-upload-box">
 									<div class="video-upload-words artwork-button fileinput-button" id="video-drop">
+
 										<span>Click to choose or drop video file here</span>
-										<ul>Maximum size: 2GB. Recommanded resolution: 1080p.</li></ul>
+										<ul>Maximum size: 2GB. Recommanded resolution: 1080p.</ul>
 				<!-- fields for video -->
 
 					<%= form_for [@project.creator,@project,@video],:html => {:class => 'no_ajaxify' } do |v|%>
@@ -105,6 +114,7 @@
 								</div>
 								<!-- Video Progress-box-->
 								<div id="videodata"></div>
+								<% end %>
 						</div><!-- end videoupload box holder-->
 					</div><!-- end comment input-->
 				</div><!-- end:#video-upload-case -->
