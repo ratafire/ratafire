@@ -39,7 +39,7 @@ private
 			#See if it is a link
 			if c.url =~ URI::regexp(%w(http https)) then
 				#See if it is an internal link
-				if c.url =~ /(http|https):\/\/(www.|)localhost:3000/ then
+				if c.url =~ /(http|https):\/\/(www.|)ratafire.com/ then
 					splitted = c.url.split("/")
 					@user_name = splitted[3]
 					@project_slug = splitted[4]
@@ -88,7 +88,7 @@ private
 			#See if it is a link
 			if c.url =~ URI::regexp(%w(http https)) then
 				#See if it is an internal link
-				if c.url =~ /(http|https):\/\/(www.|)localhost:3000/ then
+				if c.url =~ /(http|https):\/\/(www.|)ratafire.com/ then
 					splitted = c.url.split("/")
 					@user_name = splitted[3]
 					@project_slug = splitted[4]
