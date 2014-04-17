@@ -565,9 +565,11 @@ def inspiring_project_project
 		@project.inspired_projects.each do |rpp|
 			existed_inspired_projects.push(rpp.id)
 		end
-		if existed_inspired_projects.include? @p_p_inspiration.inspirer.id then
-			@p_p_inspiration.destroy
-			@connection_count -= 1
+		if @p_p_inspiration != nil then
+			if existed_inspired_projects.include? @p_p_inspiration.inspirer.id then
+				@p_p_inspiration.destroy
+				@connection_count -= 1
+			end
 		end
 	end
 end
