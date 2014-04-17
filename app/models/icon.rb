@@ -9,7 +9,9 @@ class Icon < ActiveRecord::Base
       #If s3
       :path => "/:class/:id/:style/:escaped_filename",
       :storage => :s3,
-      :s3_credentials => "#{Rails.root}/config/s3_icon.yml"  
+      :s3_credentials => "#{Rails.root}/config/s3_icon.yml"
+
+  default_scope order: 'icons.created_at DESC'      
 
   process_in_background :image, :only_process => [:small]    
 
