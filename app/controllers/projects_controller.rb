@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
 	layout 'application'
 	require 'will_paginate/array'
 	before_filter :assigned_user, only: [:newmajorpost]
-	before_filter :project_creator, only: [:edit, :settings, :destroy]
+	before_filter :project_creator_and_admin, only: [:edit, :settings, :destroy]
 
 	rescue_from "Mechanize::ResponseCodeError", with: :source_code_parser_404
 
@@ -257,8 +257,14 @@ private
 			redirect_to root_path unless Project.find(params[:id]).users.map(&:id).include?(@current_user_id)
 		end
 
-		def project_creator
-			redirect_to root_path unless Project.find(params[:id]).creator == current_user
+		def project_creator_and_admin
+			if Project.find(params[:id]).creator == current_user then
+			else
+				if current_user.admin?
+				else
+					redirect_to root_path
+				end
+			end
 		end
 
     	#Set Draft for project title
