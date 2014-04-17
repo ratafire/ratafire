@@ -29,8 +29,7 @@
 									<% if @majorpost.project_inspirers.any? %>
 									<ul><% if @majorpost.project_inspirers.count >1 %>Projects <% else %>Project <% end %><li>
 										<!-- content-->
-										<%= raw @majorpost.project_inspirers.map { |t| "#{link_to t.title, user_project_path(t.creator,t),class:"no_ajaxify"}" " (#{t.creator.fullname}) " "#{link_to "o", delete_m_p_path(@project.creator, @project, @majorpost,find_m_p_inspiration_id(t)),method: :delete,class:"no_ajaxify btn-delete-small tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this inspiration?"}" }.join(', ') %>	
-										<% end %>
+										<%= raw @majorpost.project_inspirers.map { |t| "#{link_to t.title, user_project_path(t.creator,t),class:"no_ajaxify"}" " (#{t.creator.fullname}) " "#{link_to "o", delete_m_p_path(@project.creator, @project, @majorpost,find_m_p_inspiration_id(t)),method: :delete,class:"no_ajaxify btn-delete-small tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this inspiration?"}" }.join(', ') %>
 									</li></ul>
 									<% end %>
 									<!-- majorposts -->
@@ -60,7 +59,7 @@
 										<% if @majorpost.project_inspirers.any? %>
 										<ul><% if @majorpost.project_inspirers.count >1 %>Projects <% else %>Project <% end %><li>
 											<!-- content-->
-											<%= raw @majorpost.project_inspirers.map { |t| "#{link_to t.title, user_project_path(t.creator,t),class:"no_ajaxify"}" " (#{t.creator.fullname})" }.join(', ') %>
+											<%= raw @majorpost.project_inspirers.map { |t| "#{link_to t.title, user_project_path(t.creator,t),class:"no_ajaxify"}" " (#{t.creator.fullname})" }.join(', ') %>						
 										</li></ul>
 										<% end %>
 										<!-- majorposts -->
