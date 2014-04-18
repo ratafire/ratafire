@@ -45,10 +45,13 @@
 	<% end %>
 <% end %>		
 <!-- end of project title -->
+		<div id="majorpost-comments" class="tipsy-tipsy" title="Comments">
+			<%= activity.trackable.project_comments.count %>
+		</div>
 		<div id="majorpost-comments">
 		</div>
 		<div id="majorpost-time">
-			Created by <%= link_to activity.trackable.creator.fullname,user_path(activity.trackable.creator),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago.
+			Created by <%= link_to activity.trackable.creator.fullname,user_path(activity.trackable.creator),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago. <% if activity.trackable.project_comments.count >0 then%>Commented by <%= link_to activity.trackable.project_comments.last.user.fullname,user_path(activity.trackable.project_comments.last.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.commented_at)%> ago.<% end %>
 		</div>
 		<!-- When it is not a draft-->
 		<% if activity.trackable.published == true %>

@@ -61,8 +61,8 @@
 	<% end %>
 <% end %>
 <!-- end of majorpost title -->
-		<div id="majorpost-comments">
-			C <%= activity.trackable.comments.count %>
+		<div id="majorpost-comments" class="tipsy-tipsy" title="Comments">
+			<%= activity.trackable.comments.count %>
 		</div>
 		<div id="majorpost-time">
 			Posted by <%= link_to activity.trackable.user.fullname,user_path(activity.trackable.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago. <% if activity.trackable.comments.count >0 then%>Commented by <%= link_to activity.trackable.comments.last.user.fullname,user_path(activity.trackable.comments.last.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.commented_at)%> ago.<% end %>
