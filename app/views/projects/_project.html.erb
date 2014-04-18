@@ -61,11 +61,13 @@
 
 		<ol style="margin-top: -18px;"></ol>
 		<ol><%= project.tagline %> </ol>
-		<span><% if project.tags.any? %><% if project.tags.count >1 %>Tags: <% else %>Tag: <% end %><% end %> 
-				<%= raw project.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %></span>
-		<ol style="color:#999;">Created <%= time_ago_in_words(project.created_at) %> ago<% if project.realm != nil %> in <%= link_to realm_selector_path(project.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(project.realm)%></span><% end %><else>.<% end %></ol>
 	</div>
 </div>	
+		<div class="project-show-tags">
+			<span><% if project.tags.any? %><% if project.tags.count >1 %>Tags: <% else %>Tag: <% end %><% end %> 
+				<%= raw project.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %></span>
+				<ol style="color:#999;">Created <%= time_ago_in_words(project.created_at) %> ago<% if project.realm != nil %> in <%= link_to realm_selector_path(project.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(project.realm)%></span><% end %><else>.<% end %></ol>
+		</div>
 <% else %>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~ Non Project Creator ~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 	<div class="project-show-icon">
@@ -124,5 +126,6 @@
 <% end %>		
 <!-- Project Misc -->
 </div>
+
 
 

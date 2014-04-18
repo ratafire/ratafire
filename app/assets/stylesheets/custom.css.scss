@@ -1299,7 +1299,7 @@ box-shadow: inset 0px 0px 34px 0px rgba(75,132,172,0.1);
 }
 
 .lightbox4 {
-	height: 100px;
+	min-height: 100px;
 	border-top: 1px solid #e2e2e2;
 	color:#999999;
 	padding: 10px 0 20px 0;
@@ -1307,8 +1307,6 @@ box-shadow: inset 0px 0px 34px 0px rgba(75,132,172,0.1);
     -moz-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
-
-
 
 }
 
@@ -4885,6 +4883,12 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	position: absolute;
 	margin-top: -20px;
 	margin-left: 100px;
+}
+
+.project-show-tags{
+	margin-top: 28px;
+	margin-left: 100px;
+	margin-right:40px;
 }
 
 .project-show-icon{
