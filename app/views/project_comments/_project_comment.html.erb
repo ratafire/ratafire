@@ -41,8 +41,7 @@
 										<%= link_to unlike_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unlike" id="<%= project_comment.id%>comment-unlike" style="display:none;">
 										</div><% end %>										
 									<% end %>	
-								</li>  <span id="<%= project_comment.id %>liked-count"><%= project_comment.liked_comments.count %></span> /
-								<li><%= link_to "Share", '#', class:"tipsy-tipsy no_ajaxify", title:"comming soon." %></li> 
+								</li>  <span id="<%= project_comment.id %>liked-count"><%= project_comment.liked_comments.count %></span>
 								<% if current_user?(project_comment.user)%>
 									<li>/ <%= link_to "x", [project_comment.project.creator,project_comment.project, project_comment], :method => :delete, class:"tipsy-tipsy no_ajaxify", title:"Delete comment.", :confirm => "Are you sure to delete this comment?" %></li>
                  				<% end %>
