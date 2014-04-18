@@ -12,7 +12,7 @@
  				 		if (classname != "twitter-share-button"){
 				  	  return this.hostname && this.hostname !== location.hostname;};
  					 })
- 				 	.attr("target", "_blank")
+ 				 	.attr("target", "_blank").addCalss("no_ajaxify")
  					 .after(' <img src="/assets/externallink.png"/>');
  				
 		}
