@@ -182,7 +182,7 @@ private
 			@postimage.url = p
 			splited = p.split("/")
 			#if it is a real Ratafire image!
-			if splited[3] == "Ratafire_images" then
+			if splited[3] == "Ratafire_production_images" || splited[3] == "Ratafire_test_images" then
 				urltemp = splited.pop
 				splited.push("thumbnail_"+urltemp) 
 				@postimage.thumbnail = splited.join("/")

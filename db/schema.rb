@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140411163812) do
+ActiveRecord::Schema.define(:version => 20140418040518) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -160,8 +160,9 @@ ActiveRecord::Schema.define(:version => 20140411163812) do
     t.integer  "comment_id"
     t.text     "url"
     t.string   "thumbnail"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "project_comment_id"
   end
 
   create_table "comments", :force => true do |t|
@@ -292,8 +293,9 @@ ActiveRecord::Schema.define(:version => 20140411163812) do
   create_table "liked_comments", :force => true do |t|
     t.integer  "comment_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "project_comment_id"
   end
 
   create_table "liked_majorposts", :force => true do |t|
@@ -433,6 +435,17 @@ ActiveRecord::Schema.define(:version => 20140411163812) do
     t.datetime "updated_at",   :null => false
     t.text     "url"
     t.string   "thumbnail"
+  end
+
+  create_table "project_comments", :force => true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.text     "excerpt"
+    t.datetime "deleted_at"
+    t.boolean  "deleted",    :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "project_suggestions", :force => true do |t|

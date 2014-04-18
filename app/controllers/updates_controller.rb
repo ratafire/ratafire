@@ -135,7 +135,7 @@ class UpdatesController < ApplicationController
 
 	def featured
 		gon.activebutton = "staffpicks"
-		@activities = PublicActivity::Activity.order("commented_at desc").where(featured: true).paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("commented_at desc").where(:featured => true).paginate(page: params[:page], :per_page => 20)
 	end
 
 	def all

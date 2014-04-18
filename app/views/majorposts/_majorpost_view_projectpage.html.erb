@@ -54,7 +54,7 @@
 
 							<!-- Post User Icon -->
 							<span id="post-usericon">
-											<%= link_to @majorpost.user, class:"no_ajaxify" do %>
+											<%= link_to @majorpost.user, class:"no_ajaxify no_decoration" do %>
 												<div class="user-icon-holder" style="background-image:url(<%= @majorpost.user.profilephoto.url(:small64) %>);"></div>
 											<% end %>
 							</span>

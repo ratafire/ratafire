@@ -30,6 +30,8 @@ class ProjectsController < ApplicationController
 			@comments = @majorpost.comments.paginate(page: params[:comments], :per_page => 20)
 			@comment = Comment.new(params[:comment])
 			end
+			@project_comments = @project.project_comments.paginate(page: params[:project_comments], :per_page => 10)
+			@project_comment = ProjectComment.new(params[:project_comment])			
 		end
 		#bifrosts
 		@bifrost = Bifrost.new(params[:bifrost])
@@ -299,7 +301,7 @@ private
     			@projectimage.url = p
     			splited = p.split("/")
     			#if it is a real Ratafire image!
-    			if splited[3] == "Ratafire_images" then
+    			if splited[3] == "Ratafire_production_images" || splited[3] == "Ratafire_test_images" then
     				urltemp = splited.pop
     				splited.push("thumbnail_"+urltemp)
     				@projectimage.thumbnail = splited.join("/")

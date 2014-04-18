@@ -91,6 +91,37 @@
 					<!-- About View -->
 					<%= render 'projects/about_view'%>
 					<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+
+					<!-- Project Comments -->
+					<% if @project.project_comments.any? %>
+						<%= render @project_comments %>
+					<% end %>
+
+					<!-- Project Comments Pagination -->
+					<div id="project-comment">
+						<%= will_paginate @project_comments, :param_name => 'project_comments', class:"rata_pagination"%>
+					</div>	
+
+					<!-- Add Project Comment -->
+					<% if user_signed_in? %>
+						<div id="comment-input">
+							<div class="textbox2">
+
+										<!-- Post User Icon -->
+							<span id="post-usericon" style="float:left;">
+												<div class="user-icon-small-holder tipsy-tipsy" title="you" style="background-image:url(<%= current_user.profilephoto.url(:tiny) %>);"></div>
+							</span>
+
+							<div id= "comment-input-area">
+							<ul>Comment on <%= @project.title %></ul>
+								<%= render "comments/project_comment_form" %>
+							</div>
+
+							</div>	
+						</div>
+						<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+					<% end %>
+
 					<!-- Majorpost -->
 					<% if @project.majorposts.where(:published => true).any? %>
 					
@@ -118,7 +149,7 @@
 							</span>
 
 							<div id= "comment-input-area">
-							<ul>Comment</ul>
+							<ul>Comment on <%= @majorpost.title %></ul>
 								<%= render "comments/comment_form" %>
 							</div>
 

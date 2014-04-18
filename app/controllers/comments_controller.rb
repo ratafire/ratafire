@@ -7,6 +7,10 @@ class CommentsController < ApplicationController
 		@project = @comment.project
 		@majorpost = @comment.majorpost
 		@majorpost_count = @project.majorposts.where(:published => true).count
+		#Icon
+		if @project.icon_id != "" && @project.icon_id != nil then
+			@icon = Icon.find(@project.icon_id)	
+		end		
 	end
 
 	def new
@@ -19,7 +23,7 @@ class CommentsController < ApplicationController
 			image_parser
 			excerpt_generator
 			@comment.save
-			if @majorpost.comments.count == 1 then
+			if @majorpost.comments.where(:deleted => nil).count == 1 then
 				@majorpost.edit_permission = "edit"
 				@majorpost.commented_at = Time.now
 				@majorpost.save
@@ -40,7 +44,7 @@ class CommentsController < ApplicationController
 			flash[:success] = "You commented on the post!"
 			redirect_to(:back)
 		else
-			flash[:error] = "'_' Comment submit unsucessful. It can't be blank or shorter than 24 characters."
+			flash[:error] = "'_' Unsucessful comment submission. Comment can't be blank or shorter than 24 characters."
 			redirect_to(:back)
 		end
 	end
@@ -65,7 +69,7 @@ class CommentsController < ApplicationController
 		@comment.save
 		@activity_majorpost = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
 		#Set majorpost back to deletable
-		if @majorpost.comments.count == 0 then
+		if @majorpost.comments.where(:deleted => nil).count == 0 then
 			@majorpost.edit_permission = "free"
 			@majorpost.commented_at = @majorpost.created_at
 			@majorpost.save
@@ -73,9 +77,9 @@ class CommentsController < ApplicationController
 			@activity_majorpost.save
 		else	
 			@activity_majorpost.commented_at = @majorpost.comments.last.created_at
-			@activity.save
-			@majorpost.commented_at = @majorpost.comments.last.created_at
 			@activity_majorpost.save
+			@majorpost.commented_at = @majorpost.comments.last.created_at
+			@majorpost.save
 		end
 		flash[:success] = "Comment deleted."
 		redirect_to(:back)
@@ -102,7 +106,7 @@ private
 			@commentimage.url = p
 			splited = p.split("/")
 			#if it is a real Ratafire image!
-			if splited[3] == "Ratafire_images" then
+			if splited[3] == "Ratafire_production_images" || splited[3] == "Ratafire_test_images" then
 				urltemp = splited.pop
 				splited.push("thumbnail_"+urltemp)
 				@commentimage.thumbnail = splited.join("/")

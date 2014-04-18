@@ -190,10 +190,12 @@ Ratafire::Application.routes.draw do
   match 'like/project/-/:project_id/:user_id', to: 'likes#project', as: :like_project
   match 'like/majorpost/-/:majorpost_id/:user_id', to: 'likes#majorpost', as: :like_majorpost
   match 'like/comment/-/:comment_id/:user_id', to: 'likes#comment', as: :like_comment
+  match 'like/project_comment/-/:project_comment_id/:user_id', to: 'likes#project_comment', as: :like_project_comment
 
   match 'unlike/project/-/:project_id/:user_id', to: 'likes#unlike_project',as: :unlike_project
   match 'unlike/majorpost/-/:majorpost_id/:user_id', to: 'likes#unlike_majorpost', as: :unlike_majorpost
   match 'unlike/comment/-/:comment_id/:user_id', to: 'likes#unlike_comment', as: :unlike_comment
+  match 'unlike/project_comment/-/:project_comment_id/:user_id', to: 'likes#unlike_project_comment', as: :unlike_project_comment
 
 #---Errors---
 
@@ -216,6 +218,7 @@ Ratafire::Application.routes.draw do
 #---Resources---
   resources :users, :path => '/' do
     resources :projects, :except => :index do
+      resources :project_comments, :except => :index
       resources :majorposts, :except => :index do
         resources :comments, :except => :index
       end

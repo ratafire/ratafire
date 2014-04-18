@@ -19,7 +19,7 @@
 		<% if activity.trackable %>
 		<!-- Title -->
 		<div class="majorpost-title">
-		<%= link_to activity.owner.fullname, activity.owner, class:"no_ajaxify" %> commented on <li><%= link_to activity.trackable.majorpost.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost), class:"no_ajaxify" %></li> <%= time_ago_in_words(activity.trackable.created_at) %> ago.
+		<%= link_to activity.owner.fullname, activity.owner, class:"no_ajaxify" %> commented on <li><%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator,activity.trackable.project), class:"no_ajaxify" %></li> <%= time_ago_in_words(activity.trackable.created_at) %> ago.
 		</div>
 		<div id="majorpost-comments">
 			
@@ -32,7 +32,7 @@
 				<% if activity.trackable.commentimages.count > 0 %>
 					<!-- one postimage -->
 					<% if activity.trackable.commentimages.count == 1 %>
-						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>
+						<%= link_to user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.commentimages.first.thumbnail%>" style="border-radius:5px;">
 							</div>
@@ -41,17 +41,17 @@
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 						</div>
 						<div id="majorpost-tags">
-							<%= link_to "Read All >>", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
+							<%= link_to "Read All >>", user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable), class:"no_ajaxify" %>
 						</div>									
 					<% end %>
 					<!-- two postimages three postimages -->
 					<% if activity.trackable.commentimages.count == 2 || activity.trackable.commentimages.count == 3 %>
-						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>
+						<%= link_to user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.commentimages.first.thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>
-						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>	
+						<%= link_to user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable),class:"no_ajaxify" do %>	
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.commentimages[1].thumbnail%>" style="border-radius:5px;">
 							</div>
@@ -60,33 +60,33 @@
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
 						</div>	
 						<div id="majorpost-tags">
-							<%= link_to "Read All >>", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
+							<%= link_to "Read All >>", user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable), class:"no_ajaxify" %>
 						</div>													
 					<% end %>
 					<!-- four postimages -->
 					<% if activity.trackable.commentimages.count >= 3 %>
-						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>
+						<%= link_to user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.commentimages.first.thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>
-						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>	
+						<%= link_to user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable),class:"no_ajaxify" do %>	
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.commentimages[1].thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>
-						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>	
+						<%= link_to user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable),class:"no_ajaxify" do %>	
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.commentimages[2].thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>	
-						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>
+						<%= link_to user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.commentimages[3].thumbnail%>" style="border-radius:5px;">
 							</div>	
 						<% end %>	
 						<div id="majorpost-tags">
-							<%= link_to "Read All >>", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
+							<%= link_to "Read All >>", user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable), class:"no_ajaxify" %>
 						</div>										
 					<% end %>
 				<% else %>
@@ -95,7 +95,7 @@
 						<%= sanitize truncate(activity.trackable.excerpt, :length => 200) %>
 					</div>
 					<div id="majorpost-tags">
-						<%= link_to "Read All", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
+						<%= link_to "Read All", user_project_project_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable), class:"no_ajaxify" %>
 					</div>					
 				<% end %>
 		</div>
