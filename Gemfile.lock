@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: git://github.com/ratafire/redactor-rails.git
-  revision: 99910eb9463e71083ba02535e25c03b1df124092
+  revision: e5c5997d37bc9c6d5bc8a7511208f970a7f30abe
   specs:
     redactor-rails (0.3.6)
       devise
@@ -170,10 +170,10 @@ GEM
     fog-brightbox (0.0.2)
       fog-core
       fog-json
-    fog-core (1.21.1)
+    fog-core (1.22.0)
       builder
-      excon (~> 0.32)
-      formatador (~> 0.2.0)
+      excon (~> 0.33)
+      formatador (~> 0.2)
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
