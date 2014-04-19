@@ -30,12 +30,12 @@
 							<ol>
 								<%= link_to 'Settings', edit_user_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
 							</ol>
-						</div>				
-						<!-- <div class="settingsinner">
+						</div>	
+						<div class="settingsinner_mid">
 							<ol>
-								<%= link_to 'Settings', edit_user_registration_path(current_user) %>
+								<%= link_to 'Subscription', subscription_settings_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
 							</ol>
-						</div> -->
+						</div>					
 						<div class="settingsinner-last">
 							<ol>
 								<%= link_to "Sign Out", destroy_user_session_path, method: "delete", class: 'no_ajaxify settings-btn-signout' %>

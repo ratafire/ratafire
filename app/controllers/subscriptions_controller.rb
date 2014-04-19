@@ -6,6 +6,8 @@ class SubscriptionsController < ApplicationController
 				  only: [:new,:amazon]
 	before_filter :subscription_permission,
 				  only: [:new, :create, :amazon]
+	before_filter :correct_user, only: [:settings, :transactions]
+
 
 	def subscribers
 		@user = User.find(params[:id])
@@ -75,6 +77,9 @@ class SubscriptionsController < ApplicationController
 	def settings
 		@user = User.find(params[:id])
 		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+	end
+
+	def transactions
 	end
 
 	def turnon
@@ -203,6 +208,16 @@ private
         redirect_to new_user_session_path, notice:"Please sign in." unless signed_in?
       end
     end	
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
+    end    
+
+   #Devise 
+    def current_user?(user)
+      user == current_user
+    end   
 
     #See if the user is in a subscription
     def not_subscribed

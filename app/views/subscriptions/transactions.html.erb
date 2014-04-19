@@ -1,0 +1,46 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_settings' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+						
+							<h1>Transactions</h1>
+							<h5>Your monthly transactions. </h5>
+							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+						</div><!-- end of textbox-->	
+
+						<!-- Received -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<h2>Receiving</h2>
+								<%= render 'subscriptions/receiving_transactions'%>
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->		
+							
+						<!-- Received -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<h2>Paying</h2>
+								<%= render 'subscriptions/paying_transactions'%>
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->										
+
+						<!-- Cutter --><ol style="margin-top: 70px;"></ol>
+
+				</div><!-- end.standard-content -->
+				<%= render 'layouts/footer' %>
+
+			</div><!-- end of main-content-->							
