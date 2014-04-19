@@ -1,0 +1,46 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_admin' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+						
+							<h1>Content</h1>
+							<h5>I know one thing, and that is that I know nothing.</h5>
+							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+						<!-- end of textbox-->
+						</div>						
+
+						<!-- Feature Things -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+
+								<h2>Add Staff Picks</h2>
+
+								<%= form_tag 'post_staff_pick', class:"no_ajaxify" do %>
+								<div><%= text_field_tag 'url', nil,type:"user-inspirer",placeholder:'Enter url of projects or majorposts'%></div>
+								<%= submit_tag '', class: "btn-submit admin-submit no_ajaxify", style:"background-image:url(/assets/warcraft_staff_picks_add.jpg);" %>
+								<% end %>
+
+								<%= render 'admin/staffpicks'%>
+
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->								
+										
+
+						</div><!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+			</div><!-- end of main-content-->

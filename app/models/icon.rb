@@ -13,7 +13,7 @@ class Icon < ActiveRecord::Base
 
   default_scope order: 'icons.created_at DESC'      
 
-  process_in_background :image, :only_process => [:small]    
+  #process_in_background :image, :only_process => [:small]    
 
   validates_attachment :image, 
     :content_type => { :content_type => ["image/jpeg","image/jpg","image/png"]},

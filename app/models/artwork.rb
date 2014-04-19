@@ -17,7 +17,7 @@ class Artwork < ActiveRecord::Base
     :content_type => { :content_type => ["image/jpeg","image/jpg","image/png","image/psd","image/vnd.adobe.photoshop","image/bmp"]},
     :size => { :in => 0..524288.kilobytes}
 
-  process_in_background :image, :only_process => [:small, :thumbnail]  
+  #process_in_background :image, :only_process => [:small, :thumbnail]  
 
   Paperclip.interpolates :escaped_filename do |attachment, style|
     attachment.instance.normalized_video_file_name

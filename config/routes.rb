@@ -208,9 +208,13 @@ Ratafire::Application.routes.draw do
   #Beta
   match '/beta_admin', to: 'beta_users#show', as: :beta_admin
   match '/test_admin', to: 'admin#test', as: :admin_test
+  match '/content_admin', to: 'admin#content', as: :admin_content
 
   match '/:id/r/ratafire/welcome-new-friend/beta_approve', to: 'beta_users#approve',as: :beta_approve
   match '/:id/r/ratafire/welcome-new-friend/beta_ignore', to: 'beta_users#ignore', as: :beta_ignore
+  
+  match '/post_staff_pick', to: 'admin#staff_pick', via: :post
+  match '/this_project/is_not/good_enough/:project_id', to: 'admin#project_staff_picks_delete', as: :project_staff_picks_delete
 
 #---Tests--- 
   match '/test_resque', to: 'admin#test_resque', as: :test_resque 

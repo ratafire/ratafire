@@ -31,6 +31,7 @@
 //= require ajaxify_rails.js.coffee
 //= require autocomplete-rails.js
 //= require facebook.js.coffee
+//= require dataTables/jquery.dataTables
 //= require_directory .
 //= require_directory ./redactor-rails
 

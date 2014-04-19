@@ -17,6 +17,7 @@
 *= require video-js
 *= require jquery.fileupload-ui
 *= require monokai
+*= require dataTables/src/demo_table_jui
 *= require_tree .
 
  */
