@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140418040518) do
+ActiveRecord::Schema.define(:version => 20140419084443) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -378,6 +378,7 @@ ActiveRecord::Schema.define(:version => 20140418040518) do
     t.boolean  "deleted",         :default => false
     t.boolean  "featured"
     t.string   "uuid"
+    t.boolean  "test",            :default => false
   end
 
   create_table "p_e_inspirations", :force => true do |t|
@@ -493,6 +494,7 @@ ActiveRecord::Schema.define(:version => 20140418040518) do
     t.boolean  "deleted",           :default => false
     t.boolean  "featured",          :default => false
     t.string   "uuid"
+    t.boolean  "test",              :default => false
   end
 
   create_table "redactor_assets", :force => true do |t|

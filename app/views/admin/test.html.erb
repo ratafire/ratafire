@@ -23,7 +23,7 @@
 						<!-- end of textbox-->
 						</div>						
 
-						<!-- Realm Balance -->
+						<!-- Test Resque Jobs -->
 						<div class="lightbox2-bordered">
 							<div class="textbox-mini">
 
@@ -32,7 +32,27 @@
 								<div><%= link_to "Use this link to test Resque worker: TestWorker", test_resque_path, class:"no_ajaxify"%></div>
 
 							</div><!-- end.textbox-mini-->
-						</div><!-- end.lightbox2-bordered-->								
+						</div><!-- end.lightbox2-bordered-->			
+
+						<!-- Add Tests -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+
+								<h2>Add Test Projects or Majorposts</h2>
+
+								<%= form_tag 'add_tests', class:"no_ajaxify" do %>
+								<div><%= text_field_tag 'url', nil,type:"user-inspirer",placeholder:'Enter the url of a project or a majorpost'%></div>
+								<%= submit_tag '', class: "btn-submit admin-submit no_ajaxify", style:"background-image:url(/assets/warcraft_add_tests.jpg);" %>
+								<% end %>
+
+								<!-- Test Projects -->
+								<%= render 'admin/test_projects'%>		
+
+								<!-- Test Majorposts -->
+								<%= render 'admin/test_majorposts'%>																
+
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->												
 										
 
 						</div><!-- Footer -->

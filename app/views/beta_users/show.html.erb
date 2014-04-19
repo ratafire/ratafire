@@ -17,7 +17,7 @@
 						<div class="textbox">
 						
 							<h1>Beta Users</h1>
-							<h5>View and approve beta users.</h5>
+							<h5>You are here in order to enable the world to live more amply, with greater vision, with a finer spirit of hope and achievement.</h5>
 							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
 
 						<!-- end of textbox-->
@@ -27,15 +27,7 @@
 						<div class="lightbox2-bordered">
 							<div class="textbox-mini">
 
-								<div>Art - Approved Creators: <%= @beta_art.count %>, Approved: <%= @beta_art_a.count %></div>
-								<div>Music - Approved Creators: <%= @beta_music.count %>, Approved: <%= @beta_music_a.count %></div>
-								<div>Games - Approved Creators: <%= @beta_games.count %>, Approved: <%= @beta_games_a.count %></div>
-								<div>Writing - Approved Creators: <%= @beta_writing.count %>, Approved: <%= @beta_writing_a.count %></div>
-								<div>Videos - Approved Creators: <%= @beta_videos.count %>, Approved: <%= @beta_videos_a.count %></div>
-								<div>Math - Approved Creators: <%= @beta_math.count %>, Approved: <%= @beta_math_a.count %></div>
-								<div>Science - Approved Creators: <%= @beta_science.count %>, Approved: <%= @beta_science_a.count %></div>
-								<div>Humanity - Approved Creators: <%= @beta_humanity.count %>, Approved: <%= @beta_humanity_a.count %></div>
-								<div>Engineering - Approved Creators: <%= @beta_engineering.count %>, Approved: <%= @beta_engineering_a.count %></div>
+								<%= render 'beta_users/realm_balance'%>
 
 							</div><!-- end.textbox-mini-->
 						</div><!-- end.lightbox2-bordered-->								
@@ -44,8 +36,7 @@
 						<div class="lightbox2-bordered">
 							<div class="textbox-mini">
 								<h2>Applied</h2>
-								<%= render partial: "beta_users/applied_users", collection: @beta_users, :as => :user %>
-								<%= will_paginate @beta_users, :param_name => 'page', class:"rata_pagination" %>	
+								<%= render 'beta_users/applied_users'%>
 							</div><!-- end.textbox-mini-->
 						</div><!-- end.lightbox2-bordered-->	
 
@@ -53,8 +44,7 @@
 						<div class="lightbox2-bordered">
 							<div class="textbox-mini">
 								<h2>Approved</h2>
-								<%= render partial: "beta_users/applied_users", collection: @beta_users_approved, :as => :user %>
-								<%= will_paginate @beta_users_approved, :param_name => 'a', class:"rata_pagination" %>	
+								<%= render 'beta_users/approved_users'%>
 							</div><!-- end.textbox-mini-->
 						</div><!-- end.lightbox2-bordered-->		
 
@@ -62,8 +52,7 @@
 						<div class="lightbox2-bordered">
 							<div class="textbox-mini">
 								<h2>Ignored</h2>
-								<%= render partial: "beta_users/applied_users", collection: @beta_users_ignored, :as => :user %>
-								<%= will_paginate @beta_users_ignored, :param_name => 'i', class:"rata_pagination" %>	
+								<%= render 'beta_users/ignored_users'%>	
 							</div><!-- end.textbox-mini-->
 						</div><!-- end.lightbox2-bordered-->											
 

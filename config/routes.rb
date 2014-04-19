@@ -207,14 +207,30 @@ Ratafire::Application.routes.draw do
 #---Admin---
   #Beta
   match '/beta_admin', to: 'beta_users#show', as: :beta_admin
+  match '/beta_applied_users', to: 'beta_users#applied_users', as: :admin_applied_users
+  match '/beta_approved_users', to: 'beta_users#approved_users', as: :admin_approved_users
+  match '/beta_ignored_users', to: 'beta_users#ignored_users', as: :admin_ignored_users
   match '/test_admin', to: 'admin#test', as: :admin_test
   match '/content_admin', to: 'admin#content', as: :admin_content
+  match '/content_project_admin', to: 'admin#content_project', as: :admin_content_project
+  match '/content_majorpost_admin', to: 'admin#content_majorpost', as: :admin_content_majorpost
+  match '/content_deleted_project_admin', to: 'admin#content_deleted_project', as: :admin_content_deleted_project
+  match '/content_deleted_majorpost_admin', to: 'admin#content_deleted_majorpost', as: :admin_content_deleted_majorpost
+  match '/content_deleted_comment_admin', to: 'admin#content_deleted_comment', as: :admin_content_deleted_comment
+  match '/content_deleted_project_comment_admin', to: 'admin#content_deleted_project_comment', as: :admin_content_deleted_project_comment
+  match '/test_projects_admin', to: 'admin#test_projects', as: :admin_test_projects
+  match '/test_majorposts_admin', to: 'admin#test_majorposts', as: :admin_test_majorposts  
 
   match '/:id/r/ratafire/welcome-new-friend/beta_approve', to: 'beta_users#approve',as: :beta_approve
   match '/:id/r/ratafire/welcome-new-friend/beta_ignore', to: 'beta_users#ignore', as: :beta_ignore
   
   match '/post_staff_pick', to: 'admin#staff_pick', via: :post
   match '/this_project/is_not/good_enough/:project_id', to: 'admin#project_staff_picks_delete', as: :project_staff_picks_delete
+  match '/this_majorpost/is_not/good_enough/:majorpost_id', to: 'admin#majorpost_staff_picks_delete', as: :majorpost_staff_picks_delete
+  match '/delete_content', to: 'admin#delete_content', via: :post
+  match '/restore_content/i_will_be_back/live_to_fight_another_day/arise/:type/:id', to: 'admin#restore', as: :restore
+  match '/add_tests', to: 'admin#add_tests', via: :post
+  match '/untest_content/this_is_a_real_thing/let_me_come_back/i_am_serious/:type/:id', to: 'admin#untest', as: :untest
 
 #---Tests--- 
   match '/test_resque', to: 'admin#test_resque', as: :test_resque 

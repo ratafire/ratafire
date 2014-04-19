@@ -10,7 +10,7 @@
 
 		<!-- Post Title -->
 		<div id="post-title">
-			<h2>._.</h2>
+			<h2><%= link_to "._.",user_project_project_comment_path(project_comment.project.creator,project_comment.project,project_comment),class:"no_ajaxify",style:"color:#fff;"%></h2>
 			<ul></ul>
 				<ol><%= link_to project_comment.user.fullname , project_comment.user, class:"no_ajaxify" %> <span>[</span><%= project_comment.user.username %><span>]</span><% unless project_comment.user.tagline.blank?%><span>,</span> <%= project_comment.user.tagline%><% end %></ol>
 				<ol style="margin-top:0px;"><%= time_ago_in_words(project_comment.created_at) %> ago</ol>
