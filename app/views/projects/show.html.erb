@@ -33,10 +33,10 @@
 		<%= tag :meta, property: "og:title", content: @project.title %>
 			
 		<% if @project.artwork != nil %>
-			<%= tag :meta, property: "og:image", content: @video.thumbnail %>
+			<%= tag :meta, property: "og:image", content: @project.artwork.image.url(:preview) %>
 		<% else %>
 			<% if @project.video_id != nil && @project.video_id != ""%>
-				<%= tag :meta, property: "og:image", content: @video. %>	
+				<%= tag :meta, property: "og:image", content: @video.thumbnail %>	
 			<% else %>
 				<% if @icon != nil %>
 					<%= tag :meta, property: "og:image", content: @icon.image.url(:pageview) %>	
