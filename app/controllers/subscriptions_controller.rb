@@ -6,12 +6,13 @@ class SubscriptionsController < ApplicationController
 				  only: [:new,:amazon]
 	before_filter :subscription_permission,
 				  only: [:new, :create, :amazon]
-	before_filter :correct_user, only: [:settings, :transactions]
+	before_filter :correct_user, only: [:settings, :transactions, :receiving_transactions]
 
 
 	def subscribers
 		@user = User.find(params[:id])
 		@subscribers = @user.subscribers.paginate(page: params[:subscribers], :per_page =>32)
+		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 	end
 
 	def subscribers_past
@@ -80,6 +81,42 @@ class SubscriptionsController < ApplicationController
 	end
 
 	def transactions
+		balance = @user.subscription_amount - @user.subscribing_amount
+		if balance < 0 then
+			balance = 0 - balance
+			@balance = "-$"+balance.to_s
+		else
+			@balance = "$"+balance.to_s
+		end
+	end
+
+	def receiving_transactions
+		respond_to do |format|
+    		format.html
+    		format.json { render json: ReceivingTransactionsDatatable.new(view_context) }
+  		end			
+	end
+
+	def paying_transactions
+		respond_to do |format|
+    		format.html
+    		format.json { render json: PayingTransactionsDatatable.new(view_context) }
+  		end			
+	end	
+
+	def transaction_details
+		@transaction = Transaction.find(params[:transaction_id])
+		@user = User.find(params[:id])
+		if @transaction != nil then
+			@subscriber = User.find(@transaction.subscriber_id)
+			@subscribed = User.find(@transaction.subscribed_id)
+			@amazon = amazon(@transaction.amazon)
+			@ratafire = ratafire(@transaction.ratafire_fee)
+			@receive = receive(@transaction.receive)
+		else
+			flash[:success] = "Cannot find transaction."
+			redirect_to(:back)
+		end
 	end
 
 	def turnon
@@ -107,6 +144,7 @@ class SubscriptionsController < ApplicationController
 	def destroy
 		@subscription = Subscription.find_by_subscriber_id_and_subscribed_id(params[:subscriber_id],params[:id])
 		@user = User.find(@subscription.subscriber_id)
+		@subscriber = @user
 		@subscription.deleted_reason = 2
 		@subscription.deleted_at = Time.now
 		@subscription.save	
@@ -133,20 +171,27 @@ class SubscriptionsController < ApplicationController
 			#Add to User's Subscription amount
 			@subscribed = User.find(@subscription.subscribed_id)
 			case @subscription.amount
-  			when 7.71
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - 7.00
-  			when 13.16
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - 12.00
-  			when 19.24
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - 17.00
-  			when 27.03
- 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - 24.00
-  			when 57.54
- 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - 50.00
- 	 		when 114.78
-	  			@subscribed.subscription_amount = @subscribed.subscription_amount - 100.00
+  			when ENV["PRICE_1"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f
+  			when ENV["PRICE_2"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_2_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_2"].to_f
+  			when ENV["PRICE_3"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_3_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_3"].to_f
+  			when ENV["PRICE_4"].to_f
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_4_RECEIVE"].to_f
+ 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_4"].to_f
+  			when ENV["PRICE_5"].to_f
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_5_RECEIVE"].to_f
+ 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_5"].to_f
+ 	 		when ENV["PRICE_6"].to_f
+	  			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_6_RECEIVE"].to_f
+	  			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_6"].to_f
  	 		end	
- 	 		@subscribed.save		
+ 	 		@subscribed.save
+ 	 		@subscriber.save		
 		flash[:success] = "You removed "+@user.fullname+"!"
 		redirect_to(:back)
 	end
@@ -154,6 +199,8 @@ class SubscriptionsController < ApplicationController
 	def unsub
 		@subscription = Subscription.find_by_subscriber_id_and_subscribed_id(params[:id],params[:subscribed_id])
 		@user = User.find(@subscription.subscribed_id)
+		@subscribed = @user
+		@subscriber = User.find(@subscription.subscriber_id)
 		#Cancel Amazon Payments Token
 		response = AmazonFlexPay.cancel_token(@subscription.amazon_recurring.tokenID)
 		@subscription.deleted_reason = 1
@@ -182,20 +229,27 @@ class SubscriptionsController < ApplicationController
 		end		
 		#Change User's subscription amount
 			case @subscription.amount
-  			when 7.71
-  				@user.subscription_amount = @user.subscription_amount - 7.00
-  			when 13.16
-  				@user.subscription_amount = @user.subscription_amount - 12.00
-  			when 19.24
-  				@user.subscription_amount = @user.subscription_amount - 17.00
-  			when 27.03
- 	 			@user.subscription_amount = @user.subscription_amount - 24.00
-  			when 57.54
- 	 			@user.subscription_amount = @user.subscription_amount - 50.00
- 	 		when 114.78
-	  			@user.subscription_amount = @user.subscription_amount - 100.00
+  			when ENV["PRICE_1"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f
+  			when ENV["PRICE_2"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_2_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_2"].to_f
+  			when ENV["PRICE_3"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_3_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_3"].to_f
+  			when ENV["PRICE_4"].to_f
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_4_RECEIVE"].to_f
+ 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_4"].to_f
+  			when ENV["PRICE_5"].to_f
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_5_RECEIVE"].to_f
+ 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_5"].to_f
+ 	 		when ENV["PRICE_6"].to_f
+	  			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_6_RECEIVE"].to_f
+	  			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_6"].to_f
  	 		end	
- 	 		@user.save		
+ 	 		@subscribed.save
+ 	 		@subscriber.save	
 		flash[:success] = "You unsubscribed from "+@user.fullname+"!"
 		redirect_to(:back)
 	end
@@ -232,7 +286,7 @@ private
     	@subscribed = User.find(params[:id])
     	@subscriber = current_user
     	#Check History to see if the last subscription is within one month
-    	if subscription_permission_30days then
+    	if subscription_permission_30days == false then
     		redirect_to(:back)
     	else
         	#Check if the subscribed has opened subscription
@@ -357,4 +411,28 @@ private
 			return true
 		end
 	end
+
+  def amazon(amount)
+    if amount == nil then
+      return "-"
+    else
+      return "-$"+amount.to_s
+    end
+  end
+
+  def ratafire(amount)
+    if amount == nil then
+      return "-"
+    else
+      return "-$"+amount.to_s
+    end
+  end
+
+  def receive(amount)
+    if amount == nil then
+      return "-"
+    else
+      return "$"+amount.to_s
+    end
+  end	
 end

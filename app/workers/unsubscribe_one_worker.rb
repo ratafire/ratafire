@@ -32,22 +32,30 @@ class UnsubscribeOneWorker
 					end
 				end		
 				#Add to User's Subscription amount
-				subscribed = User.find(subscription.subscribed_id)
+				@subscribed = User.find(subscription.subscribed_id)
+				@subscriber = User.find(subscription.subscriber_id)
 				case subscription.amount
-  				when 7.71
-  					subscribed.subscription_amount = subscribed.subscription_amount - 7.00
-  				when 13.16
-  					subscribed.subscription_amount = subscribed.subscription_amount - 12.00
-  				when 19.24
-  					subscribed.subscription_amount = subscribed.subscription_amount - 17.00
-  				when 27.03
- 	 				subscribed.subscription_amount = subscribed.subscription_amount - 24.00
-  				when 57.54
- 	 				subscribed.subscription_amount = subscribed.subscription_amount - 50.00
- 	 			when 114.78
-	  				subscribed.subscription_amount = subscribed.subscription_amount - 100.00
- 	 			end	
- 	 			subscribed.save								
+  			when ENV["PRICE_1"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f
+  			when ENV["PRICE_2"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_2_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_2"].to_f
+  			when ENV["PRICE_3"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_3_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_3"].to_f
+  			when ENV["PRICE_4"].to_f
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_4_RECEIVE"].to_f
+ 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_4"].to_f
+  			when ENV["PRICE_5"].to_f
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_5_RECEIVE"].to_f
+ 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_5"].to_f
+ 	 		when ENV["PRICE_6"].to_f
+	  			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_6_RECEIVE"].to_f
+	  			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_6"].to_f
+ 	 		end	
+ 	 		@subscribed.save
+ 	 		@subscriber.save							
 		end
 	end	
 

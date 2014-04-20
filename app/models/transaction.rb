@@ -1,8 +1,9 @@
 class Transaction < ActiveRecord::Base
   	# attr_accessible :title, :body
-	belongs_to :subscription_records
+	  belongs_to :subscription_records
   	before_validation :generate_uuid!, :on => :create
   	self.primary_key = 'uuid'
+    
 
   	#This is where we create our Caller Reference for Amazon Payments, and prefill some other information
   	def self.prefill!(options = {})

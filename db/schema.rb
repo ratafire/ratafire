@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140419084443) do
+ActiveRecord::Schema.define(:version => 20140420044826) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -581,7 +581,7 @@ ActiveRecord::Schema.define(:version => 20140419084443) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.datetime "created_at",                                            :null => false
+    t.datetime "created_at",                                                                 :null => false
     t.decimal  "receive",                :precision => 10, :scale => 2
     t.decimal  "amazon",                 :precision => 10, :scale => 2
     t.integer  "ratafire"
@@ -589,7 +589,7 @@ ActiveRecord::Schema.define(:version => 20140419084443) do
     t.boolean  "sucess"
     t.integer  "subscriber_id"
     t.integer  "subscribed_id"
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "updated_at",                                                                 :null => false
     t.string   "CallerReference"
     t.string   "ChargeFeeTo"
     t.string   "RecipientTokenId"
@@ -597,7 +597,7 @@ ActiveRecord::Schema.define(:version => 20140419084443) do
     t.string   "TransactionId"
     t.string   "StatusCode"
     t.text     "StatusMessage"
-    t.string   "status"
+    t.string   "status",                                                :default => "Error"
     t.integer  "subscription_record_id"
     t.string   "amount"
     t.string   "uuid"
@@ -696,6 +696,7 @@ ActiveRecord::Schema.define(:version => 20140419084443) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",                                        :default => 0
+    t.decimal  "subscribing_amount",         :precision => 8, :scale => 2, :default => 0.0
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

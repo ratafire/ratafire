@@ -4,8 +4,10 @@ class UnsubscribeWorker
 
 	def self.perform(user_id, reason_number)
 		@user = User.find(user_id)
+		@subscribed = @user
 		if @user.subscriptions.count != 0 then
 			@user.subscriptions.each do |s|
+				@subscriber = User.find(s.subscriber_id)
 				#Cancel Amazon Payments Token
 				response = AmazonFlexPay.cancel_token(s.amazon_recurring.tokenID)
 				s.deleted_reason = reason_number
@@ -34,20 +36,27 @@ class UnsubscribeWorker
 				end		
 			#Add to User's Subscription amount
 			case subscription.amount
-  			when 7.71
-  				@user.subscription_amount = @user.subscription_amount - 7.00
-  			when 13.16
-  				@user.subscription_amount = @user.subscription_amount - 12.00
-  			when 19.24
-  				@user.subscription_amount = @user.subscription_amount - 17.00
-  			when 27.03
- 	 			@user.subscription_amount = @user.subscription_amount - 24.00
-  			when 57.54
- 	 			@user.subscription_amount = @user.subscription_amount - 50.00
- 	 		when 114.78
-	  			@user.subscription_amount = @user.subscription_amount - 100.00
+  			when ENV["PRICE_1"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f
+  			when ENV["PRICE_2"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_2_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_2"].to_f
+  			when ENV["PRICE_3"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_3_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_3"].to_f
+  			when ENV["PRICE_4"].to_f
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_4_RECEIVE"].to_f
+ 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_4"].to_f
+  			when ENV["PRICE_5"].to_f
+ 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_5_RECEIVE"].to_f
+ 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_5"].to_f
+ 	 		when ENV["PRICE_6"].to_f
+	  			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_6_RECEIVE"].to_f
+	  			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_6"].to_f
  	 		end	
- 	 		@user.save				
+ 	 		@subscribed.save
+ 	 		@subscriber.save			
 			end
 		end				
 	end

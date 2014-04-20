@@ -13,6 +13,15 @@ GIT
       omniauth-oauth (~> 1.0)
 
 GIT
+  remote: git://github.com/ratafire/amazon_flex_pay.git
+  revision: ef3ae456e1c3ddce583753219240123b60c0ec1c
+  specs:
+    amazon_flex_pay (0.10.0)
+      activesupport (>= 3.0.14)
+      multi_xml (>= 0.5.2)
+      rest-client (~> 1.6.1)
+
+GIT
   remote: git://github.com/ratafire/redactor-rails.git
   revision: e5c5997d37bc9c6d5bc8a7511208f970a7f30abe
   specs:
@@ -92,10 +101,6 @@ GEM
       rails (>= 3, < 5)
     ajaxify_rails (0.9.5)
       rails (>= 3.2.0)
-    amazon_flex_pay (0.10.0)
-      activesupport (>= 3.0.14)
-      multi_xml (>= 0.5.2)
-      rest-client (~> 1.6.1)
     annotate (2.5.0)
       rake
     arel (3.0.3)
@@ -348,7 +353,7 @@ GEM
       rufus-scheduler (~> 2.0.24)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    riddle (1.5.10)
+    riddle (1.5.11)
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
@@ -434,7 +439,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (= 2.4.1)
   ajaxify_rails (= 0.9.5)
-  amazon_flex_pay
+  amazon_flex_pay!
   annotate (= 2.5.0)
   aws-s3 (= 0.6.3)
   aws-sdk (= 1.38.0)
