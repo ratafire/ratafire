@@ -1,0 +1,118 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @project.title) %>
+
+	<!-- External Link -->
+	<%= render 'shared/externallink'%><!-- script -->	
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'projects/project_header' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_project' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">
+		<div class="post-content" style="background-color:#fff;">
+
+			<!-- Settings Title -->
+			<div class="post-about-bg">
+				<div class="textbox-mini">
+					<div class="post-about-title">
+						<li style="font-size: 1.4em;">Settings</li>
+					</div>
+				</div>
+			</div>
+
+			<!-- Settings Content -->
+			<div class="lightbox2" style="border-color: #bbbbbb;"  id="about-case">
+				<div class="textbox-mini" type="blue">
+
+<% if @project.complete == false && @project.abandoned != true %>
+
+					<%= form_for [@project.creator, @project], :url => project_update_path(@project.creator,@project),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f|%>
+
+					<!-- Project Goal-->
+					<h2>Goal</h2>
+						<!-- Goal -->
+						<div class="goals-placer">
+							<ul id="blue">Major Posts <span>[</span>
+							<%= @majorpost_count %> <span>/</span> </ul>
+							<ul><%= f.text_field :goal, class: "inputbox goals-input" %></ul> <span>]</span>
+							<ol><%= progress_bar(goals_count(@majorpost_count, @project.goal), :color => 'blue', :rounded => true) %></ol>
+							<% if @project.majorposts.count < 6 %><!-- Major Posts < 5 -->
+								<span>default: 5, minimum: <%= @majorpost_count+1 %></span>
+							<% else %>
+								<span>minimum: <%= @majorpost_count+1 %></span>
+							<% end %>
+						</div>
+
+					<!-- Permanent Link-->	
+					<h2>Permanent Link</h2>
+						<div class="goals-placer" style="text-align:left;">
+							<ul style="color:#999;">https://www.ratafire.com/<%= @project.creator.username %>/</ul>
+							<ul><%= f.text_field :perlink, style:"width:472px;", class:"inputbox completion-input" %></ul>
+						</div>
+
+					<!-- Source Code-->	
+					<h2>Source Code</h2>
+						<div class="source-code-placer" style="margin-left:21px;">
+							<%= f.text_field :source_code, placeholder:"Enter project source code url if any", class:"completion-input inputbox",style:"width:695px; margin-left:0px;" %>
+						</div>
+							
+						<div style="text-align:right;margin-right:17px;margin-top:40px;">
+							<%= link_to "Abandon Project",you_shall_not_pass_path(@project.creator,@project),class:"no_ajaxify btn btn-medium3 btn-medium-white",:method => :get,:confirm => "Are you sure to abandon this project? <p>Review the following changes: </p> <p>1. This project will be marked as abandoned.</p> <p>2. No one can edit this project unless you reopen it.</p>", style:"margin-right:5px;"%>
+							<%= f.submit "Save Changes", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green project-settings-save"%>
+						</div>
+
+					<% end %><!-- end form-->	
+
+				</div><!-- end of textbox-mini-->
+					<!-- Inspired By Title -->
+					<div class="inspiration-bg">
+						<div class="textbox-mini">
+							<div class="post-about-title" type="blue">
+								<li style="font-size: 1.4em;">Project Completion</li>
+							</div>
+						</div>
+					</div>
+					<div class='btn-completion'>
+						<div class="textbox-mini" style="padding-top:10px;">
+							<div class="btn-completion-bg">
+							You have traveled far! Once you click the button below, this project will be marked as completed, a copy of the project at its completion time will be archived permanently. You cannot edit project title, goal, and permanent link after a project's completion. Check everything twice before clicking the completion button!
+							</div>
+							<div  style="text-align:right;margin-right:17px;margin-top:40px;">
+								<%= link_to "Complete",you_completed_me_path(@project.creator,@project),class:"btn btn-medium btn-medium-blue no_ajaxify btn-completion-submit-special",:method => :get,:confirm => "Are you sure to complete this project? It cannot be undone. <p>Review the following changes to your project after its completion: </p> <p>1. This project will be marked as completed.</p> <p>2. A copy of the project at its completion time will be archived permanently.</p> <p>3. You cannot edit project title, goal, and permanent link.</p>"%>
+							</div>
+
+
+<% else %>
+		<%= form_for [@project.creator, @project], :url => project_update_path(@project.creator,@project),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f|%>
+							<h2 style="color:#2297ce;">Source Code</h2>
+						<div class="source-code-placer" style="margin-left:21px;">
+							<%= f.text_field :source_code, placeholder:"Enter project source code url if any", class:"goals-input inputbox",style:"width:695px; margin-left:0px;" %>
+						</div>
+							
+						<div style="text-align:right;margin-right:17px;margin-top:40px;">
+							<%= f.submit "Save Changes", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green" %>
+						</div>
+		<% end %>
+<% end %>							
+						</div><!-- end of textbox-mini-->
+					</div><!-- end.btn-completion-->	
+
+			</div><!-- end of settings content -->
+
+		</div>
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->

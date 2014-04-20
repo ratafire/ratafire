@@ -1,0 +1,26 @@
+<div class="subscription-box">
+	<!-- photo -->
+	<%= link_to user, class:"no_ajaxify" do %>
+		<div class="subscription-photo" style="background-image:url(<%=user.profilephoto.url(:small64)%>);"></div>
+	<% end %>	
+	<!-- Content-->
+	<div class="subscription-content">
+		<ul class="subscription-username"><%= link_to user.fullname, user, class:"no_ajaxify"%></ul>
+		<span><%= user.tagline %></span>
+		<!-- Progress Bar-->
+		<div class="subscription-progress-holder">
+			<ul><%= progress_bar(goals_count(user.subscribers.count,user.goals_subscribers), :color => 'blue2', :rounded => true) %></ul>
+			<ul><%= progress_bar(goals_count(user.subscription_amount.to_i, user.goals_monthly), :color => 'green2', :rounded => true) %></ul>
+			<ul><%= progress_bar(goals_count(user.projects.where(:complete => true ).count, user.goals_project), :color => 'purple2', :rounded => true) %></ul>
+		</div>
+		<!-- User Bio-->
+		<div class="subscription-user-bio"><%= user.bio %></div>
+		<!-- Subscription Data-->
+		<div class="subscription-data"><span class="sub-color">For <%= find_subscription_total_duration(user.id,@user.id)%></span><span class="sub-color tipsy-tipsy" title="Subscribed to <%= @user.fullname %> since project <%= user.subscription_project_find(user.id,@user.id).title %>"><%= link_to user_project_path(user.subscription_project_find(user.id,@user.id).creator,user.subscription_project_find(user.id,@user.id)),class:"no_ajaxify" do %>Since <%= truncate(user.subscription_project_find(user.id,@user.id).title, :length => 50) %><% end %></span> <span class="sub-color tipsy-tipsy" title="Subscribers / Goal"><%= render :text => user.subscribers.count %> / <%= render :text => user.goals_subscribers%></span> <span class="sub-color tipsy-tipsy" title="Monthly Subscription Amount / Goal"><%= render :text => user.subscription_amount.to_s %> / <%= render :text => user.goals_monthly%></span> <span class="sub-color tipsy-tipsy" title="Project Completion / Goal"><%= user.projects.where(:complete => true ).count %> / <%= render :text => user.goals_project%></span></div>
+		<!-- Time-->
+		<div class="subscription-data">
+			<span class="sub-color tipsy-tipsy" title="Time, Subscription Amount">Latest: <%= find_subscription_duration(user.id,@user.id)%>, <%= find_subscription_amount(user.id,@user.id).to_s%>/m</span>
+		</div>	
+	</div><!-- end.subscription-content-->
+
+</div>	

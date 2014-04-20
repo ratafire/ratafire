@@ -1,0 +1,94 @@
+<!-- Script to show Edit button -->
+<script>
+	$(document).ready(function() {
+	$('#content-case').hover(function() {
+  		$("#edit-majorpost").toggle();
+	});
+	});
+</script>
+
+		
+					<!-- Post Content -->
+
+					<div class="post-content" id="content-case">
+
+							<!-- if current user has the right to edit -->
+								<% if majorpost_edit(@majorpost) %>
+									<!-- artwork delete button-->
+									<div class="btn-edit-right" id="edit-majorpost">
+										<%= link_to 'Edit',edit_user_project_majorpost_path(@project.creator,@project,@majorpost),class:"btn-delete no_ajaxify"%>
+									</div>
+								<% end %><!-- end if @artwork.project == nil-->
+								
+							<!-- About Title -->
+							<div class="post-about-bg">
+								<div class="textbox-mini">
+									<div class="post-about-title">
+										<li style="font-size: 1.4em;">Latest Major Post</li>
+									</div>
+								</div>
+							</div>
+
+
+
+
+							<div class="textbox2">	
+
+							<!-- Fullscreen mode -->	
+							<%= link_to "", get_chapter_path(@majorpost.user,@project,@majorpost), class:"no_ajaxify  btn-fullscreen tipsy-tipsy", remote: true, title:"Chapter View" %>
+
+							<script>
+								$('.btn-fullscreen').click(function(){
+									$('.fullscreen_mode').show();
+									$('.hide-when-fullscreen').hide();
+	
+											var myFlag = false;
+											if($(window).scrollTop() > 200 && myFlag == false){
+       		 								$("html, body").animate({ scrollTop: 0 }, 600);
+       		 								myFlag = true;
+    											}
+
+								});
+								
+							</script>
+
+							<!-- Post User Icon -->
+							<span id="post-usericon">
+											<%= link_to @majorpost.user, class:"no_ajaxify no_decoration" do %>
+												<div class="user-icon-holder" style="background-image:url(<%= @majorpost.user.profilephoto.url(:small64) %>);"></div>
+											<% end %>
+							</span>
+
+							<!-- Post Title -->
+							<div id="post-title">
+								<h2><%= link_to @majorpost.title, user_project_majorpost_path(@majorpost.user,@project,@majorpost), class:"no_ajaxify" %></h2>
+								<ul></ul>
+								<ol><%= link_to @majorpost.user.fullname , @majorpost.user, class:"no_ajaxify" %> <span>[</span><%= @majorpost.user.username %><span>]</span><% unless @majorpost.user.tagline.blank?%><span>,</span> <%= @majorpost.user.tagline%><% end %></ol>
+								<ol style="margin-top:0px;"><%= time_ago_in_words(@majorpost.created_at) %> ago</ol>
+							</div>
+							
+
+							<!-- Post Content -->
+							<div class="post-content-c">
+									<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+								<%= sanitize @majorpost.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+							</div>
+
+							</div><!-- end of textbox2 -->
+
+							<!-- Inspired by-->
+							<%= render 'majorposts/inspired_by'%>
+
+							<!-- Inspiring -->
+							<%= render 'majorposts/inspiring'%>
+
+							<!-- Tools -->
+
+							<!-- Tags -->
+							<% unless @majorpost.tags.blank? %>
+								<div class="post-tags">
+									<%= raw @majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %>
+								</div>
+							<% end %>
+
+					</div><!-- end of post-content -->

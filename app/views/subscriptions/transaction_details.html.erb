@@ -1,0 +1,38 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_settings' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+						
+							<h1>Transaction Details</h1>
+							<h5><%= @transaction.created_at.strftime("%Y-%m-%d %H:%M") %> from <%= link_to @subscriber.fullname, @subscriber, class:"no_ajaxify" %> to <%= link_to @subscribed.fullname, @subscribed, class:"no_ajaxify"%> </h5>
+							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+						</div><!-- end of textbox-->	
+
+						<!-- Received -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<%= render 'subscriptions/transaction_details_table'%>
+								<div style="margin:20px 10px 0 0;text-align:right;"><%= link_to "Back to All Transactions", subscription_transactions_path(current_user), class:"no_ajaxify"%></div>
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->		
+							
+						<!-- Cutter --><ol style="margin-top: 70px;"></ol>
+
+				</div><!-- end.standard-content -->
+				<%= render 'layouts/footer' %>
+
+			</div><!-- end of main-content-->	

@@ -1,0 +1,170 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+	<!-- Open and Close -->
+	<%= render 'shared/profile_open_close'%><!-- script -->
+
+	<!-- Best in Place -->
+	<%= render 'shared/best_in_place'%>
+
+	<!-- Page Specific JS -->
+	<%= render 'users/showjs' %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>	
+		<%= tag :meta, property: "og:url", content: request.scheme+"://"+request.host+"/"+@user.username %>
+		<%= tag :meta, property: "og:title", content: "Ratafire - "+@user.fullname %>
+		<%= tag :meta, property: "og:image", content: @user.profilephoto.url(:small) %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:description", content: @user.bio %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_profile' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content">
+
+					<!-- Full Name -->
+					<%= render 'shared/fullname'%>
+
+					<!-- Cutter --><ol style="margin-top: -5px;"></ol>
+
+					<!-- Tabs Nav -->
+					<%= render 'shared/tabs_nav'%>
+
+					<!-- Content of Profile -->
+					<div class="profile-content">
+
+							<!-- First Block -->
+							<div class="textbox" Style="margin-top: 25px;">
+
+								<!-- About Except -->
+								<div id="Profile-page-about-except">
+									
+										<% if @user.bio.blank? %>
+										<div id="bio-blank" style="width:342px;height: 400px;">
+											<% if @user == current_user %>
+											<div class="btn-edit-right2">
+												<div class="btn-edit-right12" id="bio-edit-case">
+													<%= link_to "Edit", edit_bio_path(current_user), :method => :delete, class:"btn-delete no_ajaxify" %>
+												</div>
+											</div>	
+											<% end %>
+											<ol style="color: #cccccc; margin-top: 20px; text-align: center;">About <%= @user.fullname %></ol>
+											<div id="About-fire"></div>
+										</div>
+										<% else %>
+											<ul><!--<%= sanitize simple_format(@user.bio).html_safe%>-->
+												<% if @user == current_user %>
+													<%= best_in_place @user, :bio, :classes =>"best_user_bio", :type => "textarea" %> <span class="btn btn-edit" id="best_user_bio-edit" style="display:none;"></span>
+												<% else %>
+													<div class="best_user_bio"><%= sanitize @user.bio %></div> 
+												<% end %>
+											</ul>
+										<% end %>
+								</div>
+
+								<!-- Cutter -->
+								<div class="radius" id="cutter"></div>
+
+								<!-- Goals -->
+								<div id="Profile-page-goals">
+
+									<!-- edit Goals 
+									<% if current_user?(@user) %>
+										<%= link_to '', goals_path, class:"btn btn-edit btn-edit-right tipsy-tipsy", title:"Edit Goals",style:"margin-top:10px;" %>
+									<% end %> -->
+
+									<h2 class="lightgrey">Goals</h2>
+
+									<div class="goals">
+
+										<ol id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Subscribers</span> <%= render :text => @user.subscribers.count %>/<%= render :text => @user.goals_subscribers%></ol>
+
+										<ol><%= progress_bar(goals_count(@user.subscribers.count,@user.goals_subscribers), :color => 'blue', :rounded => true) %></ol>
+
+										<!-- Cutter --><ul style="margin-top: 15px;"></ul>
+
+										<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription Amount</span> <%= render :text => @user.subscription_amount.to_s %>/<%= render :text => @user.goals_monthly%></ol>
+
+										<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
+
+										<!-- Cutter --><ul style="margin-top: 15px;"></ul>
+
+										<ol id="purple"> 
+											<span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Project Completion</span>
+											<%= @user.projects.where(:complete => true ).count %>/<%= render :text => @user.goals_project%>
+										</ol>
+
+										<ol><%= progress_bar(goals_count(@user.projects.where(:complete => true ).count, @user.goals_project), :color => 'purple', :rounded => true) %></ol>
+
+										<!-- Cutter --><ul style="margin-top: 20px;"></ul>
+
+
+										
+									</div>
+								</div>
+
+							<!-- end of textbox -->	
+							</div>
+
+							<!-- Second Block -->
+
+							<!-- Cutter --><ol style="margin-top: -15px;"></ol>
+							
+								<!-- Activities -->
+								<div>
+
+									<!-- Indicator -->
+									<div id="Profile-page-title">
+										<div class="textbox-mini">
+											<div id="open-recent-major-post" class="water-open"></div>
+	
+												<div id="close-recent-major-post" class="water-close"></div>
+										</div>
+									</div>
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+									<!-- Content -->
+									<div id="recent-majorposts">
+										<% if @activities.any? %>
+											<%= render_activities(@activities) %>
+										<% else %>
+											<div class="lightbox" style="text-align: center;border:0;margin-bottom:-130px;">
+												<h5><%= @user.fullname %> does't have activities.</h5>
+											</div>
+										<% end %>
+									<!-- Pagination -->
+									<div id="profile-paginate">
+										<div class="textbox-mini">
+											<span><%= will_paginate @activities, :param_name => 'activities', class:"rata_pagination" %></span>	
+										</div>
+									</div>
+									</div><!-- end of activities-->
+
+									
+								<!-- end of Recent Major Posts -->	
+								</div>
+
+								<!-- Cutter --><ol style="height: 80px;"></ol>
+							
+					<!-- end of profile-content-->
+					</div>
+
+					<!-- Back to Top 
+					<div id="back-top">
+						<div href="#top" class="no_ajaxify"><span></span></div>
+					</div>	-->	
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+	<!-- end of main-content-->
+	</div>
+

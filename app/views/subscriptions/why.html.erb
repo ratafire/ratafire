@@ -1,0 +1,55 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+	<!-- Best in Place -->
+	<%= render 'shared/best_in_place'%>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:side_bar) do %>
+		<%= render 'layouts/sidebar_profile' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Main Content -->
+	<div class="main-content">
+
+		<!-- Full Name-->
+		<%= render 'shared/fullname'%>
+
+		<!-- Cutter --><ol style="margin-top: -5px;"></ol>
+
+		<!-- Tabs Nav -->
+		<%= render 'shared/tabs_nav_payments' %>
+
+		<!-- Content of Profile -->
+		<div class="profile-content">
+			<div id="current-subscribers">
+			<% if @user.why == nil or @user.why == "" %>	
+				<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
+					<h5>You cannot subscribe to <%= @user.fullname %> now, because <%= @user.fullname %> does't have a note on subscription.</h5>
+					<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+				</div>	
+			<% else %>
+				<% if @project == nil %>
+				<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;">
+					<h5>You cannot subscribe to <%= @user.fullname %> now, because <%= @user.fullname %> does't have an ongoing project.</h5>
+					<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+				</div>	
+				<% else %>
+					<%= render "payments/why" %>
+				<% end %>	
+			<% end %>
+			</div><!-- end:.current-subscribers-->
+
+						<!-- Pagination -->
+			<div id="Profile-page-load-more">
+				<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+			</div><!--end:profile-pageload-more -->
+
+		</div><!-- end:.profile-content -->	
+		<%= render 'layouts/footer' %>
+	</div><!-- end:.main-content-->			

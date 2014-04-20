@@ -1,0 +1,90 @@
+<!-- Script to show Edit button -->
+<script>
+	$(document).ready(function() {
+	$('#project-header-case').hover(function() {
+  		$("#edit-project-header").toggle();
+	});
+	});
+</script>
+
+<div class="project-header-wrapper" id="project-header-case">
+				<% if user_signed_in? %>
+					<!-- Flag for completion -->
+					<% if @project.flag == true && project_edit(@project) %>
+						<%= render 'projects/flag' %>
+					<% end %>	
+					<!-- Flag for archiving -->
+					<% if @project.edit_permission == "freeze" && @project.abandoned != true %>
+						<%= render 'projects/archiving' %>	
+					<% end %>
+				<% end %>	
+								<!-- if current user has the right to edit -->
+								<% if @project.creator == current_user && @project.abandoned != true %>
+									<!-- Settings/Edit -->
+									<div class="btn-edit-right" id="edit-project-header">
+										<div class="btn-edit-right9"><%= link_to 'Settings',project_settings_path(@project.creator,@project),class:"btn-delete" %></div>
+										<% if project_edit(@project) %>
+											<%= link_to 'Edit',edit_user_project_path(@project.creator,@project),class:"btn-delete no_ajaxify"%>
+										<% end %>
+									</div>
+								<% else %>
+									<!-- Reopoen -->
+									<% if @project.creator == current_user %>
+										<div class="btn-edit-right" id="edit-project-header">
+											<%= link_to i_will_be_back_path(@project.creator, @project), class:"no_ajaxify" do %><div class="btn-delete" style="width: 45px;">Reopen</div><% end %>
+										</div>
+									<% end %>		
+								<% end %><!-- end if @artwork.project == nil-->	
+
+
+
+		<% if @icon != nil %>	
+			<%= link_to user_project_path(@project.creator,@project), class:"no_ajaxify" do %>
+				<div class="project-icon-holder" style="background-image:url(<%= @icon.image.url(:pageview) %>);">
+				</div>
+			<% end %>
+		<% else %>	
+			<%= link_to user_project_path(@project.creator,@project), class:"no_ajaxify" do %>
+				<div class="project-icon-holder" style="background-image:url(/assets/projecticon_pageview.jpg)">
+				</div>
+			<% end %>
+		<% end %>
+
+
+	<div id="project-title">
+						<!-- Project Name -->
+						<h1 >
+
+							<!-- Completed?-->
+							<% if @project.complete == true %>
+								<li class="tipsy-tipsy", title="Completed!">[C]</li>
+							<% end %>
+							<!-- Completion Flag? -->
+							<% if @project.flag == true %>
+								<li class="tipsy-tipsy", title="Completed?">[C?]</li>
+							<% end %>
+							<!-- Abandoned Flag? -->
+							<% if @project.abandoned == true %>
+								<li class="tipsy-tipsy" style="color:#ccc;", title="Abandoned">[A]</li>
+							<% end %>	
+							<%= link_to @project.title, user_project_path(@project.creator,@project), class:"no_ajaxify" %>
+						</h1>
+						<ul>
+								<!-- Show Tagline if there is a-->
+									<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= @project.tagline %></h5>
+							
+						</ul>
+	</div>
+
+	<div id="project-goals">
+		<% if @project.complete || @project.abandoned %>
+			<%= goals_percentage(@majorpost_count, @project.goal)%><%= progress_bar(goals_count(@majorpost_count, @project.goal), :color => 'orange', :rounded => true) %>
+		<% else %>
+			<%= goals_percentage(@majorpost_count, @project.goal)%><%= progress_bar(goals_count(@majorpost_count, @project.goal), :color => 'pink', :rounded => true) %> 
+		<% end %>
+	</div>
+
+
+
+</div>
+

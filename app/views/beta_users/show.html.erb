@@ -1,0 +1,62 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_admin' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+						
+							<h1>Beta Users</h1>
+							<h5>You are here in order to enable the world to live more amply, with greater vision, with a finer spirit of hope and achievement.</h5>
+							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+						<!-- end of textbox-->
+						</div>						
+
+						<!-- Realm Balance -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+
+								<%= render 'beta_users/realm_balance'%>
+
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->								
+
+						<!-- Applied -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<h2>Applied</h2>
+								<%= render 'beta_users/applied_users'%>
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->	
+
+						<!-- Approved -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<h2>Approved</h2>
+								<%= render 'beta_users/approved_users'%>
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->		
+
+						<!-- Ignored -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<h2>Ignored</h2>
+								<%= render 'beta_users/ignored_users'%>	
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->											
+
+						</div><!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+			</div><!-- end of main-content-->

@@ -1,0 +1,79 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+	<!-- Best in Place -->
+	<%= render 'shared/best_in_place'%>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_profile' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Main Content -->
+	<div class="main-content">
+				<div>
+
+					<!-- Full Name -->
+					<%= render 'shared/fullname'%>
+
+					<!-- Cutter --><ol style="margin-top: -5px;"></ol>
+
+					<!-- Tabs Nav -->
+					<div class="tab">
+							<%= link_to "About", user_path , style:"margin-left:0px;", class: "tab tab-size tab-content"%>
+							<%= link_to "Projects", projects_path , class: "tab tab-size tab-content-current tab-left-shadow"%>		
+					</div>
+
+					<!-- Content of Projects -->
+					<div class="profile-content" style="min-height:357px;">
+							
+							<!-- Now/Past -->
+							<div class="now-past-holder">
+								<span class="btn-delete-solid" style="position:relative;z-index:2;">
+									Past
+								</span>	
+								<%= link_to projects_path(@user) do %><span class="btn-delete-light-solid" style="position:relative;z-index:1;padding-left:10px;">
+									Now
+								</span><% end %>
+							</div>	
+
+							<!-- Cutter --><ol style="margin-top: 38px;"></ol>
+							
+								<!-- Abandoned Projects -->
+								<div class="abandoned-projects">
+
+									<!-- Indicator -->
+									<div class="textbox-mini">
+										<li style="font-size: 1.4em;">Abandoned</li>
+										<li class="counter">[<%= @user.projects.where(:abandoned => true ).count %>]</li>
+									</div>
+									
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+									<!-- Content -->
+									<div id="abandoned-projects">
+										<%= render 'users/abandoned_projects'%>
+									</div><!-- end of current-projects ajax-->
+
+
+								</div><!-- end.abandoned-projects-->
+
+
+								<!-- Cutter --><ol style="height: 80px;"></ol>
+							
+					<!-- end of profile-content-->
+					</div>
+
+				<!-- end of div -->
+				</div>
+							<!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+
+	<!-- end of main-content-->
+	</div>

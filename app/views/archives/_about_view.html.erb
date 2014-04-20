@@ -1,0 +1,34 @@
+
+					<!-- Post Content -->
+					<div class="post-content">
+
+							<!-- About Title -->
+							<div class="post-about-bg">
+								<div class="textbox-mini">
+									<div class="post-about-title">
+										<li style="font-size: 1.4em;">About</li>
+									</div>
+								</div>
+							</div>
+							<!-- About Content -->
+							<div class="lightbox2" style="border-color: #bbbbbb"  id="about-case">
+
+								<div class="textbox-mini">
+									<div class="post-content-c" style="margin-top:0px;">
+										<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+										<%= sanitize @archive.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+									</div>
+																<!-- archive indicator -->
+							<span class="has-archive">This is an archive, <%= link_to 'view original', project_about_path(@project.creator, @project), class:"no_ajaxify"%>.</span>
+								
+							</div>
+
+							<!-- Tags -->
+							<% unless @archive.tags.blank? %>
+								<div class="post-tags">
+									<%= raw @archive.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %> 
+								</div>
+							<% end %>
+
+						
+					</div><!-- end of post-content -->

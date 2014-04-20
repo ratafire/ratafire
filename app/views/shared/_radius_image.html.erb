@@ -1,0 +1,17 @@
+		<!-- Javacripts -->
+		<script type="text/javascript">
+
+		/*--- Make all Images as Background for Rounded Corner Effect ---*/
+		$(document).ready(function(){
+			$("img").load(function() {
+				var classname = $(this).attr('class');
+				if (classname != "non-wrap artwork-video-display" && classname != "non-wrap"){
+					$(this).wrap(function(){
+						return '<span class="image-wrap ' + $(this).attr('class') + '" style="position:relative; display:inline-block; background:url(' + $(this).attr('src') + ') no-repeat center center; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />';
+    				});
+    				$(this).css("opacity","0");
+    			};
+    		});
+		});
+
+		</script>

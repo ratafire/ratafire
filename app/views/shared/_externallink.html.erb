@@ -1,0 +1,22 @@
+		<!-- Javacripts -->
+		<script type="text/javascript">
+			/*--- External Links ---*/
+
+		$(document).ready(ExternalLink);
+		$(document).on('ajaxify:content_loaded', ExternalLink);	
+
+		function ExternalLink(){
+
+ 				 	$("a").filter(function() {
+ 				 		var classname = $(this).attr('class');
+ 				 		if (classname != "twitter-share-button"){
+				  	  return this.hostname && this.hostname !== location.hostname;};
+ 					 })
+ 				 	.attr("target", "_blank")
+ 					 .after(' <img src="/assets/externallink.png"/>');
+
+ 					 $("a").addClass("no_ajaxify");
+ 				
+		}
+
+		</script>

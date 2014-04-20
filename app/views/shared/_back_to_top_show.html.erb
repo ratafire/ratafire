@@ -1,0 +1,82 @@
+<script type="text/javascript">
+$(document).ready(function(){
+
+	// hide #back-top first
+	$("#back-top").hide();
+	
+	// fade in #back-top
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) {
+				$('#back-top').fadeIn();
+			} else {
+				$('#back-top').fadeOut();
+			}
+		});
+
+		// scroll body to 0px on click
+		$('#back-top a').click(function () {
+			$('html,body').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
+	});
+
+
+});
+
+$(document).ready(function(){
+
+	// hide #comment first
+	$("#back-top-comment").hide();
+	
+	// fade in #comment
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) {
+				$('#back-top-comment').fadeIn();
+			} else {
+				$('#back-top-comment').fadeOut();
+			}
+		});
+
+		// scroll body to 0px on click
+		$('#back-top-comment a').click(function () {
+				
+		$('html, body').animate({
+    		scrollTop: ($('#comments').first().offset().top)
+		},800);
+			return false;
+		});
+	});
+
+});
+
+$(document).ready(function(){
+
+	// hide #comment first
+	$("#back-top-subscription").hide();
+	
+	// fade in #comment
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) {
+				$('#back-top-subscription').fadeIn();
+			} else {
+				$('#back-top-subscription').fadeOut();
+			}
+		});
+
+		// scroll body to 0px on click
+		$('#back-top-subscription a').click(function () {
+				
+		$('html, body').animate({
+    		scrollTop: ($('#subscriptions').first().offset().top)
+		},800);
+			return false;
+		});
+	});
+
+});
+</script>

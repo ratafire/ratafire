@@ -1,0 +1,92 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Pricing") %>
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Table Style ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:description", content: "Ratafire’s prices are designed to ensure the creators or researchers receive the base amount of the subscription. On the first day of every month, subscription fees will be collected from subscribers. We will charge the subscriber the Total amount." %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+	<% end %><!-- end.content_for :head do -->	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="static-content">
+	<h1>Pricing</h1>
+<p>
+	Ratafire’s prices are designed to ensure the creators or researchers receive the base amount of the subscription. We use Amazon Payments as our payment method.
+</p>
+
+<p>
+	On the first day of every month, subscription fees will be collected from subscribers. We will charge the subscriber the Total amount. During the transaction, Amazon Payments will collect transaction fees, and Ratafire will take from 3% to 9% percent of the total amount depending on the amount. Creators or researchers will receive the amount stated in the Receives at Least row.
+</p>
+
+<div>
+<table class="tg general-content">
+  <tr style="border-radius: 5px 5px 0px 0px;">
+    <th class="tg-tdpq">Name</th>
+    <th class="tg-tdpq" width="90">Two Cups of Tea</th>
+    <th class="tg-tdpq" width="90">A Lava Cake</th>
+    <th class="tg-tdpq" width="90">A Meal With Fish</th>
+    <th class="tg-tdpq" width="90">A Book</th>
+    <th class="tg-tdpq" width="90">A Surprise</th>
+    <th class="tg-tdpq" width="90">1024 Pine Nuts</th>
+  </tr>
+  <tr>
+    <td class="tg-9ch7">Receives at Least</td>
+    <td class="tg-0nbv">$7.00</td>
+    <td class="tg-0nbv">$12.00</td>
+    <td class="tg-0nbv">$17.00</td>
+    <td class="tg-0nbv">$24.00</td>
+    <td class="tg-0nbv">$50.00</td>
+    <td class="tg-0nbv">$100.00</td>
+  </tr>
+  <tr>
+    <td class="tg-akd2">Amazon Payments Fees at Most</td>
+    <td class="tg-sqpd">$0.50</td>
+    <td class="tg-sqpd">$0.80</td>
+    <td class="tg-sqpd">$1.05</td>
+    <td class="tg-sqpd">$1.35</td>
+    <td class="tg-sqpd">$2.54</td>
+    <td class="tg-sqpd">$4.78</td>
+  </tr>
+  <tr>
+    <td class="tg-9ch7">Ratafire Fees Percentage</td>
+    <td class="tg-dj9s">3%</td>
+    <td class="tg-dj9s">3%</td>
+    <td class="tg-dj9s">6%</td>
+    <td class="tg-dj9s">6%</td>
+    <td class="tg-dj9s">9%</td>
+    <td class="tg-dj9s">9%</td>
+  </tr>
+  <tr>
+    <td class="tg-akd2">Ratafire Fees Estimation</td>
+    <td class="tg-sqpd">$0.21</td>
+    <td class="tg-sqpd">$0.36</td>
+    <td class="tg-sqpd">$1.19</td>
+    <td class="tg-sqpd">$1.68</td>
+    <td class="tg-sqpd">$5.00</td>
+    <td class="tg-sqpd">$10.00</td>
+  </tr>
+  <tr>
+    <td class="tg-9ch7">Total</td>
+    <td class="tg-0nbv">$7.71</td>
+    <td class="tg-0nbv">$13.16</td>
+    <td class="tg-0nbv">$19.24</td>
+    <td class="tg-0nbv">$27.03</td>
+    <td class="tg-0nbv">$57.54</td>
+    <td class="tg-0nbv">$114.78</td>
+  </tr>
+</table>
+</div>
+<p>
+	Since Amazon Payments charges different fees for different payment methods, we can only give the estimation of what they may charge at most for the given transaction. Refer to their <%= link_to "pricing documents", "https://payments.amazon.com/help/Amazon-Flexible-Payments-Service/Creating-Managing-Your-Account/Amazon-Payments-Fees", class:"no_ajaxify", target:"_blank"%> for further details.
+</p>
+	<ul style="padding-left: 60px;"><%= link_to "Why does Ratafire have price limits?", "#{request.scheme}://#{request.host}/faq#faq-1287738", class:"no_ajaxify", style:"color:#bbb;"%></ul>
+
+</div>	
+
+<%= render 'layouts/footer' %>

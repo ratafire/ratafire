@@ -1,0 +1,46 @@
+<table class="tg" style="width:100%;margin-top:20px;">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 62%">
+</colgroup>  
+  <tr >
+    <td class="plain">From</td>
+    <td class="plain"><%= link_to @subscriber.fullname, @subscriber, class:"no_ajaxify" %></td>
+  </tr>
+  <tr>
+    <td class="plain">To</td>
+    <td class="plain"><%= link_to @subscribed.fullname, @subscribed, class:"no_ajaxify"%></td>
+  </tr>
+  <tr>
+    <td class="plain">Date</td>
+    <td class="plain"><%= @transaction.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+  </tr>
+  <tr>
+    <td class="plain">Amount</td>
+    <td class="plain">$<%= @transaction.amount %></td>
+  </tr>
+  <tr>
+    <td class="plain">Amazon Payments Fee</td>
+    <td class="plain"><%= @amazon %></td>
+  </tr>
+  <tr>
+    <td class="plain">Ratafire Fee</td>
+    <td class="plain"><%= @ratafire %></td>
+  </tr>
+  <tr>
+    <td class="plain">Receive Amount</td>
+    <td class="plain"><%= @receive %></td>
+  </tr>
+  <tr>
+    <td class="plain">Status</td>
+    <td class="plain"><%= @transaction.status %></td>
+  </tr>
+  <tr>
+    <td class="plain">Reference ID</td>
+    <td class="plain"><%= @transaction.uuid %></td>
+  </tr>
+  <tr>
+    <td class="plain">Transaction ID</td>
+    <td class="plain"><%= @transaction.TransactionId %></td>
+  </tr>
+</table>

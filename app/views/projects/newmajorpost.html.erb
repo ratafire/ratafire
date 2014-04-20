@@ -1,0 +1,368 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @project.title) %>
+
+	<!-- External Link -->
+	<%= render 'shared/externallink'%><!-- script -->	
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+	<!-- Open and Close -->
+	<%= render 'shared/majorpost_open_close'%>
+
+	<!-- Tagit -->
+	<%= render 'shared/tagit'%>
+
+	<!-- Page Specific JS-->
+	<%= render 'majorposts/newmajorpostjs'%>
+
+	<!-- Panda Video Uploader -->
+	<script src="//cdn.pandastream.com/u/2.0/panda-uploader.min.js"></script>
+
+	<!-- Jquery Image Uploader -->
+	<%= render 'shared/jquery_image_upload'%>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'projects/project_header' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_project' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Main Content -->
+	<div class="main-content-project">
+		<!-- Post Content -->
+		<div class="post-content2">
+
+				<!-- Original Image -->
+				<div id="image-case">
+					<div >
+					<div id="comment-input" style="margin: 0px 0 10px 0;">
+						<!-- Video Upload Title -->
+						<div class="majorpost-user-inspirer-tite">	
+							<li>Artwork File</li>
+						</div>
+
+							<!-- Upload-->
+							<div class="majorpost-user-inspirer-indicator">Upload</div>
+							<div class="video-upload-box-holder">
+								<!-- Artwork Upload-box -->
+								<div id="artwork-upload-box">
+									<div class="video-upload-words artwork-button fileinput-button">
+										<span>Click to choose file</span>
+										
+										<ul>Maximum size: 512MB. Accept JPG, PNG, BMP, PSD.</li></ul>
+										<%= form_for [@project.creator,@project,@artwork],id:"artwork-form",:html => {:class => 'no_ajaxify' } do |a|%>
+										<%= a.file_field :image, multiple: false, class:"artwork-choose" %>
+										<script>
+										$('#artwork-upload-box').fileupload({
+  dataType: "script",
+  add: function(e, data) {
+    var file, types;
+    types = /(\.|\/)(jpe?g|png|psd|bmp)$/i;
+    file = data.files[0];
+    if (types.test(file.type) || types.test(file.name)) {
+      data.context = $(tmpl("template-upload", file));
+      $('#artworkdata').append(data.context);
+      data.submit();
+      var callback = $.proxy();
+    } else {
+      return alert("" + file.name + " is not a jpg, png, bmp, or psd image file");
+    }
+  },
+  progress: function(e, data) {
+    var progress;
+    if (data.context) {
+      $("#artwork-upload-box").hide();
+      progress = parseInt(data.loaded / data.total * 100, 10);
+      return data.context.find('.bar-artwork').css('width', progress + '%');
+    }
+  }
+});
+										</script>
+										<% end %>
+									</div>
+								</div>
+								<!-- Artwork Progress-box --><div id="artwork-progress-case">
+								<script id="template-upload" type="text/x-tmpl">
+								<div id="artwork-progress-box">
+									<div class="video-progress">
+										<div id="progress-bar-artwork" class='bar-artwork' style="width: 0%">
+											<div class="video-progress-words"><ul>Uploading and converting...</ul></div>
+											<div class="video-progress-cancel tipsy-tipsy" id="cancel-video" title="Cancel Upload">
+											</div>
+											<div id="artworkpreview"></div>
+										</div>
+									</div>
+								</div>
+								</script>
+								</div>
+								<!-- Video Progress-box-->
+								<div id="artworkdata"></div>
+							</div>
+					</div>
+				</div>
+
+				</div><!-- end of image-case-->
+
+
+
+			<!-- Major Post Form-->
+			<%= nested_form_for [@project.creator, @project, @majorpost], :validate => true,:html => {:class => 'no_ajaxify' } do |f| %>
+				<%= f.hidden_field :artwork_id, id:"majorpost-artwork-id" %>
+				<%= f.hidden_field :user_id, :value => current_user.id %>
+				<%= f.hidden_field :project_id, :value => @project.id %>
+				<!-- Title -->
+				<div class="majorpost-title-input">
+					<div class="majorpost-title-indicator">
+						<li></li>
+					</div>
+					<div class="majorpost-title-input-holder">
+						<%= f.text_field :title, type:"majorpost" %>
+					</div>
+				</div>
+				<!-- Video -->
+				<div id="video-case">
+					<div id="comment-input" style="margin: 0px 0 9px 0;">
+
+						<!-- Video Upload Title -->
+						<div class="majorpost-user-inspirer-tite">	
+							<li>Post Video</li>
+						</div>
+
+						<%= f.fields_for :video_attributes do |v| %>
+							<%= v.hidden_field :panda_video_id, id:"panda_video_id"%>
+							<!-- Upload-->
+							<div class="majorpost-user-inspirer-indicator">Upload</div>
+							<div class="video-upload-box-holder">
+								<!-- Video Upload-box -->
+								<div id="video-upload-box">
+									<div class="video-upload-words">
+										<span>Drop your video here or click to choose file</span>
+										<ul>Maximum size: 2GB. Recommanded resolution: 1280x720.</li></ul>
+									</div>
+								</div>
+								<!-- Video Progress-box-->
+								<div id="video-progress-box">
+									<div class="video-progress">
+										<div id="progress-bar-video" class='bar-video'>
+											<div class="video-progress-words"><ul>Uploading...</ul></div>
+											<div class="video-progress-cancel tipsy-tipsy no_ajaxify" id="cancel-video" title="Cancel Upload">x</div>
+										</div>
+									</div>
+								</div>
+								<!-- Video Error-box-->
+								<div id="video-upload-error">
+									<div class="video-upload-error-words">
+										<span>Error when uploading, click to return.</span>
+										<ul>Maximum size: 2GB. Recommanded resolution: 1280x720.</ul>
+									</div>									
+								</div>
+								<!-- Video Success-Box-->
+								<div id="video-success-box">
+									<div class="video-upload-words">
+									<span>Upload Succeed! Your Video is now encoding.</span>
+									<ul>In order to see your video after it is encoded, publish your post when you finish editing.</ul>
+									</div>
+								</div>
+							</div>
+
+  							<!-- External-Video-fields-->
+  							<div id="external-video-field">
+  								<div class="majorpost-external-inspirer-indicator">External</div>
+								<!-- Cutter --><ol style="margin-top:-3px;"></ol>
+								<!-- External-Video-input-->
+								<div class="majorpost-user-inspirer-holder">
+										<%= v.text_field :external, class:"user", type:"user-inspirer",style:"width:641px;", placeholder:"Enter youtube or vimeo link, leave it blank if you upload your video.", id:"external-video" %>
+								</div><!-- end of external video input-->
+							</div>
+
+
+						<% end %>
+
+						<!-- Javascript for the video uploader-->
+						<script>
+var upl = panda.uploader.init({
+ 			   'buttonId': 'video-upload-box',
+ 			   'progressBarId': 'progress-bar-video',
+ 			   'fileDropId' : 'video-upload-box',
+ 			   'maxFileSize' :'2 GB',
+			    'onQueue': function(files) {
+			      $.each(files, function(i, file) {
+			        upl.setPayload(file, {'csrf': "<%= form_authenticity_token %>"});
+			      });
+			    },
+			    'onStart': function(file){
+			    	$("#video-upload-box").hide();
+			    	$("#video-progress-box").show();
+
+			    	$("#cancel-video").click(function(){
+			    	upl.cancel(file);
+			    	$("#video-progress-box").hide();
+			    	$("#video-upload-box").show();
+			    	});
+			    },
+			    'onError': function(file, text){
+			    	$("#video-progress-box").hide();
+			    	$("#video-upload-error").show();
+			    	$("#video-upload-error").click(function(){
+			    		$("#video-upload-error").hide();
+			    		$("#video-upload-box").show();
+			    	});
+			    },
+ 			   'onSuccess': function(file, data) {
+			      $("#panda_video_id").val(data.id);
+			      $("#external-video").val('');
+			      $("#external-video-field").hide();
+				  $("#video-progress-box").hide();
+			      $("#video-success-box").show();
+			      $("#video-success-box").click(function(){
+			      	$('#video-case').slideUp();
+			      });
+			      $("#cancel-encoding").click(function(){
+			    	$("#video-success-box").hide();
+			    	$("#video-upload-box").show();
+			    	});
+			    },
+			    'authorizeUrl': 'panda/authorize_upload',
+			  });
+
+</script>
+
+					</div>
+				</div><!-- end of video-case -->
+
+				<!-- Original Image Upload Placer, because the image from is not nested-->
+				<div id="original-placer"></div>
+
+				<!-- Content -->
+				<div class="majorpostarea">
+					<%= f.text_area :content, id:"redactor_majorpost"%>
+				</div>
+
+				<!-- Tools -->
+				<div class="open2" id="tools-open"></div>
+				<div class="close2" id="tools-close"></div>
+				<div id="case">
+					<!-- Tags -->
+					<div id="comment-input" style="margin-top: 9px;">
+						<div class="majorpost-tags-all">
+							<div class="majorpost-tags-input-holder">
+								<%= f.text_field :tag_list, id:"tags" %>
+							</div>
+						</div>
+					</div>
+					<!-- Inspirations-->
+					<div id="comment-input" style="margin-top: 9px;">
+						<!-- Inspirations Title -->
+						<div class="majorpost-user-inspirer-tite">	
+							<li>Inspired By</li> <span id="inspiration-question">(!)</span>
+						</div>
+
+						<!-- Inspiration Instructions -->
+						<div id="inspiration-answers">
+							<ul>Well met, traveller!</ul>
+							<ul>Creations in Ratafire are connectd through Inspired By. </ul>
+							<ul>Although it is tempting, but please don't reference yourself, nor your own projects...</ul>
+							<ul style="text-align:right;">-- Ratatoskr</ul>
+						</div>
+								
+						<!-- User-Inspirers -->
+						<div class="majorpost-user-inspirer-indicator">User</div>
+
+								<!-- user-inspirer-fields-->
+								<div id="user-inspirer-fields">
+									<!-- user inspirer add buttom -->
+									<%= f.link_to_add "", :m_u_inspirations, class:"add", :data => { :target => "#user-inspirer-fields" } %>
+
+									<%= f.fields_for :m_u_inspirations do |u| %>
+									<!-- user inspirer remove buttom -->
+									<%= u.link_to_remove "",class:"remove", title:"remove", 'user-inspirer-disable-first' => '' %>
+									<!-- user inspirer input -->
+									<div class="majorpost-user-inspirer-holder">
+										<%= u.text_field :user_username, class:"user", type:"user-inspirer", placeholder:"Username" %>
+									</div>
+								</div><!-- end of user-inspirer-fields-->
+							<% end %>
+
+						<!-- Project-Inspirers -->
+						<div class="majorpost-project-inspirer-indicator">Project</div>
+							
+								<!-- project-inspirer-fields-->
+								<div id="project-inspirer-fields" >
+									<!-- project inspirer add buttom -->
+									<%= f.link_to_add "", :m_p_inspirations, class:"add", :data => { :target => "#project-inspirer-fields" } %>
+
+									<%= f.fields_for :m_p_inspirations do |p| %>
+									<!-- project inspirer remove buttom -->
+									<%= p.link_to_remove "",class:"remove", title:"remove", 'project-inspirer-disable-first' => '' %>
+									<!-- project inspirer input -->
+									<div class="majorpost-user-inspirer-holder">
+										<li><%= p.text_field :project_title, id:"project", type:"external-inspirer-url", placeholder:"Name" %></li>
+										<li><%= p.text_field :project_creator_username, class:"user", type:"external-inspirer-title", placeholder:"Created by (Enter Username)" %></li>
+									</div>
+								</div><!-- end of project-inspirer-fields-->
+							<% end %>
+
+						<!-- Majorpost-Inspirers -->
+						<div class="majorpost-majorpost-inspirer-indicator">Major Post</div>
+								<!-- Cutter --><ol style="margin-top:-16px;"></ol>
+								<!-- majorpost-inspirer-fields-->
+								<div id="majorpost-inspirer-fields" >
+									<!-- majorpost inspirer add buttom -->
+									<%= f.link_to_add "", :m_m_inspirations, class:"add", :data => { :target => "#majorpost-inspirer-fields" } %>
+
+									<%= f.fields_for :m_m_inspirations do |m| %>
+									<!-- majorpost inspirer remove buttom -->
+									<%= m.link_to_remove "",class:"remove", title:"remove", 'project-inspirer-disable-first' => '' %>
+									<!-- majorpost inspirer input -->
+									<div class="majorpost-user-inspirer-holder">
+										<li><%= m.text_field :inspirer_majorpost_title, id:"majorpost", type:"external-inspirer-url", placeholder:"Title" %></li>
+										<li><%= m.text_field :inspirer_majorpost_username, class:"user", type:"external-inspirer-title", placeholder:"Posted by (Enter Username)" %></li>
+									</div>
+								</div><!-- end of majorpost-inspirer-fields-->
+							<% end %>
+
+						<!-- External-Inspirers -->
+						<div class="majorpost-external-inspirer-indicator">External</div>
+								<!-- Cutter --><ol style="margin-top:-3px;"></ol>
+								<!-- external-inspirer-fields-->
+								<div id="external-inspirer-fields" >
+									<!-- external inspirer add buttom -->
+									<%= f.link_to_add "", :m_e_inspirations, class:"add", :data => { :target => "#external-inspirer-fields" } %>
+
+									<%= f.fields_for :m_e_inspirations do |m| %>
+									<!-- external inspirer remove buttom -->
+									<%= m.link_to_remove "",class:"remove", title:"remove", 'project-inspirer-disable-first' => '' %>
+									<!-- external inspirer input -->
+									<div class="majorpost-user-inspirer-holder">
+										<li><%= m.text_field :title, type:"external-inspirer-title", placeholder:"Title" %></li>
+										<li><%= m.text_field :url, type:"external-inspirer-url", placeholder:"Url" %></li>
+									</div>
+								</div><!-- end of majorpost-inspirer-fields-->
+							<% end %>
+							<!-- Cutter --><ol style="margin-top:15px;"></ol>
+						</div><!-- end of comment-input-->
+						
+					
+				</div><!-- end of case-->
+				<!-- Submit -->
+				<div style="margin: 15px -2px 0 0; text-align:right;">
+					<div id="submit">
+						<%= f.submit "Publish Post", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-white" %>
+					</div>
+				</div>
+			<% end %><!-- end for form_for @majorpost -->
+		</div><!-- end of post-content -->
+					<!-- Footer -->
+					<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->

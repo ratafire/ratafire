@@ -1,0 +1,38 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+	<!-- Best in Place -->
+	<%= render 'shared/best_in_place'%>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<html style="background: url(/assets/Asgard.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+       -o-background-size: cover;
+      background-size: cover;">
+			<!-- First Block -->
+			<div class="center" style="width: 790px;margin-top:60px;">
+				<!-- Post Content -->
+				<div class="realm-main">
+			
+				<!-- Select a Realm Title -->
+				<div class="post-about-bg">
+					<div class="textbox-mini">
+						<div class="post-about-title">
+							<li style="font-size: 1.4em;">Subscribe to <%= @user.fullname %></li>
+							<li class="counter">[<%= @user.subscribers.count+1%>]</li>
+						</div>	
+					</div>	
+				</div>	
+
+				<%=  render 'payments/pricing' %>
+				</div><!-- end:.archive-case-majorpost-->
+						<%= render 'layouts/footer' %>
+			</div><!-- end:.post-content-->	
+</html>			

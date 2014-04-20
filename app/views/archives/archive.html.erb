@@ -1,0 +1,84 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @project.title) %>
+
+	<!-- External Link -->
+	<%= render 'shared/externallink'%><!-- script -->	
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'projects/project_header' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_project' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">
+					<!-- Post Content -->
+					<div class="post-content" style="background-color:#fff;">
+							<!-- Contributors Title -->
+							<div class="post-about-bg">
+							<div class="textbox-mini">
+								<div class="post-about-title">
+									<li style="font-size: 1.4em;">Archive</li>
+									<li class="counter">[<%= @archive_count %>]</li>
+								</div>
+							</div>
+							</div>
+							<!-- Completion notice -->
+							<div class="lightbox4-archive" style="border-bottom: 1px solid #e2e2e2;">
+									<!-- User Profile Photo -->
+								<div class="project-show-icon">
+									<div class="project-icon-small">
+									<% if @project_archive != nil %>	
+										<% if @project_archive.icon != nil %>
+											<div class="user-icon-small-holder" style="background-image:url(<%= @project_archive.icon.image.url(:small)%>);"></div>
+										<% else %>
+											<div class="user-icon-small-holder" style="background-image:url(/assets/projecticon_small.jpg);"></div>
+										<% end %>
+									<% else%>
+											<div class="user-icon-small-holder" style="background-image:url(/assets/projecticon_small.jpg);"></div>
+									<% end %>
+									</div><!-- end.project-icon-small-->
+								</div><!-- end.project-show-icon-->
+								<div class="project-show-title" style="margin-left:60px;margin-top:4px;">
+									<h2 style="color:#2297ce;"><%= @project.title %> is completed on <%= @project.completion_time.to_formatted_s(:long_ordinal) %>, <%= time_ago_in_words(@project.completion_time)%> ago.</h2>
+								</div>
+							</div>
+							<!-- Major Posts -->
+							<div class="archive-case-majorpost">
+								<div class="archive-sidebar">
+									<%= link_to project_archives_path(@project.creator, @project) do %>
+										<ol class="archive-sidebar-active btn-majorpost">Major Posts</ol>
+									<% end %>
+									<%= link_to project_archive_videos_path(@project.creator, @project) do %>
+										<ol class="btn-videos">Videos</ol>
+									<% end %>
+									<%= link_to project_archive_artwork_path(@project.creator, @project) do %>
+										<ol class="btn-artwork">Artwork</ol>
+									<% end %>
+								</div>	
+								<div class="archive-box" id="archive-box-majorpost">
+									<%= render partial: "projects/archive", collection: @archive_display, :as => :archive %>
+									<div id="Profile-page-load-more" style="border:0;margin-bottom:70px;">
+										<div class="textbox-mini">
+											<%= will_paginate @archive_display, :param_name => 'post', class:"rata_pagination" %>
+										</div>	
+									</div>
+								</div>
+							</div>							
+					</div><!-- end of post-content -->
+
+					<!-- Footer -->
+					<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->

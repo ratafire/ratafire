@@ -1,0 +1,83 @@
+<!-- Hover JS-->
+<script>
+$(document).ready(function(){
+
+//delete button hover
+$('#uploaded-video-display').hover(function() {
+    $("#delete-video").toggle();
+});
+
+});
+</script>
+<% if @video.external != nil && @video.external != "" %>
+
+		<!-- if current user has the right to delete video -->
+		<% if @video.majorpost != nil %>
+			<% if majorpost_edit(@video.majorpost) %>
+				<!-- artwork delete button-->
+				<div class="btn-edit-right11" id="delete-video">
+					<%= link_to 'x',project_video_delete_path(@project.creator,@project,@video),method: :delete,class:"btn-delete no_ajaxify tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this video?" %>
+				</div>
+			<% end %>
+		<% else %>
+			<% if project_edit(@video.project) %>
+				<!-- artwork delete button-->
+				<div class="btn-edit-right11" id="delete-video">
+					<%= link_to 'x',project_video_delete_path(@project.creator,@project,@video),method: :delete,class:"btn-delete no_ajaxify tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this video?"%>
+				</div>
+			<% end %>
+		<% end %><!-- end if @video.project == nil-->
+	
+	<!-- Embedded Video-->
+	<div id="embedded-video-display" style="width:900px;">
+	<div class="video-display">	
+		<% if @video.youtube_vimeo == true %>
+			<iframe width="790" height="444.375" src="http://www.youtube.com/embed/<%= @video.external %>" frameborder="0" style="margin-top:-20px;"></iframe>
+		<% else %>
+			<iframe width="790" height="444.375" src="//player.vimeo.com/video/<%= @video.external %>" frameborder="0" style="margin-top:-20px;"></iframe>
+		<% end %>
+	</div>
+	</div>
+
+<% else %>
+<!-- Uploaded Video-->
+	<% if @video.encoded_state == "finished" %>
+
+		<!-- Display Video if Success x-->
+		<div class="video-display" id="uploaded-video-display">		
+
+		<!-- if current user has the right to delete video -->
+		<% if @video.majorpost != nil %>
+			<% if majorpost_edit(@video.majorpost) %>
+				<!-- artwork delete button-->
+				<div class="btn-edit-right" id="delete-video">
+					<%= link_to 'Delete',project_video_delete_path(@project.creator,@project,@video),method: :delete,class:"btn-delete no_ajaxify", :confirm => "Are you sure to delete this video?"%>
+				</div>
+			<% end %>
+		<% else %>
+			<% if project_edit(@video.project) %>
+				<!-- artwork delete button-->
+				<div class="btn-edit-right" id="delete-video">
+					<%= link_to 'Delete',project_video_delete_path(@project.creator,@project,@video),method: :delete,class:"btn-delete no_ajaxify", :confirm => "Are you sure to delete this video?"%>
+				</div>
+			<% end %>
+		<% end %><!-- end if @video.project == nil-->
+
+			<div style="position:auto;z-index: 100;">
+    			<%= videojs_rails sources: { webm: @video.output_url }, height:"444.375", width:"790", poster:@video.thumbnail %>
+    		</div>
+ 		</div>
+ 	<% else %>
+ 		<!-- Display Encoding & Delete if still encoding-->
+ 		<div id="majorpost-video-encoding">
+ 				Video is being encoded, it may take 10-25 minutes before it is ready. 
+ 				<div id="cancel-encoding">
+ 					<!-- Show delete button only for the owner-->
+ 					<% if @project.creator == current_user %>
+ 					<%= link_to 'x',project_video_delete_path(@project.creator,@project,@video),:method => :delete, class:"tipsy-tipsy no_ajaxify",title:"Delete video.", :confirm => "Are you sure to delete this video?" %>
+ 					<% end %>
+ 				</div>
+ 		</div>
+	<% end %>
+
+<% end %>

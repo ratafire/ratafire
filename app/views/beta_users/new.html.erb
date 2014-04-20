@@ -1,0 +1,77 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+      <!-- Page Title -->
+      <% provide(:title, 'Sign up for Beta') %>
+
+      <!-- Page Background -->
+      <!DOCTYPE html>
+      <html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+       -o-background-size: cover;
+      background-size: cover;"><!-- Signup Page Background -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->      
+
+                  <div class="center" style="width: 310px;">
+
+                        <!-- Cutter --><ol style="margin-top: 80px;"></ol>
+
+                        <span id="Join-Ratafire">Sign up for Beta.</span>
+
+                        <!-- Cutter --><ol style="margin-top: 18px;"></ol>
+
+                        <div id="Signup-box">
+
+                              <!-- Signup Form -->
+                              <%= form_for(@user, :url => beta_create_path, :validate => true, :html => { :class => 'no_ajaxify'}) do |f| %>
+                                    <ol>
+
+                                          <%= f.text_field :fullname, class: "inputbox signupbox", placeholder: "Full name", :live => true %>
+                                    </ol>
+                                    <ol>
+                                          <%= f.text_field :email, class: "inputbox signupbox", placeholder: "Email" %>
+                                    </ol>
+                                    <ol>
+                                          <%= f.text_field :username, class: "inputbox signupbox",  placeholder: "Pick a username"%>
+                                    </ol>
+                                    <ol style="margin-top:10px;color:#2297ce;">
+                                    	<%= f.check_box :creator %><%= f.label :creator, "I am a creator or a researcher, and my blog/website/portfolio is:"%>
+                                    </ol>	
+                                    <ol>
+                                    	<%= f.text_field :website, class: "inputbox signupbox",  placeholder: "Website"%>
+                                    </ol>	
+                                    <ol class="signupbox-select" style="margin-top:10px;color:#2297ce;">
+                                    	<span style="margin-bottom:30px;">Select a realm you are most interested in</span>
+
+                                    	<%= f.select :realm, options_for_select([['Art', 'art'], ['Music', 'music'], ['Games', 'games'], ['Writing', 'writing'], ['Films & Videos', 'videos'], ['Math','math'], ['Research: Science','science'], ['Research: Humanity','humanity'], ['Engineering','engineering']]),prompt: true %>
+                                    </ol>	
+                                    <ol style="margin-top:10px;width:245px;margin-left:35px;text-align:left;color:#999;">When there are queues, you will be on the queue of the realm you selected.</ol>
+                                    <ol style="margin-top: 15px; padding-left: 161px;">
+                                                <%= f.submit "SIGN UP", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+                                    </ol>
+                              <% end %>
+                        <!-- end of Signup-box-bg --> 
+                        </div>
+
+                        <!-- Terms -->
+                        <div id="Signup-agreement">
+                              By clicking the button, you agree to
+                              <%= link_to "Privacy Policy", privacy_path, class:"no_ajaxify"%> and
+                              <%= link_to "Terms of Use", terms_path, class:"no_ajaxify"%> of Ratafire.
+                        </div>
+
+                  </div><!-- end of center -->
+
+                  <!-- Footer -->
+                  <div style="padding: 0px 20px 18px 0; margin-top: 35px;">
+                  <%= render 'layouts/footer' %>
+                  </div>
+
+                  <script type="text/javascript">
+                              /*--- Tipsy ---*/
+                  $(document).ready(function() {
+                        $('.message').tipsy({fade:true,gravity:'ne'});
+                  });
+
+                  </script>

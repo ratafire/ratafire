@@ -1,0 +1,36 @@
+<div class="lightbox4" style="border-top:0;border-bottom: 1px solid #e2e2e2;height:80px;">
+	<!-- User Profile Photo -->
+	<div class="project-show-icon">
+											<%= link_to user, class:"no_ajaxify" do %>
+												<div class="user-icon-small-holder" style="background-image:url(<%= user.profilephoto.url(:tiny) %>);"></div>
+											<% end %>	
+	</div>
+	<div class="project-show-content">
+		<!-- Fullname-->
+		<!-- Cutter --><ol style="margin-top: -44px;"></ol>
+		<h2><%= link_to user.fullname, user,class:"no_ajaxify" %></h2>
+		<ol style="margin-top: -18px;"></ol>
+		<!-- Tagline -->
+		<% if user.tagline.blank? %>
+			<ol><%= user.username %> :: <%= user_tagline_default %></ol>
+		<% else %>
+			<ol><%= user.username %> :: <%= user.tagline %> </ol>
+		<% end %>
+		<!-- Join time -->
+		<% if user.id != @project.creator_id %>
+		<span>Joined <%= time_ago_in_words(assignedproject(user.id, @project.id).created_at) %> ago.</span>
+		<% else %>
+		<!-- Creator -->
+		<span>Created <%= @project.title %> <%= time_ago_in_words(@project.created_at) %> ago.</span>
+		<% end %>
+		<!-- Tools -->
+		<!-- for project creator to delete contributors -->
+		<% if project_contributors_delete(user) %>
+			<div class="contributor-delete"><%= link_to "x", delete_assigned_project_path(@project.creator,@project,assignedproject(user.id,@project.id)), method: :delete, class:"tipsy-tipsy no_ajaxify", title:"Delete Contributor", :confirm => "Are you sure to delete this contributor?" %></div>
+		<% end %>
+		<!-- for contributors to leave -->
+		<% if project_contributors_leave(user) %>
+			<div class="contributor-delete"><%= link_to "x", delete_assigned_project_path(@project.creator,@project,assignedproject(user.id,@project.id)), method: :delete, class:"tipsy-tipsy no_ajaxify", title:"Leave Project", :confirm => "Are you sure to leave this project?" %></div>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,71 @@
+<% if video != nil && video.external != nil && video.external != "" && video.youtube_vimeo == false %>
+	<script>
+		//get vimeo thumbnails
+		var vimeoVideoID = "<%= video.external %>";
+		$.getJSON('http://www.vimeo.com/api/v2/video/' + vimeoVideoID + '.json?callback=?', {format: "json"}, function(data) {
+         $("#<%= video.external %>").attr('style', "background-image:url("+data[0].thumbnail_medium+");");
+		});
+	</script>
+<% end %>
+<div class="archive-media">
+	<div class="archive-inner">
+					<!-- With Video but without artwork -->
+					<% if video.majorpost_id == nil %>
+						<%= link_to user_project_archive_about_path(@project.creator, @project, video.archive),class:"no_ajaxify" do %>
+
+							<% if video.external != "" && video.external != nil %>
+								<% if video.youtube_vimeo == true %>
+									<!-- Youtube Thumbnail -->
+									<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= video.external %>/mqdefault.jpg);">
+								<% else %>
+									<!-- Vimeo Thumbnail -->
+									<div class="majorpost-video-small-holder" id="<%= video.external %>" >
+								<% end %>
+							<% else %>
+								<!-- Internal Thumbnail-->
+								<% if video.encoded_state == "finished" %>
+									<div class="majorpost-video-small-holder" style="background-image:url(<%= video.thumbnail.url(:thumb)%>);">
+								<% else %>
+									<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
+								<% end %>	
+							<% end %>
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+						<% end %>
+					<% else %>
+						<%= link_to user_project_archive_path(@project.creator, @project, video.archive),class:"no_ajaxify" do %>
+
+							<% if video.external != "" && video.external != nil %>
+								<% if video.youtube_vimeo == true %>
+									<!-- Youtube Thumbnail -->
+									<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= video.external %>/mqdefault.jpg);">
+								<% else %>
+									<!-- Vimeo Thumbnail -->
+									<div class="majorpost-video-small-holder" id="<%= video.external %>" >
+								<% end %>
+							<% else %>
+								<!-- Internal Thumbnail-->
+								<% if video.encoded_state == "finished" %>
+									<div class="majorpost-video-small-holder" style="background-image:url(<%= video.thumbnail.url(:thumb)%>);">
+								<% else %>
+									<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
+								<% end %>	
+							<% end %>
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+						<% end %>
+					<% end %>	
+					<!-- Title and Time-->
+					<% if video.majorpost_id == nil %>
+						<ul><%= link_to truncate(video.archive.title, :length => 47),project_about_path(@project.creator, @project),class:"no_ajaxify" %></ul>
+						<ol>Posted by <%= link_to video.project.creator.fullname,video.project.creator %></ol>
+						<ol><%= time_ago_in_words(video.archive.created_time) %> ago</ol>
+					<% else %>	
+						<ul><%= link_to truncate(video.archive.title, :length => 47),user_project_archive_path(@project.creator, @project, video.archive),class:"no_ajaxify" %></ul>
+						<ol>Posted by <%= link_to video.majorpost.user.fullname,video.majorpost.user %></ol>
+						<ol><%= time_ago_in_words(video.archive.created_time) %> ago</ol>
+					<% end %>
+	</div>
+</div>

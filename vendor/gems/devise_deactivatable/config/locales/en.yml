@@ -1,0 +1,4 @@
+en:
+  devise:
+    failure:
+      deactivated: 'Your account has been de-activated. Please contact the site administrator.'

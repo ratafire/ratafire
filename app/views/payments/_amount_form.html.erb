@@ -1,0 +1,7 @@
+<!-- Payments Forms -->
+<!-- Have to add pending to it -->
+<%= form_for [@user,@subscription], :url => create_subscription_path(@user),:html => {:class => 'no_ajaxify',:id => "subscrption-form"} do |f| %>
+	<%= f.hidden_field :subscriber_id, :value => @current_user.id %>
+	<%= f.hidden_field :subscribed_id, :value => @user.id %>
+	<%= f.hidden_field :amount, id:"submit-amount" %><!-- working-->
+<% end %>

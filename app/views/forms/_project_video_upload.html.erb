@@ -1,0 +1,121 @@
+				<!-- Video -->
+				<div id="video-case">
+
+					<!-- If there is no video, show the upload -->
+					<% if @project.video_id != "" && @project.video_id != nil %>
+
+					<script type="text/javascript">
+
+        				$(document).ready(function() {
+
+              				//hide artwork upload and show artwork
+              				$("#video-upload-case").hide();
+              				$('#has-video-case').show();
+                    
+        				});
+					</script>
+
+					<div id="has-video-case">
+						<%= render 'projects/project_videoplayer' %>
+
+					</div><!-- end:#has-video-case -->
+
+					<% end %><!-- if video is not nil -->
+
+
+
+				<div id="video-upload-case">
+					<div id="comment-input2" style="margin: 0px 0 8px 0;">
+
+						<!-- Video Upload Title -->
+						<div class="majorpost-user-inspirer-tite">	
+							<li>Project Video</li>
+						</div>
+
+							<!-- Upload-->
+							<div class="majorpost-user-inspirer-indicator">Upload</div>
+							<div class="video-upload-box-holder">
+								<% unless current_user.admin? %>
+								<div id="video-upload-box">
+									<div class="video-upload-words artwork-button fileinput-button">
+										<span>+_+ We are updating the video upload system</span>
+										<ul>Sorry you cannot upload videos now.</ul>
+									</div>	
+								</div>	
+								<% else %>
+								<!-- Video Upload-box -->
+								<div id="video-upload-box">
+									<div class="video-upload-words artwork-button fileinput-button" id="video-drop">
+
+										<span>Click to choose or drop video file here</span>
+										<ul>Maximum size: 2GB. Recommanded resolution: 1080p.</ul>
+				<!-- fields for video -->
+
+					<%= form_for [@project.creator,@project,@video],:html => {:class => 'no_ajaxify' } do |v|%>
+						<%= v.hidden_field :project_id, value: @project.id %>
+						<%= v.hidden_field :content_temp, id:"content_temp_video" %>
+						<%= v.hidden_field :tags_temp,id:"tags_temp_video" %>						
+						<%= v.file_field :video, multiple: false, class:"artwork-choose" %>
+					<% end %>							
+									</div>
+								</div>
+
+						<!-- Javascript for the video uploader-->
+										<script>
+										$('#video-upload-box').fileupload({
+  dataType: "script",
+  dropZone: $('#video-drop'),
+  pasteZone: null,
+  add: function(e, data) {
+    var file, types;
+    types = /(\.|\/)(avi|mp4|mov|mpeg4|wmv|flv|3gpp|webm)$/i;
+    file = data.files[0];
+    if (types.test(file.type) || types.test(file.name)) {
+      data.context = $(tmpl("template-upload3", file));
+      $('#videodata').append(data.context);
+      data.submit();
+      var callback = $.proxy();
+    } else {
+      return alert("" + file.name + " is not a avi, mp4, mov, mpeg4, wmv, flv, 3gpp or a webm video file.");
+    }
+  },
+  progress: function(e, data) {
+    var progress;
+    if (data.context) {
+      $("#video-upload-box").hide();
+      progress = parseInt(data.loaded / data.total * 100, 10);
+      return data.context.find('.bar-video').css('width', progress + '%');
+    }
+  },
+  temp_save: function(){
+  	var content_temp = $('#redactor_majorpost').val(),
+        tags_temp = $('#tags').val();
+   $('#content_temp_video').val(content_temp
+    );
+   $('#tags_temp_video').val(tags_temp
+    );
+  }  
+});
+</script>
+
+
+												<!-- Video Progress-box-->
+												<div id="artwork-progress-case">
+												<script id="template-upload3" type="text/x-tmpl">
+								<div id="video-progress-box">
+									<div class="video-progress">
+										<div id="progress-bar-artwork" class='bar-video' style="width: 0%">
+											<div class="video-progress-words"><ul>Uploading and getting ready to encode...</ul></div>
+											<div class="video-progress-cancel2 tipsy-tipsy no_ajaxify" id="cancel-video" title="Cancel Upload"></div>
+										</div>
+									</div>
+								</div>
+								</script>
+								</div>
+								<!-- Video Progress-box-->
+								<div id="videodata"></div>
+								<% end %>
+						</div><!-- end videoupload box holder-->
+					</div><!-- end comment input-->
+				</div><!-- end:#video-upload-case -->
+			</div><!-- end of video-case -->

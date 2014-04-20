@@ -1,0 +1,66 @@
+<div class="comment-display" id="project_comment_<%= project_comment.id%>">
+	<div class="textbox2">
+
+		<!-- Post User Icon -->
+		<span id="post-usericon">
+			<%= link_to project_comment.user, class:"no_ajaxify" do %>
+				<div class="user-icon-holder" style="background-image:url(<%= project_comment.user.profilephoto.url(:small64) %>);"></div>
+			<% end %>
+		</span>
+
+		<!-- Post Title -->
+		<div id="post-title">
+			<h2><%= link_to "._.",user_project_project_comment_path(project_comment.project.creator,project_comment.project,project_comment),class:"no_ajaxify",style:"color:#fff;"%></h2>
+			<ul></ul>
+				<ol><%= link_to project_comment.user.fullname , project_comment.user, class:"no_ajaxify" %> <span>[</span><%= project_comment.user.username %><span>]</span><% unless project_comment.user.tagline.blank?%><span>,</span> <%= project_comment.user.tagline%><% end %></ol>
+				<ol style="margin-top:0px;"><%= time_ago_in_words(project_comment.created_at) %> ago</ol>
+		</div>
+
+		<!-- Post Content -->
+		<div class="post-content-c">
+			<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+			<%= sanitize project_comment.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 ul li strong em del code) %>
+		</div>
+
+		<!-- Tools -->
+		<% if signed_in? %>
+							<div class="toolbox">
+								<li>
+									<% if liked_comment(project_comment.id) then %>
+										<!-- like -->
+										<%= link_to like_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= project_comment.id%>comment-like" style="display:none;">
+										</div><% end %>
+										<!-- unlike -->
+										<%= link_to unlike_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unlike" id="<%= project_comment.id%>comment-unlike">
+										</div><% end %>	
+									<% else %>
+										<!-- like -->
+										<%= link_to like_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= project_comment.id%>comment-like">
+										</div><% end %>
+										<!-- unlike -->
+										<%= link_to unlike_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unlike" id="<%= project_comment.id%>comment-unlike" style="display:none;">
+										</div><% end %>										
+									<% end %>	
+								</li>  <span id="<%= project_comment.id %>liked-count"><%= project_comment.liked_comments.count %></span>
+								<% if current_user?(project_comment.user)%>
+									<li>/ <%= link_to "x", [project_comment.project.creator,project_comment.project, project_comment], :method => :delete, class:"tipsy-tipsy no_ajaxify", title:"Delete comment.", :confirm => "Are you sure to delete this comment?" %></li>
+                 				<% end %>
+							</div><!-- end.toolbox-->
+		<% end %>
+	</div><!-- end.textbox2-->						
+</div><!-- end.comment-display-->
+<!-- script-->
+<script>
+	//Comment
+	$("#<%= project_comment.id%>comment-like").click(function() {
+		$("#<%= project_comment.id%>comment-like").hide();
+		$("#<%= project_comment.id%>comment-unlike").show();
+		$("#<%= project_comment.id%>liked-count").html(
+			$(this).html()+1);
+	});
+	$("#<%= project_comment.id%>comment-unlike").click(function() {
+		$("#<%= project_comment.id%>comment-unlike").hide();
+		$("#<%= project_comment.id%>comment-like").show();
+	});
+</script>
+<!-- end script-->

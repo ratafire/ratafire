@@ -1,0 +1,174 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @project.title) %>
+
+	<!-- External Link -->
+	<%= render 'shared/externallink'%><!-- script -->	
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+    <!-- Radius Image-->
+	<%= render 'shared/radius_image' %><!-- script -->
+
+	<!-- Like Button -->
+	<%= render 'shared/like_button'%><!-- script -->
+	<% if @majorpost != nil%><%= render 'shared/like_button_majorpost'%><% end %>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=249146721904203";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:type:profile:username", content: @project.creator.fullname %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:title", content: @project.title %>
+			
+		<% if @project.artwork != nil %>
+			<%= tag :meta, property: "og:image", content: @project.artwork.image.url(:preview) %>
+		<% else %>
+			<% if @project.video_id != nil && @project.video_id != ""%>
+				<%= tag :meta, property: "og:image", content: @video.thumbnail %>	
+			<% else %>
+				<% if @icon != nil %>
+					<%= tag :meta, property: "og:image", content: @icon.image.url(:pageview) %>	
+				<% else %>
+					<% if @project.projectimages.count > 0 %>
+						<%= tag :meta, property: "og:image", content: @project.projectimages.first.url %>	
+					<% end %>	
+				<% end %>
+			<% end %>	
+		<% end %>	
+
+		<% if @project.video_id != nil && @project.video_id != "" %>
+			<%= tag :meta, property: "og:video:url", content: @video.output_url %>
+			<%= tag :meta, property: "og:video:width", content: "444" %>
+			<%= tag :meta, property: "og:video:height", content: "790" %>
+		<% end %>
+
+		<%= tag :meta, property: "og:description", content: truncate(@project.excerpt, :length => 180) %>
+	<% end %><!-- end.content_for :head do -->	
+	
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Extra Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<!-- Include extra javascript -->
+	<% content_for(:extra_javascript) do %>
+		<%= javascript_include_tag "rainbow/rainbow" %>
+		<%= mathjax_tag %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Fullscreen ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Fullscreen -->
+	<% if @majorpost_count > 0 %>
+		<%= render 'majorposts/fullscreen.html.erb'%>	
+	<% end %>
+
+<div class="hide-when-fullscreen">
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'projects/project_header' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_project' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+	<!-- Main Content -->
+	<div class="main-content-project">
+					<!-- Video and Artwork-->
+					<%= render 'projects/video_artwork'%>
+					<!-- About View -->
+					<%= render 'projects/about_view'%>
+					<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+
+					<!-- Project Comments -->
+					<% if @project.project_comments.any? %>
+						<%= render @project_comments %>
+					<% end %>
+
+					<!-- Project Comments Pagination -->
+					<div id="project-comment">
+						<%= will_paginate @project_comments, :param_name => 'project_comments', class:"rata_pagination"%>
+					</div>	
+
+					<!-- Add Project Comment -->
+					<% if user_signed_in? %>
+						<div id="comment-input">
+							<div class="textbox2">
+
+										<!-- Post User Icon -->
+							<span id="post-usericon" style="float:left;">
+												<div class="user-icon-small-holder tipsy-tipsy" title="you" style="background-image:url(<%= current_user.profilephoto.url(:tiny) %>);"></div>
+							</span>
+
+							<div id= "comment-input-area">
+							<ul>Comment on <%= @project.title %></ul>
+								<%= render "comments/project_comment_form" %>
+							</div>
+
+							</div>	
+						</div>
+						<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+					<% end %>
+
+					<!-- Majorpost -->
+					<% if @project.majorposts.where(:published => true).any? %>
+					
+						<%= render 'majorposts/majorpost_view_projectpage'%>
+
+					<!-- Comments -->
+					<% if @majorpost.comments.any? %>
+						<%= render @comments %>
+					<% end %>
+					<!-- Comment Page -->
+					<div id="comment-page">
+						<%= will_paginate @comments, :param_name => 'comments', class:"rata_pagination" %>
+					</div>
+
+					<!-- Add Comment -->
+					<% if signed_in? %>
+
+						<div id="comment-input">
+							<div class="textbox2">
+
+										<!-- Post User Icon -->
+							<span id="post-usericon" style="float:left;">
+
+												<div class="user-icon-small-holder tipsy-tipsy" title="you" style="background-image:url(<%= current_user.profilephoto.url(:tiny) %>);"></div>
+							</span>
+
+							<div id= "comment-input-area">
+							<ul>Comment on <%= @majorpost.title %></ul>
+								<%= render "comments/comment_form" %>
+							</div>
+
+							</div>	
+						</div>
+
+					<% end %><!-- end of if signed_in for Add Comment-->
+
+					<% end %><!-- end of if @majorpost.any? -->
+
+					<!-- License -->
+					<%= render 'shared/license'%>
+					
+					<!-- Footer -->
+					<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->
+</div><!-- end:hide when fullscreen-->
+

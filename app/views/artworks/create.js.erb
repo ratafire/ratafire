@@ -1,0 +1,5 @@
+<% if @artwork.new_record? %>
+	alrt("Failed");
+<% else %>
+	$("#artworkdata").append("<%= j render(@artwork) %>");
+<% end %>

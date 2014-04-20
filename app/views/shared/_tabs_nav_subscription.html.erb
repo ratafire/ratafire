@@ -1,0 +1,9 @@
+<!-- Tabs Nav -->
+<div class="tab">
+	<% if @user.subscribers.count >1 %>
+		<%= link_to "Subscribers", subscribers_path(@user) , style:"margin-left:0px;", class: "tab tab-size tab-content-current tab-right-shadow"%>
+	<% else %>
+		<%= link_to "Subscriber", subscribers_path(@user) , style:"margin-left:0px;", class: "tab tab-size tab-content-current tab-right-shadow"%>
+	<% end %>	
+	<%= link_to "Subscribing", subscribing_path(@user) , class: "tab tab-size tab-content"%>
+</div>

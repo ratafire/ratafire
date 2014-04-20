@@ -1,0 +1,138 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @project.title) %>
+
+	<!-- External Link -->
+	<%= render 'shared/externallink'%><!-- script -->	
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+    <!-- Radius Image-->
+	<%= render 'shared/radius_image' %><!-- script -->	
+
+	<!-- Like Button -->
+	<%= render 'shared/like_button'%>
+	<%= render 'shared/like_button_majorpost'%>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=249146721904203";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:type:profile:username", content: @majorpost.user.fullname %>
+		<%= tag :meta, property: "og:type", content: "object" %>
+		<%= tag :meta, property: "og:title", content: @majorpost.title %>
+		<%= tag :meta, property: "og:url", content: request.scheme+"://"+request.host+user_project_majorpost_path(@project.creator, @project, @majorpost) %>
+			
+		<% if @majorpost.artwork != nil %>
+			<%= tag :meta, property: "og:image", content: @majorpost.artwork.image.url(:preview) %>
+		<% else %>
+			<% if @majorpost.postimages.count > 0 %>
+				<%= tag :meta, property: "og:image", content: @majorpost.postimages.first.url %>	
+			<% end %>	
+		<% end %>	
+
+		<%if @majorpost.video != nil %>
+			<% if @majorpost.video.external != nil && @majorpost.video.external != "" %>
+				<% if @majorpost.video.youtube_vimeo == ture %>
+					<!-- Youtube-->
+					<%= tag :meta, property: "og:video", content: "http://www.youtube.com/embed/#{@video.external}"%>
+				<% else %>
+					<!-- Vimeo -->
+					<%= tag :meta, property: "og:video", content: "//player.vimeo.com/video/#{@video.external}"%>
+				<% end %>	
+			<% else %>
+				<%= tag :meta, property: "og:video:url", content: @video.output_url %>
+				<%= tag :meta, property: "og:video:width", content: "444" %>
+				<%= tag :meta, property: "og:video:height", content: "790" %>
+			<% end %>
+		<% end %>
+
+		<%= tag :meta, property: "og:description", content: truncate(@majorpost.excerpt, :length => 180) %>
+	<% end %><!-- end.content_for :head do -->		
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Extra Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<!-- Include extra javascript -->
+	<% content_for(:extra_javascript) do %>
+		<%= javascript_include_tag "rainbow/rainbow" %>
+		<%= mathjax_tag %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Fullscreen ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Fullscreen -->
+	<%= render 'majorposts/fullscreen.html.erb'%>	
+	
+
+<div class="hide-when-fullscreen">
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'projects/project_header' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_project' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Main Content -->
+	<div class="main-content-project">
+
+					<!-- Video and Artwork -->
+					<%= render 'projects/video_artwork'%>
+
+					<!-- Majorpost-->
+					<%= render 'majorposts/majorpost_view'%>
+
+					<!-- Comments -->
+					<% if @majorpost.comments.any? %>
+						<%= render @comments %>
+					<% end %>
+					<!-- Comment Page -->
+					<div id="comment-page">
+						<%= will_paginate @comments, :param_name => 'comments', class:"rata_pagination" %>
+					</div>
+
+					<!-- Add Comment -->
+					<% if signed_in? %>
+
+						<div id="comment-input">
+							<div class="textbox2">
+
+										<!-- Post User Icon -->
+							<span id="post-usericon" style="float:left;">
+												<div class="user-icon-small-holder tipsy-tipsy" title="you" style="background-image:url(<%= current_user.profilephoto.url(:tiny) %>);"></div>
+							</span>
+
+							<div id= "comment-input-area">
+							<ul>Comment on <%= @majorpost.title %></ul>
+								<%= render "comments/comment_form" %>
+							</div>
+
+							</div>	
+						</div>
+
+					<% end %><!-- end of if signed_in for Add Comment-->
+
+					<!-- License -->
+					<%= render 'shared/license'%>
+
+					<!-- Footer -->
+					<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->
+</div><!-- end:hide when fullscreen-->

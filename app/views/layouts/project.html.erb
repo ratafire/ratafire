@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+  		<title><%= full_title(yield(:title)) %></title>
+  		<%= stylesheet_link_tag    "application", :media => "all" %>
+  		<%= csrf_meta_tags %>
+  		<%= javascript_include_tag "application" %>
+  		<%= render 'layouts/shim' %>
+
+	</head>
+
+	<body>		
+
+		<div>
+		<!-- Navbar -->
+		<%= render 'layouts/header' %>
+		</div>
+		
+		<!-- Settings Dropdown -->
+		<%= render 'shared/settings_dropdown' %>
+
+		<div class="outer-center">
+
+		<!-- Flash -->
+			<% flash.each do |key, value| %>
+        	<div class="alert fade in"><%= value %></div>
+        	<% end %>
+    	</div>
+
+		<script type="text/javascript">
+
+			/*--- Tipsy ---*/
+			$(document).ready(function() {
+  				$('#Sign_In').tipsy({fade:true,gravity:'ne'});
+			});
+
+			$(document).ready(function() {
+  				$('.tipsy-tipsy').tipsy({fade:true});
+  				
+  				/*--- Alert ---*/
+  				$('.alert').delay(3000).fadeOut(1000);
+			});
+
+			SyntaxHighlighter.all()
+
+		</script>
+
+
+		<!-- Radius Image-->
+		<%= render 'shared/radius_image' %>
+
+
+
+
+
+				<div class="wrapper">
+
+				<!-- Main Content -->
+				<div class="main-content-project">
+
+						<%= yield %>
+
+					<!-- Back to Top -->
+					<div id="back-top">
+						<a href="#top"><span></span></a>
+					</div>
+					<!-- Footer -->
+					<%= render 'layouts/footer' %>
+
+				</div><!-- end of main-content -->
+
+			</div>
+			
+		</div><!-- end of wrapper-->
+
+	</body>
+
+</html>

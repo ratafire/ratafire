@@ -1,0 +1,62 @@
+<script type="text/javascript">
+//let validation work
+$(document).ready(function(){
+    $('form').on('nested:fieldAdded', function(event) {
+    $(event.target).find(':input').enableClientSideValidations();
+    });
+  
+  //best_in_place
+  $('.best_in_place').best_in_place();//init
+
+              //script to show delete artwork button
+              $('#has-artwork-case').hover(function() {
+                  $("#delete-artwork").toggle();
+                });
+              
+              //publish-button
+              $('#project-publish-button').click(function() {
+                  $("#project-published").val("t");
+                  $("#project-form").submit();
+              });
+
+});
+
+  //External video
+   function externalOnchange()
+
+  {
+    var content_temp = $('#redactor_majorpost').val(),
+        tags_temp = $('#tags').val();
+   $('#content_temp_video').val(content_temp
+    );
+   $('#tags_temp_video').val(tags_temp
+    );
+    $('#majorpost_video_upload_form').submit();
+
+    }
+
+//Hide the first user remove button
+$(function() {
+  $('a[user-inspirer-disable-first]').each(function() {
+    var nested_container = $(this).closest('.fields');
+
+    // check if is first
+    if (!nested_container.prev().is('.fields')) {
+        $(this).remove();
+    }
+  });
+});
+
+//Hide the first project remove button
+$(function() {
+  $('a[project-inspirer-disable-first]').each(function() {
+    var nested_container = $(this).closest('.fields');
+
+    // check if is first
+    if (!nested_container.prev().is('.fields')) {
+        $(this).remove();
+    }
+  });
+});
+
+</script>

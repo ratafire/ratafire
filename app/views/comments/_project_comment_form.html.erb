@@ -1,0 +1,12 @@
+<%= form_for [@project.creator,@project,@project_comment], :validate => true, :html => {:class => 'no_ajaxify'} do |f| %>
+	<%= f.hidden_field :user_id, :value => current_user.id %>
+	<%= f.hidden_field :project_id, :value => @project.id %>
+	<ol class="commentarea">
+		<%= f.text_area :content, id:"redactor_project_comment" %>
+	</ol>
+	<ol style="margin: 10px -2px 0 0; text-align:right;">
+		<div id="submit">
+			<%= f.submit "Comment", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+		</div>
+	</ol>
+<% end %>

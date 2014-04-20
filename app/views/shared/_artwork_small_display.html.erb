@@ -1,0 +1,64 @@
+<!-- Hover JS-->
+<script>
+$(document).ready(function(){
+
+$('.artwork-download').hover(function() {
+
+    $('#artwork-control-bar').toggle("fade");
+});
+
+$('#eye').click(function() {
+
+    $('#artwork-toggle').toggle();
+});
+
+//delete button hover
+$('#artwork-toggle').hover(function() {
+    $("#delete-artwork").toggle();
+});
+
+});
+</script>
+
+<!-- Artwork Display Small -->
+
+<div class="artwork-video">
+
+	<div class="artwork-video-download">
+		<%= link_to '', user_project_artwork_path(@project.creator,@project,@artwork), :id => @artwork.id, class:"artwork-download tipsy-tipsy", title:"Download"%>
+	</div>
+	<div id="eye" class="tipsy-tipsy" title="View">
+
+	</div>
+
+	Artwork: has original file <%= @artwork.image_file_name %>
+
+</div>
+
+<!-- Cutter --><ol style="margin-top:15px;"></ol>
+
+<!-- Artwork Display -->
+
+	<div id="artwork-toggle" style="display:none;">
+			<!-- if current user has the right to delete artwork -->
+	<div class="btn-edit-right2">
+	<% if @artwork.project == nil %>
+		<% if majorpost_edit(@artwork.majorpost) %>
+			<!-- artwork delete button-->
+			<div class="btn-edit-right3" id="delete-artwork">
+				<%= link_to 'Delete',artwork_delete_path(@project.creator,@project,@artwork),method: :delete,class:"btn-delete no_ajaxify"%>
+			</div>
+		<% end %>
+	<% else %>
+		<% if project_edit(@artwork.project) %>
+			<!-- artwork delete button-->
+			<div class="btn-edit-right3" id="delete-artwork">
+				<%= link_to 'Delete',artwork_delete_path(@project.creator,@project,@artwork),method: :delete,class:"btn-delete no_ajaxify"%>
+			</div>
+		<% end %>
+	<% end %><!-- end if @artwork.project == nil-->
+	</div>
+		<%= image_tag(@artwork.image.url(:preview), class: "non-wrap artwork-video-display")%>
+		<!-- Cutter --><ol style="margin-top:45px;"></ol>
+	</div>
+

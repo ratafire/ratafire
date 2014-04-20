@@ -1,0 +1,19 @@
+<!-- Like Button -->
+<script>
+$(document).ready(LikeButton);
+$(document).on('ajaxify:content_loaded', LikeButton);
+
+function LikeButton(){
+	//Project
+	$("#<%= @project.id%>project-like").click(function() {
+		$("#<%= @project.id%>project-like").hide();
+		$("#<%= @project.id%>project-unlike").show();
+		$("#<%= @project.id%>liked-count").html(
+			$(this).html()+1);
+	});
+	$("#<%= @project.id%>project-unlike").click(function() {
+		$("#<%= @project.id%>project-unlike").hide();
+		$("#<%= @project.id%>project-like").show();
+	});	
+}
+</script>

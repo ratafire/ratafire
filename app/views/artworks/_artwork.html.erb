@@ -1,0 +1,35 @@
+<!-- Artwork Successbox-->
+<% if artwork.project_id != nil %>
+	<div id="video-upload-box" style="height:80px;">
+		<div class="video-upload-words">
+			<span>Upload Succeed!</span>
+			<ul>In order to see your artwork original file, publish your project or post when finish editing.</ul>
+		</div>
+	</div>
+<% else %>
+<div id="artwork-success-box">
+		<%= image_tag(artwork.image.url(:sucess), class: "non-wrap artwork-preview") %>
+	<div class="artwork-upload-words">
+		<span>Upload Succeed!</span>
+		<ul>In order to see your artwork original file, publish your project or post when finish editing.</ul>
+	</div>
+</div>
+<% end %>
+
+<!-- Convert the value of the artwork id to json-->
+<script id="vering">
+	<%= artwork.id.to_json %>
+</script>
+
+<!-- parse the json -->
+<script>
+$(document).ready(function(){
+
+    var myVarsJSON = $("#vering").html(),
+        myVars     = $.parseJSON(myVarsJSON);
+    //parse the value into majorpost.artwork_id input field
+	$("#majorpost-artwork-id").val(myVars); //so it is on project edit page, find this #in the page and you shall see!
+	$("#artwork-progress-box").hide();
+	$("#project-form").delay(5000).submit();
+});	
+</script>

@@ -1,0 +1,45 @@
+	<!-- fullscreen-case will hide when refresh with ajax -->	
+	<div class="fullscreen-case">
+		<!-- Toolbox-->
+		<div class="fullscreen-toolbox">
+			<!-- next majorpost -->
+			<% if get_next(@majorpost) != nil %>
+				<%= link_to "", get_chapter_path(@majorpost.user,@project,get_next(@majorpost)), class:"no_ajaxify fullscreen-next tipsy-tipsy", remote: true, title:"Next Chapter" %>
+			<% end %>
+			<!-- prev majorpost -->
+			<% if get_prev(@majorpost) != nil %>
+				<%= link_to "", get_chapter_path(@majorpost.user,@project,get_prev(@majorpost)), class:"no_ajaxify fullscreen-prev tipsy-tipsy", remote: true, title:"Previous Chapter" %>
+			<% end %>			
+		</div>	
+			
+		<!-- majorpost title -->
+		<div class="fullscreen-chapter">
+			<%= link_to @majorpost.title, user_project_majorpost_path(@majorpost.user,@project,@majorpost), class:"no_ajaxify" %>
+		</div>
+
+		<!-- author 2 if there is more than one contributors -->
+		<% if @project.users.count > 1 %>
+			<div class="fullscreen-author-small">
+				<%= link_to @majorpost.user.fullname , @majorpost.user, class:"no_ajaxify" %>
+			</div>
+		<% end %>
+
+		<!-- content -->
+		<div class="fullscreen-content">
+			<div class="fullscreen-content-inner">
+			<%= sanitize @majorpost.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+			</div>
+		</div>
+
+		<!-- Toolbox bottom -->
+		<div class="fullscreen-toolbox">
+			<!-- next majorpost -->
+			<% if get_next(@majorpost) != nil %>
+				<%= link_to "", get_chapter_path(@majorpost.user,@project,get_next(@majorpost)), class:"no_ajaxify fullscreen-next tipsy-tipsy", remote: true, title:"Next Chapter" %>
+			<% end %>			
+			<!-- prev majorpost -->
+			<% if get_prev(@majorpost) != nil %>
+				<%= link_to "", get_chapter_path(@majorpost.user,@project,get_prev(@majorpost)), class:"no_ajaxify fullscreen-prev tipsy-tipsy", remote: true, title:"Previous Chapter" %>
+			<% end %>			
+		</div>	
+	</div><!-- end:fullscreen-case -->

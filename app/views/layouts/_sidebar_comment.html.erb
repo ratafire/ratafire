@@ -1,0 +1,16 @@
+<!-- Project Sidebar -->
+<div class="sidebar" type="project">
+
+	<!-- Create Button -->
+	<div style="margin-top: -28px;">
+		<% if assigned_user %>
+			<%= link_to "CREATE", '#' , class: "btn btn-medium btn-medium-white"%>
+		<% end %>
+	</div>
+
+	<ul>
+		<ol><%= link_to "About", '#' %></ol>
+		<ol><%= link_to "Contributors",'#'%></ol>
+		<ol><%= link_to "Major Posts", '#' %></ol>
+	</ul>
+</div>

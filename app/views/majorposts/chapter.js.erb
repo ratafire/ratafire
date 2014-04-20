@@ -1,0 +1,11 @@
+$(".fullscreen-case").hide();
+$(".fullscreen-ajax").append('<%= j render('majorposts/fullscreen_case') %>').after(
+	function(){
+				var myFlag = false;
+				if($(window).scrollTop() > 200 && myFlag == false){
+       		 	$("html, body").animate({ scrollTop: 0 }, 600);
+       		 	myFlag = true;
+       		 	
+    				}
+		
+     });

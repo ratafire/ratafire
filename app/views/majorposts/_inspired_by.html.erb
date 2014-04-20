@@ -1,0 +1,129 @@
+<!-- Inspired By -->
+						<% if majorpost_inspiration_edit %>
+							<!-- Inspired By Title -->
+							<div class="inspiration-bg">
+								<div class="textbox-mini">
+									<div class="post-about-title">
+										<li style="font-size: 1.4em;">Inspired By</li>
+									</div>
+								</div>
+							</div>
+							<!-- Inspired By Content -->
+							<div class="lightbox2 inspiration-display">
+								<div class="textbox-mini">
+						<% end %><!-- end of the first if for majorpost.user -->		
+
+						<!-- Normal People -->
+						<% if majorpost_inspiration_normal %>
+
+								<!-- Majorpost User-->
+								<% if majorpost_edit(@majorpost) %>
+									<!-- users-->
+									<% if @majorpost.user_inspirers.any? %>
+									<ul><% if @majorpost.user_inspirers.count >1 %>Users <% else %>User <% end %><li>
+										<!-- content-->
+										<%= raw @majorpost.user_inspirers.map { |t| "#{link_to t.fullname, user_path(t),class:"no_ajaxify"}" " (#{t.username}) " "#{link_to "o", delete_m_u_path(@project.creator, @project,@majorpost, find_m_u_inspiration_id(t)),method: :delete,class:"no_ajaxify btn-delete-small tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this inspiration?"}"}.join(', ') %>
+									</li></ul>
+									<% end %>
+									<!-- projects -->
+									<% if @majorpost.project_inspirers.any? %>
+									<ul><% if @majorpost.project_inspirers.count >1 %>Projects <% else %>Project <% end %><li>
+										<!-- content-->
+										<%= raw @majorpost.project_inspirers.map { |t| "#{link_to t.title, user_project_path(t.creator,t),class:"no_ajaxify"}" " (#{t.creator.fullname}) " "#{link_to "o", delete_m_p_path(@project.creator, @project, @majorpost,find_m_p_inspiration_id(t)),method: :delete,class:"no_ajaxify btn-delete-small tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this inspiration?"}" }.join(', ') %>
+									</li></ul>
+									<% end %>
+									<!-- majorposts -->
+									<% if @majorpost.majorpost_inspirers.any? %>
+									<ul><% if @majorpost.majorpost_inspirers.count >1 %>Major Posts <% else %>Major Post <% end %><li>
+										<!-- content-->
+										<%= raw @majorpost.majorpost_inspirers.map { |t| "#{link_to t.title, user_project_majorpost_path(@project.creator,@project,t),class:"no_ajaxify"}" " (#{t.user.fullname}) " "#{link_to "o", delete_m_m_path(@project.creator, @project,@majorpost, find_m_m_inspiration_id(t)),method: :delete,class:"no_ajaxify btn-delete-small tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this inspiration?"}"}.join(', ') %>
+									</li></ul>
+									<% end %>
+									<!-- external -->
+									<% if @majorpost.m_e_inspirations.any? %>
+									<ul>External <li>
+										<%= raw @majorpost.m_e_inspirations.map { |t| "#{link_to t.title, "#{t.url}",class:"no_ajaxify"} " "#{link_to "o", delete_m_e_path(@project.creator, @project,@majorpost, find_m_e_inspiration_id(t)),method: :delete,class:"no_ajaxify btn-delete-small tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this inspiration?"}"}.join(', ') %>
+									</li></ul>
+									<% end %>
+								<% else %>
+									<!-- Normal People -->
+
+										<!-- users-->
+										<% if @majorpost.user_inspirers.any? %>
+										<ul><% if @majorpost.user_inspirers.count >1 %>Users <% else %>User <% end %><li>
+											<!-- content-->
+											<%= raw @majorpost.user_inspirers.map { |t| "#{link_to t.fullname, user_path(t),class:"no_ajaxify"}" " (#{t.username})" }.join(', ') %>
+										</li></ul>
+										<% end %>
+										<!-- projects -->
+										<% if @majorpost.project_inspirers.any? %>
+										<ul><% if @majorpost.project_inspirers.count >1 %>Projects <% else %>Project <% end %><li>
+											<!-- content-->
+											<%= raw @majorpost.project_inspirers.map { |t| "#{link_to t.title, user_project_path(t.creator,t),class:"no_ajaxify"}" " (#{t.creator.fullname})" }.join(', ') %>						
+										</li></ul>
+										<% end %>
+										<!-- majorposts -->
+										<% if @majorpost.majorpost_inspirers.any? %>
+										<ul><% if @majorpost.majorpost_inspirers.count >1 %>Major Posts <% else %>Major Post <% end %><li>
+											<!-- content-->
+											<%= raw @majorpost.majorpost_inspirers.map { |t| "#{link_to t.title, user_project_majorpost_path(@project.creator,@project,t),class:"no_ajaxify"}" " (#{t.user.fullname})" }.join(', ') %>
+										</li></ul>
+										<% end %>
+										<!-- external -->
+										<% if @majorpost.m_e_inspirations.any? %>
+										<ul>External <li>
+											<%= raw @majorpost.m_e_inspirations.map { |t| link_to t.title, "#{t.url}",class:"no_ajaxify" }.join(', ') %>
+										</li></ul>									
+										<% end %>
+
+								<% end %><!-- end of majorpost user if-->	
+						<% end %><!-- end of normal people if-->
+
+							<% if majorpost_inspiration_edit %><!-- 1 -->
+
+								<% if majorpost_edit(@majorpost) %><!-- 2 -->
+								<!-- add inspired by -->
+								<%= nested_form_for [current_user,@bifrost], :url => call_heimdall_path(current_user, @bifrost), :html => {:class => 'no_ajaxify'} do |f| %>
+									<%= f.hidden_field :majorpost_id, :value => @majorpost.id %>
+									<div id="bifrost-fields-majorpost">
+										<%= f.link_to_add "", :connections, class:"add", :data => {:target => "#bifrost-fields-majorpost"} %>
+										<%= f.fields_for :connections do |c|%>
+											<%= c.link_to_remove "", class:"remove", title:"remove", 'majorpost-user-inspirer-disable-first' => ''%>
+											<div class="majorpost-user-inspirer-holder">
+												<%= c.text_field :url, type:"user-inspirer", placeholder:"Add Inspired By (enter url)" %>
+											</div>
+										<% end %><!-- end of connections-->
+										<%= f.submit "", class: "btn-submit bifrost-submit tipsy-tipsy no_ajaxify", title:"Connect" %>	
+								</div><!-- end.bifrost fields -->
+								<% end %><!-- end form for bifrost-->
+
+
+<script type="text/javascript">
+
+//let validation work
+$(document).ready(function(){
+$('form').on('nested:fieldAdded', function(event) {
+  $(event.target).find(':input').enableClientSideValidations();
+});
+});
+
+//Hide the first user remove button
+$(function() {
+  $('a[majorpost-user-inspirer-disable-first]').each(function() {
+    var nested_container = $(this).closest('.fields');
+
+    // check if is first
+    if (!nested_container.prev().is('.fields')) {
+        $(this).remove();
+    }
+  });
+});
+
+								</script>
+
+								<% end %><!-- 2 -->
+
+								</div><!-- end.textbox mini-->
+							</div><!-- end.lightbox 2-->
+							<% end %><!-- 1 -->
+

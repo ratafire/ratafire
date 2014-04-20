@@ -1,0 +1,142 @@
+<!-- background -->	
+<div class="background-special-none">	
+</div>	
+
+<!-- Profile Sidebar -->
+<div class="sidebar" type="profile">
+
+	<!-- User Icon -->
+	<div>
+		<% if @user.profilephoto.url(:medium) != "/assets/usericon_medium.png" %>
+			<%= image_tag(@user.profilephoto.url(:medium), class: "image-wrap-profile sidebar-profile-shade2") %>
+		<% else %>
+			<%= image_tag(@user.profilephoto.url(:medium), class: "image-wrap-profile sidebar-profile-shade") %>
+		<% end %>
+	</div>
+
+<% if user_signed_in?%>
+	<% if @user == current_user %>
+		<!-- Create New Button -->
+		<div style="margin-top: 10px;">
+			<%= link_to "CREATE", new_project_path(@user), method: :post,class: "btn btn-medium btn-medium-white no_ajaxify"%>
+		</div>		
+	<% else %>		
+		<% if @user.subscribed_by?(current_user)%>
+			<!-- Subscribing-->
+			<%= link_to unsubscribe_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsubscribe from "+@user.fullname+"? If unsubscribed, you cannot resubscribe to "+@user.fullname+" in one month." do %>
+				<div style="margin-top: 10px;" class="btn btn-medium btn-medium-blue btn-change-text">
+					<span class="before">Subscribing</span>
+					<span class="hover">Unsubscribe</span>
+				</div>
+			<% end %><!-- end.link_to 
+			-->	
+		<% else %>	
+			<% if current_user.subscribed_by?(@user)%>
+				<!-- Subscribes you-->
+				<%= link_to remove_subscriber_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from subscribing you? If removed, "+@user.fullname+" cannot resubscribe to you in one month." do%>
+					<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
+						<span class="before">Subscribing You</span>
+						<span class="hover">Remove</span>
+					</div>	
+				<% end %>
+
+			<% else %>
+					<!-- Subscribe Button -->
+					<div style="margin-top: 10px;">
+						<%= link_to "SUBSCRIBE", why_path(@user), class: "btn btn-medium btn-medium-green"%>
+					</div>
+			<% end %><!-- end.current_user.subscribed_by?-->
+		<% end %><!-- end.if @user.subscribed_by?(current_user)-->	
+	<% end %><!-- end.if if @user == current_user-->
+				
+<% else %>
+	<!-- Subscribe Button -->
+	<div style="margin-top: 10px;">
+		<%= link_to "SUBSCRIBE", why_path(@user), class: "btn btn-medium btn-medium-green"%>
+	</div>	
+<% end %><!-- end.if user_signed_in?-->	
+	<!-- Subscribed -->
+	<%= link_to subscribers_path(@user), class:"subscription" do %>
+	<div id="sidebar-subscribed">
+			<% if @user.subscribers.count >1 %>Subscribers<%else%>Subscriber<% end %><h6><%= @user.subscribers.count %></h6>
+	</div>
+	<% end %>	
+
+	<div style="margin-top: -35px;">
+		<hr class="style-two">
+	</div>
+
+	<!-- Subscribing -->
+	<%= link_to subscribing_path(@user), class:"subscription" do %>
+	<div id="sidebar-subscribing" style="margin-top: -8px;">
+		Subscribing<h6><%= @user.subscribed.count %></h6></a>
+	</div>
+	<% end %>
+
+	<div id="sidebar-personal" style="margin-top: -37px;">
+		
+		<!-- Personal Link -->
+		<% if @user.website.blank? %>
+			<!--<div class="btn btn-personallink tipsy-tipsy" title="Website">
+			</div>
+			<div id="Sidebar-personal-link">
+				...
+			</div>-->
+		<% else %>
+			<div>
+				<%= link_to '', @user_website, class:"btn btn-personallink tipsy-tipsy no_ajaxify", title:"Website", target: "_blank"%>
+			</div>
+			<div id="Sidebar-personal-link">
+				<%= link_to @user.website, @user_website,class:"no_ajaxify", target: "_blank" %>
+			</div>
+		<% end %>
+
+		<!-- Social Media -->
+		<div style="margin: 5px 0 0 18px;">
+			<li><!-- Facebook-->
+				<% if @user.facebook == nil %>
+					<!--<div class="btn btn-socialmedia btn-socialmedia-facebook-non tipsy-tipsy" title="Facebook"></div>-->
+				<% else %>
+				<%= link_to "", @user.facebook.link, class:"btn btn-socialmedia btn-socialmedia-facebook tipsy-tipsy no_ajaxify", title:"Facebook", target: "_blank"%>
+				<% end %>
+			</li>
+
+			<li><!-- Twitter-->
+				<% if @user.twitter == nil %>
+					<!--<div class="btn btn-socialmedia btn-socialmedia-twitter-non tipsy-tipsy" title="Twitter"></div>-->
+				<% else %>
+				<%= link_to "", @user.twitter.link, class:"btn btn-socialmedia btn-socialmedia-twitter tipsy-tipsy no_ajaxify", title:"Twitter", target: "_blank"%>
+				<% end %>
+			</li>
+
+			<li><!-- github-->
+				<% if @user.github == nil %>
+					<!--<div class="btn btn-socialmedia btn-socialmedia-github-non tipsy-tipsy" title="Github"></div>-->
+				<% else %>
+				<%= link_to "", @user.github.link, class:"btn btn-socialmedia btn-socialmedia-github tipsy-tipsy no_ajaxify", title:"GitHub", target: "_blank"%>
+				<% end %>
+			</li>
+
+			<li><!-- deviantart-->
+				<% if @user.deviantart == nil %>
+					<!--<div class="btn btn-socialmedia btn-socialmedia-deviantart-non tipsy-tipsy" title="Deviantart"></div>-->
+				<% else %>
+				<%= link_to "", @user.deviantart.link, class:"btn btn-socialmedia btn-socialmedia-deviantart tipsy-tipsy no_ajaxify", title:"Deviantart", target: "_blank"%>
+				<% end %>
+			</li>
+
+			<li><!-- vimeo-->
+				<% if @user.vimeo == nil %>
+					<!--<div class="btn btn-socialmedia btn-socialmedia-vimeo-non tipsy-tipsy" title="Vimeo"></div>-->
+				<% else %>
+				<%= link_to "", @user.vimeo.link, class:"btn btn-socialmedia btn-socialmedia-vimeo tipsy-tipsy no_ajaxify", title:"Vimeo", target: "_blank"%>
+				<% end %>
+			</li>
+
+		</div>
+
+
+	</div>
+
+
+</div>

@@ -1,0 +1,5 @@
+<div class="followed-tags-holder">
+	<div class="followed-tags">
+		<%= raw @user.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %>
+	</div>	
+</div><!-- end.followed-tags-holder-->	

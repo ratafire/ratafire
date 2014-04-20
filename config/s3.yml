@@ -1,0 +1,14 @@
+development:
+  bucket: Ratafire_test_videos
+  access_key_id: AKIAJ4ZF2OGURAAHVGDQ
+  secret_access_key: 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
+
+test:
+  bucket: Ratafire_test_videos
+  access_key_id: AKIAJ4ZF2OGURAAHVGDQ
+  secret_access_key: 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
+
+production:
+  bucket: Ratafire_production_videos
+  access_key_id: AKIAJ4ZF2OGURAAHVGDQ
+  secret_access_key: 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

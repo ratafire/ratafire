@@ -1,0 +1,67 @@
+<!-- Page Title -->
+<% provide(:title, "Sign in")%>
+
+<!DOCTYPE html>
+<html>
+
+	<body>
+
+		<!-- Signin Page Box -->
+		<div class="wrapper">
+
+			<!-- Sign Up -->
+			<div style="float:right; margin-right:27px;">
+				<!--Don't have an account? <%= link_to 'Sign up', new_user_registration_path %>-->
+			</div>
+
+			<div class="center" style="width: 310px;">
+
+				<!-- Cutter --><ol style="margin-top: 80px;"></ol>
+
+				<span id="Join-Ratafire">Sign in.</span>
+
+				<!-- Cutter --><ol style="margin-top: 18px;"></ol>
+
+				<div id="Signin-box">
+
+					<!-- Signin Form -->
+					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+      					<ol>
+      						<%= f.text_field :email, class: "inputbox signupbox", placeholder: "Email" %>
+      					</ol>
+      					<ol>
+      						<%= f.password_field :password, class: "inputbox signupbox", placeholder: "Password" %>
+      					</ol>
+      					<ol>
+      						<% if devise_mapping.rememberable? -%>
+    						<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  							<% end -%>
+      					</ol>
+      					<ol>
+      					<%= link_to "Forgot your password?", new_password_path(resource_name) %>
+ 						</ol>
+						<ol style="margin-top: 15px; padding-left: 161px;">
+							<div id="submit">
+								<%= f.submit "SIGN IN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-blue" %>
+							</div>
+						</ol>
+					<% end %>
+
+				<!-- end of Signin-box -->	
+				</div>
+				
+			<!-- end of center-->
+			</div>
+
+			<!-- Footer -->
+			<div style="padding: 0px 20px 18px 0; margin-top: 35px;">
+			<%= render 'layouts/footer' %>
+			</div>
+
+		<!-- end of wrapper-->
+		</div>
+
+	</body>
+
+</html>

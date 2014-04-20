@@ -1,0 +1,56 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Additional Background Slot ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:additional_background) do %>
+		<%= render 'updates/title_background'%>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Right Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar_right) do %>
+    	<%= render 'layouts/sidebar_update_liked'%>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<!-- Main Content -->
+	<div class="main-content-update">
+
+		<!-- Title -->
+		<div class="update-title">
+			<h1>Liked</h1>
+			<ul style="margin-top: -8px;">
+				<h5>What you marked as liked.</h5>
+			</ul>	
+		</div>	
+
+		<!-- post-content-->
+		<div class="post-content-update">
+
+			<!-- Activities -->
+			<% if @activities.any? %>
+				<%= render_activities(@activities) %>
+			<% else %>
+				<div class="blank-update-box">
+					<h5>You have not liked any project or major post or comment.</h5>
+				</div>						
+			<% end %>
+
+			<!-- Pagination -->
+			<div id="profile-paginate">
+				<div class="textbox-mini">
+					<span><%= will_paginate @activities, :param_name => 'liked', class:"rata_pagination" %></span>	
+				</div>	
+			</div>	
+
+			<!-- Cutter --><ol style="height: 80px;"></ol>
+
+		</div><!-- end.post-content-->	
+
+		<!-- Footer -->
+		<%= render 'layouts/footer' %>
+	</div><!-- end.main-content-->			

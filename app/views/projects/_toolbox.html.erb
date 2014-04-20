@@ -1,0 +1,40 @@
+<!-- Facebook SDK-->
+
+<div class="textbox-mini">
+							<div class="toolbox">
+								<% if user_signed_in? then %>
+									<% if @liked_project then %>
+									<li>
+										<!-- like -->
+										<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= @project.id%>project-like" style="display:none;">
+										</div><% end %>
+										<!-- unlike -->
+										<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unlike" id="<%= @project.id%>project-unlike">
+										</div><% end %>	
+									<% else %>
+										<!-- like -->
+										<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= @project.id%>project-like">
+										</div><% end %>
+										<!-- unlike -->
+										<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unlike" id="<%= @project.id%>project-unlike" style="display:none;">
+										</div><% end %>										
+									<% end %><!-- end.@liked_project-->
+										
+								</li>  
+								<% end %> <!-- end.if user_signed_in? --><li id="<%= @project.id %>liked-count"><%= @project.liked_projects.count %></li>
+								<li>
+
+									<!-- Twitter -->
+									<div class="btn btn-twitter">
+										<a href="https://twitter.com/share" class="twitter-share-button" data-count="none"></a>
+										<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+									</div><!-- end.btn-twitter-->
+									<!-- Facebook -->
+									<div class="btn btn-facebook">
+										<div class="fb-share-button" data-href="https://www.ratafire.com<%=user_project_path(@project.creator, @project)%>" data-type="icon">
+										</div>
+									</div><!-- end.btn-facebook-->	
+									
+								</li>
+							</div><!-- end.toolbox-->
+							</div><!-- end.textbox-mini-->

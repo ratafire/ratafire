@@ -1,0 +1,81 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:title", content: "Ratafire" %>
+		<%= tag :meta, property: "og:description", content: "Ratafire is a site for you to share, collaborate and fund open creative or research works." %>
+		<a style="display:none;"href="https://plus.google.com/108376636120204861351" rel="publisher">Google+</a>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+
+		<!-- Window 1 -->
+		<section class="window" id="window1">
+
+		<!-- Home Page Beta Pic -->
+	
+		<div class="Home-page-bg">
+			<%= image_tag("betabg.jpg") %>
+		</div>
+
+			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
+				<!-- Logo Image -->
+				<div style="margin-top:40px;"><%= image_tag("ratafire.png", alt: "Ratafire") %></div>
+	
+				<!-- Home Page Comment -->
+				<div id="Home-page-comment">
+					<h2 style="color:#666;">
+						Create what you love. 
+					</h2>
+				</div>
+
+				<!-- Home Page Buttons -->
+				<div id="Home-page-btn">
+						<%= link_to "SIGN UP", beta_path , class: "btn btn-small2 btn-small-green Home-page-margin no_ajaxify"%>
+
+						<%= link_to "SIGN IN", new_user_session_path , class: "btn btn-small2 btn-small-blue Home-page-margin no_ajaxify" %>
+
+						<!-- Who is Ratatoskr? -->
+						<span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >Who is Ratatoskr?</a></span>
+
+				</div><!-- end#Home-page0btn-->
+			</div><!-- end.center-->
+			<div class="Home-page-learn-more tipsy-tipsy" title="Learn More"><%= image_tag("learnmore.png") %></div>
+			<script>
+				$('.Home-page-learn-more').click(function(){
+					$('html, body').animate({
+        				scrollTop: $("#window2").offset().top
+    				});
+				});
+			</script>
+									<!-- Footer -->
+						<div style="padding: 0px 20px 18px 0;bottom:0;right:0;position:fixed;">
+						<%= render 'layouts/footer' %>
+						</div>
+		</section><!-- end.first window -->
+		
+		<!-- Window 2 -->
+		<section class="window" id="window2">
+			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
+				<div class="Home-page-container">
+					<h2>Ratafire is a site for you to share, collaborate and fund open creative or research works. </h2>
+				</div>
+				<%= image_tag("arrow.png") %>
+			</div><!-- end.center-->
+		</section><!-- end.second window-->	
+
+		<!-- Window 2 -->
+		<section class="window" id="window3">
+			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
+				<div class="Home-page-container2">
+					<h2>Post and collaborate on your projects.</h2>
+					<h2>Help bring projects you love to reality by subscribing to project creators directly with monthly subscription fees.</h2>
+					<h2><%= link_to "Learn even more or ⌄", guidelines_path, class:"no_ajaxify"%></h2>
+					<%= link_to image_tag("join.jpg"), beta_path , class: "no_ajaxify tipsy-tipsy", title:"❤"%>
+				</div>
+			</div><!-- end.center-->
+		</section><!-- end.second window-->	

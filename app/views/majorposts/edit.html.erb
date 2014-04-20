@@ -1,0 +1,112 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, @project.title) %>
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+	<!-- No Ajaxify -->
+	<%= render 'shared/no_ajaxify'%><!-- script -->	
+
+	<!-- Open and Close -->
+	<%= render 'shared/majorpost_open_close'%>
+
+	<!-- Tagit -->
+	<%= render 'shared/tagit'%>
+
+	<!-- Page Specific JS-->
+	<%= render 'majorposts/newmajorpostjs'%>
+
+	<!-- Jquery Image Uploader -->
+	<%= render 'shared/jquery_image_upload'%>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'projects/project_header' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_project' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Main Content -->
+	<div class="main-content-project">
+		<!-- Post Content -->
+		<div class="post-content2">
+
+			<!-- Title -->
+			<div class="majorpost-title-input">
+				<div class="majorpost-title-indicator">
+					<li></li>
+				</div>
+			<div class="majorpost-title-input-holder input_majorpost">
+					<ul><%= best_in_place [@project.creator, @project, @majorpost], :title, :path => majorpost_update_path(@project.creator,@project, @majorpost), :classes =>"best_title2" %> <span class="btn btn-edit" id="best_title-edit" style="display:none;"></ul>
+				</div>
+			</div>
+
+			<!-- Artwork Upload -->
+			<%= render 'forms/majorpost_artwork_upload' %>
+
+			<!-- Video Upload -->
+			<%= render 'forms/majorpost_video_upload'%>
+
+			<!-- Project Form-->
+			<%= nested_form_for [@project.creator, @project, @majorpost], :url => majorpost_update_path(@project.creator,@project, @majorpost),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f| %>
+				<%= f.hidden_field :artwork_id, id:"majorpost-artwork-id" %>
+				<%= f.hidden_field :video_id, id:"project-video-id"%>
+				<%= f.hidden_field :published, id:"project-published" %>
+
+
+				<!-- Original Image Upload Placer, because the image form is not nested-->
+				<div id="original-placer"></div>
+
+				<!-- Video Upload Placer, because the video form is not nested-->
+				<div id="video-placer"></div>
+
+				<!-- Content -->
+				<div class="majorpostarea">
+					<%= f.text_area :content, id:"redactor_majorpost" %>
+				</div>
+
+				<!-- Tools -->
+				<div class="open2" id="tools-open"></div>
+				<div class="close2" id="tools-close"></div>
+				<div id="case">
+					<!-- Tags -->
+					<div id="comment-input2" style="margin-top: 9px;">
+						<div class="majorpost-tags-all">
+							<div class="majorpost-tags-input-holder">
+								<%= f.text_field :tag_list, id:"tags" %>
+							</div>
+						</div>
+					</div>
+				</div><!-- end:#case -->
+				
+				<!-- Submit before published -->
+				<% if @majorpost.published == false %>
+				<div style="margin: 15px -2px 0 0; text-align:right;">
+					<span id="submit">
+						<%= f.submit "Save", class: "btn-submit btn-submit-small btn btn-small btn-small-white no_ajaxify" %>
+						<div class="btn btn-small2 btn-small-green no_ajaxify" id="project-publish-button">Publish</div>
+					</span>
+				</div>
+				<% else %>
+				<!-- Submit after Published -->
+					<div style="margin: 15px -2px 0 0; text-align:right;">
+					<span id="submit">
+						<%= f.submit "Edit Post", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-white no_ajaxify" %>
+					</span>
+				</div>
+				<% end %>
+
+			<% end %><!-- end for form_for @majorpost -->
+
+		</div><!-- end of post-content -->
+		<!-- Footer -->
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->		

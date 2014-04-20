@@ -1,0 +1,11 @@
+										<% if @user.projects.any? %>
+											<%= render @abandonedprojects %>
+										<% end %>
+									
+
+									<!-- Load More -->
+									<div id="Profile-page-load-more">
+										<div class="textbox-mini">
+											<%= will_paginate @abandonedprojects, :param_name => 'page', class:"rata_pagination" %>	
+										</div>
+									</div>	

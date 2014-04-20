@@ -1,0 +1,61 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Beta") %>
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=249146721904203";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:description", content: "Welcome to Ratafire Beta! We are trying our best to make Ratafire bug free and awesome, but we cannot do it without your help." %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+	<% end %><!-- end.content_for :head do -->	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- background -->	
+<div class="background-special-none">	
+</div>	
+
+	<!-- Main Content -->
+
+
+
+	<div class="beta-status-holder">
+
+<a class="twitter-timeline" href="https://twitter.com/Ratafirer" data-widget-id="453046278188826625"  data-chrome="noheader">Tweets by @Ratafirer</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+	</div><!-- end.beta-status-holder-->	
+
+		<div class="beta-status-holder2">
+		<h1>Welcome to Ratafire Beta!</h1>
+		<%=image_tag("beta_hand.png")%>
+		<h2 style="color:#2297ce;">Tell us your thoughts by joining discussions ↓</h2>
+
+		<div class="fb-like-box" data-href="https://www.facebook.com/ratafire" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="false" data-show-border="false"></div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+		<h2 style="color:#2297ce;">Report a bug to us by ↓</h2>
+		<div style="margin:0 0 0 10px;">
+			<a href="https://twitter.com/intent/tweet?screen_name=Ratafirer" class="twitter-mention-button" data-size="large" data-related="Ratafirer">Tweet to @Ratafirer</a>
+		</div>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+	<h2 style="color:#2297ce;">Email Us! ↓</h2>
+		<div style="margin:-5px 0 0 10px;"><%= link_to image_tag("beta_email.png"), "mailto:ratatoskr@ratafire.com", class:"no_ajaxify tipsy-tipsy", title:"Email"%></div>
+	</div><!-- end.beta-status-holder-->
+
+	<div style="padding: 0px 20px 18px 0;bottom:0;right:0;position:fixed;">
+						<%= render 'layouts/footer' %>
+						</div>

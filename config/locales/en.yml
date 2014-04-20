@@ -1,0 +1,44 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+#--- Signup Form Messages ---
+#-----
+
+en:  
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            fullname:
+              too_short: "Name must be at least 3 characters."
+              too_long: "Aww, this is such a long name! (maximum 50)"
+              blank: "Enter your first and last name."
+            email:
+              invalid: "Doesn't look like a valid email."
+              blank: "Don't forget your email address."
+              taken: "This email is already taken."
+            password:
+              too_short: "Password must be at least 6 characters."
+              too_long: "Too long even for passwords (maximum 50)."
+              blank: "Password is needed."
+              confirmation: "Password doesn't match confirmation."
+            username:
+              too_short: "Username must be at least 3 characters."
+              too_long: "Username is too long (maximum 50)."
+              invalid: "Alphanumerics only."
+              blank: "Pick a username."
+              taken: "This username is already taken."
+
+#-----
+
+#--- Comment Form Messages ---
+en:
+  activerecord:
+    errors:
+      models:
+        comment:
+          attributes:
+            content:
+              too_short: "< 42"
+              blank: "'_'"

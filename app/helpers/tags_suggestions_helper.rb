@@ -1,0 +1,2 @@
+module TagsSuggestionsHelper
+end
