@@ -6,3 +6,2177 @@ Connecting to database specified by database.yml
 Connecting to database specified by database.yml
 Connecting to database specified by database.yml
 Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2014-04-20 16:33:21 -0400
+Processing by StaticPagesController#home as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+Redirected to http://localhost:3000/ratatoskr
+Completed 302 Found in 410ms (ActiveRecord: 175.6ms)
+
+
+Started GET "/ratatoskr" for 127.0.0.1 at 2014-04-20 16:33:24 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"ratatoskr"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`username` = 'ratatoskr' LIMIT 1
+  Rendered shared/_profile_open_close.html.erb (0.4ms)
+  Rendered shared/_best_in_place.html.erb (0.3ms)
+  Rendered users/_showjs.html.erb (0.3ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mFacebook Load (0.2ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mTwitter Load (0.1ms)[0m  SELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 4 LIMIT 1
+  [1m[36mGithub Load (0.2ms)[0m  [1mSELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mDeviantart Load (0.1ms)[0m  SELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 4 LIMIT 1
+  [1m[36mVimeo Load (0.2ms)[0m  [1mSELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 4 LIMIT 1[0m
+  Rendered layouts/_sidebar_profile.html.erb (997.5ms)
+  Rendered shared/_fullname.html.erb (1.4ms)
+  Rendered shared/_tabs_nav.html.erb (0.8ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 4 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 4 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)
+  Rendered text template (0.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 4 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)[0m
+  [1m[35m (41.4ms)[0m  SELECT COUNT(*) FROM `activities` WHERE `activities`.`deleted` = 0 AND `activities`.`owner_id` = 4 AND `activities`.`owner_type` = 'User'
+  [1m[36mPublicActivity::Activity Load (0.4ms)[0m  [1mSELECT `activities`.* FROM `activities` WHERE `activities`.`deleted` = 0 AND `activities`.`owner_id` = 4 AND `activities`.`owner_type` = 'User' ORDER BY created_at desc LIMIT 20 OFFSET 0[0m
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 64 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (205.1ms)
+  [1m[36mSubscription Load (0.3ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 60 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered public_activity/subscription/_create.html.erb (8.1ms)
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 58 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (7.7ms)
+  [1m[36mProjectComment Load (0.2ms)[0m  [1mSELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mProject Load (0.3ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 3
+  Rendered public_activity/project_comment/_create.html.erb (575.6ms)
+  [1m[36mMajorpost Load (0.3ms)[0m  [1mSELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`id` = 6 ORDER BY majorposts.created_at DESC LIMIT 1[0m
+  [1m[35mVideo Load (0.2ms)[0m  SELECT `videos`.* FROM `videos` WHERE `videos`.`majorpost_id` = 6 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`majorpost_id` = 6
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`majorpost_id` = 6[0m
+  Rendered public_activity/majorpost/_create.html.erb (223.2ms)
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 54 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mProject Load (0.3ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (8.5ms)
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 50 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered public_activity/subscription/_create.html.erb (7.6ms)
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 48 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (7.4ms)
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 45 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered public_activity/subscription/_create.html.erb (7.3ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 39
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 39[0m
+  [1m[35mProjectComment Load (0.2ms)[0m  SELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 39 ORDER BY `project_comments`.`id` DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 39 ORDER BY `project_comments`.`id` DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mArtwork Load (0.1ms)[0m  [1mSELECT `artworks`.* FROM `artworks` WHERE `artworks`.`project_id` = 39 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `projectimages` WHERE `projectimages`.`project_id` = 39
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 39 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = ('tags'))[0m
+  [1m[35mActsAsTaggableOn::Tag Load (0.3ms)[0m  SELECT `tags`.* FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 39 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = 'tags' AND taggings.tagger_id IS NULL)
+  Rendered public_activity/project/_create.html.erb (439.7ms)
+  [1m[36mProject Load (0.3ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 37 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 37[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 37
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 37 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mArtwork Load (0.2ms)[0m  SELECT `artworks`.* FROM `artworks` WHERE `artworks`.`project_id` = 37 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `projectimages` WHERE `projectimages`.`project_id` = 37[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 37 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = ('tags'))
+  Rendered public_activity/project/_create.html.erb (9.2ms)
+  Rendered layouts/_footer.html.erb (1.1ms)
+  Rendered users/show.html.erb within layouts/application (4104.8ms)
+Compiled jquery-ui.css  (0ms)  (pid 34990)
+Compiled css3-progress-bar.css  (0ms)  (pid 34990)
+Compiled redactor-rails/css/redactor.css  (0ms)  (pid 34990)
+Compiled redactor-rails/index.css  (536ms)  (pid 34990)
+Compiled jquery.tagit.css  (0ms)  (pid 34990)
+Compiled video-js.css  (8ms)  (pid 34990)
+Warning. Error encountered while saving cache /Users/fari/Dropbox/Toys/Ratafire/tmp/cache/sass/36de3bd027e3943a76b7340c2cc03a7de1b91753/jquery.fileupload-ui.scssc: can't dump anonymous class #<Class:0x007fe1280ec278>
+Compiled jquery.fileupload-ui.css  (117ms)  (pid 34990)
+Compiled monokai.css  (0ms)  (pid 34990)
+Compiled dataTables/src/demo_table_jui.css  (0ms)  (pid 34990)
+Warning. Error encountered while saving cache /Users/fari/Dropbox/Toys/Ratafire/tmp/cache/sass/f307fc9c8de23d04154ee6d032cb37c48e7f027b/_theme_template.scssc: can't dump anonymous class #<Class:0x007fe1280ec278>
+Compiled _theme_template.css  (380ms)  (pid 34990)
+Warning. Error encountered while saving cache /Users/fari/Dropbox/Toys/Ratafire/tmp/cache/sass/f307fc9c8de23d04154ee6d032cb37c48e7f027b/custom.css.scssc: can't dump anonymous class #<Class:0x007fe1280ec278>
+Compiled custom.css  (1232ms)  (pid 34990)
+Warning. Error encountered while saving cache /Users/fari/Dropbox/Toys/Ratafire/tmp/cache/sass/f307fc9c8de23d04154ee6d032cb37c48e7f027b/p_u_inspiration.css.scssc: can't dump anonymous class #<Class:0x007fe1280ec278>
+Compiled p_u_inspiration.css  (2ms)  (pid 34990)
+Compiled tipsy.css  (0ms)  (pid 34990)
+Compiled application.css  (10290ms)  (pid 34990)
+Compiled jquery.js  (1ms)  (pid 34990)
+Compiled jquery_ujs.js  (0ms)  (pid 34990)
+Compiled confirmation.js  (0ms)  (pid 34990)
+Compiled jquery.min.js  (0ms)  (pid 34990)
+Compiled jquery.tipsy.js  (0ms)  (pid 34990)
+Compiled jquery-ui.js  (1ms)  (pid 34990)
+Compiled rails.validations.js  (0ms)  (pid 34990)
+Compiled rails.validations.nested_form.js  (0ms)  (pid 34990)
+Compiled jquery_nested_form.js  (0ms)  (pid 34990)
+Compiled tag-it.js  (0ms)  (pid 34990)
+Compiled jquery-fileupload/vendor/jquery.ui.widget.js  (0ms)  (pid 34990)
+Compiled jquery-fileupload/jquery.iframe-transport.js  (0ms)  (pid 34990)
+Compiled jquery-fileupload/jquery.fileupload.js  (0ms)  (pid 34990)
+Compiled jquery-fileupload/basic.js  (816ms)  (pid 34990)
+Compiled jquery-fileupload/vendor/tmpl.js  (0ms)  (pid 34990)
+Compiled ajaxify_rails.js  (2699ms)  (pid 34990)
+Compiled video.js  (144ms)  (pid 34990)
+Compiled best_in_place.js  (0ms)  (pid 34990)
+Compiled jquery.purr.js  (0ms)  (pid 34990)
+Compiled best_in_place.purr.js  (207ms)  (pid 34990)
+Compiled redactor-rails/redactor.js  (2ms)  (pid 34990)
+Compiled redactor-rails/config.js  (0ms)  (pid 34990)
+Compiled redactor-rails/index.js  (745ms)  (pid 34990)
+Compiled autocomplete-rails.js  (0ms)  (pid 34990)
+Compiled facebook.js  (217ms)  (pid 34990)
+Compiled dataTables/jquery.dataTables.js  (66ms)  (pid 34990)
+Compiled admin.js  (416ms)  (pid 34990)
+Compiled beta_user.js  (294ms)  (pid 34990)
+Compiled majorpost_suggestions.js  (326ms)  (pid 34990)
+Compiled majorposts.js  (146ms)  (pid 34990)
+Compiled pagination.js  (0ms)  (pid 34990)
+Compiled project_suggestions.js  (140ms)  (pid 34990)
+Compiled projects.js  (135ms)  (pid 34990)
+Compiled subscriptions.js  (219ms)  (pid 34990)
+Compiled tags_suggestions.js  (322ms)  (pid 34990)
+Compiled user_suggestions.js  (473ms)  (pid 34990)
+Compiled redactor-rails/config.js  (0ms)  (pid 34990)
+Compiled redactor-rails/fullscreen.js  (0ms)  (pid 34990)
+Compiled application.js  (17115ms)  (pid 34990)
+  Rendered layouts/_shim.html.erb (0.4ms)
+  Rendered shared/_ajaxify_init.html.erb (0.4ms)
+  Rendered shared/_tipsy_and_alert.html.erb (0.3ms)
+  Rendered shared/_back_to_top.html.erb (0.4ms)
+  Rendered layouts/_header.html.erb (3.6ms)
+  Rendered shared/_settings_dropdown.html.erb (0.3ms)
+  Rendered shared/_alert_flash.html.erb (0.6ms)
+Completed 200 OK in 36004ms (Views: 33422.3ms | ActiveRecord: 741.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-04-20 16:34:00 -0400
+Processing by StaticPagesController#home as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+Redirected to http://localhost:3000/ratatoskr
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/ratatoskr" for 127.0.0.1 at 2014-04-20 16:34:01 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"ratatoskr"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`username` = 'ratatoskr' LIMIT 1
+  Rendered shared/_profile_open_close.html.erb (0.0ms)
+  Rendered shared/_best_in_place.html.erb (0.0ms)
+  Rendered users/_showjs.html.erb (0.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mFacebook Load (0.2ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mTwitter Load (0.2ms)[0m  SELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 4 LIMIT 1
+  [1m[36mGithub Load (0.2ms)[0m  [1mSELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mDeviantart Load (0.1ms)[0m  SELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 4 LIMIT 1
+  [1m[36mVimeo Load (0.2ms)[0m  [1mSELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 4 LIMIT 1[0m
+  Rendered layouts/_sidebar_profile.html.erb (9.1ms)
+  Rendered shared/_fullname.html.erb (0.7ms)
+  Rendered shared/_tabs_nav.html.erb (0.3ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 4 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 4 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)
+  Rendered text template (0.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 4 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `activities` WHERE `activities`.`deleted` = 0 AND `activities`.`owner_id` = 4 AND `activities`.`owner_type` = 'User'
+  [1m[36mPublicActivity::Activity Load (0.4ms)[0m  [1mSELECT `activities`.* FROM `activities` WHERE `activities`.`deleted` = 0 AND `activities`.`owner_id` = 4 AND `activities`.`owner_type` = 'User' ORDER BY created_at desc LIMIT 20 OFFSET 0[0m
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 64 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mProject Load (0.3ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (9.2ms)
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 60 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered public_activity/subscription/_create.html.erb (7.8ms)
+  [1m[35mSubscription Load (0.4ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 58 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (7.8ms)
+  [1m[36mProjectComment Load (0.3ms)[0m  [1mSELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mProject Load (0.3ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 3
+  Rendered public_activity/project_comment/_create.html.erb (6.8ms)
+  [1m[36mMajorpost Load (0.2ms)[0m  [1mSELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`id` = 6 ORDER BY majorposts.created_at DESC LIMIT 1[0m
+  [1m[35mVideo Load (0.2ms)[0m  SELECT `videos`.* FROM `videos` WHERE `videos`.`majorpost_id` = 6 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`majorpost_id` = 6
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`majorpost_id` = 6[0m
+  Rendered public_activity/majorpost/_create.html.erb (7.1ms)
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 54 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mProject Load (0.3ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (8.4ms)
+  [1m[36mSubscription Load (0.3ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 50 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered public_activity/subscription/_create.html.erb (8.9ms)
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 48 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (8.2ms)
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 45 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered public_activity/subscription/_create.html.erb (8.1ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 39
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 39[0m
+  [1m[35mProjectComment Load (0.2ms)[0m  SELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 39 ORDER BY `project_comments`.`id` DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 39 ORDER BY `project_comments`.`id` DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mArtwork Load (0.2ms)[0m  [1mSELECT `artworks`.* FROM `artworks` WHERE `artworks`.`project_id` = 39 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `projectimages` WHERE `projectimages`.`project_id` = 39
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 39 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = ('tags'))[0m
+  [1m[35mActsAsTaggableOn::Tag Load (0.3ms)[0m  SELECT `tags`.* FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 39 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = 'tags' AND taggings.tagger_id IS NULL)
+  Rendered public_activity/project/_create.html.erb (12.5ms)
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 37 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 37[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 37
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 37 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mArtwork Load (0.2ms)[0m  SELECT `artworks`.* FROM `artworks` WHERE `artworks`.`project_id` = 37 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `projectimages` WHERE `projectimages`.`project_id` = 37[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 37 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = ('tags'))
+  Rendered public_activity/project/_create.html.erb (8.8ms)
+  Rendered layouts/_footer.html.erb (0.6ms)
+  Rendered users/show.html.erb within layouts/application (185.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered shared/_ajaxify_init.html.erb (0.0ms)
+  Rendered shared/_tipsy_and_alert.html.erb (0.0ms)
+  Rendered shared/_back_to_top.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.9ms)
+  Rendered shared/_settings_dropdown.html.erb (0.0ms)
+  Rendered shared/_alert_flash.html.erb (0.0ms)
+Completed 200 OK in 393ms (Views: 380.7ms | ActiveRecord: 9.7ms)
+
+
+Started GET "/assets/css3-progress-bar.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /css3-progress-bar.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/redactor-rails/index.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /redactor-rails/index.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery.tagit.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /jquery.tagit.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/video-js.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /video-js.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /jquery-ui.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/monokai.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /monokai.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/redactor-rails/css/redactor.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /redactor-rails/css/redactor.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/dataTables/src/demo_table_jui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /dataTables/src/demo_table_jui.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /application.css - 304 Not Modified (9ms)
+
+
+Started GET "/assets/jquery.fileupload-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:02 -0400
+Served asset /jquery.fileupload-ui.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/_theme_template.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:03 -0400
+Served asset /_theme_template.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/tipsy.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:03 -0400
+Served asset /tipsy.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/p_u_inspiration.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:03 -0400
+Served asset /p_u_inspiration.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/confirmation.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:03 -0400
+Served asset /confirmation.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:03 -0400
+Served asset /jquery.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:03 -0400
+Served asset /custom.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.tipsy.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery.tipsy.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/tag-it.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /tag-it.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/rails.validations.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /rails.validations.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/jquery_nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery_nested_form.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/rails.validations.nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /rails.validations.nested_form.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery-ui.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery-ui.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery-fileupload/basic.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery-fileupload/basic.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/ajaxify_rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /ajaxify_rails.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.iframe-transport.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery-fileupload/jquery.iframe-transport.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.fileupload.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery-fileupload/jquery.fileupload.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery.min.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery.min.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/tmpl.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery-fileupload/vendor/tmpl.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/best_in_place.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /best_in_place.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/redactor-rails/config.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /redactor-rails/config.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/best_in_place.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /best_in_place.purr.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/jquery.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /jquery.purr.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/redactor-rails/index.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:04 -0400
+Served asset /redactor-rails/index.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/jquery.ui.widget.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /jquery-fileupload/vendor/jquery.ui.widget.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/redactor-rails/redactor.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /redactor-rails/redactor.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/admin.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /admin.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/video.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /video.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/dataTables/jquery.dataTables.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /dataTables/jquery.dataTables.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/autocomplete-rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /autocomplete-rails.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/facebook.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /facebook.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/majorpost_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /majorpost_suggestions.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/tags_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /tags_suggestions.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/pagination.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /pagination.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/beta_user.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /beta_user.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/project_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /project_suggestions.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/redactor-rails/fullscreen.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /redactor-rails/fullscreen.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/majorposts.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /majorposts.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:05 -0400
+Served asset /application.js - 304 Not Modified (25ms)
+
+
+Started GET "/assets/projects.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:06 -0400
+Served asset /projects.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/subscriptions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:06 -0400
+Served asset /subscriptions.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/user_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:06 -0400
+Served asset /user_suggestions.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/navbarbg.png" for 127.0.0.1 at 2014-04-20 16:34:06 -0400
+Served asset /navbarbg.png - 304 Not Modified (310ms)
+
+
+Started GET "/assets/searchicon.png" for 127.0.0.1 at 2014-04-20 16:34:06 -0400
+Served asset /searchicon.png - 304 Not Modified (283ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2014-04-20 16:34:07 -0400
+Served asset /logo.png - 304 Not Modified (370ms)
+
+
+Started GET "/assets/settingsicon.png" for 127.0.0.1 at 2014-04-20 16:34:07 -0400
+Served asset /settingsicon.png - 304 Not Modified (321ms)
+
+
+Started GET "/assets/btn_medium_white.png" for 127.0.0.1 at 2014-04-20 16:34:07 -0400
+Served asset /btn_medium_white.png - 304 Not Modified (277ms)
+
+
+Started GET "/assets/facebookicon.png" for 127.0.0.1 at 2014-04-20 16:34:08 -0400
+Served asset /facebookicon.png - 304 Not Modified (372ms)
+
+
+Started GET "/assets/fire.jpg" for 127.0.0.1 at 2014-04-20 16:34:08 -0400
+Served asset /fire.jpg - 304 Not Modified (297ms)
+
+
+Started GET "/assets/water.png" for 127.0.0.1 at 2014-04-20 16:34:08 -0400
+Served asset /water.png - 304 Not Modified (446ms)
+
+
+Started GET "/assets/edit.png" for 127.0.0.1 at 2014-04-20 16:34:09 -0400
+Served asset /edit.png - 304 Not Modified (437ms)
+
+
+Started GET "/ratatoskr/r/subscriptions/subscribing?ajaxified=true" for 127.0.0.1 at 2014-04-20 16:34:09 -0400
+Processing by SubscriptionsController#subscribing as HTML
+  Parameters: {"ajaxified"=>"true", "id"=>"ratatoskr"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`username` = 'ratatoskr' LIMIT 1[0m
+  Rendered shared/_best_in_place.html.erb (0.0ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mFacebook Load (0.2ms)[0m  SELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1
+  [1m[36mTwitter Load (0.2ms)[0m  [1mSELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mGithub Load (21.2ms)[0m  SELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1
+  [1m[36mDeviantart Load (0.3ms)[0m  [1mSELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mVimeo Load (0.2ms)[0m  SELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 4 LIMIT 1
+  Rendered layouts/_sidebar_profile.html.erb (32.0ms)
+  Rendered shared/_fullname.html.erb (0.7ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered shared/_tabs_nav_subscription_2.html.erb (2.3ms)
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscription_records` ON `users`.`id` = `subscription_records`.`subscribed_id` WHERE `subscription_records`.`subscriber_id` = 4 AND `subscription_records`.`past` = 1 AND (`subscription_records`.`past` = 1 AND `subscription_records`.`accumulated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mUser Load (134.8ms)[0m  SELECT `users`.* FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1) ORDER BY subscriptions.created_at DESC LIMIT 32 OFFSET 0
+  [1m[36m (0.6ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)
+  [1m[36mSubscription Load (0.3ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)[0m
+  Rendered text template (0.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  Rendered subscriptions/_current_subscribing.html.erb (22.3ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  Rendered layouts/_footer.html.erb (1.1ms)
+  Rendered subscriptions/subscribing.html.erb (486.1ms)
+Completed 200 OK in 1020ms (Views: 751.6ms | ActiveRecord: 265.8ms)
+
+
+Started GET "/assets/images/ui-bg_glass_100_f6f6f6_1x400.png" for 127.0.0.1 at 2014-04-20 16:34:12 -0400
+Served asset /images/ui-bg_glass_100_f6f6f6_1x400.png - 404 Not Found (4ms)
+Processing by MajorpostsController#show as PNG
+  Parameters: {"user_id"=>"assets", "project_id"=>"images", "id"=>"ui-bg_glass_100_f6f6f6_1x400"}
+  [1m[36mMajorpost Load (0.5ms)[0m  [1mSELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`slug` = 'ui-bg_glass_100_f6f6f6_1x400' ORDER BY majorposts.created_at DESC LIMIT 1[0m
+  [1m[35mMajorpost Load (0.2ms)[0m  SELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`id` = 0 ORDER BY majorposts.created_at DESC LIMIT 1
+Completed 404 Not Found in 2ms
+
+ActiveRecord::RecordNotFound (Couldn't find Majorpost with id=ui-bg_glass_100_f6f6f6_1x400 [WHERE `majorposts`.`deleted` = 0]):
+  app/controllers/majorposts_controller.rb:84:in `show'
+  app/middleware/tags_suggestions.rb:12:in `call'
+  app/middleware/user_suggestions.rb:12:in `call'
+  app/middleware/project_suggestions.rb:12:in `call'
+  app/middleware/majorpost_suggestions.rb:12:in `call'
+
+
+  Rendered /Users/fari/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
+  Rendered /Users/fari/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
+  Rendered /Users/fari/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (126.7ms)
+
+
+Started GET "/assets/images/ui-bg_glass_65_ffffff_1x400.png" for 127.0.0.1 at 2014-04-20 16:34:13 -0400
+Served asset /images/ui-bg_glass_65_ffffff_1x400.png - 404 Not Found (4ms)
+Processing by MajorpostsController#show as PNG
+  Parameters: {"user_id"=>"assets", "project_id"=>"images", "id"=>"ui-bg_glass_65_ffffff_1x400"}
+  [1m[36mMajorpost Load (0.3ms)[0m  [1mSELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`slug` = 'ui-bg_glass_65_ffffff_1x400' ORDER BY majorposts.created_at DESC LIMIT 1[0m
+  [1m[35mMajorpost Load (0.1ms)[0m  SELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`id` = 0 ORDER BY majorposts.created_at DESC LIMIT 1
+Completed 404 Not Found in 2ms
+
+ActiveRecord::RecordNotFound (Couldn't find Majorpost with id=ui-bg_glass_65_ffffff_1x400 [WHERE `majorposts`.`deleted` = 0]):
+  app/controllers/majorposts_controller.rb:84:in `show'
+  app/middleware/tags_suggestions.rb:12:in `call'
+  app/middleware/user_suggestions.rb:12:in `call'
+  app/middleware/project_suggestions.rb:12:in `call'
+  app/middleware/majorpost_suggestions.rb:12:in `call'
+
+
+  Rendered /Users/fari/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
+  Rendered /Users/fari/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.8ms)
+  Rendered /Users/fari/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.13/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (6.6ms)
+
+
+Started DELETE "/4/r/subscriptions/unsubscribe/3" for 127.0.0.1 at 2014-04-20 16:34:14 -0400
+Processing by SubscriptionsController#unsub as HTML
+  Parameters: {"authenticity_token"=>"lb6Go9a/ZTQ5Djunvkhdnu8mw1T1205LpdauV93mzB0=", "id"=>"4", "subscribed_id"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mAmazonRecurring Load (0.3ms)[0m  [1mSELECT `amazon_recurrings`.* FROM `amazon_recurrings` WHERE `amazon_recurrings`.`subscription_id` = 64 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mUPDATE `subscriptions` SET `deleted_reason` = 1, `deleted` = 1, `deleted_at` = '2014-04-20 20:34:15', `updated_at` = '2014-04-20 20:34:15' WHERE `subscriptions`.`id` = 64[0m
+  [1m[35m (36.8ms)[0m  COMMIT
+  [1m[36mSubscriptionRecord Load (0.2ms)[0m  [1mSELECT `subscription_records`.* FROM `subscription_records` WHERE `subscription_records`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (78.1ms)[0m  [1mUPDATE `subscription_records` SET `duration` = 1158897.89591008507, `updated_at` = '2014-04-20 20:34:16' WHERE `subscription_records`.`id` = 4[0m
+  [1m[35m (81.0ms)[0m  COMMIT
+  [1m[36mPublicActivity::Activity Load (0.3ms)[0m  [1mSELECT `activities`.* FROM `activities` WHERE `activities`.`deleted` = 0 AND `activities`.`trackable_id` = 64 AND `activities`.`trackable_type` = 'Subscription'[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mUPDATE `activities` SET `deleted` = 1, `deleted_at` = '2014-04-20 20:34:16', `updated_at` = '2014-04-20 20:34:16', `parameters` = '--- {}\n' WHERE `activities`.`id` = 173[0m
+  [1m[35m (132.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (26.3ms)[0m  UPDATE `activities` SET `deleted` = 1, `deleted_at` = '2014-04-20 20:34:16', `updated_at` = '2014-04-20 20:34:16', `parameters` = '--- {}\n' WHERE `activities`.`id` = 174
+  [1m[36m (69.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (35.5ms)[0m  [1mSELECT 1 AS one FROM `users` WHERE (`users`.`username` = 'fariliang' AND `users`.`id` != 3) LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT 1 AS one FROM `users` WHERE (`users`.`email` = 'fariliang@gmail.com' AND `users`.`id` != 3) LIMIT 1
+  [1m[36mFacebook Load (0.2ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mTwitter Load (0.2ms)[0m  SELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 3 LIMIT 1
+  [1m[36mGithub Load (0.2ms)[0m  [1mSELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mDeviantart Load (0.3ms)[0m  SELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 3 LIMIT 1
+  [1m[36mVimeo Load (0.2ms)[0m  [1mSELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 3 LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  UPDATE `users` SET `subscription_amount` = 17.0, `remember_token` = 'BYTkh8i3o0UgcvHuSwNGEg', `updated_at` = '2014-04-20 20:34:16' WHERE `users`.`id` = 3
+  [1m[36m (15.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM `users` WHERE (`users`.`username` = 'ratatoskr' AND `users`.`id` != 4) LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT 1 AS one FROM `users` WHERE (`users`.`email` = 'ratatoskr@ratafire.com' AND `users`.`id` != 4) LIMIT 1
+  [1m[36mFacebook Load (0.2ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mTwitter Load (0.2ms)[0m  SELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 4 LIMIT 1
+  [1m[36mGithub Load (0.2ms)[0m  [1mSELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mDeviantart Load (0.1ms)[0m  SELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 4 LIMIT 1
+  [1m[36mVimeo Load (0.1ms)[0m  [1mSELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 4 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `users` SET `subscribing_amount` = 0.0, `remember_token` = 'hwQuxmYt2K1avJoZbIDeCw', `updated_at` = '2014-04-20 20:34:16' WHERE `users`.`id` = 4
+  [1m[36m (63.8ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/ratatoskr/r/subscriptions/subscribing
+Completed 302 Found in 2553ms (ActiveRecord: 815.7ms)
+
+
+Started GET "/ratatoskr/r/subscriptions/subscribing" for 127.0.0.1 at 2014-04-20 16:34:16 -0400
+Processing by SubscriptionsController#subscribing as HTML
+  Parameters: {"id"=>"ratatoskr"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`username` = 'ratatoskr' LIMIT 1
+  Rendered shared/_best_in_place.html.erb (0.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mFacebook Load (0.2ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mTwitter Load (0.2ms)[0m  SELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 4 LIMIT 1
+  [1m[36mGithub Load (0.1ms)[0m  [1mSELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mDeviantart Load (0.1ms)[0m  SELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 4 LIMIT 1
+  [1m[36mVimeo Load (0.2ms)[0m  [1mSELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 4 LIMIT 1[0m
+  Rendered layouts/_sidebar_profile.html.erb (9.2ms)
+  Rendered shared/_fullname.html.erb (0.8ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  Rendered shared/_tabs_nav_subscription_2.html.erb (1.0ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscription_records` ON `users`.`id` = `subscription_records`.`subscribed_id` WHERE `subscription_records`.`subscriber_id` = 4 AND `subscription_records`.`past` = 1 AND (`subscription_records`.`past` = 1 AND `subscription_records`.`accumulated` = 1)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered layouts/_footer.html.erb (0.5ms)
+  Rendered subscriptions/subscribing.html.erb within layouts/application (16.8ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered shared/_ajaxify_init.html.erb (0.0ms)
+  Rendered shared/_tipsy_and_alert.html.erb (0.0ms)
+  Rendered shared/_back_to_top.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.8ms)
+  Rendered shared/_settings_dropdown.html.erb (0.0ms)
+  Rendered shared/_alert_flash.html.erb (0.1ms)
+Completed 200 OK in 151ms (Views: 146.8ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/css/redactor.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /redactor-rails/css/redactor.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css3-progress-bar.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /css3-progress-bar.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/index.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /redactor-rails/index.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /jquery-ui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.tagit.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /jquery.tagit.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.fileupload-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /jquery.fileupload-ui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/video-js.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /video-js.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/monokai.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /monokai.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/dataTables/src/demo_table_jui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /dataTables/src/demo_table_jui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/_theme_template.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /_theme_template.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/p_u_inspiration.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /p_u_inspiration.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tipsy.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /tipsy.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/confirmation.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /confirmation.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.min.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /jquery.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.tipsy.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /jquery.tipsy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /jquery-ui.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/rails.validations.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /rails.validations.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /jquery_nested_form.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/rails.validations.nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /rails.validations.nested_form.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tag-it.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:17 -0400
+Served asset /tag-it.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/jquery.ui.widget.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:18 -0400
+Served asset /jquery-fileupload/vendor/jquery.ui.widget.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.iframe-transport.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:18 -0400
+Served asset /jquery-fileupload/jquery.iframe-transport.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/basic.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:18 -0400
+Served asset /jquery-fileupload/basic.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.fileupload.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:18 -0400
+Served asset /jquery-fileupload/jquery.fileupload.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/tmpl.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:18 -0400
+Served asset /jquery-fileupload/vendor/tmpl.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/ajaxify_rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:18 -0400
+Served asset /ajaxify_rails.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/video.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /video.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /jquery.purr.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/best_in_place.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /best_in_place.purr.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/redactor.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /redactor-rails/redactor.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/best_in_place.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /best_in_place.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/config.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /redactor-rails/config.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/index.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /redactor-rails/index.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/autocomplete-rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /autocomplete-rails.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/facebook.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /facebook.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/dataTables/jquery.dataTables.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /dataTables/jquery.dataTables.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/majorposts.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /majorposts.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/beta_user.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /beta_user.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/admin.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /admin.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/majorpost_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /majorpost_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pagination.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /pagination.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/subscriptions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /subscriptions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/projects.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /projects.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /project_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/user_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /user_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tags_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /tags_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/fullscreen.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /redactor-rails/fullscreen.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:21 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/ratatoskr/r/subscriptions/subscribers?ajaxified=true" for 127.0.0.1 at 2014-04-20 16:34:24 -0400
+Processing by SubscriptionsController#subscribers as HTML
+  Parameters: {"ajaxified"=>"true", "id"=>"ratatoskr"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`username` = 'ratatoskr' LIMIT 1
+  [1m[36mProject Load (210.1ms)[0m  [1mSELECT `projects`.* FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 4 AND `projects`.`published` = 1 AND `projects`.`complete` = 0 AND `projects`.`abandoned` = 0 AND (`projects`.`deleted_at` IS NULL) ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered shared/_best_in_place.html.erb (0.0ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mFacebook Load (0.2ms)[0m  SELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1
+  [1m[36mTwitter Load (0.2ms)[0m  [1mSELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mGithub Load (0.2ms)[0m  SELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1
+  [1m[36mDeviantart Load (0.2ms)[0m  [1mSELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mVimeo Load (0.2ms)[0m  SELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 4 LIMIT 1
+  Rendered layouts/_sidebar_profile.html.erb (9.4ms)
+  Rendered shared/_fullname.html.erb (0.6ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered shared/_tabs_nav_subscription.html.erb (2.4ms)
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscription_records` ON `users`.`id` = `subscription_records`.`subscriber_id` WHERE `subscription_records`.`subscribed_id` = 4 AND `subscription_records`.`past` = 1 AND (`subscription_records`.`past` = 1 AND `subscription_records`.`accumulated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  Rendered layouts/_footer.html.erb (0.9ms)
+  Rendered subscriptions/subscribers.html.erb (56.7ms)
+Completed 200 OK in 309ms (Views: 92.1ms | ActiveRecord: 212.6ms)
+
+
+Started GET "/fariliang" for 127.0.0.1 at 2014-04-20 16:34:29 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"fariliang"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`username` = 'fariliang' LIMIT 1[0m
+  Rendered shared/_profile_open_close.html.erb (0.0ms)
+  Rendered shared/_best_in_place.html.erb (0.0ms)
+  Rendered users/_showjs.html.erb (0.0ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mSubscription Load (0.3ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 ORDER BY subscriptions.created_at DESC[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 AND `subscriptions`.`deleted` = 0 AND `subscriptions`.`activated` = 1 AND `subscriptions`.`subscriber_id` = 4
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 ORDER BY subscriptions.created_at DESC[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 AND `subscriptions`.`deleted` = 0 AND `subscriptions`.`activated` = 1 AND `subscriptions`.`subscriber_id` = 3
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mFacebook Load (0.2ms)[0m  SELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 3 LIMIT 1
+  [1m[36mTwitter Load (0.2ms)[0m  [1mSELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mGithub Load (0.2ms)[0m  SELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 3 LIMIT 1
+  [1m[36mDeviantart Load (0.1ms)[0m  [1mSELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mVimeo Load (0.2ms)[0m  SELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 3 LIMIT 1
+  Rendered layouts/_sidebar_profile.html.erb (13.6ms)
+  Rendered shared/_fullname.html.erb (0.4ms)
+  Rendered shared/_tabs_nav.html.erb (0.3ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)[0m
+  Rendered text template (0.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `activities` WHERE `activities`.`deleted` = 0 AND `activities`.`owner_id` = 3 AND `activities`.`owner_type` = 'User'[0m
+  [1m[35mPublicActivity::Activity Load (0.4ms)[0m  SELECT `activities`.* FROM `activities` WHERE `activities`.`deleted` = 0 AND `activities`.`owner_id` = 3 AND `activities`.`owner_type` = 'User' ORDER BY created_at desc LIMIT 20 OFFSET 0
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `activities` WHERE `activities`.`deleted` = 0 AND `activities`.`owner_id` = 3 AND `activities`.`owner_type` = 'User'[0m
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 61 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mProject Load (0.3ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (9.5ms)
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 60 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered public_activity/subscription/_create.html.erb (7.7ms)
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 59 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (7.9ms)
+  [1m[36mSubscription Load (0.4ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 58 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered public_activity/subscription/_create.html.erb (7.5ms)
+  [1m[35mProjectComment Load (0.3ms)[0m  SELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`id` = 9 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 9[0m
+  Rendered public_activity/project_comment/_create.html.erb (6.8ms)
+  [1m[35mProject Load (0.3ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 45 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 45
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 45[0m
+  Rendered public_activity/project/_create.html.erb (4.7ms)
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`id` = 2 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mMajorpost Load (0.2ms)[0m  [1mSELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`id` = 2 ORDER BY majorposts.created_at DESC LIMIT 1[0m
+  [1m[35mProject Load (0.3ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 34 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`comment_id` = 2
+  Rendered public_activity/comment/_create.html.erb (20.1ms)
+  [1m[36mProjectComment Load (0.3ms)[0m  [1mSELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`id` = 8 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 34 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 8
+  Rendered public_activity/project_comment/_create.html.erb (6.6ms)
+  [1m[36mProjectComment Load (0.2ms)[0m  [1mSELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`id` = 7 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 34 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 7
+  Rendered public_activity/project_comment/_create.html.erb (6.3ms)
+  [1m[36mProjectComment Load (0.2ms)[0m  [1mSELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`id` = 6 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mProject Load (0.3ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 6
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 6[0m
+  [1m[35mCommentimage Load (0.2ms)[0m  SELECT `commentimages`.* FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 6 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 6[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 6
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 6[0m
+  Rendered public_activity/project_comment/_create.html.erb (67.8ms)
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`id` = 2 ORDER BY majorposts.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 34 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`comment_id` = 1
+  Rendered public_activity/comment/_create.html.erb (7.7ms)
+  [1m[36mProjectComment Load (0.3ms)[0m  [1mSELECT `project_comments`.* FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`id` = 5 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 39 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `commentimages` WHERE `commentimages`.`project_comment_id` = 5
+  Rendered public_activity/project_comment/_create.html.erb (7.5ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 44[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 44
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mArtwork Load (0.2ms)[0m  SELECT `artworks`.* FROM `artworks` WHERE `artworks`.`project_id` = 44 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `projectimages` WHERE `projectimages`.`project_id` = 44[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 44 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = ('tags'))
+  [1m[36mActsAsTaggableOn::Tag Load (0.2ms)[0m  [1mSELECT `tags`.* FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 44 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = 'tags' AND taggings.tagger_id IS NULL)[0m
+  Rendered public_activity/project/_create.html.erb (11.8ms)
+  [1m[35mMajorpost Load (0.3ms)[0m  SELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`id` = 5 ORDER BY majorposts.created_at DESC LIMIT 1
+  [1m[36mVideo Load (0.2ms)[0m  [1mSELECT `videos`.* FROM `videos` WHERE `videos`.`majorpost_id` = 5 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mProject Load (0.3ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 43 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`majorpost_id` = 5[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`majorpost_id` = 5
+  [1m[36mArtwork Load (0.3ms)[0m  [1mSELECT `artworks`.* FROM `artworks` WHERE `artworks`.`majorpost_id` = 5 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `postimages` WHERE `postimages`.`majorpost_id` = 5
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 5 AND `taggings`.`taggable_type` = 'Majorpost' AND (taggings.context = ('tags'))[0m
+  Rendered public_activity/majorpost/_create.html.erb (362.2ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 43 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 43
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 43[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 43 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mArtwork Load (0.2ms)[0m  [1mSELECT `artworks`.* FROM `artworks` WHERE `artworks`.`project_id` = 43 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `projectimages` WHERE `projectimages`.`project_id` = 43
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 43 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = ('tags'))[0m
+  Rendered public_activity/project/_create.html.erb (8.5ms)
+  [1m[35mMajorpost Load (0.2ms)[0m  SELECT `majorposts`.* FROM `majorposts` WHERE `majorposts`.`deleted` = 0 AND `majorposts`.`id` = 4 ORDER BY majorposts.created_at DESC LIMIT 1
+  [1m[36mVideo Load (0.2ms)[0m  [1mSELECT `videos`.* FROM `videos` WHERE `videos`.`majorpost_id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mProject Load (0.2ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 42 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`majorpost_id` = 4[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `comments` WHERE `comments`.`deleted` = 0 AND `comments`.`majorpost_id` = 4
+  [1m[36mArtwork Load (0.2ms)[0m  [1mSELECT `artworks`.* FROM `artworks` WHERE `artworks`.`majorpost_id` = 4 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `postimages` WHERE `postimages`.`majorpost_id` = 4
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 4 AND `taggings`.`taggable_type` = 'Majorpost' AND (taggings.context = ('tags'))[0m
+  Rendered public_activity/majorpost/_create.html.erb (10.1ms)
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 54 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (7.5ms)
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 50 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered public_activity/subscription/_create.html.erb (7.6ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 42 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 42
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `project_comments` WHERE `project_comments`.`deleted` = 0 AND `project_comments`.`project_id` = 42[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 42 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mArtwork Load (0.2ms)[0m  [1mSELECT `artworks`.* FROM `artworks` WHERE `artworks`.`project_id` = 42 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `projectimages` WHERE `projectimages`.`project_id` = 42
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 42 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = ('tags'))[0m
+  Rendered public_activity/project/_create.html.erb (8.4ms)
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`id` = 48 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 41 ORDER BY projects.created_at DESC LIMIT 1
+  Rendered public_activity/subscription/_create.html.erb (7.7ms)
+  Rendered layouts/_footer.html.erb (0.5ms)
+  Rendered users/show.html.erb within layouts/application (1097.7ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered shared/_ajaxify_init.html.erb (0.0ms)
+  Rendered shared/_tipsy_and_alert.html.erb (0.0ms)
+  Rendered shared/_back_to_top.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.8ms)
+  Rendered shared/_settings_dropdown.html.erb (0.0ms)
+  Rendered shared/_alert_flash.html.erb (0.1ms)
+Completed 200 OK in 1294ms (Views: 894.0ms | ActiveRecord: 336.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:30 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/css/redactor.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:30 -0400
+Served asset /redactor-rails/css/redactor.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css3-progress-bar.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:30 -0400
+Served asset /css3-progress-bar.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.tagit.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:30 -0400
+Served asset /jquery.tagit.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/index.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:30 -0400
+Served asset /redactor-rails/index.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:30 -0400
+Served asset /jquery-ui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/video-js.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /video-js.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/monokai.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /monokai.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/dataTables/src/demo_table_jui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /dataTables/src/demo_table_jui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.fileupload-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery.fileupload-ui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/_theme_template.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /_theme_template.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/p_u_inspiration.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /p_u_inspiration.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tipsy.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /tipsy.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.min.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/confirmation.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /confirmation.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.tipsy.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery.tipsy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery-ui.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/rails.validations.nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /rails.validations.nested_form.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery_nested_form.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/rails.validations.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /rails.validations.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tag-it.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /tag-it.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/jquery.ui.widget.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery-fileupload/vendor/jquery.ui.widget.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.iframe-transport.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery-fileupload/jquery.iframe-transport.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/basic.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery-fileupload/basic.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/ajaxify_rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /ajaxify_rails.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.fileupload.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery-fileupload/jquery.fileupload.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/video.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /video.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/tmpl.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery-fileupload/vendor/tmpl.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /jquery.purr.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/best_in_place.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /best_in_place.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/best_in_place.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /best_in_place.purr.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/redactor.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /redactor-rails/redactor.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/config.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /redactor-rails/config.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/index.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /redactor-rails/index.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/autocomplete-rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /autocomplete-rails.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/facebook.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /facebook.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/beta_user.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /beta_user.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/admin.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /admin.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/dataTables/jquery.dataTables.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /dataTables/jquery.dataTables.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/majorpost_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /majorpost_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/majorposts.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /majorposts.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/subscriptions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /subscriptions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/projects.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /projects.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /project_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pagination.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /pagination.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tags_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /tags_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/user_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /user_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/fullscreen.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:31 -0400
+Served asset /redactor-rails/fullscreen.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/githubicon.png" for 127.0.0.1 at 2014-04-20 16:34:32 -0400
+Served asset /githubicon.png - 304 Not Modified (228ms)
+
+
+Started GET "/assets/twittericon.png" for 127.0.0.1 at 2014-04-20 16:34:32 -0400
+Served asset /twittericon.png - 304 Not Modified (141ms)
+
+
+Started GET "/assets/vimeoicon.png" for 127.0.0.1 at 2014-04-20 16:34:32 -0400
+Served asset /vimeoicon.png - 304 Not Modified (229ms)
+
+
+Started GET "/assets/personallink.png" for 127.0.0.1 at 2014-04-20 16:34:32 -0400
+Served asset /personallink.png - 304 Not Modified (82ms)
+
+
+Started GET "/assets/deviantarticon.png" for 127.0.0.1 at 2014-04-20 16:34:32 -0400
+Served asset /deviantarticon.png - 304 Not Modified (72ms)
+
+
+Started GET "/assets/btn_medium_green.png" for 127.0.0.1 at 2014-04-20 16:34:32 -0400
+Served asset /btn_medium_green.png - 304 Not Modified (162ms)
+
+
+Started GET "/fariliang/r/payments/why?ajaxified=true" for 127.0.0.1 at 2014-04-20 16:34:33 -0400
+Processing by SubscriptionsController#why as HTML
+  Parameters: {"ajaxified"=>"true", "id"=>"fariliang"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`username` = 'fariliang' LIMIT 1[0m
+  [1m[35mProject Load (88.4ms)[0m  SELECT `projects`.* FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`published` = 1 AND `projects`.`complete` = 0 AND `projects`.`abandoned` = 0 AND (`projects`.`deleted_at` IS NULL) ORDER BY projects.created_at DESC LIMIT 1
+  Rendered shared/_best_in_place.html.erb (0.0ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 ORDER BY subscriptions.created_at DESC
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 AND `subscriptions`.`deleted` = 0 AND `subscriptions`.`activated` = 1 AND `subscriptions`.`subscriber_id` = 4[0m
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 ORDER BY subscriptions.created_at DESC
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 AND `subscriptions`.`deleted` = 0 AND `subscriptions`.`activated` = 1 AND `subscriptions`.`subscriber_id` = 3[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36mFacebook Load (0.2ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mTwitter Load (0.2ms)[0m  SELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 3 LIMIT 1
+  [1m[36mGithub Load (0.1ms)[0m  [1mSELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mDeviantart Load (0.1ms)[0m  SELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 3 LIMIT 1
+  [1m[36mVimeo Load (0.1ms)[0m  [1mSELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 3 LIMIT 1[0m
+  Rendered layouts/_sidebar_profile.html.erb (14.1ms)
+  Rendered shared/_fullname.html.erb (0.3ms)
+  Rendered shared/_tabs_nav_payments.html.erb (0.9ms)
+  [1m[35mIcon Load (0.2ms)[0m  SELECT `icons`.* FROM `icons` WHERE `icons`.`project_id` = 44 ORDER BY icons.created_at DESC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 44 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = ('tags'))
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 44 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = ('tags'))[0m
+  [1m[35mActsAsTaggableOn::Tag Load (0.2ms)[0m  SELECT `tags`.* FROM `tags` INNER JOIN `taggings` ON `tags`.`id` = `taggings`.`tag_id` WHERE `taggings`.`taggable_id` = 44 AND `taggings`.`taggable_type` = 'Project' AND (taggings.context = 'tags' AND taggings.tagger_id IS NULL)
+  Rendered projects/_project_one.html.erb (101.3ms)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[36mGithub Load (0.2ms)[0m  [1mSELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mFacebook Load (0.1ms)[0m  SELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1
+  Rendered payments/_why.html.erb (171.0ms)
+  Rendered layouts/_footer.html.erb (0.5ms)
+  Rendered subscriptions/why.html.erb (408.3ms)
+Completed 200 OK in 575ms (Views: 414.9ms | ActiveRecord: 156.3ms)
+
+
+Started GET "/assets/projecticon_small.jpg" for 127.0.0.1 at 2014-04-20 16:34:34 -0400
+Served asset /projecticon_small.jpg - 304 Not Modified (84ms)
+
+
+Started GET "/fariliang/r/payments/subscribe" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Processing by SubscriptionsController#new as HTML
+  Parameters: {"id"=>"fariliang"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`username` = 'fariliang' LIMIT 1
+  [1m[36mSubscription Load (0.3ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 ORDER BY subscriptions.created_at DESC[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 AND `subscriptions`.`deleted` = 0 AND `subscriptions`.`activated` = 1 AND `subscriptions`.`subscriber_id` = 4
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 ORDER BY subscriptions.created_at DESC[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 AND `subscriptions`.`deleted` = 0 AND `subscriptions`.`activated` = 1 AND `subscriptions`.`subscriber_id` = 3
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`username` = 'fariliang' LIMIT 1[0m
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`deleted` = 1 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mProject Load (46.8ms)[0m  [1mSELECT `projects`.* FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`published` = 1 AND `projects`.`complete` = 0 AND `projects`.`abandoned` = 0 AND (`projects`.`deleted_at` IS NULL) ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mGithub Load (0.3ms)[0m  SELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1
+  [1m[36mFacebook Load (0.1ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`username` = 'fariliang' LIMIT 1
+  Rendered shared/_best_in_place.html.erb (0.0ms)
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered payments/_amount_form.html.erb (2.3ms)
+  Rendered payments/_pricing.html.erb (53.3ms)
+  Rendered layouts/_footer.html.erb (0.5ms)
+  Rendered subscriptions/new.html.erb within layouts/application (71.7ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered shared/_ajaxify_init.html.erb (0.0ms)
+  Rendered shared/_tipsy_and_alert.html.erb (0.0ms)
+  Rendered shared/_back_to_top.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (2.0ms)
+  Rendered shared/_settings_dropdown.html.erb (0.0ms)
+  Rendered shared/_alert_flash.html.erb (0.0ms)
+Completed 200 OK in 289ms (Views: 228.4ms | ActiveRecord: 49.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /jquery-ui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css3-progress-bar.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /css3-progress-bar.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/index.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /redactor-rails/index.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/css/redactor.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /redactor-rails/css/redactor.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.tagit.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /jquery.tagit.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/video-js.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /video-js.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/dataTables/src/demo_table_jui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /dataTables/src/demo_table_jui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.fileupload-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /jquery.fileupload-ui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/_theme_template.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /_theme_template.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/monokai.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /monokai.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/p_u_inspiration.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /p_u_inspiration.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tipsy.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /tipsy.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:35 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/confirmation.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /confirmation.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.min.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.tipsy.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery.tipsy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery-ui.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/rails.validations.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /rails.validations.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/rails.validations.nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /rails.validations.nested_form.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery_nested_form.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tag-it.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /tag-it.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/jquery.ui.widget.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery-fileupload/vendor/jquery.ui.widget.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.iframe-transport.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery-fileupload/jquery.iframe-transport.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.fileupload.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery-fileupload/jquery.fileupload.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/basic.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery-fileupload/basic.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/tmpl.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery-fileupload/vendor/tmpl.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/video.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /video.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/ajaxify_rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /ajaxify_rails.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/best_in_place.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /best_in_place.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /jquery.purr.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/best_in_place.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /best_in_place.purr.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/redactor.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /redactor-rails/redactor.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/config.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /redactor-rails/config.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/index.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /redactor-rails/index.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/autocomplete-rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /autocomplete-rails.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/facebook.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /facebook.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/dataTables/jquery.dataTables.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /dataTables/jquery.dataTables.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/admin.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /admin.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/beta_user.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /beta_user.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/majorpost_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /majorpost_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/majorposts.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /majorposts.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pagination.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /pagination.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /project_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/projects.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /projects.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/fullscreen.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /redactor-rails/fullscreen.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/subscriptions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /subscriptions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/user_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /user_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tags_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /tags_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/Asgard.jpg" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /Asgard.jpg - 304 Not Modified (363ms)
+
+
+Started GET "/assets/sky_color.jpg" for 127.0.0.1 at 2014-04-20 16:34:36 -0400
+Served asset /sky_color.jpg - 304 Not Modified (134ms)
+
+
+Started GET "/assets/btn_medium_blue.png" for 127.0.0.1 at 2014-04-20 16:34:37 -0400
+Served asset /btn_medium_blue.png - 304 Not Modified (226ms)
+
+
+Started GET "/assets/Amazon-Payments-Logo_lores.gif" for 127.0.0.1 at 2014-04-20 16:34:37 -0400
+Served asset /Amazon-Payments-Logo_lores.gif - 304 Not Modified (165ms)
+
+
+Started GET "/assets/sky.jpg" for 127.0.0.1 at 2014-04-20 16:34:37 -0400
+Served asset /sky.jpg - 304 Not Modified (85ms)
+
+
+Started GET "/assets/logo_round.png" for 127.0.0.1 at 2014-04-20 16:34:37 -0400
+Served asset /logo_round.png - 304 Not Modified (46ms)
+
+
+Started POST "/fariliang/r/payments/subscription/create" for 127.0.0.1 at 2014-04-20 16:34:39 -0400
+Processing by SubscriptionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"lb6Go9a/ZTQ5Djunvkhdnu8mw1T1205LpdauV93mzB0=", "subscription"=>{"subscriber_id"=>"4", "subscribed_id"=>"3", "amount"=>"27.03"}, "id"=>"fariliang"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`username` = 'fariliang' LIMIT 1[0m
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`deleted` = 1 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mProject Load (7.5ms)[0m  [1mSELECT `projects`.* FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`published` = 1 AND `projects`.`complete` = 0 AND `projects`.`abandoned` = 0 AND (`projects`.`deleted_at` IS NULL) ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mGithub Load (0.2ms)[0m  SELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1
+  [1m[36mFacebook Load (0.1ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`username` = 'fariliang' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35mProject Load (9.0ms)[0m  SELECT `projects`.* FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`published` = 1 AND `projects`.`complete` = 0 AND (`projects`.`deleted_at` IS NULL) ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mSubscription Load (0.3ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 ORDER BY subscriptions.created_at DESC[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 AND `subscriptions`.`deleted` = 0 AND `subscriptions`.`activated` = 1 AND `subscriptions`.`subscriber_id` = 4
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 ORDER BY subscriptions.created_at DESC[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 AND `subscriptions`.`deleted` = 0 AND `subscriptions`.`activated` = 1 AND `subscriptions`.`subscriber_id` = 3
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (22.9ms)[0m  INSERT INTO `subscriptions` (`accumulated_amazon`, `accumulated_ratafire`, `accumulated_receive`, `accumulated_total`, `activated`, `activated_at`, `amazon_valid`, `amount`, `created_at`, `deleted`, `deleted_at`, `deleted_reason`, `project_id`, `subscribed_id`, `subscriber_id`, `subscription_record_id`, `updated_at`, `uuid`) VALUES (0.0, 0.0, 0.0, 0.0, 0, NULL, 0, 27.03, '2014-04-20 20:34:40', 0, NULL, NULL, 44, 3, 4, NULL, '2014-04-20 20:34:40', NULL)
+  [1m[36m (29.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mAmazonRecipient Load (0.2ms)[0m  SELECT `amazon_recipients`.* FROM `amazon_recipients` WHERE `amazon_recipients`.`user_id` = 3 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mAmazonRecurring Load (0.3ms)[0m  SELECT `amazon_recurrings`.* FROM `amazon_recurrings` WHERE `amazon_recurrings`.`uuid` = 'd4a772cfe46f94439b61833851201618' LIMIT 1
+  [1m[36mSQL (18.1ms)[0m  [1mINSERT INTO `amazon_recurrings` (`addressLine1`, `addressLine2`, `addressName`, `callerReference`, `city`, `collectShippingAddress`, `country`, `created_at`, `currencyCode`, `errorMessage`, `id`, `isRecipientCobranding`, `paymentReason`, `phoneNumber`, `recipientToken`, `recurringPeriod`, `state`, `status`, `subscription_id`, `tokenID`, `transactionAmount`, `updated_at`, `uuid`, `validityExpiry`, `validityStart`, `warningCode`, `warningMessage`, `zip`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2014-04-20 20:34:40', NULL, NULL, NULL, NULL, NULL, NULL, 'K15GKX7UQUUHAS2DI22Q4FDZXG3DR4I62HU3M1DT1UFL7TI76LSFFOESRGD2MTBC', '1 month', NULL, NULL, 65, NULL, '27.03', '2014-04-20 20:34:40', 'd4a772cfe46f94439b61833851201618', NULL, NULL, NULL, NULL, NULL)[0m
+  [1m[35m (85.7ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  UPDATE `subscriptions` SET `uuid` = 'd4a772cfe46f94439b61833851201618', `updated_at` = '2014-04-20 20:34:40' WHERE `subscriptions`.`id` = 65
+  [1m[36m (77.0ms)[0m  [1mCOMMIT[0m
+Redirected to https://authorize.payments-sandbox.amazon.com/cobranded-ui/actions/start?callerKey=AKIAJ4ZF2OGURAAHVGDQ&callerReference=d4a772cfe46f94439b61833851201618&paymentReason=Monthly%20subscription%20to%20Fari%20Liang%20to%20support%20Fari%20Liang%27s%20projects.&pipelineName=Recurring&recipientToken=K15GKX7UQUUHAS2DI22Q4FDZXG3DR4I62HU3M1DT1UFL7TI76LSFFOESRGD2MTBC&recurringPeriod=1%20month&returnURL=http%3A%2F%2Flocalhost%3A3000%2Fr%2Fsubscriptions%2Famazon_payments%2Fsubscribe%2Fpost_subscribe&signature=di1wuk8PqiLab%2FbsbGyuKUFpw3s2oRGst3MXDHswfNo%3D&signatureMethod=HmacSHA256&signatureVersion=2&transactionAmount=27.03&version=2009-01-09
+Completed 302 Found in 358ms (ActiveRecord: 279.7ms)
+
+
+Started GET "/r/subscriptions/amazon_payments/subscribe/post_subscribe?tokenID=D4SRDHG4GGVU6DVTUFQX2XKX2GKRKVXRL5PVIC2SNSHPDF3ARH4DDEXW6EW3DQBP&signatureMethod=RSA-SHA1&status=SC&signatureVersion=2&signature=cBHKR7lHmi8OQicAobziyvRcbicZkDLZI%2F2Qq2alrXQLjdYlJ26P%2FWONDb0%2BmC5mMmtJJACTiTe2%0AyZfPCyZw8Mg3cg%2F3vx%2Bd82SNa7jNNOdRmuIlsf4Scxumcp22l5tHNcnWCxMV0C8KmMW0BNkD%2FCJM%0A9YPsstHlOR5mVS0Iqag86P5lmDcP7wpqn8FtNeZVHHIVZCZzTe%2B8bQBUHz%2FPEBxQvYPpm62NkJaj%0A2%2FKeVjukhx7ubDp7ACJo2I9dEyPJ%2FFcXz17g6gHXNOQW79n3e80lFdRS5UAsibio6K59VJgRfl9I%0AbMizLrkILTAV2DMTOS1d%2F16fkyWZQkDEABKiSQ%3D%3D&certificateUrl=https%3A%2F%2Ffps.sandbox.amazonaws.com%2Fcerts%2F110713%2FPKICert.pem%3FrequestId%3Dbk0dg01nbr4c9rja9m9a3h1c4z5pd1n1medg7b8tvgrmjzevar4&expiry=09%2F2019&callerReference=d4a772cfe46f94439b61833851201618" for 127.0.0.1 at 2014-04-20 16:34:53 -0400
+Processing by AmazonController#post_subscribe as HTML
+  Parameters: {"tokenID"=>"D4SRDHG4GGVU6DVTUFQX2XKX2GKRKVXRL5PVIC2SNSHPDF3ARH4DDEXW6EW3DQBP", "signatureMethod"=>"RSA-SHA1", "status"=>"SC", "signatureVersion"=>"2", "signature"=>"cBHKR7lHmi8OQicAobziyvRcbicZkDLZI/2Qq2alrXQLjdYlJ26P/WONDb0+mC5mMmtJJACTiTe2\nyZfPCyZw8Mg3cg/3vx+d82SNa7jNNOdRmuIlsf4Scxumcp22l5tHNcnWCxMV0C8KmMW0BNkD/CJM\n9YPsstHlOR5mVS0Iqag86P5lmDcP7wpqn8FtNeZVHHIVZCZzTe+8bQBUHz/PEBxQvYPpm62NkJaj\n2/KeVjukhx7ubDp7ACJo2I9dEyPJ/FcXz17g6gHXNOQW79n3e80lFdRS5UAsibio6K59VJgRfl9I\nbMizLrkILTAV2DMTOS1d/16fkyWZQkDEABKiSQ==", "certificateUrl"=>"https://fps.sandbox.amazonaws.com/certs/110713/PKICert.pem?requestId=bk0dg01nbr4c9rja9m9a3h1c4z5pd1n1medg7b8tvgrmjzevar4", "expiry"=>"09/2019", "callerReference"=>"d4a772cfe46f94439b61833851201618"}
+  [1m[35mSubscription Load (0.3ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`uuid` = 'd4a772cfe46f94439b61833851201618' ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mAmazonRecurring Load (0.2ms)[0m  [1mSELECT `amazon_recurrings`.* FROM `amazon_recurrings` WHERE `amazon_recurrings`.`uuid` = 'd4a772cfe46f94439b61833851201618' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mUPDATE `amazon_recurrings` SET `tokenID` = 'D4SRDHG4GGVU6DVTUFQX2XKX2GKRKVXRL5PVIC2SNSHPDF3ARH4DDEXW6EW3DQBP', `status` = 'SC', `updated_at` = '2014-04-20 20:34:53' WHERE `amazon_recurrings`.`uuid` = 'd4a772cfe46f94439b61833851201618'[0m
+  [1m[35m (149.5ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (514.0ms)[0m  [1mINSERT INTO `activities` (`commented_at`, `created_at`, `deleted`, `deleted_at`, `draft`, `featured`, `key`, `owner_id`, `owner_type`, `parameters`, `realm`, `recipient_id`, `recipient_type`, `test`, `trackable_id`, `trackable_type`, `updated_at`) VALUES (NULL, '2014-04-20 20:34:53', 0, NULL, NULL, 0, 'subscription.create', 3, 'User', NULL, NULL, NULL, NULL, 0, 65, 'Subscription', '2014-04-20 20:34:53')[0m
+  [1m[35m (98.3ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (20.9ms)[0m  [1mINSERT INTO `activities` (`commented_at`, `created_at`, `deleted`, `deleted_at`, `draft`, `featured`, `key`, `owner_id`, `owner_type`, `parameters`, `realm`, `recipient_id`, `recipient_type`, `test`, `trackable_id`, `trackable_type`, `updated_at`) VALUES (NULL, '2014-04-20 20:34:54', 0, NULL, NULL, 0, 'subscription.create', 4, 'User', NULL, NULL, NULL, NULL, 0, 65, 'Subscription', '2014-04-20 20:34:54')[0m
+  [1m[35m (55.9ms)[0m  COMMIT
+  [1m[36mSubscriptionRecord Load (0.2ms)[0m  [1mSELECT `subscription_records`.* FROM `subscription_records` WHERE `subscription_records`.`subscriber_id` = 4 AND `subscription_records`.`subscribed_id` = 3 LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT 1 AS one FROM `users` WHERE (`users`.`username` = 'fariliang' AND `users`.`id` != 3) LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT 1 AS one FROM `users` WHERE (`users`.`email` = 'fariliang@gmail.com' AND `users`.`id` != 3) LIMIT 1
+  [1m[36mFacebook Load (0.2ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mTwitter Load (0.1ms)[0m  SELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 3 LIMIT 1
+  [1m[36mGithub Load (0.1ms)[0m  [1mSELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mDeviantart Load (0.1ms)[0m  SELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 3 LIMIT 1
+  [1m[36mVimeo Load (0.2ms)[0m  [1mSELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 3 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `users` SET `subscription_amount` = 41.0, `remember_token` = 'fCrq9lLppMZrZZIVUc7sig', `updated_at` = '2014-04-20 20:34:54' WHERE `users`.`id` = 3
+  [1m[36m (26.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM `users` WHERE (`users`.`username` = 'ratatoskr' AND `users`.`id` != 4) LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT 1 AS one FROM `users` WHERE (`users`.`email` = 'ratatoskr@ratafire.com' AND `users`.`id` != 4) LIMIT 1
+  [1m[36mFacebook Load (0.1ms)[0m  [1mSELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mTwitter Load (0.1ms)[0m  SELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 4 LIMIT 1
+  [1m[36mGithub Load (0.1ms)[0m  [1mSELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 4 LIMIT 1[0m
+  [1m[35mDeviantart Load (0.1ms)[0m  SELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 4 LIMIT 1
+  [1m[36mVimeo Load (0.1ms)[0m  [1mSELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 4 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  UPDATE `users` SET `subscribing_amount` = 27.03, `remember_token` = 'RKmGAvLDMmflVn5nXA9MBg', `updated_at` = '2014-04-20 20:34:54' WHERE `users`.`id` = 4
+  [1m[36m (115.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mUPDATE `subscriptions` SET `activated` = 1, `activated_at` = '2014-04-20 20:34:53', `subscription_record_id` = 4, `updated_at` = '2014-04-20 20:34:54' WHERE `subscriptions`.`id` = 65[0m
+  [1m[35m (156.6ms)[0m  COMMIT
+Redirected to http://localhost:3000/3/r/subscriptions/subscribers
+Completed 302 Found in 1217ms (ActiveRecord: 1141.9ms)
+
+
+Started GET "/3/r/subscriptions/subscribers" for 127.0.0.1 at 2014-04-20 16:34:54 -0400
+Processing by SubscriptionsController#subscribers as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`username` = '3' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mProject Load (30.9ms)[0m  [1mSELECT `projects`.* FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 3 AND `projects`.`published` = 1 AND `projects`.`complete` = 0 AND `projects`.`abandoned` = 0 AND (`projects`.`deleted_at` IS NULL) ORDER BY projects.created_at DESC LIMIT 1[0m
+  Rendered shared/_best_in_place.html.erb (0.0ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 4 LIMIT 1
+  [1m[36mSubscription Load (0.3ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 ORDER BY subscriptions.created_at DESC[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `subscriptions` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1 AND `subscriptions`.`deleted` = 0 AND `subscriptions`.`activated` = 1 AND `subscriptions`.`subscriber_id` = 4
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscribed_id` WHERE `subscriptions`.`subscriber_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mFacebook Load (0.2ms)[0m  SELECT `facebooks`.* FROM `facebooks` WHERE `facebooks`.`user_id` = 3 LIMIT 1
+  [1m[36mTwitter Load (0.2ms)[0m  [1mSELECT `twitters`.* FROM `twitters` WHERE `twitters`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mGithub Load (0.1ms)[0m  SELECT `githubs`.* FROM `githubs` WHERE `githubs`.`user_id` = 3 LIMIT 1
+  [1m[36mDeviantart Load (0.1ms)[0m  [1mSELECT `deviantarts`.* FROM `deviantarts` WHERE `deviantarts`.`user_id` = 3 LIMIT 1[0m
+  [1m[35mVimeo Load (0.1ms)[0m  SELECT `vimeos`.* FROM `vimeos` WHERE `vimeos`.`user_id` = 3 LIMIT 1
+  Rendered layouts/_sidebar_profile.html.erb (13.7ms)
+  Rendered shared/_fullname.html.erb (0.4ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered shared/_tabs_nav_subscription.html.erb (1.2ms)
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscription_records` ON `users`.`id` = `subscription_records`.`subscriber_id` WHERE `subscription_records`.`subscribed_id` = 3 AND `subscription_records`.`past` = 1 AND (`subscription_records`.`past` = 1 AND `subscription_records`.`accumulated` = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35mUser Load (6.8ms)[0m  SELECT `users`.* FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1) ORDER BY subscriptions.created_at DESC LIMIT 32 OFFSET 0
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 4 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)
+  [1m[36mSubscription Load (0.2ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mSubscription Load (0.2ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mProject Load (0.1ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 4 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 4 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)[0m
+  Rendered text template (0.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 4 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 2 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 2 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)[0m
+  [1m[35mSubscription Load (16.4ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 2 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 2 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 2 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 2 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `projects`.* FROM `projects` WHERE `projects`.`deleted` = 0 AND `projects`.`id` = 44 ORDER BY projects.created_at DESC LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 2 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  Rendered text template (0.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `projects` INNER JOIN `assigned_projects` ON `projects`.`id` = `assigned_projects`.`project_id` WHERE `projects`.`deleted` = 0 AND `assigned_projects`.`user_id` = 2 AND `projects`.`complete` = 1 AND (`projects`.`deleted_at` IS NULL)
+  Rendered text template (0.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 2 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `subscriptions`.* FROM `subscriptions` WHERE `subscriptions`.`subscriber_id` = 2 AND `subscriptions`.`subscribed_id` = 3 ORDER BY subscriptions.created_at DESC LIMIT 1
+  Rendered subscriptions/_current_subscribers.html.erb (208.2ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `users` INNER JOIN `subscriptions` ON `users`.`id` = `subscriptions`.`subscriber_id` WHERE `subscriptions`.`subscribed_id` = 3 AND `subscriptions`.`activated` = 1 AND (`subscriptions`.`deleted_at` IS NULL AND `subscriptions`.`activated` = 1)[0m
+  Rendered layouts/_footer.html.erb (0.8ms)
+  Rendered subscriptions/subscribers.html.erb within layouts/application (318.4ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered shared/_ajaxify_init.html.erb (0.0ms)
+  Rendered shared/_tipsy_and_alert.html.erb (0.0ms)
+  Rendered shared/_back_to_top.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.9ms)
+  Rendered shared/_settings_dropdown.html.erb (0.0ms)
+  Rendered shared/_alert_flash.html.erb (0.1ms)
+Completed 200 OK in 490ms (Views: 426.0ms | ActiveRecord: 58.9ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/css/redactor.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /redactor-rails/css/redactor.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/css3-progress-bar.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /css3-progress-bar.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.tagit.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery.tagit.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/index.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /redactor-rails/index.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery-ui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/video-js.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /video-js.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.fileupload-ui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery.fileupload-ui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/monokai.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /monokai.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/dataTables/src/demo_table_jui.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /dataTables/src/demo_table_jui.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/_theme_template.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /_theme_template.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/custom.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/p_u_inspiration.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /p_u_inspiration.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tipsy.css?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /tipsy.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/confirmation.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /confirmation.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.min.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.tipsy.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery.tipsy.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery-ui.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/rails.validations.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /rails.validations.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/rails.validations.nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /rails.validations.nested_form.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_nested_form.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery_nested_form.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tag-it.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /tag-it.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/jquery.ui.widget.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery-fileupload/vendor/jquery.ui.widget.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.iframe-transport.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery-fileupload/jquery.iframe-transport.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/jquery.fileupload.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery-fileupload/jquery.fileupload.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/basic.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery-fileupload/basic.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-fileupload/vendor/tmpl.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /jquery-fileupload/vendor/tmpl.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/ajaxify_rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /ajaxify_rails.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/video.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:55 -0400
+Served asset /video.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/best_in_place.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /best_in_place.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /jquery.purr.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/best_in_place.purr.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /best_in_place.purr.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/redactor.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /redactor-rails/redactor.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/config.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /redactor-rails/config.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/index.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /redactor-rails/index.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/autocomplete-rails.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /autocomplete-rails.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/facebook.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /facebook.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/dataTables/jquery.dataTables.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /dataTables/jquery.dataTables.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/admin.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /admin.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/beta_user.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /beta_user.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/majorpost_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /majorpost_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/majorposts.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /majorposts.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pagination.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /pagination.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/project_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /project_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/projects.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /projects.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/subscriptions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /subscriptions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/tags_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /tags_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/user_suggestions.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /user_suggestions.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/redactor-rails/fullscreen.js?body=1" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /redactor-rails/fullscreen.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/navbarbg.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /navbarbg.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/searchicon.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /searchicon.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/settingsicon.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /settingsicon.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/btn_medium_blue.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /btn_medium_blue.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/personallink.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /personallink.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/vimeoicon.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /vimeoicon.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/twittericon.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /twittericon.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/facebookicon.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /facebookicon.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/deviantarticon.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /deviantarticon.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/githubicon.png" for 127.0.0.1 at 2014-04-20 16:34:56 -0400
+Served asset /githubicon.png - 304 Not Modified (0ms)

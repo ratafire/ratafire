@@ -3,7 +3,7 @@ require 'base64'
 require 'openssl'
 
 require 'rubygems'
-#require 'rest_client'
+require 'rest_client'
 require 'multi_xml'
 require 'active_support' # camelcase, underscore
 require 'active_support/inflector'
