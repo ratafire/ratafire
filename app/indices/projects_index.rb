@@ -11,7 +11,4 @@ ThinkingSphinx::Index.define :project, :with => :active_record do
     indexes tagline
     indexes excerpt
     indexes video_id
-    indexes video
-    indexes artwork
-    indexes projectimages    
 end

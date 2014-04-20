@@ -1,0 +1,11 @@
+[Sun Apr 20 07:44:31.670 2014] [33637] Child process 33638 has been forked
+[Sun Apr 20 07:44:31.671 2014] [33638] listening on 127.0.0.1:9306
+[Sun Apr 20 07:44:31.879 2014] [33638] accepting connections
+[Sun Apr 20 07:47:38.574 2014] [33638] caught SIGHUP (seamless=1, in queue=1)
+[Sun Apr 20 07:47:38.597 2014] [33638] rotating index 'project_core': started
+[Sun Apr 20 07:47:38.682 2014] [33638] rotating index 'project_core': success
+[Sun Apr 20 07:47:38.801 2014] [33638] rotating index: all indexes done
+[Sun Apr 20 07:49:30.850 2014] [33638] caught SIGHUP (seamless=1, in queue=1)
+[Sun Apr 20 07:49:30.878 2014] [33638] rotating index 'project_core': started
+[Sun Apr 20 07:49:30.880 2014] [33638] rotating index 'project_core': success
+[Sun Apr 20 07:49:30.880 2014] [33638] rotating index: all indexes done
