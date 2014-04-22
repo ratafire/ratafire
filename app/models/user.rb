@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 	#process_in_background :profilephoto, :only_process => [:small64, :tiny]           
 
 	#profilephoto
-	validates_attachment :profilephoto, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
+	validates_attachment :profilephoto, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }, :size => { :in => 0..1024.kilobytes}
 
 	#Relationship
 

@@ -30,69 +30,41 @@
 
 	<!-- project icon-->
 	<div id="project-icon">
-		<% if @project.icon_id == nil %>
+		
+<% if @project.icon == nil %>
+
 		   <div id="icon-upload-box" style="background-image: url(<%= @icon.image.url(:pageview) %>); height: 126px; width:126px; border-radius:6px;">
 		   	<!-- When there is no icon -->
 		   	
 		   		<div id="project-icon-upload" class="artwork-button fileinput-button">
-		   			<%= form_for [@project.creator,@project,@icon],id:"artwork-form",:html => {:class => 'no_ajaxify' } do |i|%>
-		   			<%= i.hidden_field :project_id, value: @project.id %>
-		   			<%= i.hidden_field :content_temp, id:"content_temp_icon" %>
-		   			<%= i.hidden_field :tags_temp, id:"content_temp_icon" %>
-					<%= i.file_field :image, multiple: false, class:"artwork-choose" %>
-					<script>
-										$('#project-icon-upload').fileupload({
-  dropZone: $('#icon-drop'),
-  pasteZone: null,
-  dataType: "script",
-  add: function(e, data) {
-    var file, types;
-    types = /(\.|\/)(jpe?g|png|bmp)$/i;
-    file = data.files[0];
-    if (types.test(file.type) || types.test(file.name)) {
-      data.context = $(tmpl("template-upload223", file));
-      $('#icon-upload-data').append(data.context);
-      data.submit();
-      var callback = $.proxy();
-    } else {
-      return alert("" + file.name + " is not a jpg, png, or bmp image file");
-    }
-  },
-  progress: function(e, data) {
-    var progress;
-    if (data.context) {
-      progress = parseInt(data.loaded / data.total * 100, 10);
-      return data.context.find('.bar-icon').css('width', progress + '%');
-    }
-  },
-  temp_save: function(){
-  	var content_temp = $('#redactor_majorpost').val(),
-        tags_temp = $('#tags').val();
-   $('#content_temp_icon').val(content_temp
-    );
-   $('#tags_temp_icon').val(tags_temp
-    );
-  }
-
-});
-</script>
-					<div id="icon-upload-data"></div>
+										<!-- fields for icon -->
+										<%= s3_uploader_form callback_url: create_project_icon_path(current_user,@project),
+  											id: "s3_uploader_icon",
+											callback_param: "icon[direct_upload_url]",
+											expiration: 24.hours.from_now.utc.iso8601,
+											max_file_size: 2048.megabytes,:remote => true do %>
+											<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+										<% end %>	
 
 		   		</div><!-- end fileupload buttom-->
-		   		<script id="template-upload223" type="text/x-tmpl"><div class="bar-icon" style="height:128px; width:0%; background-color:rgba(34,151,206,.5);"></div></script>
-		   </div>
-		   <% end %>
-	
+		   		<div id="icon-progress-case"></div>
+		   </div><!-- end#icon-upload-box-->
+		   
+		   <script id="template-upload-icon" type="text/x-tmpl">
+		   		<div class="bar-icon" style="height:128px; width:0%; border-radius:5px; background-color:rgba(34,151,206,.5);">
+		   		</div>
+		   	</script>
+
+		  <div id="icon-upload-data"></div>
 <% else %>
 		 <div id="icon-upload-box" style="background-image: url(<%= @icon.image.url(:pageview) %>); height: 126px; width:126px; border-radius:6px;">
 		 	<!-- artwork delete button-->
 			<div id="delete-icon" style="margin:7px 5px 0 0;float:right;display:none;">
-				<%= link_to 'Delete',icon_delete_path(@project.creator,@project,@icon),method: :delete,class:"btn-delete no_ajaxify"%>
+				<%= link_to 'Delete',icon_delete_path(@project.creator,@project,@project.icon),method: :delete,class:"btn-delete no_ajaxify"%>
 			</div>
 	 	</div>
-<% end %>
-</div><!-- end:.project-icon -->
-					
+<% end %>	 	
+</div><!-- end:.project-icon -->	
 					
 	<div id="project-title">
 						<!-- Project Name -->
@@ -118,7 +90,6 @@
 
 	<div id="project-goals">
 		<%= goals_percentage(@majorpost_count, @project.goal)%><%= progress_bar(goals_count(@majorpost_count, @project.goal), :color => 'pink', :rounded => true) %>
-
 	</div>
 
 

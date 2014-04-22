@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140420044826) do
+ActiveRecord::Schema.define(:version => 20140421031116) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -115,8 +115,8 @@ ActiveRecord::Schema.define(:version => 20140420044826) do
   end
 
   create_table "artworks", :force => true do |t|
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "artwork"
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -127,7 +127,13 @@ ActiveRecord::Schema.define(:version => 20140420044826) do
     t.text     "content_temp"
     t.text     "tags_temp"
     t.integer  "archive_id"
+    t.string   "direct_upload_url",                     :null => false
+    t.boolean  "processed",          :default => false, :null => false
+    t.integer  "user_id",                               :null => false
   end
+
+  add_index "artworks", ["processed"], :name => "index_artworks_on_processed"
+  add_index "artworks", ["user_id"], :name => "index_artworks_on_user_id"
 
   create_table "assigned_projects", :force => true do |t|
     t.integer  "project_id"
@@ -260,8 +266,8 @@ ActiveRecord::Schema.define(:version => 20140420044826) do
   end
 
   create_table "icons", :force => true do |t|
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -270,7 +276,13 @@ ActiveRecord::Schema.define(:version => 20140420044826) do
     t.text     "content_temp"
     t.text     "tags_temp"
     t.integer  "archive_id"
+    t.string   "direct_upload_url",                     :null => false
+    t.boolean  "processed",          :default => false, :null => false
+    t.integer  "user_id",                               :null => false
   end
+
+  add_index "icons", ["processed"], :name => "index_icons_on_processed"
+  add_index "icons", ["user_id"], :name => "index_icons_on_user_id"
 
   create_table "inviteds", :force => true do |t|
     t.integer  "project_id"
@@ -729,7 +741,13 @@ ActiveRecord::Schema.define(:version => 20140420044826) do
     t.text     "tags_temp"
     t.integer  "archive_id"
     t.string   "thumbnail"
+    t.string   "direct_upload_url",                               :null => false
+    t.boolean  "processed",              :default => false,       :null => false
+    t.integer  "user_id",                                         :null => false
   end
+
+  add_index "videos", ["processed"], :name => "index_videos_on_processed"
+  add_index "videos", ["user_id"], :name => "index_videos_on_user_id"
 
   create_table "vimeos", :force => true do |t|
     t.datetime "created_at",   :null => false

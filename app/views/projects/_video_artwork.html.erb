@@ -5,10 +5,36 @@
 
 <!-- Artwork without video -->
 <% if @artwork != nil && @video == nil %>
-	<%= render 'shared/artworkdisplay'%>
+	<% if @artwork.processed == true %>
+		<%= render 'shared/artworkdisplay'%>
+	<% else %>
+		<!-- Display Encoding & Delete if still encoding-->
+ 		<div id="majorpost-video-encoding">
+ 				Artwork is processing. It may take 0-5 minutes before it is ready. 
+ 				<div id="cancel-encoding">
+ 					<!-- Show delete button only for the owner-->
+ 					<% if @project.creator == current_user %>
+ 					<%= link_to 'x',artwork_delete_path(@project.creator,@project,@artwork),:method => :delete, class:"tipsy-tipsy no_ajaxify",title:"Delete artwork.", :confirm => "Are you sure to delete this artwork?" %>
+ 					<% end %>
+ 				</div>
+ 		</div>
+	<% end %>
 <% end %>
 
 <!-- Artwork with video -->
 <% if @artwork != nil && @video != nil  %>
-	<%= render 'shared/artwork_small_display'%>
+	<% if @artwork.processed == true %>
+		<%= render 'shared/artwork_small_display'%>
+	<% else %>
+		<!-- Display Encoding & Delete if still encoding-->
+ 		<div id="majorpost-video-encoding">
+ 				Artwork is processing. It may take 0-5 minutes before it is ready. 
+ 				<div id="cancel-encoding">
+ 					<!-- Show delete button only for the owner-->
+ 					<% if @project.creator == current_user %>
+ 					<%= link_to 'x',artwork_delete_path(@project.creator,@project,@artwork),:method => :delete, class:"tipsy-tipsy no_ajaxify",title:"Delete artwork.", :confirm => "Are you sure to delete this artwork?" %>
+ 					<% end %>
+ 				</div>
+ 		</div>
+	<% end %>	
 <% end %>

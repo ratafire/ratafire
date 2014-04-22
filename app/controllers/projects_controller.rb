@@ -250,7 +250,7 @@ class ProjectsController < ApplicationController
 		@project.save
 		flash[:success] = "Draft threw away, and you hit a pine nut."
 		redirect_to projects_path(@user)
-	end
+	end	
 
 private
 
@@ -320,5 +320,6 @@ private
         redirect_to new_user_session_path, notice:"Please sign in." unless signed_in?
       end
     end
+
 
 end

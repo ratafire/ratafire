@@ -48,9 +48,7 @@
 
 			<!-- Project Form-->
 			<%= nested_form_for [@project.creator, @project], :url => project_update_path(@project.creator,@project),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f| %>
-				<%= f.hidden_field :artwork_id, id:"majorpost-artwork-id" %>
 				<%= f.hidden_field :icon_id, id:"majorpost-icon-id" %>
-				<%= f.hidden_field :video_id, id:"project-video-id"%>
 				<%= f.hidden_field :published, id:"project-published" %>
 				<%= f.hidden_field :edit_permission, id:"project-edit-permission" %>
 
@@ -98,7 +96,7 @@
 				<!-- Submit after Published -->
 					<div style="margin: 15px -2px 0 0; text-align:right;">
 					<span id="submit">
-						<%= f.submit "Edit Project", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-white no_ajaxify" %>
+						<%= f.submit "Edit Project", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green no_ajaxify" %>
 					</span>
 				</div>
 				<% end %>

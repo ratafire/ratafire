@@ -114,14 +114,20 @@ Ratafire::Application.routes.draw do
   match ':user_id/activities/delete/:id', to: 'activities#destroy', via: :delete, as: :activity_delete
 
 #---Video Upload---
+   match ':user_id/upload/video/:project_id/this_is_a_secret_path_to_a_strange_land', :to => "videos#create_project_video", via: :post, as: :create_project_video
+   match ':user_id/upload/video/:project_id/:majorpost_id/whose_midnight_revels_by_a_forest_side', :to => "videos#create_majorpost_video", via: :post, as: :create_majorpost_video
+   match '/add_external_video', to: 'videos#add_external_video', via: :post, as: :add_external_video
    match ":user_id/projects/:project_id/videos/:id", :to => "videos#destroy", via: :delete, as: :project_video_delete
    match "/videos/notification/r/encode_notify", :to => "videos#encode_notify"
 
 #---Artwork---
+   match ':user_id/upload/artwork/:project_id/invoke_thy_aid_to_my_adventrous_song', :to => "artworks#create_project_artwork", via: :post, as: :create_project_artwork
+   match ':user_id/upload/artwork/:project_id/:majorpost_id/of_some_great_ammiral_were_but_a_wand', :to => "artworks#create_majorpost_artwork", via: :post, as: :create_majorpost_artwork
    match ":user_id/:project_id/artworks/delete/:id", to: 'artworks#destroy', via: :delete, as: :artwork_delete
    match ':user_id/projects/:project_id/artworks/:id', to: 'artworks#download', :controller => "artworks",:action => 'download', :conditions => { :method => :get }, as: :artwork_download
 
 #---Icon ---
+   match ':user_id/upload/icon/:project_id/invoke_thy_aid_to_my_adventrous_song', :to => "icons#create_project_icon", via: :post, as: :create_project_icon
    match ':user_id/projects/:project_id/icons/:id', to: 'icons#destroy', via: :delete, as: :icon_delete
 
 #---Social Meida---

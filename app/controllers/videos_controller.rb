@@ -2,7 +2,7 @@ class VideosController < ApplicationController
 
     require 'aws/s3'
 
-    protect_from_forgery :except => [:encode_notify]
+    protect_from_forgery :except => [:encode_notify, :create_project_video, :create_majorpost_video]
 
    def show
        @video = Video.find(params[:id])
@@ -12,40 +12,63 @@ class VideosController < ApplicationController
        @video = Video.new
     end
 
-    def create
-        @video = Video.create!(params[:video])
-        if @video.external != "" && @video.majorpost_id != nil then
-          external_video
-          redirect_to(:back)
-        else
+    def create_project_video
+        #Create project Video
+          @video = Video.new(params[:video])
+          @video.user_id = params[:user_id]
+          project = Project.find_by_slug(params[:project_id])
+          @video.project_id = project.id
+          @video.save
+          project.video_id = @video.id
+          project.save
           @video.encode!
+    end
+
+    def create_majorpost_video
+      @video = Video.new(params[:video])
+      @video.user_id = params[:user_id]
+      project = Project.find_by_slug(params[:project_id])
+      majorpost = Majorpost.find_by_slug(params[:majorpost_id])
+      @video.project_id = project.id
+      @video.majorpost_id = majorpost.id
+      @video.save
+      majorpost.video_id = @video.id
+      majorpost.save
+      @video.encode!
+    end
+
+    def add_external_video
+      @video = Video.new()
+      @video.direct_upload_url = params[:external]
+      @video.content_temp = params[:content_temp]
+      @video.tags_temp = params[:tags_temp]
+      @video.user_id = params[:user_id]
+      @video.external = params[:external]
+      @video.project_id = params[:project_id]
+      @video.majorpost_id = params[:majorpost_id]
+      @majorpost = Majorpost.find(params[:majorpost_id])
+      external_video
+      
+
+      if @video.content_temp != nil && @video.content_temp != "" then
+        @majorpost.content = @video.content_temp
+        if @video.tags_temp != nil && @video.tags_temp != "" then
+          tags = @video.tags_temp.split(",")
+          @majorpost.tag_list = tags
         end
-        #Content temp, this is to save the current content the user is editing...
-        if @video.majorpost_id != nil then # it is a majorpost
-          if @video.content_temp != nil && @video.content_temp != "" then 
-            @majorpost = Majorpost.find(@video.majorpost_id)
-            @majorpost.content = @video.content_temp
-            if @video.tags_temp != nil && @video.tags_temp != "" then
-              tags = @video.tags_temp.split(",")
-              @majorpost.tag_list = tags
-            end
-            @majorpost.save
-          end
-        else
-          if @video.content_temp != nil && @video.content_temp != "" then
-            @project = Project.find(@video.project_id)
-            @project.about = @video.content_temp
-            if @video.tags_temp != nil && @video.tags_temp != "" then
-              tags = @video.tags_temp.split(",")
-              @project.tag_list = tags
-            end
-            @project.save
-          end
-        end
+        @majorpost.save
+      end
+
         #Clean up the temp
         @video.content_temp = nil
         @video.tags_temp = nil
-        @video.save
+        @video.save   
+      redirect_to(:back)     
+    end
+
+    def create_external_video
+      external_video
+      redirect_to(:back)
     end
 
     def destroy
@@ -98,7 +121,7 @@ class VideosController < ApplicationController
     #process external video
     def external_video
         #youtube
-        @majorpost = Majorpost.find(@video.majorpost_id)
+        #@majorpost = Majorpost.find(@video.majorpost_id)
         @video_regexp = [ /^(?:https?:\/\/)?(?:www\.)?youtube\.com(?:\/v\/|\/watch\?v=)([A-Za-z0-9_-]{11})/, 
                    /^(?:https?:\/\/)?(?:www\.)?youtu\.be\/([A-Za-z0-9_-]{11})/,
                    /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/user\/[^\/]+\/?#(?:[^\/]+\/){1,4}([A-Za-z0-9_-]{11})/

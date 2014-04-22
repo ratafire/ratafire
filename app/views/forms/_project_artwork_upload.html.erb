@@ -3,30 +3,57 @@
 
 					<!-- If there is no artwork, show the upload -->
 					<% if @project.artwork_id != "" && @project.artwork_id != nil %>
+						<% if @artwork.processed == false %>
+							<script type="text/javascript">
 
-					<script type="text/javascript">
+        						$(document).ready(function() {
 
-        				$(document).ready(function() {
-
-              				//hide artwork upload and show artwork
-              				$("#no-artwork-case").hide();
-              				$('#has-artwork-case').show();
+              						//hide artwork upload and show artwork
+              						$("#no-artwork-case").hide();
+              						$('#has-artwork-case').show();
                     
-        				});
-					</script>
+        						});
+							</script>
+							<!-- Display Encoding & Delete if still encoding-->
 
-					<div id="has-artwork-case">
-						<div id="comment-input2" style="height:151px;margin: 0px 0 10px 0;background-image:url(<%= @artwork.image.url(:preview)%>);">
-							<!-- artwork delete button-->
-							<div class="btn-edit-right" id="delete-artwork">
-								<%= link_to 'Delete',artwork_delete_path(@project.creator,@project,@artwork),method: :delete,class:"btn-delete no_ajaxify"%>
-							</div>
-						</div>
-						<!-- Artwork Upload Title -->
-						<div class="artwork-eidtor-control-bar" >	
-							Has Artwork Original File: <%= @artwork.image_file_name %>
-						</div>
-					</div><!-- end:#has-artwork-case -->
+							<div id="has-artwork-case">
+								<div id="comment-input2" style="height:151px;margin: 0px 0 10px 0;background-image:url(/assets/background1.jpg);">
+									<!-- artwork delete button-->
+									<div class="btn-edit-right" id="delete-artwork">
+										<%= link_to 'Delete',artwork_delete_path(@project.creator,@project,@artwork),method: :delete,class:"btn-delete no_ajaxify"%>
+									</div>
+								</div>
+								<!-- Artwork Upload Title -->
+								<div class="artwork-eidtor-control-bar" >	
+									Upload Succeed! Your artwork is now processing. It may take 0-5 minutes before it is ready.
+								</div>
+							</div><!-- end:#has-artwork-case -->
+
+						<% else %>
+							<script type="text/javascript">
+
+        						$(document).ready(function() {
+
+              						//hide artwork upload and show artwork
+              						$("#no-artwork-case").hide();
+              						$('#has-artwork-case').show();
+                    
+        						});
+							</script>
+
+							<div id="has-artwork-case">
+								<div id="comment-input2" style="height:151px;margin: 0px 0 10px 0;background-image:url(<%= @artwork.image.url(:preview)%>);">
+									<!-- artwork delete button-->
+									<div class="btn-edit-right" id="delete-artwork">
+										<%= link_to 'Delete',artwork_delete_path(@project.creator,@project,@artwork),method: :delete,class:"btn-delete no_ajaxify"%>
+									</div>
+								</div>
+								<!-- Artwork Upload Title -->
+								<div class="artwork-eidtor-control-bar" >	
+									Has Artwork Original File: <%= @artwork.image_file_name %>
+								</div>
+							</div><!-- end:#has-artwork-case -->
+						<% end %><!-- if @artwork.processed-->	
 					<% end %><!-- if artwork is not nil -->
 
 					<div id="no-artwork-case">
@@ -42,70 +69,40 @@
 								<!-- Artwork Upload-box -->
 								<div id="artwork-upload-box">
 									<div class="video-upload-words artwork-button fileinput-button" id="artwork-drop">
-										<span>Click to choose or drop image file here</span>
+										<span>Click to choose an artwork file</span>
 										
-										<ul>Maximum size: 512MB. Accept JPG, PNG, BMP, PSD.</li></ul>
-										<%= form_for [@project.creator,@project,@artwork],id:"artwork-form",:html => {:class => 'no_ajaxify' } do |a|%>
-										<%= a.hidden_field :project_id, value: @project.id %><!-- only happends in project-->
-										<%= a.hidden_field :content_temp, id:"content_temp" %>
-										<%= a.hidden_field :tags_temp,id:"tags_temp" %>											
-										<%= a.file_field :image, multiple: false, class:"artwork-choose" %>
-										<script>
-										$('#artwork-upload-box').fileupload({
-  dataType: "script",
-  dropZone: $('#artwork-drop'),
-  pasteZone: null,
-  add: function(e, data) {
-    var file, types;
-    types = /(\.|\/)(jpe?g|png|psd|bmp)$/i;
-    file = data.files[0];
-    if (types.test(file.type) || types.test(file.name)) {
-      data.context = $(tmpl("template-upload2", file));
-      $('#artworkdata').append(data.context);
-      data.submit();
-      var callback = $.proxy();
-    } else {
-      return alert("" + file.name + " is not a jpg, png, bmp, or psd image file");
-    }
-  },
-  progress: function(e, data) {
-    var progress;
-    if (data.context) {
-      $("#artwork-upload-box").hide();
-      progress = parseInt(data.loaded / data.total * 100, 10);
-      return data.context.find('.bar-artwork').css('width', progress + '%');
-    }
-  },
-  temp_save: function(){
-  	var content_temp = $('#redactor_majorpost').val(),
-        tags_temp = $('#tags').val();
-   $('#content_temp').val(content_temp
-    );
-   $('#tags_temp').val(tags_temp
-    );
-  }  
-});
-										</script>
-										<% end %>
-									</div>
-								</div>
-								<!-- Artwork Progress-box --><div id="artwork-progress-case">
-								<script id="template-upload2" type="text/x-tmpl">
-								<div id="artwork-progress-box">
-									<div class="video-progress">
-										<div id="progress-bar-artwork" class='bar-artwork' style="width: 0%">
-											<div class="video-progress-words"><ul>Uploading and converting...</ul></div>
-											<div class="video-progress-cancel tipsy-tipsy" id="cancel-video" title="Cancel Upload">
+										<ul>Maximum size: 512MB. Accepts JPG, PNG, BMP, PSD.</li></ul>
+										<!-- fields for artwork -->
+										<%= s3_uploader_form callback_url: create_project_artwork_path(current_user,@project),
+  											id: "s3_uploader_artwork",
+											callback_param: "artwork[direct_upload_url]",
+											expiration: 24.hours.from_now.utc.iso8601,
+											max_file_size: 512.megabytes,:remote => true do %>
+											<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+										<% end %>	
+
+									</div><!-- end.video-upload-words-->
+								</div><!-- end.artwork-upload-box-->
+
+								<!-- Artwork Progress-box -->
+								<div id="artwork-progress-case"></div><!-- end.artwork-progress-box-->
+									<script id="template-upload-artwork" type="text/x-tmpl">
+										<div id="artwork-progress-box" class="upload">
+											<div class="video-progress">
+												<div id="progress-bar-artwork" class='bar-artwork' style="width: 0%">
+													<div class="video-progress-words">
+														<ul>Uploading artwork...</ul>
+													</div>
+													<div class="video-progress-cancel tipsy-tipsy" id="cancel-video" title="Cancel Upload">
+													</div>
+												</div>
 											</div>
-											<div id="artworkpreview"></div>
 										</div>
-									</div>
-								</div>
-								</script>
-								</div>
+									</script>
+								
 								<!-- Video Progress-box-->
 								<div id="artworkdata"></div>
-							</div>
-					</div>
+							</div><!-- end.video-upload-box-holder-->
+					</div><!-- end.comment-input2-->
 				</div><!--end:#no-artwork-case -->
 			</div><!-- end of image-case-->

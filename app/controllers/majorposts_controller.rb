@@ -67,9 +67,7 @@ class MajorpostsController < ApplicationController
 		@video = Video.new(params[:video])
 		@majorpost_count = @project.majorposts.where(:published => true).count
 		#Artwork
-		if @majorpost.artwork_id != "" && @majorpost.artwork_id != nil then
-			@artwork = Artwork.find(@majorpost.artwork_id)
-		end
+		@artwork = @majorpost.artwork
 		#Video
 		if @majorpost.video_id != "" && @majorpost.video_id != nil then
 			@video = Video.find(@majorpost.video_id)
@@ -87,13 +85,9 @@ class MajorpostsController < ApplicationController
 		@comment = Comment.new(params[:comment])
 		@majorpost_count = @project.majorposts.where(:published => true).count
 		#Artwork Original File
-		if @majorpost.artwork_id != "" && @majorpost.artwork_id != nil then
-			@artwork = Artwork.find(@majorpost.artwork_id)
-		end
+		@artwork = @majorpost.artwork
 		#Video
-		if @majorpost.video_id != nil && @majorpost.video_id != "" then
-			@video = Video.find(@majorpost.video_id)
-		end
+		@video = @majorpost.video
 		#Icon
 		if @project.icon_id != "" && @project.icon_id != nil then
 			@icon = Icon.find(@project.icon_id)	
