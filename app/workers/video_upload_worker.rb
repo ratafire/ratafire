@@ -20,7 +20,7 @@ class VideoUploadWorker
     	video.save
     
     	s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
-
+      video.encode!
 	end
 
 end	
