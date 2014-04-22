@@ -3,7 +3,7 @@ class Video < ActiveRecord::Base
 require 'aws/s3'
 
   # Environment-specific direct upload url verifier screens for malicious posted upload locations.
-  DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire#{!Rails.env.production? ? "\\_#{Rails.env}" : ''}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
+  DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
   before_create :set_upload_attributes
   after_create :queue_processing
