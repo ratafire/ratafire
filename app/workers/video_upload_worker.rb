@@ -2,7 +2,7 @@ class VideoUploadWorker
 
 	@queue = :video_upload_queue
 
-  DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire#{!Rails.env.production? ? "\\_#{Rails.env}" : ''}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
+  DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
 	def self.perform(id)
     	video = Video.find(id)
