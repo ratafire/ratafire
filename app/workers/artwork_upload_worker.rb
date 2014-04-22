@@ -2,9 +2,8 @@ class ArtworkUploadWorker
 
 	@queue = :artwork_upload_queue
 
-  DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
-
 	def self.perform(id)
+      DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
     	artwork = Artwork.find(id)
     	direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(artwork.direct_upload_url)
     	s3 = AWS::S3.new
