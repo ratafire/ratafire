@@ -6,7 +6,6 @@ require 'aws/s3'
   DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
   before_create :set_upload_attributes
-  after_create :queue_processing
   after_destroy :remove_encoded_video  
 
   attr_accessible :panda_video_id, :title, :external, :project_id, :majorpost_id,:video, :content_temp, :tags_temp, :archive_id, :direct_upload_url

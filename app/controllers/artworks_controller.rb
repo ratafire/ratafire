@@ -52,6 +52,7 @@ def create_project_artwork
 	@artwork.save
 	project.artwork_id = @artwork.id
 	project.save
+	Resque.enqueue(ArtworkUploadWorker,@artwork.id)
 end
 
 def create_majorpost_artwork
@@ -65,6 +66,7 @@ def create_majorpost_artwork
 	@artwork.save
 	majorpost.artwork_id = @artwork.id
 	majorpost.save
+	Resque.enqueue(ArtworkUploadWorker,@artwork.id)
 end
 
 def download
