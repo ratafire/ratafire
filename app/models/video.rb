@@ -22,7 +22,7 @@ require 'aws/s3'
   	:storage => :s3 # this is redundant if you are using S3 for all your storage requirements
 
   validates_attachment :video, 
-    :content_type => { :content_type => ["video/avi","videp/mp4","video/mov","video/mpeg4","video/wmv","video/flv","video/3gpp", "video/webm"]},
+    :content_type => { :content_type => ["video/avi","video/mp4","video/mov","video/mpeg4","video/wmv","video/flv","video/3gpp", "video/webm"]},
     :size => { :in => 0..2097152.kilobytes}  
 
   #validates_attachment_presence :video
@@ -85,15 +85,15 @@ require 'aws/s3'
       #Zencoder
       zen = Zencoder.new("http://s3.amazonaws.com/" + zencoder_setting["s3_output"]["bucket"], zencoder_setting["settings"]["notification_url"])
       # 'video.url(:original, false)' prevents paperclip from adding timestamp, which causes errors
-      #if zen.encode(self.video.url(:original, false), 800, 450, "/thumbnails_#{self.id}", options)
+      if zen.encode(self.video.url(:original, false), 800, 450, "/thumbnails_#{self.id}", options)
         self.encoded_state = "queued"
         self.output_url = zen.output_url
         self.job_id = zen.job_id
         self.save
-      #else
-      #  errors.add_to_base(zen.errors)
-      #  nil
-      #end
+      else
+        errors.add_to_base(zen.errors)
+        nil
+      end
     rescue RuntimeError => exception
       errors.add_to_base("Video encoding request failed with result: " + exception.to_s)
       nil
