@@ -9,7 +9,6 @@ class Artwork < ActiveRecord::Base
   DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
   before_create :set_upload_attributes
-  after_create :queue_processing
 
   #--- Artwork Attachment ---
   has_attached_file :image, 
