@@ -36,80 +36,36 @@
 							<div class="majorpost-user-inspirer-indicator">Upload</div>
 							<div class="video-upload-box-holder">
 								<!-- Video Upload-box -->
-								<% unless current_user.admin? %>
-								<div id="video-upload-box">
-									<div class="video-upload-words artwork-button fileinput-button">
-										<span>+_+ We are updating the video upload system</span>
-										<ul>Sorry you cannot upload videos now.</ul>
-								<% else %>
+
 								<div id="video-upload-box">
 									<div class="video-upload-words artwork-button fileinput-button" id="video-drop">
-										<span>Click to choose or drop video file here</span>
+										<span>Click to choose a video file</span>
 										<ul>Maximum size: 2GB. Recommanded resolution: 1080p.</li></ul>
-				<!-- fields for video -->
-								<% end %>
-					<%= form_for [@project.creator,@project,@video],:html => {:class => 'no_ajaxify',:id => "majorpost_video_upload_form" } do |v|%>
-						<%= v.hidden_field :project_id, value: @project.id %>
-						<%= v.hidden_field :majorpost_id, value: @majorpost.id %>
-						<%= v.hidden_field :content_temp, id:"content_temp_video" %>
-						<%= v.hidden_field :tags_temp,id:"tags_temp_video" %>
-						<%= v.file_field :video, multiple: false, class:"artwork-choose" %>	
-									</div>
-								</div>
+										<!-- fields for video -->
+										<%= s3_uploader_form callback_url: create_majorpost_video_path(current_user,@project,@majorpost),
+  											id: "s3_uploader_video",
+											callback_param: "video[direct_upload_url]",
+											expiration: 24.hours.from_now.utc.iso8601,
+											max_file_size: 2048.megabytes,:remote => true do %>
+											<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+										<% end %>		
+									</div><!-- end.video-upload-words-->
+								</div><!-- end#video-upload-box-->
 
-						<!-- Javascript for the video uploader-->
-										<script>
-										$('#video-upload-box').fileupload({
-  dataType: "script",
-  dropZone: $('#video-drop'),
-  pasteZone: null,
-  add: function(e, data) {
-    var file, types;
-    types = /(\.|\/)(avi|mp4|mov|mpeg4|wmv|flv|3gpp|webm)$/i;
-    file = data.files[0];
-    if (types.test(file.type) || types.test(file.name)) {
-      data.context = $(tmpl("template-upload3", file));
-      $('#external-video').val("");
-      $('#videodata').append(data.context);
-      data.submit();
-      var callback = $.proxy();
-    } else {
-      return alert("" + file.name + " is not a avi, mp4, mov, mpeg4, wmv, flv, 3gpp or a webm video file.");
-    }
-  },
-  progress: function(e, data) {
-    var progress;
-    if (data.context) {
-      $("#video-upload-box").hide();
-      progress = parseInt(data.loaded / data.total * 100, 10);
-      return data.context.find('.bar-video').css('width', progress + '%');
-    }
-  },
-  temp_save: function(){
-  	var content_temp = $('#redactor_majorpost').val(),
-        tags_temp = $('#tags').val();
-   $('#content_temp_video').val(content_temp
-    );
-   $('#tags_temp_video').val(tags_temp
-    );
-  }
-});
-</script>
-
-
-												<!-- Video Progress-box-->
-												<div id="artwork-progress-case">
-												<script id="template-upload3" type="text/x-tmpl">
-								<div id="video-progress-box">
-									<div class="video-progress">
-										<div id="progress-bar-artwork" class='bar-video' style="width: 0%">
-											<div class="video-progress-words"><ul>Uploading and getting ready to encode...</ul></div>
-											<div class="video-progress-cancel2 tipsy-tipsy no_ajaxify" id="cancel-video" title="Cancel Upload"></div>
+								<!-- Video Progress-box-->
+								<div id="video-progress-case"></div><!-- end. Video Progress-box-->
+									<script id="template-upload-video" type="text/x-tmpl">
+										<div id="video-progress-box">
+											<div class="video-progress">
+												<div id="progress-bar-artwork" class='bar-video' style="width: 0%">
+													<div class="video-progress-words">
+														<ul>Uploading video...</ul>
+													</div>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-								</script>
-								</div>
+									</script>
+
 								<!-- Video Progress-box-->
 								<div id="videodata"></div>
 
@@ -119,8 +75,15 @@
 								<!-- Cutter --><ol style="margin-top:-1px;"></ol>
 								<!-- External-Video-input-->
 								<div class="majorpost-user-inspirer-holder">
-										<%= v.text_field :external, class:"user", type:"user-inspirer",style:"width:641px;", placeholder:"Enter youtube or vimeo link, leave it blank if you upload your video.", id:"external-video", onchange:"externalOnchange()" %>
-										<% end %>
+									<%= form_tag add_external_video_path, id:"majorpost_video_upload_form",class:"no_ajaxify" do %>
+										<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+										<%= hidden_field_tag :project_id, @project.id %>
+										<%= hidden_field_tag :majorpost_id, @majorpost.id %>
+										<%= hidden_field_tag :user_id, current_user.id %>
+										<%= hidden_field_tag :content_temp, nil,id:"content_temp_video" %>
+										<%= hidden_field_tag :tags_temp,nil,id:"tags_temp_video" %>										
+										<%= text_field_tag "external", nil,class:"user", type:"user-inspirer",style:"width:641px;", placeholder:"Enter youtube or vimeo link, leave it blank if you upload your video.", id:"external-video", onchange:"externalOnchange()" %>
+									<% end %>	
 								</div><!-- end of external video input-->
 							</div>
 

@@ -22,6 +22,16 @@ GIT
       orm_adapter
 
 GIT
+  remote: git://github.com/ratafire/s3_direct_upload.git
+  revision: 9cafbbe5ee00aed8ed0cfb8a8ff13d52ce660852
+  specs:
+    s3_direct_upload (0.1.7)
+      coffee-rails (>= 3.1)
+      jquery-fileupload-rails (~> 0.4.1)
+      rails (>= 3.1)
+      sass-rails (>= 3.1)
+
+GIT
   remote: git://github.com/ratafire/videojs_rails.git
   revision: a0fcae5aaf7615f4ed12b4653b428e361d32eaa1
   specs:
@@ -478,6 +488,7 @@ DEPENDENCIES
   resque-scheduler (= 2.5.5)
   rest-client
   rspec-rails (= 2.10.0)
+  s3_direct_upload!
   sanitize (= 2.1.0)
   sass-rails
   thinking-sphinx (= 3.1.0)

@@ -4,25 +4,12 @@
 								<div id="video-success-box" style="height:80px;">
 									<div class="video-upload-words">
 									<span>Upload Succeed! Your Video is now encoding.</span>
-									<ul>In order to see your video after it is encoded, publish your project when you finish editing.</ul>
+									<ul>It may take 10-25 minutes before it is ready.</ul>
 									</div>
 								</div>
 <% end %>
-
-<!-- Convert the value of the artwork id to json-->
-<script id="video-id-json">
-	<%= video.id.to_json %>
-</script>
-
-<!-- parse the json -->
 <script>
 $(document).ready(function(){
-
-    var myVars2JSON = $("#video-id-json").html(),
-        myVars2     = $.parseJSON(myVars2JSON);
-    //parse the value into majorpost.artwork_id input field
-	$("#project-video-id").val(myVars2); //so it is on project edit page, find this #in the page and you shall see!
 	$("#video-progress-box").hide();
-	$("#project-form").delay(5000).submit();
 });	
 </script>

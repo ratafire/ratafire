@@ -35,86 +35,40 @@
 							<!-- Upload-->
 							<div class="majorpost-user-inspirer-indicator">Upload</div>
 							<div class="video-upload-box-holder">
-								<% unless current_user.admin? %>
-								<div id="video-upload-box">
-									<div class="video-upload-words artwork-button fileinput-button">
-										<span>+_+ We are updating the video upload system</span>
-										<ul>Sorry you cannot upload videos now.</ul>
-									</div>	
-								</div>	
-								<% else %>
 								<!-- Video Upload-box -->
 								<div id="video-upload-box">
 									<div class="video-upload-words artwork-button fileinput-button" id="video-drop">
 
-										<span>Click to choose or drop video file here</span>
+										<span>Click to choose a video file</span>
 										<ul>Maximum size: 2GB. Recommanded resolution: 1080p.</ul>
-				<!-- fields for video -->
+										<!-- fields for video -->
+										<%= s3_uploader_form callback_url: create_project_video_path(current_user,@project),
+  											id: "s3_uploader_video",
+											callback_param: "video[direct_upload_url]",
+											expiration: 24.hours.from_now.utc.iso8601,
+											max_file_size: 2048.megabytes,:remote => true do %>
+											<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+										<% end %>		
 
-					<%= form_for [@project.creator,@project,@video],:html => {:class => 'no_ajaxify' } do |v|%>
-						<%= v.hidden_field :project_id, value: @project.id %>
-						<%= v.hidden_field :content_temp, id:"content_temp_video" %>
-						<%= v.hidden_field :tags_temp,id:"tags_temp_video" %>						
-						<%= v.file_field :video, multiple: false, class:"artwork-choose" %>
-					<% end %>							
-									</div>
-								</div>
+									</div><!-- end.video-upload-words-->
+								</div><!--end.video-upload-box -->
 
-						<!-- Javascript for the video uploader-->
-										<script>
-										$('#video-upload-box').fileupload({
-  dataType: "script",
-  dropZone: $('#video-drop'),
-  pasteZone: null,
-  add: function(e, data) {
-    var file, types;
-    types = /(\.|\/)(avi|mp4|mov|mpeg4|wmv|flv|3gpp|webm)$/i;
-    file = data.files[0];
-    if (types.test(file.type) || types.test(file.name)) {
-      data.context = $(tmpl("template-upload3", file));
-      $('#videodata').append(data.context);
-      data.submit();
-      var callback = $.proxy();
-    } else {
-      return alert("" + file.name + " is not a avi, mp4, mov, mpeg4, wmv, flv, 3gpp or a webm video file.");
-    }
-  },
-  progress: function(e, data) {
-    var progress;
-    if (data.context) {
-      $("#video-upload-box").hide();
-      progress = parseInt(data.loaded / data.total * 100, 10);
-      return data.context.find('.bar-video').css('width', progress + '%');
-    }
-  },
-  temp_save: function(){
-  	var content_temp = $('#redactor_majorpost').val(),
-        tags_temp = $('#tags').val();
-   $('#content_temp_video').val(content_temp
-    );
-   $('#tags_temp_video').val(tags_temp
-    );
-  }  
-});
-</script>
-
-
-												<!-- Video Progress-box-->
-												<div id="artwork-progress-case">
-												<script id="template-upload3" type="text/x-tmpl">
-								<div id="video-progress-box">
-									<div class="video-progress">
-										<div id="progress-bar-artwork" class='bar-video' style="width: 0%">
-											<div class="video-progress-words"><ul>Uploading and getting ready to encode...</ul></div>
-											<div class="video-progress-cancel2 tipsy-tipsy no_ajaxify" id="cancel-video" title="Cancel Upload"></div>
-										</div>
-									</div>
-								</div>
-								</script>
-								</div>
 								<!-- Video Progress-box-->
+								<div id="video-progress-case"></div><!-- end. Video Progress-box-->
+									<script id="template-upload-video" type="text/x-tmpl">
+										<div id="video-progress-box">
+											<div class="video-progress">
+												<div id="progress-bar-artwork" class='bar-video' style="width: 0%">
+													<div class="video-progress-words">
+														<ul>Uploading video...</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</script>
+								
+								
 								<div id="videodata"></div>
-								<% end %>
 						</div><!-- end videoupload box holder-->
 					</div><!-- end comment input-->
 				</div><!-- end:#video-upload-case -->

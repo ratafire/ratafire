@@ -2,6 +2,8 @@ class IconsController < ApplicationController
 
 SEND_FILE_METHOD = :default
 
+protect_from_forgery :except => [:create_project_icon]
+
 def create
 	@icon = Icon.create(params[:icon])
 	@project = Project.find(@icon.project_id)
@@ -14,6 +16,16 @@ def create
 	@icon.content_temp = nil
 	@icon.tags_temp = nil
 	@icon.save
+end
+
+def create_project_icon
+	@icon = Icon.new(params[:icon])
+	@icon.user_id = params[:user_id]
+	project = Project.find_by_slug(params[:project_id])
+	@icon.project_id = project.id
+	@icon.save
+	project.icon_id = @icon.id
+	project.save
 end
 
 def update

@@ -2,6 +2,8 @@ class ArtworksController < ApplicationController
 
 SEND_FILE_METHOD = :default
 
+protect_from_forgery :except => [:create_project_artwork, :create_majorpost_artwork]
+
 #Temporary download method for I cannot get download to work!!
 def show
 	@artwork = Artwork.find(params[:id])
@@ -39,6 +41,30 @@ def create
 	@artwork.content_temp = nil
 	@artwork.tags_temp = nil
 	@artwork.save
+end
+
+def create_project_artwork
+	#Create project artwork
+	@artwork = Artwork.new(params[:artwork])
+	@artwork.user_id = params[:user_id]
+	project = Project.find_by_slug(params[:project_id])
+	@artwork.project_id = project.id
+	@artwork.save
+	project.artwork_id = @artwork.id
+	project.save
+end
+
+def create_majorpost_artwork
+	#Create majorpost artwork
+	@artwork = Artwork.new(params[:artwork])
+	@artwork.user_id = params[:user_id]
+	project = Project.find_by_slug(params[:project_id])
+	majorpost = Majorpost.find_by_slug(params[:majorpost_id])
+	@artwork.project_id = project.id
+	@artwork.majorpost_id = majorpost.id
+	@artwork.save
+	majorpost.artwork_id = @artwork.id
+	majorpost.save
 end
 
 def download

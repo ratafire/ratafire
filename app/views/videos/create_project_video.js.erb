@@ -1,0 +1,5 @@
+<% if @video.new_record? %>
+	alrt("Failed");
+<% else %>
+	$("#videodata").append("<%= j render(@video) %>");
+<% end %>
