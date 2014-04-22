@@ -21,8 +21,6 @@ class VideosController < ApplicationController
           @video.save
           project.video_id = @video.id
           project.save
-          @video.encode!
-          Resque.enqueue(VideoUploadWorker,@video.id)
     end
 
     def create_majorpost_video
@@ -36,7 +34,6 @@ class VideosController < ApplicationController
       majorpost.video_id = @video.id
       majorpost.save
       @video.encode!
-      Resque.enqueue(VideoUploadWorker,@video.id)
     end
 
     def add_external_video
