@@ -286,7 +286,7 @@ private
     	@subscribed = User.find(params[:id])
     	@subscriber = current_user
     	#Check History to see if the last subscription is within one month
-    	if subscription_permission_30days == false then
+    	if subscription_permission_30days then
     		redirect_to(:back)
     	else
         	#Check if the subscribed has opened subscription
