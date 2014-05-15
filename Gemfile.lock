@@ -13,6 +13,15 @@ GIT
       omniauth-oauth (~> 1.0)
 
 GIT
+  remote: git://github.com/ratafire/amazon_flex_pay.git
+  revision: 3d614b1edc0054c95819d064988c22e11dcc432b
+  specs:
+    amazon_flex_pay (0.10.0)
+      activesupport (>= 3.0.14)
+      multi_xml (>= 0.5.2)
+      rest-client (~> 1.6.1)
+
+GIT
   remote: git://github.com/ratafire/redactor-rails.git
   revision: e5c5997d37bc9c6d5bc8a7511208f970a7f30abe
   specs:
@@ -440,6 +449,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (= 2.4.1)
   ajaxify_rails (= 0.9.5)
+  amazon_flex_pay!
   annotate (= 2.5.0)
   aws-s3 (= 0.6.3)
   aws-sdk (= 1.38.0)
