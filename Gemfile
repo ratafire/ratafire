@@ -85,7 +85,7 @@ gem 'google-analytics-rails'
 #Amazon Payments
 gem "rest-client", :require => "rest_client"
 #gem 'netrc' #rest-client dependency
-#gem 'amazon_flex_pay', github: 'ratafire/amazon_flex_pay' #changed for reacurring pipeline
+gem 'amazon_flex_pay', github: 'ratafire/amazon_flex_pay' #changed for reacurring pipeline
 gem "figaro" #configuration
 
 #Pass value from controller to javascript
