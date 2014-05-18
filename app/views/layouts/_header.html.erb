@@ -50,7 +50,7 @@
 			<!-- User Name -->
 			<div id="namebox" >
 				<%= link_to "Blog", blog_path, class:"no_ajaxify home"%>
-				<%if current_user.admin? %><%= link_to "Admin",admin_blog_path, class:"no_ajaxify home"%><% end %>
+				<%if current_user.admin? %><%= link_to "Admin",admin_path, class:"no_ajaxify home"%><% end %>
 				<%= link_to "Home",interesting_homepage_path(current_user), class:"no_ajaxify home"%>
 				<%= link_to "Realms", all_path, class:"no_ajaxify home"%>
 				<%= link_to current_user.first_name, current_user, class:'no_ajaxify' %>

@@ -244,6 +244,8 @@ Ratafire::Application.routes.draw do
   match '/add_tests', to: 'admin#add_tests', via: :post
   match '/untest_content/this_is_a_real_thing/let_me_come_back/i_am_serious/:type/:id', to: 'admin#untest', as: :untest
 
+  match '/admin', to: 'admin#main', as: :admin
+
 #---Tests--- 
   match '/test_resque', to: 'admin#test_resque', as: :test_resque 
 

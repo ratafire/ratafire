@@ -8,6 +8,10 @@ class AdminController < ApplicationController
 	def content
 	end
 
+	def main
+		@quote = Quote.offset(rand(Quote.count)).first
+	end
+
 	def content_project
 		respond_to do |format|
     		format.html
