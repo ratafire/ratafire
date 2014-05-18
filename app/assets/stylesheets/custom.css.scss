@@ -1795,10 +1795,11 @@ box-shadow: -4px -3px 21px -9px rgba(204,204,204,1);*/
 	margin: -21px 10px 0 0;
 	color: #f1f1f1;
 	a{	
+		font: Helvetica, arial, freesans, clean, sans-serif;
 		font-size:1em;
-		color:#999999;
+		color:#999;
 		&:hover {
-			color:#666666;
+			color:#666;
 			text-decoration: none;
 		}
 	}
@@ -2928,7 +2929,7 @@ display: none;
 	width: 20px;
 	display: block;
 	text-align: center;
-	font: 11px/100% Arial, Helvetica, sans-serif;
+	font: 11px/100% Helvetica, arial, freesans, clean, sans-serif;
 	text-transform: uppercase;
 	text-decoration: none;
 	color: #bbb;
