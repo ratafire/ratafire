@@ -28,7 +28,7 @@
 							<div class="textbox-mini" style="color:#999;">
 
 								<h2>We currently have</h2>
-								<span style="color:#2297ce;font-size:4em;"><%= User.count %></span> users, <span style="color:#84b153;font-size:3.5em;"><%= Project.count %></span> projects, <span style="color:#ffc703;font-size:3em;"><%= Majorpost.count %></span> majorposts, <span style="color:#d64937;font-size:2em;"><%= Tag.count%></span> tags.
+								<span style="color:#2297ce;font-size:4em;"><%= User.count %></span> users, <span style="color:#84b153;font-size:3.5em;"><%= Project.where(:published => true, :deleted => false).count %></span> projects, <span style="color:#ffc703;font-size:3em;"><%= Majorpost.where(:published => true, :deleted => false).count %></span> majorposts, <span style="color:#d64937;font-size:2em;"><%= Tag.count%></span> tags, <span style="color:#d64937;font-size:2em;"><%= Subscription.where(:deleted => false, :activated => true).count%></span> subscriptions.
 
 								
 							</div><!-- end.textbox-mini-->
