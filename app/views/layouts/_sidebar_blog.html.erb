@@ -1,0 +1,12 @@
+<!-- Sidebar for Update-->
+<div class="sidebar" type="blog">
+	<%= link_to blog_new_features_path do %><ol id="blog-new-features">New Features</ol><% end %>
+	<%= link_to blog_engineering_path do %><ol id="blog-engineering">Engineering</ol><% end %>
+	<%= link_to blog_design_path do %><ol id="blog-design">Design</ol><% end %>
+	<%= link_to blog_news_path do %><ol id="blog-news">News</ol><% end %>
+	<%= link_to blog_path do %><ol id="blog-all-posts">All Posts</ol><% end %>
+	<%= link_to image_tag("/assets/rss.png"),blog_path(format: "atom"), class:"no_ajaxify tipsy-tipsy", title:"Feed"%>
+</div>	
+
+<!-- Script for changing tags -->
+<%= render 'layouts/sidebar_blog_js'%>

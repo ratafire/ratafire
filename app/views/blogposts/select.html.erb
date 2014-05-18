@@ -1,0 +1,46 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Blog Posts") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_admin' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+						
+							<h1>Blog Posts</h1>
+							<h5>“I don’t know what’s worse: to not know what you are and be happy, or to become what you’ve always wanted to be, and feel alone. ” — Daniel Keyes</h5>
+							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+						<!-- end of textbox-->
+						</div>						
+
+						<!-- New Blog Posts -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+
+								<h2>Create a New Post In</h2>
+
+								<div><%= link_to "New Features", blog_post_create_path("new-features"), class:"no_ajaxify btn-delete"%> <%= link_to "Engineering", blog_post_create_path("engineering"), class:"no_ajaxify btn-delete"%> <%= link_to "Design", blog_post_create_path("design"), class:"no_ajaxify btn-delete"%> <%= link_to "News", blog_post_create_path("news"), class:"no_ajaxify btn-delete"%></div>
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->			
+
+						<!-- Blog Posts -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<%= render 'admin/blogposts'%>
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->	
+						
+						</div><!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+			</div><!-- end of main-content-->

@@ -1,0 +1,38 @@
+<script type="text/javascript">
+
+	$('#blog-new-features').click(function() {
+			$("#blog-new-features").addClass("blog-sidebar-active");
+			$("#blog-engineering").removeClass("blog-sidebar-active");
+			$("#blog-design").removeClass("blog-sidebar-active");
+			$("#blog-news").removeClass("blog-sidebar-active");		
+	});
+
+	$("#blog-engineering").click(function() {
+			$("#blog-new-features").removeClass("blog-sidebar-active");
+			$("#blog-engineering").addClass("blog-sidebar-active");
+			$("#blog-design").removeClass("blog-sidebar-active");
+			$("#blog-news").removeClass("blog-sidebar-active");
+	});	
+
+	$("#blog-design").click(function() {
+			$("#blog-new-features").removeClass("blog-sidebar-active");
+			$("#blog-engineering").removeClass("blog-sidebar-active");
+			$("#blog-design").addClass("blog-sidebar-active");
+			$("#blog-news").removeClass("blog-sidebar-active");
+	});	
+
+	$("#blog-news").click(function() {
+			$("#blog-new-features").removeClass("blog-sidebar-active");
+			$("#blog-engineering").removeClass("blog-sidebar-active");
+			$("#blog-design").removeClass("blog-sidebar-active");
+			$("#blog-news").addClass("blog-sidebar-active");
+	});		
+
+	$("#blog-all-posts").click(function() {
+			$("#blog-new-features").removeClass("blog-sidebar-active");
+			$("#blog-engineering").removeClass("blog-sidebar-active");
+			$("#blog-design").removeClass("blog-sidebar-active");
+			$("#blog-news").removeClass("blog-sidebar-active");
+	});		
+
+</script>

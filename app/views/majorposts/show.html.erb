@@ -44,7 +44,7 @@
 
 		<%if @majorpost.video != nil %>
 			<% if @majorpost.video.external != nil && @majorpost.video.external != "" %>
-				<% if @majorpost.video.youtube_vimeo == ture %>
+				<% if @majorpost.video.youtube_vimeo == true %>
 					<!-- Youtube-->
 					<%= tag :meta, property: "og:video", content: "http://www.youtube.com/embed/#{@video.external}"%>
 				<% else %>

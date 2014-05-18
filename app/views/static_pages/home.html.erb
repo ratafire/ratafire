@@ -35,7 +35,7 @@
 
 				<!-- Home Page Buttons -->
 				<div id="Home-page-btn">
-						<%= link_to "SIGN UP", beta_path , class: "btn btn-small2 btn-small-green Home-page-margin no_ajaxify"%>
+						<%= link_to "SIGN UP", new_user_registration_path , class: "btn btn-small2 btn-small-green Home-page-margin no_ajaxify"%>
 
 						<%= link_to "SIGN IN", new_user_session_path , class: "btn btn-small2 btn-small-blue Home-page-margin no_ajaxify" %>
 
@@ -75,7 +75,7 @@
 					<h2>Post and collaborate on your projects.</h2>
 					<h2>Help bring projects you love to reality by subscribing to project creators directly with monthly subscription fees.</h2>
 					<h2><%= link_to "Learn even more or ⌄", guidelines_path, class:"no_ajaxify"%></h2>
-					<%= link_to image_tag("join.jpg"), beta_path , class: "no_ajaxify tipsy-tipsy", title:"❤"%>
+					<%= link_to image_tag("join.jpg"), new_user_registration_path , class: "no_ajaxify tipsy-tipsy", title:"❤"%>
 				</div>
 			</div><!-- end.center-->
 		</section><!-- end.second window-->	
