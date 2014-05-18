@@ -12,6 +12,7 @@ class Majorpost < ActiveRecord::Base
   belongs_to :project
   has_many :comments, dependent: :destroy
   has_many :postimages, dependent: :destroy
+  has_many :blogposts, dependent: :destroy
   has_one :video, dependent: :destroy
   has_one :artwork, dependent: :destroy
   has_one :archive

@@ -36,6 +36,7 @@ $(document).on('ajaxify:content_loaded', function(){
     } // end of redactor
   );
 
+  //--- Project Comment --- 
     $('#redactor_project_comment').redactor(
     {toolbarFixedBox: true,
       "imageUpload":"/redactor_rails/pictures?" + params,
@@ -85,6 +86,30 @@ $(document).on('ajaxify:content_loaded', function(){
           title: 'Video',
           callback: VideoCase
         },
+      } 
+
+    } // end of redactor
+  );
+
+  //--- Blog ---
+  $('#redactor_blog').redactor(
+    {toolbarFixedBox: true,
+      "imageUpload":"/redactor_rails/pictures?" + params,
+      "imageGetJson":"/redactor_rails/pictures",
+      "fileUpload":"/redactor_rails/documents?" + params,
+      "fileGetJson":"/redactor_rails/documents",
+      "path":"/assets/redactor-rails",
+      "css":"style.css",
+      plugins: ['fullscreen','quote','advanced'],
+      minHeight: 430,
+      buttons: ['html', '|','formatting','unorderedlist', '|','bold', 'italic', 'deleted', '|', 'link','quote','code', 'equation', '|', 'image', 'video','|' 
+      ],
+      buttonsCustom: {
+        quote: {
+          title: 'Quote',
+          callback: formatQuote
+        }
+
       } 
 
     } // end of redactor

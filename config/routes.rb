@@ -5,10 +5,10 @@ Ratafire::Application.routes.draw do
   get "activities/index"
 
   #devise_for :users, :controllers => { :registrations => "registrations"}
-  devise_scope :user do
-    get "/users/sign_up",  :to => "users#no_sign_up"
-    get "/early_access" => "devise/registrations#new"
-  end
+  #devise_scope :user do
+  #  get "/users/sign_up",  :to => "users#no_sign_up"
+  #  get "/early_access" => "devise/registrations#new"
+  #end
   devise_for :users, :controllers => { :invitations => 'users/invitations', :omniauth_callbacks => "users/omniauth_callbacks",:registrations => "registrations" }
   match "/signup" => "devise/registrations#new"
 
@@ -246,6 +246,20 @@ Ratafire::Application.routes.draw do
 
 #---Tests--- 
   match '/test_resque', to: 'admin#test_resque', as: :test_resque 
+
+#---Blog---
+  match '/blog', to: 'blogposts#show', as: :blog
+  match '/blogselect', to: 'blogposts#select', as: :admin_blog
+  match '/blog/category/:category/create', to: 'blogposts#create', as: :blog_post_create
+  match '/blog/category/:category/:id', to: 'blogposts#single', as: :blog_post
+  match '/blog/category/:category/:id/edit', to: 'blogposts#edit', as: :edit_blog_post
+  match '/blog/category/:category/:id/delete', to:'blogposts#delete', as: :delete_blog_post
+  match '/blog/category/:category/:id/update', to: 'blogposts#update', as: :update_blog_post
+  match '/blog-new-features', to: 'blogposts#new_features', as: :blog_new_features
+  match '/blog-engineering', to: 'blogposts#engineering', as: :blog_engineering
+  match '/blog-design', to: 'blogposts#design', as: :blog_design
+  match '/blog-news', to: 'blogposts#news', as: :blog_news
+  match '/blog/category-selector/r/r/r/r/:category', to: 'blogposts#category_selector', as: :blog_category_selector
 
 #---Resources---
   resources :users, :path => '/' do

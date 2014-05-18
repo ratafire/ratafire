@@ -1,0 +1,32 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Blog") %>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<% content_for(:below_header) do %>
+    	<%= render 'blogposts/blog_header' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Right Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<% content_for(:side_bar_right) do %>
+    	<%= render 'layouts/sidebar_blog'%>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">
+
+		
+			<%= render partial: 'blogposts/blogposts', collection: @blogpost, :as => :blogpost %>
+		
+		<%= render 'layouts/footer' %>
+
+										<!-- Pagination -->
+									<div id="profile-paginate">
+										<div class="textbox-mini">
+											<span><%= will_paginate @blogpost, :param_name => 'page', class:"rata_pagination" %></span>	
+										</div>
+									</div>
+
+	</div><!-- end of main-content -->	

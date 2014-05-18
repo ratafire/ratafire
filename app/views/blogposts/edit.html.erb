@@ -1,0 +1,55 @@
+	<!-- Page Title -->
+	<% provide(:title, "Edit Blog Posts") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_admin' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+
+							<%= form_for [@blogpost], :url => update_blog_post_path(@blogpost.category,@blogpost),:validate => true, :html => {:class => 'no_ajaxify',:id => "blog-form" } do |f| %>
+								<%= f.hidden_field :published, id:"blog-published"%>
+
+								<div><%= f.text_field :title,type:"user-inspirer",placeholder:'Enter the title of this blog post', style:"width: 729px;"%></div>
+								<div class="blogpostarea">
+									<%= f.text_area :content, id:"redactor_blog" %>
+								</div>
+
+												<!-- Submit before published -->
+				<% if @blogpost.published == false %>
+				<div style="margin: 15px -2px 0 0; text-align:right;">
+					<span id="submit">
+						<%= f.submit "Save", class: "btn-submit btn-submit-small btn btn-small btn-small-white no_ajaxify" %>
+						<div class="btn btn-small2 btn-small-green no_ajaxify" id="blog-publish-button">Publish</div>
+					</span>
+				</div>
+				<% else %>
+				<!-- Submit after Published -->
+					<div style="margin: 15px -2px 0 0; text-align:right;">
+					<span id="submit">
+						<%= f.submit "Edit Post", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-white no_ajaxify" %>
+					</span>
+				</div>
+				<% end %>
+							<% end %>
+
+						<!-- end of textbox-->
+						</div>						
+
+						</div><!-- Footer -->
+				<%= render 'layouts/footer' %>
+				<script>
+				              //publish-button
+              $('#blog-publish-button').click(function() {
+                  $("#blog-published").val("t");
+                  $("#blog-form").submit();
+              });
+				</script>
+			</div><!-- end of main-content-->

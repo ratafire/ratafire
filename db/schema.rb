@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140421031116) do
+ActiveRecord::Schema.define(:version => 20140518044000) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -160,6 +160,21 @@ ActiveRecord::Schema.define(:version => 20140421031116) do
     t.integer  "majorpost_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "blogposts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "slug"
+    t.string   "category"
+    t.text     "content"
+    t.text     "excerpt"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "deleted",    :default => false
+    t.boolean  "featured"
+    t.boolean  "published"
+    t.datetime "deleted_at"
   end
 
   create_table "commentimages", :force => true do |t|
