@@ -16,7 +16,7 @@
 			<%= form_tag search_path, method: :get, :class => 'no_ajaxify' do %>
 				<div class="searchbox-holder">
 					<%= text_field_tag :search, params[:search], class:"inputbox searchbox", type:"searchbox", placeholder:"Search..."%>
-					<%= submit_tag "", name: nil, class:"btn btn-search"%>
+					<%= submit_tag "", name: nil, class:"btn btn-search", style:"width: 13px !important;"%>
 				</div>
 			<% end %>
 			<!-- when not signed in-->
