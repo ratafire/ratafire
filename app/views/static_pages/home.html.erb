@@ -8,12 +8,15 @@
 		<a style="display:none;"href="https://plus.google.com/108376636120204861351" rel="publisher">Google+</a>
 	<% end %>
 
-<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-
+	<% content_for :additional_background do %>
 
 		<!-- Window 1 -->
+	<div class="wrapper-main">
 		<section class="window" id="window1">
 
 		<!-- Home Page Beta Pic -->
@@ -57,20 +60,22 @@
 						<%= render 'layouts/footer' %>
 						</div>
 		</section><!-- end.first window -->
-		
+	</div><!-- end:.wrapper -->	
+
 		<!-- Window 2 -->
 		<section class="window" id="window2">
-			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
-				<div class="Home-page-container">
-					<h2>Ratafire is a new way to live for your creative or research dreams. </h2>
+			<div class="center" style="margin: 0 auto;width:1089px;">
+				<div class="Home-page-container3">
+					<h2 style="color:#ffffff;">Ratafire is a new way to live for your creative or research dreams. </h2>
 				</div>
-				<%= image_tag("arrow.png") %>
+				<div><%= image_tag("arrow.png") %></div>
 			</div><!-- end.center-->
 		</section><!-- end.second window-->	
 
 		<!-- Window 2 -->
-		<section class="window" id="window3">
-			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
+
+		<section class="window" id="window3" >
+			<div class="center" style="margin: 0 auto;width:1089px;">
 				<div class="Home-page-container2">
 					<h2>Post and collaborate on your projects.</h2>
 					<h2>Help bring projects you love to reality by subscribing to project creators directly with monthly subscription fees.</h2>
@@ -79,3 +84,5 @@
 				</div>
 			</div><!-- end.center-->
 		</section><!-- end.second window-->	
+
+<% end %>		
