@@ -254,6 +254,22 @@ class SubscriptionsController < ApplicationController
 		redirect_to(:back)
 	end
 
+	def refund
+		transaction = Transaction.find_by_uuid(params[:uuid])
+		AmazonFlexPay.refund(
+			transaction.TransactionId,
+			transaction.uuid
+		)
+		transaction.status = "Refunded"
+		transaction.save
+		#Resque.enqueue_in(2.minute,RefundStatusWorker, :transaction_id => transaction.TransactionId)
+		redirect_to(:back)
+		user = User.find(transaction.subscriber_id)
+		flash[:success] = "You refunded "+user.fullname+"!"
+	end
+
+
+
 private
 	
 	#See if the user is signed in?
