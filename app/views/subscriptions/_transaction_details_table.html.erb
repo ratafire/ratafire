@@ -43,4 +43,11 @@
     <td class="plain">Transaction ID</td>
     <td class="plain"><%= @transaction.TransactionId %></td>
   </tr>
+
+  <% if @transaction.status != "Refunded" && @transaction.status != "Error" && current_user == @subscribed then %>
+  <tr>
+    <td class="plain">Action</td>
+    <td class="plain"><%= link_to "Refund",refund_path(@user.id, @transaction.uuid), class:"no_ajaxify" %></td>
+  </tr>  
+  <% end %>  
 </table>
