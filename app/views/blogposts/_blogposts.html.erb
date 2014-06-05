@@ -1,30 +1,30 @@
 <div class="blog-content" style="margin-bottom:25px;">
-							<div class="textbox2" style="padding-bottom:30px;">
+	<div class="textbox2" style="padding-bottom:30px;">
 
-							<!-- Post User Icon -->
-							<span id="post-usericon">
+		<!-- Post User Icon -->
+		<span id="post-usericon">
 
-											<%= link_to blogpost.user, class:"no_ajaxify no_decoration" do %>
-												<div class="user-icon-holder" style="background-image:url(<%= blogpost.user.profilephoto.url(:small64) %>);"></div>
-											<% end %>
-	
-							</span>
+			<%= link_to blogpost.user, class:"no_ajaxify no_decoration" do %>
+			<div class="user-icon-holder" style="background-image:url(<%= blogpost.user.profilephoto.url(:small64) %>);"></div>
+			<% end %>
+			
+		</span>
 
-							<!-- Post Title -->
-							<div id="post-title">
-								<h2><%= link_to blogpost.title, blog_post_path(blogpost.category,blogpost.slug),style:"color:#2297ce;" %></h2>
-								<ul></ul>
-								<ol>Posted by <%= link_to blogpost.user.fullname , blogpost.user, class:"no_ajaxify" %> <%= time_ago_in_words(blogpost.created_at) %> ago in <%= link_to category(blogpost.category), blog_category_selector_path(blogpost.category)%>.</ol>
-							</div>
-							
+		<!-- Post Title -->
+		<div id="post-title">
+			<h2><%= link_to blogpost.title, blog_post_path(blogpost.category,blogpost.slug),style:"color:#2297ce;" %></h2>
+			<ul></ul>
+			<ol>Posted by <%= link_to blogpost.user.fullname , blogpost.user, class:"no_ajaxify" %> <%= time_ago_in_words(blogpost.created_at) %> ago in <%= link_to category(blogpost.category), blog_category_selector_path(blogpost.category)%>.</ol>
+		</div>
+		
 
-							<!-- Post Content -->
-							<div class="post-content-c">
-									<!-- Cutter --><ol style="margin-top: 15px;"></ol>
-								<%= sanitize blogpost.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li iframe) %>
-							</div>
+		<!-- Post Content -->
+		<div class="post-content-c">
+			<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+			<%= sanitize blogpost.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li iframe) %>
+		</div>
 
-							</div><!-- end of textbox2 -->
+	</div><!-- end of textbox2 -->
 
 </div><!-- end.post-content-->	
 

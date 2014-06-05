@@ -23,19 +23,19 @@
     	<%= render 'layouts/sidebar_blog'%>
 	<% end %>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
-	<!-- Main Content -->
-	<div class="main-content-project">
+<!-- Main Content -->
+<div class="main-content-project">
 
-		
-			<%= render partial: 'blogposts/blogposts', collection: @blogpost, :as => :blogpost %>
-		
-		<%= render 'layouts/footer' %>
+	
+	<%= render partial: 'blogposts/blogposts', collection: @blogpost, :as => :blogpost %>
+	
+	<%= render 'layouts/footer' %>
 
-										<!-- Pagination -->
-									<div id="profile-paginate">
-										<div class="textbox-mini">
-											<span><%= will_paginate @blogpost, :param_name => 'page', class:"rata_pagination" %></span>	
-										</div>
-									</div>
+	<!-- Pagination -->
+	<div id="profile-paginate">
+		<div class="textbox-mini">
+			<span><%= will_paginate @blogpost, :param_name => 'page', class:"rata_pagination" %></span>	
+		</div>
+	</div>
 
-	</div><!-- end of main-content -->	
+</div><!-- end of main-content -->	

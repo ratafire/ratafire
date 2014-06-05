@@ -35,39 +35,39 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
-	<!-- Main Content -->
-	<div class="main-content-project">
-					<!-- Post Content -->
-					<div class="post-content">
-						<div class="textbox2">
-							<!-- Post User Icon -->
-							<!-- Post User Icon -->
-							<span id="post-usericon">
+<!-- Main Content -->
+<div class="main-content-project">
+	<!-- Post Content -->
+	<div class="post-content">
+		<div class="textbox2">
+			<!-- Post User Icon -->
+			<!-- Post User Icon -->
+			<span id="post-usericon">
 
-											<%= link_to @comment.majorpost.user, class:"no_ajaxify no_decoration" do %>
-												<div class="user-icon-holder" style="background-image:url(<%= @comment.majorpost.user.profilephoto.url(:small64) %>);"></div>
-											<% end %>
-	
-							</span>
+				<%= link_to @comment.majorpost.user, class:"no_ajaxify no_decoration" do %>
+				<div class="user-icon-holder" style="background-image:url(<%= @comment.majorpost.user.profilephoto.url(:small64) %>);"></div>
+				<% end %>
 
-							<!-- Post Title -->
-							<div id="post-title">
-								<h2>Comment on <%= link_to @comment.majorpost.title, user_project_majorpost_path(@comment.project.creator,@comment.project, @comment.majorpost), class:"no_ajaxify" %></h2>
-								<ul></ul>
-								<ol><%= link_to @comment.user.fullname , @comment.user,class:"no_ajaxify" %><% unless @comment.user.tagline.blank?%><span>,</span> <%= @comment.user.tagline%><% end %></ol>
-								<ol style="margin-top:0px;"><%= time_ago_in_words(@comment.created_at) %> ago</ol>
-							</div>
+			</span>
 
-							<!-- Post Content -->
-							<div class="post-content-c">
-								<!-- Cutter --><ol style="margin-top: 15px;"></ol>
-								<%= sanitize @comment.content, tags: %w(p img a pre blockquote) %>
-							</div>
+			<!-- Post Title -->
+			<div id="post-title">
+				<h2>Comment on <%= link_to @comment.majorpost.title, user_project_majorpost_path(@comment.project.creator,@comment.project, @comment.majorpost), class:"no_ajaxify" %></h2>
+				<ul></ul>
+				<ol><%= link_to @comment.user.fullname , @comment.user,class:"no_ajaxify" %><% unless @comment.user.tagline.blank?%><span>,</span> <%= @comment.user.tagline%><% end %></ol>
+				<ol style="margin-top:0px;"><%= time_ago_in_words(@comment.created_at) %> ago</ol>
+			</div>
 
-
-						</div><!-- end of textbox2 -->
-					</div><!-- end of post-content -->
+			<!-- Post Content -->
+			<div class="post-content-c">
+				<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+				<%= sanitize @comment.content, tags: %w(p img a pre blockquote) %>
+			</div>
 
 
-					<%= render 'layouts/footer' %>
-	</div><!-- end of main-content -->
+		</div><!-- end of textbox2 -->
+	</div><!-- end of post-content -->
+
+
+	<%= render 'layouts/footer' %>
+</div><!-- end of main-content -->

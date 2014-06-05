@@ -1,56 +1,55 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
-      <!-- Page Title -->
-      <% provide(:title) %>
+	  <!-- Page Title -->
+	  <% provide(:title) %>
 
-      <!-- Page Background -->
-      <!DOCTYPE html>
-      <html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-       -o-background-size: cover;
-      background-size: cover;"><!-- Signup Page Background -->
+<!-- Page Background -->
+<!DOCTYPE html>
+<html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	   -o-background-size: cover;
+	  background-size: cover;"><!-- Signup Page Background -->
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
-<html>
-                  <!-- Sign In -->
-                  <div class="user-links">
-                        Have an account? <%= link_to 'Sign in', new_user_session_path %>
-                  </div>
+<!-- Sign In -->
+<div class="user-links">
+	Have an account? <%= link_to 'Sign in', new_user_session_path %>
+</div>
 
-                  <div class="center" style="width: 310px;">
-                        <!-- Cutter --><ol style="margin-top: 80px;"></ol>
+<div class="center" style="width: 310px;">
+	<!-- Cutter --><ol style="margin-top: 80px;"></ol>
 
-                        <span id="Join-Ratafire">Re-confirm</span>
+	<span id="Join-Ratafire">Re-confirm</span>
 
-                        <!-- Cutter --><ol style="margin-top: 18px;"></ol>    
+	<!-- Cutter --><ol style="margin-top: 18px;"></ol>    
 
-                        <div id="Signup-box">
+	<div id="Signup-box">
 
-                        	<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name),:validate => true, :html => { :method => :post, :class => 'no_ajaxify' }) do |f| %>
-  							<%= devise_error_messages! %>
+		<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name),:validate => true, :html => { :method => :post, :class => 'no_ajaxify' }) do |f| %>
+		<%= devise_error_messages! %>
 
 
-  								<%= f.email_field :email, :autofocus => true, class: "inputbox signupbox", placeholder: "Email" %>
+		<%= f.email_field :email, :autofocus => true, class: "inputbox signupbox", placeholder: "Email" %>
 
-  							<ol style="margin-top: 15px; padding-left: 161px;">
-  								<%= f.submit "Send", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
-  							</ol>
-							<% end %>
-                        </div><!-- end.Signup-box-->              		
-                  </div><!-- end of center -->	      
+		<ol style="margin-top: 15px; padding-left: 161px;">
+			<%= f.submit "Send", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+		</ol>
+		<% end %>
+	</div><!-- end.Signup-box-->              		
+</div><!-- end of center -->	      
 
-                  <!-- Footer -->
-                  <div style="padding: 0px 20px 18px 0; margin-top: 250px;">
-                  <%= render 'layouts/footer' %>
-                  </div>
+<!-- Footer -->
+<div style="padding: 0px 20px 18px 0; margin-top: 250px;">
+	<%= render 'layouts/footer' %>
+</div>
 
-                  <script type="text/javascript">
-                              /*--- Tipsy ---*/
-                  $(document).ready(function() {
-                        $('.message').tipsy({fade:true,gravity:'ne'});
-                  });
+<script type="text/javascript">
+/*--- Tipsy ---*/
+$(document).ready(function() {
+	$('.message').tipsy({fade:true,gravity:'ne'});
+});
 
-                  </script>
+</script>
 
 </html>

@@ -12,50 +12,48 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-			<!-- Sign Up -->
-			<div class="user-links">
-				Do not have an account? <%= link_to 'Sign up', new_user_registration_path, class:"no_ajaxify" %>
-			</div>
+<!-- Sign Up -->
+<div class="user-links">
+	Do not have an account? <%= link_to 'Sign up', new_user_registration_path, class:"no_ajaxify" %>
+</div>
 
-			<div class="center" style="width: 310px;">
+<div class="center" style="width: 310px;">
 
-				<!-- Cutter --><ol style="margin-top: 80px;"></ol>
+	<!-- Cutter --><ol style="margin-top: 80px;"></ol>
 
-				<span id="Join-Ratafire">Sign in.</span>
+	<span id="Join-Ratafire">Sign in.</span>
 
-				<!-- Cutter --><ol style="margin-top: 18px;"></ol>
+	<!-- Cutter --><ol style="margin-top: 18px;"></ol>
 
-				<div id="Signin-box">
+	<div id="Signin-box">
 
-					<!-- Signin Form -->
-					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name),:html => {:class => "no_ajaxify"}) do |f| %>
+		<!-- Signin Form -->
+		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name),:html => {:class => "no_ajaxify"}) do |f| %>
 
-      					<ol>
-      						<%= f.text_field :email, class: "inputbox signupbox", placeholder: "Email" %>
-      					</ol>
-      					<ol>
-      						<%= f.password_field :password, class: "inputbox signupbox", placeholder: "Password" %>
-      					</ol>
-      					<ul>
-      						<% if devise_mapping.rememberable? -%>
-    						<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  							<% end -%>
-  							<%= link_to "Forgot password?", new_password_path(resource_name) %>
-      					</ul>
-						<ol style="margin-top: 15px; padding-left: 157px;">
-								<%= f.submit "SIGN IN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-blue" %>
-						</ol>
-					<% end %>
+		<ol>
+			<%= f.text_field :email, class: "inputbox signupbox", placeholder: "Email" %>
+		</ol>
+		<ol>
+			<%= f.password_field :password, class: "inputbox signupbox", placeholder: "Password" %>
+		</ol>
+		<ul>
+			<% if devise_mapping.rememberable? -%>
+			<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+			<% end -%>
+			<%= link_to "Forgot password?", new_password_path(resource_name) %>
+		</ul>
+		<ol style="margin-top: 15px; padding-left: 157px;">
+			<%= f.submit "SIGN IN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-blue" %>
+		</ol>
+		<% end %>
 
-				<!-- end of Signin-box -->	
-				</div>
-				
-			<!-- end of center-->
-			</div>
+	</div><!-- end of Signin-box -->
 
-			<!-- Footer -->
-			<div style="padding: 0px 20px 18px 0; margin-top: 287px;">
-			<%= render 'layouts/footer' %>
-			</div>
-            
+</div><!-- end of center-->
+
+<!-- Footer -->
+<div style="padding: 0px 20px 18px 0; margin-top: 287px;">
+	<%= render 'layouts/footer' %>
+</div>
+
 </html>

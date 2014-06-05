@@ -1,37 +1,35 @@
-
 <% if @video.external != nil && @video.external != "" %>
 
-	
-	<!-- Embedded Video-->
-	<div id="embedded-video-display" style="width:900px;">
+<!-- Embedded Video-->
+<div id="embedded-video-display" style="width:900px;">
 	<div class="video-display">	
 		<% if @video.youtube_vimeo == true %>
-			<iframe width="790" height="444.375" src="http://www.youtube.com/embed/<%= @video.external %>" frameborder="0"></iframe>
+		<iframe width="790" height="444.375" src="http://www.youtube.com/embed/<%= @video.external %>" frameborder="0"></iframe>
 		<% else %>
-			<iframe width="790" height="444.375" src="//player.vimeo.com/video/<%= @video.external %>" frameborder="0"></iframe>
+		<iframe width="790" height="444.375" src="//player.vimeo.com/video/<%= @video.external %>" frameborder="0"></iframe>
 		<% end %>
 	</div>
-	</div>
+</div>
 
 <% else %>
-<!-- Uploaded Video-->
+
+	<!-- Uploaded Video-->
 	<% if @video.encoded_state == "finished" %>
 
 		<!-- Display Video if Success x-->
 		<div class="video-display" id="uploaded-video-display">		
-
-
 			<div style="position:auto;z-index: 100;">
-    			<%= videojs_rails sources: { webm: @video.output_url }, height:"444.375", width:"790", poster:@video.thumbnail %>
-    		</div>
- 		</div>
- 	<% else %>
- 		<!-- Display Encoding & Delete if still encoding-->
- 		<div id="majorpost-video-encoding">
- 				Video is being encoded, it may take 10-25 minutes before it is ready. 
- 				<div id="cancel-encoding">
- 				</div>
- 		</div>
-	<% end %>
+				<%= videojs_rails sources: { webm: @video.output_url }, height:"444.375", width:"790", poster:@video.thumbnail %>
+			</div>
+		</div>
 
-<% end %>
+	<% else %>
+		<!-- Display Encoding & Delete if still encoding-->
+		<div id="majorpost-video-encoding">
+			Video is being encoded, it may take 10-25 minutes before it is ready. 
+			<div id="cancel-encoding">
+			</div>
+		</div>
+	<% end %><!-- end if @video.encoded_state-->
+
+<% end %><!-- end if @video.external !=nil>

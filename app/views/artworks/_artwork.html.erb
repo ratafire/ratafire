@@ -1,18 +1,16 @@
 <!-- Artwork Successbox-->
 <% if artwork.project_id != nil %>
-	<div id="video-upload-box" style="height:80px;">
-		<div class="video-upload-words">
-			<span>Upload Succeed! Your artwork is now processing.</span>
-			<ul>It may take 0-5 minutes before it is ready.</ul>
-		</div>
+<div id="video-upload-box" style="height:80px;">
+	<div class="video-upload-words">
+		<span>Upload Succeed! Your artwork is now processing.</span>
+		<ul>It may take 0-5 minutes before it is ready.</ul>
 	</div>
+</div>
 <% end %>
 
 
 <script>
-$(document).ready(function(){
-
-	$("#artwork-progress-box").hide();
-
-});	
+	$(document).ready(function(){
+		$("#artwork-progress-box").hide();
+	});	
 </script>

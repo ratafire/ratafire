@@ -32,53 +32,53 @@
     	<%= render 'layouts/sidebar_blog'%>
 	<% end %>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
-	<!-- Main Content -->
-	<div class="main-content-project">
+<!-- Main Content -->
+<div class="main-content-project">
 
-		<div class="blog-content" style="margin-bottom:25px;">
-							<div class="textbox2" style="padding-bottom:20px;">
+	<div class="blog-content" style="margin-bottom:25px;">
+		<div class="textbox2" style="padding-bottom:20px;">
 
-							<!-- Post User Icon -->
-							<span id="post-usericon">
+			<!-- Post User Icon -->
+			<span id="post-usericon">
 
-											<%= link_to @blogpost.user, class:"no_ajaxify no_decoration" do %>
-												<div class="user-icon-holder" style="background-image:url(<%= @blogpost.user.profilephoto.url(:small64) %>);"></div>
-											<% end %>
-	
-							</span>
+				<%= link_to @blogpost.user, class:"no_ajaxify no_decoration" do %>
+				<div class="user-icon-holder" style="background-image:url(<%= @blogpost.user.profilephoto.url(:small64) %>);"></div>
+				<% end %>
+				
+			</span>
 
-							<!-- Post Title -->
-							<div id="post-title">
-								<h2><%= link_to @blogpost.title, blog_post_path(@blogpost.category,@blogpost.slug),style:"color:#2297ce;" %></h2>
-								<ul></ul>
-								<ol>Posted by <%= link_to @blogpost.user.fullname , @blogpost.user, class:"no_ajaxify" %> <%= time_ago_in_words(@blogpost.created_at) %> ago in <%= link_to category(@blogpost.category), blog_category_selector_path(@blogpost.category)%>.</ol>
+			<!-- Post Title -->
+			<div id="post-title">
+				<h2><%= link_to @blogpost.title, blog_post_path(@blogpost.category,@blogpost.slug),style:"color:#2297ce;" %></h2>
+				<ul></ul>
+				<ol>Posted by <%= link_to @blogpost.user.fullname , @blogpost.user, class:"no_ajaxify" %> <%= time_ago_in_words(@blogpost.created_at) %> ago in <%= link_to category(@blogpost.category), blog_category_selector_path(@blogpost.category)%>.</ol>
+			</div>
+			
+
+			<!-- Post Content -->
+			<div class="post-content-c">
+				<!-- Cutter --><ol style="margin-top: 15px;"></ol>
+				<%= sanitize @blogpost.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li iframe) %>
+				<div class="textbox-mini">
+
+					<div class="toolbox">						
+						<!-- Twitter -->
+						<a href="https://twitter.com/intent/tweet?text=@ratafirer%20&related=ratafirer&url=https://www.ratafire.com/<%=blog_post_path(@blogpost.category,@blogpost.slug)%>" class="btn btn-twitter no_ajaxify" target="_blank"></a>
+						<!-- Facebook -->
+						<div class="btn btn-facebook">
+							<div class="fb-share-button" data-href="#{request.scheme}://#{request.host}<%=blog_post_path(@blogpost.category,@blogpost.slug)%>" data-type="icon">
 							</div>
-							
+						</div><!-- end.btn-facebook-->	</li>
+					</div><!-- end.toolbox-->
+				</div><!-- end.textbox-mini-->
+			</div><!-- end.post-content-c-->
 
-							<!-- Post Content -->
-							<div class="post-content-c">
-									<!-- Cutter --><ol style="margin-top: 15px;"></ol>
-								<%= sanitize @blogpost.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li iframe) %>
-															<div class="textbox-mini">
-
-							<div class="toolbox">						
-									<!-- Twitter -->
-										<a href="https://twitter.com/intent/tweet?text=@ratafirer%20&related=ratafirer&url=https://www.ratafire.com/<%=blog_post_path(@blogpost.category,@blogpost.slug)%>" class="btn btn-twitter no_ajaxify" target="_blank"></a>
-									<!-- Facebook -->
-									<div class="btn btn-facebook">
-										<div class="fb-share-button" data-href="#{request.scheme}://#{request.host}<%=blog_post_path(@blogpost.category,@blogpost.slug)%>" data-type="icon">
-										</div>
-									</div><!-- end.btn-facebook-->	</li>
-							</div><!-- end.toolbox-->
-							</div><!-- end.textbox-mini-->
-							</div><!-- end.post-content-c-->
-
-							</div><!-- end of textbox2 -->
+		</div><!-- end of textbox2 -->
 
 
-</div><!-- end.post-content-->	
+	</div><!-- end.post-content-->	
 
-		
-		<%= render 'layouts/footer' %>
+	
+	<%= render 'layouts/footer' %>
 
-	</div><!-- end of main-content -->	
+</div><!-- end of main-content -->	

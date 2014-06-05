@@ -1,52 +1,52 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-	<!-- Page Title -->
-	<% provide(:title, "Admin") %>
+<!-- Page Title -->
+<% provide(:title, "Admin") %>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 
-	<% content_for(:side_bar) do %>
-    	<%= render 'layouts/sidebar_admin' %>
-	<% end %>
-		
+<% content_for(:side_bar) do %>
+<%= render 'layouts/sidebar_admin' %>
+<% end %>
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-			<!-- Main Content -->
-			<div class="main-content">
-				<div class="standard-content" >
-						<div class="textbox">
-						
-							<h1>Welcome back to the Admin Hideout, <%= current_user.fullname %>!</h1>
-							<h5>“<%= @quote.content %>” — <%= @quote.by%></h5>
-							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
 
-						<!-- end of textbox-->
-						</div>						
+			<h1>Welcome back to the Admin Hideout, <%= current_user.fullname %>!</h1>
+			<h5>“<%= @quote.content %>” — <%= @quote.by%></h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
 
-						<!-- New Blog Posts -->
-						<div class="lightbox2-bordered">
-							<div class="textbox-mini" style="color:#999;">
+			<!-- end of textbox-->
+		</div>						
 
-								<h2>We currently have</h2>
-								<span style="color:#2297ce;font-size:4em;"><%= User.count %></span> users, <span style="color:#84b153;font-size:3.5em;"><%= Project.where(:published => true, :deleted => false).count %></span> projects, <span style="color:#ffc703;font-size:3em;"><%= Majorpost.where(:published => true, :deleted => false).count %></span> majorposts, <span style="color:#d64937;font-size:2em;"><%= Tag.count%></span> tags, <span style="color:#d64937;font-size:2em;"><%= Subscription.where(:deleted => false, :activated => true).count%></span> subscriptions.
+		<!-- New Blog Posts -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini" style="color:#999;">
 
-								
-							</div><!-- end.textbox-mini-->
-						</div><!-- end.lightbox2-bordered-->			
+				<h2>We currently have</h2>
+				<span style="color:#2297ce;font-size:4em;"><%= User.count %></span> users, <span style="color:#84b153;font-size:3.5em;"><%= Project.where(:published => true, :deleted => false).count %></span> projects, <span style="color:#ffc703;font-size:3em;"><%= Majorpost.where(:published => true, :deleted => false).count %></span> majorposts, <span style="color:#d64937;font-size:2em;"><%= Tag.count%></span> tags, <span style="color:#d64937;font-size:2em;"><%= Subscription.where(:deleted => false, :activated => true).count%></span> subscriptions.
 
-						<!-- Blog Posts -->
-						<div class="lightbox2-bordered">
-							<div class="textbox-mini" style="color:#999;">
-								<h2>Quick Links to other Services We Use</h2>
-								<span><%= link_to image_tag("/assets/quicklinks_trello.png"), "https://trello.com/ratafire", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Workflow"%></span>
-								  <span> <%= link_to image_tag("/assets/quicklinks_github.png"), "https://github.com/ratafire/ratafire", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Repository"%></span>
-								  <span> <%= link_to image_tag("/assets/quicklinks_twitter.png"), "https://twitter.com/Ratafirer", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Tweets"%></span>
-								  <span> <%= link_to image_tag("/assets/quicklinks_facebook.png"), "https://www.facebook.com/ratafire", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Facebook Page"%></span>
-								  <span> <%= link_to image_tag("/assets/quicklinks_quora.png"), "http://www.quora.com/Ratafire", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Quora"%></span>
-							</div><!-- end.textbox-mini-->
-						</div><!-- end.lightbox2-bordered-->	
-						
-						</div><!-- Footer -->
-				<%= render 'layouts/footer' %>
 
-			</div><!-- end of main-content-->
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->			
+
+		<!-- Blog Posts -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini" style="color:#999;">
+				<h2>Quick Links to other Services We Use</h2>
+				<span><%= link_to image_tag("/assets/quicklinks_trello.png"), "https://trello.com/ratafire", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Workflow"%></span>
+				<span> <%= link_to image_tag("/assets/quicklinks_github.png"), "https://github.com/ratafire/ratafire", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Repository"%></span>
+				<span> <%= link_to image_tag("/assets/quicklinks_twitter.png"), "https://twitter.com/Ratafirer", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Tweets"%></span>
+				<span> <%= link_to image_tag("/assets/quicklinks_facebook.png"), "https://www.facebook.com/ratafire", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Facebook Page"%></span>
+				<span> <%= link_to image_tag("/assets/quicklinks_quora.png"), "http://www.quora.com/Ratafire", class:"no_ajaxify tipsy-tipsy", target:"_blank", title:"Quora"%></span>
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->	
+
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+
+</div><!-- end of main-content-->
