@@ -1,76 +1,75 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-	<!-- Page Title -->
-	<% provide(:title, "Admin") %>
+<!-- Page Title -->
+<% provide(:title, "Admin") %>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 
-	<% content_for(:side_bar) do %>
-    	<%= render 'layouts/sidebar_admin' %>
-	<% end %>
-		
+<% content_for(:side_bar) do %>
+<%= render 'layouts/sidebar_admin' %>
+<% end %>
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-			<!-- Main Content -->
-			<div class="main-content">
-				<div class="standard-content" >
-						<div class="textbox">
-						
-							<h1>Content</h1>
-							<h5>I know one thing, and that is that I know nothing.</h5>
-							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
 
-						<!-- end of textbox-->
-						</div>						
+			<h1>Content</h1>
+			<h5>I know one thing, and that is that I know nothing.</h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
 
-						<!-- Feature Things -->
-						<div class="lightbox2-bordered">
-							<div class="textbox-mini">
+		</div><!-- end of textbox-->						
 
-								<h2>Add Staff Picks</h2>
+		<!-- Feature Things -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
 
-								<%= form_tag 'post_staff_pick', class:"no_ajaxify" do %>
-								<div><%= text_field_tag 'url', nil,type:"user-inspirer",placeholder:'Enter the url of a project or a majorpost'%></div>
-								<%= submit_tag '', class: "btn-submit admin-submit no_ajaxify", style:"background-image:url(/assets/warcraft_staff_picks_add.jpg);" %>
-								<% end %>
+				<h2>Add Staff Picks</h2>
 
-								<!-- Staffpicked Projects -->
-								<%= render 'admin/staffpicks'%>
+				<%= form_tag 'post_staff_pick', class:"no_ajaxify" do %>
+				<div><%= text_field_tag 'url', nil,type:"user-inspirer",placeholder:'Enter the url of a project or a majorpost'%></div>
+				<%= submit_tag '', class: "btn-submit admin-submit no_ajaxify", style:"background-image:url(/assets/warcraft_staff_picks_add.jpg);" %>
+				<% end %>
 
-								<!-- Staffpicked Majorposts -->
-								<%= render 'admin/staffpicks_majorposts'%>
+				<!-- Staffpicked Projects -->
+				<%= render 'admin/staffpicks'%>
 
-							</div><!-- end.textbox-mini-->
-						</div><!-- end.lightbox2-bordered-->		
+				<!-- Staffpicked Majorposts -->
+				<%= render 'admin/staffpicks_majorposts'%>
 
-						<!-- Delete Things -->
-						<div class="lightbox2-bordered">
-							<div class="textbox-mini">
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->		
 
-								<h2>Delete Content</h2>
+		<!-- Delete Things -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
 
-								<%= form_tag 'delete_content', class:"no_ajaxify" do %>
-								<div><%= text_field_tag 'url', nil,type:"user-inspirer",placeholder:'Enter the url of a project, a majorpost, or a comment'%></div>
-								<%= submit_tag '', class: "btn-submit admin-submit no_ajaxify", style:"background-image:url(/assets/warcraft_delete.jpg);" %>
-								<% end %>
+				<h2>Delete Content</h2>
 
-								<!-- Deleted Projects -->
-								<%= render 'admin/deleted_projects'%>
+				<%= form_tag 'delete_content', class:"no_ajaxify" do %>
+				<div><%= text_field_tag 'url', nil,type:"user-inspirer",placeholder:'Enter the url of a project, a majorpost, or a comment'%></div>
+				<%= submit_tag '', class: "btn-submit admin-submit no_ajaxify", style:"background-image:url(/assets/warcraft_delete.jpg);" %>
+				<% end %>
 
-								<!-- Deleted Majorposts -->
-								<%= render 'admin/deleted_majorposts'%>			
+				<!-- Deleted Projects -->
+				<%= render 'admin/deleted_projects'%>
 
-								<!-- Deleted Comments -->
-								<%= render 'admin/deleted_comment'%>
+				<!-- Deleted Majorposts -->
+				<%= render 'admin/deleted_majorposts'%>			
 
-								<!-- Deleted Majorposts -->
-								<%= render 'admin/deleted_project_comment'%>	
+				<!-- Deleted Comments -->
+				<%= render 'admin/deleted_comment'%>
 
-							</div><!-- end.textbox-mini-->
-						</div><!-- end.lightbox2-bordered-->													
-										
+				<!-- Deleted Majorposts -->
+				<%= render 'admin/deleted_project_comment'%>	
 
-						</div><!-- Footer -->
-				<%= render 'layouts/footer' %>
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->													
 
-			</div><!-- end of main-content-->
+
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+
+</div><!-- end of main-content-->

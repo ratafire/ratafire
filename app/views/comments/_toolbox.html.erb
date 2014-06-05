@@ -1,25 +1,25 @@
-						<div class="textbox-mini">
-							<div class="toolbox">
-								<li>
-									<% if liked_comment(comment.id) then %>
-										<!-- like -->
-										<%= link_to like_comment_path(comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= @comment.id%>comment-like" style="display:none;">
-										</div><% end %>
-										<!-- unlike -->
-										<%= link_to unlike_comment_path(comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unlike" id="<%= @comment.id%>comment-unlike">
-										</div><% end %>	
-									<% else %>
-										<!-- like -->
-										<%= link_to like_comment_path(comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= @comment.id%>comment-like">
-										</div><% end %>
-										<!-- unlike -->
-										<%= link_to unlike_comment_path(comment.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unlike" id="<%= @comment.id%>comment-unlike" style="display:none;">
-										</div><% end %>										
-									<% end %>	
-								</li>  <span id="<%= comment.id %>liked-count"><%= comment.liked_comment.count %></span> /
-								<li><%= link_to "Share", '#', class:"tipsy-tipsy no_ajaxify", title:"comming soon." %></li>
-								<% if current_user?(comment.user)%>
-									<ul><%= link_to "x", [comment.project.creator,comment.project,comment.majorpost, comment], :method => :delete, class:"tipsy-tipsy no_ajaxify", title:"Delete comment.", :confirm => "Are you sure to delete this comment?" %></ul>
-                 				<% end %>
-							</div><!-- end.toolbox-->
-						</div><!-- end.textbox-mini-->
+<div class="textbox-mini">
+	<div class="toolbox">
+		<li>
+			<% if liked_comment(comment.id) then %>
+				<!-- like -->
+				<%= link_to like_comment_path(comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= @comment.id%>comment-like" style="display:none;">
+				</div><% end %>
+				<!-- unlike -->
+				<%= link_to unlike_comment_path(comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unlike" id="<%= @comment.id%>comment-unlike">
+				</div><% end %>	
+			<% else %>
+				<!-- like -->
+				<%= link_to like_comment_path(comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= @comment.id%>comment-like">
+					</div><% end %>
+					<!-- unlike -->
+					<%= link_to unlike_comment_path(comment.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unlike" id="<%= @comment.id%>comment-unlike" style="display:none;">
+					</div><% end %>										
+				<% end %>	
+		</li>  <span id="<%= comment.id %>liked-count"><%= comment.liked_comment.count %></span> /
+		<li><%= link_to "Share", '#', class:"tipsy-tipsy no_ajaxify", title:"comming soon." %></li>
+			<% if current_user?(comment.user)%>
+				<ul><%= link_to "x", [comment.project.creator,comment.project,comment.majorpost, comment], :method => :delete, class:"tipsy-tipsy no_ajaxify", title:"Delete comment.", :confirm => "Are you sure to delete this comment?" %></ul>
+            <% end %>
+	</div><!-- end.toolbox-->
+</div><!-- end.textbox-mini-->

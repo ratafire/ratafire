@@ -1,27 +1,29 @@
 <!-- Post Content -->
 <div class="post-content" id="content-case">
 	<div class="textbox2">
-							<!-- Fullscreen mode -->	
-							<%= link_to "", get_archive_chapter_path(@majorpost.user,@project,@archive), class:"no_ajaxify  btn-fullscreen tipsy-tipsy", remote: true, title:"Chapter View" %>
+		
+		<!-- Fullscreen mode -->	
+		<%= link_to "", get_archive_chapter_path(@majorpost.user,@project,@archive), class:"no_ajaxify  btn-fullscreen tipsy-tipsy", remote: true, title:"Chapter View" %>
 
-							<script>
-								$('.btn-fullscreen').click(function(){
-									$('.fullscreen_mode').show();
-									$('.hide-when-fullscreen').hide();
-	
-											var myFlag = false;
-											if($(window).scrollTop() > 200 && myFlag == false){
-       		 								$("html, body").animate({ scrollTop: 0 }, 600);
-       		 								myFlag = true;
-    											}
+		<script>
+		$('.btn-fullscreen').click(function(){
+			$('.fullscreen_mode').show();
+			$('.hide-when-fullscreen').hide();
 
-								});
-								
-							</script>
+			var myFlag = false;
+			if($(window).scrollTop() > 200 && myFlag == false){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				myFlag = true;
+			}
+
+		});
+
+		</script>
+
 		<!-- Post User Icon -->
 		<span id="post-usericon">
 			<%= link_to @archive.user, class:"no_ajaxify" do %>
-				<div class="user-icon-holder" style="background-image:url(<%= @archive.user.profilephoto.url(:small64) %>);"></div>
+			<div class="user-icon-holder" style="background-image:url(<%= @archive.user.profilephoto.url(:small64) %>);"></div>
 			<% end %>
 		</span>
 
@@ -41,16 +43,16 @@
 
 	</div><!-- end:.textbox2-->	
 
-		<!-- Inspired by-->
-		<% render 'majorposts/inspired_by'%>
+	<!-- Inspired by-->
+	<% render 'majorposts/inspired_by'%>
 
-		<!-- Inspiring -->
-		<% render 'majorposts/inspiring'%>
+	<!-- Inspiring -->
+	<% render 'majorposts/inspiring'%>
 
-		<!-- Tags -->
-		<% unless @majorpost.tags.blank? %>
-			<div class="post-tags">
-				<%= raw @majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %>
-			</div>
-		<% end %>
+	<!-- Tags -->
+	<% unless @majorpost.tags.blank? %>
+	<div class="post-tags">
+		<%= raw @majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %>
+	</div>
+	<% end %>
 </div><!-- end:.post-content -->

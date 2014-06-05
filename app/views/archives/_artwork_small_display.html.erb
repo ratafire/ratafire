@@ -2,15 +2,15 @@
 <script>
 $(document).ready(function(){
 
-$('.artwork-download').hover(function() {
+	$('.artwork-download').hover(function() {
 
-    $('#artwork-control-bar').toggle("fade");
-});
+		$('#artwork-control-bar').toggle("fade");
+	});
 
-$('#eye').click(function() {
+	$('#eye').click(function() {
 
-    $('#artwork-toggle').toggle();
-});
+		$('#artwork-toggle').toggle();
+	});
 
 });
 </script>
@@ -34,8 +34,8 @@ $('#eye').click(function() {
 
 <!-- Artwork Display -->
 
-	<div id="artwork-toggle" style="display:none;">
-			<!-- if current user has the right to delete artwork -->
-		<%= image_tag(@artwork.image.url(:preview), class: "non-wrap artwork-video-display")%>
-		<!-- Cutter --><ol style="margin-top:45px;"></ol>
-	</div>
+<div id="artwork-toggle" style="display:none;">
+	<!-- if current user has the right to delete artwork -->
+	<%= image_tag(@artwork.image.url(:preview), class: "non-wrap artwork-video-display")%>
+	<!-- Cutter --><ol style="margin-top:45px;"></ol>
+</div>

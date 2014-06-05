@@ -11,36 +11,36 @@
 		
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-			<!-- Main Content -->
-			<div class="main-content">
-				<div class="standard-content" >
-						<div class="textbox">
-						
-							<h1>Blog Posts</h1>
-							<h5>“I don’t know what’s worse: to not know what you are and be happy, or to become what you’ve always wanted to be, and feel alone. ” — Daniel Keyes</h5>
-							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
 
-						<!-- end of textbox-->
-						</div>						
+			<h1>Blog Posts</h1>
+			<h5>“I don’t know what’s worse: to not know what you are and be happy, or to become what you’ve always wanted to be, and feel alone. ” — Daniel Keyes</h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
 
-						<!-- New Blog Posts -->
-						<div class="lightbox2-bordered">
-							<div class="textbox-mini">
+			<!-- end of textbox-->
+		</div>						
 
-								<h2>Create a New Post In</h2>
+		<!-- New Blog Posts -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
 
-								<div><%= link_to "New Features", blog_post_create_path("new-features"), class:"no_ajaxify btn-delete"%> <%= link_to "Engineering", blog_post_create_path("engineering"), class:"no_ajaxify btn-delete"%> <%= link_to "Design", blog_post_create_path("design"), class:"no_ajaxify btn-delete"%> <%= link_to "News", blog_post_create_path("news"), class:"no_ajaxify btn-delete"%></div>
-							</div><!-- end.textbox-mini-->
-						</div><!-- end.lightbox2-bordered-->			
+				<h2>Create a New Post In</h2>
 
-						<!-- Blog Posts -->
-						<div class="lightbox2-bordered">
-							<div class="textbox-mini">
-								<%= render 'admin/blogposts'%>
-							</div><!-- end.textbox-mini-->
-						</div><!-- end.lightbox2-bordered-->	
-						
-						</div><!-- Footer -->
-				<%= render 'layouts/footer' %>
+				<div><%= link_to "New Features", blog_post_create_path("new-features"), class:"no_ajaxify btn-delete"%> <%= link_to "Engineering", blog_post_create_path("engineering"), class:"no_ajaxify btn-delete"%> <%= link_to "Design", blog_post_create_path("design"), class:"no_ajaxify btn-delete"%> <%= link_to "News", blog_post_create_path("news"), class:"no_ajaxify btn-delete"%></div>
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->			
 
-			</div><!-- end of main-content-->
+		<!-- Blog Posts -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+				<%= render 'admin/blogposts'%>
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->	
+
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+
+</div><!-- end of main-content-->

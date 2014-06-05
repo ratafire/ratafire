@@ -5,12 +5,12 @@
 		<div class="fullscreen-title">
 			<%= @project.title %>
 		</div>
-			
+		
 		<!-- Author -->
 		<div class="fullscreen-author">
 			<% if @project.users.count == 1 %>
-				<!-- If there is only one contributor show author -->
-				<%= link_to @project.creator.fullname , @project.creator, class:"no_ajaxify" %>
+			<!-- If there is only one contributor show author -->
+			<%= link_to @project.creator.fullname , @project.creator, class:"no_ajaxify" %>
 			<% end %>
 		</div>
 
@@ -23,10 +23,10 @@
 		</div>	
 		<div id="exit2" class="tipsy-tipsy fullscreen-exit" title="Leave"></div>
 		<script>
-				$('.fullscreen-exit').click(function(){
-					$('.fullscreen_mode').hide();
-					$('.hide-when-fullscreen').show();
-				});
+		$('.fullscreen-exit').click(function(){
+			$('.fullscreen_mode').hide();
+			$('.hide-when-fullscreen').show();
+		});
 		</script>
 	</div><!--end:fullscreen-wrapper -->
 </div><!--end:fullsreen-mode -->

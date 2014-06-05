@@ -1,53 +1,55 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
-      <!-- Page Title -->
-      <% provide(:title, 'Beta') %>
+	  <!-- Page Title -->
+	  <% provide(:title, 'Beta') %>
 
-      <!-- Page Background -->
-      <!DOCTYPE html>
-      <html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-       -o-background-size: cover;
-      background-size: cover;"><!-- Signup Page Background -->
+<!-- Page Background -->
+<!DOCTYPE html>
+<html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;"><!-- Signup Page Background -->
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
-                  <!-- Sign In -->
-                  <div class="user-links">
-                        Have an account? <%= link_to 'Sign in', new_user_session_path %>
-                  </div>
+	  <!-- Sign In -->
+	  <div class="user-links">
+	  	Have an account? <%= link_to 'Sign in', new_user_session_path %>
+	  </div>
 
-                  <div class="center" style="width: 310px;">
-                  		<!-- Cutter --><ol style="margin-top: 80px;"></ol>
-                  		<span id="Join-Ratafire">Set your Password.</span>
-                  		<!-- Cutter --><ol style="margin-top: 18px;"></ol>
+	  <div class="center" style="width: 310px;">
+	  	<!-- Cutter --><ol style="margin-top: 80px;"></ol>
+	  	<span id="Join-Ratafire">Set your Password.</span>
+	  	<!-- Cutter --><ol style="margin-top: 18px;"></ol>
 
-                  		 <div id="Signup-box">
-                  		 		<%= form_for resource, :as => resource_name, :validate => true, :url => invitation_path(resource_name), :html => {:method => :post}, :html => {:class => 'no_ajaxify'} do |f| %>
-                  		 			 <%= f.hidden_field :invitation_token %>
+	  	<div id="Signup-box">
+	  		<%= form_for resource, :as => resource_name, :validate => true, :url => invitation_path(resource_name), :html => {:method => :post}, :html => {:class => 'no_ajaxify'} do |f| %>
+	  		<%= f.hidden_field :invitation_token %>
 
-  									<%= f.password_field :password,class: "inputbox signupbox", placeholder: "Password" %>
-  									<%= f.password_field :password_confirmation,class: "inputbox signupbox", placeholder: "Confirm Password" %>
+	  		<%= f.password_field :password,class: "inputbox signupbox", placeholder: "Password" %>
+	  		<%= f.password_field :password_confirmation,class: "inputbox signupbox", placeholder: "Confirm Password" %>
 
-  									<ol style="margin-top: 15px; padding-left: 161px;">
-  										<%= f.submit "ENTER", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
-  									</ol>	
-  								<% end %>	
-                  		 </div><!--#Signup-box -->	
-                  </div><!--end.center -->	
+	  		<ol style="margin-top: 15px; padding-left: 161px;">
+	  			<%= f.submit "ENTER", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+	  		</ol>	
+	  		<% end %>	
+	  	</div><!--#Signup-box -->	
+	  </div><!--end.center -->	
 
 
-                  <!-- Footer -->
-                  <div style="padding: 0px 20px 18px 0; margin-top: 280px;">
-                  <%= render 'layouts/footer' %>
-                  </div>
+	  <!-- Footer -->
+	  <div style="padding: 0px 20px 18px 0; margin-top: 280px;">
+	  	<%= render 'layouts/footer' %>
+	  </div>
 
-                  <script type="text/javascript">
-                              /*--- Tipsy ---*/
-                  $(document).ready(function() {
-                        $('.message').tipsy({fade:true,gravity:'ne'});
-                  });
+	  <script type="text/javascript">
+	  /*--- Tipsy ---*/
+	  $(document).ready(function() {
+	  	$('.message').tipsy({fade:true,gravity:'ne'});
+	  });
 
-                  </script>
+	  </script>
+	  
+</html>

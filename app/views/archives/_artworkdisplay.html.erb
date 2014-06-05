@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 //download button hover
 $('.artwork-download').hover(function() {
-    $('#artwork-control-bar').toggle("fade");
+	$('#artwork-control-bar').toggle("fade");
 });
 
 });
@@ -12,7 +12,7 @@ $('.artwork-download').hover(function() {
 
 <!-- Artwork Display -->
 <div id="artwork-toggle">
-			<%= image_tag(@artwork.image.url(:preview), class: "image-wrap artwork-display")%>
+	<%= image_tag(@artwork.image.url(:preview), class: "image-wrap artwork-display")%>
 	<div id="artwork-control-bar">
 		Download <%= @artwork.image_file_name %>
 	</div>
