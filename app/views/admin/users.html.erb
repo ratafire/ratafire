@@ -1,0 +1,48 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_admin' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
+
+			<h1>Users</h1>
+			<h5>“<%= @quote.content %>” — <%= @quote.by%></h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+			<!-- end of textbox-->
+		</div>		
+
+		<!-- New Blog Posts -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini" style="color:#999;">
+
+				<h2>We currently have</h2>
+				<span style="color:#2297ce;font-size:4em;"><%= User.count %></span> users, <span style="color:#84b153;font-size:3.5em;"><%= @goal %>%</span> towards <span style="color:#ffc703;font-size:3.5em;">1000</span> users.
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->	
+
+		<!-- Realm Balance -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+				<%= render 'admin/users'%>
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->								
+
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+
+</div><!-- end of main-content-->
