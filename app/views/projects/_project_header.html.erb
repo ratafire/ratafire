@@ -4,7 +4,18 @@
 	$('#project-header-case').hover(function() {
   		$("#edit-project-header").toggle();
 	});
+
+
+			//icon-delete
+	$('#icon-upload-box').hover(function() {
+  		$("#delete-icon").toggle();
+  		$("#project-icon-upload").toggle();
 	});
+
+
+	});
+
+
 </script>
 
 <div class="project-header-wrapper" id="project-header-case">
@@ -37,7 +48,48 @@
 								<% end %><!-- end if @artwork.project == nil-->	
 
 
+	<% if @project.creator == current_user && @project.abandoned != true %>
+			<!-- project icon-->
+		<div id="project-icon">
+			<!-- Edit Icon-->		
+			<% if @project.icon == nil %>
 
+		   		<div id="icon-upload-box" style="background-image:url(/assets/projecticon_pageview.jpg); height: 126px; width:126px; border-radius:6px;">
+		   		<!-- When there is no icon -->
+
+		   			<div id="project-icon-upload" class="artwork-button fileinput-button">
+										<!-- fields for icon -->
+										<%= s3_uploader_form callback_url: create_project_icon_path(current_user,@project),
+  											id: "s3_uploader_icon",
+											callback_param: "icon[direct_upload_url]",
+											expiration: 24.hours.from_now.utc.iso8601,
+											max_file_size: 2048.megabytes,:remote => true do %>
+											<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+										<% end %>	
+
+		   			</div><!-- end fileupload buttom-->
+		   			<div id="icon-progress-case">
+		   			</div>
+		   		</div><!-- end#icon-upload-box-->
+		   
+		   		<script id="template-upload-icon" type="text/x-tmpl">
+		   			<div class="upload">
+		   				<div class="bar-icon" style="width: 0%">
+		   				</div>
+		   			</div>
+		   		</script>
+
+		  		<div id="icon-upload-data"></div>
+			<% else %>
+		 		<div id="icon-upload-box" style="background-image: url(<%= @icon.image.url(:pageview) %>); height: 126px; width:126px; border-radius:6px;">
+		 			<!-- artwork delete button-->
+					<div id="delete-icon" style="margin:7px 5px 0 0;float:right;display:none;">
+						<%= link_to 'Delete',icon_delete_path(@project.creator,@project,@project.icon),method: :delete,class:"btn-delete no_ajaxify"%>
+					</div>
+	 			</div>
+			<% end %>	 	
+		</div><!-- end:.project-icon -->	
+	<% else %>    
 		<% if @icon != nil %>	
 			<%= link_to user_project_path(@project.creator,@project), class:"no_ajaxify" do %>
 				<div class="project-icon-holder" style="background-image:url(<%= @icon.image.url(:pageview) %>);">
@@ -49,6 +101,7 @@
 				</div>
 			<% end %>
 		<% end %>
+	<% end %>
 
 
 	<div id="project-title">

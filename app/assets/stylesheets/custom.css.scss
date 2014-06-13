@@ -2678,6 +2678,12 @@ transition: background-color 1s ease-out;
 			background-image: url(/assets/sky_color.jpg);
 }
 
+.bar-icon {
+	height:128px; 
+	border-radius:5px; 
+	background-color:rgba(34,151,206,.5);
+}
+
 #video-success-box {
 	@extend #video-upload-box;
 
