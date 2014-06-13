@@ -11,17 +11,17 @@ class Transaction < ActiveRecord::Base
   		@subscription = Subscription.find(options[:subscription_id])
   		@transaction.amount = @subscription.amount.to_s
   		case @transaction.amount
-  		when "7.71"
+  		when ENV["PRICE_1"]
   			@transaction.ratafire = 3
-  		when "13.16"
+  		when ENV["PRICE_2"]
   			@transaction.ratafire = 3
-  		when "19.24"
+  		when ENV["PRICE_3"]
   			@transaction.ratafire = 6
-  		when "27.03"
+  		when ENV["PRICE_4"]
   			@transaction.ratafire = 6
-  		when "57.54"
+  		when ENV["PRICE_5"]
   			@transaction.ratafire = 9
-  		when "114.78"
+  		when ENV["PRICE_6"]
   			@transaction.ratafire = 9
   		end	
   		@transaction.subscribed_id = @subscription.subscribed_id

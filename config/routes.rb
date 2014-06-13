@@ -237,6 +237,9 @@ Ratafire::Application.routes.draw do
 
 	match '/admin', to: 'admin#main', as: :admin
 
+	match '/admin_user', to: 'admin#users', as: :admin_users
+	match '/content_admin_user', to: 'admin#content_users', as: :admin_content_users
+
 #---Tests--- 
 	match '/test_resque', to: 'admin#test_resque', as: :test_resque 
 

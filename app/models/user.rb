@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :username
 
+  default_scope order: 'users.created_at DESC'
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # :registerable is currently disabled
@@ -58,17 +59,17 @@ class User < ActiveRecord::Base
 	#--- Payments ---
 	#Subscriptions
 	has_many :subscriptions, foreign_key: "subscribed_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true }
-	has_many :subscribers, through: :subscriptions, source: :subscriber, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true}}
+	has_many :subscribers, through: :subscriptions, source: :subscriber, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter => false}}
 
 	has_many :reverse_subscriptions, foreign_key: "subscriber_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true }
-	has_many :subscribed, through: :reverse_subscriptions, source: :subscribed, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true}}
+	has_many :subscribed, through: :reverse_subscriptions, source: :subscribed, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter => false}}
 
 	#Subscription_histories
 	has_many :past_subscriptions, foreign_key: "subscribed_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past => true }
-	has_many :past_subscribers, through: :past_subscriptions, source: :subscriber, :conditions => {:subscription_records => { :past => true, :accumulated => true}}
+	has_many :past_subscribers, through: :past_subscriptions, source: :subscriber, :conditions => {:subscription_records => { :past => true, :accumulated => true, :supporter => false}}
 
 	has_many :reverse_past_subscriptions, foreign_key: "subscriber_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past => true }
-	has_many :past_subscribed, through: :reverse_past_subscriptions, source: :subscribed, :conditions => {:subscription_records => { :past => true, :accumulated => true}}
+	has_many :past_subscribed, through: :reverse_past_subscriptions, source: :subscribed, :conditions => {:subscription_records => { :past => true, :accumulated => true, :supporter => false}}
 
 	#Subscription_records
 	has_many :subscription_records, foreign_key: "subscribed_id", class_name: "SubscriptionRecord", dependent: :destroy

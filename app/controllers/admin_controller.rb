@@ -12,6 +12,19 @@ class AdminController < ApplicationController
 		@quote = Quote.offset(rand(Quote.count)).first
 	end
 
+	def users
+		@user = User.paginate(page: params[:page], :per_page => 50)
+		@quote = Quote.offset(rand(Quote.count)).first
+		@goal = @user.count.to_f / 1000.to_f * 100.0
+	end
+
+	def content_users
+		respond_to do |format|
+    		format.html
+    		format.json { render json: UsersDatatable.new(view_context) }
+  		end				
+	end
+
 	def content_project
 		respond_to do |format|
     		format.html
@@ -358,4 +371,5 @@ private
 	def admin_user
       redirect_to(root_url) unless current_user.admin?
     end	
+
 end
