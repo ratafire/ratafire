@@ -1,16 +1,53 @@
-<h2>Change your password</h2>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	  <!-- Page Title -->
+	  <% provide(:title, 'Change Password') %>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+	  <!-- Page Background -->
+	  <!DOCTYPE html>
+	  <html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	   -o-background-size: cover;
+	  background-size: cover;"><!-- Signup Page Background -->
 
-  <div><%= f.label :password, "New password" %><br />
-  <%= f.password_field :password, :autofocus => true %></div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-  <div><%= f.label :password_confirmation, "Confirm new password" %><br />
-  <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Change my password" %></div>
-<% end %>
+<!-- Sign In -->
+<div class="user-links">
+	Have an account? <%= link_to 'Sign in', new_user_session_path %>
+</div>
 
-<%= render "devise/shared/links" %>
+<div class="center" style="width: 310px;">
+
+	<!-- Cutter --><ol style="margin-top: 80px;"></ol>
+
+	<span id="Join-Ratafire">Reset Password.</span>
+
+	<!-- Cutter --><ol style="margin-top: 18px;"></ol>
+
+	<div id="Signup-box">
+
+		<!-- Signup Form -->
+		<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, :class => 'no_ajaxify' }) do |f| %>
+		<%= f.hidden_field :reset_password_token %>
+		<ol>
+			<%= f.password_field :password, :autofocus => true, class: "inputbox signupbox", placeholder: "New Password" %>
+		</ol>
+		<ol>
+			<%= f.password_field :password_confirmation, class: "inputbox signupbox", placeholder: "Confirm New Password" %>
+	
+		<ol style="margin-top: 15px; padding-left: 161px;">
+			<%= f.submit "Reset", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+		</ol>
+		<% end %>
+		 
+	</div><!-- end of Signup-box-bg -->
+
+</div><!-- end of center -->
+
+<!-- Footer -->
+<div style="padding: 0px 20px 18px 0; margin-top: 35px;">
+	<%= render 'layouts/footer' %>
+</div>
