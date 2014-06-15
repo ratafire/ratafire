@@ -1,0 +1,73 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+	<!-- Best in Place -->
+	<%= render 'shared/best_in_place'%>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_profile' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Main Content -->
+	<div class="main-content">
+
+		<!-- Full Name-->
+		<%= render 'shared/fullname'%>
+
+		<!-- Cutter --><ol style="margin-top: -5px;"></ol>
+
+		<!-- Tabs Nav -->
+		<%= render 'shared/tabs_nav_support' %>
+
+		<!-- Content of Profile -->
+		<div class="profile-content">
+
+			<!-- First Block -->
+			<div id="current-subscribers">
+				<% if @user.supporters.count == 0 %>
+					<% if user_signed_in? %>
+						<% if @user == current_user && subscription_status == false %>
+							<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
+								<h5>You have not setup subscription to accept supporters. Setup subscription in <%= link_to "Subscription Settings", subscription_settings_path(current_user), class:"no_ajaxify" %>.<span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
+								<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+							</div>									
+						<% else %>
+							<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
+								<h5><%= @user.fullname %> does't have a supporter. <span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
+								<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+							</div>						
+						<% end %><!-- end. @user == current_user -->
+					<% else %>
+						<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
+							<h5><%= @user.fullname %> does't have a supporter. <span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
+							<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+						</div>
+					<% end %><!-- end. if user_signed_in?-->
+				<% else %>
+					<%= render partial: "supports/current_supporters", collection: @supporters, :as => :user %>
+				<% end %>				
+			</div><!-- end:.current-subscribers-->
+
+
+
+			<!-- Pagination -->
+			<div id="Profile-page-load-more">
+				<% if @user.supporters.count > 75 %><!-- check if pagination exist-->
+					<div class="textbox-mini">
+						<span><%= will_paginate @supporters, :param_name => 'supporters', class:"rata_pagination no_ajaxify" %></span>					
+					</div>
+				<% else%>
+				<!-- Cutter --><ol style="margin-top: 64px;"></ol>
+				<% end %>
+			</div><!--end:profile-pageload-more -->
+
+		</div><!-- end:.profile-content -->	
+									<!-- Footer -->
+				<%= render 'layouts/footer' %>
+	</div><!-- end:.main-content-->	
