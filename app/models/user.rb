@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
 	validates :vimeo, length: {  maximum: 50 }
   
 	#goals
-	validates :goals_subscribers, numericality: {only_integer: true, greater_than_or_equal_to: 42}
+	validates :goals_subscribers, numericality: {only_integer: true, greater_than_or_equal_to: 32}
 	validates :goals_monthly, numericality: {only_integer: true, greater_than_or_equal_to: 540}
 	validates :goals_project, numericality: {only_integer: true, greater_than_or_equal_to: 1}
 

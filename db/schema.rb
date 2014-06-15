@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140615004747) do
+ActiveRecord::Schema.define(:version => 20140615030842) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -698,7 +698,7 @@ ActiveRecord::Schema.define(:version => 20140615004747) do
     t.string   "profilephoto_content_type"
     t.integer  "profilephoto_file_size"
     t.datetime "profilephoto_updated_at"
-    t.integer  "goals_subscribers",                                        :default => 600
+    t.integer  "goals_subscribers",                                        :default => 256
     t.integer  "goals_monthly",                                            :default => 7730
     t.integer  "goals_project",                                            :default => 5
     t.string   "encrypted_password"

@@ -41,7 +41,7 @@
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 						</div>
 						<div id="majorpost-tags">
-							<%= link_to "Read All >>", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
+							<%= link_to "Read All", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
 						</div>									
 					<% end %>
 					<!-- two postimages three postimages -->
@@ -60,7 +60,7 @@
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
 						</div>	
 						<div id="majorpost-tags">
-							<%= link_to "Read All >>", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
+							<%= link_to "Read All", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
 						</div>													
 					<% end %>
 					<!-- four postimages -->
@@ -86,7 +86,7 @@
 							</div>	
 						<% end %>	
 						<div id="majorpost-tags">
-							<%= link_to "Read All >>", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
+							<%= link_to "Read All", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
 						</div>										
 					<% end %>
 				<% else %>
