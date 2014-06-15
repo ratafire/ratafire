@@ -81,7 +81,7 @@ class AmazonController < ApplicationController
 		#SB 		Success status for the ACH (bank account) payment method
 		#SC 		Success status for the credit card payment method
 		if params['status'] == 'SA' || params['status'] == 'SB' || params['status'] == 'SC' then
-			if @subscription.supporter_switch = true
+			if @subscription.supporter_switch == true
 				#Create Support
 				support_register
 			else

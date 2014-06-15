@@ -39,7 +39,7 @@ class SubscriptionsController < ApplicationController
 	def create
 		@subscription = Subscription.new(params[:subscription])
 		#See if it is a support
-		if @subscription.amount < 10
+		if @subscription.amount == ENV["PRICE_1"].to_f
 			@subscription.supporter_switch = true
 		end
 		@user = User.find(params[:id])
@@ -311,47 +311,49 @@ private
     def subscription_permission
     	@subscribed = User.find(params[:id])
     	@subscriber = current_user
-    	#Check History to see if the last subscription is within one month
-    	if subscription_permission_30days then
-    		redirect_to(:back)
-    	else
-        	#Check if the subscribed has opened subscription
-    		if subscription_permission_opened?	then
+    	if Rails.env.production?
+    		#Check History to see if the last subscription is within one month
+    		if subscription_permission_30days then
     			redirect_to(:back)
     		else
-    			#Check if the subscribed does not have a subscription note
-    			if subscription_permission_note? then
+        		#Check if the subscribed has opened subscription
+    			if subscription_permission_opened?	then
     				redirect_to(:back)
     			else
-    				#Check if the subscribed has an on going project
-    				if subscription_permission_project? then
+    				#Check if the subscribed does not have a subscription note
+    				if subscription_permission_note? then
     					redirect_to(:back)
     				else
-    					#Check if the subscribed is banned
-    					if subscription_permission_subscribed_banned? then
+    					#Check if the subscribed has an on going project
+    					if subscription_permission_project? then
     						redirect_to(:back)
     					else
-    						#Check if the subscriber is banned
-    						if subscription_permission_subscriber_banned? then
-	    						redirect_to(:back)
-	    					else
-	    						#Check if the subscribed reached her goal
-	    						if subscription_maximum_amount? then
+    						#Check if the subscribed is banned
+    						if subscription_permission_subscribed_banned? then
+    							redirect_to(:back)
+    						else
+    							#Check if the subscriber is banned
+    							if subscription_permission_subscriber_banned? then
 	    							redirect_to(:back)
-	    						#Check if the subscriber is ok to subscribe
 	    						else
-	    							if subscriber_status? then
+	    							#Check if the subscribed reached her goal
+	    							if subscription_maximum_amount? then
 	    								redirect_to(:back)
+	    							#Check if the subscriber is ok to subscribe
+	    							else
+	    								if subscriber_status? then
+	    									redirect_to(:back)
+	    								end
 	    							end
-	    						end
+    							end
     						end
     					end
     				end
     			end
     		end
-    	end	
-
-    	
+    	else
+    		
+    	end
     end	
 
     def subscription_permission_30days 
