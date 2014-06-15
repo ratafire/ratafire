@@ -270,14 +270,18 @@ module ApplicationHelper
 
 	#Subscriber Status
 	def subscriber_status
-		if user_signed_in? && current_user.profilephoto? then
-			if current_user.github != nil || current_user.facebook != nil then
-				return true
+		if Rails.env.production?
+			if user_signed_in? && current_user.profilephoto? then
+				if current_user.github != nil || current_user.facebook != nil then
+					return true
+				else
+					return false
+				end
 			else
 				return false
 			end
 		else
-			return false
+			return true
 		end
 	end
 
