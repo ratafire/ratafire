@@ -1,6 +1,6 @@
 <script>
 //Price Counter
-var amts=[2.5,12,17,24,50,100];
+var amts=[2,12,17,24,50,100];
 $("#submit-amount").val(13.16);
 
 $("#price-slider-special").slider(
@@ -30,7 +30,7 @@ $("#price-slider-special").slider(
 					
 					total_less_ten = creator_receive+amazon_less_ten//Without Ratafire fee, less than 10
 					total = creator_receive+amazon_free//Without Ratafire fee
-					total_ratafire_6_percent_less_ten = creator_receive+amazon_less_ten+ratafire_6_percent
+					total_ratafire_7_percent_less_ten = creator_receive+amazon_less_ten+ratafire_6_percent
 					total_ratafire_3_percent = creator_receive+amazon_free+ratafire_3_percent
 					total_ratafire_7_percent = creator_receive+amazon_7_percent+ratafire_7_percent//With Ratafire fee 5%
 					total_ratafire_10_percent = creator_receive+amazon_10_percent+ratafire_10_percent;//With Ratafire fee 10%
@@ -38,13 +38,13 @@ $("#price-slider-special").slider(
 				switch(slider_value){
 					case 0:
 						//This is the supporter price
-						$( "#jquery-amazon").html("$"+amazon_less_ten.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_6_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_6_percent_less_ten.toFixed(2)+"/m");
+						$("#jquery-amazon").html("$"+amazon_less_ten.toFixed(2)+"/m");
+						$("#jquery-ratafire").html("$"+ratafire_7_percent.toFixed(2)+"/m");
+						$("#jquery-total").html("Total $"+total_ratafire_7_percent_less_ten.toFixed(2)+"/m");
 						$("#jquery-like").hide();
-						$("#jquery-total-value").html("$"+total_ratafire_6_percent_less_ten.toFixed(2));
-						$("#submit-amount").val(total_ratafire_6_percent_less_ten.toFixed(2));
-						$("#ratafire-fee-percent").html("5%, about ");
+						$("#jquery-total-value").html("$"+total_ratafire_7_percent_less_ten.toFixed(2));
+						$("#submit-amount").val(total_ratafire_7_percent_less_ten.toFixed(2));
+						$("#ratafire-fee-percent").html("6%, about ");
 						//Change of notice
 						$("#subscription-title").html("Support");
 						$("#priceof").html("You can still support");
