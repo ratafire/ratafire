@@ -154,6 +154,12 @@ Ratafire::Application.routes.draw do
 	match 'r/subscriptions/transactions/:id/paying_transactions', to: 'subscriptions#paying_transactions', as: :paying_transactions
 	match '/:id/r/settings/transactions/:transaction_id', to: 'subscriptions#transaction_details', as: :transaction_details
 	match '/:id/r/settings/transactions/:transaction_id/refund', to: 'subscriptions#refund', as: :refund
+
+	#Supporters
+	match ':id/r/supports/supporters', to: 'supports#supporters', as: :supporters
+	match ':id/r/supports/supporting', to: 'supports#supporting', as: :supporting
+	match ':id/r/supports/remove/:subscriber_id', to: 'supports#destroy', via: :delete, as: :remove_supporter
+	match ':id/r/supports/unsupport/:subscribed_id', to: 'supports#unsub', via: :delete, as: :unsupport
 	
 #---Payments---
 	match ':id/r/payments/why', to:'subscriptions#why', as: :why

@@ -57,9 +57,9 @@
 
 			<!-- Pagination -->
 			<div id="Profile-page-load-more">
-				<% if @user.subscribers.count >32 %><!-- check if pagination exist-->
+				<% if @user.subscribed.count >32 %><!-- check if pagination exist-->
 					<div class="textbox-mini">
-						<span><%= will_paginate @subscribing, :param_name => 'subscribers', class:"rata_pagination no_ajaxify" %></span>					
+						<span><%= will_paginate @subscribed, :param_name => 'subscribing', class:"rata_pagination no_ajaxify" %></span>					
 					</div>
 				<% else%>
 				<!-- Cutter --><ol style="margin-top: 40px;"></ol>

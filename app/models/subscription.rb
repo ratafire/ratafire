@@ -1,5 +1,5 @@
 class Subscription < ActiveRecord::Base
-  attr_accessible :amount, :subscriber_id, :subscribed_id, :created_at
+  attr_accessible :amount, :subscriber_id, :subscribed_id, :created_at, :supporter
 
   default_scope order: 'subscriptions.created_at DESC'
 
@@ -11,6 +11,9 @@ class Subscription < ActiveRecord::Base
   belongs_to :subscribed, class_name: "User"
   belongs_to :subscription_record
 
+  belongs_to :supporter, class_name: "User"
+  belongs_to :supported, class_name: "User"
+
   has_one :amazon_recurring
 
   #Reasons a subscription stopped
@@ -21,6 +24,9 @@ class Subscription < ActiveRecord::Base
   #5. Subscribed deactivated account
   #6. Subscriber deactivated account
   #7. Subscribed changed payments account
+
+  #8. Supported remove the supporter
+  #9. Supporter unsupported
 
   #--- Validations ---
 

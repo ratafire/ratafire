@@ -38,6 +38,10 @@ class SubscriptionsController < ApplicationController
 
 	def create
 		@subscription = Subscription.new(params[:subscription])
+		#See if it is a support
+		if @subscription.amount < 10
+			@subscription.supporter_switch = true
+		end
 		@user = User.find(params[:id])
 		@subscriber = User.find(@subscription.subscriber_id)
 		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id
@@ -145,6 +149,8 @@ class SubscriptionsController < ApplicationController
 		@subscription = Subscription.find_by_subscriber_id_and_subscribed_id(params[:subscriber_id],params[:id])
 		@user = User.find(@subscription.subscriber_id)
 		@subscriber = @user
+		#Cancel Amazon Payments Token
+		response = AmazonFlexPay.cancel_token(@subscription.amazon_recurring.tokenID)
 		@subscription.deleted_reason = 2
 		@subscription.deleted_at = Time.now
 		@subscription.save	

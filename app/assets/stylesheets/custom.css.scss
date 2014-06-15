@@ -113,6 +113,7 @@ footer {
 .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#eee;color:#333;background-color:#f0f0f0;}
 .tg .tg-akd2{color:#7f8c8d}
 .tg .tg-tdpq{background-color:#3498db;color:#ffffff}
+.tg .tg-tdpq2{background-color:#75b9e7;color:#ffffff}
 .tg .tg-9ch7{background-color:#f9f9f9;color:#7f8c8d}
 .tg .tg-0nbv{background-color:#f9f9f9;font-weight:bold;color:#666666;text-align:right}
 .tg .tg-sqpd{color:#7f8c8d;text-align:right}
@@ -1249,6 +1250,18 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	display: block;
 	padding-top: 7px;
 	margin: -50px 0 16px 0;
+}
+
+#sidebar-supporters {
+
+	margin: -15px 0 40px 0px;
+	padding-top: 3px;
+	font-size: 0.9em;
+	text-align: center;
+}
+
+.supporter-count {
+	display:inline-block;
 }
 
 #sidebar-personal {
@@ -5297,6 +5310,15 @@ display:inline-block;
 	margin-left: 20px;
 	color: #2297ce;
 }
+
+.supporter-difference{
+	display: none;
+	padding: 0 40px 0 40px;
+	margin-top: 10px;
+	width: 230px;
+	text-align: center;
+}
+
 #price-slider-special {
 -webkit-box-shadow: none;
 -moz-box-shadow: none;
@@ -5697,4 +5719,25 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	p {
 		margin: 15px 0;
 	}
+}
+
+/*--- Supporters ---*/
+.supporter-image{
+	float: left;
+	border: 1px solid #666;
+	border-bottom: 1px solid #333;
+	border-radius: 6px;
+	margin: 0 0 5px 5px;
+	height: 40px;
+	width: 40px;
+	-webkit-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
+	-moz-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
+	box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
+	&:hover{
+		border: 1px solid #ccc;
+	}	
+}
+
+.supporter-holder{
+	margin: 0 40px 80px 35px;
 }
