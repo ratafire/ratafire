@@ -300,6 +300,10 @@ private
     	@user = User.find(params[:id])
     	if @user.subscribed_by?(current_user) || current_user.subscribed_by?(@user) then
     		redirect_to @user
+    	else
+    		if @user.supported_by?(current_user) || current_user.supported_by?(@user) then
+    			redirect_to @user
+    		end
     	end
     end	
 
