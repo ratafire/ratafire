@@ -47,7 +47,7 @@
 									<ul id="blue"><%= render :text => @user.subscribers.count %> <span>/</span> </ul>
 									<ul><%= f.text_field :goals_subscribers, class: "inputbox goals-input" %></ul> <span>]</span>
 								<ol><%= progress_bar(goals_count(@user.subscribers.count,@user.goals_subscribers), :color => 'blue', :rounded => true) %></ol>
-								<span>default: 600, minimum: 42</span>
+								<span>default: 256, minimum: 32</span>
 								</div>
 
 								<!-- Monthly Subscription Amount -->
