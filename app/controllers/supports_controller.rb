@@ -34,7 +34,7 @@ class SupportsController < ApplicationController
 		@subscribed = User.find(@subscription.subscribed_id)
   		@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
   		@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f	
-  		@subscriber.supporter_slot = @subscribed.supporter_slot + 1
+  		@subscriber.supporter_slot += 1
   	 	@subscribed.save
  	 	@subscriber.save	
  	 	flash[:success] = "You removed "+@user.fullname+"!"
@@ -65,7 +65,7 @@ class SupportsController < ApplicationController
 		#Change User's subscription amount
 		@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
 		@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f
-		@subscriber.supporter_slot = @subscribed.supporter_slot + 1
+		@subscriber.supporter_slot += 1
 		@subscribed.save
 		@subscriber.save	
 		flash[:success] = "You unsupported "+@user.fullname+"!"

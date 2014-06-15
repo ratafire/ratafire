@@ -102,7 +102,7 @@
 	<div id="sidebar-supporters">
 		<%= link_to supporters_path(@user) do %>
 			<div class="supporter-count">
-				<%= @user.supporters.count %> Supporters
+				<%= @user.supporters.count %> <% if @user.supporters.count >1 %>Supporters<%else%>Supporter<% end %>
 			</div>
 		<% end %>		
 	</div>		

@@ -343,6 +343,10 @@ private
 	    							else
 	    								if subscriber_status? then
 	    									redirect_to(:back)
+	    								else
+	    									if exceed_supporters? then
+	    										redirect_to(:back)
+	    									end
 	    								end
 	    							end
     							end
@@ -438,6 +442,16 @@ private
 			flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because you do not have a profile photo."
 			return true
 		end
+	end
+
+	def exceed_supporters?
+		if @subscription != nil then
+			if @subscriber.supporter_slot <= 0 && @subscription.amount == ENV["PRICE_1"].to_f then
+				flash[:success] = "You cannot support "+@subscribed.fullname+", because you do not have enough subscription slots."
+				return true
+			end
+		end
+		return false	
 	end
 
   def amazon(amount)

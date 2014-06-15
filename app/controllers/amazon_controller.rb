@@ -193,7 +193,7 @@ private
   			@subscribed.subscription_amount = @subscribed.subscription_amount + ENV["PRICE_1_RECEIVE"].to_f
   			@subscriber.subscribing_amount = @subscriber.subscribing_amount + ENV["PRICE_1"].to_f
 
-  			@subscriber.supporter_slot = @subscribed.supporter_slot - 1
+  			@subscriber.supporter_slot -= 1
 
  	 		@subscribed.save
  	 		@subscriber.save
