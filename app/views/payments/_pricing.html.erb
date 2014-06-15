@@ -40,7 +40,7 @@
 	<div class="price-is-like-box">
 		<span id="priceof">This amount is roughly the price of</span>
 		<div class="price-is-like-item" id="jquery-like">A Lava Cake</div>
-		<div class="price-is-like-item" style="display:none;"id="supporter-number"><%= @current_user.supporter_slot.to_s %> Users</div>
+		<div class="price-is-like-item" style="display:none;"id="supporter-number"><%= @current_user.supporter_slot.to_s %> <span id="user-support">Users</span></div>
 		<div class="supporter-difference" id="difference">
 			<ul><%= link_to "What are the differences between subscribers and supporters?", "#{request.scheme}://#{request.host}/faq#faq-2347915", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
 			<ul><%= link_to "How do I get more supporter slots?", "#{request.scheme}://#{request.host}/faq#faq-2348935", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
@@ -55,6 +55,9 @@
 	<!-- Next Step Button-->
 	<div style="margin: 0 40px 40px 0; text-align:right;">
 		<div class="btn btn-medium2 btn-medium-blue no_ajaxify" id="next_step_checkout">
+			Next Step
+		</div>	
+		<div class="btn btn-medium2 btn-medium-white no_ajaxify" style="display:none;cursor:auto;"id="next_step_no">
 			Next Step
 		</div>	
 	</div>	
@@ -75,170 +78,8 @@
 </div><!-- end#payments-amazon-case-->	
 <!-- Payments Form-->
 <%= render 'payments/amount_form'%>
-<script>
-//Price Counter
-var amts=[2.5,12,17,24,50,100];
-$("#submit-amount").val(13.16);
-
-$("#price-slider-special").slider(
-{	
-	min:0,
-            max:5,
-            step: 1,
-            value:1,
-            change: function( event, ui ) {
-            	//Value equals to creator amount
-            	var creator_receive = amts[$(this).slider("value")]
-            		slider_value = $(this).slider("value");
-                $( "#jquery-creator-receive" ).html("$"+creator_receive.toFixed(2)+"/m");
-                //Progress bar
-                progress = parseInt( $(this).slider("value")/ 5 * 100, 10);
-				$('.price-slider-inner').css('width', progress + '%');
-				//Calculate Price For Different Conditions
-				var ratafire_3_percent = (creator_receive*0.03)
-					ratafire_6_percent = (creator_receive*0.06)
-					ratafire_7_percent = (creator_receive*0.07)
-					ratafire_10_percent = (creator_receive*0.10)
-
-					amazon_less_ten = ((creator_receive*0.06+0.05)/0.94)//Amazon less than $10 international credit card rate: 6% + $0.05
-					amazon_free = ((creator_receive*0.039+0.30)/0.961)//Amazon larger than $10 international credit card rate: 3.9% + $0.30
-					amazon_7_percent = (((creator_receive+ratafire_7_percent)*0.039+0.30)/0.961)
-					amazon_10_percent = (((creator_receive+ratafire_10_percent)*0.039+0.30)/0.961)
-					
-					total_less_ten = creator_receive+amazon_less_ten//Without Ratafire fee, less than 10
-					total = creator_receive+amazon_free//Without Ratafire fee
-					total_ratafire_6_percent_less_ten = creator_receive+amazon_less_ten+ratafire_6_percent
-					total_ratafire_3_percent = creator_receive+amazon_free+ratafire_3_percent
-					total_ratafire_7_percent = creator_receive+amazon_7_percent+ratafire_7_percent//With Ratafire fee 5%
-					total_ratafire_10_percent = creator_receive+amazon_10_percent+ratafire_10_percent;//With Ratafire fee 10%
-
-				switch(slider_value){
-					case 0:
-						//This is the supporter price
-						$( "#jquery-amazon").html("$"+amazon_less_ten.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_6_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_6_percent_less_ten.toFixed(2)+"/m");
-						$("#jquery-like").hide();
-						$("#jquery-total-value").html("$"+total_ratafire_6_percent_less_ten.toFixed(2));
-						$("#submit-amount").val(total_ratafire_6_percent_less_ten.toFixed(2));
-						$("#ratafire-fee-percent").html("5%, about ");
-						//Change of notice
-						$("#subscription-title").html("Support");
-						$("#priceof").html("You can still support");
-						$("#supporter-number").show();
-						$("#difference").show();
-						$("#selector").html("Try Ratafre by supporting");
-						$("#checkout").html("Become a supporter of ");
-						break;
-					case 1:
-						$( "#jquery-amazon").html("$"+amazon_free.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_3_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_3_percent.toFixed(2)+"/m");
-						$("#jquery-like").html("A Lava Cake");
-						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_3_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_3_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("3%, about ");
-						//Change of notice
-						$("#subscription-title").html("Subscribe to");
-						$("#priceof").html("This amount is roughly the price of");
-						$("#supporter-number").hide();
-						$("#difference").hide();
-						$("#selector").html("Subscription Amount Selector");
-						$("#checkout").html("Subscribe to ");
-						break;	
-					case 2:
-						$( "#jquery-amazon").html("$"+amazon_7_percent.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_7_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_7_percent.toFixed(2)+"/m");
-						$("#jquery-like").html("A Meal With Fish");
-						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_7_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_7_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("6%, about ");
-						//Change of notice
-						$("#subscription-title").html("Subscribe to");
-						$("#priceof").html("This amount is roughly the price of");
-						$("#supporter-number").hide();
-						$("#difference").hide();		
-						$("#selector").html("Subscription Amount Selector");	
-						$("#checkout").html("Subscribe to ");		
-						break;
-					case 3:
-						$( "#jquery-amazon").html("$"+amazon_7_percent.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_7_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_7_percent.toFixed(2)+"/m");
-						$("#jquery-like").html("A Book");
-						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_7_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_7_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("6%, about ");
-						//Change of notice
-						$("#subscription-title").html("Subscribe to");
-						$("#priceof").html("This amount is roughly the price of");
-						$("#supporter-number").hide();	
-						$("#difference").hide();		
-						$("#selector").html("Subscription Amount Selector");	
-						$("#checkout").html("Subscribe to ");
-						break;
-					case 4:
-						$( "#jquery-amazon").html("$"+amazon_10_percent.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_10_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_10_percent.toFixed(2)+"/m");
-						$("#jquery-like").html("A Surprise");
-						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_10_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_10_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("9%, about ");
-						//Change of notice
-						$("#subscription-title").html("Subscribe to");
-						$("#priceof").html("This amount is roughly the price of");
-						$("#supporter-number").hide();	
-						$("#difference").hide();		
-						$("#selector").html("Subscription Amount Selector");	
-						$("#checkout").html("Subscribe to ");
-						break;
-					case 5:
-						$( "#jquery-amazon").html("$"+amazon_10_percent.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_10_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_10_percent.toFixed(2)+"/m");
-						$("#jquery-like").html("1024 Pine Nuts");
-						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_10_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_10_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("9%, about ");
-						//Change of notice
-						$("#subscription-title").html("Subscribe to");
-						$("#priceof").html("This amount is roughly the price of");
-						$("#supporter-number").hide();	
-						$("#difference").hide();		
-						$("#selector").html("Subscription Amount Selector");	
-						$("#checkout").html("Subscribe to ");
-						break;			
-				}	
-            }//end change
-}
-
-);
-progress = parseInt( $("#price-slider-special").slider("value")/ 5 * 100, 10);
-$('.price-slider-inner').css('width', progress + '%');
-
-$( "#slider-value" ).html(  $('#price-slider-special').slider('value') );
-
-//Next Button
-$("#next_step_checkout").click(function(){
-	$("#payments-case").hide();
-	$("#payments-amazon-case").show();
-});
-
-//Edit Button
-$("#edit").click(function(){
-	$("#payments-amazon-case").hide();
-	$("#payments-case").show();
-});
-
-//temporary submit button
-$("#next_step_checkout_amazon").click(function(){
-	$("#subscrption-form").submit();
-	});
-</script>
+<% if @current_user.supporter_slot >= 1 %>
+	<%= render 'payments/pricing_js'%>
+<% else %>
+	<%= render 'payments/pricing_js_nosupport'%>
+<% end %>
