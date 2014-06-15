@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140612193922) do
+ActiveRecord::Schema.define(:version => 20140615004747) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -560,7 +560,9 @@ ActiveRecord::Schema.define(:version => 20140612193922) do
     t.boolean  "past",                                                :default => false
     t.boolean  "accumulated",                                         :default => false
     t.decimal  "duration",             :precision => 32, :scale => 6
-    t.boolean  "supporter",                                           :default => false
+    t.boolean  "supporter_switch",                                    :default => false
+    t.boolean  "past_support",                                        :default => false
+    t.boolean  "duration_support",                                    :default => false
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -582,7 +584,7 @@ ActiveRecord::Schema.define(:version => 20140612193922) do
     t.boolean  "activated",                                             :default => false
     t.boolean  "deleted",                                               :default => false
     t.string   "uuid"
-    t.boolean  "supporter",                                             :default => false
+    t.boolean  "supporter_switch",                                      :default => false
   end
 
   create_table "tag_relationships", :force => true do |t|
@@ -639,7 +641,7 @@ ActiveRecord::Schema.define(:version => 20140612193922) do
     t.string   "uuid"
     t.decimal  "ratafire_fee",           :precision => 10, :scale => 2
     t.string   "error"
-    t.boolean  "supporter",                                             :default => false
+    t.boolean  "supporter_switch",                                      :default => false
   end
 
   create_table "twitters", :force => true do |t|
@@ -734,6 +736,7 @@ ActiveRecord::Schema.define(:version => 20140612193922) do
     t.string   "invited_by_type"
     t.integer  "invitations_count",                                        :default => 0
     t.decimal  "subscribing_amount",         :precision => 8, :scale => 2, :default => 0.0
+    t.integer  "supporter_slot",                                           :default => 5
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

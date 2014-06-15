@@ -81,7 +81,35 @@ class AmazonController < ApplicationController
 		#SB 		Success status for the ACH (bank account) payment method
 		#SC 		Success status for the credit card payment method
 		if params['status'] == 'SA' || params['status'] == 'SB' || params['status'] == 'SC' then
-			#Create Subscription
+			if @subscription.supporter_switch = true
+				#Create Support
+				support_register
+			else
+				#Create Subscription
+				subscription_register
+			end
+		else
+			@subscription.destroy
+			PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|
+				if activity != nil then 
+					activity.deleted = true
+					activity.deleted_at = Time.now
+					activity.save
+				end
+			end
+			flash[:success] = "The subscription to "+@subscription.subscribed.fullname+" did not go through."
+		end
+
+		if @subscription.supporter_switch = true
+			redirect_to supporters_path(@subscription.subscribed_id)
+		else
+			redirect_to subscribers_path(@subscription.subscribed_id)
+		end
+	end
+
+private
+
+	def subscription_register
 
 			@subscription.activated = true
 			@subscription.activated_at = Time.now
@@ -109,6 +137,7 @@ class AmazonController < ApplicationController
 				@subscription_record = SubscriptionRecord.new
 				@subscription_record.subscriber_id = @subscription.subscriber_id
 				@subscription_record.subscribed_id = @subscription.subscribed_id
+				@subscription_record.supporter_switch = @subscription.supporter_switch
 				@subscription_record.save
 			end
 
@@ -139,19 +168,40 @@ class AmazonController < ApplicationController
  	 		@subscriber.save
  	 		
 			@subscription.subscription_record_id = @subscription_record.id
-			@subscription.save
+			@subscription.save		
 			flash[:success] = "You subscribed to "+@subscription.subscribed.fullname+"!"
-		else
-			@subscription.destroy
-			PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|
-				if activity != nil then 
-					activity.deleted = true
-					activity.deleted_at = Time.now
-					activity.save
-				end
-			end
-			flash[:success] = "The subscription to "+@subscription.subscribed.fullname+" did not go through."
-		end
-		redirect_to subscribers_path(@subscription.subscribed_id)
 	end
+
+	def support_register
+			@subscription.activated = true
+			@subscription.activated_at = Time.now
+
+			#Create Subscription Record
+			@subscription_record = SubscriptionRecord.find_by_subscriber_id_and_subscribed_id(@subscription.subscriber_id,@subscription.subscribed_id)
+			if @subscription_record == nil then
+				@subscription_record = SubscriptionRecord.new
+				@subscription_record.subscriber_id = @subscription.subscriber_id
+				@subscription_record.subscribed_id = @subscription.subscribed_id
+				@subscription_record.supporter_switch = @subscription.supporter_switch
+				@subscription_record.save
+			end
+
+			#Add to User's Subscription amount
+			@subscribed = User.find(@subscription.subscribed_id)
+			@subscriber = User.find(@subscription.subscriber_id)
+
+  			@subscribed.subscription_amount = @subscribed.subscription_amount + ENV["PRICE_1_RECEIVE"].to_f
+  			@subscriber.subscribing_amount = @subscriber.subscribing_amount + ENV["PRICE_1"].to_f
+
+  			@subscriber.supporter_slot = @subscribed.supporter_slot - 1
+
+ 	 		@subscribed.save
+ 	 		@subscriber.save
+ 	 		
+			@subscription.subscription_record_id = @subscription_record.id
+			@subscription.save				
+		
+			flash[:success] = "You became a supporter of "+@subscription.subscribed.fullname+"!"
+	end
+
 end

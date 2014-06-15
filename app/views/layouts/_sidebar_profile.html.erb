@@ -41,10 +41,31 @@
 				<% end %>
 
 			<% else %>
-					<!-- Subscribe Button -->
-					<div style="margin-top: 10px;">
-						<%= link_to "SUBSCRIBE", why_path(@user), class: "btn btn-medium btn-medium-green"%>
-					</div>
+					<!-- Supporting -->
+					<% if @user.supported_by?(current_user)%>
+						<%= link_to unsupport_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsupport "+@user.fullname+"? If unsupported, you cannot resubscribe to "+@user.fullname+" in one month." do %>
+							<div style="margin-top: 10px;" class="btn btn-medium btn-medium-blue btn-change-text">
+								<span class="before">Supporting</span>
+								<span class="hover">Unsupport</span>
+							</div>
+						<% end %><!-- end.link_to -->						
+					<% else %>
+						<!-- Subscribes you-->
+						<% if current_user.supported_by?(@user)%>
+							<!-- Subscribes you-->
+							<%= link_to remove_supporter_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from supporting you? If removed, "+@user.fullname+" cannot resubscribe to you in one month." do%>
+								<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
+									<span class="before">Supporting You</span>
+									<span class="hover">Remove</span>
+								</div>	
+							<% end %>
+						<% else %>
+							<!-- Subscribe Button -->
+							<div style="margin-top: 10px;">
+								<%= link_to "SUBSCRIBE", why_path(@user), class: "btn btn-medium btn-medium-green"%>
+							</div>											
+						<% end %>
+					<% end %>
 			<% end %><!-- end.current_user.subscribed_by?-->
 		<% end %><!-- end.if @user.subscribed_by?(current_user)-->	
 	<% end %><!-- end.if if @user == current_user-->
@@ -73,6 +94,19 @@
 	</div>
 	<% end %>
 
+	<div style="margin-top: -35px;">
+		<hr class="style-two">
+	</div>
+
+	<!-- Supporters -->
+	<div id="sidebar-supporters">
+		<%= link_to supporters_path(@user) do %>
+			<div class="supporter-count">
+				<%= @user.supporters.count %> Supporters
+			</div>
+		<% end %>		
+	</div>		
+
 	<div id="sidebar-personal" style="margin-top: -37px;">
 		
 		<!-- Personal Link -->
@@ -89,7 +123,7 @@
 			<div id="Sidebar-personal-link">
 				<%= link_to @user.website, @user_website,class:"no_ajaxify", target: "_blank" %>
 			</div>
-		<% end %>
+		<% end %>		
 
 		<!-- Social Media -->
 		<div style="margin: 5px 0 0 18px;">

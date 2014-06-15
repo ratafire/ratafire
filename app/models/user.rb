@@ -58,18 +58,25 @@ class User < ActiveRecord::Base
 
 	#--- Payments ---
 	#Subscriptions
-	has_many :subscriptions, foreign_key: "subscribed_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true }
-	has_many :subscribers, through: :subscriptions, source: :subscriber, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter => false}}
+	has_many :subscriptions, foreign_key: "subscribed_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true, :supporter_switch => false }
+	has_many :subscribers, through: :subscriptions, source: :subscriber, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter_switch => false}}
 
-	has_many :reverse_subscriptions, foreign_key: "subscriber_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true }
-	has_many :subscribed, through: :reverse_subscriptions, source: :subscribed, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter => false}}
+	has_many :reverse_subscriptions, foreign_key: "subscriber_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true, :supporter_switch => false }
+	has_many :subscribed, through: :reverse_subscriptions, source: :subscribed, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter_switch => false}}
+
+	#Supporters
+	has_many :supports, foreign_key: "subscribed_id", class_name: "Subscription", dependent: :destroy, :conditions => {:deleted_at => nil, :activated => true, :supporter_switch => true}
+	has_many :supporters, through: :supports, source: :subscriber, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter_switch => true}}
+
+	has_many :reverse_supports, foreign_key: "subscriber_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true, :supporter_switch => true }
+	has_many :supported, through: :reverse_supports, source: :subscribed, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter_switch => true}}
 
 	#Subscription_histories
 	has_many :past_subscriptions, foreign_key: "subscribed_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past => true }
-	has_many :past_subscribers, through: :past_subscriptions, source: :subscriber, :conditions => {:subscription_records => { :past => true, :accumulated => true, :supporter => false}}
+	has_many :past_subscribers, through: :past_subscriptions, source: :subscriber, :conditions => {:subscription_records => { :past => true, :accumulated => true, :supporter_switch => false}}
 
 	has_many :reverse_past_subscriptions, foreign_key: "subscriber_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past => true }
-	has_many :past_subscribed, through: :reverse_past_subscriptions, source: :subscribed, :conditions => {:subscription_records => { :past => true, :accumulated => true, :supporter => false}}
+	has_many :past_subscribed, through: :reverse_past_subscriptions, source: :subscribed, :conditions => {:subscription_records => { :past => true, :accumulated => true, :supporter_switch => false}}
 
 	#Subscription_records
 	has_many :subscription_records, foreign_key: "subscribed_id", class_name: "SubscriptionRecord", dependent: :destroy
@@ -169,6 +176,19 @@ class User < ActiveRecord::Base
   def subscribed_by?(subscriber_id)
   	if subscriptions != nil then
   		if subscriptions.where(:deleted => false, :activated => true, :subscriber_id => subscriber_id).count != 0 then
+  			return true
+  		else
+  			return false
+  		end
+  	else
+  		return false	
+  	end
+  end
+
+  #@user.supported_by(current_user) => current_user is supporting @user
+  def supported_by?(supporter_id)
+  	if supports != nil then
+  		if supports.where(:deleted => false, :activated => true, :subscriber_id => supporter_id).count != 0 then
   			return true
   		else
   			return false

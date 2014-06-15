@@ -10,6 +10,7 @@ class Transaction < ActiveRecord::Base
   		@transaction = Transaction.new
   		@subscription = Subscription.find(options[:subscription_id])
   		@transaction.amount = @subscription.amount.to_s
+      @transaction.supporter_switch = @subscription.supporter_switch
   		case @transaction.amount
   		when ENV["PRICE_1"]
   			@transaction.ratafire = 3
