@@ -3,12 +3,22 @@ class SupportsController < ApplicationController
 
 	def supporters
 		@user = User.find(params[:id])
-		@supporters = @user.supporters.paginate(page: params[:supporters], :per_page => 75)
+		@supporters = @user.supporters.paginate(page: params[:supporters], :per_page => 65)
 	end
+
+	def supporters_past
+		@user = User.find(params[:id])
+		@supporters = @user.past_supporters.paginate(page: params[:supporters], :per_page => 65)
+	end	
 
 	def supporting
 		@user = User.find(params[:id])
-		@supporting = @user.supported.paginate(page: params[:supporting], :per_page => 75)
+		@supporting = @user.supported.paginate(page: params[:supporting], :per_page => 65)
+	end
+
+	def supporting_past
+		@user = User.find(params[:id])
+		@supporting = @user.past_supported.paginate(page: params[:supporting], :per_page => 65)
 	end
 
 	def destroy

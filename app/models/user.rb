@@ -73,10 +73,17 @@ class User < ActiveRecord::Base
 
 	#Subscription_histories
 	has_many :past_subscriptions, foreign_key: "subscribed_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past => true }
-	has_many :past_subscribers, through: :past_subscriptions, source: :subscriber, :conditions => {:subscription_records => { :past => true, :accumulated => true, :supporter_switch => false}}
+	has_many :past_subscribers, through: :past_subscriptions, source: :subscriber, :conditions => {:subscription_records => { :past => true, :accumulated => true}}
 
 	has_many :reverse_past_subscriptions, foreign_key: "subscriber_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past => true }
-	has_many :past_subscribed, through: :reverse_past_subscriptions, source: :subscribed, :conditions => {:subscription_records => { :past => true, :accumulated => true, :supporter_switch => false}}
+	has_many :past_subscribed, through: :reverse_past_subscriptions, source: :subscribed, :conditions => {:subscription_records => { :past => true, :accumulated => true}}
+
+	#Support_histories
+	has_many :past_supports, foreign_key: "subscribed_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => { :past_support => true }
+	has_many :past_supporters, through: :past_supports, source: :subscriber, :conditions => {:subscription_records => { :past_support => true, :accumulated => true}}
+
+	has_many :reverse_past_supports, foreign_key: "subscriber_id", class_name: "SubscriptionRecord", dependent: :destroy, :conditions => {:past_support => true}
+	has_many :past_supported, through: :reverse_past_supports, source: :subscribed, :conditions => {:subscription_records => {:past_support => true, :accumulated =>true}}
 
 	#Subscription_records
 	has_many :subscription_records, foreign_key: "subscribed_id", class_name: "SubscriptionRecord", dependent: :destroy

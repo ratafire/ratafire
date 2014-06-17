@@ -160,6 +160,8 @@ Ratafire::Application.routes.draw do
 	match ':id/r/supports/supporting', to: 'supports#supporting', as: :supporting
 	match ':id/r/supports/remove/:subscriber_id', to: 'supports#destroy', via: :delete, as: :remove_supporter
 	match ':id/r/supports/unsupport/:subscribed_id', to: 'supports#unsub', via: :delete, as: :unsupport
+	match ':id/r/supports/supporters_past', to: 'supports#supporters_past', as: :supporters_past
+	match ':id/r/supports/supporting_past', to: 'supports#supporting_past', as: :supporting_past
 	
 #---Payments---
 	match ':id/r/payments/why', to:'subscriptions#why', as: :why

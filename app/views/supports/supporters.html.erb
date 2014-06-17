@@ -28,6 +28,16 @@
 		<!-- Content of Profile -->
 		<div class="profile-content">
 
+			<!-- Now/Past -->
+				<div class="now-past-holder2">
+					<%= link_to supporters_past_path(@user) do %><span class="btn-delete-light-solid" style="position:relative;z-index:1;padding-right:10px;">
+						Past
+					</span><% end %>	
+					<span class="btn-delete-solid" style="position:relative;z-index:2;">
+						Now
+					</span>
+				</div>				
+
 			<!-- First Block -->
 			<div id="current-subscribers">
 				<% if @user.supporters.count == 0 %>
@@ -58,7 +68,7 @@
 
 			<!-- Pagination -->
 			<div id="Profile-page-load-more">
-				<% if @user.supporters.count > 75 %><!-- check if pagination exist-->
+				<% if @user.supporters.count > 65 %><!-- check if pagination exist-->
 					<div class="textbox-mini">
 						<span><%= will_paginate @supporters, :param_name => 'supporters', class:"rata_pagination no_ajaxify" %></span>					
 					</div>

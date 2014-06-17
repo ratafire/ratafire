@@ -13,7 +13,7 @@ class Transaction < ActiveRecord::Base
       @transaction.supporter_switch = @subscription.supporter_switch
   		case @transaction.amount
   		when ENV["PRICE_1"]
-  			@transaction.ratafire = 3
+  			@transaction.ratafire = 6
   		when ENV["PRICE_2"]
   			@transaction.ratafire = 3
   		when ENV["PRICE_3"]
@@ -25,6 +25,7 @@ class Transaction < ActiveRecord::Base
   		when ENV["PRICE_6"]
   			@transaction.ratafire = 9
   		end	
+      @transaction.supporter_switch = @subscription.supporter_switch
   		@transaction.subscribed_id = @subscription.subscribed_id
       @transaction.subscriber_id = @subscription.subscriber_id
       @transaction.SenderTokenId = @subscription.amazon_recurring.tokenID

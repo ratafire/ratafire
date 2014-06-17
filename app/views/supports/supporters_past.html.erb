@@ -23,30 +23,31 @@
 		<!-- Cutter --><ol style="margin-top: -5px;"></ol>
 
 		<!-- Tabs Nav -->
-		<%= render 'shared/tabs_nav_support_2' %>
+		<%= render 'shared/tabs_nav_support' %>
 
 		<!-- Content of Profile -->
 		<div class="profile-content">
 
 			<!-- Now/Past -->
-				<div class="now-past-holder2">
-					<%= link_to supporting_past_path(@user) do %><span class="btn-delete-light-solid" style="position:relative;z-index:1;padding-right:10px;">
-						Past
-					</span><% end %>	
-					<span class="btn-delete-solid" style="position:relative;z-index:2;">
-						Now
-					</span>
-				</div>				
+			<div class="now-past-holder2">
+				<span class="btn-delete-solid" style="position:relative;z-index:2;">
+					Past
+				</span>	
+				<%= link_to supporters_path(@user) do %><span class="btn-delete-light-solid" style="position:relative;z-index:1;padding-left:10px;">
+					Now
+				</span><% end %>
+			</div>
+
 
 			<!-- First Block -->
 			<div id="current-subscribers">
-				<% if @user.supported.count == 0 %>
+				<% if @user.past_supporters.count == 0 %>
 					<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
-						<h5><%= @user.fullname %> has not supported anyone. <span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
+						<h5><%= @user.fullname %> does't have a past supporter. <span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
 						<!-- Cutter --><ol style="margin-top: 40px;"></ol>
 					</div>
 				<% else %>
-					<%= render partial: "supports/current_supporting", collection: @supporting, :as => :user %>
+					<%= render partial: "supports/past_supporters", collection: @supporters, :as => :user %>
 				<% end %>				
 			</div><!-- end:.current-subscribers-->
 
@@ -54,12 +55,12 @@
 
 			<!-- Pagination -->
 			<div id="Profile-page-load-more">
-				<% if @user.supported.count > 65 %><!-- check if pagination exist-->
+				<% if @user.past_supporters.count > 65 %><!-- check if pagination exist-->
 					<div class="textbox-mini">
-						<span><%= will_paginate @supported, :param_name => 'supporting', class:"rata_pagination no_ajaxify" %></span>					
+						<span><%= will_paginate @supporters, :param_name => 'supporters', class:"rata_pagination no_ajaxify" %></span>					
 					</div>
 				<% else%>
-				<!-- Cutter --><ol style="margin-top: 64px;"></ol>
+				<!-- Cutter --><ol style="margin-top: 40px;"></ol>
 				<% end %>
 			</div><!--end:profile-pageload-more -->
 
