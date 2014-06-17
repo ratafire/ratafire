@@ -8,4 +8,7 @@ class SubscriptionRecord < ActiveRecord::Base
 
   belongs_to :subscriber, class_name: "User"
   belongs_to :subscribed, class_name: "User"  
+
+  belongs_to :past_supporter, class_name: "User"
+  belongs_to :past_supported, class_name: "User"
 end

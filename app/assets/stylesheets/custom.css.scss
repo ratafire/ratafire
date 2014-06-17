@@ -4980,8 +4980,9 @@ a{
 /*-- Subscription --*/
 #current-subscribers{
 	overflow: hidden;
-	min-height: 270px;
+	min-height: 230px;
 	margin-top: 38px;
+	padding-bottom: 40px;
 }
 .subscription-box {
 	width: 100%;
@@ -5739,5 +5740,5 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 }
 
 .supporter-holder{
-	margin: 0 40px 80px 35px;
+	margin: 0px 100px 80px 35px;
 }

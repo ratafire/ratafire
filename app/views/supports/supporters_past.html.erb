@@ -1,0 +1,70 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+	<!-- Best in Place -->
+	<%= render 'shared/best_in_place'%>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_profile' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Main Content -->
+	<div class="main-content">
+
+		<!-- Full Name-->
+		<%= render 'shared/fullname'%>
+
+		<!-- Cutter --><ol style="margin-top: -5px;"></ol>
+
+		<!-- Tabs Nav -->
+		<%= render 'shared/tabs_nav_support' %>
+
+		<!-- Content of Profile -->
+		<div class="profile-content">
+
+			<!-- Now/Past -->
+			<div class="now-past-holder2">
+				<span class="btn-delete-solid" style="position:relative;z-index:2;">
+					Past
+				</span>	
+				<%= link_to supporters_path(@user) do %><span class="btn-delete-light-solid" style="position:relative;z-index:1;padding-left:10px;">
+					Now
+				</span><% end %>
+			</div>
+
+
+			<!-- First Block -->
+			<div id="current-subscribers">
+				<% if @user.past_supporters.count == 0 %>
+					<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
+						<h5><%= @user.fullname %> does't have a past supporter. <span style="color:#fff;">(っ◔◡◔)っ ♥</span></h5>
+						<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+					</div>
+				<% else %>
+					<%= render partial: "supports/past_supporters", collection: @supporters, :as => :user %>
+				<% end %>				
+			</div><!-- end:.current-subscribers-->
+
+
+
+			<!-- Pagination -->
+			<div id="Profile-page-load-more">
+				<% if @user.past_supporters.count > 65 %><!-- check if pagination exist-->
+					<div class="textbox-mini">
+						<span><%= will_paginate @supporters, :param_name => 'supporters', class:"rata_pagination no_ajaxify" %></span>					
+					</div>
+				<% else%>
+				<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+				<% end %>
+			</div><!--end:profile-pageload-more -->
+
+		</div><!-- end:.profile-content -->	
+									<!-- Footer -->
+				<%= render 'layouts/footer' %>
+	</div><!-- end:.main-content-->	
