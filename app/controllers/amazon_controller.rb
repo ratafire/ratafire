@@ -100,7 +100,7 @@ class AmazonController < ApplicationController
 			flash[:success] = "The subscription to "+@subscription.subscribed.fullname+" did not go through."
 		end
 
-		if @subscription.supporter_switch = true
+		if @subscription.supporter_switch == true
 			redirect_to supporters_path(@subscription.subscribed_id)
 		else
 			redirect_to subscribers_path(@subscription.subscribed_id)

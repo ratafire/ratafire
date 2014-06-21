@@ -1,0 +1,69 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "How do I setup subscription?", how_do_I_setup_subscription_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>How do I setup subscription?</h2>
+
+	<div class="help-content-holder">
+		<p>Setup subscription so that other users can subscribe to you with monthly subscription fees in support of your projects. Subscriptions are linked to you instead of your projects.</p>
+
+		<p>To setup subscription, click the <code>Gear Wheel</code> icon to the right of your name in header, select <code>Subscription</code>.</p> 
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_14.jpg);">
+		</div>	
+
+		<p>You then need to fullfil seven requirements:</p>
+
+		<p>You will need to turn on subscription. The on and off button controls whether new subscriptions are allowed. For example, if you have setup subscription and 10 people have subscribed to you, switching the <code>Turn on subscription</code> button off will not make you lose the current 10 subscribers, but that will prevent the 11st user to subscribe to you.</p>
+
+		<p>You will also need an ongoing project to accept subscription. Once you mark one of your projects as completed or abandoned, it is no longer an ongoing project. Fail to maintain an ongoing project will not cause you to lose current subscribers, but will prevent future subscribers until you start a new project.</p>
+
+		<p>The next step is to write a short passage on why do you need the support of your subscribers. A good example of such passage is on the <%= link_to "Brain Pickings Blog", "http://www.brainpickings.org/index.php/donate/", target:"_blank" %>.</p>
+
+		<p>Then you should write a short sentence on your intended update frequency or plan if you reach your subscription amount goal. You are not mandatory to fullfil this plan even if you have reached your subscription amount goal, but it will serve as a reference for you and your subscribers.</p>
+
+		<p>To accept new subscriptions, your current subscription amount must be lower than your <code>Monthly Subscription Amount</code> goal. You can change this amount every 30 days in your <code>Goals</code> tab.</p>
+
+		<p>After these steps, you have to connect to Amazon Payments. You must have a verified Amazon Payments business account to accept subscription. Since you are using Ratafire as an individual, not as a business, when you create an Amazon Payments business account, select your business type as "Individual", and use your own name and address. As for the website required by Amazon, we suggest that you use your own blog or site. If you do not have a website, you can put Ratafire as the website.</p>
+
+		<p>The last step is to connect your account to GitHub or Facebook. Your subscribers will also need to connect to GitHub or Facebook to verify their identities.</p>
+
+		<p>Well done! Now other users can subscribe to you.</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_16.jpg);height:207px;">
+		</div>	
+
+		<p>When a user subscribe to you, he or she will show up in the <code>Subscribers</code> tab of your profile page, as it is showned above.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Subscription</ol>
+		<hr class="style-two">
+		<%= render 'helps/subscription_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>

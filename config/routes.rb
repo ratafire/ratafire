@@ -23,7 +23,6 @@ Ratafire::Application.routes.draw do
 	root to: 'static_pages#home'
 
 #---Static Pages---
-	match '/help', to: 'static_pages#help'
 	match '/terms', to: 'static_pages#terms', as: :terms
 	match '/privacy', to: 'static_pages#privacy', as: :privacy
 	match '/guidelines', to: 'static_pages#guidelines', as: :guidelines
@@ -264,6 +263,27 @@ Ratafire::Application.routes.draw do
 	match '/blog-design', to: 'blogposts#design', as: :blog_design
 	match '/blog-news', to: 'blogposts#news', as: :blog_news
 	match '/blog/category-selector/r/r/r/r/:category', to: 'blogposts#category_selector', as: :blog_category_selector
+
+#---Help---
+	match '/help', to: 'helps#show', as: :help
+
+	#Projects
+	match '/help_how_do_I_start_a_project', to: 'helps#how_do_I_start_a_project', as: :how_do_I_start_a_project
+	match '/help_what_are_major_posts', to: 'helps#what_are_major_posts', as: :what_are_major_posts
+	match '/help_how_do_I_add_inspirations', to: 'helps#how_do_I_add_inspirations', as: :how_do_I_add_inspirations
+	match '/help_how_do_I_embed_code', to: 'helps#how_do_I_embed_code', as: :how_do_I_embed_code
+	match '/help_how_do_I_insert_equations', to: 'helps#how_do_I_insert_equations', as: :how_do_I_insert_equations
+	match '/help_how_do_I_upload_or_embed_a_video', to: 'helps#how_do_I_upload_or_embed_a_video', as: :how_do_I_upload_or_embed_a_video
+	match '/help_how_do_I_upload_an_artwork', to: 'helps#how_do_I_upload_an_artwork', as: :how_do_I_upload_an_artwork
+
+	#Subscription
+	match '/help_how_do_I_setup_subscription', to: 'helps#how_do_I_setup_subscription', as: :how_do_I_setup_subscription
+	match '/help_how_do_I_subscribe_to_another_user', to: 'helps#how_do_I_subscribe_to_another_user', as: :how_do_I_subscribe_to_another_user
+	match '/help_how_do_I_check_transactions', to: 'helps#how_do_I_check_transactions', as: :how_do_I_check_transactions
+
+	#Social
+	match '/help_look_around', to: 'helps#look_around', as: :look_around
+	match '/help_what_are_the_goals_on_my_profile_page', to: 'helps#what_are_the_goals_on_my_profile_page', as: :what_are_the_goals_on_my_profile_page
 
 #------Resources------
 	resources :users, :path => '/' do

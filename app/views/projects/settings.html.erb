@@ -46,9 +46,9 @@
 					<h2>Goal</h2>
 						<!-- Goal -->
 						<div class="goals-placer">
-							<ul id="blue">Major Posts <span>[</span>
+							<ul id="blue">Major Posts
 							<%= @majorpost_count %> <span>/</span> </ul>
-							<ul><%= f.text_field :goal, class: "inputbox goals-input" %></ul> <span>]</span>
+							<ul><%= f.text_field :goal, class: "inputbox goals-input" %></ul> 
 							<ol><%= progress_bar(goals_count(@majorpost_count, @project.goal), :color => 'blue', :rounded => true) %></ol>
 							<% if @project.majorposts.count < 6 %><!-- Major Posts < 5 -->
 								<span>default: 5, minimum: <%= @majorpost_count+1 %></span>
@@ -61,7 +61,7 @@
 					<h2>Permanent Link</h2>
 						<div class="goals-placer" style="text-align:left;">
 							<ul style="color:#999;">https://www.ratafire.com/<%= @project.creator.username %>/</ul>
-							<ul><%= f.text_field :perlink, style:"width:472px;", class:"inputbox completion-input" %></ul>
+							<ul><%= f.text_field :perlink, style:"width:200px;", class:"inputbox completion-input" %></ul>
 						</div>
 
 					<!-- Source Code-->	

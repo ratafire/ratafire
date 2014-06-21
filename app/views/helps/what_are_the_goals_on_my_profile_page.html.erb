@@ -1,0 +1,46 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "What are the goals on my profile page?", how_do_I_check_transactions_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>What are the goals on my page?</h2>
+
+	<div class="help-content-holder">
+		<p>Goals are more for your own reference than for your subscribers'. You will find many goals bars when you explore Ratafire. Use them to help you measure your progress.</p>
+
+		<div class="help-show-image" id="refund" style="background-image:url(/assets/help_image_21.jpg);height:290px;">
+		</div>	
+
+		<p>You can change your goals in <code>Settings → Goals</code> every 30 days. Pay special attention to the <code>Monthly Subscription Amount</code> goal, for once you have reached it, you will not be able to accept new subscribers until you raise it again.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Social</ol>
+		<hr class="style-two">
+		<%= render 'helps/social_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>

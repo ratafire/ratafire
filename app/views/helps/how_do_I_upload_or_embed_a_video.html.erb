@@ -1,0 +1,51 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "How do upload or embed a video?", how_do_I_upload_or_embed_a_video_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>How do I upload or embed a video?</h2>
+
+	<div class="help-content-holder">
+		<p>For projects, you can upload a video, while for major posts you can upload or embed videos. To upload your video, click the <code>Video</code> button in your editor.</p> 
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_10.jpg);height:280px;">
+		</div>	
+
+		<p>To embed a video, in your major post's editor, click the <code>Video</code> button, and then enter the video's url in <code>External</code>. After you entered the url, if your external video is still not showing up, click any blank space in your editor and you should see your video embeded.</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_11.jpg);">
+		</div>
+
+		<p>If you upload a video, your video will be displayed in Ratafire's native player. Feel free to try it out!</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Projects</ol>
+		<hr class="style-two">
+		<%= render 'helps/project_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>

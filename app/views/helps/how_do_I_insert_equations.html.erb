@@ -1,0 +1,46 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "How do I insert equations?", how_do_I_insert_equations_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>How do I insert equations?</h2>
+
+	<div class="help-content-holder">
+		<p>Currently we are using <%= link_to "MathJax","http://www.mathjax.org/",class:"no_ajaxify",target:"_blank" %> to display equations. When inserting equations, you can use <%= link_to "LaTex","http://en.wikibooks.org/wiki/LaTeX/Mathematics", class:"no_ajaxify", target:"_blank"%> syntax. To insert an equation, click the <code>Insert Equation</code> button in your editor.</p> 
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_9.jpg);height:200px;">
+		</div>	
+
+		<p>You will then receive instructions on how to insert equations. The instructions are, to insert in-line equation, include the equation between <code>\(</code> and <code>\)</code>, such as <code>\(ax^2 + bx + c = 0\)</code>. To insert equation that will open a new line, include the equation between <code>\[</code> and <code>\]</code>, such as <code>\[\int_a^b f(x) dx=F(b)-F(a)\]</code>.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Projects</ol>
+		<hr class="style-two">
+		<%= render 'helps/project_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>

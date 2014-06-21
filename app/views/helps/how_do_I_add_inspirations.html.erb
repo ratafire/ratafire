@@ -1,0 +1,56 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "How do I add inspirations?", how_do_I_add_inspirations_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>How do I add inspirations?</h2>
+
+	<div class="help-content-holder">
+		<p><code>Inspirations</code> is an inner link function in Ratafire for you to both attribute and connect to other users, projects, major posts. For every project and major post, you can add inspiration by pasting the url of the source in <code>Inspired By</code> then click the rainbow bridge icon on the right to connect it.</p> 
+
+		<p>For example, if you want to add the user Ratatoskr as an inspiration for your project, to thank him for providing you some images, copy his profile page url <code>https://www.ratafire.com/ratatoskr/</code>, then paste it in <code>Inspired By</code>. </p>
+
+		<p>Adding an user in <code>Inspired By</code> allows other people to visit this user's profile page via the link in the <code>Inspired By</code> section of your project. If you want to have Ratatoskr's project Pine Nuts as inpiration, copy and paste its url <code>https://www.ratafire.com/ratatoskr/pine-nuts</code>:</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_5.jpg);height:195px;background-position: bottom;">
+		</div>	
+
+		<p>After you added the project Pine Nut to the <code>Inspired By</code> section of your project The Eagle and the Snake. When you visit Pine Nut's page, you will see your project showing up in Pine Nut's <code>Inspiring</code> section.</p>
+
+
+		<div class="help-show-image" id="delete_project" style="background-image:url(/assets/help_image_6.jpg);">
+		</div>
+
+		<p>Other than adding inner links, you can also add external links to <code>Inspired By</code>. Feel free to list out all your sources or thank everyone that has helped you.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Projects</ol>
+		<hr class="style-two">
+		<%= render 'helps/project_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>

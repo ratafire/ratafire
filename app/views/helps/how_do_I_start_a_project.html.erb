@@ -1,0 +1,58 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "How do I Start a Project?", how_do_I_start_a_project_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>How do I Start a Project?</h2>
+
+	<div class="help-content-holder">
+		<p>To start a new project, click your name on the header to visit your <% if user_signed_in? %><%= link_to "profile page",current_user, class:"no_ajaxify" %><% else %>profile page<% end %>. Then click the create button to enter the project creation page.</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_1.jpg);">
+		</div>	
+
+		<p>Now you will enter the select a realm page of your project. You will be able to select from the following nine realms for a given project: <%= link_to "Art", art_path, class:"no_ajaxify" %>, <%= link_to "Music", music_path, class:"no_ajaxify" %>, <%= link_to "Games", music_path, class:"no_ajaxify"%>, <%= link_to "Writing", writing_path, class:"no_ajaxify" %>, <%= link_to "Films & Videos", videos_path, class:"no_ajaxify" %>, <%= link_to "Math", math_path, class:"no_ajaxify" %>, <%= link_to "Research: Science", science_path, class:"no_ajaxify" %>, <%= link_to "Research: Humanity", humanity_path, class:"no_ajaxify" %>, and <%= link_to "Engineering", engineering_path, class:"no_ajaxify" %>.</p>
+
+		<p>Once you select a realm for a project, you cannot change it. However, you can create several projects that are in different realms. Regardless the realm you choose, you will be able to use the full colection of tools when editing your project. Ratafire currently does not accept projects from other categories.</p>
+
+
+		<div class="help-show-image" id="delete_project" style="background-image:url(/assets/help_image_2.jpg);">
+		</div>
+
+		<p>Before you start playing with any content for your project, read our <%= link_to "Guidelines", guidelines_path, class:"no_ajaxify" %>. Other users will not be able to view your unpublished projects, but once you publish a project, you will not be able to delete it. </p>
+
+		<p>As an alternative, you can abandon a project by clicking <code>Settings → Abandon Project</code> in your project. If you cannot find the <code>Settings</code> button, place your mouse on your project's title.</p>
+
+		<p>To complete a project, in your project's page, click <code>Settings → Complete</code>. All of your projects will show up in your profile page's <code>Projects</code> tab. Other users can browse your current, completed, and abandoned projects when they vist your profile page as well.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Projects</ol>
+		<hr class="style-two">
+		<%= render 'helps/project_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>	

@@ -1,0 +1,78 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %>
+		<hr class="style-two">
+	</div>	
+
+	<!-- Help Title -->
+	<h1>Getting Started</h1>
+
+	<!-- Three Boxes-->
+	<div class="help-center">
+
+		<%= link_to how_do_I_start_a_project_path do %>
+			<div class="help-image-holder" style="background-image:url(/assets/help-image-holder-1.jpg);">
+				<div class="bottom-text">
+					Start a Project
+				</div>	
+			</div>
+		<% end %>		
+
+		<%= link_to how_do_I_setup_subscription_path do %>
+			<div class="help-image-holder" style="background-image:url(/assets/help-image-holder-2.jpg);">	
+				<div class="bottom-text">
+					Setup Subscription
+				</div>	
+			</div>
+		<% end %>
+
+		<%= link_to look_around_path do %>
+			<div class="help-image-holder" style="background-image:url(/assets/help-image-holder-3.jpg);">	
+				<div class="bottom-text">
+					Look Around
+				</div>	
+			</div>
+		<% end %>
+			
+	</div><!-- end.help-center-->
+
+	<!-- Help Texts: Projects-->
+	<div class="help-text-holder">
+		<ol>Projects</ol>
+		<hr class="style-two">
+		<%= render 'helps/project_questions'%>
+	</div>	
+
+	<!-- Help Texts: Subscription-->
+	<div class="help-text-holder">
+		<ol>Subscription</ol>
+		<hr class="style-two">
+		<%= render 'helps/subscription_questions'%>
+	</div>	
+
+	<!-- Help Texts: Social-->
+	<div class="help-text-holder">
+		<ol>Social</ol>
+		<hr class="style-two">
+		<%= render 'helps/social_questions'%>
+	</div>
+
+	<!-- Humans -->		
+	<div class="help-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>		
+		
+</div><!-- end.help-content-->
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>

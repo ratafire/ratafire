@@ -1,0 +1,61 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "Look Around", look_around_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>Look Around</h2>
+
+	<div class="help-content-holder">
+		<p>There are many ways to interact with other users and find content that interests you. When you are ready, visit the <code>Home</code> tab in your header bar.</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_19.jpg);">
+		</div>	
+
+		<p>You will now see three buttons: <code>Subscribing</code>, <code>Followed Tags</code> and <code>Liked</code>. </p>
+
+		<p>In <code>Subscribing</code>, there is an update feed of the users you subscribed to. This update feed is exclusive to subscribers like you, so you will be the first to know the updates, although other users can also view the updates by visiting the updator's profile page.</p>
+
+		<p  id="follow">In <code>Followed Tags</code>, you will find the newest content tagged with the tags that you have followed. For example, if you followed <code>classical music</code>, projects or major posts tagged with <code>classical music</code> will show up in this feed.</p>
+
+		<p>To follow a tag, click on any tag that you wish to follow to visit the tag's page. After you have reviewed the content in a specific tag's page and decide to follow this tag, you can click the <code>Follow</code> button. </p>
+
+		<p>Each tag is the equivalent of a topic or a forum where you can find what you are interested in.</p>
+
+		<div class="help-show-image" id="refund" style="background-image:url(/assets/help_image_20.jpg);height:79px;">
+		</div>	
+
+		<p>In <code>Liked</code>, you can find all the projects and major posts that you have marked as liked. It is where you go to read your favorite novel again, to listen to your favorite new composition one more time, and to remember a user that you may want to subscribe to next month.</p>
+
+		<p>On your header bar, there is a button called <code>Realms</code>. It will take you to a page with new projects and major posts from the nine categories in Ratafire, and you can also checkout the staff picks there.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Social</ol>
+		<hr class="style-two">
+		<%= render 'helps/social_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>
