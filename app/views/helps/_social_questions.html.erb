@@ -1,3 +1,3 @@
 		<ul><%= link_to "Explore Ratafire?", look_around_path %></ul>
 		<ul><%= link_to "What are the goals on my profile page?", what_are_the_goals_on_my_profile_page_path %></ul>
-		<ul><%= link_to "How do I follow a tag?", "https://www.ratafire.com/help_look_around#follow-tag" %></ul>
+		<% if @flag != true %><ul><%= link_to "How do I follow a tag?", "help_look_around#follow-tag" %></ul><% end %>
