@@ -15,7 +15,7 @@ class AdminController < ApplicationController
 	def users
 		@user = User.paginate(page: params[:page], :per_page => 50)
 		@quote = Quote.offset(rand(Quote.count)).first
-		@goal = @user.count.to_f / 1000.to_f * 100.0
+		@goal = @user.count.to_f / 1000.to_f * 100
 	end
 
 	def content_users

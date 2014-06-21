@@ -1,0 +1,49 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "How do I embed code?", how_do_I_embed_code_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>How do I embed code?</h2>
+
+	<div class="help-content-holder">
+		<p>To accomondate the WYSIWYG editor, we are currently not using Markdown for formats and syntax highlights. Therefore, to add syntax highlight to your code, in your editor, click the <code>Code</code> button and select a language. For language other than those in the list, select <code>Generic Patterns</code> to use a generic highlight scheme. For a code block without syntax highlight, select <code>No Syntax Highlight</code>.</p> 
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_7.jpg);">
+		</div>	
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_8.jpg);">
+		</div>
+
+		<p>We are still troubleshooting the syntax highlight function in our editor. There may be minor issues, but feel free to try it out.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Projects</ol>
+		<hr class="style-two">
+		<%= render 'helps/project_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>

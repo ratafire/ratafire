@@ -257,7 +257,7 @@ module ApplicationHelper
 
 	#Subscription Status
 	def subscription_status
-		if @user.subscription_switch == true && @user.amazon_authorized == true && @user.why != nil && @user.plan != nil && @user.subscription_amount < @user.goals_monthly && @project != nil then
+		if @user.subscription_switch == true && @user.amazon_authorized == true && @user.why != nil && @user.why != "" && @user.plan != nil && @user.plan != "" && @user.subscription_amount < @user.goals_monthly && @project != nil then
 			if @user.facebook != nil || @user.github != nil then
 				return true
 			else

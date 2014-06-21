@@ -87,9 +87,9 @@
 										<!-- Ongoing Project -->
 										<% if @project %><ul class="subscription-status-true">An ongoing project</ul><% else %><ul class="subscription-status-false">An ongoing project</ul><% end %>
 										<!-- To Subscribers -->
-										<% if @user.why %><ul class="subscription-status-true">A note to subscribers</ul><% else %><ul class="subscription-status-false">A note to subscribers</ul><% end %>
+										<% if @user.why && @user.why != "" %><ul class="subscription-status-true">A note to subscribers</ul><% else %><ul class="subscription-status-false">A note to subscribers</ul><% end %>
 										<!-- Plan -->
-										<% if @user.plan %><ul class="subscription-status-true">An intended update frequency or plan</ul><% else %><ul class="subscription-status-false">An intended update frequency or plan</ul><% end %>
+										<% if @user.plan && @user.plan != "" %><ul class="subscription-status-true">An intended update frequency or plan</ul><% else %><ul class="subscription-status-false">An intended update frequency or plan</ul><% end %>
 										<!-- Not reach Subscription Goal -->
 										<% if @user.subscription_amount < @user.goals_monthly then %><ul class="subscription-status-true">Have not reached subscription amount goal</ul><% else %><ul class="subscription-status-false">You have reached your subscription amount goal</ul><% end %>
 										<!-- Amazon Payments -->

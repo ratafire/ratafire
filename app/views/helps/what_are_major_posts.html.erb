@@ -1,0 +1,52 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "What are major posts?", what_are_major_posts_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>What are major posts?</h2>
+
+	<div class="help-content-holder">
+		<p>Contrary to a future feature of minor updates, major posts are posts on a larger progress in your projects. Click <code>Compose</code> to start a new major post. The post will show up in your timeline and in your subscribers's feed.</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_3.jpg);height:295px;">
+		</div>	
+
+		<p>Each major post counts towards the completion of your project. However, it is merely a goal for your own reference. You can change the major post goal of your project in the <code>Settings</code> of your project's page. By default, the goal is 5 major posts, you can increase it as you progress. For example, you can plan to write a novel with 20 chapters, then you should set it as 20 major posts.</p>
+
+
+		<div class="help-show-image" id="delete_project" style="background-image:url(/assets/help_image_4.jpg);height:200px;">
+		</div>
+
+		<p>You can complete your project anytime with or without its major post goal reached. You can also invite other users to join your project, by using the <code>Contributor</code> tab in your project page. If they accept your invitation, your project will show up in their profile page, and they can add major posts in your project as well.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Projects</ol>
+		<hr class="style-two">
+		<%= render 'helps/project_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>	

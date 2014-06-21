@@ -1,0 +1,55 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "How do I subscribe to another user?", how_do_I_subscribe_to_another_user_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>How do I subscribe to another user?</h2>
+
+	<div class="help-content-holder">
+		<p>Visit another user's profile page, and you will find the <code>Subscription</code> button. Click to see if a user has turned on subscription. If a user has turned on subscription, and you have verified your identity by connecting to GitHub or Facebook, you will be able to proceed by clicking <code>Next Step</code>.</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_15.jpg);">
+		</div>	
+
+		<p>You may then choose a subscription amount. When you subscribe to a user, you subscribe for the purpose of supporting the user to complete his or her project. After you subscribed to a user, you will show up in the user’s <code>Subscribers</code> list, with the subscription time and amount. This list is public so your subscription is not anonymous.</p>
+
+		<p>In your <% if user_signed_in? %><%= link_to "Home", interesting_homepage_path(current_user), class:"no_ajaxify"%><% else %>Home<% end %> tab, you will see the updates from users you subscribed to, including the notifications of their new drafts. In this way you get to see the process of creation.</p>
+
+		<p>When you subscribe to a user, you subscribe for the purpose of supporting the user to complete his or her project.We encourage you not only to subscribe but also subscribe to the best creators or researchers. By doing so you are also a part of selecting the best works out there.</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_17.jpg);">
+		</div>	
+
+		<p>If you wish to unsubscribe from a user. You can click the <code>Unsubscribe</code> button on the user's profile page. You can also unsubscribe from the <code>Subscribing</code> tab on your profile page.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Subscription</ol>
+		<hr class="style-two">
+		<%= render 'helps/subscription_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>
