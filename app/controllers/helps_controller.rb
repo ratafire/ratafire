@@ -8,6 +8,7 @@ class HelpsController < ApplicationController
 	#Projects
 
 	def how_do_I_start_a_project
+		@flag = true
 	end
 
 	def what_are_major_posts
@@ -37,9 +38,17 @@ class HelpsController < ApplicationController
 	end
 
 	def how_do_I_check_transactions
+		@flag = true
+	end
+
+	#Social
+
+	def look_around
+		@flag = true
 	end
 
 	def what_are_the_goals_on_my_profile_page
 	end
+
 
 end
