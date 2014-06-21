@@ -2,4 +2,4 @@
 		<ul><%= link_to "How do I subscribe to another user?", how_do_I_subscribe_to_another_user_path %></ul>
 		<ul><%= link_to "What are the differences between subscribers and supporters?", "https://www.ratafire.com/faq#faq-2347915", class:"no_ajaxify"%></ul>
 		<ul><%= link_to "How do I check transactions?", how_do_I_check_transactions_path %></ul>
-		<ul><%= link_to "How do I refund my subscribers?", "https://www.ratafire.com/help_how_do_I_check_transactions#refund"  %></ul>
+		<% if @flag != true %><ul><%= link_to "How do I refund my subscribers?", "/help_how_do_I_check_transactions#refund"  %></ul><% end %>
