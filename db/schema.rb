@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140615030842) do
+ActiveRecord::Schema.define(:version => 20140624071444) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -585,6 +585,8 @@ ActiveRecord::Schema.define(:version => 20140615030842) do
     t.boolean  "deleted",                                               :default => false
     t.string   "uuid"
     t.boolean  "supporter_switch",                                      :default => false
+    t.datetime "this_billing_date"
+    t.datetime "next_billing_date"
   end
 
   create_table "tag_relationships", :force => true do |t|
@@ -642,6 +644,7 @@ ActiveRecord::Schema.define(:version => 20140615030842) do
     t.decimal  "ratafire_fee",           :precision => 10, :scale => 2
     t.string   "error"
     t.boolean  "supporter_switch",                                      :default => false
+    t.integer  "subscription_id"
   end
 
   create_table "twitters", :force => true do |t|

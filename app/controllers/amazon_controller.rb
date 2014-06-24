@@ -84,9 +84,11 @@ class AmazonController < ApplicationController
 			if @subscription.supporter_switch == true
 				#Create Support
 				support_register
+				Resque.enqueue(SubscriptionNowWorker,params[:callerReference])
 			else
 				#Create Subscription
 				subscription_register
+				Resque.enqueue(SubscriptionNowWorker,params[:callerReference])
 			end
 		else
 			@subscription.destroy

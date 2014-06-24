@@ -6,7 +6,7 @@ class SubscriptionsController < ApplicationController
 				  only: [:new,:amazon]
 	before_filter :subscription_permission,
 				  only: [:new, :create, :amazon]
-	before_filter :correct_user, only: [:settings, :transactions, :receiving_transactions]
+	before_filter :correct_user, only: [:settings, :transactions, :receiving_transactions,:transaction_details]
 
 
 	def subscribers
