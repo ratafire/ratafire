@@ -31,6 +31,7 @@ class Transaction < ActiveRecord::Base
       @transaction.SenderTokenId = @subscription.amazon_recurring.tokenID
   		@transaction.RecipientTokenId = @subscription.amazon_recurring.recipientToken
   		@transaction.subscription_record_id = @subscription.subscription_record_id
+      @transaction.subscription_id = options[:subscription_id]
   		@transaction.save
   		@transaction
   	end

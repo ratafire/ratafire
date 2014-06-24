@@ -346,6 +346,8 @@ GEM
       redis (~> 3.0.4)
       resque (~> 1.25.1)
       rufus-scheduler (~> 2.0.24)
+    resque_mailer (2.2.6)
+      actionmailer (>= 3.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     riddle (1.5.11)
@@ -468,6 +470,7 @@ DEPENDENCIES
   redis (= 3.0.7)
   resque (= 1.25.2)
   resque-scheduler (= 2.5.5)
+  resque_mailer (= 2.2.6)
   rest-client
   rspec-rails (= 2.10.0)
   s3_direct_upload!

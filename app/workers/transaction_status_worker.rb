@@ -18,14 +18,25 @@ class TransactionStatusWorker
 				subscription_record.accumulated_receive += transaction.receive	
 				subscription_record.accumulated = true
 				#Add to subscription
-				subscription = subscription_record.subscriptions.first
+				subscription = Subscription.find_by_id(transaction.subscription_id)
 				subscription.accumulated_total += response.transaction_amount.value.to_f.round(2)
 				subscription.accumulated_amazon += transaction.amazon
 				subscription.accumulated_ratafire += transaction.ratafire_fee
-				subscription.accumulated_receive += transaction.receive				
+				subscription.accumulated_receive += transaction.receive
+				#Update Billing Date
+				if subscription.next_billing_date == nil then
+					subscription.this_billing_date = Date.today
+					subscription.next_billing_date = Date.today >> 1
+				else
+					subscription.this_billing_date = subscription.next_billing_date
+					subscription.next_billing_date = subscription.next_billing_date >> 1
+				end
+				#Save all records				
 				transaction.save
 				subscription_record.save
 				subscription.save
+				#Mailing the sucess confirmation email
+				SubscriptionMailer.transaction_confirmation(transaction_id).deliver
 			else
 				Resque.enqueue(UnsubscribeOneWorker, transaction.subscribed_id, transaction.subscriber_id, 3)		
 			end	

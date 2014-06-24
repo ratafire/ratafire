@@ -1,5 +1,5 @@
 monthly_subscriptions:
-  cron: "* * 1 * *"
+  cron: "* * * * *"
   custom_job_class: "SubscriptionWorker"
   queue: subscriptions_queue
   args:
