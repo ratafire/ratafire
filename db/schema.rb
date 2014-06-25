@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140624071444) do
+ActiveRecord::Schema.define(:version => 20140625054625) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -570,23 +570,25 @@ ActiveRecord::Schema.define(:version => 20140624071444) do
     t.integer  "subscribed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "amount",                 :precision => 10, :scale => 2
+    t.decimal  "amount",                   :precision => 10, :scale => 2
     t.datetime "deleted_at"
-    t.decimal  "accumulated_receive",    :precision => 10, :scale => 2, :default => 0.0
-    t.decimal  "accumulated_amazon",     :precision => 10, :scale => 2, :default => 0.0
-    t.decimal  "accumulated_ratafire",   :precision => 10, :scale => 2, :default => 0.0
-    t.decimal  "accumulated_total",      :precision => 10, :scale => 2, :default => 0.0
-    t.boolean  "amazon_valid",                                          :default => false
+    t.decimal  "accumulated_receive",      :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_amazon",       :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_ratafire",     :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_total",        :precision => 10, :scale => 2, :default => 0.0
+    t.boolean  "amazon_valid",                                            :default => false
     t.integer  "subscription_record_id"
     t.integer  "project_id"
     t.integer  "deleted_reason"
     t.datetime "activated_at"
-    t.boolean  "activated",                                             :default => false
-    t.boolean  "deleted",                                               :default => false
+    t.boolean  "activated",                                               :default => false
+    t.boolean  "deleted",                                                 :default => false
     t.string   "uuid"
-    t.boolean  "supporter_switch",                                      :default => false
+    t.boolean  "supporter_switch",                                        :default => false
     t.datetime "this_billing_date"
     t.datetime "next_billing_date"
+    t.boolean  "first_payment",                                           :default => false
+    t.datetime "first_payment_created_at"
   end
 
   create_table "tag_relationships", :force => true do |t|
