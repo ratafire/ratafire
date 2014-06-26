@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: git://github.com/ratafire/redactor-rails.git
-  revision: 2c089b113a5f19facf79fd7910bd455986cfe4d8
+  revision: efcb4b5b4f51ac02458e281269006c8111b22fea
   specs:
     redactor-rails (0.3.6)
       devise
