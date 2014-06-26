@@ -24,7 +24,8 @@ class DisableWorker
 				end				
 				subscription_record.save
 				#destroy activities as well if accumulated total is 0
-				if s.accumulated_total == nil || s.accumulated_total == 0 then
+				valid_subscription = ((s.deleted_at - s.created_at)/1.day).to_i
+				if s.accumulated_total == nil || s.accumulated_total == 0 || valid_subscription < 30 then
 					PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(s.id,'Subscription').each do |activity|
 						if activity != nil then 
 							activity.deleted = true
@@ -33,6 +34,8 @@ class DisableWorker
 						end
 					end
 				end
+				#Remove Enqueued Transaction
+				Resque.remove_delayed(SubscriptionNowWorker, s.uuid)						
 			#Add to User's Subscription amount
 			case subscription.amount
   			when ENV["PRICE_1"].to_f

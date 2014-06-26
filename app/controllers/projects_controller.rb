@@ -252,6 +252,29 @@ class ProjectsController < ApplicationController
 		redirect_to projects_path(@user)
 	end	
 
+	#Turn on and off early access
+	def early_access_turnon
+		@project = Project.find(params[:id])
+		@project.early_access = true
+		if @project.save then
+			redirect_to(:back)
+		else
+			redirect_to(:back)
+			flash[:success] = "Failed to turn on early access for this project."
+		end
+	end
+
+	def early_access_turnoff
+		@project = Project.find(params[:id])
+		@project.early_access = false
+		if @project.save then
+			render nothing: true
+		else
+			redirect_to(:back)
+			flash[:success] = "CFailed to turn off early access for this project."
+		end
+	end	
+
 private
 
 		def assigned_user

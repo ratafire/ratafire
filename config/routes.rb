@@ -59,8 +59,12 @@ Ratafire::Application.routes.draw do
 	match ':user_id/projects/:id/you-completed-me', to: 'archives#complete',via: :get, as: :you_completed_me
 
 	#Abandon
-	match ':user_id/projects/:id/you-shall-not-pass', to: 'projects#abandon', via: :get,as: :you_shall_not_pass
-	match ':user_id/projects/:id/i-will-be-back', to: 'projects#reopen', as: :i_will_be_back
+	match ':user_id/projects/:id/2/you-shall-not-pass', to: 'projects#abandon', via: :get,as: :you_shall_not_pass
+	match ':user_id/projects/:id/2/i-will-be-back', to: 'projects#reopen', as: :i_will_be_back
+
+	#Early Access
+	match ':user_id/projects/:id/you-can-be-there-now', to: 'projects#early_access_turnon', as: :project_early_access_turnon
+	match ':user_id/projects/:id/you-cannnot-see-it-now', to: 'projects#early_access_turnoff', as: :project_early_access_turnoff
 
 #---Majorposts Matches---
 	match ':user_id/:project_id/:id', to: 'majorposts#show', as: :user_project_majorpost
@@ -275,6 +279,7 @@ Ratafire::Application.routes.draw do
 	match '/help_how_do_I_insert_equations', to: 'helps#how_do_I_insert_equations', as: :how_do_I_insert_equations
 	match '/help_how_do_I_upload_or_embed_a_video', to: 'helps#how_do_I_upload_or_embed_a_video', as: :how_do_I_upload_or_embed_a_video
 	match '/help_how_do_I_upload_an_artwork', to: 'helps#how_do_I_upload_an_artwork', as: :how_do_I_upload_an_artwork
+	match '/help_what_is_early_access', to: 'helps#what_is_early_access', as: :what_is_early_access
 
 	#Subscription
 	match '/help_how_do_I_setup_subscription', to: 'helps#how_do_I_setup_subscription', as: :how_do_I_setup_subscription

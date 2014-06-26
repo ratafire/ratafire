@@ -18,8 +18,12 @@
 	</script>
 <% end %>
 <% end %>
-
-<div class="lightbox" id="<%= activity.id %>activity">
+<!-- Check if Early Access is on -->
+<% if activity.trackable.early_access == false %>
+	<div class="lightbox" id="<%= activity.id %>activity">
+<% else %>
+	<div class="lightbox-early-access" id="<%= activity.id %>activity">
+<% end %>	
 		<!-- Delete
 		<div class="toolbox4">
 		</div>-->
@@ -48,10 +52,27 @@
 <!-- Majorpost Title for Normal People -->
 	<!-- published -->		
 	<% if activity.trackable.published == true %>
-		<div class="majorpost-title">
-		<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at project 
-			<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
-		</div>
+		<% if activity.trackable.early_access == false %>
+			<!-- When Early Access is Off -->
+			<div class="majorpost-title">
+				<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at project 
+				<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
+			</div>
+		<% else %>
+			<!-- When Early Access is On -->
+			<% if early_access?(activity.trackable.id)%>
+				<!-- For People Who Have Early Access -->
+				<div class="majorpost-title">
+					<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at project 
+					<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
+				</div>				
+			<% else %>	
+				<div class="majorpost-title">
+					<li style="color:#2297ce;"><%= activity.trackable.title %></li> at project 
+						<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
+				</div>	
+			<% end %>
+		<% end %><!-- end if activity.trackable.early_access == false -->
 	<% else %>
 	<!-- not published -->
 		<div class="majorpost-title">
@@ -64,9 +85,19 @@
 		<div id="majorpost-comments" class="tipsy-tipsy" title="Comments">
 			<%= activity.trackable.comments.count %>
 		</div>
-		<div id="majorpost-time">
-			Posted by <%= link_to activity.trackable.user.fullname,user_path(activity.trackable.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago. <% if activity.trackable.comments.count >0 then%>Commented by <%= link_to activity.trackable.comments.last.user.fullname,user_path(activity.trackable.comments.last.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.commented_at)%> ago.<% end %>
-		</div>
+	
+		<!-- Date -->
+		<% if activity.trackable.early_access == false %>
+			<!-- When Early Access is Off -->
+			<div id="majorpost-time">
+				Posted by <%= link_to activity.trackable.user.fullname,user_path(activity.trackable.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago. <% if activity.trackable.comments.count >0 then%>Commented by <%= link_to activity.trackable.comments.last.user.fullname,user_path(activity.trackable.comments.last.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.commented_at)%> ago.<% end %>
+			</div>
+		<% else %>
+			<!-- When Early Access is On -->
+			<div id="majorpost-time-early-access">
+				Posted by <%= link_to activity.trackable.user.fullname,user_path(activity.trackable.user),class:"no_ajaxify" %>. Releases in <%= distance_of_time_in_words(Time.now,activity.trackable.published_at+6.days,include_seconds: false) %>. <% if subscription_status_universial(activity.trackable.user) == true then %><%= early_access(activity.trackable.id) %><% end %>
+			</div>			
+		<% end %><!-- end if activity.trackable.earlly_access == false-->	
 
 		<!-- When It is not a draft -->
 		<% if activity.trackable.published == true %>

@@ -42,6 +42,16 @@ class MajorpostsController < ApplicationController
 					map_artwork
 				end
 				if @majorpost.published == true
+					#Set publish time when it is nil, which means it is the first time this majorpost goes public
+					unless @majorpost.published_at != nil then
+						@majorpost.published_at = Time.now
+						#Check Early Access
+						if @project.early_access == true then
+							@majorpost.early_access = true
+							Resque.enqueue_in(6.days,MajorpostEarlyAccessWorker,@majorpost.id)
+						end
+						@majorpost.save
+					end
 					#flag a project when it is over balanced its goal
 					if @project.majorposts.where(:published => true).count == @project.goal then
 						@project.flag = true
@@ -80,29 +90,63 @@ class MajorpostsController < ApplicationController
 
 	def show
 		@majorpost = Majorpost.find(params[:id])
-		@project = Project.find(params[:project_id])
-		@comments = @majorpost.comments.paginate(page: params[:comments], :per_page => 20)
-		@comment = Comment.new(params[:comment])
-		@majorpost_count = @project.majorposts.where(:published => true).count
-		#Artwork Original File
-		@artwork = @majorpost.artwork
-		#Video
-		@video = @majorpost.video
-		#Icon
-		if @project.icon_id != "" && @project.icon_id != nil then
-			@icon = Icon.find(@project.icon_id)	
-		end
-		#bifrosts
-		@bifrost = Bifrost.new(params[:bifrost])
-		@bifrost.connections.build(params[:connection])	
-		#likes majorpost
-		if user_signed_in? then
-			if LikedMajorpost.find_by_majorpost_id_and_user_id(@majorpost.id,current_user.id) != nil then
-				@liked = true
+		if @majorpost.early_access == true then
+			if user_signed_in? then
+				@user = @majorpost.user
+				@subscription = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id, :subscribed_id => @user.id).first
+				if @subscription != nil then
+					diff = ((major_post.published_at+6.days-Time.now)/1.day).to_i
+					#current_user is subscribed to @user
+					case @subscription.amount
+					when ENV["PRICE_1"].to_f
+							redirect_to(root_url)
+							flash[:success] = "You do not have early access to this post."
+					when ENV["PRICE_2"].to_f
+						unless diff < 2 then
+							redirect_to(root_url)
+							flash[:success] = "You do not have early access to this post."
+						else
+							majorpost_show_main
+						end
+					when ENV["PRICE_3"].to_f
+						unless diff < 3 then
+							redirect_to(root_url)
+							flash[:success] = "You do not have early access to this post."
+						else
+							majorpost_show_main
+						end				
+					when ENV["PRICE_4"].to_f
+						unless diff < 4 then
+							redirect_to(root_url)
+							flash[:success] = "You do not have early access to this post."
+						else
+							majorpost_show_main
+						end						
+					when ENV["PRICE_5"].to_f
+						unless diff < 5 then
+							redirect_to(root_url)
+							flash[:success] = "You do not have early access to this post."
+						else
+							majorpost_show_main
+						end					
+					when ENV["PRICE_6"].to_f
+						majorpost_show_main			
+					end						
+				else
+					if @majorpost.project.users.map(&:id).include? current_user.id then
+						majorpost_show_main
+					else
+						redirect_to(root_url)
+						flash[:success] = "You do not have early access to this post."
+					end
+				end
 			else
-				@liked = false
+				redirect_to(root_url)
+				flash[:success] = "You do not have early access to this post."
 			end
-		end	
+		else
+			majorpost_show_main
+		end
 	end
 
 	def chapter
@@ -114,6 +158,8 @@ class MajorpostsController < ApplicationController
 		@majorpost = Majorpost.find(params[:id])
 		@project = @majorpost.project
 		@video = @majorpost.video
+		#Dequeue early access
+		Resque.remove_delayed(MajorpostEarlyAccessWorker,@majorpost.ids)
 		#destroy majorpost activity as well
 		@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
 		if @activity != nil then
@@ -145,6 +191,11 @@ class MajorpostsController < ApplicationController
 
 
 private
+
+	def correct_user
+      @user = User.find(params[:user_id])
+      redirect_to(root_url) unless current_user?(@user)		
+	end
 
 	def majorpost_draft_title
 		time = DateTime.now.strftime("%H:%M:%S").to_s
@@ -188,6 +239,34 @@ private
 	def excerpt_generator
 		@majorpost.excerpt = Sanitize.clean(@majorpost.content)
 	end
+
+	#Majorpost show method meain content
+	def majorpost_show_main
+			@project = Project.find(params[:project_id])
+			@comments = @majorpost.comments.paginate(page: params[:comments], :per_page => 20)
+			@comment = Comment.new(params[:comment])
+			@majorpost_count = @project.majorposts.where(:published => true).count
+			#Artwork Original File
+			@artwork = @majorpost.artwork
+			#Video
+			@video = @majorpost.video
+			#Icon
+			if @project.icon_id != "" && @project.icon_id != nil then
+				@icon = Icon.find(@project.icon_id)	
+			end
+			#bifrosts
+			@bifrost = Bifrost.new(params[:bifrost])
+			@bifrost.connections.build(params[:connection])	
+			#likes majorpost
+			if user_signed_in? then
+				if LikedMajorpost.find_by_majorpost_id_and_user_id(@majorpost.id,current_user.id) != nil then
+					@liked = true
+				else
+					@liked = false
+				end
+			end	
+	end
+
 #Old Mapping methods after save
 
 	def map_artwork

@@ -1,0 +1,55 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Help") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Help Index",help_path %> - <%= link_to "What is early access?", what_is_early_access_path %>
+		<hr class="style-two">
+	</div>		
+
+	<!-- Help Title -->
+	<h2>What is early access?</h2>
+
+	<div class="help-content-holder">
+		<p><code>Early Access</code> is an optional feature to let subscribers gain slightly earlier accesses to content. The maximum early access days one can gain from subscribing are 6 days. Review our <%= link_to "Pricing", pricing_path, class:"no_ajaxify"%> page for details of the early access days each level of subscription provides.</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_22.jpg);height:272px;">
+		</div>	
+
+		<p>A major post marked as <code>Early Access</code> will have a differnt look than a normal one until the 6 day early access period expires. When a major post's early access period expires, the post will show up on top of <%= link_to "all posts",all_path,class:"no_ajaxify" %> again to notify the non-subscribers now that they can view it.</p>
+
+		<p>To turn on early access for one of your projects, you will need to <%= link_to "setup up subscription",how_do_I_setup_subscription_path %>.</p>
+
+		<p>Once you have setup subscription, go to the <code>Settings</code> of your project. You will see a new controller allowing you to turn on <code>Early Access</code>.</p>
+
+		<div class="help-show-image" style="background-image:url(/assets/help_image_23.jpg);height:214px;">
+		</div>			
+
+		<p>If you have published a new major post in a project which has <code>Early Access</code> turned on, and you have seen your post displaying the early access effect, turning the <code>Early Access</code> of the project now will not cause your post to lose the effect. However, your future posts of this project will not be marked as having the <code>Early Access</code> feature, unless you turn it back on in your project's <code>Settings</code>.</p>
+
+	</div>	
+	
+	<!-- Help Texts: Projects-->
+	<div class="link-text-holder">
+		<ol>Projects</ol>
+		<hr class="style-two">
+		<%= render 'helps/project_questions'%>
+	</div>	
+
+	<!-- Humans -->		
+	<div class="link-text-holder">
+		<ol>Talk to a Human or a Squirrel!</ol>
+		<hr class="style-two">
+		<%= render 'helps/talk_to_humans'%>
+	</div>	
+		
+</div><!-- end.static-content-->
+
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>
