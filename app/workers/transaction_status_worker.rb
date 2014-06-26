@@ -38,7 +38,7 @@ class TransactionStatusWorker
 				transaction.save
 				subscription_record.save
 				subscription.save
-				#Mailing the sucess confirmation email
+				#Mailing the sucess confirmation email to the subscriber
 				SubscriptionMailer.transaction_confirmation(transaction_id).deliver
 				Resque.enqueue_in(1.month,SubscriptionNowWorker,subscription.uuid)
 			else

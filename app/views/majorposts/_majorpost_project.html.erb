@@ -19,8 +19,12 @@
 	});
 </script>
 <% end %>
-
-<div class="lightbox" id="<%= majorpost.id %>majorpost" style="padding: 10px 20px 20px 20px;">
+<!-- Check if Early Access is on -->
+<% if majorpost.early_access == false %>
+	<div class="lightbox" id="<%= majorpost.id %>majorpost" style="padding: 10px 20px 20px 20px;">
+<% else %>
+	<div class="lightbox-early-access" id="<%= majorpost.id %>majorpost" style="padding: 10px 20px 20px 20px;">
+<% end %>	
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~ Majorpost User ~~~~~~~~~~~~~~~~~~~~~~~~~~~-->	
 <% if majorpost_edit(majorpost) %>
 <div class="btn-edit-right" id="<%= majorpost.id %>">
@@ -46,7 +50,7 @@
 <% else %>
 <!-- Majorpost Title for Normal People -->
 <div class="textbox-mini">
-				<!-- user icon holder-->
+		<!-- user icon holder-->
 		<%= link_to majorpost.user, class:"no_ajaxify" do %>
 			<div class="majorpost-usericon" style="background-image:url(<%= majorpost.user.profilephoto.url(:small64) %>);"></div>
 		<% end %>
@@ -54,7 +58,13 @@
 			<% if majorpost.published == false %>
 				<li><%= majorpost.title %></li> <span>(Draft)</span>
 			<% else %>
-				<li><%= link_to majorpost.title, user_project_majorpost_path(@project.creator,@project, majorpost), class:"no_ajaxify" %></li>
+				<% if majorpost.early_access == false %>
+					<!-- When Early Access is Off -->
+					<li><%= link_to majorpost.title, user_project_majorpost_path(@project.creator,@project, majorpost), class:"no_ajaxify" %></li>
+				<% else %>
+					<!-- When Early Access is On -->
+					<li style="color:#2298ce;"><%= majorpost.title %></li>
+				<% end %>
 			<% end %> 
 		</div>
 <% end %><!-- end of if majorpost.user == current_user -->
@@ -62,9 +72,17 @@
 			C <%= majorpost.comments.count %>
 
 		</div>
-		<div id="majorpost-time">
-			Posted by <%= link_to majorpost.user.fullname,majorpost.user,class:"no_ajaxify"  %>, <%= time_ago_in_words(majorpost.created_at)%> ago.
-		</div>
+		<!-- Date -->
+		<% if majorpost.early_access == false %>
+			<div id="majorpost-time">
+				Posted by <%= link_to majorpost.user.fullname,majorpost.user,class:"no_ajaxify"  %>, <%= time_ago_in_words(majorpost.created_at)%> ago.
+			</div>
+		<% else %>
+			<!-- When Early Access is On -->
+			<div id="majorpost-time-early-access">
+				Posted by <%= link_to majorpost.user.fullname,majorpost.user,class:"no_ajaxify"  %>. Releases in <%= distance_of_time_in_words(Time.now,majorpost.published_at+6.days,include_seconds: false) %>. <% if subscription_status_universial(majorpost.user) == true then %><%= early_access(majorpost.id) %><% end %>
+			</div>			
+		<% end %>	
 
 	<!-- When It is not a Draft -->
 	<% if majorpost.published == true %>	

@@ -9,6 +9,10 @@
 	<!-- Project Progress Bar Hover -->
 	<%= render 'shared/progress_bar_hover'%><!-- script -->
 
+	<!-- Javascript for on and off button -->
+	<%= render 'subscriptions/on_off_js' %>	
+
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 	<% content_for(:second_header) do %>
@@ -75,6 +79,61 @@
 					<% end %><!-- end form-->	
 
 				</div><!-- end of textbox-mini-->
+
+			<% if subscription_status_universial(@project.creator)%>
+			<div class="lightbox7">
+				<div class="textbox-mini" type="blue" style="padding-bottom: 20px;">
+					<h2>Early Access</h2>		
+					<!-- Early Access -->
+					<div class="source-code-placer" style="margin-left:21px;">
+
+						<% if @project.early_access %><ul style="color:#999" id="on">Early Access for Future Major Posts
+							<!-- Now/Past -->
+							<div class="subscription-switch-holder" id="off-holder" style="display:none;">
+								<%= link_to project_early_access_turnon_path(@project.creator,@project), remote: true, class:"no_ajaxify" do %><span class="btn-delete-light-solid turn-on-subscription" style="position:relative;z-index:1;padding-right:10px;color:#999 !important;" >
+									On
+								</span><% end %>	
+								<span class="btn-delete-solid" style="position:relative;z-index:2;">
+									Off
+								</span>
+							</div>			
+											
+							<div class="subscription-switch-holder" id="on-holder" >
+								<span class="btn-delete-solid" style="position:relative;z-index:2;" >
+									On
+								</span>	
+								<%= link_to project_early_access_turnoff_path(@project.creator,@project), remote: true, class:"no_ajaxify" do %><span class="btn-delete-light-solid turn-off-subscription" style="position:relative;z-index:1;color:#999 !important;padding-left:10px;" >
+									Off
+								</span><% end %>
+							</div><!-- end Now/Past -->	
+
+						</ul><% else %><ul style="color:#999" id="off">Early Access for Future Major Posts											
+							<!-- Now/Past -->
+							<div class="subscription-switch-holder" id="off-holder">
+								<%= link_to project_early_access_turnon_path(@project.creator,@project), remote: true do %><span class="btn-delete-light-solid turn-on-subscription" style="position:relative;z-index:1;padding-right:10px;color:#999 !important;" >
+									On
+								</span><% end %>	
+								<span class="btn-delete-solid" style="position:relative;z-index:2;">
+									Off
+								</span>
+							</div>			
+
+							<div class="subscription-switch-holder" id="on-holder" style="display:none;">
+								<span class="btn-delete-solid" style="position:relative;z-index:2;" >
+									On
+								</span>	
+								<%= link_to project_early_access_turnoff_path(@project.creator,@project), remote: true do %><span class="btn-delete-light-solid turn-off-subscription" style="position:relative;z-index:1;color:#999 !important;padding-left:10px;" >
+									Off
+								</span><% end %>
+							</div><!-- end Now/Past -->												
+						</ul><% end %>
+						<!-- Discription -->
+						<div class="btn-completion-bg">If "Early Access" is turned on, when a future post in this project is published, the post will be marked as early access only for 6 days. During the early access period, only subscribers can view the post. After the early access period, all users can access the post. Review our <%= link_to "Pricing", pricing_path, class:"no_ajaxify"%> page for details of the early access days each level of subscription provides. For further reading, check out the article <%= link_to "What is early access?", what_is_early_access_path, class:"no_ajaxify"%>.
+						</div>					
+					</div><!-- end of textbox-mini-->	
+				</div><!-- end of lightbox2-->			
+				<% end %>				
+
 					<!-- Inspired By Title -->
 					<div class="inspiration-bg">
 						<div class="textbox-mini">

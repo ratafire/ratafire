@@ -29,6 +29,9 @@ class HelpsController < ApplicationController
 	def how_do_I_upload_an_artwork
 	end
 
+	def what_is_early_access
+	end
+
 	#Subscriptions
 
 	def how_do_I_setup_subscription

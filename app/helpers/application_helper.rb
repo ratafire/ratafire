@@ -268,6 +268,21 @@ module ApplicationHelper
 		end
 	end
 
+	#Subscription Status Universial
+	def subscription_status_universial(user_id)
+		user = User.find(user_id)
+		project = user.projects.where(:published => true, :complete => false, :abandoned => false).first
+		if user.subscription_switch == true && user.amazon_authorized == true && user.why != nil && user.why != "" && user.plan != nil && user.plan != "" && user.subscription_amount < user.goals_monthly && project != nil then
+			if user.facebook != nil || user.github != nil then
+				return true
+			else
+				return false
+			end
+		else
+			return false
+		end
+	end	
+
 	#Subscriber Status
 	def subscriber_status
 		if Rails.env.production?
