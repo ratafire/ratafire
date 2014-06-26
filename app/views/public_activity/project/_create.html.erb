@@ -170,7 +170,7 @@
 						</div>						
 					<% end %>
 					<!-- six projectimages -->
-					<% if activity.trackable.projectimages.count == 7 %>
+					<% if activity.trackable.projectimages.count >= 6 %>
 						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.projectimages.first.thumbnail%>" style="border-radius:5px;">
