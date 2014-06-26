@@ -11,5 +11,8 @@
 				$('.alert').delay(6000).fadeOut(1000);
 			}
 
-
+			$(document).bind('drop dragover', function (e) {
+    			 e.preventDefault();
+			});
+			
 		</script>
