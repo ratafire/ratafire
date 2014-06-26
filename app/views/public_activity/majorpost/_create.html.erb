@@ -205,8 +205,8 @@
 							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
 						</div>						
 					<% end %>
-					<!-- four postimages -->
-					<% if activity.trackable.postimages.count >= 3 %>
+					<!-- six postimages -->
+					<% if activity.trackable.postimages.count == 7 %>
 						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.postimages.first.thumbnail%>" style="border-radius:5px;">
@@ -222,6 +222,16 @@
 								<img src="<%= activity.trackable.postimages[2].thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>	
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.postimages[4].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.postimages[5].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>												
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>

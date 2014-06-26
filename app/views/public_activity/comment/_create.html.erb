@@ -63,8 +63,8 @@
 							<%= link_to "Read All", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
 						</div>													
 					<% end %>
-					<!-- four postimages -->
-					<% if activity.trackable.commentimages.count >= 3 %>
+					<!-- six postimages -->
+					<% if activity.trackable.commentimages.count == 7 %>
 						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.commentimages.first.thumbnail%>" style="border-radius:5px;">
@@ -85,6 +85,16 @@
 								<img src="<%= activity.trackable.commentimages[3].thumbnail%>" style="border-radius:5px;">
 							</div>	
 						<% end %>	
+						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.commentimages[4].thumbnail%>" style="border-radius:5px;">
+							</div>	
+						<% end %>
+						<%= link_to user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.commentimages[5].thumbnail%>" style="border-radius:5px;">
+							</div>	
+						<% end %>																		
 						<div id="majorpost-tags">
 							<%= link_to "Read All", user_project_majorpost_comment_path(activity.trackable.project.creator,activity.trackable.project,activity.trackable.majorpost,activity.trackable), class:"no_ajaxify" %>
 						</div>										
