@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Ratafire::Application.config.secret_token = '6d08d4f72ae76949bb1f3b1b1289f54febe34efff67afc4037b5ce7bc93e4f39c626902b3e516d788ea0effe643099a272fb78fd9dab5a71cc0c9e83a17417de'
+Ratafire::Application.config.secret_token = '774568d757d18b2b9ac4afa1c9b6a164d53889eb5385a3bbafb0590bd060aeccfb71b17542f6dfd63bf41a9eec991f2d4dcf7310deb9423f07e9c47eb70f25e1'

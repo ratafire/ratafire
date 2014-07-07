@@ -1,0 +1,49 @@
+<% if show_to_subscribers?(@project) %>
+	<!-- To Subscribers Title -->
+	<div class="inspiration-bg">
+		<div class="textbox-mini">
+			<div class="post-about-title">
+				<li style="font-size: 1.4em;">To Subscribers</li>
+			</div>
+		</div>
+	</div>
+	<!-- To Subscribers Content -->
+	<div class="lightbox2 post-content-c" style="margin-top:0px;">
+		<div class="textbox-mini" >
+			<%= simple_format(@project.creator.why)%>	
+
+	<!-- Subscription Button-->		
+<% if current_user != @project.creator then %>	
+	<% if subscriber_status then%>
+	<div style="margin: 15px -2px 0 0; text-align:right;">
+		<%= link_to "Subscribe", subscribe_path(@project.creator), class:"btn btn-medium2 btn-medium-green no_ajaxify"%>
+	</div>
+	<% else %>
+		<% if user_signed_in? %>
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+								<h4 style="color:#2297ce;">To subscribe to other users you must</h4>
+								<% unless current_user.profilephoto? then %>
+								<div class="user-why-passage">Have a profile photo ~ <%= link_to "Edit Profile", edit_user_path(current_user), class:"no_ajaxify"%></div>	
+								<% end %>
+								<% unless current_user.github != nil || current_user.facebook != nil then %>						
+								<div class="user-why-passage">Connect your Ratafire account to <%= link_to "GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %> or <%= link_to "Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %>.</div>
+								<% end %>
+							</div><!-- end.textbox-mini-->
+
+						</div><!-- end.lightbox2-bordered-->
+		<% else %>
+								<div class="lightbox2-bordered">
+							<div class="textbox-mini" style="text-align:right;color:#999;margin-top:20px;">
+									<%= link_to "Sign in", new_user_session_path , class: "no_ajaxify" %> to subscribe to <%= @user.fullname %>. Don't have an account? <%= link_to 'Sign up', beta_path, class:"no_ajaxify" %> for Beta.	
+										</div><!-- end.textbox-mini-->
+
+						</div><!-- end.lightbox2-bordered-->			
+		<% end %><!-- end.if user_signed_in?-->				
+	<% end %>	
+<% end %><!-- end.if current_user != @project.creator-->					
+
+
+		</div><!-- end.textbox-mini-->
+	</div><!-- end.lightbox2-->	
+<% end %>

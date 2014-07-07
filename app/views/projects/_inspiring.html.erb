@@ -25,6 +25,6 @@
 										<%= raw @project.inspired_majorposts.map { |t| "#{link_to t.title, user_project_majorpost_path(@project.creator,@project,t), class:"no_ajaxify"}" " (#{t.user.fullname})" }.join(', ') %>
 									</li></ul>
 									<% end %>								
-								</div>
-							</div>
+								</div><!-- end.textbox-mini-->
+							</div><!-- end.lightbox2-->
 							<% end %>
