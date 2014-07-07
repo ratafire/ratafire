@@ -128,4 +128,18 @@ module ProjectsHelper
 		end	
 	end	
 
+	#Check if to show to subscribers
+	def show_to_subscribers?(project)
+		user = project.creator
+		if user.subscription_switch == true && user.amazon_authorized == true && user.why != nil && user.why != "" && user.plan != nil && user.plan != "" && user.subscription_amount < user.goals_monthly && project != nil then
+			if project == user.projects.where(:published => true, :complete => false, :abandoned => false).first then
+				return true
+			else
+				return false
+			end
+		else
+			return false
+		end
+	end
+
 end
