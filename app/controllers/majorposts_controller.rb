@@ -159,7 +159,7 @@ class MajorpostsController < ApplicationController
 		@project = @majorpost.project
 		@video = @majorpost.video
 		#Dequeue early access
-		Resque.remove_delayed(MajorpostEarlyAccessWorker,@majorpost.ids)
+		Resque.remove_delayed(MajorpostEarlyAccessWorker,@majorpost.id)
 		#destroy majorpost activity as well
 		@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
 		if @activity != nil then
