@@ -15,8 +15,13 @@
 	var vimeoVideoID = "<%= majorpost.video.external %>";
 
 	$.getJSON('https://www.vimeo.com/api/v2/video/' + vimeoVideoID + '.json?callback=?', {format: "json"}, function(data) {
-         $("#<%= majorpost.video.external %>").attr('style', "background-image:url("+data[0].thumbnail_medium+");");
+		var thumbnail_url = data[0].thumbnail_medium;
+		thumbnail_url_core = thumbnail_url.split("http://");
+		thumbnail_url_core = "https://"+thumbnail_url_core[1];
+         $("#<%= majorpost.video.external %>").attr('style', "background-image:url("+thumbnail_url_core+");");
 	});
+
+
 </script>
 <% end %>
 <!-- Check if Early Access is on -->
