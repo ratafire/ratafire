@@ -8,22 +8,6 @@
 
 </script>
 
-<% if majorpost.video != nil && majorpost.video.external != nil && majorpost.video.external != "" && majorpost.video.youtube_vimeo == false %>
-<script>
-	//get vimeo thumbnails
-	
-	var vimeoVideoID = "<%= majorpost.video.external %>";
-
-	$.getJSON('https://www.vimeo.com/api/v2/video/' + vimeoVideoID + '.json?callback=?', {format: "json"}, function(data) {
-		var thumbnail_url = data[0].thumbnail_medium;
-		thumbnail_url_core = thumbnail_url.split("http://");
-		thumbnail_url_core = "https://"+thumbnail_url_core[1];
-         $("#<%= majorpost.video.external %>").attr('style', "background-image:url("+thumbnail_url_core+");");
-	});
-
-
-</script>
-<% end %>
 <!-- Check if Early Access is on -->
 <% if majorpost.early_access == false %>
 	<div class="lightbox" id="<%= majorpost.id %>majorpost" style="padding: 10px 20px 20px 20px;">
@@ -104,7 +88,7 @@
 										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= majorpost.video.external %>/mqdefault.jpg);">
 									<% else %>
 										<!-- Vimeo Thumbnail-->
-										<div class="majorpost-video-small-holder" id="<%= majorpost.video.external %>" >
+										<div class="majorpost-video-small-holder" style="background-image:url(<%= vimeo_thumbnail(majorpost.video.external)%>)" id="<%= majorpost.video.external %>" >
 									<% end %>
 								<% else %>
 									<!-- Internal Thumbnail-->
@@ -156,7 +140,7 @@
 										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= majorpost.video.external %>/mqdefault.jpg);">
 									<% else %>
 										<!-- Vimeo Thumbnail-->
-										<div class="majorpost-video-small-holder vimeo" id="<%= majorpost.video.external %>" >
+										<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(majorpost.video.external)%>)" id="<%= majorpost.video.external %>" >
 									<% end %>
 								<% else %>
 									<!-- Internal Thumbnail-->

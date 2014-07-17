@@ -6,21 +6,6 @@
 	});
 	});
 </script>-->
-
-<% if activity.trackable %>
-<% if activity.trackable.video != nil && activity.trackable.video.external != nil && activity.trackable.video.external != "" && activity.trackable.video.youtube_vimeo == false %>
-	<script>
-		//get vimeo thumbnails
-		var vimeoVideoID = "<%= activity.trackable.video.external %>";
-		$.getJSON('https://www.vimeo.com/api/v2/video/' + vimeoVideoID + '.json?callback=?', {format: "json"}, function(data) {
-			var thumbnail_url = data[0].thumbnail_medium;
-			thumbnail_url_core = thumbnail_url.split("http://");
-			thumbnail_url_core = "https://"+thumbnail_url_core[1];			
-         	$("#<%= activity.trackable.video.external %>").attr('style', "background-image:url("+thumbnail_url_core+");");
-		});
-	</script>
-<% end %>
-<% end %>
 <!-- Check if Early Access is on -->
 <% if activity.trackable.early_access == false %>
 	<div class="lightbox" id="<%= activity.id %>activity">
@@ -118,7 +103,7 @@
 									<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
 								<% else %>
 									<!-- Vimeo Thumbnail -->
-									<div class="majorpost-video-small-holder" id="<%= activity.trackable.video.external %>" >
+									<div class="majorpost-video-small-holder" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
 								<% end %>
 							<% else %>
 								<!-- Internal Thumbnail-->
@@ -170,7 +155,7 @@
 										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
 									<% else %>
 										<!-- Vimeo Thumbnail-->
-										<div class="majorpost-video-small-holder vimeo" id="<%= activity.trackable.video.external %>" >
+										<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
 									<% end %>
 								<% else %>
 									<!-- Internal Thumbnail-->

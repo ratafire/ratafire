@@ -358,5 +358,12 @@ module ApplicationHelper
 		end
 	end
 
+	#Vimeo Thumbnail
+	def vimeo_thumbnail(vimeo_id)
+		response = HTTParty.get("http://www.vimeo.com/api/v2/video/"+vimeo_id+".json")
+		url = response[0]["thumbnail_medium"]
+		url = "https://"+url.split("http://")[1]
+		return url
+	end
 
 end
