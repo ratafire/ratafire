@@ -1,45 +1,75 @@
-<!-- Page Title -->
-<% provide(:title, 'About') %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "About") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="help-content">
 
-<!-- Page Content -->
-<!DOCTYPE html>
-<html>
-	<body>
+	<!-- Content -->
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "About",about_path %>
+		<hr class="style-two">
+	</div>	 
 
-		<div class="wrapper">
-		
-			<!-- Sidebar -->
-			<%= render 'layouts/sidebar_standard' %>
+			
+		<div class="help-content-holder">	
+			<h1>About Ratafire</h1>
+			<p>Ratafire is created for creative people such as artists and researchers. It supports creative endeavors, but is aimed at a wider community under a longer term model, and projects don’t depend upon reaching a monetary goal before they start.</p>
 
-			<!-- Main Content -->			
-			<div class="main-content" >
-				<div class="standard-content">
-					<div class="textbox">
-						<h1>About Ratafire</h1>
-						<h5>Share, collaborate and fund free creative works.</h5>
-						<hr>
-						Along with analyzing its nature and classification, the issues of quantity involve such closely related topics as the relation of magnitudes and multitudes, dimensionality, equality, proportion, the measurements of quantities, the units of measurements, number and numbering systems, the types of numbers and their relations to each other as numerical ratios.
-						<p>
-						Along with analyzing its nature and classification, the issues of quantity involve such closely related topics as the relation of magnitudes and multitudes, dimensionality, equality, proportion, the measurements of quantities, the units of measurements, number and numbering systems, the types of numbers and their relations to each other as numerical ratios.
-						<p>
-						Along with analyzing its nature and classification, the issues of quantity involve such closely related topics as the relation of magnitudes and multitudes, dimensionality, equality, proportion, the measurements of quantities, the units of measurements, number and numbering systems, the types of numbers and their relations to each other as numerical ratios.
-						<p>
-						Along with analyzing its nature and classification, the issues of quantity involve such closely related topics as the relation of magnitudes and multitudes, dimensionality, equality, proportion, the measurements of quantities, the units of measurements, number and numbering systems, the types of numbers and their relations to each other as numerical ratios.
-						<p>
-						Along with analyzing its nature and classification, the issues of quantity involve such closely related topics as the relation of magnitudes and multitudes, dimensionality, equality, proportion, the measurements of quantities, the units of measurements, number and numbering systems, the types of numbers and their relations to each other as numerical ratios.
-					</div>
+			<div class="help-show-image" style="background-image:url(/assets/help_image_17.jpg);">
+			</div>	
 
-				<!-- end of standard-content -->	
-				</div>
-				
-				<!-- Footer -->
-				<%= render 'layouts/footer' %>
+			<p>Creators and developers who are working on art, music or coding projects, for example, can create an account on the site and define their current project and goals. Anyone with an interest, whether they want to create their own projects, collaborate with other creators, or find new work or research they are interested in, can also sign up. Once a project has begun, the creator can invite subscribers under a pricing policy with a range of monthly support fees. The creator then posts frequent updates that appear on the subscriber’s main feed. This allows the artist to receive ongoing support while subscribers are able to watch the progress of the projects they have selected.</p>
 
-		    <!-- end of main-content -->	
-			</div>
+			<div class="help-show-image" id="refund" style="background-image:url(/assets/help_image_21.jpg);height:290px;">
+			</div>				
 
-		<!-- end of wrapper -->	
+			<p>The idea behind Ratafire is to build an open community of people who understand how the best and most innovative work can grow in an open environment where ideas can be shared and developed to their full potential.</p>
 		</div>
 
-	</body>
-</html>
+
+	<!-- Help Header -->
+	<div class="help-header">
+		<%= link_to "Explore",help_path %>
+		<hr class="style-two">
+	</div>	 
+
+	<!-- Help Title -->
+	<h1>Getting Started</h1>
+
+	<!-- Three Boxes-->
+	<div class="help-center">
+
+		<%= link_to how_do_I_start_a_project_path do %>
+			<div class="help-image-holder-large" style="background-image:url(/assets/help-image-holder-large1.jpg);">
+				<div class="bottom-text-large">
+					Start a Project
+				</div>	
+			</div>
+		<% end %>		
+
+		<%= link_to how_do_I_setup_subscription_path do %>
+			<div class="help-image-holder-large" style="background-image:url(/assets/help-image-holder-large2.jpg);">	
+				<div class="bottom-text-large">
+					Setup Subscription
+				</div>	
+			</div>
+		<% end %>
+
+		<%= link_to look_around_path do %>
+			<div class="help-image-holder-large" style="background-image:url(/assets/help-image-holder-large3.jpg);">	
+				<div class="bottom-text-large">
+					Look Around
+				</div>	
+			</div>
+		<% end %>
+			
+	</div><!-- end.help-center-->
+
+</div><!-- end.help-content-->
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>	

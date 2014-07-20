@@ -248,7 +248,7 @@ class ProjectsController < ApplicationController
 		@project.deleted = true
 		@project.deleted_at = Time.now
 		@project.save
-		flash[:success] = "Draft threw away, and you hit a pine nut."
+		flash[:success] = "Draft thrown away, and you hit a pine nut."
 		redirect_to projects_path(@user)
 	end	
 
@@ -271,7 +271,7 @@ class ProjectsController < ApplicationController
 			render nothing: true
 		else
 			redirect_to(:back)
-			flash[:success] = "CFailed to turn off early access for this project."
+			flash[:success] = "Failed to turn off early access for this project."
 		end
 	end	
 
