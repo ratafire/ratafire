@@ -52,10 +52,15 @@
 				</div>
 			<% end %>
 		<% end %><!-- end if @video.project == nil-->
-	
-			<div style="position:auto;z-index: 100;">
-    			<%= videojs_rails sources: { webm: @video.output_url }, height:"444.375", width:"790", poster:@video.thumbnail %>
-    		</div>
+			<% unless browser.safari? %>
+				<div style="position:auto;z-index: 100;">
+    				<%= videojs_rails sources: { webm: @video.output_url }, height:"444.375", width:"790", poster:@video.thumbnail %>	
+    			</div>
+    		<% else %>
+    			<div id="majorpost-video-encoding">
+    				Safari is currently the only browser that doesn't support the WebM open video format. Please use other browsers like <%= link_to "Chrome","https://www.google.com/intl/en_us/chrome/browser/",target:"_blank" %> for this video.
+    			</div>	
+    		<% end %>    			
  		</div>
  	<% else %>
  		<!-- Display Encoding & Delete if still encoding-->

@@ -75,6 +75,9 @@ gem 'google-analytics-rails'
 #Pass value from controller to javascript
 gem 'gon','5.0.4' #not in use
 
+#Browser Support
+gem "browser"
+
 #------------File System------------ 
 
 #File Upload
