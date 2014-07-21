@@ -42,9 +42,9 @@ GIT
 
 GIT
   remote: git://github.com/ratafire/videojs_rails.git
-  revision: ddc62864c04875970ccad48a0bf003b4aa1f6a80
+  revision: 3a29507e273bca24881875d620165ef502e86541
   specs:
-    videojs_rails (4.6.4)
+    videojs_rails (4.1.0)
 
 GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
