@@ -575,6 +575,43 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	background-image: url(/assets/searchicon.png);
 }
 
+.btn-large{
+	
+	width:630px;
+	cursor:pointer;
+	display: inline-block;
+	border: 1px solid #666;
+	border-bottom: 1px solid #333;
+	border-radius: 5px;
+ 	margin: 20px 0 20px 0;
+
+ 	background-image:url(/assets/btn-large.jpg);
+ 	background-position: top;
+
+    font-family: "Open Sans",Helvetica, Arial, sans-serif;
+    text-shadow:0 -1px 1px #777777;
+    font-weight: 300;	
+    font-size:2em;
+    text-align: center;
+    padding:28px 0 28px 0;
+	color:#fff;
+
+    a{color:#fff;
+    	&:hover{
+    		text-decoration: none;
+
+    	}
+    }
+ 	
+	&:hover{
+		border: 1px solid #999;
+		background-position: center;
+	}	
+
+	&:active{
+		background-position: bottom;
+	}
+}
 
 .btn-settings {
 	margin-top: 6px;
@@ -5773,7 +5810,7 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 .help-header{
 	position: auto;
 	padding: 0 0 10px 20px;
-        font-family: "Open Sans",Helvetica, Arial, sans-serif;
+    font-family: "Open Sans",Helvetica, Arial, sans-serif;
     font-weight: 300;	
 	color: #ccc;
 	a{
