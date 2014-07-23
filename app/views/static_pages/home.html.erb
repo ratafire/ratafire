@@ -51,7 +51,7 @@
 			<script>
 				$('.Home-page-learn-more').click(function(){
 					$('html, body').animate({
-        				scrollTop: $("#window2").offset().top
+        				scrollTop: $("#scroll-anchor").offset().top - 89
     				});
 				});
 			</script>
@@ -65,11 +65,28 @@
 		<!-- Window 2 -->
 		<section class="window" id="window2">
 			<div class="center" style="margin: 0 auto;width:1089px;">
-				<div class="Home-page-container3">
-					<h2 style="color:#ffffff;">Ratafire elevates independent creativity to its full potential. </h2>
-				</div>
-				<div><%= image_tag("arrow.png") %></div>
+				<%= render 'layouts/sidebar_home_staffpicks'%>
+						<!-- post-content-->
+			<!-- Title -->
+			<div class="update-title-home" id="scroll-anchor">
+				<h1>Staff Picks</h1>
+				<ul style="margin-top: -8px;">
+					<h5>Ratafire elevates independent creativity to its full potential.</h5>
+				</ul>	
+			</div>	
+			
+			<div class="post-content-home">
+				<!-- Activities -->
+					<% if @activities.any? %>
+						<%= render_activities(@activities) %>
+					<% else %>
+						<div class="blank-update-box" style="height:428px;">
+							<h5>There are no staff picks.</h5>
+						</div>						
+					<% end %>
+				</div><!-- end.post-content-->	
 			</div><!-- end.center-->
+			
 		</section><!-- end.second window-->	
 
 		<!-- Window 2 -->
