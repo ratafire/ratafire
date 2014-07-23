@@ -12,7 +12,9 @@ class ArtworkUploadWorker
     	if artwork.post_process_required?
       		artwork.image = URI.parse(URI.escape(artwork.direct_upload_url))
     	else
-      		paperclip_file_path = "artworks/uploads/#{id}/original/#{artwork.image_file_name}"
+          escaped_file_name = artwork.image_file_name.gsub(/[^a-zA-Z0-9_\.]/, '_')
+          escaped_file_name = escaped_file_name.gsub(/[20]/,'')
+      		paperclip_file_path = "artworks/uploads/#{id}/original/#{escaped_file_name}"
       		s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
     	end
  
