@@ -6,6 +6,7 @@ class StaticPagesController < ApplicationController
   before_filter :admin_user,     only: :destroy
 
   def home
+    @activities = PublicActivity::Activity.order("commented_at desc").where(:featured => true).paginate(page: params[:page], :per_page => 3)
   	@user = current_user
   	unless signed_in?
     else
