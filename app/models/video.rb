@@ -5,6 +5,8 @@ require 'aws/s3'
   # Environment-specific direct upload url verifier screens for malicious posted upload locations.
   DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
+  RANDOM_FILENAME = SecureRandom.hex(16)
+
   before_create :set_upload_attributes
   after_create :queue_processing
   after_destroy :remove_encoded_video  
@@ -14,11 +16,11 @@ require 'aws/s3'
   belongs_to :project
   belongs_to :archive
 
-  scope :finished, :conditions => { :encoded_state => "finished" }
+  scope :finished, :conditions => { :encoded_state => "finished" }  
 
   has_attached_file :video,
-  	:url => ":class/uploads/:id/:style/:basename.:extension",
-  	:path => ":class/uploads/:id/:style/:basename.:extension",
+  	:url => ":class/uploads/:id/:style/#{RANDOM_FILENAME}.:extension",
+  	:path => ":class/uploads/:id/:style/#{RANDOM_FILENAME}.:extension",
   	:storage => :s3 # this is redundant if you are using S3 for all your storage requirements
 
   validates_attachment :video, 
@@ -29,7 +31,7 @@ require 'aws/s3'
   has_attached_file :thumbnail, :styles => { :thumb => "171x96#"},
       :storage => :s3
 
-  #process_in_background :thumbnail, :only_process => [:small, :thumbnail]
+  #process_in_background :thumbnail, :only_process => [:small, :thumbnail
 
   # Store an unescaped version of the escaped URL that Amazon returns from direct upload.
   def direct_upload_url=(escaped_url)
@@ -50,7 +52,8 @@ require 'aws/s3'
     if video.post_process_required?
       video.upload = URI.parse(URI.escape(video.direct_upload_url))
     else
-      paperclip_file_path = "videos/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
+      extension = direct_upload_url_data[:filename].split(".")[1]
+      paperclip_file_path = "videos/uploads/#{id}/original/#{RANDOM_FILENAME}.#{extension}"
       s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
     end
  
@@ -171,7 +174,23 @@ require 'aws/s3'
   # Queue file processing
   def queue_processing
     if self.external == nil then
-      Resque.enqueue(VideoUploadWorker,self.id)
+      video = Video.find(id)
+      direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(video.direct_upload_url)
+      s3 = AWS::S3.new
+    
+      if video.post_process_required?
+          video.video = URI.parse(URI.escape(video.direct_upload_url))
+      else
+          extension = direct_upload_url_data[:filename].split(".")[1]
+          paperclip_file_path = "videos/uploads/#{id}/original/#{RANDOM_FILENAME}.#{extension}"
+          s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
+      end
+ 
+      video.processed = true
+      video.save
+    
+      s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
+      video.encode!
     end
   end
 

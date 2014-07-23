@@ -52,7 +52,8 @@ class Icon < ActiveRecord::Base
     if icon.post_process_required?
       icon.image = URI.parse(URI.escape(icon.direct_upload_url))
     else
-      paperclip_file_path = "icons/uploads/#{id}/original/#{direct_upload_url_data[:filename]}"
+      escaped_file_name = icon.image_file_name.gsub(/[^a-zA-Z0-9_\.]/, '_')
+      paperclip_file_path = "icons/uploads/#{id}/original/#{escaped_file_name}"
       s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
     end
  
