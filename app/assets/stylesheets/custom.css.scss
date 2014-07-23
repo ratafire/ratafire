@@ -1094,10 +1094,11 @@ border: 1px solid rgba(148, 183, 208,0.35);
 }
 
 .sidebar[type="home"] {
-		margin-left: 90px;
+
+	margin-left: 90px;
 
 	margin-right: 200px;
-	margin-top: 91px;
+	margin-top: 150px;
 
 	position: absolute;
 
@@ -1228,7 +1229,7 @@ border: 1px solid rgba(148, 183, 208,0.35);
 
 .update-home {
 
-	margin-top: 540px;
+	margin-top: 599px;
 	margin-left: 90px;
 
 	margin-right: 200px;
@@ -3311,14 +3312,14 @@ display: none;
 }
 
 .window:nth-child(2) {
-  background-color:rgba(255,255,255,0.8);
+  background-color:rgba(255,255,255,0.93);
   top: 100%;
-  height: 140%;
+  height: 150%;
 }
 
 .window:nth-child(3) {
 	
-  top: 240%;
+  top: 250%;
   height: 100%;
 }
 
@@ -5659,7 +5660,7 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 }
 
 .update-title-home {
-	margin-top: 30px;
+	margin-top: 89px;
 	margin-bottom: -6px;
 	margin-left: 280px;
 	text-align: left;
