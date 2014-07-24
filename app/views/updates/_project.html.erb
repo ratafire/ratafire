@@ -52,9 +52,9 @@
 		<!-- When it is not a draft-->
 		<div id="majorpost-excerpt">
 			<!-- When there are artwork and video -->
-			<% if project.video_id != "" || project.artwork != nil %>
+			<% if video_true_or_artwork_true(project.id) %>
 				<!-- With Video but without artwork -->
-				<% if project.video_id != "" && project.artwork == nil %>
+				<% if video_true_and_artwork_false(project.id)%>
 					<div class="majorpost-video-one">
 						<%= link_to user_project_path(project.creator,project),class:"no_ajaxify" do %>
 								<!-- Internal Thumbnail-->
@@ -78,7 +78,7 @@
 					</div>	
 				<% end %><!-- end of with video but without artwork-->
 				<!-- With Artwork without Video -->
-				<% if project.video_id != "" && project.artwork != nil %>
+				<% if video_false_and_artwork_true(project.id) %>
 					<%= link_to user_project_path(project.creator,project),class:"no_ajaxify" do %>
 						<div class="majorpost-postimages-one">
 							<img src="<%= project.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
@@ -95,7 +95,7 @@
 					</div>
 				<% end %>	
 				<!-- With Artwork and with Video -->
-				<% if project.video_id != "" && project.artwork != nil %>				
+				<% if video_true_and_artwork_true(project.id) %>				
 					<div class="majorpost-video-one">
 							<%= link_to user_project_path(project.creator,project),class:"no_ajaxify" do %>
 									<!-- Internal Thumbnail-->
@@ -165,7 +165,7 @@
 						</div>						
 					<% end %>
 					<!-- four projectimages -->
-					<% if project.projectimages.count >= 3 %>
+					<% if project.projectimages.count >= 6 %>
 						<%= link_to user_project_path(project.creator,project),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= project.projectimages.first.thumbnail%>" style="border-radius:5px;">
@@ -186,6 +186,16 @@
 								<img src="<%= project.projectimages[3].thumbnail%>" style="border-radius:5px;">
 							</div>	
 						<% end %>	
+						<%= link_to user_project_path(project.creator,project),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= project.projectimages[4].thumbnail%>" style="border-radius:5px;">
+							</div>	
+						<% end %>	
+						<%= link_to user_project_path(project.creator,project),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= project.projectimages[5].thumbnail%>" style="border-radius:5px;">
+							</div>	
+						<% end %>													
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if project.tags.any? %>
