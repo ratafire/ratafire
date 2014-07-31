@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140626013931) do
+ActiveRecord::Schema.define(:version => 20140730220015) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -746,6 +746,7 @@ ActiveRecord::Schema.define(:version => 20140626013931) do
     t.integer  "invitations_count",                                        :default => 0
     t.decimal  "subscribing_amount",         :precision => 8, :scale => 2, :default => 0.0
     t.integer  "supporter_slot",                                           :default => 5
+    t.boolean  "amount_display_switch",                                    :default => false
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
