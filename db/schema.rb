@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140730220015) do
+ActiveRecord::Schema.define(:version => 20140803232458) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -378,6 +378,54 @@ ActiveRecord::Schema.define(:version => 20140730220015) do
     t.string   "user_username"
   end
 
+  create_table "mailboxer_conversation_opt_outs", :force => true do |t|
+    t.integer "unsubscriber_id"
+    t.string  "unsubscriber_type"
+    t.integer "conversation_id"
+  end
+
+  add_index "mailboxer_conversation_opt_outs", ["conversation_id"], :name => "mb_opt_outs_on_conversations_id"
+
+  create_table "mailboxer_conversations", :force => true do |t|
+    t.string   "subject",    :default => ""
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "mailboxer_notifications", :force => true do |t|
+    t.string   "type"
+    t.text     "body"
+    t.string   "subject",              :default => ""
+    t.integer  "sender_id"
+    t.string   "sender_type"
+    t.integer  "conversation_id"
+    t.boolean  "draft",                :default => false
+    t.string   "notification_code"
+    t.integer  "notified_object_id"
+    t.string   "notified_object_type"
+    t.string   "attachment"
+    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                              :null => false
+    t.boolean  "global",               :default => false
+    t.datetime "expires"
+  end
+
+  add_index "mailboxer_notifications", ["conversation_id"], :name => "index_mailboxer_notifications_on_conversation_id"
+
+  create_table "mailboxer_receipts", :force => true do |t|
+    t.integer  "receiver_id"
+    t.string   "receiver_type"
+    t.integer  "notification_id",                                  :null => false
+    t.boolean  "is_read",                       :default => false
+    t.boolean  "trashed",                       :default => false
+    t.boolean  "deleted",                       :default => false
+    t.string   "mailbox_type",    :limit => 25
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+  end
+
+  add_index "mailboxer_receipts", ["notification_id"], :name => "index_mailboxer_receipts_on_notification_id"
+
   create_table "majorpost_suggestions", :force => true do |t|
     t.string   "term"
     t.integer  "popularity"
@@ -409,6 +457,24 @@ ActiveRecord::Schema.define(:version => 20140730220015) do
     t.datetime "published_at"
     t.boolean  "early_access",    :default => false
   end
+
+  create_table "messaging_users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0,  :null => false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "messaging_users", ["email"], :name => "index_messaging_users_on_email", :unique => true
+  add_index "messaging_users", ["reset_password_token"], :name => "index_messaging_users_on_reset_password_token", :unique => true
 
   create_table "p_e_inspirations", :force => true do |t|
     t.integer  "inspired_id"
@@ -800,5 +866,11 @@ ActiveRecord::Schema.define(:version => 20140730220015) do
     t.text     "description"
     t.string   "image"
   end
+
+  add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", name: "mb_opt_outs_on_conversations_id", column: "conversation_id"
+
+  add_foreign_key "mailboxer_notifications", "mailboxer_conversations", name: "notifications_on_conversation_id", column: "conversation_id"
+
+  add_foreign_key "mailboxer_receipts", "mailboxer_notifications", name: "receipts_on_notification_id", column: "notification_id"
 
 end

@@ -47,7 +47,7 @@
 
 				</div><!-- end#Home-page0btn-->
 			</div><!-- end.center-->
-			<div class="Home-page-learn-more tipsy-tipsy" title="Learn More"><%= image_tag("learnmore.png") %></div>
+			<div class="Home-page-learn-more tipsy-tipsy" title="Start Here"><%= image_tag("starthere.png") %></div>
 			<script>
 				$('.Home-page-learn-more').click(function(){
 					$('html, body').animate({
@@ -97,7 +97,7 @@
 					<h2>Post and collaborate on projects</h2>
 					<h2>Discover the best in new ideas, art and research</h2>
 					<h2>Support projects with monthly subscriptions</h2>
-					<h2><%= link_to "Start here ⌄", about_path, class:"no_ajaxify"%></h2>
+					<h2><%= link_to "Learn more or ⌄", about_path, class:"no_ajaxify"%></h2>
 					<%= link_to image_tag("join.jpg"), new_user_registration_path , class: "no_ajaxify tipsy-tipsy", title:"❤"%>
 				</div>
 			</div><!-- end.center-->

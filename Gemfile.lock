@@ -1,4 +1,26 @@
 GIT
+  remote: git://github.com/frodefi/rails-messaging.git
+  revision: df7440b2ddf902b76b8f7f8e38653cc2255d7501
+  specs:
+    messaging (0.0.1)
+      carrierwave
+      devise
+      haml
+      jquery-rails
+      rails (~> 3.2.2)
+      simple_form
+      sunspot_rails
+
+GIT
+  remote: git://github.com/ging/mailboxer.git
+  revision: cbadbe3bd36a8b90510fcf9e2606168644268e21
+  specs:
+    mailboxer (0.12.1)
+      carrierwave (>= 0.5.8)
+      foreigner (>= 0.9.1)
+      rails (>= 3.2.0)
+
+GIT
   remote: git://github.com/jrgifford/delayed_paperclip.git
   revision: d6cbb7b41dea609178f829a88f44f8eb58aad6b5
   specs:
@@ -187,6 +209,8 @@ GEM
       net-ssh (>= 2.1.3)
     fog-json (1.0.0)
       multi_json (~> 1.0)
+    foreigner (1.6.1)
+      activerecord (>= 3.0.0)
     formatador (0.2.5)
     friendly_id (4.0.9)
     gon (5.0.4)
@@ -201,6 +225,8 @@ GEM
       thor (>= 0.18.1)
     guard-rspec (1.2.1)
       guard (>= 1.1)
+    haml (4.0.5)
+      tilt
     hashie (3.2.0)
     hike (1.2.3)
     hiredis (0.5.1)
@@ -295,6 +321,7 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     polyglot (0.3.5)
+    pr_geohash (1.0.0)
     pry (0.10.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -349,6 +376,8 @@ GEM
       mime-types (~> 1.16)
       rdoc (>= 2.4.2)
     riddle (1.5.11)
+    rsolr (1.0.10)
+      builder (>= 2.1.2)
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
@@ -371,6 +400,9 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    simple_form (2.1.1)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -382,6 +414,13 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     subexec (0.2.3)
+    sunspot (2.1.1)
+      pr_geohash (~> 1.0)
+      rsolr (~> 1.0.7)
+    sunspot_rails (2.1.1)
+      nokogiri
+      rails (>= 3)
+      sunspot (= 2.1.1)
     thinking-sphinx (3.1.0)
       activerecord (>= 3.1.0)
       builder (>= 2.1.2)
@@ -450,8 +489,10 @@ DEPENDENCIES
   jquery-datatables-rails!
   jquery-fileupload-rails!
   jquery-rails (= 3.0.4)
+  mailboxer!
   mathjax-rails
   mechanize
+  messaging!
   mini_magick (= 3.7.0)
   mysql2
   nested_form (= 0.3.2)
