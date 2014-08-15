@@ -1,0 +1,55 @@
+<!-- Javascript for the delete button-->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#<%= message.id %>message').hover(function() {
+			$("#<%= message.id %>delete").toggle();
+		});
+		$('#<%= message.id %>delete').click(function() {
+			window.location.reload().delay(50);
+		});
+	});
+</script>
+
+<!-- Message Title-->
+
+<!-- Unread -->
+<% if message.is_unread?(current_user)%>
+<div class="message-container" id="<%= message.id %>message">
+<% else %>	
+<!-- Read -->
+<div class="message-container-read" id="<%= message.id %>message">
+<% end %><!-- if message.is_unread?-->	
+	<!-- Delete Button -->
+	<%= link_to messaging_trash_message_box_path(current_user,message.id), class:"no_ajxify" do %>
+		<div class="message-delete-button" id="<%= message.id %>delete">
+			<div class="message-delete-button-holder">
+				<%= image_tag("/assets/trash.png")%>
+			</div>
+		</div>
+	<% end %>	
+<%= link_to messaging_show_path(current_user.id, message.id), class:"no_ajaxify" do %>	
+	<!-- Sender Icon-->
+	<div class="message-icon-holder ">
+		<div id="post-usericon" style="display:inline-block;">
+			<%= link_to message.last_sender, class:"no_ajaxify no_decoration" do %>
+				<div class="user-icon-small-holder" style="background-image:url(<%= message.last_sender.profilephoto.url(:tiny) %>);"></div>
+			<% end %>
+		</div>		
+	</div>	
+	<!-- Sender Name-->
+	<%= link_to messaging_show_path(current_user.id, message.id), class:"no_ajaxify" do %>
+	<div class="message-sender-holder">
+		<div class="message-sender-name">
+			<h2><%= message.last_sender.fullname %></h2>
+			<div class="message-sender-tagline"><%= message.last_sender.username %> :: <%= time_ago_in_words(message.created_at)%> ago</div>
+		</div>	
+	</div>	
+	<!-- Title-->
+	
+	<div class="message-title">
+		<h2><%= truncate(message.subject,:length => 60) %></h2>
+		<div class="message-sender-tagline" style="color:#999;"><%= strip_tags(truncate(message.last_message.body,:length => 80)) %></div>
+	</div>	
+	<% end %>
+</div>	
+<% end %>

@@ -1,0 +1,26 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Ratafire - Messages") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Messages ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<% content_for(:below_header) do %>
+    	<%= render 'messages/messaging_header' %>
+
+		<div class="messaging-content">
+			<%= render 'layouts/sidebar_messages_trash'%>
+			<div class="messaging-sidebar-holder">
+			</div>
+			<div class="message-holder">
+				<%= render partial: 'messages/message_list_trash', collection: @messages, :as => :message %>
+			</div><!-- end.message-holder-->	
+		</div>
+
+		<%= render 'layouts/footer' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->

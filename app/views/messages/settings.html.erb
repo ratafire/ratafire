@@ -1,0 +1,92 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Ratafire - Messages") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!-- Javascript for the on and off button-->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.btn-delete-light-solid').click(function() {
+			$(".message-on").toggle();
+			$(".message-hide").toggle();
+			$("#off-holder").toggle();
+			$("#on-holder").toggle();
+		});	
+	});
+</script>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Messages ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<% content_for(:below_header) do %>
+    	<%= render 'messages/messaging_header' %>
+
+		<div class="messaging-content">
+			<%= render 'layouts/sidebar_messages_settings'%>
+			<div class="messaging-sidebar-holder">
+			</div>
+			<div class="message-holder">
+				<!-- On and Off-->
+				<!-- On -->
+				<div class="message-container">
+				<% if @user.accept_message %>
+					<div class="message-on">You are currently accepting private messages.</div>
+					<div class="message-hide">You are not accepting private messages.</div>
+						<div class="subscription-switch-holder" id="off-holder" style="display:none;">
+							<%= link_to messaging_turnon_path(@user), remote: true, class:"no_ajaxify" do %><span class="btn-delete-light-solid turn-on-subscription" style="position:relative;z-index:1;padding-right:10px;color:#999 !important;" >
+								On
+							</span><% end %>	
+							<span class="btn-delete-solid" style="position:relative;z-index:2;">
+								Off
+							</span>
+						</div>			
+						<div class="subscription-switch-holder" id="on-holder" >
+							<span class="btn-delete-solid" style="position:relative;z-index:2;" >
+								On
+							</span>	
+							<%= link_to messaging_turnoff_path(@user), remote: true, class:"no_ajaxify" do %><span class="btn-delete-light-solid turn-off-subscription" style="position:relative;z-index:1;color:#999 !important;padding-left:10px;" >
+								Off
+							</span><% end %>
+					</div><!-- end Now/Past -->	
+				<% else %>
+					<div class="message-on">You are not accepting private messages.</div>
+					<div class="message-hide">You are currently accepting private messages.</div>
+						<div class="subscription-switch-holder" id="off-holder">
+							<%= link_to messaging_turnon_path(@user), remote: true do %><span class="btn-delete-light-solid turn-on-subscription" style="position:relative;z-index:1;padding-right:10px;color:#999 !important;" >
+								On
+							</span><% end %>	
+							<span class="btn-delete-solid" style="position:relative;z-index:2;">
+								Off
+							</span>
+						</div>			
+						<div class="subscription-switch-holder" id="on-holder" style="display:none;">
+							<span class="btn-delete-solid" style="position:relative;z-index:2;" >
+								On
+							</span>	
+							<%= link_to messaging_turnoff_path(@user), remote: true do %><span class="btn-delete-light-solid turn-off-subscription" style="position:relative;z-index:1;color:#999 !important;padding-left:10px;" >
+								Off
+							</span><% end %>
+						</div><!-- end Now/Past -->						
+				<% end %><!-- end if @user.accept_message-->
+				</div><!-- end.message-container-->
+
+				<!-- Add Blacklist-->
+				<div class="message-container">
+					<%= form_tag messaging_blacklist_path(current_user), class:"no_ajaxify" do %>
+						<%= text_field_tag :blacklist,nil, class:"inputbox settingsinput", placeholder:"Enter Username", style:"margin-left:0px;"%>
+						<%= submit_tag 'Block', class:"btn-blacklist"%>
+					<% end %><!-- end. form_tag-->
+				</div><!-- end.message-container-->	
+
+				<!-- Blacklist Display -->
+				<div class="message-blacklist-title">Blocked</div>
+				<%= render partial: 'messages/blacklist', collection: @blacklist, :as => :user %>
+
+			</div><!-- end.message-holder-->
+
+		</div><!-- end.message-content-->
+		<%= render 'layouts/footer' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140803232458) do
+ActiveRecord::Schema.define(:version => 20140815062426) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -160,6 +160,14 @@ ActiveRecord::Schema.define(:version => 20140803232458) do
     t.integer  "majorpost_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "blacklists", :force => true do |t|
+    t.integer  "blacklister_id"
+    t.integer  "blacklisted_id"
+    t.boolean  "message",        :default => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "blogposts", :force => true do |t|
@@ -388,8 +396,10 @@ ActiveRecord::Schema.define(:version => 20140803232458) do
 
   create_table "mailboxer_conversations", :force => true do |t|
     t.string   "subject",    :default => ""
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "blocked",    :default => false
+    t.boolean  "not_accept", :default => false
   end
 
   create_table "mailboxer_notifications", :force => true do |t|
@@ -422,6 +432,8 @@ ActiveRecord::Schema.define(:version => 20140803232458) do
     t.string   "mailbox_type",    :limit => 25
     t.datetime "created_at",                                       :null => false
     t.datetime "updated_at",                                       :null => false
+    t.boolean  "blocked",                       :default => false
+    t.boolean  "not_accept",                    :default => false
   end
 
   add_index "mailboxer_receipts", ["notification_id"], :name => "index_mailboxer_receipts_on_notification_id"
@@ -458,23 +470,15 @@ ActiveRecord::Schema.define(:version => 20140803232458) do
     t.boolean  "early_access",    :default => false
   end
 
-  create_table "messaging_users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0,  :null => false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+  create_table "messages", :force => true do |t|
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "title"
+    t.text     "content"
+    t.integer  "receiver_id"
+    t.integer  "sender_id"
+    t.integer  "conversation_id"
   end
-
-  add_index "messaging_users", ["email"], :name => "index_messaging_users_on_email", :unique => true
-  add_index "messaging_users", ["reset_password_token"], :name => "index_messaging_users_on_reset_password_token", :unique => true
 
   create_table "p_e_inspirations", :force => true do |t|
     t.integer  "inspired_id"
@@ -628,8 +632,8 @@ ActiveRecord::Schema.define(:version => 20140803232458) do
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
-    t.boolean  "accumulated",                                         :default => false
     t.decimal  "duration",             :precision => 32, :scale => 6
+    t.boolean  "accumulated",                                         :default => false
     t.boolean  "supporter_switch",                                    :default => false
     t.boolean  "past_support",                                        :default => false
     t.boolean  "duration_support",                                    :default => false
@@ -813,6 +817,7 @@ ActiveRecord::Schema.define(:version => 20140803232458) do
     t.decimal  "subscribing_amount",         :precision => 8, :scale => 2, :default => 0.0
     t.integer  "supporter_slot",                                           :default => 5
     t.boolean  "amount_display_switch",                                    :default => false
+    t.boolean  "accept_message",                                           :default => true
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
@@ -845,7 +850,6 @@ ActiveRecord::Schema.define(:version => 20140803232458) do
     t.text     "tags_temp"
     t.integer  "archive_id"
     t.string   "thumbnail"
-    t.string   "direct_upload_url",                               :null => false
     t.boolean  "processed",              :default => false,       :null => false
     t.integer  "user_id",                                         :null => false
   end

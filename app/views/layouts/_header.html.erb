@@ -13,12 +13,14 @@
 			</span>
 
 			<!-- Searchbox -->
-			<%= form_tag search_path, method: :get, :class => 'no_ajaxify' do %>
-				<div class="searchbox-holder">
-					<%= text_field_tag :search, params[:search], class:"inputbox searchbox", type:"searchbox", placeholder:"Search..."%>
-					<%= submit_tag "", name: nil, class:"btn btn-search", style:"width: 13px !important;"%>
-				</div>
-			<% end %>
+			<div class="searchbox-holder-top">
+				<%= form_tag search_path, method: :get, :class => 'no_ajaxify' do %>
+					<div class="searchbox-holder">
+						<%= text_field_tag :search, params[:search], class:"inputbox searchbox", type:"searchbox", placeholder:"Search..."%>
+						<%= submit_tag "", name: nil, class:"btn btn-search", style:"width: 13px !important;"%>
+					</div>
+				<% end %>
+			</div>	
 			<!-- when not signed in-->
 			<% if user_signed_in? %>
 			<!-- Settings Button -->
@@ -35,37 +37,58 @@
 							<ol>
 								<%= link_to 'Subscription', subscription_settings_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
 							</ol>
-						</div>					
+						</div>	
+						<div class="settingsinner_mid">
+							<ol>
+								<%= link_to 'Messages', messaging_inbox_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
+							</ol>
+						</div>											
 						<div class="settingsinner-last">
 							<ol>
 								<%= link_to "Sign Out", destroy_user_session_path, method: "delete", class: 'no_ajaxify settings-btn-signout' %>
 							</ol>
 						</div>
 					</div>
-
-
 			<!-- end of settingsbox-->
 			</div>
 
-			<!-- User Name -->
-			<div id="namebox" >
+			<!-- Functional Buttons -->
+			<div class="functional-buttons">
 				<%= link_to "Help", help_path, class:"no_ajaxify home"%>
 				<%= link_to "Blog", blog_path, class:"no_ajaxify home"%>
-				<%if current_user.admin? %><%= link_to "Admin",admin_path, class:"no_ajaxify home"%><% end %>
 				<%= link_to "Home",interesting_homepage_path(current_user), class:"no_ajaxify home"%>
 				<%= link_to "Realms", featured_path, class:"no_ajaxify home"%>
+				<%if current_user.admin? %><%= link_to "Admin",admin_path, class:"no_ajaxify home"%><% end %>				
+			</div>	
+
+			<!-- User Name -->
+			<div id="namebox" >
+			<!-- Message Notification -->
+			<% if current_user.receipts.inbox.not_trash.not_deleted.is_unread.count != 0 %>
+				<%= link_to messaging_inbox_path(current_user), class: 'no_ajaxify settings-btn-settings' do %>					
+				<div class="message-notification">
+					<ul><%= current_user.receipts.inbox.not_trash.not_deleted.is_unread.count %></ul>
+				</div>
+				<% end %>
+			<% end %>
+
 				<%= link_to current_user.first_name, current_user, class:'no_ajaxify' %>
 			</div>	
 
 			<!-- when signed in-->
 			<% else %>
 
-				<!-- Settings Button -->
-				<div id="namebox" >
+				<!-- Functional Buttons -->
+				<div class="functional-buttons">
 					<%= link_to "Help", help_path, class:"no_ajaxify home"%>
 					<%= link_to "Blog", blog_path, class:"no_ajaxify home"%>
 					<%= link_to "Realms", featured_path, class:"no_ajaxify home2"%>
+				</div>				
+
+				<!-- Settings Button -->
+				<div id="namebox" >
 				</div>	
+
 				<div id="settingsbox" >	
 					 <%= link_to '', new_user_session_path,class:"btn btn-settings no_ajaxify", id: "Sign_In", title:"Sign In"%>
 			<!-- end of settingsbox-->

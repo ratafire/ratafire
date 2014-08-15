@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :username
 
+	#Messaging
+	acts_as_messageable
+
   default_scope order: 'users.created_at DESC'
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -91,6 +94,13 @@ class User < ActiveRecord::Base
 
 	has_many :reverse_subscription_records, foreign_key: "subscriber_id", class_name: "SubscriptionRecord", dependent: :destroy
 	has_many :record_subscribed, through: :reverse_subscription_records, source: :subscribed
+
+	#--- Blacklist ---
+	has_many :blacklist_records, foreign_key: "blacklister_id", class_name: "Blacklist", dependent: :destroy
+	has_many :blacklisted, through: :blacklist_records, source: :blacklisted
+
+	has_many :reverse_blacklist_records, foreign_key: "blacklisted_id", class_name: "Blacklist", dependent: :destroy
+	has_many :blacklister, through: :reverse_blacklist_records, source: :blacklister
 
 	#Amazon
 	has_one :amazon_recipient
@@ -225,6 +235,11 @@ class User < ActiveRecord::Base
 
 	def normalized_profile_file_name
 		"#{self.id}-#{self.profilephoto_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')}"
+	end
+
+	#Mailboxer
+	def mail_email(object)
+		return email
 	end
 
 	private

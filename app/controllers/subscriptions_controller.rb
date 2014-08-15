@@ -13,6 +13,7 @@ class SubscriptionsController < ApplicationController
 		@user = User.find(params[:id])
 		@subscribers = @user.subscribers.paginate(page: params[:subscribers], :per_page =>32)
 		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+		@message = Message.new
 	end
 
 	def subscribers_past
@@ -23,6 +24,7 @@ class SubscriptionsController < ApplicationController
 	def subscribing
 		@user = User.find(params[:id])
 		@subscribing = @user.subscribed.paginate(page: params[:subscribing], :per_page =>32)
+		@message = Message.new
 	end
 
 	def subscribing_past

@@ -1,0 +1,56 @@
+
+<!-- Message Title-->
+<div class="message-display-title-holder">
+	<!-- Delete Conversation
+		<div class="message-display-delete tipsy-tipsy" title="Trash">
+		</div>
+	 -->		
+	<!-- Title-->
+	<div class="message-display-title">
+		<h2><%= @conversation.subject %></h2>
+	</div>	
+</div><!-- .messsage-display-title-holder-->	
+
+
+	<% @conversation.messages.each do |message| %>
+<div class="message-display-holder">	
+	<!-- Sender Icon-->
+	<div class="message-icon-holder ">
+		<div id="post-usericon" style="display:inline-block;">
+			<%= link_to message.sender, class:"no_ajaxify no_decoration" do %>
+				<div class="user-icon-small-holder" style="background-image:url(<%= message.sender.profilephoto.url(:tiny) %>);"></div>
+			<% end %>
+		</div>		
+	</div>	
+	<!-- Sender Name-->
+	<%= link_to message.sender, class:"no_ajaxify no_decoration" do %>
+		<div class="message-sender-holder">
+			<div class="message-sender-name">
+				<h2><%= message.sender.fullname %></h2>
+				<div class="message-sender-tagline"><%= message.sender.username %> :: <%= time_ago_in_words(message.created_at)%> ago</div>
+			</div>	
+		</div>
+	<% end %>		
+	<!-- Message Body -->
+	<div class="message-display-body">
+		<%= sanitize message.body, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+	</div>
+</div><!-- end.message-display-holder-->	
+	<% end %><!-- @conversation.messages.each -->	
+
+<!-- Message Reply -->
+<% if message_not_blocked_strong?(@conversation.participants[0].id,@conversation.participants[1].id)%>
+<%= form_for @message, :url => messaging_create_path(current_user), :html => {class:"no_ajaxify"} do |f| %>
+	<%= f.hidden_field :receiver_id, :value => @conversation.last_sender.id %>
+	<%= f.hidden_field :title, :value => @conversation.subject %>
+	<%= f.hidden_field :conversation_id, :value => @conversation.id %>
+<div class="message-reply-outter">	
+	<div class="message-reply-holder">	
+		<%= f.text_area :content, id:"redactor_message_reply"%>
+	</div>
+</div>
+<div class="message-reply-submit-holder">
+	<%= f.submit 'Send', class:"btn-submit no_ajaxify btn btn-small btn-small-blue btn-submit-small"%>
+</div>		
+<% end %><!-- form_tag reply_message -->
+<% end %><!-- end. if message_not_blocked_strong-->

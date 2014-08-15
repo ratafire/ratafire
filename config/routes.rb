@@ -1,8 +1,6 @@
 Ratafire::Application.routes.draw do
 
-  mount Messaging::Engine => "/messaging"
 
-  devise_for :messaging_users
 
 #------Gems------
 
@@ -22,6 +20,8 @@ Ratafire::Application.routes.draw do
 
 #---Resque---     
 	mount Resque::Server, :at => "/resque"	
+
+#---Message---     
 
 #---Home Page---
 	root to: 'static_pages#home'
@@ -258,6 +258,21 @@ Ratafire::Application.routes.draw do
 #---Tests--- 
 	match '/test_resque', to: 'admin#test_resque', as: :test_resque 
 
+#---Messaging---
+	match '/messaging/:id/r/inbox', to: 'messages#inbox', as: :messaging_inbox	
+	match '/messaging/:id/conversation/:conversation_id/', to:'messages#show', as: :messaging_show
+	match '/messaging/:id/r/sent', to:'messages#sent', as: :messaging_sent
+	match '/messaging/:id/r/trash', to:'messages#trash', as: :messaging_trash
+	match '/messaging/:id/r/settings', to: 'messages#settings', as: :messaging_settings
+	match '/messaging/:id/r/create', to: 'messages#create', as: :messaging_create
+	match '/messaging/:id/r/trash_message_box/:conversation_id', to: 'messages#trash_message_box', :via => [:get, :post], as: :messaging_trash_message_box
+	match '/messaging/:id/r/restore/:conversation_id', to: 'messages#restore', :via => [:get, :post], as: :messaging_restore
+	match '/messaging/:id/r/trash_forever/:conversation_id', to: 'messages#trash_forever', :via => [:get, :post], as: :messaging_trash_forever
+	match '/messaging/:id/r/blacklist', to: 'messages#blacklist', as: :messaging_blacklist
+	match '/messaging/:id/r/unblock/:blacklisted_id', to: "messages#unblock", as: :messaging_unblock
+	match '/messaging/:id/r/on', to: 'messages#turnon', as: :messaging_turnon
+	match '/messaging/:id/r/off', to: 'messages#turnoff', as: :messaging_turnoff
+
 #---Blog---
 	match '/blog', to: 'blogposts#show', as: :blog
 	match '/blogselect', to: 'blogposts#select', as: :admin_blog
@@ -325,6 +340,7 @@ Ratafire::Application.routes.draw do
 	resources :tags_suggestions
 	resources :updates
 	resources :tags
+	resources :messages
 
 end
 

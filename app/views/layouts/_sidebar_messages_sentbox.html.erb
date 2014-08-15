@@ -1,0 +1,10 @@
+<div class="sidebar" type="messaging">
+	<ul>
+		<ol><%= link_to "Inbox", messaging_inbox_path, class:"no_ajaxify", id:"message-inbox-link" %></ol>
+		<ol><%= link_to "Sent", messaging_sent_path, class:"no_ajaxify message-sidebar-highlight", id:"message-sentbox-link" %></ol>
+		<ol><%= link_to "Trash", messaging_trash_path, class:"no_ajaxify", id:"message-trash-link" %></ol>
+		<ol><%= link_to "Settings", messaging_settings_path, class:"no_ajaxify", id:"message-settings-link" %></ol>
+	</ul>
+</div>
+
+<%= render "messages/sidebar_messages_js"%>

@@ -1,7 +1,25 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!-- Javascript for open and close message window -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#<%= user.username%>').click(function(){
+		$("#compose-holder").show();
+		$("#message-receiver").val("<%= user.id %>");
+		$("#message-receiber-name").html("<%= user.fullname %>");
+	});
+});	
+</script>
+
 <div class="subscription-box">
 	<!-- Unsubscribe Button -->
 	<% if @user == current_user %>
+		<!-- If the user is not blocked -->
+		<% if message_not_blocked?(user.id)%>	
 		<div class="btn-edit-right14">
+			<span class="btn-delete-light" id="<%= user.username %>">Message</span>
+		<% else %>
+		<div class="btn-edit-right16">
+		<% end %>	
 			<%= link_to 'Edit',"",class:"btn-delete-light no_ajaxify tipsy-tipsy",title:"Coming soon"%>
 			<%= link_to 'Unsubscribe',unsubscribe_path(@user.id,user.id), method: :delete,class:"btn-delete-light no_ajaxify",:confirm => "Are you sure to unsubscribe from "+user.fullname+"? If unsubscribed, you cannot resubscribe to "+user.fullname+" in one month."%>
 		</div>
