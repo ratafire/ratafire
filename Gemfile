@@ -78,10 +78,10 @@ gem 'gon','5.0.4' #not in use
 #Browser Support
 gem "browser"
 
-#------------Messaging------------ 
+#------------File System------------ 
 
-gem 'messaging', git: 'git://github.com/frodefi/rails-messaging.git'
-gem 'mailboxer', git: 'git://github.com/ging/mailboxer.git'
+#Messaging
+gem 'mailboxer'
 
 #------------File System------------ 
 

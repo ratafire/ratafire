@@ -366,4 +366,41 @@ module ApplicationHelper
 		return url
 	end
 
+	#See if a user is blocked
+	def message_not_blocked?(userid)
+		if Blacklist.find_by_blacklister_id_and_blacklisted_id(current_user.id,userid) != nil then
+			return false 
+		else
+			return true
+		end
+	end	
+
+	#See if a user is blocked strong version
+	def message_not_blocked_strong?(participant1,participant2)
+        if participant1 == current_user.id then
+            participant = participant2
+            if Blacklist.find_by_blacklister_id_and_blacklisted_id(current_user.id,participant) != nil then
+            	return false
+            else
+            	return true
+            end
+        else
+            participant = participant1
+            if Blacklist.find_by_blacklister_id_and_blacklisted_id(current_user.id,participant) != nil then
+            	return false
+            else
+            	return true
+            end            
+        end
+	end
+
+	#Get the recipient of the conversation
+	def message_recipient(recipient1,recipient2)
+		if recipient1.id == current_user.id then
+			return recipient2
+		else
+			return recipient1
+		end
+	end
+
 end

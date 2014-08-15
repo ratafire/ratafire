@@ -91,6 +91,37 @@ $(document).on('ajaxify:content_loaded', function(){
     } // end of redactor
   );
 
+   //--- Messaging ---
+  $('#redactor_messaging').redactor(
+    { toolbarFixedBox: true,
+      "imageUpload":"/redactor_rails/pictures?" + params,
+      "imageGetJson":"/redactor_rails/pictures",
+      "fileUpload":"/redactor_rails/documents?" + params,
+      "fileGetJson":"/redactor_rails/documents",
+      "path":"/assets/redactor-rails",
+      "css":"style.css",
+      plugins: ['quote','advanced'],
+      minHeight: 430,
+      buttons: ['formatting','unorderedlist', '|', 'bold', 'italic', 'deleted', '|', 'link','quote','code', 'equation', '|', 'image', '|' 
+      ],
+      buttonsCustom: {
+        quote: {
+          title: 'Quote',
+          callback: formatQuote
+        },
+        painting: {
+          title: 'Upload Artwork',
+          callback: uploadOriginal
+        },
+        video2: {
+          title: 'Video',
+          callback: VideoCase
+        },
+      } 
+
+    } // end of redactor
+  ); 
+
   //--- Blog ---
   $('#redactor_blog').redactor(
     {toolbarFixedBox: true,
@@ -115,7 +146,33 @@ $(document).on('ajaxify:content_loaded', function(){
     } // end of redactor
   );
 
+//--- Message Reply ---
+  $('#redactor_message_reply').redactor(
+    {toolbarFixedBox: true,
+      "imageUpload":"/redactor_rails/pictures?" + params,
+      "imageGetJson":"/redactor_rails/pictures",
+      "fileUpload":"/redactor_rails/documents?" + params,
+      "fileGetJson":"/redactor_rails/documents",
+      "path":"/assets/redactor-rails",
+      "css":"style.css",
+      plugins: ['fullscreen','quote','advanced'],
+      minHeight: 111,
+      maxHeight: 111,
+      buttons: ['formatting','unorderedlist', '|','bold', 'italic', 'deleted', '|', 'link','quote','code', 'equation', '|', 'image', '|' 
+      ],
+      buttonsCustom: {
+        quote: {
+          title: 'Quote',
+          callback: formatQuote
+        }
+
+      } 
+
+    } // end of redactor
+  );  
+
 }
+
 
 
 

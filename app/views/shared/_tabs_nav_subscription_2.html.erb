@@ -1,9 +1,9 @@
 <!-- Tabs Nav -->
 <div class="tab">
 	<% if @user.subscribers.count >1 %>
-		<%= link_to "Subscribers", subscribers_path(@user) , style:"margin-left:0px;", class: "tab tab-size tab-content"%>
+		<%= link_to "Subscribers", subscribers_path(@user) , style:"margin-left:0px;", class: "tab tab-size tab-content no_ajaxify"%>
 	<% else %>
-		<%= link_to "Subscriber", subscribers_path(@user) , style:"margin-left:0px;", class: "tab tab-size tab-content"%>
+		<%= link_to "Subscriber", subscribers_path(@user) , style:"margin-left:0px;", class: "tab tab-size tab-content no_ajaxify"%>
 	<% end %>	
-	<%= link_to "Subscribing", subscribing_path(@user) , class: "tab tab-size tab-content-current tab-left-shadow"%>
+	<%= link_to "Subscribing", subscribing_path(@user) , class: "tab tab-size tab-content-current tab-left-shadow no_ajaxify"%>
 </div>

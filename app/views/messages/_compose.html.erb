@@ -1,0 +1,45 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.message-turn-off').click(function(){
+		$("#compose-holder").hide();
+		$("#message-receiver").val("");
+		$("#message-title").val("");
+		$("#redactor_messaging").val("");
+	});
+});	
+</script>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Editor ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<div id="compose-holder">
+	<!-- Overlay-->
+	<div class="message-overlay"></div>
+	<!-- Editor -->
+	<div class="compose-content-width">
+		<%= form_for @message, :url => messaging_create_path(@user),:html => {class:"no_ajaxify"} do |f| %>
+			<%= f.hidden_field :receiver_id, id:"message-receiver"%>
+			<div class="message-content-area">
+			<!-- Recipient -->
+			<div class="message-recipient">
+				New Message to <span id="message-receiber-name"></span>
+			</div>			
+			<div class="message-turn-off">x</div>		
+				<div class="majorpost-title-input">
+					<div class="majorpost-title-indicator compose-title-indicator">
+						<li></li>
+					</div>	
+					<ul>
+						<%= f.text_field :title, class:"majorpost-title-input-holder input_majorpost compose-title-input", id:"message-title"%>
+					</ul>	
+				</div>		
+				<div class="compose-content-editor">
+					<%= f.text_area :content, id:"redactor_messaging"%>
+				</div>
+			</div>
+			<!-- Send -->
+			<div class="message-send-button-holder">
+				<%= f.submit 'Send', class:"btn-submit no_ajaxify btn btn-small btn-small-blue btn-submit-small"%>
+			</div>	
+		<% end %><!-- end. form_tag-->
+	</div><!-- end.compose-content-width-->	
+</div>	

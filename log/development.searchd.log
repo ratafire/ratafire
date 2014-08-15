@@ -20,3 +20,5 @@
 [Wed Jul 23 19:57:05.974 2014] [51788] rotating index 'project_core': started
 [Wed Jul 23 19:57:06.006 2014] [51788] rotating index 'project_core': success
 [Wed Jul 23 19:57:06.006 2014] [51788] rotating index: all indexes done
+[Wed Aug  6 03:34:34.219 2014] [51788] caught SIGTERM, shutting down
+[Wed Aug  6 03:34:35.566 2014] [51788] shutdown complete

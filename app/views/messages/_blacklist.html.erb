@@ -1,0 +1,3 @@
+<div class="message-blacklist">
+	<%= user.fullname %> (<%= user.username %>)  <%= link_to messaging_unblock_path(current_user.id, user.id), class:"no_ajaxify" do %><span class="btn-delete-light">Unblock</span><% end %>
+</div>	

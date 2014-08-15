@@ -1,0 +1,31 @@
+<script type="text/javascript">
+
+	$("#message-inbox-link").click(function(){
+		$("#message-inbox-link").addClass("message-sidebar-highlight");
+		$("#message-sentbox-link").removeClass("message-sidebar-highlight");
+		$("#message-trash-link").removeClass("message-sidebar-highlight");
+		$("#message-settings-link").removeClass("message-sidebar-highlight");
+	});
+
+	$("#message-sentbox-link").click(function(){
+		$("#message-inbox-link").removeClass("message-sidebar-highlight");
+		$("#message-sentbox-link").addClass("message-sidebar-highlight");
+		$("#message-trash-link").removeClass("message-sidebar-highlight");
+		$("#message-settings-link").removeClass("message-sidebar-highlight");
+	});	
+
+	$("#message-trash-link").click(function(){
+		$("#message-inbox-link").removeClass("message-sidebar-highlight");
+		$("#message-sentbox-link").removeClass("message-sidebar-highlight");
+		$("#message-trash-link").addClass("message-sidebar-highlight");
+		$("#message-settings-link").removeClass("message-sidebar-highlight");
+	});	
+
+	$("#message-settings-link").click(function(){
+		$("#message-inbox-link").removeClass("message-sidebar-highlight");
+		$("#message-sentbox-link").removeClass("message-sidebar-highlight");
+		$("#message-trash-link").removeClass("message-sidebar-highlight");
+		$("#message-settings-link").addClass("message-sidebar-highlight");
+	});	
+
+</script>

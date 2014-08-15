@@ -1,0 +1,11 @@
+
+<div class="messaging-second-header">
+	<ul>
+		<%= link_to "Messages", messaging_inbox_path(current_user), class:"no_ajaxify"%>
+	</ul>		    	
+</div>
+<% if @messages != nil %>
+		<div class="message-paginate-holder">
+			<%= will_paginate @messages, :param_name => 'page', class:"rata_pagination no_ajaxify" %>
+		</div>	
+<% end %><!-- end.if @messages != nil-->		
