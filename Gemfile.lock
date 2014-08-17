@@ -13,7 +13,7 @@ GIT
       omniauth-oauth (~> 1.0)
 
 GIT
-  remote: git://github.com/ratafire/amazon_flex_pay.git
+  remote: git://github.com/ratafire/amazon_flex_pay
   revision: 3d614b1edc0054c95819d064988c22e11dcc432b
   specs:
     amazon_flex_pay (0.10.0)
