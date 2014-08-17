@@ -99,6 +99,7 @@ gem 'jquery-fileupload-rails', :path => "vendor/gems/jquery-fileupload-rails-mas
 #Amazon Payments
 gem "rest-client", :require => "rest_client"
 #gem 'netrc' #rest-client dependency
+#very strange
 gem 'amazon_flex_pay', github: 'ratafire/amazon_flex_pay' #changed for reacurring pipeline
 gem "figaro" #configuration
 
