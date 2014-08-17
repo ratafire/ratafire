@@ -13,6 +13,15 @@ GIT
       omniauth-oauth (~> 1.0)
 
 GIT
+  remote: git://github.com/ratafire/amazon_flex_pay.git
+  revision: 3d614b1edc0054c95819d064988c22e11dcc432b
+  specs:
+    amazon_flex_pay (0.10.0)
+      activesupport (>= 3.0.14)
+      multi_xml (>= 0.5.2)
+      rest-client (~> 1.6.1)
+
+GIT
   remote: git://github.com/ratafire/redactor-rails.git
   revision: efcb4b5b4f51ac02458e281269006c8111b22fea
   specs:
@@ -39,9 +48,9 @@ GIT
 
 GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
-  revision: 49933cdd6ec1a56642400b0a040516556581bc9f
+  revision: fca8c73a91a93fbdbe0a55a86d1d4752fbd6a561
   specs:
-    jquery-datatables-rails (2.2.0)
+    jquery-datatables-rails (2.2.2)
       jquery-rails
       sass-rails
 
@@ -102,10 +111,6 @@ GEM
       rails (>= 3, < 5)
     ajaxify_rails (0.9.5)
       rails (>= 3.2.0)
-    amazon_flex_pay (0.10.0)
-      activesupport (>= 3.0.14)
-      multi_xml (>= 0.5.2)
-      rest-client (~> 1.6.1)
     annotate (2.5.0)
       rake
     arel (3.0.3)
@@ -156,7 +161,7 @@ GEM
       eventmachine (>= 1.0.0.beta.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    excon (0.39.3)
+    excon (0.39.5)
     execjs (2.2.1)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
@@ -169,7 +174,7 @@ GEM
       fog-core (~> 1.21, >= 1.21.1)
       fog-json
       nokogiri (~> 1.5, >= 1.5.11)
-    fog-brightbox (0.1.1)
+    fog-brightbox (0.3.0)
       fog-core (~> 1.22)
       fog-json
       inflecto
@@ -225,7 +230,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mailboxer (0.12.1)
+    mailboxer (0.12.2)
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (>= 3.2.0)
@@ -273,8 +278,8 @@ GEM
     omniauth-deviantart (0.0.1)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
-    omniauth-facebook (1.6.0)
-      omniauth-oauth2 (~> 1.1)
+    omniauth-facebook (2.0.0)
+      omniauth-oauth2 (~> 1.2)
     omniauth-github (1.1.2)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
@@ -296,7 +301,7 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     polyglot (0.3.5)
-    pry (0.10.0)
+    pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
@@ -398,14 +403,14 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     trollop (2.0)
-    tzinfo (0.3.40)
+    tzinfo (0.3.41)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.6)
-    uuidtools (2.1.4)
+    uuidtools (2.1.5)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.3)
@@ -426,7 +431,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (= 2.4.1)
   ajaxify_rails (= 0.9.5)
-  amazon_flex_pay
+  amazon_flex_pay!
   annotate (= 2.5.0)
   aws-s3 (= 0.6.3)
   aws-sdk (= 1.38.0)
