@@ -42,7 +42,6 @@ class Facebook < ActiveRecord::Base
 				facebook.user_id = user_id
 				facebook.save
 			end
-			return true
 		else
 			return false	  
 		end	 
