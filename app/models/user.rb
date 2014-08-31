@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
  	has_many :inspired_projects, through: :reverse_p_u_inspirations, source: :inspired  	
 
 	#Downcase the email to ensure its uniqueness
-	before_save { |user| user.email = email.downcase }
+	before_save { self.email = self.email.downcase }
 	before_save :create_remember_token
 
   	#--- Tags ---
