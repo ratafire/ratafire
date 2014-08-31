@@ -1,0 +1,24 @@
+[Sun Apr 20 07:44:31.670 2014] [33637] Child process 33638 has been forked
+[Sun Apr 20 07:44:31.671 2014] [33638] listening on 127.0.0.1:9306
+[Sun Apr 20 07:44:31.879 2014] [33638] accepting connections
+[Sun Apr 20 07:47:38.574 2014] [33638] caught SIGHUP (seamless=1, in queue=1)
+[Sun Apr 20 07:47:38.597 2014] [33638] rotating index 'project_core': started
+[Sun Apr 20 07:47:38.682 2014] [33638] rotating index 'project_core': success
+[Sun Apr 20 07:47:38.801 2014] [33638] rotating index: all indexes done
+[Sun Apr 20 07:49:30.850 2014] [33638] caught SIGHUP (seamless=1, in queue=1)
+[Sun Apr 20 07:49:30.878 2014] [33638] rotating index 'project_core': started
+[Sun Apr 20 07:49:30.880 2014] [33638] rotating index 'project_core': success
+[Sun Apr 20 07:49:30.880 2014] [33638] rotating index: all indexes done
+[Wed Jul 23 19:55:59.814 2014] [51787] Child process 51788 has been forked
+[Wed Jul 23 19:55:59.923 2014] [51788] listening on 127.0.0.1:9306
+[Wed Jul 23 19:56:00.416 2014] [51788] binlog: replaying log /Users/fari/Dropbox/Toys/Ratafire/tmp/binlog/development/binlog.001
+[Wed Jul 23 19:56:00.458 2014] [51788] binlog: replay stats: 0 rows in 0 commits; 0 updates; 0 indexes
+[Wed Jul 23 19:56:00.458 2014] [51788] binlog: finished replaying /Users/fari/Dropbox/Toys/Ratafire/tmp/binlog/development/binlog.001; 0.0 MB in 0.000 sec
+[Wed Jul 23 19:56:00.458 2014] [51788] binlog: finished replaying total 1 in 0.041 sec
+[Wed Jul 23 19:56:00.574 2014] [51788] accepting connections
+[Wed Jul 23 19:57:05.932 2014] [51788] caught SIGHUP (seamless=1, in queue=1)
+[Wed Jul 23 19:57:05.974 2014] [51788] rotating index 'project_core': started
+[Wed Jul 23 19:57:06.006 2014] [51788] rotating index 'project_core': success
+[Wed Jul 23 19:57:06.006 2014] [51788] rotating index: all indexes done
+[Wed Aug  6 03:34:34.219 2014] [51788] caught SIGTERM, shutting down
+[Wed Aug  6 03:34:35.566 2014] [51788] shutdown complete
