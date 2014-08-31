@@ -10,7 +10,7 @@ class Facebook < ActiveRecord::Base
 			facebook.first_name = auth.info.first_name
 			facebook.last_name = auth.info.last_name
 			facebook.link = auth.info.urls.Facebook
-			facebook.username = auth.info.id
+			facebook.username = auth.extra.raw_info.username
 			facebook.gender = auth.extra.raw_info.gender
 			facebook.locale = auth.extra.raw_info.location
 			facebook.user_birthday = auth.extra.raw_info.user_birthday
@@ -32,7 +32,7 @@ class Facebook < ActiveRecord::Base
 				facebook.first_name = auth.info.first_name
 				facebook.last_name = auth.info.last_name
 				facebook.link = auth.info.urls.Facebook
-				facebook.username = auth.info.id
+				facebook.username = auth.extra.raw_info.username
 				facebook.gender = auth.extra.raw_info.gender
 				facebook.locale = auth.extra.raw_info.location
 				facebook.user_birthday = auth.extra.raw_info.user_birthday
@@ -41,11 +41,11 @@ class Facebook < ActiveRecord::Base
 				facebook.oauth_expires_at = auth.credentials.expires_at
 				facebook.user_id = user_id
 				facebook.save
-				if User.find_by_username(auth.info.id) == nil then
+				if User.find_by_username(auth.extra.raw_info.username) == nil then
 					user = User.find(user_id)
 					user.fullname = auth.info.name
 					user.email = auth.info.email
-					user.username = auth.info.id	
+					user.username = auth.extra.raw_info.username	
 					user.save(:validate => false)		
 				else
 					user = User.find(user_id)
