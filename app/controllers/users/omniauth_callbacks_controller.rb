@@ -18,16 +18,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			@user.uuid = SecureRandom.hex(16)
 			@user.save(:validate => false)
 			if facebook = Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id) then
-				#if User.find_by_username(@user.facebook.username) == nil then
-				#	@user.update_column(:fullname,@user.facebook.name)
-				#	@user.update_column(:email,@user.facebook.email)
-				#	@user.update_column(:username,@user.facebook.username)
-				#else
-				#	@user.update_column(:fullname,@user.facebook.name)
-				#	@user.update_column(:email,@user.facebook.email)					
-				#end				
+				if User.find_by_username(@user.facebook.username) == nil then
+					@user.update_column(:fullname,@user.facebook.name)
+					@user.update_column(:email,@user.facebook.email)
+					@user.update_column(:username,@user.facebook.username)
+				else
+					@user.update_column(:fullname,@user.facebook.name)
+					@user.update_column(:email,@user.facebook.email)					
+				end				
 				redirect_to facebook_signup_path(@user.uuid)	
-				Resque.enqueue_at(10.minutes.from_now, AbortedFacebookSignupWorker, :user_id => @user.id)	
+				#Resque.enqueue_at(10.minutes.from_now, AbortedFacebookSignupWorker, :user_id => @user.id)	
 			else
 				redirect_to new_user_registration_path
 				flash[:success] = "User exists."
