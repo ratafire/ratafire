@@ -16,7 +16,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			#When the user doesn't exist
 			@user = User.new
 			@user.uuid = SecureRandom.hex(16)
-			@user.save
+			@user.save(:validate => false)
 			facebook = Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id) 
 			redirect_to facebook_signup_path(@user.uuid)	
 			Resque.enqueue_in(10.minutes, AbortedFacebookSignupWorker, :user_id => @user.id)		
