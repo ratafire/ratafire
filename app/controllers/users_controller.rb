@@ -91,7 +91,7 @@ class UsersController < ApplicationController
 	else
 		if @user.confirmed_at == nil then
 			if @user.update_attributes(params[:user])
-        		@user.confirmed_at = Time.now
+        		@user.skip_confirmation!
         		@user.save
         		sign_in(:user, @user)
         		flash[:success] = "You have discovered Ratafire!"
