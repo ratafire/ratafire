@@ -18,8 +18,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			@user.uuid = SecureRandom.hex(16)
 			@user.save(:validate => false)
 			facebook = Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id) 
-			redirect_to facebook_signup_path(@user.uuid)	
-			Resque.enqueue_in(10.minutes, AbortedFacebookSignupWorker, :user_id => @user.id)		
+			if facebook != false then
+				redirect_to facebook_signup_path(@user.uuid)	
+				Resque.enqueue_in(10.minutes, AbortedFacebookSignupWorker, :user_id => @user.id)	
+			else
+				redirect_to new_user_registration_path
+				flash[:success] = "User exists."
+			end	
 		end
 	end
 
