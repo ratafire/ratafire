@@ -28,7 +28,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 					@user.update_column(:email,facebook.email)					
 				end				
 				redirect_to facebook_signup_path(@user.uuid)	
-				#Resque.enqueue_at(10.minutes.from_now, AbortedFacebookSignupWorker, :user_id => @user.id)	
+				Resque.enqueue_at(10.minutes.from_now, AbortedFacebookSignupWorker, :user_id => @user.id)	
 			else
 				redirect_to new_user_registration_path
 				flash[:success] = "User exists."
