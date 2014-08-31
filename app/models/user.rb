@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
  	has_many :inspired_projects, through: :reverse_p_u_inspirations, source: :inspired  	
 
 	#Downcase the email to ensure its uniqueness
-	before_save { self.email = self.email.downcase }
+	before_save :downcase_email
 	before_save :create_remember_token
 
   	#--- Tags ---
@@ -247,6 +247,14 @@ class User < ActiveRecord::Base
 		#Memory Token
 		def create_remember_token
 			self.remember_token = SecureRandom.urlsafe_base64
+		end
+
+		#Downcase Email
+
+		def downcase_email
+			if self.email != nil then
+				self.email = email.downcase
+			end 		 
 		end
 
 
