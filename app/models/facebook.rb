@@ -41,18 +41,6 @@ class Facebook < ActiveRecord::Base
 				facebook.oauth_expires_at = auth.credentials.expires_at
 				facebook.user_id = user_id
 				facebook.save
-				if User.find_by_username(auth.extra.raw_info.username) == nil then
-					user = User.find(user_id)
-					user.fullname = auth.info.name
-					user.email = auth.info.email
-					user.username = auth.extra.raw_info.username	
-					user.save(:validate => false)		
-				else
-					user = User.find(user_id)
-					user.fullname = auth.info.name
-					user.email = auth.info.email	
-					user.save(:validate => false)						
-				end
 			end
 		else
 			return false	  

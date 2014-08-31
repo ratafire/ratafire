@@ -19,6 +19,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			@user.save(:validate => false)
 			facebook = Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id) 
 			if facebook != false then
+				if User.find_by_username(facebook.username) == nil then
+					@user.fullname = facebook.name
+					@user.email = facebook.email
+					@user.username = facebook.username
+					@user.save(:validate => false)		
+				else
+					@user.fullname = facebook.name
+					@user.email = facebook.email	
+					@user.save(:validate => false)						
+				end				
 				redirect_to facebook_signup_path(@user.uuid)	
 				Resque.enqueue_in(10.minutes, AbortedFacebookSignupWorker, :user_id => @user.id)	
 			else
