@@ -14,6 +14,8 @@ Ratafire::Application.routes.draw do
 	devise_for :users, :controllers => { :invitations => 'users/invitations', :omniauth_callbacks => "users/omniauth_callbacks",:registrations => "registrations" }
 	match "/signup" => "devise/registrations#new"
 	get "users/new"  
+	#Facebook Signup
+	match ':uuid/signup/with/facebook', to: 'users#facebook_signup', as: :facebook_signup
 
 #---Redactor---    
 	mount RedactorRails::Engine => '/redactor_rails'

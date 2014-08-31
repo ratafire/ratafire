@@ -4,8 +4,8 @@ class UsersController < ApplicationController
 
   layout 'application'
   before_filter :signed_in_user,
-				only: [:index, :edit, :settings, :goals, :update, :destroy]
-  before_filter :correct_user,   only: [:edit, :settings, :goals, :update, :photo]
+				only: [:index, :edit, :settings, :goals, :destroy]
+  before_filter :correct_user,   only: [:edit, :settings, :goals, :photo]
   before_filter :admin_user,     only: :destroy
 
   def no_sign_up
@@ -72,19 +72,35 @@ class UsersController < ApplicationController
   #end
 
   def update
-	respond_to do |format|
-	  if @user.update_attributes(params[:user])
-		format.json { respond_with_bip(@user) }
-		  if params[:user][:profilelarge].blank?
-			format.html { redirect_to(:back) }
-			flash[:success] = "Ah, new info!"
-		  else
-			format.html { render :action => "edit" }
-		  end
-	  else
-		format.json { respond_with_bip(@user) }
-		format.html { render :action => "edit" }
-	  end
+	  @user = User.find(params[:id])	
+  	if signed_in? && @user == current_user then
+		respond_to do |format|
+	  		if @user.update_attributes(params[:user])
+				format.json { respond_with_bip(@user) }
+		  		if params[:user][:profilelarge].blank?
+					format.html { redirect_to(:back) }
+					flash[:success] = "Ah, new info!"
+		  		else
+					format.html { render :action => "edit" }
+		  		end
+	  		else
+				format.json { respond_with_bip(@user) }
+				format.html { render :action => "edit" }
+	  		end
+	  	end
+	else
+		if @user.confirmed_at == nil then
+			if @user.update_attributes(params[:user])
+        		@user.confirmed_at = Time.now
+        		@user.save
+        		sign_in(:user, @user)
+        		flash[:success] = "You have discovered Ratafire!"
+        		redirect_to(@user)				
+			else
+        		redirect_to(:back)
+        		flash[:success] = "Please enter the required information."				
+			end
+		end
 	end
   end
 
@@ -172,6 +188,10 @@ class UsersController < ApplicationController
 	Devise.sign_out_all_scopes ? sign_out : sign_out(@user)
 	flash[:success] = "Farewell "+@user.fullname+"!"
 	redirect_to root_path
+  end
+
+  def facebook_signup
+  	@user = User.find_by_uuid(params[:uuid])
   end
 
   private

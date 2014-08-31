@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140815062426) do
+ActiveRecord::Schema.define(:version => 20140831025236) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -438,13 +438,6 @@ ActiveRecord::Schema.define(:version => 20140815062426) do
 
   add_index "mailboxer_receipts", ["notification_id"], :name => "index_mailboxer_receipts_on_notification_id"
 
-  create_table "majorpost_suggestions", :force => true do |t|
-    t.string   "term"
-    t.integer  "popularity"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "majorposts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -632,8 +625,8 @@ ActiveRecord::Schema.define(:version => 20140815062426) do
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
-    t.decimal  "duration",             :precision => 32, :scale => 6
     t.boolean  "accumulated",                                         :default => false
+    t.decimal  "duration",             :precision => 32, :scale => 6
     t.boolean  "supporter_switch",                                    :default => false
     t.boolean  "past_support",                                        :default => false
     t.boolean  "duration_support",                                    :default => false
@@ -818,6 +811,7 @@ ActiveRecord::Schema.define(:version => 20140815062426) do
     t.integer  "supporter_slot",                                           :default => 5
     t.boolean  "amount_display_switch",                                    :default => false
     t.boolean  "accept_message",                                           :default => true
+    t.string   "uuid"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
@@ -850,6 +844,7 @@ ActiveRecord::Schema.define(:version => 20140815062426) do
     t.text     "tags_temp"
     t.integer  "archive_id"
     t.string   "thumbnail"
+    t.string   "direct_upload_url",                               :null => false
     t.boolean  "processed",              :default => false,       :null => false
     t.integer  "user_id",                                         :null => false
   end

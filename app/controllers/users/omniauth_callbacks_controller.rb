@@ -1,14 +1,25 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 	def facebook
-		@user = current_user
-		facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
-		if facebook.persisted?
-			flash[:success] = "Connected to Facebook."
-			redirect_to(:back)
+		if current_user != nil
+			#When the user exist
+			@user = current_user
+			facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
+			if facebook.persisted?
+				flash[:success] = "Connected to Facebook."
+				redirect_to(:back)
+			else
+				flash[:success] = "Fail to connect to Facebook."
+				redirect_to(:back)
+			end
 		else
-			flash[:success] = "Fail to connect to Facebook."
-			redirect_to(:back)
+			#When the user doesn't exist
+			@user = User.new
+			@user.uuid = SecureRandom.hex(16)
+			@user.save
+			facebook = Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id) 
+			redirect_to facebook_signup_path(@user.uuid)	
+			Resque.enqueue_in(10.minutes, AbortedFacebookSignupWorker, :user_id => @user.id)		
 		end
 	end
 

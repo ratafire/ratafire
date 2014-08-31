@@ -301,7 +301,7 @@ Devise.setup do |config|
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
   config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'],{:scope => 'email, offline_access, user_birthday'}
   #On Engine Yard Cloud servers, the CA file is located at /etc/ssl/certs/ca-certificates.crt
-  
+
   #Twitter
   require "omniauth-twitter"
   config.omniauth :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
@@ -317,4 +317,5 @@ Devise.setup do |config|
   #Vimeo
   require "omniauth-vimeo"
   config.omniauth :vimeo, ENV['VIMEO_KEY'], ENV['VIMEO_SECRET']
+
 end

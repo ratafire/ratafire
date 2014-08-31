@@ -43,12 +43,15 @@
 		</ol>
 		<ol>
 			<%= f.text_field :username, class: "inputbox signupbox",  placeholder: "Pick a username"%>
-		</ol>
-		<ol style="margin-top: 15px; padding-left: 161px;">
+		</ol>	
+		<ol style="margin-top: 15px; padding-left: 158px;">
 			<%= f.submit "SIGN UP", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
 		</ol>
 		<% end %>
-		 
+		<div class="signup-with-facebook-button">
+			<%= link_to image_tag("/assets/facebook.png"), user_omniauth_authorize_path(:facebook), class:"tipsy-tipsy-ne no_ajaxify", title:"Signup with Facebook"%>
+		</div>
+
 	</div><!-- end of Signup-box-bg -->
 
 	<!-- Terms -->

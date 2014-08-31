@@ -3327,6 +3327,11 @@ display: none;
 	white-space: nowrap;
 }
 
+.signup-with-facebook-button-home{
+	position: absolute;
+	margin: 0 0 0 148px;
+}
+
 .Home-page-margin {
 	margin: 0 5px 0 0;
 }
@@ -3402,12 +3407,12 @@ display: none;
 .window:nth-child(2) {
   background-color:rgba(255,255,255,0.93);
   top: 100%;
-  height: 160%;
+  height: 180%;
 }
 
 .window:nth-child(3) {
 	
-  top: 260%;
+  top: 280%;
   height: 100%;
 }
 
@@ -3447,6 +3452,11 @@ display: none;
 box-shadow: 0px 9px 30px 0px rgba(0,0,0,0.2);
 
 background-color: rgba(255,255,255,.8);
+ul{
+	text-align: left;
+	padding: 0 0 0 30px;
+	color: #999;
+}
 
 }
 
@@ -3463,11 +3473,11 @@ background-color: rgba(255,255,255,.8);
 	border: 1px solid #999;
 	border-radius: 5px;
 		/* Border Shadow */
--webkit-box-shadow: 0px 9px 30px 0px rgba(0,0,0,0.2);
--moz-box-shadow: 0px 9px 30px 0px rgba(0,0,0,0.2);
-box-shadow: 0px 9px 30px 0px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0px 9px 30px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 9px 30px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 9px 30px 0px rgba(0,0,0,0.2);
 
-background-color: rgba(255,255,255,.8);
+	background-color: rgba(255,255,255,.8);
 }
 
 #Signup-agreement {
@@ -3478,6 +3488,11 @@ background-color: rgba(255,255,255,.8);
 	padding: 10px 0 40px 37px;
 	/* Size */
 	width: 248px;
+}
+
+.signup-with-facebook-button{
+	margin-top: -32px;
+	margin-right: -5px;
 }
 
 /*--- Sign In Page ---*/
