@@ -17,8 +17,6 @@
 //= require jquery.min
 //= require jquery.tipsy
 //= require jquery-ui
-//= require rails.validations
-//= require rails.validations.nested_form
 //= require jquery_nested_form
 //= require tag-it.js
 //= require jquery-fileupload/basic
@@ -33,6 +31,9 @@
 //= require facebook.js.coffee
 //= require dataTables/jquery.dataTables
 //= require s3_direct_upload
+//= require rails.validations
+//= require rails.validations.nested_form
 //= require_directory .
 //= require_directory ./redactor-rails
+
 

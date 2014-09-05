@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/bcardarella/client_side_validations.git
+  revision: 56bdafa7502e3aba899a9ce56784392e3d8b0566
+  branch: 3-2-stable
+  specs:
+    client_side_validations (3.2.6)
+
+GIT
   remote: git://github.com/jrgifford/delayed_paperclip.git
   revision: d6cbb7b41dea609178f829a88f44f8eb58aad6b5
   specs:
@@ -132,7 +139,6 @@ GEM
       mime-types (>= 1.16)
     celluloid (0.15.2)
       timers (~> 1.1.0)
-    client_side_validations (3.2.6)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -438,7 +444,7 @@ DEPENDENCIES
   best_in_place!
   browser
   carrierwave (= 0.10.0)
-  client_side_validations (= 3.2.6)
+  client_side_validations!
   coffee-rails (= 3.2.2)
   delayed_paperclip!
   devise (= 3.2.4)

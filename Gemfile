@@ -38,7 +38,7 @@ gem 'friendly_id', '4.0.9' #important
 gem 'mechanize' #get external title, important
 
 #Forms and Validation
-gem 'client_side_validations', '3.2.6'#important
+gem 'client_side_validations', :github => 'bcardarella/client_side_validations', :branch => '3-2-stable'#important
 gem 'nested_form', '0.3.2'#important
 gem 'best_in_place', :path => "vendor/gems/best_in_place-master" #important
 
