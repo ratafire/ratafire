@@ -95,7 +95,7 @@ class MajorpostsController < ApplicationController
 				@user = @majorpost.user
 				@subscription = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id, :subscribed_id => @user.id).first
 				if @subscription != nil then
-					diff = ((major_post.published_at+6.days-Time.now)/1.day).to_i
+					diff = ((@majorpost.published_at+6.days-Time.now)/1.day).to_i
 					#current_user is subscribed to @user
 					case @subscription.amount
 					when ENV["PRICE_1"].to_f
