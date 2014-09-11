@@ -28,13 +28,21 @@
 			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
 				<!-- Logo Image -->
 				<div style="margin-top:40px;"><%= image_tag("ratafire.png", alt: "Ratafire") %></div>
-	
-				<!-- Home Page Comment -->
-				<div id="Home-page-comment">
-					<h2 style="color:#666;">
-						Create what you love. 
-					</h2>
-				</div>
+		
+				<!-- Click to Play Video -->
+				<div id="Home-page-video-click">
+					<div id="Home-page-video"></div>
+					<!-- Home Page Comment -->
+					<div id="Home-page-comment">
+
+						<h2 style="color:#666;" id="watch-intro">
+							Watch intro video on how it works 
+						</h2>
+					</div>
+				</div><!-- end#Home-page-video-click-->	
+
+				<!-- Video Holder -->
+				<%= render 'static_pages/video'%>
 
 				<!-- Home Page Buttons -->
 				<div id="Home-page-btn">

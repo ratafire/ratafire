@@ -32,6 +32,7 @@
 //= require dataTables/jquery.dataTables
 //= require s3_direct_upload
 //= require rails.validations
+//= require youtube
 //= require rails.validations.nested_form
 //= require_directory .
 //= require_directory ./redactor-rails
