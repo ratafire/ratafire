@@ -45,7 +45,8 @@ gem 'best_in_place', :path => "vendor/gems/best_in_place-master" #important
 #Video
 gem 'aws-sdk','1.38.0' #S3
 gem 'aws-s3', '0.6.3'#s3
-gem 'videojs_rails', :git => "git://github.com/ratafire/videojs_rails.git"
+gem 'videojs_rails',:git => "git://github.com/ratafire/videojs_rails.git"
+gem 'sublimevideo_rails'
 gem 'httparty' #for Zencoder
 gem 'zencoder-fetcher' #only for development
 gem 'i18n', '0.6.1'
