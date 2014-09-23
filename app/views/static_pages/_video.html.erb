@@ -1,7 +1,7 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#Home-page-video-click').click(function(){
+	$('#watch-intro').click(function(){
 		$("#Home-page-video-holder").show();
 		callPlayer("Home-page-video-youtube","playVideo")
 	});
@@ -11,9 +11,9 @@ $(document).ready(function() {
 		callPlayer("Home-page-video-youtube","pauseVideo")
 	});
 
-	$('#Home-page-video-click').hover(function(){
-		$("#watch-intro").css("color","#999")},function(){
-    $("#watch-intro").css("color","#666");
+	$('#watch-intro').hover(function(){
+		$("#Home-page-video-title").css("color","#999")},function(){
+    $("#Home-page-video-title").css("color","#666");
 	});	
 
 });	
