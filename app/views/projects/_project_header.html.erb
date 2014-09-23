@@ -121,6 +121,7 @@
 								<li class="tipsy-tipsy" style="color:#ccc;", title="Abandoned">[A]</li>
 							<% end %>	
 							<%= link_to @project.title, user_project_path(@project.creator,@project), class:"no_ajaxify" %>
+							<% if @project.users.count == 1 %><span> by <%= link_to @project.creator.fullname,@project.creator, class:"no_ajaxify" %></span><% end %>
 						</h1>
 						<ul>
 								<!-- Show Tagline if there is a-->
