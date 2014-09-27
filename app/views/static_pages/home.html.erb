@@ -87,10 +87,7 @@
     				});
 				});				
 			</script>
-									<!-- Footer -->
-						<div style="padding: 0px 20px 18px 0;bottom:0;right:0;position:fixed;">
-						<%= render 'layouts/footer' %>
-						</div>
+
 		</section><!-- end.first window -->
 	</div><!-- end:.wrapper -->	
 
@@ -133,6 +130,12 @@
 					<%= link_to image_tag("join.jpg"), new_user_registration_path , class: "no_ajaxify tipsy-tipsy", title:"❤"%>
 				</div>
 			</div><!-- end.center-->
+
+						<!-- Footer -->
+						<div style="padding: 0px 20px 18px 0;bottom:0;right:0;position:absolute;">
+						<%= render 'layouts/footer' %>
+						</div>
+
 		</section><!-- end.second window-->	
 
 <% end %>		
