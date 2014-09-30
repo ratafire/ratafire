@@ -135,11 +135,11 @@ class User < ActiveRecord::Base
 #--- Validations ---
 
 	#username
-	VALID_USERNAME_REGEX = /\A[a-zA-Z0-9_.]+\z/
+	VALID_USERNAME_REGEX = /\A[a-zA-Z0-9_]+\z/
 	validates_presence_of :username, :message => "Pick a username."
 	validates_length_of :username, :minimum => 3, :message => "Username must be at least 3 characters."
 	validates_length_of :username, :maximum => 50, :message => "Username is too long (maximum 50)."
-	validates_format_of :username, with: VALID_USERNAME_REGEX, :message => "Alphanumerics,_,and . only."
+	validates_format_of :username, with: VALID_USERNAME_REGEX, :message => "Alphanumerics,and _only."
 	validates_uniqueness_of :username, case_sensitive: false, :message => "This username is already taken."
 
 	#email
