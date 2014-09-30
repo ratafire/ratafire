@@ -32,8 +32,7 @@
 		<div id="Signup-box">
 
 			<!-- Signup Form -->
-			<%= form_for(@user, :html => { :class => 'no_ajaxify' }) do |f| %>
-				<%= f.hidden_field id: @user.id %>
+			<%= form_for(@user, :url =>facebook_update_path(@user.uuid), :html => { :class => 'no_ajaxify' }) do |f| %>
 			<ul>
 
 				Welcome, <%= @user.fullname %>!

@@ -16,6 +16,7 @@ Ratafire::Application.routes.draw do
 	get "users/new"  
 	#Facebook Signup
 	match ':uuid/signup/with/facebook', to: 'users#facebook_signup', as: :facebook_signup
+	match ':uuid/signup_update/with/facebook', to: 'users#facebook_update', as: :facebook_update
 
 #---Redactor---    
 	mount RedactorRails::Engine => '/redactor_rails'

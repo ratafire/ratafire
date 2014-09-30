@@ -104,6 +104,39 @@ class UsersController < ApplicationController
 	end
   end
 
+  def facebook_update
+	  @user = User.find(params[:uuid])	
+  	if signed_in? && @user == current_user then
+		respond_to do |format|
+	  		if @user.update_attributes(params[:user])
+				format.json { respond_with_bip(@user) }
+		  		if params[:user][:profilelarge].blank?
+					format.html { redirect_to(:back) }
+					flash[:success] = "Ah, new info!"
+		  		else
+					format.html { render :action => "edit" }
+		  		end
+	  		else
+				format.json { respond_with_bip(@user) }
+				format.html { render :action => "edit" }
+	  		end
+	  	end
+	else
+		if @user.confirmed_at == nil then
+			if @user.update_attributes(params[:user])
+        		@user.skip_confirmation!
+        		@user.save
+        		sign_in(:user, @user)
+        		flash[:success] = "You have discovered Ratafire!"
+        		redirect_to(@user)				
+			else
+        		redirect_to(:back)
+        		flash[:success] = "Please enter the required information."				
+			end
+		end
+	end
+  end  
+
   def profile_photo_delete
 	@user = User.find(params[:id])
 	@user.profilephoto.destroy
