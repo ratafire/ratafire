@@ -33,6 +33,7 @@
 
 			<!-- Signup Form -->
 			<%= form_for(@user, :html => { :class => 'no_ajaxify' }) do |f| %>
+				<%= f.hidden_field id: @user.id %>
 			<ul>
 
 				Welcome, <%= @user.fullname %>!

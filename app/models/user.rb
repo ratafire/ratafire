@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 	#Accessable to outside users, are you sure you want them to change name?
 	#Profilelarge is the large profilelarge, profielmedium is the medium profilelarge
 
-	attr_accessible :username, :email, :fullname, :password, :password_confirmation, :current_password, :remember_me, :tagline, :website, :bio, :facebook, :twitter, :github, :deviantart, :vimeo, :profilephoto,:profilephoto_delete, :goals_subscribers, :goals_monthly, :goals_project, :why, :plan, :goals_updated_at, :confirmed_at
+	attr_accessible :username, :email, :fullname, :password, :password_confirmation, :current_password, :remember_me, :tagline, :website, :bio, :facebook, :twitter, :github, :deviantart, :vimeo, :profilephoto,:profilephoto_delete, :goals_subscribers, :goals_monthly, :goals_project, :why, :plan, :goals_updated_at, :confirmed_at, :id
 	has_attached_file :profilephoto, :styles => { :medium => "128x171#", :small => "128x128#", :small64 => "64x64#", :tiny => "40x40#"}, :default_url => "/assets/usericon_:style.png",
 	      :url => ":class/:id/:style/:escaped_filename2",:hash_secret => "longSecretString",
 	      :path => ":class/:id/:style/:escaped_filename2",
