@@ -105,7 +105,7 @@ class UsersController < ApplicationController
   end
 
   def facebook_update
-	  @user = User.find(params[:uuid])	
+	  @user = User.find_by_uuid(params[:uuid])	
   	if signed_in? && @user == current_user then
 		respond_to do |format|
 	  		if @user.update_attributes(params[:user])
