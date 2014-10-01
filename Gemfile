@@ -79,6 +79,9 @@ gem 'gon','5.0.4' #not in use
 #Browser Support
 gem "browser"
 
+#------------Mailer-----------------
+gem 'sendgrid'
+
 #------------File System------------ 
 
 #Messaging

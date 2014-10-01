@@ -70,16 +70,16 @@ Ratafire::Application.configure do
 
   #Devise Mailing
   config.action_mailer.default_url_options = { :host => 'www.ratafire.com' }
-  config.action_mailer.asset_host = 'ratafire.com'
+  config.action_mailer.asset_host = 'www.ratafire.com'
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
    config.action_mailer.smtp_settings = {
-     :address              => "smtp.gmail.com",
-     :port                 => 587,
-     :domain               => 'ratafire.com',
-     :user_name            => ENV["GMAIL_USERNAME"],
-     :password             => ENV["GMAIL_PASSWORD"],
+     :address              => "smtp.sendgrid.net",
+     :port                 => 25,
+     :domain               => 'www.ratafire.com',
+     :user_name            => ENV["SENDGRID_USERNAME"],
+     :password             => ENV["SENDGRID_PASSWORD"],
      :authentication       => :plain,
      :enable_starttls_auto => true  }
 
