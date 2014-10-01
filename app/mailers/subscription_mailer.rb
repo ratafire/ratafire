@@ -1,6 +1,6 @@
 class SubscriptionMailer < ActionMailer::Base
   include SendGrid
-  default from: "Ratafire-noreply@ratafire.com"
+  default from: "noreply@ratafire.com"
   include Resque::Mailer
 
   # Subject can be set in your I18n file at config/locales/en.yml
