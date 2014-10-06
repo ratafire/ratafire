@@ -19,7 +19,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			@user.save(:validate => false)
 			facebook = Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id) 
 			if facebook != false then
-				facebook_username_clearned = facebook.username.gsub!('.', '_')
+				if facebook.username != nil then
+					facebook_username_clearned = facebook.username.gsub!('.', '_')
+				end
 				if User.find_by_username(facebook_username_clearned) == nil then
 					@user.update_column(:fullname,facebook.name)
 					@user.update_column(:email,facebook.email)
