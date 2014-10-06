@@ -10,6 +10,16 @@
 	   -o-background-size: cover;
 	  background-size: cover;"><!-- Signup Page Background -->
 
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<script type="text/javascript">
+//Google Analytics Event Tracking
+$(document).ready(function() {
+	$('#signup-with-facebook-button').on('click', function() {
+  		ga('send', 'event', 'button', 'click', 'Signup_with_Facebook_button_homepage');
+	});
+});	
+</script>
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
@@ -48,7 +58,7 @@
 			<%= f.submit "SIGN UP", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
 		</ol>
 		<% end %>
-		<div class="signup-with-facebook-button">
+		<div class="signup-with-facebook-button" id="signup-with-facebook-button">
 			<%= link_to image_tag("/assets/facebook.png"), user_omniauth_authorize_path(:facebook), class:"tipsy-tipsy-ne no_ajaxify", title:"Signup with Facebook"%>
 		</div>
 
