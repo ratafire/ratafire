@@ -87,6 +87,6 @@ Ratafire::Application.configure do
   config.gem "aws-s3", :lib => "aws/s3"  
 
   #Google Analytics
-  GA.tracker = ENV["GOOGLE_ANALYTICS"]
+  #GA.tracker = ENV["GOOGLE_ANALYTICS"]
 
 end

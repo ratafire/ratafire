@@ -71,7 +71,7 @@ gem 'ajaxify_rails','0.9.5' #important
 gem 'thinking-sphinx', '3.1.0'
 
 #google analytics 
-gem 'google-analytics-rails'
+#gem 'google-analytics-rails'
 
 #Pass value from controller to javascript
 gem 'gon','5.0.4' #not in use

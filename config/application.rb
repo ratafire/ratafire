@@ -85,5 +85,8 @@ module Ratafire
     #    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
     #end
 
+    #Google Analytics
+    config.middleware.use Rack::GoogleAnalytics, :tracker => ENV["GOOGLE_ANALYTICS"]
+
   end
 end
