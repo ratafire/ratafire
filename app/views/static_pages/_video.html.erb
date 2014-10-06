@@ -3,7 +3,8 @@
 $(document).ready(function() {
 	$('#watch-intro').click(function(){
 		$("#Home-page-video-holder").show();
-		callPlayer("Home-page-video-youtube","playVideo")
+		callPlayer("Home-page-video-youtube","playVideo");
+		ga('send', 'event', 'video', 'click', 'View_Intro_Video');
 	});
 
 	$('.message-overlay').click(function(){

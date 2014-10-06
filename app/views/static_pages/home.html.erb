@@ -10,6 +10,15 @@
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<script type="text/javascript">
+//Google Analytics Event Tracking
+$(document).ready(function() {
+	$('#signup-with-facebook-button-home').on('click', function() {
+  		ga('send', 'event', 'button', 'click', 'Signup');
+	});
+});	
+</script>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
@@ -53,7 +62,7 @@
 				<!-- Home Page Buttons -->
 				<div id="Home-page-btn">
 
-						<div class="signup-with-facebook-button-home">
+						<div class="signup-with-facebook-button-home" id="signup-with-facebook-button-home">
 							<%= link_to image_tag("/assets/facebook.png"), user_omniauth_authorize_path(:facebook), class:"tipsy-tipsy-ne no_ajaxify", title:"Signup with Facebook"%>
 						</div>					
 

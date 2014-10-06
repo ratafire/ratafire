@@ -14,9 +14,12 @@
 <script type="text/javascript">
 //Google Analytics Event Tracking
 $(document).ready(function() {
-	$('#Join-Ratafire').on('click', function() {
-  		ga('send', 'event', 'button', 'click', 'Signup_with_Facebook_button_homepage');
+	$('#signup-with-facebook-button').on('click', function() {
+  		ga('send', 'event', 'button', 'click', 'Signup');
 	});
+	$('#email-signup').on('click', function() {
+  		ga('send', 'event', 'button', 'click', 'Signup');
+	});	
 });	
 </script>
 
@@ -55,7 +58,7 @@ $(document).ready(function() {
 			<%= f.text_field :username, class: "inputbox signupbox",  placeholder: "Pick a username"%>
 		</ol>	
 		<ol style="margin-top: 15px; padding-left: 158px;">
-			<%= f.submit "SIGN UP", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+			<%= f.submit "SIGN UP", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green", id:"email-signup" %>
 		</ol>
 		<% end %>
 		<div class="signup-with-facebook-button" id="signup-with-facebook-button">
