@@ -18,6 +18,8 @@
 *= require jquery.fileupload-ui
 *= require monokai
 *= require dataTables/src/demo_table_jui
+*= require flat.audio
+*= require flat.audio.ie7
 *= require_tree .
 
  */

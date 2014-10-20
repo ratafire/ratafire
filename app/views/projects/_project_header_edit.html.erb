@@ -97,7 +97,7 @@
 							<% if @project.complete == true %>	
 								<%= @project.title %>
 							<% else %>				
-								<%= best_in_place [@project.creator, @project], :title, :path => project_update_path(@project.creator,@project), :classes =>"best_title" %> <span class="btn btn-edit" id="best_title-edit" style="display:none;"></span>
+								<%= best_in_place [@project.creator, @project], :title, :path => project_update_path(@project.creator,@project), :classes =>"best_title" %><span class="btn btn-edit" id="best_title-edit" style="display:none;"></span>
 							<% end %>
 						</h1>
 						<ul>
