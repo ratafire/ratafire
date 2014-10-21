@@ -190,7 +190,7 @@
 						</div>
 					<% end %>
 					<!-- two postimages three postimages -->
-					<% if majorpost.postimages.count == 2 || majorpost.postimages.count == 3 %>
+					<% if majorpost.postimages.count == 2 %>
 						<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%=majorpost.postimages.first.thumbnail%>" style="border-radius:5px;">

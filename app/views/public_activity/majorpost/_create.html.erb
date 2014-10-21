@@ -203,27 +203,29 @@
 							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
 						</div>
 					<% end %>
-					<!-- two postimages three postimages -->
-					<% if activity.trackable.postimages.count == 2 || activity.trackable.postimages.count == 3 %>
-						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+					<!-- three projectimages -->
+					<% if activity.trackable.projectimages.count == 3 || activity.trackable.projectimages.count == 4 || activity.trackable.projectimages.count == 5 %>
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
-								<img src="<%= activity.trackable.postimages.first.thumbnail%>" style="border-radius:5px;">
+								<img src="<%= activity.trackable.projectimages.first.thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>
-						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>	
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>	
 							<div class="majorpost-postimages-one">
-								<img src="<%= activity.trackable.postimages[1].thumbnail%>" style="border-radius:5px;">
+								<img src="<%= activity.trackable.projectimages[1].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.projectimages[2].thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>	
-						<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
-							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
-						</div>
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>
 							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
 						</div>						
-					<% end %>
+					<% end %>					
 					<!-- six postimages -->
 					<% if activity.trackable.postimages.count >= 6 %>
 						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>

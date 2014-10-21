@@ -9,7 +9,7 @@
 					<!-- Post Content -->
 					<div class="post-content" id="about-case">
 								<!-- if current user has the right to edit -->
-								<% if project_edit(@project) && 1<0%>
+								<% if project_edit(@project) %>
 									<!-- artwork delete button-->
 									<div class="btn-edit-right" id="edit-project">
 										<%= link_to 'Edit',edit_user_project_path(@project.creator,@project),class:"btn-delete no_ajaxify"%>

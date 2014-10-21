@@ -149,7 +149,7 @@
 						</div>
 					<% end %>
 					<!-- two projectimages three projectimages -->
-					<% if activity.trackable.projectimages.count == 2 || activity.trackable.projectimages.count == 3 %>
+					<% if activity.trackable.projectimages.count == 2 %>
 						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.projectimages.first.thumbnail%>" style="border-radius:5px;">
@@ -169,6 +169,29 @@
 							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
 						</div>						
 					<% end %>
+					<!-- three projectimages -->
+					<% if activity.trackable.projectimages.count == 3 || activity.trackable.projectimages.count == 4 || activity.trackable.projectimages.count == 5 %>
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.projectimages.first.thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.projectimages[1].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>	
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.projectimages[2].thumbnail%>" style="border-radius:5px;">
+							</div>
+						<% end %>	
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if activity.trackable.tags.any? %>
+							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+						</div>						
+					<% end %>					
 					<!-- six projectimages -->
 					<% if activity.trackable.projectimages.count >= 6 %>
 						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
