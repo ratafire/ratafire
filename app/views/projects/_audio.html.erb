@@ -1,0 +1,31 @@
+<script type="text/javascript">
+ $(document).ready(function(){
+  $("#jquery_jplayer_1").jPlayer({
+   ready: function () {
+    $(this).jPlayer("setMedia", {
+     mp3: "http://www.sandrorussopianist.com/wp-content/uploads/2014/10/01-Scarlatti-Tausig-Capriccio-in-E-major1.mp3",
+    });
+   },
+   supplied: "mp3"
+  });
+ });
+</script>
+
+<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+<div id="jp_container_1" class="jp-flat-audio" style="margin-top:-43px;">
+  <div class="jp-play-control jp-control">
+    <a class="jp-play jp-button"></a>
+    <a class="jp-pause jp-button"></a>
+  </div>
+  <div class="jp-bar">
+
+    <div class="jp-seek-bar">
+      <div class="jp-play-bar"></div>
+      <div class="jp-timing"><span class="jp-duration"></span></div>
+    </div>
+  </div>
+  <div class="jp-no-solution">
+    Media Player Error<br />
+    Update your browser or Flash plugin
+  </div>
+</div>

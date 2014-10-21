@@ -34,8 +34,8 @@
 //= require rails.validations
 //= require youtube
 //= require rails.validations.nested_form
-//= require jquery.jplayer.js
-//= require flat.audio.js
+//= require jquery.jplayer
+//= require flat.audio
 //= require_directory .
 //= require_directory ./redactor-rails
 

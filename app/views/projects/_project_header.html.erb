@@ -81,7 +81,7 @@
 
 		  		<div id="icon-upload-data"></div>
 			<% else %>
-		 		<div id="icon-upload-box" style="background-image: url(<%= @icon.image.url(:pageview) %>); height: 126px; width:126px; border-radius:6px;">
+		 		<div id="icon-upload-box" style="background-image: url(<%= @project.icon.image.url(:pageview) %>); height: 126px; width:126px; border-radius:6px;">
 		 			<!-- artwork delete button-->
 					<div id="delete-icon" style="margin:7px 5px 0 0;float:right;display:none;">
 						<%= link_to 'Delete',icon_delete_path(@project.creator,@project,@project.icon),method: :delete,class:"btn-delete no_ajaxify"%>

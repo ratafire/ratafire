@@ -71,7 +71,7 @@ $(document).on('ajaxify:content_loaded', function(){
       "css":"style.css",
       plugins: ['fullscreen','quote','advanced'],
       minHeight: 430,
-      buttons: ['formatting','unorderedlist', '|', 'bold', 'italic', 'deleted', '|', 'link','quote','code', 'equation', '|', 'image','painting', 'video2', '|' 
+      buttons: ['formatting','unorderedlist', '|', 'bold', 'italic', 'deleted', '|', 'link','quote','code', 'equation', '|', 'image','painting', 'video2','audio', '|' 
       ],
       buttonsCustom: {
         quote: {
@@ -86,6 +86,10 @@ $(document).on('ajaxify:content_loaded', function(){
           title: 'Video',
           callback: VideoCase
         },
+        audio: {
+          title: 'Audio',
+          callback: AudioCase
+        }
       } 
 
     } // end of redactor
@@ -108,14 +112,6 @@ $(document).on('ajaxify:content_loaded', function(){
         quote: {
           title: 'Quote',
           callback: formatQuote
-        },
-        painting: {
-          title: 'Upload Artwork',
-          callback: uploadOriginal
-        },
-        video2: {
-          title: 'Video',
-          callback: VideoCase
         },
       } 
 
@@ -251,6 +247,7 @@ function formatQuote(){
 function VideoCase(){
     $('#image-case').hide();
     $('#original-placer').hide();
+    $('#audio-case').hide();  
     $('#video-case').toggle();
 }
 
@@ -259,5 +256,13 @@ function VideoCase(){
 function uploadOriginal(){
       $('#video-case').hide();
       $('#image-case').toggle();
+      $('#audio-case').hide();  
       $('#original-placer').toggle();
     }
+//Audio ------------------------------------------
+function AudioCase(){
+    $('#image-case').hide();
+    $('#original-placer').hide();
+    $('#video-case').hide();  
+    $('#audio-case').toggle();  
+}    

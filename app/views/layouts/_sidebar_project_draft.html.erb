@@ -7,8 +7,13 @@
 	<div style="margin-top: -27px;">
 	</div>
 
-	<ul>
+	<ul style="color:#999;">
 		<!--<ol>About</ol>-->
-		<ol>Contributor</ol>
+		<% if @project.published == false %>
+		<ol>↑ Please edit your project's title, tagline and icon. </ol> 
+		<ol>Edit About Page → </ol> 
+		<% else %>
+		<ol>Edit About Page → </ol> 
+		<% end %>
 	</ul>
 </div>
