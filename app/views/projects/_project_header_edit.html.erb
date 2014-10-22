@@ -28,7 +28,7 @@
 									</div>
 								<% end %><!-- end if @artwork.project == nil-->	
 
-	<% if @project.creator == current_user && @project.abandoned != true %>
+	<% if project_edit(@project) && @project.abandoned != true %>
 			<!-- project icon-->
 		<div id="project-icon">
 			<!-- Edit Icon-->		

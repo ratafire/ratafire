@@ -126,6 +126,10 @@ Ratafire::Application.routes.draw do
 	match ":user_id/:project_id/artworks/delete/:id", to: 'artworks#destroy', via: :delete, as: :artwork_delete
 	match ':user_id/projects/:project_id/artworks/:id', to: 'artworks#download', :controller => "artworks",:action => 'download', :conditions => { :method => :get }, as: :artwork_download
 
+#---Audio---
+
+	match ':user_id/upload/audio/:project_id/it_is_a_song_that_goes_on_forever', :to => "audios#create_project_audio", via: :post, as: :create_project_audio
+
 #---Icon ---
 	match ':user_id/upload/icon/:project_id/invoke_thy_aid_to_my_adventrous_song', :to => "icons#create_project_icon", via: :post, as: :create_project_icon
 	match ':user_id/projects/:project_id/icons/:id', to: 'icons#destroy', via: :delete, as: :icon_delete
