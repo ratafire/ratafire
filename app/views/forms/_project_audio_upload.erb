@@ -1,3 +1,27 @@
 <!-- Audio -->
 <div id="audio-case">
+
+	<!-- If there is an audio, show the audio -->
+	<% if @project.audio_id != "" && @project.audio_id != nil %>
+
+		<script type="text/javascript">
+
+        	$(document).ready(function() {
+
+                //hide artwork upload and show artwork
+              	$("#audio-upload-case").hide();
+              	$('#has-audio-case').show();
+                    
+        		});
+		</script>
+
+		<div id="has-audio-case">
+			Audio Player
+		</div><!-- end:#has-video-case -->	
+
+	<% end %><!-- end. if @project.audio_id != ""-->
+
+	<div id="audio-upload-case">
+	</div><!-- end#audio-upload-case-->	
+
 </div><!-- end.audio-case-->	
