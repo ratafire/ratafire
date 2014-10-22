@@ -205,17 +205,17 @@
 					<% end %>
 					<!-- three projectimages -->
 					<% if activity.trackable.postimages.count == 3 || activity.trackable.postimages.count == 4 || activity.trackable.postimages.count == 5 %>
-						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.postimages.first.thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>
-						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>	
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>	
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.postimages[1].thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>
-						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>	
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>	
 							<div class="majorpost-postimages-one">
 								<img src="<%= activity.trackable.postimages[2].thumbnail%>" style="border-radius:5px;">
 							</div>

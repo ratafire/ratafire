@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140831025236) do
+ActiveRecord::Schema.define(:version => 20141021232003) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -140,6 +140,20 @@ ActiveRecord::Schema.define(:version => 20140831025236) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "audios", :force => true do |t|
+    t.string   "audio"
+    t.integer  "majorpost_id"
+    t.integer  "project_id"
+    t.text     "content_temp"
+    t.text     "tags_temp"
+    t.integer  "archive_id"
+    t.string   "direct_upload_url",                    :null => false
+    t.boolean  "processed",         :default => false, :null => false
+    t.integer  "user_id",                              :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "beta_users", :force => true do |t|
