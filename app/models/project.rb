@@ -29,7 +29,7 @@ class Project < ActiveRecord::Base
   has_one :video, dependent: :destroy
   has_one :artwork, dependent: :destroy
   has_one :icon, dependent: :destroy
-  has_one :audio, dependent: :estroy
+  has_one :audio, dependent: :destroy
   has_many :archives
 
   #--- Inspiration ---

@@ -22,6 +22,51 @@
 	<% end %><!-- end. if @project.audio_id != ""-->
 
 	<div id="audio-upload-case">
+		<div id="comment-input2" style="margin: 0px 0 8px 0;">
+			<!-- Audio Upload Title -->
+			<div class="majorpost-user-inspirer-tite">	
+				<li>Project Audio</li>
+			</div>		
+
+			<!-- Upload-->
+			<div class="majorpost-user-inspirer-indicator">Upload</div>
+				<div class="video-upload-box-holder">
+					<!-- Audio Upload-box -->
+					<div id="video-upload-box">
+						<div class="video-upload-words artwork-button fileinput-button" id="video-drop">
+
+							<span>Click to choose an audio file</span>
+								<ul>Maximum size: 512mb. Accepts mp3, m4a.</ul>
+									<!-- fields for video -->
+									<%= s3_uploader_form callback_url: create_project_audio_path(current_user,@project),
+  										id: "s3_uploader_video",
+										callback_param: "audio[direct_upload_url]",
+										expiration: 24.hours.from_now.utc.iso8601,
+										max_file_size: 512.megabytes,:remote => true do %>
+									<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+									<% end %>		
+
+						</div><!-- end.video-upload-words-->
+					</div><!--end.video-upload-box -->
+
+					<!-- Video Progress-box-->
+					<div id="video-progress-case"></div><!-- end. Video Progress-box-->
+						<script id="template-upload-video" type="text/x-tmpl">
+							<div id="video-progress-box">
+								<div class="video-progress">
+									<div id="progress-bar-artwork" class='bar-audio' style="width: 0%">
+										<div class="video-progress-words">
+											<ul>Uploading audio...</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</script>
+								
+								
+				<div id="videodata"></div>
+			</div><!-- end videoupload box holder-->				
+		</div><!-- end#comment-input2-->	
 	</div><!-- end#audio-upload-case-->	
 
 </div><!-- end.audio-case-->	
