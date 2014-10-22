@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141021232003) do
+ActiveRecord::Schema.define(:version => 20141022004851) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20141021232003) do
     t.integer  "user_id",                              :null => false
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.string   "soundcloud"
   end
 
   create_table "beta_users", :force => true do |t|
@@ -475,6 +476,7 @@ ActiveRecord::Schema.define(:version => 20141021232003) do
     t.boolean  "test",            :default => false
     t.datetime "published_at"
     t.boolean  "early_access",    :default => false
+    t.integer  "audio_id"
   end
 
   create_table "messages", :force => true do |t|
@@ -603,6 +605,7 @@ ActiveRecord::Schema.define(:version => 20141021232003) do
     t.boolean  "test",              :default => false
     t.datetime "published_at"
     t.boolean  "early_access",      :default => false
+    t.integer  "audio_id"
   end
 
   create_table "quotes", :force => true do |t|

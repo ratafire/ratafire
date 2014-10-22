@@ -9,7 +9,7 @@
 					<!-- Post Content -->
 					<div class="post-content" id="about-case">
 								<!-- if current user has the right to edit -->
-								<% if project_edit(@project)%>
+								<% if project_edit(@project) && @project.audio == nil %>
 									<!-- artwork delete button-->
 									<div class="btn-edit-right" id="edit-project">
 										<%= link_to 'Edit',edit_user_project_path(@project.creator,@project),class:"btn-delete no_ajaxify"%>
@@ -24,7 +24,9 @@
 								</div>
 							</div>
 							<!-- Audio-->
-							
+							<% if @project.audio != nil %>
+								<%= render "projects/audio"%>
+							<% end %>	
 							<!-- About Content -->
 							<div class="lightbox2" style="border-color: #bbbbbb">
 

@@ -15,6 +15,7 @@ class Majorpost < ActiveRecord::Base
   has_many :blogposts, dependent: :destroy
   has_one :video, dependent: :destroy
   has_one :artwork, dependent: :destroy
+  has_one :audio. dependent: :destroy
   has_one :archive
   accepts_nested_attributes_for :video, :allow_destroy => true
 

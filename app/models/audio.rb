@@ -11,7 +11,7 @@ class Audio < ActiveRecord::Base
 		after_create :queue_processing
 
   	#--- Artwork Attachment ---
-  	has_attached_file :audio
+  	has_attached_file :audio,
   	:url =>  "/:class/uploads/:id/:escaped_filename",
   	#If s3
   	:path => "/:class/uploads/:id/:escaped_filename",
