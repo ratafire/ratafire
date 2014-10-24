@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: git://github.com/ratafire/s3_direct_upload.git
-  revision: ac945414011e194d59101fbee3a7f269d8200e25
+  revision: f8e7a4ad9c20037b65b0eff900490f051410946f
   specs:
     s3_direct_upload (0.1.7)
       coffee-rails (>= 3.1)

@@ -123,6 +123,10 @@ class ProjectsController < ApplicationController
 			if @project.icon_id != "" && @project.icon_id != nil then
 				@icon = Icon.find(@project.icon_id)
 			end
+			#Audio
+			if @project.audio_id != "" && @project.audio_id != nil then
+				@audio = Audio.find(@project.audio_id)
+			end
 		else
 			redirect_to project_realms_path(@project.creator,@project)
 		end

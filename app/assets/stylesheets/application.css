@@ -19,7 +19,7 @@
 *= require monokai
 *= require dataTables/src/demo_table_jui
 *= require flat.audio
-*= require flat.audio.ie7
+*= require flat2.audio
 *= require_tree .
 
  */

@@ -2,11 +2,11 @@ class AudiosController < ApplicationController
 
 	SEND_FILE_METHOD = :default
 
-	protect_from_forgery :except => [:create_project_Audio, :create_majorpost_Audio]
+	protect_from_forgery :except => [:create_project_audio, :create_majorpost_audio]
 
 def create
   @audio = Audio.create(params[:audio])
-#  render json: {:success => true, :Audio_id => @audio.id}
+#  render json: {:success => true, :audio_id => @audio.id}
 	#Content temp, this is to save the current content the user is editing...
 	if @audio.majorpost_id != nil then # it is a majorpost
 		if @audio.content_temp != nil && @audio.content_temp != "" then
@@ -37,25 +37,25 @@ end
 
 def create_project_audio
 	#Create project Audio
-	@audio = Audio.new(params[:Audio])
+	@audio = Audio.new(params[:audio])
 	@audio.user_id = params[:user_id]
 	project = Project.find_by_slug(params[:project_id])
 	@audio.project_id = project.id
 	@audio.save
-	project.Audio_id = @audio.id
+	project.audio_id = @audio.id
 	project.save
 end
 
 def create_majorpost_audio
 	#Create majorpost Audio
-	@audio = Audio.new(params[:Audio])
+	@audio = Audio.new(params[:audio])
 	@audio.user_id = params[:user_id]
 	project = Project.find_by_slug(params[:project_id])
 	majorpost = Majorpost.find_by_slug(params[:majorpost_id])
 	@audio.project_id = project.id
 	@audio.majorpost_id = majorpost.id
 	@audio.save
-	majorpost.Audio_id = @audio.id
+	majorpost.audio_id = @audio.id
 	majorpost.save
 end
 
@@ -94,11 +94,11 @@ def destroy
 	#if Audio belongs to majorpost
 	if @audio.majorpost != nil
 		@majorpost = @audio.majorpost
-		@majorpost.Audio_id = nil
+		@majorpost.audio_id = nil
 		@majorpost.save
 	else #Audio belongs to project
 		@project = @audio.project
-		@project.Audio_id = nil
+		@project.audio_id = nil
 		@project.save
 	end
 	@audio.destroy

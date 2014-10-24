@@ -1,15 +1,38 @@
+<%= javascript_tag do %>
+  window.project_audio_URL = "<%=j @project.audio.audio.url %>";
+<% end %>
+
+<% if @project.audio.audio_content_type == "audio/x-m4a" %>
+
 <script type="text/javascript">
  $(document).ready(function(){
   $("#jquery_jplayer_1").jPlayer({
    ready: function () {
     $(this).jPlayer("setMedia", {
-     mp3: "http://www.sandrorussopianist.com/wp-content/uploads/2014/10/01-Scarlatti-Tausig-Capriccio-in-E-major1.mp3",
+     m4a: project_audio_URL,
+    });
+   },
+   supplied: "m4a"
+  });
+ });
+</script>
+
+<% else %>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+  $("#jquery_jplayer_1").jPlayer({
+   ready: function () {
+    $(this).jPlayer("setMedia", {
+     mp3: project_audio_URL,
     });
    },
    supplied: "mp3"
   });
  });
 </script>
+
+<% end %>
 
 <div id="jquery_jplayer_1" class="jp-jplayer"></div>
 <div id="jp_container_1" class="jp-flat-audio" style="margin-top:-43px;">

@@ -2518,6 +2518,10 @@ input[type="contributors"] {
 	margin-top: 47px; 
 }
 
+#audio-case{
+	display: none;
+}
+
 #original-placer {
 	display: none;
 	height: 161px;
@@ -2967,12 +2971,20 @@ transition: background-color 1s ease-out;
 
 }
 
+#audio-upload-box{
+	@extend #video-upload-box;
+}
+
 .artwork-choose {
 	width: 677px;
 	height: 80px;
 }
 
 .bar-artwork {
+	@extend .bar-video;
+}
+
+.bar-audio{
 	@extend .bar-video;
 }
 

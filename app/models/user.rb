@@ -177,7 +177,7 @@ class User < ActiveRecord::Base
 
 	#subscription
 	validates_length_of :why, :minimum => 200, :message => "Too short", :allow_blank => true, :allow_nil => true
-	validates_length_of :why, :maximum => 1000, :message => "Too long", :allow_blank => true, :allow_nil => true
+	validates_length_of :why, :maximum => 2500, :message => "Too long", :allow_blank => true, :allow_nil => true
 	validates_length_of :plan, :minimum => 20, :message => "Too short", :allow_blank => true, :allow_nil => true
 	validates_length_of :plan, :maximum => 500, :message => "Too long", :allow_blank => true, :allow_nil => true
 
