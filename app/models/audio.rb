@@ -43,15 +43,17 @@ class Audio < ActiveRecord::Base
   	# Set attachment attributes from the direct upload
   	# @note Retry logic handles S3 "eventual consistency" lag.
  	 	def set_upload_attributes
-    	tries ||= 5
-    	direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
-    	s3 = AWS::S3.new
-    	direct_upload_head = s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].head
+      if self.soundcloud == nil then
+    	 tries ||= 5
+    	 direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
+    	 s3 = AWS::S3.new
+    	 direct_upload_head = s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].head
  
-    	self.audio_file_name     = direct_upload_url_data[:filename]
-    	self.audio_file_size     = direct_upload_head.content_length
-    	self.audio_content_type  = direct_upload_head.content_type
-    	self.audio_updated_at    = direct_upload_head.last_modified
+    	 self.audio_file_name     = direct_upload_url_data[:filename]
+    	 self.audio_file_size     = direct_upload_head.content_length
+    	 self.audio_content_type  = direct_upload_head.content_type
+    	 self.audio_updated_at    = direct_upload_head.last_modified
+      end
   	rescue AWS::S3::Errors::NoSuchKey => e
     	tries -= 1
     	if tries > 0
@@ -60,6 +62,7 @@ class Audio < ActiveRecord::Base
     	else
       	false
     	end
+    
   	end  	
 
   # Queue file processing

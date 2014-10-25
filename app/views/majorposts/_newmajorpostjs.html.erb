@@ -12,7 +12,12 @@ $(document).ready(function(){
               $('#has-artwork-case').hover(function() {
                   $("#delete-artwork").toggle();
                 });
-              
+ 
+               //script to show delete audio button
+              $('#has-audio-case').hover(function() {
+                  $("#delete-audio").toggle();
+                });           
+
               //publish-button
               $('#project-publish-button').click(function() {
                   $("#project-published").val("t");
@@ -34,6 +39,20 @@ $(document).ready(function(){
     $('#majorpost_video_upload_form').submit();
 
     }
+
+  //External audio
+   function externalAudioOnchange()
+
+  {
+    var content_temp = $('#redactor_majorpost').val(),
+        tags_temp = $('#tags').val();
+   $('#content_temp_audio').val(content_temp
+    );
+   $('#tags_temp_audio').val(tags_temp
+    );
+    $('#majorpost_audio_upload_form').submit();
+
+    }    
 
 //Hide the first user remove button
 $(function() {

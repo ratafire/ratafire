@@ -141,7 +141,7 @@ class VideosController < ApplicationController
             @majorpost.video_id = @video.id
             flash[:success] = "Youtube video added."
           else
-            flash[:success] = "External video did not add."
+            flash[:success] = "Failed to add external video."
             @majorpost.video_id = nil
             @video.destroy
           end

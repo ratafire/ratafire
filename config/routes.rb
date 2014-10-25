@@ -130,6 +130,8 @@ Ratafire::Application.routes.draw do
 
 	match ':user_id/upload/audio/:project_id/it_is_a_song_that_goes_on_forever', :to => "audios#create_project_audio", via: :post, as: :create_project_audio
 	match ":user_id/:project_id/audio/delete/:id", to: 'audios#destroy', via: :delete, as: :audio_delete
+	match ':user_id/audio/:project_id/:majorpost_id/you_shall_not_pass', :to => "audios#create_majorpost_audio", via: :post, as: :create_majorpost_audio
+	match 'add_external_audio', :to => "audios#add_external_audio", via: :post,as: :add_external_audio
 
 #---Icon ---
 	match ':user_id/upload/icon/:project_id/invoke_thy_aid_to_my_adventrous_song', :to => "icons#create_project_icon", via: :post, as: :create_project_icon

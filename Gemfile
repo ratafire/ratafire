@@ -80,6 +80,9 @@ gem 'gon','5.0.4' #not in use
 #Browser Support
 gem "browser"
 
+#SoundCloud ID
+gem "soundcloud"
+
 #------------Mailer-----------------
 gem 'sendgrid'
 

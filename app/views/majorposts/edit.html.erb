@@ -55,6 +55,9 @@
 			<!-- Video Upload -->
 			<%= render 'forms/majorpost_video_upload'%>
 
+			<!-- Audio Upload -->
+			<%= render 'forms/majorpost_audio_upload'%>
+
 			<!-- Project Form-->
 			<%= nested_form_for [@project.creator, @project, @majorpost], :url => majorpost_update_path(@project.creator,@project, @majorpost),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f| %>
 				<%= f.hidden_field :artwork_id, id:"majorpost-artwork-id" %>

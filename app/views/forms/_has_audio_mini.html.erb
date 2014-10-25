@@ -1,0 +1,57 @@
+<%= javascript_tag do %>
+  window.project_audio_URL = "<%=j @audio.audio.url %>";
+<% end %>
+
+<% if @audio.audio_content_type == "audio/x-m4a" %>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+  $("#jquery_jplayer_1").jPlayer({
+   ready: function () {
+    $(this).jPlayer("setMedia", {
+     m4a: project_audio_URL,
+    });
+   },
+   supplied: "m4a"
+  });
+ });
+</script>
+
+<% else %>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+  $("#jquery_jplayer_1").jPlayer({
+   ready: function () {
+    $(this).jPlayer("setMedia", {
+     mp3: project_audio_URL,
+    });
+   },
+   supplied: "mp3"
+  });
+ });
+</script>
+
+<% end %>
+
+<div class="post-content">
+<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+<div id="jp_container_1" class="jp-flat-audio" >
+  <div class="jp-play-control jp-control">
+    <a class="jp-play jp-button" style="border-radius: 0 6px 6px 0"></a>
+    <a class="jp-pause jp-button" style="border-radius: 0 6px 6px 0"></a>
+  </div>
+  <div class="jp-bar">
+
+    <div class="jp-seek-bar">
+      <div class="jp-play-bar" style="border-radius: 6px 0 0 6px; "></div>
+      <div class="jp-timing"><span class="jp-duration"></span></div>
+    </div>
+  </div>
+  <div class="jp-no-solution">
+    Media Player Error<br />
+    Update your browser or Flash plugin
+  </div>
+</div>
+</div>
+  <!-- Cutter --><ol style="margin-top: 15px;"></ol>

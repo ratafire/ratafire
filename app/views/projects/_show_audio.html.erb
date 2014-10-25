@@ -1,0 +1,7 @@
+<% if @audio != nil then %>
+	<% if @audio.soundcloud == nil then %>
+		<%= render 'forms/has_audio_mini'%>
+	<% else %>
+		<%= render 'majorposts/soundcloud_holder'%>
+	<% end %>
+<% end %>

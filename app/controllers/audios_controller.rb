@@ -4,6 +4,8 @@ class AudiosController < ApplicationController
 
 	protect_from_forgery :except => [:create_project_audio, :create_majorpost_audio]
 
+	require 'soundcloud'
+
 def create
   @audio = Audio.create(params[:audio])
 #  render json: {:success => true, :audio_id => @audio.id}
@@ -59,13 +61,13 @@ def create_majorpost_audio
 	majorpost.save
 end
 
-def add_external_video
+def add_external_audio
       @audio = Audio.new()
       @audio.direct_upload_url = params[:external]
       @audio.content_temp = params[:content_temp]
       @audio.tags_temp = params[:tags_temp]
       @audio.user_id = params[:user_id]
-      @audio.external = params[:external]
+      @audio.soundcloud = params[:external]
       @audio.project_id = params[:project_id]
       @audio.majorpost_id = params[:majorpost_id]
       @majorpost = Majorpost.find(params[:majorpost_id])
@@ -108,4 +110,22 @@ end
 
 private
 
+#process external audio
+def external_audio
+
+	#SoundCloud
+	if @audio.soundcloud =~ /^https?:\/\/(?:www.)?soundcloud.com\/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)*(?!\/sets(?:\/|$))(?:\/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)*){1,2}\/?$/i then
+		client = Soundcloud.new(:client_id => ENV["SOUNDCLOUD_CLIENT_ID"])
+		track = client.get('/resolve', :url => @audio.soundcloud)
+		@audio.soundcloud = track.id
+		@audio.save
+		@majorpost.audio_id = @audio.id
+		flash[:success] = "SoundCloud audio added."
+	else
+		flash[:success] = "Failed to add external audio."
+		@majorpost.audio_id = nil
+		@audio.destroy
+	end	
+	@majorpost.save
+end
 end
