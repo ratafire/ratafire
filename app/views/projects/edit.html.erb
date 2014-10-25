@@ -47,9 +47,7 @@
 				<%= render 'forms/project_video_upload' %>
 
 				<!-- Audio -->
-				<% if Rails.env.development? %>
-					<%= render 'forms/project_audio_upload' %>
-				<% end %>
+				<%= render 'forms/project_audio_upload' %>
 
 			<!-- Project Form-->
 			<%= nested_form_for [@project.creator, @project], :url => project_update_path(@project.creator,@project),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f| %>
