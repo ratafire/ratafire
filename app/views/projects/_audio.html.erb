@@ -1,8 +1,8 @@
 <%= javascript_tag do %>
-  window.project_audio_URL = "<%=j @project.audio.audio.url %>";
+  window.project_audio_URL = "<%=j @audio.audio.url %>";
 <% end %>
 
-<% if @project.audio.audio_content_type == "audio/x-m4a" %>
+<% if @audio.audio_content_type == "audio/x-m4a" %>
 
 <script type="text/javascript">
  $(document).ready(function(){

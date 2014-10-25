@@ -21,6 +21,10 @@ class ProjectsController < ApplicationController
 		if @project.icon_id != "" && @project.icon_id != nil then
 			@icon = Icon.find(@project.icon_id)	
 		end
+		#Audio
+		if @project.audio_id != "" && @project.audio_id != nil then
+			@audio = Audio.find(@project.audio_id)
+		end		
 		#Hide drafts from non project.creator
 		if @project.published == false && current_user != @project.creator
 			redirect_to root_path
