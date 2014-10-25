@@ -14,9 +14,9 @@ class Audio < ActiveRecord::Base
 
   	#--- Artwork Attachment ---
   	has_attached_file :audio,
-  	:url =>  "/:class/uploads/:id/:style/#{RANDOM_FILENAME}.:extension",
+  	:url =>  "/:class/uploads/:id/:style/:escaped_filename",
   	#If s3
-  	:path => "/:class/uploads/:id/:style/#{RANDOM_FILENAME}.:extension",
+  	:path => "/:class/uploads/:id/:style/:escaped_filename",
   	:storage => :s3
 
   	validates_attachment :audio, 
@@ -74,7 +74,7 @@ class Audio < ActiveRecord::Base
     
 
           extension = direct_upload_url_data[:filename].split(".")[1]
-          paperclip_file_path = "audios/uploads/#{id}/original/#{RANDOM_FILENAME}.#{extension}"
+          paperclip_file_path = "audios/uploads/#{id}/original/#{normalized_video_file_name}"
           s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
 
  
