@@ -118,6 +118,7 @@ def external_audio
 		client = Soundcloud.new(:client_id => ENV["SOUNDCLOUD_CLIENT_ID"])
 		track = client.get('/resolve', :url => @audio.soundcloud)
 		@audio.soundcloud = track.id
+		@audio.soundcloud_image = track.artwork_url.gsub("large.jpg","t500x500.jpg")
 		@audio.save
 		@majorpost.audio_id = @audio.id
 		flash[:success] = "SoundCloud audio added."

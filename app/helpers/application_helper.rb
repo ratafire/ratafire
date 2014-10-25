@@ -302,26 +302,34 @@ module ApplicationHelper
 
 	#Create Project Activity Helpers
 
-	#Video true or Artwork true
+	#Video true or Artwork true or Audio true
 	def video_true_or_artwork_true(project_id)
 		activity = Project.find(project_id)
 		if activity.video_id != nil && activity.video_id != "" then
 			return true
 		else
-			if activity.artwork != nil then
+			if activity.artwork_id != nil && activity.artwork_id != "" then
 				return true
 			else
-				return false
+				if activity.audio_id != nil && activity.audio_id != "" then
+					return true
+				else
+					return false
+				end
 			end
 		end
 	end
 
-	#Video true and Artwork false
+	#Video true and Artwork false and audio false
 	def video_true_and_artwork_false(project_id)
 		activity = Project.find(project_id)
 		if activity.video_id != nil && activity.video_id != "" then
-			if activity.artwork == nil then
-				return true
+			if activity.artwork_id == nil || activity.artwork_id == "" then
+				if activity.audio_id == nil || activity.audio_id == "" then
+					return true
+				else
+					return false
+				end
 			else
 				return false	
 			end
@@ -330,12 +338,16 @@ module ApplicationHelper
 		end
 	end
 
-	#Video false and Artwork true
+	#Video false and Artwork true and audio false
 	def video_false_and_artwork_true(project_id)
 		activity = Project.find(project_id)
 		if activity.video_id == nil || activity.video_id == "" then
-			if activity.artwork != nil then
-				return true
+			if activity.artwork_id != nil && activity.artwork_id != "" then
+				if activity.audio_id == nil || activity.audio_id == "" then
+					return true
+				else
+					return false
+				end
 			else
 				return false	
 			end
@@ -344,12 +356,16 @@ module ApplicationHelper
 		end		
 	end
 
-	#Video true and artwork true
+	#Video true and artwork true and audio false
 	def video_true_and_artwork_true(project_id)
 		activity = Project.find(project_id)
 		if activity.video_id != nil && activity.video_id != "" then
-			if activity.artwork != nil then
-				return true
+			if activity.artwork_id != nil && activity.artwork_id != "" then
+				if activity.audio_id == nil || activity.audio_id == "" then 
+					return true
+				else
+					return false
+				end
 			else
 				return false
 			end	
@@ -357,6 +373,79 @@ module ApplicationHelper
 			return false	
 		end
 	end
+
+	#Video false and artwork false and audio true
+	def video_false_and_artwork_false_and_audio_true(project_id)
+		activity = Project.find(project_id)
+		if activity.video_id == nil || activity.video_id == "" then
+			if activity.artwork_id == nil || activity.artwork_id == "" then
+				if activity.audio_id != nil && activity.audio_id != "" then 
+					return true
+				else
+					return false
+				end
+			else
+				return false
+			end	
+		else
+			return false	
+		end
+	end	
+
+	#Video true and artwork false and audio true
+	def video_true_and_artwork_false_and_audio_true(project_id)
+		activity = Project.find(project_id)
+		if activity.video_id != nil && activity.video_id != "" then
+			if activity.artwork_id == nil || activity.artwork_id == "" then
+				if activity.audio_id != nil && activity.audio_id != "" then 
+					return true
+				else
+					return false
+				end
+			else
+				return false
+			end	
+		else
+			return false	
+		end
+	end	
+
+	#Video false and artwork true and audio true
+	def video_false_and_artwork_true_and_audio_true(project_id)
+		activity = Project.find(project_id)
+		if activity.video_id == nil || activity.video_id == "" then
+			if activity.artwork_id != nil && activity.artwork_id != "" then
+				if activity.audio_id != nil && activity.audio_id != "" then 
+					return true
+				else
+					return false
+				end
+			else
+				return false
+			end	
+		else
+			return false	
+		end
+	end	
+
+
+	#Video true and artwork true and audio true
+	def video_true_and_artwork_true_and_audio_true(project_id)
+		activity = Project.find(project_id)
+		if activity.video_id != nil && activity.video_id != "" then
+			if activity.artwork_id != nil && activity.artwork_id != "" then
+				if activity.audio_id != nil && activity.audio_id != "" then 
+					return true
+				else
+					return false
+				end
+			else
+				return false
+			end	
+		else
+			return false	
+		end
+	end		
 
 	#Vimeo Thumbnail
 	def vimeo_thumbnail(vimeo_id)

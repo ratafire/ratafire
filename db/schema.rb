@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141022031901) do
+ActiveRecord::Schema.define(:version => 20141025055352) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20141022031901) do
     t.string   "audio_content_type"
     t.integer  "audio_file_size"
     t.datetime "audio_updated_at"
+    t.string   "soundcloud_image"
   end
 
   create_table "beta_users", :force => true do |t|

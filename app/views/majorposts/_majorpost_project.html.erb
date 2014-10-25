@@ -77,9 +77,9 @@
 	<% if majorpost.published == true %>	
 		<div id="majorpost-excerpt" style="vertical-align: top;">
 			<!-- When there are artwork and video -->
-			<% if majorpost.video != nil || majorpost.artwork != nil %>
-				<!-- With Video but without artwork -->
-				<% if majorpost.video != nil && majorpost.artwork == nil %>
+			<% if majorpost.video != nil || majorpost.artwork != nil && majorpost.audio != nil %>
+				<!-- With Video but without artwork, without audio -->
+				<% if majorpost.video != nil && majorpost.artwork == nil && majorpost.audio == nil %>
 					<div class="majorpost-video-one">
 							<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
 								<% if majorpost.video.external != "" && majorpost.video.external != nil %>	
@@ -112,8 +112,8 @@
 						<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
 					</div>
 				<% end %><!-- end f majorpost.video != nil && majorpost.artwork == nil -->
-				<!-- With Artwork without Video -->
-				<% if majorpost.video == nil && majorpost.artwork != nil %>
+				<!-- With Artwork without Video, without audio -->
+				<% if majorpost.video == nil && majorpost.artwork != nil && majorpost.audio == nil %>
 					<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
 						<div class="majorpost-postimages-one">
 							<img src="<%= majorpost.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
@@ -130,8 +130,8 @@
 						<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
 					</div>
 				<% end %>
-				<!-- With Artwork and with Video -->
-				<% if majorpost.video != nil && majorpost.artwork != nil %>				
+				<!-- With Artwork and with Video, without audio -->
+				<% if majorpost.video != nil && majorpost.artwork != nil && majorpost.audio == nil %>				
 					<div class="majorpost-video-one">
 							<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
 								<% if majorpost.video.external != "" && majorpost.video.external != nil %>	
@@ -170,6 +170,180 @@
 							<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
 					</div>						
 				<% end %>
+				<!-- without video, without artwork, with audio -->
+				<% if majorpost.video != nil && majorpost.artwork == nil && majorpost.audio != nil %>
+					<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+						<!-- External Audio -->
+						<% if majorpost.audio.soundcloud != nil then %>
+							<!-- Internal Thumbnail-->
+							<div class="majorpost-postimages-one" style="background-image:url(<%= majorpost.audio.soundcloud_image %>);background-size:100%;">
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+							<div class="majorpost-thumbnail-bar-audio">Audio Track</div>						
+						<% else %>
+						<!-- Internal Audio-->
+							<!-- Internal Thumbnail-->
+							<div class="majorpost-postimages-one" style="background-image:url(/assets/undersea.jpg);">
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+							<div class="majorpost-thumbnail-bar-audio">Audio Track</div>						
+						<% end %>
+					<% end %>	
+						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(majorpost.excerpt, :length => 300) %>
+						</div>
+					
+					<!-- Tags-->
+					<div id="majorpost-tags">
+						<% if majorpost.tags.any? %> 
+						<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>
+				<% end %>	
+				<!-- with video, without artwork, with audio -->
+				<% if majorpost.video != nil && majorpost.artwork == nil && majorpost.audio != nil %>				
+					<div class="majorpost-video-one">
+							<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+								<% if majorpost.video.external != "" && majorpost.video.external != nil %>	
+									<% if majorpost.video.youtube_vimeo == true %>
+										<!-- Youtube Thumbnail-->
+										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= majorpost.video.external %>/mqdefault.jpg);">
+									<% else %>
+										<!-- Vimeo Thumbnail-->
+										<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(majorpost.video.external)%>)" id="<%= majorpost.video.external %>" >
+									<% end %>
+								<% else %>
+									<!-- Internal Thumbnail-->
+									<% if majorpost.video.encoded_state == "finished" %>
+										<div class="majorpost-video-small-holder" style="background-image:url(<%=majorpost.video.thumbnail.url(:thumb)%>);">
+									<% else %>
+										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+									<% end %>
+								<% end %>
+										<div class="majorpost-video-small">
+										</div>
+									</div>
+							<% end %>
+					</div>
+					<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+						<!-- External Audio -->
+						<% if majorpost.audio.soundcloud != nil then %>
+							<!-- Internal Thumbnail-->
+							<div class="majorpost-postimages-one" style="background-image:url(<%= majorpost.audio.soundcloud_image %>);background-size:100%;">
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+							<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>						
+						<% else %>
+						<!-- Internal Audio-->
+							<!-- Internal Thumbnail-->
+							<div class="majorpost-postimages-one" style="background-image:url(/assets/undersea.jpg);">
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+							<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>						
+						<% end %>
+					<% end %>
+					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(majorpost.excerpt, :length => 180) %>
+						</div>
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if majorpost.tags.any? %> 
+							<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>						
+				<% end %>	
+				<!-- without video, with artwork, with audio -->
+				<% if majorpost.video == nil && majorpost.artwork != nil && majorpost.audio != nil %>				
+							<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+								<div class="majorpost-postimages-one">
+									<img src="<%= majorpost.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+								</div>
+								<div class="majorpost-thumbnail-bar">Artwork</div>
+							<% end %>
+					<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+						<!-- External Audio -->
+						<% if majorpost.audio.soundcloud != nil then %>
+							<!-- Internal Thumbnail-->
+							<div class="majorpost-postimages-one" style="background-image:url(<%= majorpost.audio.soundcloud_image %>);background-size:100%;">
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+							<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>						
+						<% else %>
+						<!-- Internal Audio-->
+							<!-- Internal Thumbnail-->
+							<div class="majorpost-postimages-one" style="background-image:url(/assets/undersea.jpg);">
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+							<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>						
+						<% end %>
+					<% end %>
+					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(majorpost.excerpt, :length => 180) %>
+						</div>
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if majorpost.tags.any? %> 
+							<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>						
+				<% end %>	
+				<!-- with video, with artwork, with audio -->	
+				<% if majorpost.video != nil && majorpost.artwork != nil && majorpost.audio != nil %>				
+					<div class="majorpost-video-one">
+							<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+								<% if majorpost.video.external != "" && majorpost.video.external != nil %>	
+									<% if majorpost.video.youtube_vimeo == true %>
+										<!-- Youtube Thumbnail-->
+										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= majorpost.video.external %>/mqdefault.jpg);">
+									<% else %>
+										<!-- Vimeo Thumbnail-->
+										<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(majorpost.video.external)%>)" id="<%= majorpost.video.external %>" >
+									<% end %>
+								<% else %>
+									<!-- Internal Thumbnail-->
+									<% if majorpost.video.encoded_state == "finished" %>
+										<div class="majorpost-video-small-holder" style="background-image:url(<%=majorpost.video.thumbnail.url(:thumb)%>);">
+									<% else %>
+										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+									<% end %>
+								<% end %>
+										<div class="majorpost-video-small">
+										</div>
+									</div>
+							<% end %>
+					</div>
+					<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
+						<div class="majorpost-postimages-one">
+							<img src="<%= majorpost.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+						</div>
+						<div class="majorpost-thumbnail-bar2">Artwork</div>
+					<% end %>
+						<!-- External Audio -->
+						<% if majorpost.audio.soundcloud != nil then %>
+							<!-- Internal Thumbnail-->
+							<div class="majorpost-postimages-one" style="background-image:url(<%= majorpost.audio.soundcloud_image %>);background-size:100%;">
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+							<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>						
+						<% else %>
+						<!-- Internal Audio-->
+							<!-- Internal Thumbnail-->
+							<div class="majorpost-postimages-one" style="background-image:url(/assets/undersea.jpg);">
+								<div class="majorpost-video-small">
+								</div>
+							</div>	
+							<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>						
+						<% end %>
+						<!-- Tags-->
+						<div id="majorpost-tags">
+						<% if majorpost.tags.any? %> 
+							<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>						
+				<% end %>													
 			<% else %>
 				<!-- If there are images-->
 				<% if majorpost.postimages.count > 0 %>

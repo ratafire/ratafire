@@ -4682,6 +4682,56 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
   }
 }
 
+.majorpost-thumbnail-bar-audio{
+	background-image: url(/assets/artwork_bg.png);
+  height: 24px;
+  width: 152px;
+  border-radius: 0 0 5px 5px;
+  position: absolute;
+  z-index: 100;
+  color: #fff;
+  margin-top: -36px;
+  padding: 5px 0 0 20px;
+  font-size: 0.9em;
+  &:hover{
+  	color:#fff;
+  }
+}
+
+.majorpost-thumbnail-bar-audio2{
+	background-image: url(/assets/artwork_bg.png);
+  height: 24px;
+  width: 152px;
+  border-radius: 0 0 5px 5px;
+  position: absolute;
+  z-index: 100;
+  color: #fff;
+  margin-top: -36px;
+  margin-left: 177px;
+   padding: 6px 0 0 20px;
+  font-size: 0.9em;
+  &:hover{
+  	color:#fff;
+  }
+}
+
+.majorpost-thumbnail-bar-audio3{
+	background-image: url(/assets/artwork_bg.png);
+  height: 24px;
+  width: 152px;
+  border-radius: 0 0 5px 5px;
+  position: absolute;
+  z-index: 100;
+  color: #fff;
+  margin-top: -36px;
+  margin-left: 355px;
+   padding: 6px 0 0 20px;
+  font-size: 0.9em;
+  &:hover{
+  	color:#fff;
+  }
+}
+
 .majorpost-thumbnail-bar2 {
 	background-image: url(/assets/artwork_bg.png);
   height: 24px;
