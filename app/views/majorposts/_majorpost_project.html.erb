@@ -77,7 +77,7 @@
 	<% if majorpost.published == true %>	
 		<div id="majorpost-excerpt" style="vertical-align: top;">
 			<!-- When there are artwork and video -->
-			<% if majorpost.video != nil || majorpost.artwork != nil && majorpost.audio != nil %>
+			<% if majorpost.video != nil || majorpost.artwork != nil || majorpost.audio != nil %>
 				<!-- With Video but without artwork, without audio -->
 				<% if majorpost.video != nil && majorpost.artwork == nil && majorpost.audio == nil %>
 					<div class="majorpost-video-one">
@@ -171,7 +171,7 @@
 					</div>						
 				<% end %>
 				<!-- without video, without artwork, with audio -->
-				<% if majorpost.video != nil && majorpost.artwork == nil && majorpost.audio != nil %>
+				<% if majorpost.video == nil && majorpost.artwork == nil && majorpost.audio != nil %>
 					<%= link_to user_project_majorpost_path(@project.creator,@project, majorpost),class:"no_ajaxify" do %>
 						<!-- External Audio -->
 						<% if majorpost.audio.soundcloud != nil then %>
