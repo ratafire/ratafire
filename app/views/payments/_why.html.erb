@@ -8,6 +8,8 @@
 		<div class="user-why-passage" style="padding: 15px 0 5px 20px;">
 			<%=  render "projects/project_one"%>
 		</div>
+
+	<% if @user.plan != nil %>	
 	<h4>If I reach my subscription amount goal</h4>
 	<div class="user-why-passage">
 		<div class="goals" style="width:100%;">
@@ -19,16 +21,18 @@
 		<div class="user-why-passage">
 			<%= simple_format(@user.plan)%>
 		</div>	
+	<% end %>	
 	<!-- Subscription Button-->		
 	<% if subscriber_status then%>
 	<div style="margin: 15px -2px 0 0; text-align:right;">
 		<%= link_to "Next Step", subscribe_path(@user), class:"btn btn-medium btn-medium-green no_ajaxify"%>
 	</div>
+	
 	<% else %>
 		<% if user_signed_in? %>
-						<div class="lightbox2-bordered">
+						<div class="lightbox2-bordered" style="margin-top:20px;">
 							<div class="textbox-mini">
-								<h4 style="color:#2297ce;">To subscribe to other users you must</h4>
+								<h4 style="color:#2297ce;">In order to subscribe to other users, you must</h4>
 								<% unless current_user.profilephoto? then %>
 								<div class="user-why-passage">Have a profile photo ~ <%= link_to "Edit Profile", edit_user_path(current_user), class:"no_ajaxify"%></div>	
 								<% end %>
@@ -41,7 +45,7 @@
 		<% else %>
 								<div class="lightbox2-bordered">
 							<div class="textbox-mini" style="text-align:right;color:#999;margin-top:20px;">
-									<%= link_to "Sign in", new_user_session_path , class: "no_ajaxify" %> to subscribe to <%= @user.fullname %>. Don't have an account? <%= link_to 'Sign up', beta_path, class:"no_ajaxify" %> for Beta.	
+									<%= link_to "Sign in", new_user_session_path , class: "no_ajaxify" %> to subscribe to <%= @user.fullname %>. Don't have an account? <%= link_to 'Sign up', beta_path, class:"no_ajaxify" %>.	
 										</div><!-- end.textbox-mini-->
 
 						</div><!-- end.lightbox2-bordered-->			
