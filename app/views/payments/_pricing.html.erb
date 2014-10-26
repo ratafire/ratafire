@@ -10,7 +10,7 @@
 			<div class="price-mask">
 				<!-- User Name -->
 				<div class="price-name-holder">
-					<div style="font-size:2em;">Sandro Russo</div>
+					<div style="font-size:2em;"><%= link_to @user.fullname,@user,class:"no_ajaxify" %></div>
 				</div>	
 				<!-- Creator Price-->
 				<div class='creator-price-holder'>
@@ -41,10 +41,16 @@
 		<span id="priceof">This amount is roughly the price of</span>
 		<div class="price-is-like-item" id="jquery-like">A Lava Cake</div>
 		<div class="price-is-like-item" style="display:none;"id="supporter-number"><%= @current_user.supporter_slot.to_s %> <span id="user-support">Users</span></div>
+		<!-- Supporter -->
 		<div class="supporter-difference" id="difference">
 			<ul><%= link_to "What are the differences between subscribers and supporters?", "#{request.scheme}://#{request.host}/faq#faq-2347915", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
 			<ul><%= link_to "How do I get more supporter slots?", "#{request.scheme}://#{request.host}/faq#faq-2348935", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
 		</div>
+		<!-- Subscribers -->
+		<div class="supporter-difference" id="subscriber-features" style="display:block;">
+			<ul><%= link_to "Review Ratafire's Payment Policy", pricing_path, class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>			
+			<ul><%= link_to "What features will I receive as a subscriber?", "#{request.scheme}://#{request.host}/faq#faq-3863418", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
+		</div>	
 	</div><!-- end:.price-is-like-box-->
 	<div class="slide-to-select">
 		<span><span id="selector">Subscription Amount Selector</span> <span style="font-size:.5em;">↴</span></span>
