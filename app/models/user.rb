@@ -158,7 +158,7 @@ class User < ActiveRecord::Base
 	validates_presence_of :password, :on => :create, :message => "Enter password."
 	
 	#tagline,website,bio
-	validates :tagline, length: { maximum: 39 }
+	validates :tagline, length: { maximum: 42 }
 	validates :tagline, length: { minimum: 3 }
 	validates :website, length: { maximum: 100 }
 	validates :bio, length: { maximum: 214 }

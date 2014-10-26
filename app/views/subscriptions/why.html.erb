@@ -30,7 +30,7 @@
 			<div id="current-subscribers">
 			<% if @user.why == nil or @user.why == "" %>	
 				<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
-					<h5>You cannot subscribe to <%= @user.fullname %> now, because <%= @user.fullname %> does't have a note on subscription.</h5>
+					<h5>You cannot subscribe to <%= @user.fullname %> now, because <%= @user.fullname %> hasn't turned on subscription.</h5>
 					<!-- Cutter --><ol style="margin-top: 40px;"></ol>
 				</div>	
 			<% else %>

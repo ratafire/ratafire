@@ -396,7 +396,7 @@ private
     def subscription_permission_note?
 		#Check if the subscribed does not have a subscription note
     	if @subscribed.why == nil || @subscribed.why == "" || @subscribed.plan == nil || @subscribed.plan == "" then
-    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+" has not writtened a note on subscription."
+    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+" has not written a note on subscription."
     		return true
     	end
     	return false

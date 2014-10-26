@@ -1703,7 +1703,7 @@ box-shadow: inset 0px 0px 34px 0px rgba(75,132,172,0.1);
 }
 
 .lightbox4 {
-	min-height: 100px;
+	min-height: 80px;
 	border-top: 1px solid #e2e2e2;
 	color:#999999;
 	padding: 10px 0 20px 0;
@@ -5702,9 +5702,10 @@ display:inline-block;
 
 .price-name-holder {
 	color: #333;
-	margin: 0 0 20px -110px;
+	margin: 0 0 20px 78px;
 	padding: 20px 0 0 0;
 	color: #2297ce;
+	text-align: left;
 }
 
 .creator-price-holder {
