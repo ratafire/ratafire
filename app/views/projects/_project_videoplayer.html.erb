@@ -69,7 +69,9 @@
     				<% end %>
     			<% end %>
     		<% else %>
-    				<%= videojs_rails sources: { mp4: @video.output_url_mp4 }, height:"444.375", width:"790", poster:@video.thumbnail %>
+    				<div style="position:auto;z-index: 100;">
+    					<%= videojs_rails sources: { mp4: @video.output_url_mp4 }, height:"444.375", width:"790", poster:@video.thumbnail %>
+    				</div>
     		<% end %>    			
  		</div>
  	<% else %>
