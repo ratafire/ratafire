@@ -54,13 +54,15 @@ class TransactionStatusWorker
 				#Mailing the sucess confirmation email to the subscriber
 				SubscriptionMailer.transaction_confirmation(transaction_id).deliver
 				#Mailing the sucess confirmation email to the subscribed
-				if subscription.counter == 1 && transaction.supporter_switch == false then 
-					SubscriptionMailer.new_subscriber(transaction_id).deliver
-				else
-					SubscriptionMailer.transaction_confirmation_subscribed(transaction_id).deliver
-				end
+				if transaction.supporter_switch == false then 
+					if subscription.counter == 1 then 
+						SubscriptionMailer.new_subscriber(transaction_id).deliver
+					else
+						SubscriptionMailer.transaction_confirmation_subscribed(transaction_id).deliver
+					end
+				end	
 				#Enque the transaction for next month
-				Resque.enqueue_in(1.month,SubscriptionNowWorker,subscription.uuid)								
+				Resque.enqueue_in(1.month,SubscriptionNowWorker,subscription.uuid)	
 			else
 				#For failed transaction
 				#Enqueue status worker again
