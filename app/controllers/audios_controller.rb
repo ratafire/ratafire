@@ -34,6 +34,7 @@ def create
 	#Clean up the temp
 	@audio.content_temp = nil
 	@audio.tags_temp = nil
+	@audio.default_image = rand(0..6)
 	@audio.save
 end	
 
