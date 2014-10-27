@@ -21,7 +21,7 @@ private
     transactions.map do |transaction|
       [
         transaction.created_at.strftime("%Y-%m-%d"),
-        link_to(truncate(subscribed_fullname(transaction.subscribed_id), :length => 30),user_path(transaction.subscriber_id), class:"no_ajaxify"),
+        link_to(truncate(subscribed_fullname(transaction.subscribed_id), :length => 30),user_path(transaction.subscribed_id), class:"no_ajaxify"),
         transaction.status,
         "$"+transaction.amount,
         amazon(transaction.amazon),

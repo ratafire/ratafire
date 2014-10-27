@@ -10,6 +10,32 @@ class TransactionWorker
 				transaction.save
 				if transaction.TransactionId != nil then
 					Resque.enqueue_at(1.minute.from_now, TransactionStatusWorker, transaction.TransactionId)
+				else
+					subscription = Subscription.find_by_id(transaction.subscription_id)
+					if subscription.retry < 3 then 
+						subscription = Subscription.find_by_id(transaction.subscription_id)
+						Resque.enqueue_in(1.day,SubscriptionNowWorker,subscription.uuid)	
+						SubscriptionMailer.failed_transaction_retry(transaction.id).deliver	
+						subscription.retry += 1
+						subscription.next_transaction_queued = false
+						subscription.save
+					else
+						Resque.enqueue(UnsubscribeOneWorker, transaction.subscribed_id, transaction.subscriber_id, 3)
+						SubscriptionMailer.auto_unsubscribe(transaction.id).deliver
+					end					
+				end
+			else
+				subscription = Subscription.find_by_id(transaction.subscription_id)
+				if subscription.retry < 3 then 
+					subscription = Subscription.find_by_id(transaction.subscription_id)
+					Resque.enqueue_in(1.day,SubscriptionNowWorker,subscription.uuid)	
+					SubscriptionMailer.failed_transaction_retry(transaction.id).deliver	
+					subscription.retry += 1
+					subscription.next_transaction_queued = false
+					subscription.save
+				else
+					Resque.enqueue(UnsubscribeOneWorker, transaction.subscribed_id, transaction.subscriber_id, 3)
+					SubscriptionMailer.auto_unsubscribe(transaction.id).deliver
 				end
 			end
 		rescue AmazonFlexPay::API::Error => e
@@ -17,6 +43,17 @@ class TransactionWorker
 			if e != nil then
 				transaction.error = e.to_s
 				transaction.save
+				subscription = Subscription.find_by_id(transaction.subscription_id)
+				if subscription.retry < 3 then 
+					Resque.enqueue_in(1.day,SubscriptionNowWorker,subscription.uuid)
+					SubscriptionMailer.failed_transaction_retry(transaction.id).deliver	
+					subscription.retry += 1
+					subscription.next_transaction_queued = false
+					subscription.save
+				else
+					Resque.enqueue(UnsubscribeOneWorker, transaction.subscribed_id, transaction.subscriber_id, 3)
+					SubscriptionMailer.auto_unsubscribe(transaction.id).deliver
+				end				
 			end
 		end
 	end

@@ -64,7 +64,7 @@
     					</div>	
     				<% else %>
     					<div style="position:auto;z-index: 100;">
-    						<%= sublimevideo_rails source_webm_hd: @video.output_url, source_hd_mp4: @video.output_url_mp4, width:"790",height:"444.375", poster:@video.thumbnail %>
+    						<%= videojs_rails sources: { webm: @video.output_url, mp4: @video.output_url_mp4 }, height:"444.375", width:"790", poster:@video.thumbnail %>
     					</div>	
     				<% end %>
     			<% end %>

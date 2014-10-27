@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141027013258) do
+ActiveRecord::Schema.define(:version => 20141027072115) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -652,6 +652,7 @@ ActiveRecord::Schema.define(:version => 20141027013258) do
     t.boolean  "supporter_switch",                                    :default => false
     t.boolean  "past_support",                                        :default => false
     t.boolean  "duration_support",                                    :default => false
+    t.integer  "counter",                                             :default => 0
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -678,6 +679,9 @@ ActiveRecord::Schema.define(:version => 20141027013258) do
     t.datetime "next_billing_date"
     t.boolean  "first_payment",                                           :default => false
     t.datetime "first_payment_created_at"
+    t.integer  "counter",                                                 :default => 0
+    t.boolean  "next_transaction_queued",                                 :default => false
+    t.integer  "retry",                                                   :default => 0
   end
 
   create_table "tag_relationships", :force => true do |t|
@@ -712,15 +716,15 @@ ActiveRecord::Schema.define(:version => 20141027013258) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.datetime "created_at",                                                                 :null => false
-    t.decimal  "receive",                :precision => 10, :scale => 2
-    t.decimal  "amazon",                 :precision => 10, :scale => 2
+    t.datetime "created_at",                                                                  :null => false
+    t.decimal  "receive",                 :precision => 10, :scale => 2
+    t.decimal  "amazon",                  :precision => 10, :scale => 2
     t.integer  "ratafire"
-    t.decimal  "total",                  :precision => 10, :scale => 2
+    t.decimal  "total",                   :precision => 10, :scale => 2
     t.boolean  "sucess"
     t.integer  "subscriber_id"
     t.integer  "subscribed_id"
-    t.datetime "updated_at",                                                                 :null => false
+    t.datetime "updated_at",                                                                  :null => false
     t.string   "CallerReference"
     t.string   "ChargeFeeTo"
     t.string   "RecipientTokenId"
@@ -728,14 +732,18 @@ ActiveRecord::Schema.define(:version => 20141027013258) do
     t.string   "TransactionId"
     t.string   "StatusCode"
     t.text     "StatusMessage"
-    t.string   "status",                                                :default => "Error"
+    t.string   "status",                                                 :default => "Error"
     t.integer  "subscription_record_id"
     t.string   "amount"
     t.string   "uuid"
-    t.decimal  "ratafire_fee",           :precision => 10, :scale => 2
+    t.decimal  "ratafire_fee",            :precision => 10, :scale => 2
     t.string   "error"
-    t.boolean  "supporter_switch",                                      :default => false
+    t.boolean  "supporter_switch",                                       :default => false
     t.integer  "subscription_id"
+    t.datetime "next_transaction"
+    t.boolean  "next_transaction_status",                                :default => false
+    t.integer  "counter",                                                :default => 0
+    t.integer  "retry",                                                  :default => 0
   end
 
   create_table "twitters", :force => true do |t|
