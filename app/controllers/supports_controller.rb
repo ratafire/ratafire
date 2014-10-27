@@ -29,6 +29,9 @@ class SupportsController < ApplicationController
 		response = AmazonFlexPay.cancel_token(@subscription.amazon_recurring.tokenID)		
 		@subscription.deleted_reason = 8
 		@subscription.deleted_at = Time.now
+		#Destroy the Delayed Job
+		Resque.remove_delayed(SubscriptionNowWorker, @subscription.uuid)
+		@subscription.next_transaction_queued = false		
 		@subscription.save
 		#Mark Subscription Records as having pasts
 		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
@@ -61,6 +64,9 @@ class SupportsController < ApplicationController
 		@subscription.deleted_reason = 9
 		@subscription.deleted = true
 		@subscription.deleted_at = Time.now
+		#Destroy the Delayed Job
+		Resque.remove_delayed(SubscriptionNowWorker, @subscription.uuid)
+		@subscription.next_transaction_queued = false
 		@subscription.save
 		#Mark Subscription Records as having pasts
 		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)

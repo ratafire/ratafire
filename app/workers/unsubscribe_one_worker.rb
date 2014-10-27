@@ -10,6 +10,7 @@ class UnsubscribeOneWorker
 				subscription.deleted_reason = reason_number
 				subscription.deleted = true
 				subscription.deleted_at = Time.now
+				subscription.next_transaction_queued = false
 				subscription.save
 				#Mark Subscription Records as having pasts
 				subscription_record = SubscriptionRecord.find(subscription.subscription_record_id)

@@ -60,7 +60,9 @@
 						</div>
 					<% end %><!-- end. if user_signed_in?-->
 				<% else %>
-					<%= render partial: "supports/current_supporters", collection: @supporters, :as => :user %>
+					<div class="supporter-holder">
+						<%= render partial: "supports/current_supporters", collection: @supporters, :as => :user %>
+					</div>		
 				<% end %>				
 			</div><!-- end:.current-subscribers-->
 

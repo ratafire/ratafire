@@ -155,6 +155,7 @@ class SubscriptionsController < ApplicationController
 		response = AmazonFlexPay.cancel_token(@subscription.amazon_recurring.tokenID)
 		@subscription.deleted_reason = 2
 		@subscription.deleted_at = Time.now
+		@subscription.next_transaction_queued = false
 		@subscription.save	
 		#Mark Subscription Records as having pasts
 		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
@@ -217,6 +218,7 @@ class SubscriptionsController < ApplicationController
 		@subscription.deleted_reason = 1
 		@subscription.deleted = true
 		@subscription.deleted_at = Time.now
+		@subscription.next_transaction_queued = false
 		@subscription.save
 		#Mark Subscription Records as having pasts
 		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)

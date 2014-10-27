@@ -47,7 +47,9 @@
 						<!-- Cutter --><ol style="margin-top: 40px;"></ol>
 					</div>
 				<% else %>
-					<%= render partial: "supports/past_supporters", collection: @supporters, :as => :user %>
+					<div class="supporter-holder">
+						<%= render partial: "supports/past_supporters", collection: @supporters, :as => :user %>
+					</div>	
 				<% end %>				
 			</div><!-- end:.current-subscribers-->
 
