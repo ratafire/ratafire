@@ -35,7 +35,7 @@
 		<% else %>
 								<div class="lightbox2-bordered">
 							<div class="textbox-mini" style="text-align:right;color:#999;margin-top:20px;">
-									<%= link_to "Sign in", new_user_session_path , class: "no_ajaxify" %> to subscribe to <%= @project.creator.fullname %>. Don't have an account? <%= link_to 'Sign up', beta_path, class:"no_ajaxify" %>.	
+									<%= link_to "Sign in", new_user_session_path , class: "no_ajaxify" %> to subscribe to <%= link_to @project.creator.fullname, @project.creator,class:"no_ajaxify" %>. Don't have an account? <%= link_to 'Sign up', beta_path, class:"no_ajaxify" %>.	
 										</div><!-- end.textbox-mini-->
 
 						</div><!-- end.lightbox2-bordered-->			

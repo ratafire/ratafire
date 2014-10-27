@@ -21,7 +21,9 @@ class Zencoder
     query = {
       :input => input_video,
       :public => 1, # when set to 1, the encoded file will be publicly available, i.e. to web visitors 
-      :outputs => { 
+      :outputs => [
+        {# First webm
+        :label => "webm", 
         :base_url => @encode_bucket_url,
         :format => "webm",
         :video_codec => "vp8",
@@ -36,7 +38,25 @@ class Zencoder
           :base_url => @encode_bucket_url + thumbnail_destination,
           :size => "800x450"
         }
-      }
+      },
+        {# Second mp4
+        :label => "mp4", 
+        :base_url => @encode_bucket_url,
+        :format => "mp4",
+        :video_codec => "h264",
+        :size => "1920x1080",
+        :public => 1,
+        :notifications => [{
+          :format => "json",
+          :url => ENV['ZENCODER_NOTIFICATION']
+        }],
+        :thumbnails => {
+          :number => 1,
+          :base_url => @encode_bucket_url + thumbnail_destination,
+          :size => "800x450"
+        }
+      }      
+    ]
     }.merge(options)
     job = self.class.post("/jobs", :body => query.to_json)
     if job["errors"]
