@@ -743,6 +743,14 @@ text-shadow: 3px 0px 0px rgba(0,0,0,.05);
 	background-image: url(/assets/personallink.png);
 }
 
+.btn-location{
+	display:inline-block;
+	float:left;
+	width: 14px;
+	height: 14px;
+	background-image: url(/assets/location.png);	
+}
+
 .btn-submit {
 	padding: 0 0 5px 0;
 	cursor: pointer;
@@ -1466,6 +1474,17 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	width: 110px;
 	margin: 0 0 0 5px;
 	display:inline-block;
+}
+
+.Sidebar-location-holder{
+	margin-top: 10px;
+}
+
+.Sidebar-location{
+	width: 110px;
+	margin: 0 0 0 5px;	
+	display:inline-block;
+	color: #999;
 }
 
 /*- Main Contents -*/

@@ -65,10 +65,25 @@
 												<% if @user == current_user %>
 													<%= best_in_place @user, :bio, :classes =>"best_user_bio", :type => "textarea" %> <span class="btn btn-edit" id="best_user_bio-edit" style="display:none;"></span>
 												<% else %>
-													<div class="best_user_bio"><%= sanitize @user.bio %></div> 
+													<div class="best_user_bio"><%= @user.bio_html %></div> 
 												<% end %>
 											</ul>
+
+											<!-- Location -->
+											<% if @user.location.blank?%>
+											<% else %>
+												<div class="Sidebar-location-holder">
+													<div class="btn-location">
+													</div>
+													<div class="Sidebar-location">
+														<%= sanitize @user.location %>
+													</div>
+												</div>				
+											<% end %>
+
+
 										<% end %>
+										
 								</div>
 
 								<!-- Cutter -->

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141027213208) do
+ActiveRecord::Schema.define(:version => 20141102001644) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -843,6 +843,8 @@ ActiveRecord::Schema.define(:version => 20141027213208) do
     t.boolean  "amount_display_switch",                                    :default => false
     t.boolean  "accept_message",                                           :default => true
     t.string   "uuid"
+    t.string   "location"
+    t.string   "bio_html"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

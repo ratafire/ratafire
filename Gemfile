@@ -83,6 +83,9 @@ gem "browser"
 #SoundCloud ID
 gem "soundcloud"
 
+#Auto Html
+gem "auto_html"
+
 #------------Mailer-----------------
 gem 'sendgrid'
 
