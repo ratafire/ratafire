@@ -14,10 +14,13 @@
 
 	<!-- Subscription Button-->		
 <% if current_user != @project.creator then %>	
-	<% if subscriber_status then%>
-	<div style="margin: 15px -2px 0 0; text-align:right;">
-		<%= link_to "Subscribe", subscribe_path(@project.creator), class:"btn btn-medium2 btn-medium-green no_ajaxify"%>
-	</div>
+	<% if subscriber_status then %>
+		<% if @user.subscribed_by?(current_user) %>
+		<% else %>
+			<div style="margin: 15px -2px 0 0; text-align:right;">
+				<%= link_to "Subscribe", subscribe_path(@project.creator), class:"btn btn-medium2 btn-medium-green no_ajaxify"%>
+			</div>
+		<% end %>	
 	<% else %>
 		<% if user_signed_in? %>
 						<div class="lightbox2-bordered">
