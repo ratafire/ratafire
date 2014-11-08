@@ -7,7 +7,24 @@
 	});
 </script>-->
 
+<script>
+	$(document).ready(function() {
+		height = $('#<%= activity.id %>activity').height();
+		if (height < 256) {
+			height = height*0.8;
+		} else {
+			height = 256;
+		}
+		
+		$('#<%= activity.id %>background').height(height);
+		$('#<%= activity.id %>background').width(height);
+		$('#<%= activity.id %>background-wrapper').css( { "margin-right" : height+10, "margin-top" : -height} );
+	});
+</script>
+
 <div class="lightbox" id="<%= activity.id %>activity">
+
+<div class="create-content-wrapper">	
 		<!-- Delete
 		<div class="toolbox4">
 		</div>-->
@@ -17,6 +34,7 @@
 			<div class="majorpost-usericon" style="background-image:url(<%= activity.trackable.creator.profilephoto.url(:small64) %>);"></div>
 		<% end %>		
 		<% if activity.trackable %>
+
 		<!-- Title -->
 <!-- Project Title for Project User -->
 <% if activity.trackable.creator == current_user %>
@@ -363,5 +381,14 @@
 
 		<% end %>
 	</div>
+</div><!-- create-content-wrapper-->	
+	
+
+	<!-- Background Water -->
+	<div style="float:right;" id="<%= activity.id %>background-wrapper">
+		<div class="create-background-water" id="<%= activity.id %>background" style="background-image:url(<%= project_realm_bg(activity.trackable.realm)%>);">
+		</div>
+	</div>		
+
 
 </div>

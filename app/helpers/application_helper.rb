@@ -226,6 +226,29 @@ module ApplicationHelper
 		end
 	end
 
+	#Project realms BG
+	def project_realm_bg(projectrealm)
+		case projectrealm
+		when "art"
+			return "/assets/water_art.png"
+		when "music"
+			return "/assets/water_music.png"
+		when "games"
+			return "/assets/water_games.png"
+		when "writing"
+			return "/assets/water_writing.png"
+		when "videos"
+			return "/assets/water_video.png"
+		when "math"
+			return "/assets/water_math.png"
+		when "science"
+			return "/assets/water_apple.png"
+		when "humanity"
+			return "/assets/water_humanity.png"
+		when "engineering"
+			return "/assets/water_engineering.png"
+		end
+	end
 	#Project realms css
 	def project_realm_css(projectrealm)
 		case projectrealm

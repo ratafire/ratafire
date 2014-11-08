@@ -7,11 +7,29 @@
 	});
 </script>-->
 <!-- Check if Early Access is on -->
+
+<script>
+	$(document).ready(function() {
+		height = $('#<%= activity.id %>activity').height();
+		if (height < 256) {
+			height = height*0.8;
+		} else {
+			height = 256;
+		}
+		
+		$('#<%= activity.id %>background').height(height);
+		$('#<%= activity.id %>background').width(height);
+		$('#<%= activity.id %>background-wrapper').css( { "margin-right" : height+10, "margin-top" : -height} );
+	});
+</script>
+
 <% if activity.trackable.early_access == false %>
 	<div class="lightbox" id="<%= activity.id %>activity">
 <% else %>
 	<div class="lightbox-early-access" id="<%= activity.id %>activity">
 <% end %>	
+
+<div class="create-content-wrapper">	
 		<!-- Delete
 		<div class="toolbox4">
 		</div>-->
@@ -453,4 +471,11 @@
 		 The post was removed.
 		<% end %>
 	</div>
+</div><!-- create-content-wrapper-->
+	<!-- Background Water -->
+	<div style="float:right;" id="<%= activity.id %>background-wrapper">
+		<div class="create-background-water" id="<%= activity.id %>background" style="background-image:url(<%= project_realm_bg(activity.trackable.project.realm)%>);">
+		</div>
+	</div>		
+
 </div>

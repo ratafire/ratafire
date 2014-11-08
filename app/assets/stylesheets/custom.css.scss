@@ -4658,6 +4658,8 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	line-height: 1.5em;
 	margin: 10px 0 0 80px;
 	color: #333333;
+	position: auto;
+	z-index: 100 !important;	
 	a{
 		&:hover{
 			text-decoration: none;
@@ -4791,6 +4793,24 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);	
 }
 
+.create-background-water{
+	position: absolute;
+	width: 256px;
+	height: 256px;
+	z-index: 1 !important;
+    -o-background-size:100%;             /*  Opera  */
+    -webkit-background-size:100% 100%;        /*  Safari  */
+    -khtml-background-size:100% 100%;         /*  Konqueror  */
+    -moz-background-size:100% 100%;           /*not working in Firefox as yet */
+    background-repeat:no-repeat;
+
+}
+
+.create-content-wrapper{
+	position: relative;
+	z-index: 10 !important;
+}
+
 .majorpost-video-small {
 	width: 171px;
 	height: 96px;
@@ -4821,6 +4841,8 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 	display:inline-block;
 	margin: -2px 0 0 10px;
 	vertical-align: top;
+	position: auto;
+	z-index: 100 !important;		
 }
 
 #majorpost-tags {
@@ -4830,7 +4852,7 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 	line-height: 2.2em;
 		a {
 
-			background-color: #f9f9f9;
+			background-color: rgba(0,0,0,.02);
 			line-height: 2em;
 	border-radius: 5px;
 	padding: 3px 5px 3px 5px;
