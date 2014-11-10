@@ -7,9 +7,13 @@ module GoalsHelper
 	end
 
 	def goals_percentage a, b
-		p = (a.fdiv(b))*100
-    	p = number_to_percentage(p, :percision => 0, :strip_insignificant_zeros => true)
-    	return p
+		if a != nil && b != nil then
+			p = (a.fdiv(b))*100
+    		p = number_to_percentage(p, :percision => 0, :strip_insignificant_zeros => true)
+    		return p
+    	else
+    		return 0
+    	end
     end
 
 end
