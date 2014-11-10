@@ -9,6 +9,9 @@ class ProjectsController < ApplicationController
 	def show
 		@project = Project.find(params[:id])
 		@majorpost_count = @project.majorposts.where(:published => true).count
+		if @majorpost_count = nil then
+			@majorpost_count = 0
+		end
 		#Video
 		if @project.video_id != nil && @project.video_id != "" then
 			@video = Video.find(@project.video_id)
