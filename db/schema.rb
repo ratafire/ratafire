@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141102001644) do
+ActiveRecord::Schema.define(:version => 20141111004223) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20141102001644) do
     t.string   "direct_upload_url",                     :null => false
     t.boolean  "processed",          :default => false, :null => false
     t.integer  "user_id",                               :null => false
+    t.boolean  "skip_everafter",     :default => false
   end
 
   add_index "artworks", ["processed"], :name => "index_artworks_on_processed"
@@ -161,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20141102001644) do
     t.datetime "audio_updated_at"
     t.string   "soundcloud_image"
     t.integer  "default_image",      :default => 0
+    t.boolean  "skip_everafter",     :default => false
   end
 
   create_table "beta_users", :force => true do |t|
@@ -323,6 +325,7 @@ ActiveRecord::Schema.define(:version => 20141102001644) do
     t.string   "direct_upload_url",                     :null => false
     t.boolean  "processed",          :default => false, :null => false
     t.integer  "user_id",                               :null => false
+    t.boolean  "skip_everafter",     :default => false
   end
 
   add_index "icons", ["processed"], :name => "index_icons_on_processed"
@@ -881,6 +884,7 @@ ActiveRecord::Schema.define(:version => 20141102001644) do
     t.boolean  "processed",              :default => false,       :null => false
     t.integer  "user_id",                                         :null => false
     t.string   "output_url_mp4"
+    t.boolean  "skip_everafter",         :default => false
   end
 
   add_index "videos", ["processed"], :name => "index_videos_on_processed"

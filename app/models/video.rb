@@ -7,11 +7,11 @@ require 'aws/s3'
 
   RANDOM_FILENAME = SecureRandom.hex(16)
 
-  before_create :set_upload_attributes
-  after_create :queue_processing
+  before_create :set_upload_attributes, :unless => :skip_everafter
+  after_create :queue_processing, :unless => :skip_everafter
   after_destroy :remove_encoded_video  
 
-  attr_accessible :panda_video_id, :title, :external, :project_id, :majorpost_id,:video, :content_temp, :tags_temp, :archive_id, :direct_upload_url
+  attr_accessible :panda_video_id, :title, :external, :project_id, :majorpost_id,:video, :content_temp, :tags_temp, :archive_id, :direct_upload_url, :skip_everafter
   belongs_to :majorpost
   belongs_to :project
   belongs_to :archive

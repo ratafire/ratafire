@@ -1,6 +1,6 @@
 class Artwork < ActiveRecord::Base
   # attr_accessible :title, :body
-  attr_accessible :majorpost_id, :name, :image, :project_id, :content_temp, :tags_temp, :direct_upload_url
+  attr_accessible :majorpost_id, :name, :image, :project_id, :content_temp, :tags_temp, :direct_upload_url,:skip_everafter
   belongs_to :majorpost
   belongs_to :project
   belongs_to :archive
@@ -8,8 +8,8 @@ class Artwork < ActiveRecord::Base
   #Environment-specific direct upload url verifier screens for malicious posted upload locations.
   DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
-  before_create :set_upload_attributes
-  after_create :queue_processing
+  before_create :set_upload_attributes, :unless => :skip_everafter
+  after_create :queue_processing, :unless => :skip_everafter
 
   #--- Artwork Attachment ---
   has_attached_file :image, 

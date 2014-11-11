@@ -17,11 +17,14 @@ class ArchiveWorker
 			if @project.video_id != nil && @project.video_id != "" then
 				video = Video.find(@project.video_id)
 				if video.encoded_state == "finished" then
-					archive_video = Video.create
+					archive_video = Video.new
+					archive_video.skip_everafter = true
 					archive_video.archive_id = archive.id
 					archive_video.project_id = @project.id
 					archive_video.output_url = video.output_url
+					archive_video.user_id = video.user_id
 					archive_video.encoded_state = "finished"
+					archive_video.direct_upload_url = video.direct_upload_url
 					archive_video.video = video.video
 					archive_video.thumbnail = video.thumbnail
 					archive_video.save
@@ -30,21 +33,39 @@ class ArchiveWorker
 			#If the project has artwork
 			if @project.artwork_id != nil && @project.artwork_id != "" then
 				artwork = Artwork.find(@project.artwork_id)
-				archive_artwork = Artwork.create
+				archive_artwork = Artwork.new
+				archive_artwork.skip_everafter = true
 				archive_artwork.project_id = @project.id
 				archive_artwork.archive_id = archive.id
+				archive_artwork.direct_upload_url = artwork.direct_upload_url
+				archive_artwork.user_id = artwork.user_id
 				archive_artwork.image = artwork.image
 				archive_artwork.save
 			end
 			#If the project has icon
 			if @project.icon_id != nil && @project.icon_id != "" then
 				icon = Icon.find(@project.icon_id)
-				archive_icon = Icon.create
+				archive_icon = Icon.new
+				archive_icon.skip_everafter = true
 				archive_icon.project_id = @project.id
 				archive_icon.archive_id = archive.id
+				archive_icon.direct_upload_url = icon.direct_upload_url
+				archive_icon.user_id = icon.user_id
 				archive_icon.image = icon.image
 				archive_icon.save
 			end	
+			#If the project has audio
+			if @project.audio_id != nil && @project.audio_id != "" then
+				audio = Audio.find(@project.audio_id)
+				archive_audio = Audio.new
+				archive_audio.skip_everafter = true
+				archive_audio.project_id = @project.id
+				archive_audio.archive_id = archive.id
+				archive_audio.direct_upload_url = audio.direct_upload_url
+				archive_audio.user_id = audio.user_id
+				archive_audio.audio = audio.audio
+				archive_audio.save
+			end
 			#If the project has images
 			if @project.projectimages.count != 0 then
 				@project.projectimages.each do |i|
@@ -75,7 +96,10 @@ class ArchiveWorker
 			#If the majorpost has video
 			if majorpost.video_id != nil && majorpost.video_id != "" then
 				video = Video.find(majorpost.video_id)
-				archive_video = Video.create
+				archive_video = Video.new
+				archive_video.skip_everafter = true
+				archive_video.direct_upload_url = video.direct_upload_url
+				archive_video.user_id = video.user_id
 				archive_video.archive_id = archive.id
 				archive_video.project_id = @project.id
 				archive_video.majorpost_id = majorpost.id
@@ -99,12 +123,29 @@ class ArchiveWorker
 			#If the majorpost has artwork
 			if majorpost.artwork_id != nil && majorpost.artwork_id != "" then
 				artwork = Artwork.find(majorpost.artwork_id)
-				archive_artwork = Artwork.create
+				archive_artwork = Artwork.new
+				archive_artwork.skip_everafter = true
 				archive_artwork.majorpost_id = majorpost.id
 				archive_artwork.project_id = @project.id
 				archive_artwork.archive_id = archive.id
+				archive_artwork.direct_upload_url = artwork.direct_upload_url
+				archive_artwork.user_id = artwork.user_id
 				archive_artwork.image = artwork.image
 				archive_artwork.save	#AWS::S3::Errors::RequestTimeout bug!				
+			end
+
+			#If the project has audio
+			if majorpost.audio_id != nil && majorpost.audio_id != "" then
+				audio = Audio.find(majorpost.audio_id)
+				archive_audio = Audio.new
+				archive_audio.skip_everafter = true
+				archive_audio.majorpost_id = majorpost.id
+				archive_audio.project_id = @project.id
+				archive_audio.archive_id = archive.id
+				archive_audio.direct_upload_url = audio.direct_upload_url
+				archive_audio.user_id = audio.user_id
+				archive_audio.audio = audio.audio
+				archive_audio.save
 			end
 
 			#If the majorpost has images

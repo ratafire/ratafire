@@ -1,5 +1,5 @@
 class Audio < ActiveRecord::Base
-		attr_accessible :majorpost_id, :audio, :project_id, :content_temp, :tags_temp, :direct_upload_url
+		attr_accessible :majorpost_id, :audio, :project_id, :content_temp, :tags_temp, :direct_upload_url, :skip_everafter
 		belongs_to :majorpost
 		belongs_to :project
 		belongs_to :archive
@@ -9,8 +9,8 @@ class Audio < ActiveRecord::Base
 
     RANDOM_FILENAME = SecureRandom.hex(16)
 
-		before_create :set_upload_attributes
-		after_create :queue_processing
+		before_create :set_upload_attributes, :unless => :skip_everafter
+		after_create :queue_processing, :unless => :skip_everafter
 
   	#--- Artwork Attachment ---
   	has_attached_file :audio,

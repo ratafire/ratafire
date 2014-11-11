@@ -1,5 +1,5 @@
 class Icon < ActiveRecord::Base
-	attr_accessible :image, :project_id, :content_temp, :tags_temp, :archive_id, :direct_upload_url	
+	attr_accessible :image, :project_id, :content_temp, :tags_temp, :archive_id, :direct_upload_url, :skip_everafter	
    #Project Icon
    belongs_to :project
    belongs_to :archive
@@ -7,8 +7,8 @@ class Icon < ActiveRecord::Base
   #Environment-specific direct upload url verifier screens for malicious posted upload locations.
   DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
-  before_create :set_upload_attributes
-  after_create :queue_processing
+  before_create :set_upload_attributes, :unless => :skip_everafter
+  after_create :queue_processing, :unless => :skip_everafter
 
   has_attached_file :image, :styles => { :pageview => "128x128#", :small => "40x40#"}, 
   							:default_url => "/assets/projecticon_:style.jpg",
