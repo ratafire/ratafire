@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141111030325) do
+ActiveRecord::Schema.define(:version => 20141111052312) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(:version => 20141111030325) do
     t.integer  "majorpost_id"
     t.datetime "created_time"
     t.integer  "user_id"
+    t.integer  "pdf_id"
+    t.integer  "audio_id"
   end
 
   create_table "artworks", :force => true do |t|
@@ -486,6 +488,7 @@ ActiveRecord::Schema.define(:version => 20141111030325) do
     t.datetime "published_at"
     t.boolean  "early_access",    :default => false
     t.integer  "audio_id"
+    t.integer  "pdf_id"
   end
 
   create_table "messages", :force => true do |t|
@@ -551,23 +554,19 @@ ActiveRecord::Schema.define(:version => 20141111030325) do
     t.string   "title"
     t.integer  "majorpost_id"
     t.integer  "project_id"
-    t.string   "thumbnail_file_name"
-    t.string   "thumbnail_content_type"
-    t.integer  "thumbnail_file_size"
-    t.datetime "thumbnail_updated_at"
+    t.integer  "archive_id"
+    t.string   "direct_upload_url",                    :null => false
+    t.boolean  "processed",         :default => false, :null => false
+    t.integer  "user_id",                              :null => false
+    t.boolean  "skip_everafter",    :default => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.text     "content_temp"
+    t.text     "tags_temp"
     t.string   "pdf_file_name"
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
-    t.integer  "archive_id"
-    t.string   "direct_upload_url",                         :null => false
-    t.boolean  "processed",              :default => false, :null => false
-    t.integer  "user_id",                                   :null => false
-    t.boolean  "skip_everafter",         :default => false
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-    t.text     "content_temp"
-    t.text     "tags_temp"
   end
 
   create_table "postimages", :force => true do |t|
@@ -638,6 +637,7 @@ ActiveRecord::Schema.define(:version => 20141111030325) do
     t.datetime "published_at"
     t.boolean  "early_access",      :default => false
     t.integer  "audio_id"
+    t.integer  "pdf_id"
   end
 
   create_table "quotes", :force => true do |t|

@@ -104,6 +104,7 @@ gem 'carrierwave','0.10.0' #important
 gem 'fog','1.21.0'
 gem 'mini_magick','3.7.0' #important
 gem 'jquery-fileupload-rails', :path => "vendor/gems/jquery-fileupload-rails-master" #important
+gem 'paperclip-ghostscript' #pdf
 
 #------------Payments System------------ 
 

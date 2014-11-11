@@ -91,7 +91,7 @@ $(document).on('ajaxify:content_loaded', function(){
           callback: AudioCase
         },
        pdf: {
-          title: 'Pdf',
+          title: 'PDF',
           callback: PdfCase
         }        
       } 

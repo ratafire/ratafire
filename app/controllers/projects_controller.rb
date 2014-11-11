@@ -28,6 +28,10 @@ class ProjectsController < ApplicationController
 		if @project.audio_id != "" && @project.audio_id != nil then
 			@audio = Audio.find(@project.audio_id)
 		end		
+		#PDF
+		if @project.pdf_id != "" && @project.pdf_id != nil then
+			@pdf = Pdf.find(@project.pdf_id)
+		end				
 		#Hide drafts from non project.creator
 		if @project.published == false && current_user != @project.creator
 			redirect_to root_path
@@ -134,6 +138,10 @@ class ProjectsController < ApplicationController
 			if @project.audio_id != "" && @project.audio_id != nil then
 				@audio = Audio.find(@project.audio_id)
 			end
+			#PDF
+			if @project.pdf_id != "" && @project.pdf_id != nil then
+				@pdf = Pdf.find(@project.pdf_id)
+			end			
 		else
 			redirect_to project_realms_path(@project.creator,@project)
 		end

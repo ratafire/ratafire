@@ -1,0 +1,81 @@
+<!-- Audio -->
+<div id="pdf-case">
+
+	<!-- If there is an audio, show the audio -->
+	<% if @majorpost.pdf_id != "" && @majorpost.pdf_id != nil %>
+
+		<script type="text/javascript">
+
+        	$(document).ready(function() {
+
+                //hide artwork upload and show artwork
+              	$("#pdf-upload-case").hide();
+              	$('#has-audio-case').show();
+                    
+        		});
+		</script>
+
+		<div id="has-pdf-case">
+			<div id="comment-input2" style="height:151px;margin: 0px 0 10px 0;background-image:url(<%= @pdf.pdf.url(:preview)%>);background-size: 100%;">
+				<!-- artwork delete button-->
+				<div class="btn-edit-right" id="delete-pdf">
+					<%= link_to 'Delete',pdf_delete_path(@project.creator,@project,@pdf),method: :delete,class:"btn-delete no_ajaxify"%>
+				</div>
+			</div>
+			<!-- Artwork Upload Title -->
+			<div class="artwork-eidtor-control-bar" >	
+				Has PDF File: <%= @pdf.pdf_file_name %>
+			</div>
+		</div><!-- end:#has-video-case -->	
+
+	<% end %><!-- end. if @project.audio_id != ""-->
+
+	<div id="pdf-upload-case">
+		<div id="comment-input2" style="margin: 0px 0 8px 0;">
+			<!-- Audio Upload Title -->
+			<div class="majorpost-user-inspirer-tite">	
+				<li>Project PDF</li>
+			</div>		
+
+			<!-- Upload-->
+			<div class="majorpost-user-inspirer-indicator">Upload</div>
+				<div class="video-upload-box-holder">
+					<!-- Audio Upload-box -->
+					<div id="pdf-upload-box">
+						<div class="video-upload-words artwork-button fileinput-button" id="audio-drop">
+
+							<span>Click to choose a PDF file</span>
+								<ul>Maximum size: 512mb. </ul>
+									<!-- fields for video -->
+									<%= s3_uploader_form callback_url: create_majorpost_pdf_path(current_user,@project, @majorpost),
+  										id: "s3_uploader_pdf",
+										callback_param: "pdf[direct_upload_url]",
+										expiration: 24.hours.from_now.utc.iso8601,
+										max_file_size: 512.megabytes,:remote => true do %>
+									<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+									<% end %>		
+
+						</div><!-- end.video-upload-words-->
+					</div><!--end.audio-upload-box -->
+
+					<!-- Video Progress-box-->
+					<div id="pdf-progress-case"></div><!-- end. Video Progress-box-->
+						<script id="template-upload-pdf" type="text/x-tmpl">
+							<div id="pdf-progress-box">
+								<div class="video-progress">
+									<div id="progress-bar-artwork" class='bar-pdf' style="width: 0%">
+										<div class="video-progress-words">
+											<ul>Uploading PDF...</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</script>
+								
+								
+				<div id="pdfdata"></div>
+			</div><!-- end videoupload box holder-->				
+		</div><!-- end#comment-input2-->	
+	</div><!-- end#audio-upload-case-->	
+
+</div><!-- end.audio-case-->

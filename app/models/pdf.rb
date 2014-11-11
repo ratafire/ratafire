@@ -15,18 +15,14 @@ require 'aws/s3'
   belongs_to :archive
 
 
-  has_attached_file :pdf,
+  has_attached_file :pdf,  
+    :styles => { :thumb => ["171x96#", :jpg], :preview => ["790x1053", :jpg]}, processors: [:ghostscript],
   	:url => ":class/uploads/:id/:style/:escaped_filename",
   	:path => ":class/uploads/:id/:style/:escaped_filename",
   	:storage => :s3 # this is redundant if you are using S3 for all your storage requirements
 
-  validates_attachment :pdf, 
-    :content_type => { :content_type => ["application/pdf"]},
+  validates_attachment :pdf,
     :size => { :in => 0..524288.kilobytes}  
-
-  #validates_attachment_presence :video
-  has_attached_file :thumbnail, :styles => { :thumb => "171x96#", :preview => "790x1052"},
-      :storage => :s3
 
   #process_in_background :thumbnail, :only_process => [:small, :thumbnail
 
@@ -39,6 +35,14 @@ require 'aws/s3'
   def post_process_required?
     %r{^(image|(x-)?application)/(bmp|gif|jpeg|jpg|pjpeg|png|x-png)$}.match(video_content_type).present?
   end
+
+  Paperclip.interpolates :escaped_filename do |attachment, style|
+    attachment.instance.normalized_video_file_name
+  end           
+
+  def normalized_video_file_name
+    "#{self.id}-#{self.pdf_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')}"
+  end     
 
 protected
   # Set attachment attributes from the direct upload
@@ -72,13 +76,11 @@ protected
       pdf = Pdf.find(id)
       direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(pdf.direct_upload_url)
       s3 = AWS::S3.new
-    
 
-          extension = direct_upload_url_data[:filename].split(".")[1]
           paperclip_file_path = "pdfs/uploads/#{id}/original/#{normalized_video_file_name}"
           s3.buckets[Rails.configuration.aws[:bucket]].objects[paperclip_file_path].copy_from(direct_upload_url_data[:path])
 
- 
+      pdf.pdf.reprocess!
       pdf.processed = true
       pdf.save
     

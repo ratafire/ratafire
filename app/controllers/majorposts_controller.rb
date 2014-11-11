@@ -75,9 +75,11 @@ class MajorpostsController < ApplicationController
 		@project = @majorpost.project
 		@artwork = Artwork.new(params[:artwork])
 		@video = Video.new(params[:video])
+	
 		@majorpost_count = @project.majorposts.where(:published => true).count
 		#Artwork
 		@artwork = @majorpost.artwork
+
 		#Video
 		if @majorpost.video_id != "" && @majorpost.video_id != nil then
 			@video = Video.find(@majorpost.video_id)
@@ -93,6 +95,10 @@ class MajorpostsController < ApplicationController
 				@audio_embed = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/"+@audio.soundcloud+"&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"
 			end			
 		end
+		#PDF
+		if @majorpost.pdf_id != "" && @majorpost.pdf_id != nil then
+			@pdf = Pdf.find(@majorpost.pdf_id)	
+		end				
 	end
 
 	def show
@@ -104,6 +110,10 @@ class MajorpostsController < ApplicationController
 				@audio_embed = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/"+@audio.soundcloud+"&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"
 			end
 		end		
+		#PDF
+		if @majorpost.pdf_id != "" && @majorpost.pdf_id != nil then
+			@pdf = Pdf.find(@majorpost.pdf_id)	
+		end				
 		if @majorpost.early_access == true then
 			if user_signed_in? then
 				@user = @majorpost.user

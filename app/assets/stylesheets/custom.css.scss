@@ -2547,6 +2547,10 @@ input[type="contributors"] {
 	display: none;
 }
 
+#pdf-case{
+	display:none;
+}
+
 #original-placer {
 	display: none;
 	height: 161px;
@@ -3000,6 +3004,10 @@ transition: background-color 1s ease-out;
 	@extend #video-upload-box;
 }
 
+#pdf-upload-box{
+	@extend #video-upload-box;
+}
+
 .artwork-choose {
 	width: 677px;
 	height: 80px;
@@ -3010,6 +3018,10 @@ transition: background-color 1s ease-out;
 }
 
 .bar-audio{
+	@extend .bar-video;
+}
+
+.bar-pdf{
 	@extend .bar-video;
 }
 
@@ -3070,6 +3082,17 @@ transition: background-color 1s ease-out;
   font-size: 0.9em;
 }
 
+#pdf-control-bar{
+  height: 24px;
+  width: 771px;
+  border-radius: 5px 5px 0 0;
+  position: absolute;
+  z-index: 100;
+  color: #999999;
+  padding: 7px 0 0 20px;
+  font-size: 0.9em;
+}
+
 .artwork-eidtor-control-bar {
 	background-image: url(/assets/artwork_bg.png);
   height: 24px;
@@ -3097,6 +3120,13 @@ transition: background-color 1s ease-out;
 }
 
 .artwork-download-holder {
+	position: absolute;
+  z-index: 101;
+  width: 772px;
+}
+
+.pdf-download-holder{
+	margin-top: -32px;
 	position: absolute;
   z-index: 101;
   width: 772px;

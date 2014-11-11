@@ -133,6 +133,13 @@ Ratafire::Application.routes.draw do
 	match ':user_id/audio/:project_id/:majorpost_id/you_shall_not_pass', :to => "audios#create_majorpost_audio", via: :post, as: :create_majorpost_audio
 	match 'add_external_audio', :to => "audios#add_external_audio", via: :post,as: :add_external_audio
 
+#---PDF---
+
+	match ':user_id/upload/pdf/:project_id/little_crab', :to => "pdfs#create_project_pdf", via: :post, as: :create_project_pdf
+	match ':user_id/:project_id/pdf/delete/:id', to: 'pdfs#destroy', via: :delete, as: :pdf_delete
+	match ':user_id/projects/:project_id/pdf/:id', to: 'pdfs#download', :controller => "pdfs",:action => 'download', :conditions => { :method => :get }, as: :pdf_download
+	match ':user_id/pdf/:project_id/:majorpost_id/you_shall_not_pass', :to => "pdfs#create_majorpost_pdf", via: :post, as: :create_majorpost_pdf
+
 #---Icon ---
 	match ':user_id/upload/icon/:project_id/invoke_thy_aid_to_my_adventrous_song', :to => "icons#create_project_icon", via: :post, as: :create_project_icon
 	match ':user_id/projects/:project_id/icons/:id', to: 'icons#destroy', via: :delete, as: :icon_delete

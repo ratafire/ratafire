@@ -82,6 +82,12 @@
 							<% end %>
 
 					</div><!-- end of post-content -->
+
+							<!-- PDF -->
+							<% if @pdf != nil %>
+								<%= render "projects/pdf"%>
+							<% end %>	
+
 					<script>
 
   				$('.tipsy-tipsy').tipsy({fade:true});
