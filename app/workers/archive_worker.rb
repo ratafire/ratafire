@@ -66,6 +66,18 @@ class ArchiveWorker
 				archive_audio.audio = audio.audio
 				archive_audio.save
 			end
+			#If the project has pdf
+			if @project.pdf_id != nil && @project.pdf_id != "" then
+				pdf = Pdf.find(@project.pdf_id)
+				archive_pdf = Pdf.new
+				archive_pdf.skip_everafter = true
+				archive_pdf.project_id = @project.id
+				archive_pdf.archive_id = archive.id
+				archive_pdf.direct_upload_url = pdf.direct_upload_url
+				archive_pdf.user_id = pdf.user_id
+				archive_pdf.pdf = pdf.pdf
+				archive_pdf.save
+			end			
 			#If the project has images
 			if @project.projectimages.count != 0 then
 				@project.projectimages.each do |i|
@@ -147,7 +159,19 @@ class ArchiveWorker
 				archive_audio.audio = audio.audio
 				archive_audio.save
 			end
-
+			#If the project has pdf
+			if majorpost.pdf_id != nil && majorpost.pdf_id != "" then
+				pdf = Pdf.find(majorpost.pdf_id)
+				archive_pdf = Pdf.new
+				archive_pdf.skip_everafter = true
+				archive_pdf.majorpost_id = majorpost.id
+				archive_pdf.project_id = @project.id
+				archive_pdf.archive_id = archive.id
+				archive_pdf.direct_upload_url = pdf.direct_upload_url
+				archive_pdf.user_id = pdf.user_id
+				archive_pdf.pdf = pdf.pdf
+				archive_pdf.save
+			end			
 			#If the majorpost has images
 			if majorpost.postimages.count != 0 then
 				majorpost.postimages.each do |i|
