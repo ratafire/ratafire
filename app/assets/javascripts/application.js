@@ -36,6 +36,7 @@
 //= require rails.validations.nested_form
 //= require jquery.jplayer
 //= require flat.audio
+//= require pdfobject
 //= require_directory .
 //= require_directory ./redactor-rails
 

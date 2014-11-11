@@ -71,7 +71,7 @@ $(document).on('ajaxify:content_loaded', function(){
       "css":"style.css",
       plugins: ['fullscreen','quote','advanced'],
       minHeight: 430,
-      buttons: ['formatting','unorderedlist', '|', 'bold', 'italic', 'deleted', '|', 'link','quote','code', 'equation', '|', 'image','painting', 'video2','audio', '|' 
+      buttons: ['formatting','unorderedlist', '|', 'bold', 'italic', 'deleted', '|', 'link','quote','code', 'equation', '|', 'image','painting', 'video2','audio', 'pdf','|' 
       ],
       buttonsCustom: {
         quote: {
@@ -89,7 +89,11 @@ $(document).on('ajaxify:content_loaded', function(){
         audio: {
           title: 'Audio',
           callback: AudioCase
-        }
+        },
+       pdf: {
+          title: 'Pdf',
+          callback: PdfCase
+        }        
       } 
 
     } // end of redactor
@@ -249,6 +253,7 @@ function VideoCase(){
     $('#original-placer').hide();
     $('#audio-case').hide();  
     $('#video-case').toggle();
+    $('#pdf-case').hide();
 }
 
 //Original Image ------------------------------------------
@@ -258,11 +263,22 @@ function uploadOriginal(){
       $('#image-case').toggle();
       $('#audio-case').hide();  
       $('#original-placer').toggle();
+      $('#pdf-case').hide();
     }
 //Audio ------------------------------------------
 function AudioCase(){
     $('#image-case').hide();
     $('#original-placer').hide();
     $('#video-case').hide();  
-    $('#audio-case').toggle();  
+    $('#audio-case').toggle(); 
+    $('#pdf-case').hide(); 
+}    
+
+//Audio ------------------------------------------
+function PdfCase(){
+    $('#image-case').hide();
+    $('#original-placer').hide();
+    $('#video-case').hide();  
+    $('#audio-case').hide(); 
+    $('#pdf-case').toggle();   
 }    

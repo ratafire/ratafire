@@ -7,6 +7,8 @@ class Archive < ActiveRecord::Base
   has_one :artwork
   has_one :video
   has_one :icon
+  has_one :audio
+  has_one :pdf
 
   has_many :archiveimages, dependent: :destroy
 
