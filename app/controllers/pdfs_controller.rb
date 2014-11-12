@@ -53,7 +53,7 @@ def download
 	#:disposition => 'attachment', :x_sendfile => true
 	#If S3
 	data = open(@pdf.pdf.url)
-  	send_data data.read, :type => data.content_type, :x_sendfile => true
+  	send_data data.read, :type => data.content_type, :x_sendfile => true, :filename => @pdf.pdf_file_name
 end
 
 
