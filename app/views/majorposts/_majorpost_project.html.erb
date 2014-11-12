@@ -77,7 +77,7 @@
 	<% if majorpost.published == true %>	
 		<div id="majorpost-excerpt" style="vertical-align: top;">
 			<!-- When there are artwork and video -->
-			<% if majorpost.video != nil || majorpost.artwork != nil || majorpost.audio != nil %>
+			<% if majorpost.video != nil || majorpost.artwork != nil || majorpost.audio != nil || majorpost.pdf != nil %>
 				<!-- With Video but without artwork, without audio -->
 				<% if majorpost.video != nil && majorpost.artwork == nil && majorpost.audio == nil %>
 					<div class="majorpost-video-one">
@@ -343,7 +343,28 @@
 						<% if majorpost.tags.any? %> 
 							<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
 					</div>						
-				<% end %>													
+				<% end %>		
+				<!-- With PDF -->
+				<% if majorpost.video == nil && majorpost.artwork == nil && majorpost.audio == nil && majorpost.pdf != nil %>
+					<div class="majorpost-video-one">
+						<%= link_to user_project_majorpost_path(majorpost.project.creator,majorpost.project, majorpost),class:"no_ajaxify" do %>
+								<!-- Internal Thumbnail-->
+								<div class="majorpost-postimages-one" style="background-image:url(<%= majorpost.pdf.pdf.url(:thumb)%>);background-size: 100%;">
+			
+
+								</div>	
+								<div class="majorpost-thumbnail-bar-audio">PDF file</div>
+						<% end %>
+					</div><!-- end.majorpost-video-one -->	
+					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<%= sanitize truncate(majorpost.excerpt, :length => 300) %>
+					</div>
+					<!-- Tags -->
+					<div id="majorpost-tags">
+						<% if majorpost.tags.any? %>
+						<%= raw majorpost.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>							
+				<% end %>																					
 			<% else %>
 				<!-- If there are images-->
 				<% if majorpost.postimages.count > 0 %>

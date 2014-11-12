@@ -260,7 +260,28 @@
 						<% if activity.trackable.tags.any? %>
 							<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
 					</div>					
-				<% end %>														
+				<% end %>
+				<!-- With PDF -->
+				<% if pdf_true(activity.trackable.id) %>
+					<div class="majorpost-video-one">
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
+								<!-- Internal Thumbnail-->
+								<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.pdf.pdf.url(:thumb)%>);background-size: 100%;">
+			
+
+								</div>	
+								<div class="majorpost-thumbnail-bar-audio">PDF file</div>
+						<% end %>
+					</div><!-- end.majorpost-video-one -->	
+					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
+					</div>
+					<!-- Tags -->
+					<div id="majorpost-tags">
+						<% if activity.trackable.tags.any? %>
+						<%= raw activity.trackable.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %><% end %>
+					</div>							
+				<% end %>																
 			<% else %>
 				<!-- If there are images-->
 				<% if activity.trackable.projectimages.count > 0 %>

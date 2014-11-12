@@ -30,6 +30,7 @@ class Project < ActiveRecord::Base
   has_one :artwork, dependent: :destroy
   has_one :icon, dependent: :destroy
   has_one :audio, dependent: :destroy
+  has_one :pdf, dependent: :destroy
   has_many :archives
 
   #--- Inspiration ---

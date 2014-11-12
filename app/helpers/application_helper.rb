@@ -337,7 +337,11 @@ module ApplicationHelper
 				if activity.audio_id != nil && activity.audio_id != "" then
 					return true
 				else
-					return false
+					if activity.pdf_id != nil && activity.pdf_id != "" then
+						return true
+					else
+						return false
+					end
 				end
 			end
 		end
@@ -469,6 +473,28 @@ module ApplicationHelper
 			return false	
 		end
 	end		
+
+	#With PDF
+	def pdf_true(project_id)
+		activity = Project.find(project_id)
+		if activity.video_id == nil || activity.video_id == "" then
+			if activity.artwork_id == nil || activity.artwork_id == "" then
+				if activity.audio_id == nil || activity.audio_id == "" then 
+					if activity.pdf_id != nil && activity.pdf_id != "" then
+						return true
+					else
+						return false
+					end
+				else
+					return false
+				end
+			else
+				return false
+			end	
+		else
+			return false	
+		end
+	end			
 
 	#Vimeo Thumbnail
 	def vimeo_thumbnail(vimeo_id)
