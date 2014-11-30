@@ -218,7 +218,7 @@ class User < ActiveRecord::Base
 
   #Used to find subscription
   def subscription_project_find(subscriber_id, subscribed_id)
-  	subscription = Subscription.find_by_subscriber_id_and_subscribed_id(subscriber_id,subscribed_id).class.first
+  	subscription = Subscription.find_by_subscriber_id_and_subscribed_id(subscriber_id,subscribed_id)
   	return Project.find(subscription.project_id)
   end
 
