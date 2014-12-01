@@ -33,7 +33,7 @@ class TransactionStatusWorker
 					transaction.next_transaction = subscription.next_billing_date
 				else
 					subscription.this_billing_date = subscription.next_billing_date
-					subscription.next_billing_date = subscription.next_billing_date >> 1
+					subscription.next_billing_date = subscription.this_billing_date.advance(:months => 1).to_date
 					transaction.next_transaction = subscription.next_billing_date
 				end
 				#Update the status of last transaction
