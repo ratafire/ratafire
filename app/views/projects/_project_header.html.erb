@@ -90,9 +90,9 @@
 			<% end %>	 	
 		</div><!-- end:.project-icon -->	
 	<% else %>    
-		<% if @icon != nil %>	
+		<% if @project.icon != nil %>	
 			<%= link_to user_project_path(@project.creator,@project), class:"no_ajaxify" do %>
-				<div class="project-icon-holder" style="background-image:url(<%= @icon.image.url(:pageview) %>);">
+				<div class="project-icon-holder" style="background-image:url(<%= @project.icon.image.url(:pageview) %>);">
 				</div>
 			<% end %>
 		<% else %>	
