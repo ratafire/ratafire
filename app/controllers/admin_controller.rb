@@ -133,7 +133,7 @@ class AdminController < ApplicationController
 		redirect_to(:back)
 	end
 
-	#This handles the request for staff picks
+	#This handles the request for Feature Projects
 	def staff_pick
 		url = params[:url]
 		if url != nil then
