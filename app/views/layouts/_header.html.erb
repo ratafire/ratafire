@@ -56,7 +56,7 @@
 			<div class="functional-buttons">
 				<%= link_to "Help", help_path, class:"no_ajaxify home"%>
 				<%= link_to "Home",interesting_homepage_path(current_user), class:"no_ajaxify home"%>
-				<%= link_to "Subjects", featured_path, class:"no_ajaxify home"%>
+				<%= link_to "Projects", featured_path, class:"no_ajaxify home"%>
 				<%if current_user.admin? %><%= link_to "Admin",admin_path, class:"no_ajaxify home"%><% end %>				
 			</div>	
 
@@ -80,7 +80,7 @@
 				<!-- Functional Buttons -->
 				<div class="functional-buttons">
 					<%= link_to "Help", help_path, class:"no_ajaxify home"%>
-					<%= link_to "Subjects", featured_path, class:"no_ajaxify home2"%>
+					<%= link_to "Projects", featured_path, class:"no_ajaxify home2"%>
 				</div>				
 
 				<!-- Settings Button -->
