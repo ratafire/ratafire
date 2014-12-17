@@ -54,7 +54,7 @@ $(document).ready(function() {
 				</div><!-- end#Home-page-video-click-->	
 
 				<!-- Video Holder -->
-				<%= render 'static_pages/video'%>
+				<%= render 'static_pages/video'%>		
 
 				<!-- Home Page Buttons -->
 				<div id="Home-page-btn">
@@ -71,7 +71,15 @@ $(document).ready(function() {
 						<span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >Who is Ratatoskr?</a></span>
 
 				</div><!-- end#Home-page0btn-->
-	
+
+				<div id="watch-intro" style="cursor:pointer;">
+				<div id="Home-page-video"></div>
+						<div id="Home-page-video-title">
+							<ul>Watch our intro video</ul> 
+							<ul>on how it works</ul>
+					</div>	
+				</div>			
+
 
 				<div class="scroll-down"></div>	
 			</div><!-- end.center-->
@@ -95,13 +103,6 @@ $(document).ready(function() {
 		<!-- Window 2 -->
 		<section class="window" id="window2">
 
-
-				<div id="watch-intro" style="cursor:pointer;">
-				<div id="Home-page-video"></div>
-						<div id="Home-page-video-title">
-							<ul>Watch our intro video</ul> 
-					</div>	
-				</div>		
 
 			<div class="center" style="margin: 0 auto;width:1089px;">
 				<%= render 'layouts/sidebar_home_staffpicks'%>

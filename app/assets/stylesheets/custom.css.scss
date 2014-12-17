@@ -3404,33 +3404,27 @@ display: none;
 
 }
 
-#Home-page-explaination{
-	    		font-family: "Open Sans",Helvetica, Arial, sans-serif;
-    		font-weight: 300;
-    		font-size: 1.2em;
-    		margin-top: -8px;
-    		margin-left:169px;
-}
 
 #Home-page-video-title{
 	font-family: "Open Sans",Helvetica, Arial, sans-serif;
     font-weight: 300;
     font-size: 1em;
-    margin-top: -29px;
-	width: 200px;
+    margin-top: -55px;
+	width: 150px;
+	margin-left: 119px;
 	ul{
-		margin-left: 62px;
+		
 	}
 }
 
 #Home-page-video{
-	width: 27px;
-	height: 27px;
-	background-image:url(/assets/play_mini.png);
-	background-position: bottom;
-	margin-left: 27px;
+	width: 64px;
+	height: 64px;
+	background-image:url(/assets/intro_video_64.png);
+	background-position: top;
+	margin-left: 60px;
 	&:hover{
-		background-position: top;
+		background-position: bottom;
 	}
 }
 
@@ -3450,6 +3444,19 @@ display: none;
 	cursor: pointer;
 	width: auto;
 
+}
+
+.home-page-explaination{
+	font-size: 0.9em;
+    font-family: "Open Sans",Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    text-align: left;
+    width: 1000px;
+    margin: 0 auto;	
+}
+
+.home-page-explaination-inner{
+	margin-left: 380px;
 }
 
 #Home-page-btn {
@@ -3501,7 +3508,8 @@ display: none;
 #watch-intro{
 	width: 200px;
 	position: absolute;
-	margin-top: -15px;
+	margin-top: 20px;
+	margin-left: 500px;
 }
 
 .Home-page-container2 {
