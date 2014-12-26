@@ -4,6 +4,7 @@ class SupportsController < ApplicationController
 	def supporters
 		@user = User.find(params[:id])
 		@supporters = @user.supporters.paginate(page: params[:supporters], :per_page => 65)
+		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 	end
 
 	def supporters_past
