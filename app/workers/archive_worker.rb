@@ -146,6 +146,20 @@ class ArchiveWorker
 				archive_artwork.save	#AWS::S3::Errors::RequestTimeout bug!				
 			end
 
+			#If the project has audio
+			if majorpost.audio_id != nil && majorpost.audio_id != "" then
+				audio = Audio.find(majorpost.audio_id)
+				archive_audio = Audio.new
+				archive_audio.skip_everafter = true
+				archive_audio.majorpost_id = majorpost.id
+				archive_audio.project_id = @project.id
+				archive_audio.archive_id = archive.id
+				archive_audio.direct_upload_url = audio.direct_upload_url
+				archive_audio.user_id = audio.user_id
+				archive_audio.audio = audio.audio
+				archive_audio.save
+			end
+
 			#If the project has pdf
 			if majorpost.pdf_id != nil && majorpost.pdf_id != "" then
 				pdf = Pdf.find(majorpost.pdf_id)
