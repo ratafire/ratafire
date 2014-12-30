@@ -13,6 +13,9 @@
 			<% if current_user?(@user)%>
 				<div id="after-profilephoto-upload"></div>
 				<div class="image-wrap-profile sidebar-profile-shade" style="background-image:url(<%= @user.profilephoto.url(:medium)%>);height:171px;width:128px;">
+
+					<div id="icon-progress-case">
+		   			</div>
 			
 
 					<div id="edit-profile-photo" class="artwork-button fileinput-button">
@@ -25,9 +28,6 @@
 							<%= file_field_tag :file, multiple: false, class:"profile-choose" %>		
 						<% end %>
 					</div>
-
-					<div id="icon-progress-case">
-		   			</div>
 
 
 				</div><!-- end image-wrap-profile-->

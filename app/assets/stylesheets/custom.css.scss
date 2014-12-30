@@ -2995,8 +2995,10 @@ transition: background-color 1s ease-out;
 
 .bar-icon {
 	height:128px; 
+	max-width: 128px;
 	border-radius:5px; 
 	background-color:rgba(34,151,206,.5);
+	position: absolute;
 }
 
 #video-success-box {
