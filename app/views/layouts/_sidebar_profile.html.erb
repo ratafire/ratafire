@@ -10,7 +10,39 @@
 		<% if @user.profilephoto.url(:medium) != "/assets/usericon_medium.png" %>
 			<%= image_tag(@user.profilephoto.url(:medium), class: "image-wrap-profile sidebar-profile-shade2") %>
 		<% else %>
-			<%= image_tag(@user.profilephoto.url(:medium), class: "image-wrap-profile sidebar-profile-shade") %>
+			<% if current_user?(@user)%>
+				<div id="after-profilephoto-upload"></div>
+				<div class="image-wrap-profile sidebar-profile-shade" style="background-image:url(<%= @user.profilephoto.url(:medium)%>);height:171px;width:128px;">
+			
+
+					<div id="edit-profile-photo" class="artwork-button fileinput-button">
+						<!-- fields for profilephoto -->
+						<%= s3_uploader_form callback_url: create_profilephoto_path(current_user.id),
+  							id: "s3_uploader_icon",
+							callback_param: "profilephoto[direct_upload_url]",
+							expiration: 24.hours.from_now.utc.iso8601,
+							max_file_size: 2048.megabytes,:remote => true do %>
+							<%= file_field_tag :file, multiple: false, class:"profile-choose" %>		
+						<% end %>
+					</div>
+
+					<div id="icon-progress-case">
+		   			</div>
+
+
+				</div><!-- end image-wrap-profile-->
+
+		   		<script id="template-upload-icon" type="text/x-tmpl">
+		   			<div class="upload">
+		   				<div class="bar-icon" style="width: 0%;height:171px;">
+		   				</div>
+		   			</div>
+		   		</script>	
+
+		   	<% else %>
+		   		<%= image_tag(@user.profilephoto.url(:medium), class: "image-wrap-profile sidebar-profile-shade") %>
+		   	<% end %>			
+
 		<% end %>
 	</div>
 

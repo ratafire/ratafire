@@ -92,40 +92,19 @@
 								<!-- Goals -->
 								<div id="Profile-page-goals">
 
-									<!-- edit Goals 
-									<% if current_user?(@user) %>
-										<%= link_to '', goals_path, class:"btn btn-edit btn-edit-right tipsy-tipsy", title:"Edit Goals",style:"margin-top:10px;" %>
-									<% end %> -->
-
 									<h2 class="lightgrey">Goals</h2>
 
-									<div class="goals">
+									<% if current_user?(@user)%>
+										<%= link_to goals_path, class:"edit-goals tipsy-tipsy-sw no_ajaxify", title:"Click to Edit Goals" do %>
+											<!-- Goals-->
+											<%= render "users/show_goals"%>
+										<% end %>
+									<% else %>	
+											<!-- Goals-->
+											<%= render "users/show_goals"%>									
+									<% end %>	
 
-										<ol id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Subscribers</span> <%= render :text => @user.subscribers.count %>/<%= render :text => @user.goals_subscribers%></ol>
-
-										<ol><%= progress_bar(goals_count(@user.subscribers.count,@user.goals_subscribers), :color => 'blue', :rounded => true) %></ol>
-
-										<!-- Cutter --><ul style="margin-top: 15px;"></ul>
-
-										<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription</span> <%= render :text => goals_count(@user.subscription_amount.to_i, @user.goals_monthly) %>% of <%= render :text => @user.goals_monthly%></ol>
-
-										<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
-
-										<!-- Cutter --><ul style="margin-top: 15px;"></ul>
-
-										<ol id="purple"> 
-											<span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Project Completion</span>
-											<%= @user.projects.where(:complete => true ).count %>/<%= render :text => @user.goals_project%>
-										</ol>
-
-										<ol><%= progress_bar(goals_count(@user.projects.where(:complete => true ).count, @user.goals_project), :color => 'purple', :rounded => true) %></ol>
-
-										<!-- Cutter --><ul style="margin-top: 20px;"></ul>
-
-
-										
-									</div>
-								</div>
+								</div><!-- end #Profile-page-goals-->
 
 							<!-- end of textbox -->	
 							</div>

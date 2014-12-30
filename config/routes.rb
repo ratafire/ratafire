@@ -111,6 +111,8 @@ Ratafire::Application.routes.draw do
 	match ':id/r/settings/profilephoto/delete', to: 'users#profile_photo_delete', via: :delete, as: :photo_delete
 	match ':id/r/users/disable/user', to: 'users#disable', via: :post, as: :disable_user
 
+	match ':id/upload/profile/photo', to: 'users#create_profilephoto', via: :post, as: :create_profilephoto
+
 	match ':user_id/activities/delete/:id', to: 'activities#destroy', via: :delete, as: :activity_delete
 
 #---Video Upload---

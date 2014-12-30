@@ -1034,6 +1034,13 @@ box-shadow: 0px -4px 21px -9px rgba(204,204,204,1);
 	z-index: 2000;
 	margin: 2px -18px 0 0;
 }
+
+.btn-edit-right19{
+	float: right;
+	z-index: 2000;
+	margin: 2px -18px 0 0;
+	display: none;
+}
 /*------ Page Components ------*/
 
 /*--- Gird Framework ---*/
@@ -1440,6 +1447,10 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	padding-top: 13px;
 	border-top: solid 1px #cccccc;
 	margin: 16px 0 0 0;
+}
+
+.show-profilephoto{
+
 }
 
 #sidebar-subscribing {
@@ -3013,6 +3024,11 @@ transition: background-color 1s ease-out;
 	height: 80px;
 }
 
+.profile-choose{
+	width:600px;
+	height: 600px;
+}
+
 .bar-artwork {
 	@extend .bar-video;
 }
@@ -3699,6 +3715,27 @@ ul{
 	display:inline-block;
 	vertical-align: top;
 	margin-top: -5px;
+	a{
+		&:hover{
+			text-decoration: none;
+		}		
+	}	
+}
+
+.edit-goals{
+	a {
+		&:hover{
+			text-decoration: none !important;
+		}
+	}
+}
+
+#edit-profile-photo{
+		cursor: pointer;
+	height: 171px;
+	width: 128px;
+	background-image: url(/assets/profilephoto_upload.png);
+	display: none;
 }
 
 #Profile-page-title {
@@ -3745,7 +3782,10 @@ ul{
 		text-align:right;
 		margin-bottom:5px;
 
+
 	}
+
+
 
 	span {
 		font-weight: normal;

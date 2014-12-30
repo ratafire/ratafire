@@ -2,6 +2,10 @@ class UsersController < ApplicationController
 
   include Devise::Controllers::Helpers
 
+SEND_FILE_METHOD = :default
+
+protect_from_forgery :except => [:create_profilephoto]
+
   layout 'application'
   before_filter :signed_in_user,
 				only: [:index, :edit, :settings, :goals, :destroy]
@@ -225,6 +229,16 @@ class UsersController < ApplicationController
 
   def facebook_signup
   	@user = User.find_by_uuid(params[:uuid])
+  end
+
+  #upload profile photo
+  def create_profilephoto
+  	@user = User.find(params[:id])
+  	
+  	@user.direct_upload_url = params[:profilephoto][:direct_upload_url]
+  	@user.set_upload_attributes
+  	@user.queue_processing
+  	@profilephoto = @user.profilephoto
   end
 
   private
