@@ -30,7 +30,7 @@
 					<% end %>
 				<% end %>	
 								<!-- if current user has the right to edit -->
-								<% if @project.creator == current_user && @project.abandoned != true %>
+								<% if @project.creator == current_user && @project.abandoned != true || current_user.admin == true %>
 									<!-- Settings/Edit -->
 									<div class="btn-edit-right" id="edit-project-header">
 										<div class="btn-edit-right9"><%= link_to 'Settings',project_settings_path(@project.creator,@project),class:"btn-delete" %></div>
