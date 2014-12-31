@@ -111,7 +111,7 @@ gem 'paperclip-ghostscript' #pdf
 #Amazon Payments
 gem "rest-client", :require => "rest_client"
 #gem 'netrc' #rest-client dependency
-gem 'amazon_flex_pay', github: 'ratafire/amazon_flex_pay' #changed for reacurring pipeline
+gem 'amazon_flex_pay'
 gem "figaro" #configuration
 
 #------------Rails Utilities------------
