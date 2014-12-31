@@ -142,6 +142,26 @@ module ApplicationHelper
 		end
 	end
 
+	def project_header_edit(project)
+		if project.creator == current_user then
+			if @project.abandoned != true then
+				return true 
+			else
+				return false
+			end
+		else
+			if user_signed_in? then
+				if current_user.admin? then 
+					return true
+				else
+					return false
+				end
+			else
+				return false
+			end
+		end
+	end
+
 	#Project edit
 	def project_edit_everyone(project)
 		if assigned_user && project.flag == false then
