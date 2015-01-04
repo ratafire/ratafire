@@ -3,7 +3,7 @@ class UpdatesController < ApplicationController
 	require 'will_paginate/array'
 
 	before_filter :signed_in_user, 
-				only: [:subscribing_update, :followed_tags, :liked]
+				only: [:subscribing_update, :followed_tags, :liked, :watched]
 
 	def interesting
 		if user_signed_in? then
@@ -146,6 +146,11 @@ class UpdatesController < ApplicationController
 	def test
 		gon.activebutton = "test"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Project"], :draft => false, :test => true).paginate(page: params[:page], :per_page => 20)
+	end
+
+	def watched
+		@user = current_user
+		@activities = PublicActivity::Activity.order("created_at desc").tagged_with(@user.id.to_s, :on => :watcher, :any => true, :test => false).paginate(page: params[:subscribing], :per_page => 20)
 	end
 
 private

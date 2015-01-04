@@ -3,18 +3,28 @@
 	$('#update-subscribing').click(function() {
 			$("#update-saved-tags").removeClass("archive-sidebar-active");
 			$("#update-liked").removeClass("archive-sidebar-active");
+			$("#update-watched").removeClass("archive-sidebar-active");
 			$("#update-subscribing").addClass("archive-sidebar-active");
 	});
 
 	$("#update-saved-tags").click(function() {
 			$("#update-subscribing").removeClass("archive-sidebar-active");
 			$("#update-liked").removeClass("archive-sidebar-active");
+			$("#update-watched").removeClass("archive-sidebar-active");
 			$("#update-saved-tags").addClass("archive-sidebar-active");
+	});	
+
+	$("#update-watched").click(function() {
+			$("#update-subscribing").removeClass("archive-sidebar-active");
+			$("#update-saved-tags").removeClass("archive-sidebar-active");
+			$("#update-liked").removeClass("archive-sidebar-active");
+			$("#update-watched").addClass("archive-sidebar-active");
 	});	
 
 	$("#update-liked").click(function() {
 			$("#update-subscribing").removeClass("archive-sidebar-active");
 			$("#update-saved-tags").removeClass("archive-sidebar-active");
+			$("#update-watched").removeClass("archive-sidebar-active");
 			$("#update-liked").addClass("archive-sidebar-active");
 	});	
 

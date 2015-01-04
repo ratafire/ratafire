@@ -16,6 +16,10 @@ class MajorpostsController < ApplicationController
 		else
 		redirect_to(:back)
 		end
+		#Add Watchers
+		if @project.watchers? then 
+			Resque.enqueue(MajorPostWatcherWorker, @project.id, @majorpost.id)
+		end
 	end
 
 	def update

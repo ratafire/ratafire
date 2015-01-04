@@ -139,4 +139,22 @@ module ProjectsHelper
 		end
 	end
 
+	#Check if project is liked
+	def liked_project(project_id, user_id)
+		if LikedProject.find_by_project_id_and_user_id(project_id, user_id) != nil then
+			return true
+		else
+			return false
+		end
+	end
+
+	#Check if project is watched
+	def watched_project(project_id, user_id)
+		if Watched.find_by_project_id_and_user_id(project_id, user_id) != nil then
+			return true
+		else
+			return false
+		end
+	end
+
 end

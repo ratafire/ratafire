@@ -2,7 +2,14 @@
 <div class="sidebar" type="update">
 	<%= link_to subscribing_update_path(current_user) do %><ol id="update-subscribing">Subscribing</ol><% end %>
 	<%= link_to followed_tags_path(current_user) do %><ol id="update-saved-tags">Followed Tags</ol><% end %>
-	<%= link_to liked_path(current_user) do %><ol class="archive-sidebar-active" id="update-liked">Liked</ol><% end %>
+	<%= link_to watched_path(current_user) do %>
+		<div class="update-watched"></div>
+		<ol id="update-watched">Watching</ol>
+	<% end %>	
+	<%= link_to liked_path(current_user) do %>
+		<div class="update-recommanded"></div>
+		<ol class="archive-sidebar-active" id="update-liked">Recs</ol>
+	<% end %>
 </div>	
 
 <!-- Script for changing tags -->

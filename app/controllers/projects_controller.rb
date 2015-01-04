@@ -60,6 +60,9 @@ class ProjectsController < ApplicationController
 				@liked = false
 			end
 		end	
+		#Subscribers
+		@subscribers = @project.creator.sub_susers.paginate(page: params[:sub_sus], :per_page => 11)
+		@subscribers_others = (@subscribers.count-2).to_s + " others"
 	end
 
 	def update
@@ -293,6 +296,16 @@ class ProjectsController < ApplicationController
 			flash[:success] = "Failed to turn off early access for this project."
 		end
 	end	
+
+	def recommanders
+		@project = Project.find(params[:id])
+		@recommanders = @project.likers.paginate(page: params[:page], :per_page => 32)
+	end
+
+	def watchers
+		@project = Project.find(params[:id])
+		@watchers = @project.watchers.paginate(page: params[:page], :per_page => 32)
+	end
 
 private
 

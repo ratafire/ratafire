@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141111052312) do
+ActiveRecord::Schema.define(:version => 20150101035939) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -371,6 +371,7 @@ ActiveRecord::Schema.define(:version => 20141111052312) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "liker_id"
   end
 
   create_table "m_e_inspirations", :force => true do |t|
@@ -871,6 +872,8 @@ ActiveRecord::Schema.define(:version => 20141111052312) do
     t.string   "uuid"
     t.string   "location"
     t.string   "bio_html"
+    t.string   "direct_upload_url"
+    t.boolean  "processed",                                                :default => false
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
@@ -925,6 +928,14 @@ ActiveRecord::Schema.define(:version => 20141111052312) do
     t.string   "name"
     t.text     "description"
     t.string   "image"
+  end
+
+  create_table "watcheds", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "watcher_id"
   end
 
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", name: "mb_opt_outs_on_conversations_id", column: "conversation_id"

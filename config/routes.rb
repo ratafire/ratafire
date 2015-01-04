@@ -73,6 +73,14 @@ Ratafire::Application.routes.draw do
 	match ':user_id/projects/:id/you-can-be-there-now', to: 'projects#early_access_turnon', as: :project_early_access_turnon
 	match ':user_id/projects/:id/you-cannnot-see-it-now', to: 'projects#early_access_turnoff', as: :project_early_access_turnoff
 
+	#Recommanders
+	match ':user_id/:id/r/recommanders', to: 'projects#recommanders', as: :project_recommanders
+
+	#Watchers
+	match 'watch/project/-/:project_id/:user_id', to: 'watcheds#project', as: :watch_project
+	match 'unwatch/project/-/:project_id/:user_id', to: 'watcheds#unwatch_project',as: :unwatch_project
+	match ':user_id/:id/r/watchers', to: 'projects#watchers', as: :project_watchers
+
 #---Majorposts Matches---
 	match ':user_id/:project_id/:id', to: 'majorposts#show', as: :user_project_majorpost
 	match ':user_id/projects/:project_id/majorposts/:id', to: 'majorposts#destroy', via: :delete, as: :majorpost_delete
@@ -200,6 +208,7 @@ Ratafire::Application.routes.draw do
 	match ':id/r/subscribing/update', to: 'updates#subscribing_update', as: :subscribing_update 
 	match ':id/r/followed_tags/update', to: 'updates#followed_tags', as: :followed_tags 
 	match ':id/r/liked/update', to: 'updates#liked', as: :liked
+	match ':id/r/watched/update', to: 'updates#watched', as: :watched
 
 	match '/search', to: 'updates#search', as: :search
 

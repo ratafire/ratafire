@@ -16,20 +16,25 @@
 </script>
 
 <div class="project-header-wrapper" id="project-header-case">
-					<!-- Flag for completion -->
-					<% if @project.flag == true && project_edit(@project) %>
-						<%= render 'projects/flag' %>
-					<% end %>		
-								<!-- if current user has the right to edit -->
-								<% if @project.creator == current_user %>
-									<!-- artwork delete button-->
-									<div class="btn-edit-right" id="edit-project-header">
-										<%= link_to 'View Project',user_project_path(@project.creator,@project),class:"btn-delete no_ajaxify"%>
-									</div>
-								<% end %><!-- end if @artwork.project == nil-->	
+
+	<!-- Flag for completion -->
+	<% if @project.flag == true && project_edit(@project) %>
+		<%= render 'projects/flag' %>
+	<% end %>		
+
+	<!-- if current user has the right to edit -->
+	<% if @project.creator == current_user %>
+
+		<!-- artwork delete button-->
+		<div class="btn-edit-right" id="edit-project-header">
+			<%= link_to 'View Project',user_project_path(@project.creator,@project),class:"btn-delete no_ajaxify"%>
+		</div>
+
+	<% end %><!-- end if @artwork.project == nil-->	
 
 	<% if project_edit(@project) && @project.abandoned != true %>
-			<!-- project icon-->
+		
+		<!-- project icon-->
 		<div id="project-icon">
 			<!-- Edit Icon-->		
 			<% if @project.icon == nil %>

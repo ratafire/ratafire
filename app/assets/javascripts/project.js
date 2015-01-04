@@ -61,5 +61,9 @@ $(function() {
     return alert(content.filename + ' failed to upload');
   });  
 
+  $('#to-recommanded').click(function() {
+
+
+    });
 
 });

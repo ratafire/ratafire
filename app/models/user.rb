@@ -99,6 +99,13 @@ class User < ActiveRecord::Base
 	has_many :reverse_subscription_records, foreign_key: "subscriber_id", class_name: "SubscriptionRecord", dependent: :destroy
 	has_many :record_subscribed, through: :reverse_subscription_records, source: :subscribed
 
+	#Mixing Subscriptions and Supports
+	has_many :sub_sus, foreign_key: "subscribed_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true}
+	has_many :sub_susers, through: :sub_sus, source: :subscriber, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true}}
+
+	has_many :reverse_sub_sus, foreign_key: "subscriber_id", class_name: "Subscription", dependent: :destroy, :conditions => {:deleted_at => nil, :activated => true}
+	has_many :sub_sused, through: :reverse_sub_sus, source: :subscribed, :conditions => {:subscriptions =>{:deleted_at => nil, :activated => true}}
+	
 	#--- Blacklist ---
 	has_many :blacklist_records, foreign_key: "blacklister_id", class_name: "Blacklist", dependent: :destroy
 	has_many :blacklisted, through: :blacklist_records, source: :blacklisted
@@ -132,6 +139,10 @@ class User < ActiveRecord::Base
   	has_many :liked_projects, class_name: "LikedProject", dependent: :destroy
   	has_many :liked_majorposts, class_name: "LikedMajorpost", dependent: :destroy
   	has_many :liked_comments, class_name: "LikedComment", dependent: :destroy
+
+  	#--- Watchers ---
+  	has_many :watcheds, class_name: "Watched", dependent: :destroy
+
 
   	#has_many :liked_activities, foreign_key: "user_id", class_name: "LikedActivity", dependent: :destroy
   	#has_many :activities, through: :liked_activities, source: :liked_activities

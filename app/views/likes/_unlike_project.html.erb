@@ -1,0 +1,6 @@
+					<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %>
+						<div class="project-social-recommand-inner-active">
+							<ul></ul>
+							<ol id="to-recommanded">Recommanded</ol>
+						</div>	
+					<% end %>

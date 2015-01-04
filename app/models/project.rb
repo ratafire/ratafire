@@ -62,7 +62,12 @@ class Project < ActiveRecord::Base
   acts_as_taggable
 
 #--- Likes ---
-  has_many :liked_projects, class_name: "LikedProject", dependent: :destroy  
+  has_many :liked_projects, class_name: "LikedProject", foreign_key:"project_id", dependent: :destroy  
+  has_many :likers, through: :liked_projects, source: :user
+
+#--- Watches ---
+  has_many :watcheds, class_name: "Watched", foreign_key:"project_id", dependent: :destroy
+  has_many :watchers, through: :watcheds, source: :user  
 
 #--- Validations ---
 

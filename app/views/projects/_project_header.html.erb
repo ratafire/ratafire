@@ -1,55 +1,169 @@
 <!-- Script to show Edit button -->
 <script>
+
 	$(document).ready(function() {
-	$('#project-header-case').hover(function() {
-  		$("#edit-project-header").toggle();
+		$('#project-header-case').hover(function() {
+  			$("#edit-project-header").toggle();
+		});
+
+
+		//icon-delete
+		$('#icon-upload-box').hover(function() {
+  			$("#delete-icon").toggle();
+  			$("#project-icon-upload").toggle();
+		});
+
 	});
-
-
-			//icon-delete
-	$('#icon-upload-box').hover(function() {
-  		$("#delete-icon").toggle();
-  		$("#project-icon-upload").toggle();
-	});
-
-
-	});
-
 
 </script>
 
+<!-- Header Wrapper -->
 <div class="project-header-wrapper" id="project-header-case">
-				<% if user_signed_in? %>
-					<!-- Flag for completion -->
-					<% if @project.flag == true && project_edit(@project) %>
-						<%= render 'projects/flag' %>
-					<% end %>	
-					<!-- Flag for archiving -->
-					<% if @project.edit_permission == "freeze" && @project.abandoned != true %>
-						<%= render 'projects/archiving' %>	
+	
+	<!-- Flags -->
+	<% if user_signed_in? %>
+		<!-- Flag for completion -->
+		<% if @project.flag == true && project_edit(@project) %>
+			<%= render 'projects/flag' %>
+		<% end %>	
+
+		<!-- Flag for archiving -->
+		<% if @project.edit_permission == "freeze" && @project.abandoned != true %>
+			<%= render 'projects/archiving' %>	
+		<% end %>
+
+	<% end %>	
+
+	<!-- Project Header Social -->
+	<div class="project-social-holder">
+		<!-- Recommand -->
+		<% if user_signed_in? %>
+			<div class="project-social-recommand-holder">
+				<%= link_to project_recommanders_path(@project.creator, @project), class:"no_ajaxify" do %>
+					<div class="project-social-recommand-count" >
+						<span id="project-social-rec-count"><%= @project.likers.count %></span>
+					</div>
+				<% end %>
+				<!-- Not Recommanded -->
+				<% unless liked_project(@project.id, current_user.id) then %>
+					<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify", id:"like-project-holder",remote: true do %>
+						<div class="project-social-recommand-inner">
+							<ul></ul>
+							<ol id="to-recommanded-like">Recommand</ol>
+						</div>	
 					<% end %>
+					<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify", style:"display:none;",remote: true, id:"unlike-project-holder" do %>
+						<div class="project-social-recommand-inner-active">
+							<ul></ul>
+							<ol id="to-recommanded-unlike">Recommanded</ol>
+						</div>	
+					<% end %>					
+				<% else %>
+				<!-- Recommanded -->
+					<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true, id:"unlike-project-holder" do %>
+						<div class="project-social-recommand-inner-active">
+							<ul></ul>
+							<ol id="to-recommanded">Recommanded</ol>
+						</div>	
+					<% end %>
+					<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify", id:"like-project-holder",remote: true, style:"display:none;" do %>
+						<div class="project-social-recommand-inner">
+							<ul></ul>
+							<ol id="to-recommanded-like">Recommand</ol>
+						</div>	
+					<% end %>					
 				<% end %>	
-								<!-- if current user has the right to edit -->
-								<% if project_header_edit(@project) %>
-									<!-- Settings/Edit -->
-									<div class="btn-edit-right" id="edit-project-header">
-										<div class="btn-edit-right9"><%= link_to 'Settings',project_settings_path(@project.creator,@project),class:"btn-delete" %></div>
-										<% if project_edit(@project) %>
-											<%= link_to 'Edit',edit_user_project_path(@project.creator,@project),class:"btn-delete no_ajaxify"%>
-										<% end %>
-									</div>
-								<% else %>
-									<!-- Reopoen -->
-									<% if @project.creator == current_user %>
-										<div class="btn-edit-right" id="edit-project-header">
-											<%= link_to i_will_be_back_path(@project.creator, @project), class:"no_ajaxify" do %><div class="btn-delete" style="width: 45px;">Reopen</div><% end %>
-										</div>
-									<% end %>		
-								<% end %><!-- end if @artwork.project == nil-->	
+			</div><!-- end .project-social-recommand-holder -->	
+		<% else %>
+			<!-- if user is not signed in -->
+			<div class="project-social-recommand-holder">
+				<%= link_to project_recommanders_path(@project.creator, @project), class:"no_ajaxify" do %>
+				<div class="project-social-recommand-count" >
+					<span id="project-social-rec-count"><%= @project.likers.count %></span>
+				</div>
+				<% end %>
+				<!-- Not Recommanded -->
+				<!-- Recommanded -->
+				<%= link_to new_user_registration_path,class:"no_ajaxify", id:"like-project-holder" do %>
+					<div class="project-social-recommand-inner">
+						<ul></ul>
+						<ol id="to-recommanded-like">Recommand</ol>
+					</div>	
+				<% end %>					
+			</div><!-- end .project-social-recommand-holder -->					
+		<% end %><!-- end. if user_signed_in?-->		
 
+		<!-- Watch -->
+		<% if user_signed_in? %>
+			<!-- Watch -->
+			<div class="project-social-watch-holder">
+				<%= link_to project_watchers_path(@project.creator, @project), class:"no_ajaxify" do %>
+					<div class="project-social-watch-count" id="project-social-watch-count">
+						<%= @project.watchers.count%>
+					</div>	
+				<% end %>				
+				<!-- Not Watched -->
+				<% unless watched_project(@project.id, current_user.id) then %>
+					<%= link_to watch_project_path(@project.id,current_user.id),class:"no_ajaxify", id:"watch-project-holder",remote: true do %>
+						<div class="project-social-watch-inner">
+							<ul></ul>
+							<ol id="to-watch-like">Watch</ol>
+						</div>	
+					<% end %>
+					<%= link_to unwatch_project_path(@project.id,current_user.id),class:"no_ajaxify", style:"display:none;",remote: true, id:"unwatch-project-holder" do %>
+						<div class="project-social-watch-inner-active">
+							<ul></ul>
+							<ol id="to-watched-unlike">Watched</ol>
+						</div>	
+					<% end %>					
+				<% else %>
+				<!-- Recommanded -->
+					<%= link_to unwatch_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true, id:"unwatch-project-holder" do %>
+						<div class="project-social-watch-inner-active">
+							<ul></ul>
+							<ol id="to-watch-like">Watched</ol>
+						</div>	
+					<% end %>
+					<%= link_to watch_project_path(@project.id,current_user.id),class:"no_ajaxify", id:"watch-project-holder",remote: true, style:"display:none;" do %>
+						<div class="project-social-watch-inner">
+							<ul></ul>
+							<ol id="to-watched-unlike">Watch</ol>
+						</div>	
+					<% end %>					
+				<% end %>	
+			</div><!-- end .project-social-watch-holder-->	
+		<% else %>	
+			<div class="project-social-watch-holder">
+				<%= link_to project_watchers_path(@project.creator, @project), class:"no_ajaxify" do %>
+					<div class="project-social-watch-count" >
+						<%= @project.watchers.count%>
+					</div>	
+				<% end %>	
+				<%= link_to new_user_registration_path,class:"no_ajaxify", id:"watch-project-holder" do %>
+					<div class="project-social-watch-inner">
+						<ul></ul>
+						<ol id="to-watch-like">Watch</ol>
+					</div>	
+				<% end %>								
+			</div><!-- end .project-social-watch-holder-->	
+		<% end %><!-- end if user_signed_in -->
+	</div><!-- end .project-social-holder-->	
+	
+	<!-- Project Header Edit -->
+	<!-- if current user has the right to edit -->
+	<% if project_header_edit(@project) %>
+	<% else %>
+		<!-- Reopoen -->
+		<% if @project.creator == current_user %>
+			<div class="btn-edit-right" id="edit-project-header">
+				<%= link_to i_will_be_back_path(@project.creator, @project), class:"no_ajaxify" do %><div class="btn-delete" style="width: 45px;">Reopen</div><% end %>
+			</div>			
+		<% end %>		
+	<% end %><!-- end if @artwork.project == nil-->	
 
+	<!-- project icon-->
 	<% if project_edit(@project) && @project.abandoned != true %>
-			<!-- project icon-->
+		<!-- project icon-->
 		<div id="project-icon">
 			<!-- Edit Icon-->		
 			<% if @project.icon == nil %>
@@ -58,20 +172,22 @@
 		   		<!-- When there is no icon -->
 
 		   			<div id="project-icon-upload" class="artwork-button fileinput-button">
-										<!-- fields for icon -->
-										<%= s3_uploader_form callback_url: create_project_icon_path(current_user,@project),
-  											id: "s3_uploader_icon",
-											callback_param: "icon[direct_upload_url]",
-											expiration: 24.hours.from_now.utc.iso8601,
-											max_file_size: 2048.megabytes,:remote => true do %>
-											<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
-										<% end %>	
-
+						<!-- fields for icon -->
+						<%= s3_uploader_form callback_url: create_project_icon_path(current_user,@project),
+  							id: "s3_uploader_icon",
+							callback_param: "icon[direct_upload_url]",
+							expiration: 24.hours.from_now.utc.iso8601,
+							max_file_size: 2048.megabytes,:remote => true do %>
+							<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+						<% end %>	
 		   			</div><!-- end fileupload buttom-->
+
 		   			<div id="icon-progress-case">
 		   			</div>
+
 		   		</div><!-- end#icon-upload-box-->
 		   
+		   		<!-- Progress Bar -->
 		   		<script id="template-upload-icon" type="text/x-tmpl">
 		   			<div class="upload">
 		   				<div class="bar-icon" style="width: 0%">
@@ -80,16 +196,22 @@
 		   		</script>
 
 		  		<div id="icon-upload-data"></div>
+
 			<% else %>
+
 		 		<div id="icon-upload-box" style="background-image: url(<%= @project.icon.image.url(:pageview) %>); height: 126px; width:126px; border-radius:6px;">
 		 			<!-- artwork delete button-->
 					<div id="delete-icon" style="margin:7px 5px 0 0;float:right;display:none;">
 						<%= link_to 'Delete',icon_delete_path(@project.creator,@project,@project.icon),method: :delete,class:"btn-delete no_ajaxify"%>
 					</div>
 	 			</div>
-			<% end %>	 	
+
+			<% end %>	 
+
 		</div><!-- end:.project-icon -->	
+
 	<% else %>    
+
 		<% if @project.icon != nil %>	
 			<%= link_to user_project_path(@project.creator,@project), class:"no_ajaxify" do %>
 				<div class="project-icon-holder" style="background-image:url(<%= @project.icon.image.url(:pageview) %>);">
@@ -101,33 +223,37 @@
 				</div>
 			<% end %>
 		<% end %>
+
 	<% end %>
 
-
+	<!-- edit project title-->
 	<div id="project-title">
-						<!-- Project Name -->
-						<h1 >
+		<!-- Project Name -->
+		<h1 >
+			<!-- Completed?-->
+			<% if @project.complete == true %>
+				<li class="tipsy-tipsy", title="Completed!">[C]</li>
+			<% end %>
 
-							<!-- Completed?-->
-							<% if @project.complete == true %>
-								<li class="tipsy-tipsy", title="Completed!">[C]</li>
-							<% end %>
-							<!-- Completion Flag? -->
-							<% if @project.flag == true %>
-								<li class="tipsy-tipsy", title="Completed?">[C?]</li>
-							<% end %>
-							<!-- Abandoned Flag? -->
-							<% if @project.abandoned == true %>
-								<li class="tipsy-tipsy" style="color:#ccc;", title="Abandoned">[A]</li>
-							<% end %>	
-							<%= link_to @project.title, user_project_path(@project.creator,@project), class:"no_ajaxify" %>
-							<% if @project.users.count == 1 %><span> by <%= link_to @project.creator.fullname,@project.creator, class:"no_ajaxify" %></span><% end %>
-						</h1>
-						<ul>
-								<!-- Show Tagline if there is a-->
-									<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= @project.tagline %></h5>
-							
-						</ul>
+			<!-- Completion Flag? -->
+			<% if @project.flag == true %>
+				<li class="tipsy-tipsy", title="Completed?">[C?]</li>
+			<% end %>
+
+			<!-- Abandoned Flag? -->
+			<% if @project.abandoned == true %>
+				<li class="tipsy-tipsy" style="color:#ccc;", title="Abandoned">[A]</li>
+			<% end %>	
+			
+			<%= link_to @project.title, user_project_path(@project.creator,@project), class:"no_ajaxify" %>
+			
+			<% if @project.users.count == 1 %><span> by <%= link_to @project.creator.fullname,@project.creator, class:"no_ajaxify" %></span><% end %>
+		</h1>
+		
+		<ul>
+			<!-- Show Tagline if there is a-->
+				<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= @project.tagline %></h5>
+		</ul>
 	</div>
 
 	<div id="project-goals">
@@ -138,7 +264,5 @@
 		<% end %>
 	</div>
 
-
-
-</div>
+</div><!-- end .project-header-wrapper -->
 

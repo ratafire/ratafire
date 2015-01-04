@@ -1,0 +1,8 @@
+//Project header
+$('#to-recommanded-unlike').html("Recommand");
+$('#to-recommanded-like').html("Recommand");
+$(".project-social-recommand-inner-active").addClass("project-social-recommand-inner");
+$(".project-social-recommand-inner").removeClass("project-social-recommand-inner-active");
+$("#project-social-rec-count").html("<%= @project.likers.count %>");
+$('#unlike-project-holder').hide();
+$('#like-project-holder').show();

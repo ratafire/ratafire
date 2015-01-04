@@ -1,28 +1,41 @@
 <!-- Facebook SDK-->
 <div class="textbox-mini">
 							<div class="toolbox">
-								<li><% if @majorpost.comments.count > 1 then %>Comments<% else %>Comment<% end %> </li>
-								<%= @majorpost.comments.count %> /
 								<li>
 								<% if user_signed_in? then %>
 									<% if @liked then %>
 										<!-- like -->
-										<%= link_to like_majorpost_path(@majorpost.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= @majorpost.id%>majorpost-like" style="display:none;">
+										<%= link_to like_majorpost_path(@majorpost.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand tipsy-tipsy" title="Recommand" id="<%= @majorpost.id%>majorpost-like" style="display:none;">
 										</div><% end %>
 										<!-- unlike -->
-										<%= link_to unlike_majorpost_path(@majorpost.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unlike" id="<%= @majorpost.id%>majorpost-unlike">
+										<%= link_to unlike_majorpost_path(@majorpost.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unrecommand tipsy-tipsy" title="Unrecommand" id="<%= @majorpost.id%>majorpost-unlike">
 										</div><% end %>	
 									<% else %>
 										<!-- like -->
-										<%= link_to like_majorpost_path(@majorpost.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= @majorpost.id%>majorpost-like">
+										<%= link_to like_majorpost_path(@majorpost.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand tipsy-tipsy" title="Recommand" id="<%= @majorpost.id%>majorpost-like">
 										</div><% end %>
 										<!-- unlike -->
-										<%= link_to unlike_majorpost_path(@majorpost.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unlike" id="<%= @majorpost.id%>majorpost-unlike" style="display:none;">
+										<%= link_to unlike_majorpost_path(@majorpost.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unrecommand tipsy-tipsy" title="Unrecommand" id="<%= @majorpost.id%>majorpost-unlike" style="display:none;">
 										</div><% end %>										
 									<% end %>	
 								</li>
-								<% end %> <!-- end.if user_signed_in? -->
-								  <span id="<%= @majorpost.id %>liked-count"><%= @majorpost.liked_majorposts.count %></span> /
+									<!-- Twitter -->
+									<div class="btn btn-twitter">
+										<a href="https://twitter.com/share" class="twitter-share-button" data-count="none"></a>
+										<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+									</div><!-- end.btn-twitter-->
+									<!-- Facebook -->
+									<div class="btn btn-facebook">
+										<div class="fb-share-button" data-href="#{request.scheme}://#{request.host}<%=user_project_majorpost_path(@project.creator, @project, @majorpost)%>" data-type="icon">
+										</div>
+									</div><!-- end.btn-facebook-->	</li>								
+								<% else %> <!-- end.if user_signed_in? -->
+									<li>
+										<%= link_to new_user_registration_path,class:"no_ajaxify" do %><div class="btn btn-recommand tipsy-tipsy" title="Recommand" id="<%= @majorpost.id%>majorpost-unlike">
+										</div><% end %>
+										<div class="btn btn-unrecommand tipsy-tipsy" title="Unrecommand" id="<%= @project.id%>project-unlike" style="display:none;">
+										</div>
+									</li>									
 								<li>									
 									<!-- Twitter -->
 									<div class="btn btn-twitter">
@@ -34,5 +47,6 @@
 										<div class="fb-share-button" data-href="#{request.scheme}://#{request.host}<%=user_project_majorpost_path(@project.creator, @project, @majorpost)%>" data-type="icon">
 										</div>
 									</div><!-- end.btn-facebook-->	</li>
+								<% end %> <!-- end.if user_signed_in? -->	
 							</div><!-- end.toolbox-->
 							</div><!-- end.textbox-mini-->

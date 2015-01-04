@@ -28,5 +28,8 @@
 		<% if @project.complete == true && @project.archives != nil %>
 			<ol><%= link_to "Archive", project_archives_path(@project.creator, @project) %></ol>
 		<% end %>
+		<% if project_header_edit(@project) %>
+			<ol><%= link_to 'Settings',project_settings_path(@project.creator,@project) %></0l>
+		<% end %>
 	</ul>
 </div>

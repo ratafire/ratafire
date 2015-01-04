@@ -1,0 +1,8 @@
+//Project header
+$('#to-watch-like').html("Watched");
+$('#to-watched-unlike').html("Watched");
+$(".project-social-watch-inner").addClass("project-social-watch-inner-active");
+$(".project-social-watch-inner-active").removeClass("project-social-watch-inner");
+$("#project-social-watch-count").html("<%= @project.watchers.count %>");
+$('#watch-project-holder').hide();
+$('#unwatch-project-holder').show();

@@ -11,7 +11,7 @@ class LikesController < ApplicationController
 			@activity.liker_list.add(params[:user_id])
 			@activity.save
 		end
-		render :nothing => true
+		@project = Project.find(@like.project_id)
 	end
 
 	def majorpost
@@ -65,7 +65,7 @@ class LikesController < ApplicationController
 			@activity.liker_list.remove(params[:user_id])
 			@activity.save
 		end
-		render :nothing => true
+		@project = Project.find(@unlike.project_id)
 	end
 
 	def unlike_majorpost
