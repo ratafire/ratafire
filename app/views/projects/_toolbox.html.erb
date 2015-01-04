@@ -6,17 +6,17 @@
 									<% if @liked_project then %>
 									<li>
 										<!-- like -->
-										<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand tipsy-tipsy" title="Recommand" id="<%= @project.id%>project-like" style="display:none;">
+										<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand tipsy-tipsy" title="Recommend" id="<%= @project.id%>project-like" style="display:none;">
 										</div><% end %>
 										<!-- unlike -->
-										<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unrecommand tipsy-tipsy" title="Unrecommand" id="<%= @project.id%>project-unlike">
+										<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unrecommand tipsy-tipsy" title="Unrecommend" id="<%= @project.id%>project-unlike">
 										</div><% end %>	
 									<% else %>
 										<!-- like -->
-										<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand tipsy-tipsy" title="Recommand" id="<%= @project.id%>project-like">
+										<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand tipsy-tipsy" title="Recommend" id="<%= @project.id%>project-like">
 										</div><% end %>
 										<!-- unlike -->
-										<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unrecommand tipsy-tipsy" title="Unrecommand" id="<%= @project.id%>project-unlike" style="display:none;">
+										<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unrecommand tipsy-tipsy" title="Unrecommend" id="<%= @project.id%>project-unlike" style="display:none;">
 										</div><% end %>										
 									<% end %><!-- end.@liked_project-->
 										

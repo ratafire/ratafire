@@ -49,13 +49,13 @@
 					<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify", id:"like-project-holder",remote: true do %>
 						<div class="project-social-recommand-inner">
 							<ul></ul>
-							<ol id="to-recommanded-like">Recommand</ol>
+							<ol id="to-recommanded-like">Recommend</ol>
 						</div>	
 					<% end %>
 					<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify", style:"display:none;",remote: true, id:"unlike-project-holder" do %>
 						<div class="project-social-recommand-inner-active">
 							<ul></ul>
-							<ol id="to-recommanded-unlike">Recommanded</ol>
+							<ol id="to-recommanded-unlike">Recommended</ol>
 						</div>	
 					<% end %>					
 				<% else %>
@@ -63,13 +63,13 @@
 					<%= link_to unlike_project_path(@project.id,current_user.id),class:"no_ajaxify",remote: true, id:"unlike-project-holder" do %>
 						<div class="project-social-recommand-inner-active">
 							<ul></ul>
-							<ol id="to-recommanded">Recommanded</ol>
+							<ol id="to-recommanded">Recommended</ol>
 						</div>	
 					<% end %>
 					<%= link_to like_project_path(@project.id,current_user.id),class:"no_ajaxify", id:"like-project-holder",remote: true, style:"display:none;" do %>
 						<div class="project-social-recommand-inner">
 							<ul></ul>
-							<ol id="to-recommanded-like">Recommand</ol>
+							<ol id="to-recommanded-like">Recommend</ol>
 						</div>	
 					<% end %>					
 				<% end %>	
@@ -87,7 +87,7 @@
 				<%= link_to new_user_registration_path,class:"no_ajaxify", id:"like-project-holder" do %>
 					<div class="project-social-recommand-inner">
 						<ul></ul>
-						<ol id="to-recommanded-like">Recommand</ol>
+						<ol id="to-recommanded-like">Recommend</ol>
 					</div>	
 				<% end %>					
 			</div><!-- end .project-social-recommand-holder -->					
