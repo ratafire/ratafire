@@ -20,7 +20,7 @@
 		<!-- Those who have subscribed to the user -->
 		
 			<!-- Without Sub-sus-->
-			<% unless @subscribers.count == 0 then %>
+			<% unless @subscribers.any? then %>
 				<div class="sub-sus-holder" style="margin-left:0px;">
 					Be the first to subscribe to <%= link_to @project.creator.fullname, @project.creator,class:"no_ajaxify" %>.
 				</div>					
