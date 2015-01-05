@@ -1,5 +1,5 @@
 class DeviseInvitable::RegistrationsController < Devise::RegistrationsController
-  layout 'application'
+
   protected
 
   def build_resource(hash = nil)

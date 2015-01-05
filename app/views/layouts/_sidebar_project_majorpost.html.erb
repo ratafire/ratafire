@@ -1,0 +1,47 @@
+<div style="margin-top: 59px;">
+
+<!-- Project Sidebar -->
+<div class="sidebar" type="project">
+
+	<!-- Create Button -->
+
+		<% if project_edit_everyone(@project) %>
+			<div style="margin-top: -27px;">
+			<%= link_to "COMPOSE", new_majorpost_path(@project.creator,@project), method: :post, class: "btn btn-medium btn-medium-white btn-new-post no_ajaxify"%>
+			</div>	
+			<div style="margin-top: 18px;"></div>
+		<% else %>
+			<div style="margin-top: -27px;"></div>
+		<% end %>
+
+		<ol class="sidebar-project-about"><%= link_to "About", user_project_path(@project.creator,@project), class:"no_ajaxify" %></ol>
+
+		<% if @project.users.count == 1 %>
+
+			<ol><%= link_to "Contributor", project_contributors_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+
+		<% else%>
+
+			<ol><%= link_to "Contributors", project_contributors_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+
+		<% end %>
+
+			<% unless @project.majorposts.count == 0 %>
+				<% if @project.majorposts.count > 1 %>
+					<ol  class="sidebar-project-active"><%= link_to "Major Posts", project_mplist_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+				<% else %>
+					<ol  class="sidebar-project-active"><%= link_to "Major Post", project_mplist_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+				<% end %>
+			<% end %>
+		
+			<% if @project.complete == true && @project.archives != nil %>
+				<ol ><%= link_to "Archive", project_archives_path(@project.creator, @project), class:"no_ajaxify"  %></ol>
+			<% end %>
+
+			<% if project_header_edit(@project) %>
+				<ol><%= link_to 'Settings',project_settings_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+				<ol><%= link_to 'Edit About Page',edit_user_project_path(@project.creator,@project), class:"no_ajaxify"  %></ol>	
+			<% end %>
+
+	</ul>
+</div>

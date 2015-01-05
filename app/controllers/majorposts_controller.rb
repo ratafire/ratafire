@@ -17,7 +17,7 @@ class MajorpostsController < ApplicationController
 		redirect_to(:back)
 		end
 		#Add Watchers
-		if @project.watchers? then 
+		if @project.watchers.any? then 
 			Resque.enqueue(MajorPostWatcherWorker, @project.id, @majorpost.id)
 		end
 	end

@@ -93,7 +93,7 @@
 	/* define your pause/play button icon color here */
 	color: #fff;
 	background-color: #2297ce;
-	border-radius: 0 6px 0 0;	
+	border-radius: 0 5px 0 5px !important;	
 	/*Cover About Bar*/
 
 }
@@ -104,7 +104,6 @@
 
 .jp-flat2-audio .jp-button:before {
 	display: inline-block;
-
 	font-family: 'flat2-audio';
 	font-style: normal;
 	font-weight: normal;
@@ -119,14 +118,15 @@
 	text-align: center;
 	opacity: 1.0;
 
-
 }
 
 .jp-flat2-audio .jp-pause:before {
 	content: '\2016';
+	transform: scale(.8);
 }
 .jp-flat2-audio .jp-play:before {
 	content: '\25b6';
+	transform: scale(.9);	
 }
 
 .jp-flat2-audio .jp-bar {
@@ -163,7 +163,7 @@
 	background-color: rgba(34,151,206,.3);*/
 	
 	background-color: rgba(0,0,0,.05);
-	border-radius: 0 0 0 6px;	
+	border-radius: 0 0 0 0;	
 }
 
 .jp-flat2-audio .jp-details,
@@ -186,6 +186,10 @@
 	font-size: 16px;
 	line-height: 42px;
 	color: #ddd;
+}
+.jp-holder2{
+	background-color: #f9f9f9;
+	margin-bottom: -5px;
 }
 
 .jp-flat2-audio .jp-no-solution {

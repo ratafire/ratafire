@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+  		<title><%= full_title(yield(:title)) %></title><!-- specify title in view -->
+  		<%= stylesheet_link_tag    "application", :media => "all" %>
+  		<%= csrf_meta_tags %>
+  		<%= javascript_include_tag "application" %>
+  		<%= include_gon %>
+  		
+  		
+  		<!-- extra javascript include tag-->
+  		<%= yield(:extra_javascript)%>
+
+  		<%= render 'layouts/shim' %>
+
+  		<!--~~~~~~~~~~~~~~~~~~~~~~~~ Doc Ready Scripts ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+		<!-- Ajaxify Init -->
+		<%= render 'shared/ajaxify_init'%>
+
+  		<!-- Tipsy and Alert-->
+    	<%= render 'shared/tipsy_and_alert' %><!-- script -->
+
+		<!-- Back to Top -->
+		<%= render 'shared/back_to_top'%><!-- script -->
+
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+		<%= tag :meta, property: "fb:app_id", content: ENV["FACEBOOK_KEY"] %>
+		<%= tag :meta, property: "og:site_name", content: "Ratafire" %>
+		<%= yield :head %>
+
+  		<!--~~~~~~~~~~~~~~~~~~~~~~~~ Universial Header ~~~~~~~~~~~~~~~~~~~~~~~~-->
+		<div id="header">
+			<!-- Navbar -->
+			<%= render 'layouts/header' %>
+
+			<!-- Settings Dropdown -->
+			<%= render 'shared/settings_dropdown' %><!-- script -->
+
+			<!-- Alert Flash -->
+			<%= render 'shared/alert_flash'%>
+
+		</div><!-- end: #header-->
+		<%= yield :below_header %>
+	</head>
+
+	<body>
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~ Additional Background Slot ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+		<div id="additional-background">
+			<%= yield(:additional_background)%>
+		</div>	
+
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+		<div class="wrapper-main">
+			<div id="project-header-content">
+				<%= yield(:second_header)%>
+			</div><!-- end:#project-header-content -->
+
+			<!--~~~~~~~~~~~~~~~~~~~~~~~~ Left Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+			<div id="sidebar-content">
+				<%= yield(:side_bar)%>
+			</div>
+
+			<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+			<div id="main">
+					<%= yield %>
+			</div><!-- end:#main -->
+
+
+			<!--~~~~~~~~~~~~~~~~~~~~~~~~ Right Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+			<div id="sidebar-right">
+				<%= yield(:side_bar_right)%>
+			</div>	
+		</div><!-- end:.wrapper -->
+		
+	</body>
+
+</html>

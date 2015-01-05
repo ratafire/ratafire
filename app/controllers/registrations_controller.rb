@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
 
-    layout 'application'
+    layout 'application_clean'
  
    def after_inactive_sign_up_path_for(resource)
     '/discovered'

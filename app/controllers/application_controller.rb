@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+	layout :layout_by_resource
+
 	include PublicActivity::StoreController
 
 	protect_from_forgery
@@ -11,6 +13,16 @@ class ApplicationController < ActionController::Base
     sign_out
     super
   end
+
+protected
+
+def layout_by_resource
+  if devise_controller? 
+    "application_clean"
+  else
+    "application"
+  end
+end 
 
 end
 

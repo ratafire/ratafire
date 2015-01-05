@@ -34,8 +34,8 @@
 									<div class="post-content-c" style="margin-top:0px;">
 										<!-- Cutter --><ol style="margin-top: 15px;"></ol>
 										<%= sanitize @project.about, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
-										<!-- archive if any -->
-										<div class="has-archive"><% if @project.complete == true && @project.archives[0] != nil %>About has <%= link_to 'an archive', user_project_archive_about_path(@project.creator, @project, @project.archives[0]), class:"no_ajaxify"%>.<% end %></div>
+										<!-- archive if any 
+										<div class="has-archive"><% if @project.complete == true && @project.archives[0] != nil %>About has <%= link_to 'an archive', user_project_archive_about_path(@project.creator, @project, @project.archives[0]), class:"no_ajaxify"%>.<% end %></div>-->
 									</div>
 								</div>
 							</div>

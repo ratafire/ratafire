@@ -17,7 +17,21 @@ $(document).ready(function() {
 	$('#signup-with-facebook-button-home').on('click', function() {
   		ga('send', 'event', 'button', 'click', 'Signup');
 	});
+
+
+
 });	
+
+$(window).scroll(function() {
+    if ($(this).scrollTop() < 500) {
+       $("#signupshow-holder").hide({queue: false, duration: 500});
+
+    }
+
+    if ($(this).scrollTop() > 500) {
+       $("#signupshow-holder").show({bottom:'320px'}, {queue: false, duration: 500});
+    }    
+});
 </script>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -36,10 +50,9 @@ $(document).ready(function() {
 
 			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
 				<!-- Logo Image -->
-				<div style="margin-top:40px;"><%= image_tag("ratafire.png", alt: "Ratafire") %></div>
+				<div style="margin-top:50px;"><%= image_tag("ratafire.png", alt: "Ratafire") %></div>
 		
 				<!-- Click to Play Video -->
-				<div id="Home-page-video-click">
 
 					<!-- Home Page Comment -->
 					<div id="Home-page-comment">
@@ -48,73 +61,17 @@ $(document).ready(function() {
 							Connect with knowledge and creativity
 						</h2>
 
+
 					</div>
 
 
-				</div><!-- end#Home-page-video-click-->	
 
-				<!-- Video Holder -->
-				<%= render 'static_pages/video'%>		
-
-				<!-- Home Page Buttons -->
-				<div id="Home-page-btn">
-
-						<div class="signup-with-facebook-button-home" id="signup-with-facebook-button-home">
-							<%= link_to image_tag("/assets/facebook.png"), user_omniauth_authorize_path(:facebook), class:"tipsy-tipsy-ne no_ajaxify", title:"Signup with Facebook"%>
-						</div>					
-
-						<%= link_to "SIGN UP", new_user_registration_path , class: "btn btn-small2 btn-small-green Home-page-margin no_ajaxify"%>
-
-						<%= link_to "SIGN IN", new_user_session_path , class: "btn btn-small2 btn-small-blue Home-page-margin no_ajaxify" %>
-
-						<!-- Who is Ratatoskr? -->
-						<span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >Who is Ratatoskr?</a></span>
-
-				</div><!-- end#Home-page0btn-->
-
-				<div id="watch-intro" style="cursor:pointer;">
-				<div id="Home-page-video"></div>
-						<div id="Home-page-video-title">
-							<ul>Watch our intro video</ul> 
-							<ul>on how it works</ul>
-					</div>	
-				</div>			
-
-
-				<div class="scroll-down"></div>	
-			</div><!-- end.center-->
-			<div class="Home-page-learn-more tipsy-tipsy" title="Start Here"><%= image_tag("starthere.png") %></div>
-			<script>
-				$('.Home-page-learn-more').click(function(){
-					$('html, body').animate({
-        				scrollTop: $("#scroll-anchor").offset().top - 78
-    				});
-				});
-				$('#Home-page-video-click').click(function(){
-					$('html, body').animate({
-        				scrollTop: $("#scroll-anchor").offset().top - 78
-    				});
-				});				
-			</script>
-
-		</section><!-- end.first window -->
-	</div><!-- end:.wrapper -->	
-
-		<!-- Window 2 -->
-		<section class="window" id="window2">
-
-
+	
 			<div class="center" style="margin: 0 auto;width:1089px;">
 				<%= render 'layouts/sidebar_home_staffpicks'%>
 						<!-- post-content-->
 			<!-- Title -->
-			<div class="update-title-home" id="scroll-anchor">
-				<h1>Featured Projects</h1>
-				<ul style="margin-top: -8px;">
-					<h5>Ratafire is an open community for research and art, where researchers or artists can be crowd-funded on a monthly basis.</h5>
-				</ul>	
-			</div>	
-			
+		<div class="post-content-home-holder">		
 			<div class="post-content-home">
 				<!-- Activities -->
 					<% if @activities.any? %>
@@ -127,25 +84,48 @@ $(document).ready(function() {
 				</div><!-- end.post-content-->	
 			</div><!-- end.center-->
 
-		</section><!-- end.second window-->	
+		</div>
+
+
+					
+
+
+
+
+
+	
+			</div><!-- end.center-->
+
+		</section><!-- end.first window -->
+	</div><!-- end:.wrapper -->	
 
 		<!-- Window 2 -->
+		<section class="window" id="window2">
 
-		<section class="window" id="window3" >
 			<div class="center" style="margin: 0 auto;width:1089px;">
+
 				<div class="Home-page-container2">
-					<h2>Post and collaborate on projects</h2>
-					<h2>Discover the best in new ideas, art and research</h2>
-					<h2>Support creatives and researchers with monthly subscriptions</h2>
-					<h2><%= link_to "Learn more or ⌄", about_path, class:"no_ajaxify"%></h2>
-					<%= link_to image_tag("join.jpg"), new_user_registration_path , class: "no_ajaxify tipsy-tipsy", title:"❤"%>
+					<div id="watch-intro" style="cursor:pointer;">
+						<div id="Home-page-video"></div>
+							<div id="Home-page-video-title">
+								<ul>Watch our intro video</ul> 
+								<ul>on how it works</ul>
+							</div>	
+					</div>	
+
 				</div>
+				<!-- Video Holder -->
+				<%= render 'static_pages/video'%>	
+
 			</div><!-- end.center-->
 
 						<!-- Footer -->
 						<div style="padding: 0px 20px 18px 0;bottom:0;right:0;position:absolute;">
 						<%= render 'layouts/footer' %>
 						</div>
+
+	<%= render 'layouts/signupshow'%>
+
 
 		</section><!-- end.second window-->	
 

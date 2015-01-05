@@ -22,7 +22,7 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 
 	<% content_for(:side_bar) do %>
-    	<%= render 'layouts/sidebar_project' %>
+    	<%= render 'layouts/sidebar_project_settings' %>
 	<% end %>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 	<!-- Main Content -->
@@ -162,6 +162,7 @@
 						<div style="text-align:right;margin-right:17px;margin-top:40px;">
 							<%= f.submit "Save Changes", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green" %>
 						</div>
+						<ol style="margin-top:40px;"></ol>
 		<% end %>
 <% end %>							
 						</div><!-- end of textbox-mini-->

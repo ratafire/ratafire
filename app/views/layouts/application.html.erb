@@ -38,6 +38,11 @@
 			<!-- Navbar -->
 			<%= render 'layouts/header' %>
 
+			<!-- Ask User to Signup -->
+			<% unless user_signed_in? then %>
+				<%= render 'layouts/signupshow'%>
+			<% end %>
+			
 			<!-- Settings Dropdown -->
 			<%= render 'shared/settings_dropdown' %><!-- script -->
 

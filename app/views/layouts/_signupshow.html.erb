@@ -1,0 +1,113 @@
+<script>
+//Google Analytics Event Tracking
+$(document).ready(function() {
+	$('#signup-with-facebook-button-home').on('click', function() {
+  		ga('send', 'event', 'button', 'click', 'Signup');
+	});
+	$("#signupshow-signin").click(function() {
+		$("#signupshow-signup-form").hide();
+		$("#signupshow-signin-form").show();
+	});
+
+	$("#signupshow-signup").click(function() {
+		$("#signupshow-signup-form").show();
+		$("#signupshow-signin-form").hide();
+	});	
+
+});	
+
+</script>
+
+	<div class="signupshow-holder" id="signupshow-holder">
+
+		<div class="signupshow-wrapper">	
+
+
+			
+		<div class="signupshow-title">Ratafire is the future for research and art, 
+			where researchers or artists can be crowd-funded on a monthly basis.
+		</div>
+
+		<div class="signupshow-bullet">
+			<h2>Post and collaborate on projects.</h2>
+			<h2>Discover the best in new ideas, art and research.</h2>
+			<h2>Support creatives and researchers with monthly subscriptions.</h2>
+		</div><!-- end .signupshow-bullet-->	
+
+		<div class="signupshow-class-clash"></div>	
+		<div class="signupshow-signup-form" id="signupshow-signup-form">
+		<!-- Signup Form -->
+			<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true, :html => { :class => 'no_ajaxify'}) do |f| %>
+				<ol>
+					<%= f.text_field :fullname, class: "inputbox signupbox", placeholder: "First and Last Name", :live => true %>
+				</ol>
+				<ol>
+					<%= f.text_field :email, class: "inputbox signupbox", placeholder: "Email Address" %>
+				</ol>
+				<ol>
+					<%= f.password_field :password, class: "inputbox signupbox", placeholder: "Password" %>
+				</ol>
+				<ol>
+					<%= f.text_field :username, class: "inputbox signupbox",  placeholder: "Pick a username"%>
+				</ol>	
+				<div class="signupshow-signin" id="signupshow-signin">
+					Sign In
+				</div>	
+	
+				<ol style="margin-top: 15px; padding-left: 154px;">
+					<%= f.submit "JOIN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green", id:"email-signup" %>
+				</ol>
+				
+				<div class="signupshow-facebook" id="signup-with-facebook-button">
+					<%= link_to image_tag("/assets/facebook.png"), user_omniauth_authorize_path(:facebook), class:"tipsy-tipsy-sw no_ajaxify", title:"Signup with Facebook"%>
+				</div>
+			<% end %>
+		</div><!-- end .signupshow-signup-form-->
+
+		<div class="signupshow-signin-form" id="signupshow-signin-form">
+					<!-- Signin Form -->
+					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'no_ajaxify'}) do |f| %>
+
+      					<ol>
+      						<%= f.text_field :email, class: "inputbox signupbox", placeholder: "Email" %>
+      					</ol>
+      					<ol>
+      						<%= f.password_field :password, class: "inputbox signupbox", placeholder: "Password" %>
+      					</ol>
+      					<ol style="margin-top:10px;color:#999;">
+      						<% if devise_mapping.rememberable? -%>
+    						<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  							<% end -%>
+      					</ol>
+      					<ol>
+      					<%= link_to "Forgot your password?", new_password_path(resource_name), class:"no_ajaxify" %>
+ 						</ol>
+						<ol style="margin-top: -30px; padding-left: 155px;">
+							<div id="submit">
+								<%= f.submit "SIGN IN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-blue" %>
+							</div>
+						</ol>
+					<div class="signupshow-signup" id="signupshow-signup">
+						Sign Up
+					</div>							
+					<% end %>
+
+		</div><!-- end .signupshow-signin-form-->
+
+
+<div class="signupshow-footer">
+	<ul>
+		<li> <%= link_to "About", about_path, class:"no_ajaxify"%></li>
+		<li> <%= link_to "Guidelines", guidelines_path, class:"no_ajaxify"%> </li>
+		<li> <%= link_to "Privacy Policy", privacy_path, class:"no_ajaxify"%> </li>
+		<li> <%= link_to "Terms of Use", terms_path, class:"no_ajaxify"%> </li>
+		<li> <%= link_to "FAQ", faq_path, class:"no_ajaxify"%> </li>
+		<li> <a href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >Who is Ratatoskr?</a> </li>
+	</ul>
+</div>
+
+
+	</div><!-- end .signupshow-wrapper-->	
+</div><!-- end .signupshow-holder-->	
+
+	

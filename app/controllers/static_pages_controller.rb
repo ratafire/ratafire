@@ -5,6 +5,8 @@ class StaticPagesController < ApplicationController
   before_filter :correct_user,   only: [:edit, :update, :photo]
   before_filter :admin_user,     only: :destroy
 
+  layout 'application_clean'
+
   def home
     @activities = PublicActivity::Activity.order("commented_at desc").where(:featured => true).paginate(page: params[:page], :per_page => 3)
   	@user = current_user
