@@ -116,8 +116,8 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    acts-as-taggable-on (2.4.1)
-      rails (>= 3, < 5)
+    acts-as-taggable-on (3.4.2)
+      activerecord (>= 3.2, < 5)
     ajaxify_rails (0.9.5)
       rails (>= 3.2.0)
     annotate (2.5.0)
@@ -156,6 +156,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    curses (1.0.1)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -435,9 +436,10 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    trollop (2.0)
+    trollop (2.1.0)
+      curses
     tzinfo (0.3.42)
-    uglifier (2.6.0)
+    uglifier (2.6.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.4)
@@ -462,7 +464,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts-as-taggable-on (= 2.4.1)
+  acts-as-taggable-on (~> 3.4)
   ajaxify_rails (= 0.9.5)
   amazon_flex_pay!
   annotate (= 2.5.0)

@@ -3,6 +3,10 @@ class LikedMajorpost < ActiveRecord::Base
   belongs_to :user
   belongs_to :majorpost
 
+  #track activities
+  include PublicActivity::Model  
+  tracked except: [:update, :destroy], owner: ->(controller, model) { controller && controller.current_user }
+
   #--- Validation ---
   validates_uniqueness_of :majorpost_id, :scope => :user_id, :message => "You liked this major post."
 end

@@ -52,7 +52,7 @@ gem 'zencoder-fetcher' #only for development
 gem 'i18n', '0.6.1'
 
 #Tags
-gem 'acts-as-taggable-on', '2.4.1' #important
+gem 'acts-as-taggable-on', '~> 3.4' #important
 
 #Paginate
 gem 'will_paginate', '~> 3.0' #important

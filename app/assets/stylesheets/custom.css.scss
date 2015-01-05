@@ -4929,6 +4929,7 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	color: #333;
 	position: auto;
 	margin-left: 80px;
+	width: 500px;
 	li {
 		font-size: 1.4em;
 	}
@@ -4938,12 +4939,42 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	}
 }
 
+//in _create.html.erb
 #majorpost-comments {
 	float:right;
-	margin-top: -18px;
 	color: #ddd;
-	position: auto;
+	margin-right: 5px;
 	z-index: 1 !important;
+}
+
+
+.create-social-comments{
+	height: 17px;
+	width: 24px;
+	margin-right: 5px;
+	background-image:url(/assets/create_social_comment.png);
+	float: right;
+
+}
+
+.create-social-rec{
+	height: 24px;
+	width: 24px;
+	margin-top: -4px;	
+	margin-right: 5px;
+	background-image:url(/assets/create_social_rec.png);
+	float: right;
+
+}
+
+.create-social-watch{
+	height: 24px;
+	width: 24px;
+	margin-top: -5px;	
+	margin-right: 5px;
+	background-image:url(/assets/create_social_watch.png);
+	float: right;
+
 }
 
 #majorpost-time {
@@ -6214,6 +6245,7 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 }
 
 .subscribed-activity-holder {
+	width: 400px;
 		float: left;
 	margin: -17px 0 0 20px;
 	h2 {

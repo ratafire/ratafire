@@ -92,7 +92,7 @@
 
 	/* define your pause/play button icon color here */
 	color: #fff;
-	background-image: url(/assets/audio_button.png);
+	background-color: #2297ce;
 	border-radius: 0 6px 0 0;	
 	/*Cover About Bar*/
 
@@ -137,7 +137,7 @@
 	height: 100%;
 
 	/* define your unplayed progress bar background color here */
-	background-color: rgba(22,143,144,.2);
+
 	/*Cover About Bar*/
 	border-radius: 6px 6px 0 0;	
 }
@@ -162,7 +162,7 @@
 	/* define your played progress bar background color here 
 	background-color: rgba(34,151,206,.3);*/
 	
-	background-color: rgba(22,143,144,.3);
+	background-color: rgba(0,0,0,.05);
 	border-radius: 0 0 0 6px;	
 }
 
@@ -185,7 +185,7 @@
 .jp-flat2-audio .jp-duration {
 	font-size: 16px;
 	line-height: 42px;
-	color: #3590a7;
+	color: #ddd;
 }
 
 .jp-flat2-audio .jp-no-solution {

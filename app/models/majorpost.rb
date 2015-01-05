@@ -50,6 +50,7 @@ class Majorpost < ActiveRecord::Base
 
   #--- likes ---
   has_many :liked_majorposts, class_name: "LikedMajorpost", dependent: :destroy
+  has_many :likers, through: :liked_majorposts, source: :user
 
   default_scope order: 'majorposts.created_at DESC'
   default_scope where(:deleted => false)

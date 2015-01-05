@@ -25,6 +25,13 @@ class WatchedsController < ApplicationController
 			@activity.watcher_list.remove(params[:user_id])
 			@activity.save
 		end
+		#Activity of like
+		@like_activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@watched.id,'Watched')
+		if @like_activity != nil then
+			@like_activity.deleted = true
+			@like_activity.deleted_at = Time.now
+			@like_activity.save
+		end		
 		@project = Project.find(@watched.project_id)
 		#Enque all major posts
 		Resque.enqueue(AllMajorPostsRemoveWatcherWorker, @watched.project_id, @watched.user_id)		

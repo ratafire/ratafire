@@ -59,11 +59,18 @@ class LikesController < ApplicationController
 	def unlike_project
 		@unlike = LikedProject.find_by_user_id_and_project_id(params[:user_id],params[:project_id])
 		@unlike.destroy
-		#Activity
+		#Activity of Project
 		@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(params[:project_id],'Project')
 		if @activity != nil then
 			@activity.liker_list.remove(params[:user_id])
 			@activity.save
+		end
+		#Activity of like
+		@like_activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@unlike.id,'LikedProject')
+		if @like_activity != nil then
+			@like_activity.deleted = true
+			@like_activity.deleted_at = Time.now
+			@like_activity.save
 		end
 		@project = Project.find(@unlike.project_id)
 	end
@@ -76,6 +83,13 @@ class LikesController < ApplicationController
 		if @activity != nil then
 			@activity.liker_list.remove(params[:user_id])
 			@activity.save
+		end		
+		#Activity of like
+		@like_activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@unlike.id,'LikedMajorpost')
+		if @like_activity != nil then
+			@like_activity.deleted = true
+			@like_activity.deleted_at = Time.now
+			@like_activity.save
 		end		
 		render :nothing => true
 	end

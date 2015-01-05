@@ -85,18 +85,24 @@
 	text-decoration: none;
 	font-size: 32px;
 	line-height: 42px !important;
+	margin-top: -1px;
 	height: 42px !important;
-	width: 42px !important;
+	width: 41px !important;
 	text-align: center;
 	cursor: pointer;
-
+	background-image: url(/assets/audio_button.png);
 	/* define your pause/play button icon color here */
 	color: #fff;
-	background-image: url(/assets/audio_button.png);
+	
 	border-radius: 0 6px 0 0;	
-	border-left:1px solid #bbb;
+	border:1px solid #2297ce;
 	/*Cover About Bar*/
 
+}
+
+.jp-holder{
+	background-color: #f9f9f9;
+	border-radius: 5px;
 }
 
 .jp-flat-audio .jp-pause {
@@ -125,9 +131,11 @@
 
 .jp-flat-audio .jp-pause:before {
 	content: '\2016';
+	transform: scale(.8);
 }
 .jp-flat-audio .jp-play:before {
 	content: '\25b6';
+	transform: scale(.9);
 }
 
 .jp-flat-audio .jp-bar {
@@ -136,7 +144,7 @@
 	left: 0px;
 	right: 42px;
 	height: 100%;
-	background-image: url(/assets/audio_bar.png);
+	
 
 	/* define your unplayed progress bar background color here */
 	background-color: transparent;
@@ -164,8 +172,7 @@
 	/* define your played progress bar background color here 
 	background-color: rgba(34,151,206,.3);*/
 	
-	background-color: rgba(34,151,206,.1);
-	border-bottom: 1px solid #bbb;
+	background-color: rgba(0,0,0,.05);
 	border-radius: 6px 0 0 0;	
 }
 
@@ -188,7 +195,7 @@
 .jp-flat-audio .jp-duration {
 	font-size: 16px;
 	line-height: 42px;
-	color: #3590a7;
+	color: #ddd;
 }
 
 .jp-flat-audio .jp-no-solution {

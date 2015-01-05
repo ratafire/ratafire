@@ -3,7 +3,7 @@ class AllMajorPostsWatcherWorker
 
 	def self.perform(project_id, user_id)
 		project = Project.find(project_id)
-		if project.majorposts? then
+		if project.majorposts.any? then
 			project.majorposts.each do |majorpost|
 				activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(majorpost.id,'Majorpost')
 				if activity != nil then
