@@ -3523,10 +3523,10 @@ display: none;
 }
 
 #Home-page-video-youtube{
-	margin-top: -150px;
+	margin-top: 60px;
 	margin-left: 100px;
 	display: auto;
-	position: absolute;
+	position: fixed;
 	z-index: 200000;
 }
 
@@ -3601,9 +3601,8 @@ display: none;
 
 #watch-intro{
 	width: 200px;
-	position: absolute;
-	margin-top: 20px;
-	margin-left: 100px;
+	margin-top: -30px;
+	margin-left: 500px;
 }
 
 .Home-page-container2 {

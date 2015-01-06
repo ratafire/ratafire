@@ -36,11 +36,17 @@ $(window).scroll(function() {
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-	<% content_for :additional_background do %>
+
+<% content_for :additional_signup do %>
+	<%= render 'layouts/signupshow'%>	
+<% end %>
+
+				<!-- Video Holder -->
+				<%= render 'static_pages/video'%>	
 
 		<!-- Window 1 -->
 	<div class="wrapper-main">
-		<section class="window" id="window1">
+
 
 		<!-- Home Page Beta Pic -->
 	
@@ -87,24 +93,13 @@ $(window).scroll(function() {
 		</div>
 
 
-					
-
-
-
-
-
+				
 	
 			</div><!-- end.center-->
 
-		</section><!-- end.first window -->
-	</div><!-- end:.wrapper -->	
 
-		<!-- Window 2 -->
-		<section class="window" id="window2">
+			<div class="center" style="margin: 0 auto;width:1089px;height:400px;margin-top:1200px;">
 
-			<div class="center" style="margin: 0 auto;width:1089px;">
-
-				<div class="Home-page-container2">
 					<div id="watch-intro" style="cursor:pointer;">
 						<div id="Home-page-video"></div>
 							<div id="Home-page-video-title">
@@ -113,20 +108,18 @@ $(window).scroll(function() {
 							</div>	
 					</div>	
 
-				</div>
-				<!-- Video Holder -->
-				<%= render 'static_pages/video'%>	
-
 			</div><!-- end.center-->
 
-						<!-- Footer -->
-						<div style="padding: 0px 20px 18px 0;bottom:0;right:0;position:absolute;">
-						<%= render 'layouts/footer' %>
-						</div>
-
-	<%= render 'layouts/signupshow'%>
+		
 
 
-		</section><!-- end.second window-->	
+	</div><!-- end:.wrapper -->	
 
-<% end %>		
+		<!-- Window 2 -->
+
+
+
+
+
+
+
