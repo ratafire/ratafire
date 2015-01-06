@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150105022653) do
+ActiveRecord::Schema.define(:version => 20150106205548) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20150105022653) do
     t.string   "realm"
     t.boolean  "draft"
     t.boolean  "test",           :default => false
+    t.boolean  "featured_home",  :default => false
   end
 
   add_index "activities", ["owner_id", "owner_type"], :name => "index_activities_on_owner_id_and_owner_type"
@@ -639,6 +640,7 @@ ActiveRecord::Schema.define(:version => 20150105022653) do
     t.boolean  "early_access",      :default => false
     t.integer  "audio_id"
     t.integer  "pdf_id"
+    t.boolean  "featured_home",     :default => false
   end
 
   create_table "quotes", :force => true do |t|
