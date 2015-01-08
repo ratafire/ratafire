@@ -28,17 +28,17 @@
 								<li>
 									<% if liked_comment(project_comment.id) then %>
 										<!-- like -->
-										<%= link_to like_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= project_comment.id%>comment-like" style="display:none;">
+										<%= link_to like_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand" id="<%= project_comment.id%>comment-like" style="display:none;">
 										</div><% end %>
 										<!-- unlike -->
-										<%= link_to unlike_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unlike" id="<%= project_comment.id%>comment-unlike">
+										<%= link_to unlike_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unrecommand" id="<%= project_comment.id%>comment-unlike">
 										</div><% end %>	
 									<% else %>
 										<!-- like -->
-										<%= link_to like_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-like" id="<%= project_comment.id%>comment-like">
+										<%= link_to like_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand" id="<%= project_comment.id%>comment-like">
 										</div><% end %>
 										<!-- unlike -->
-										<%= link_to unlike_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unlike" id="<%= project_comment.id%>comment-unlike" style="display:none;">
+										<%= link_to unlike_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unrecommand" id="<%= project_comment.id%>comment-unlike" style="display:none;">
 										</div><% end %>										
 									<% end %>	
 								</li>  <span id="<%= project_comment.id %>liked-count"><%= project_comment.liked_comments.count %></span>
