@@ -1,5 +1,5 @@
 <!-- background -->	
-<div class="background-special-none">	
+<div class="background-special-grey">	
 </div>	
 <!-- Settings Sidebar -->
 <div class="sidebar" type="standard">
@@ -8,6 +8,6 @@
 		<ol><%= link_to "Goals", goals_path(current_user) %></ol>
 		<ol><%= link_to "Subscription", subscription_settings_path(current_user), class:"no_ajaxify"%></ol>
 		<ol style="margin-left:10px;"><%= link_to "Transactions", subscription_transactions_path(current_user), class:"no_ajaxify"%></ol>
-		<ol><%= link_to "Settings", edit_user_registration_path(current_user) %></ol>
+		<ol><%= link_to "Settings", edit_user_registration_path(current_user), class:"no_ajaxify" %></ol>
 	</ul>
 </div>

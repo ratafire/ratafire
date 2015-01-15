@@ -20,7 +20,7 @@ en:
       unconfirmed: "You have to confirm your account before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Ratafire Confirmation Instructions"
+        subject: "Verify your Ratafire Account Email"
       reset_password_instructions:
         subject: "Ratafire Reset Password Instructions"
       unlock_instructions:

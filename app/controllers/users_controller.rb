@@ -37,6 +37,19 @@ protect_from_forgery :except => [:create_profilephoto]
 	if user_signed_in? then
 		@subscription = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id, :subscribed_id => @user.id).first
 	end
+	#Add User tutorial if there is no user tutorial
+	if @user.tutorial == nil && @user.sign_in_count == 1 then
+		@tutorial = Tutorial.new
+		@tutorial.user_id = @user.id 
+		@tutorial.save
+	else
+		if @user.tutorial == nil && @user.sign_in_count != 1 then
+			@tutorial = Tutorial.new
+			@tutorial.user_id = @user.id 
+			@tutorial.profile_tutorial = 4
+			@tutorial.save			
+		end
+	end
   end
 
 	def new
@@ -82,7 +95,7 @@ protect_from_forgery :except => [:create_profilephoto]
 	  		if @user.update_attributes(params[:user])
 				format.json { respond_with_bip(@user) }
 		  		if params[:user][:profilelarge].blank?
-					format.html { redirect_to(:back) }
+					format.html { redirect_to(@user) }
 					flash[:success] = "Ah, new info!"
 		  		else
 					format.html { render :action => "edit" }

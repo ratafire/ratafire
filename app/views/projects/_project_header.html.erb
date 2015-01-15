@@ -165,8 +165,15 @@
 	<% if project_edit(@project) && @project.abandoned != true %>
 		<!-- project icon-->
 		<div id="project-icon">
+
+
+		   			<div id="icon-progress-case">	   				
+		   			</div>
+
 			<!-- Edit Icon-->		
 			<% if @project.icon == nil %>
+
+			
 
 		   		<div id="icon-upload-box" style="background-image:url(/assets/projecticon_pageview.jpg); height: 126px; width:126px; border-radius:6px;">
 		   		<!-- When there is no icon -->
@@ -182,18 +189,16 @@
 						<% end %>	
 		   			</div><!-- end fileupload buttom-->
 
-		   			<div id="icon-progress-case">
-		   			</div>
 
 		   		</div><!-- end#icon-upload-box-->
-		   
+		  
 		   		<!-- Progress Bar -->
 		   		<script id="template-upload-icon" type="text/x-tmpl">
 		   			<div class="upload">
 		   				<div class="bar-icon" style="width: 0%">
 		   				</div>
 		   			</div>
-		   		</script>
+		   		</script>		  
 
 		  		<div id="icon-upload-data"></div>
 

@@ -43,27 +43,27 @@
 
 								<!-- Subscribers -->
 								<div class="goals-placer">
-								<ul id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Subscribers</span>  </ul><span> [</span>
+								<ul id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Subscribers</span>  </ul><span> </span>
 									<ul id="blue"><%= render :text => @user.subscribers.count %> <span>/</span> </ul>
-									<ul><%= f.text_field :goals_subscribers, class: "inputbox goals-input" %></ul> <span>]</span>
+									<ul><%= f.text_field :goals_subscribers, class: "inputbox goals-input" %></ul> <span></span>
 								<ol><%= progress_bar(goals_count(@user.subscribers.count,@user.goals_subscribers), :color => 'blue', :rounded => true) %></ol>
 								<span>default: 256, minimum: 32</span>
 								</div>
 
 								<!-- Monthly Subscription Amount -->
 								<div class="goals-placer">
-								<ul id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription</span>  </ul><span> [</span>
+								<ul id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription</span>  </ul><span> </span>
 									<ul id="green"><%= render :text => @user.subscription_amount.to_s %> <span>/</span> </ul>
-									<ul><%= f.text_field :goals_monthly, class: "inputbox goals-input" %></ul> <span>]</span>
+									<ul><%= f.text_field :goals_monthly, class: "inputbox goals-input" %></ul> <span></span>
 								<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
 								<span>default: 7730, minimum: 540</span>
 								</div>
 
 								<!-- Project Completion -->
 								<div class="goals-placer">
-								<ul id="purple"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Project Completion</span>  </ul><span> [</span>
+								<ul id="purple"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Project Completion</span>  </ul><span> </span>
 									<ul id="purple"><%= @user.projects.where(:complete => true ).count %> <span>/</span> </ul>
-									<ul><%= f.text_field :goals_project, class: "inputbox goals-input" %></ul> <span>]</span>
+									<ul><%= f.text_field :goals_project, class: "inputbox goals-input" %></ul> <span></span>
 								<ol><%= progress_bar(goals_count(@user.projects.where(:complete => true ).count, @user.goals_project), :color => 'purple', :rounded => true) %></ol>
 								<span>default: 5, minimum: 1</span>
 								</div>

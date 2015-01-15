@@ -15,7 +15,7 @@ Ratafire::Application.routes.draw do
 	match "/signup" => "devise/registrations#new"
 	get "users/new"  
 	#Facebook Signup
-	match ':uuid/signup/with/facebook', to: 'users#facebook_signup', as: :facebook_signup
+	match ':uuid/signup/with/facebook', to: 'facebooks#facebook_signup', as: :facebook_signup
 	match ':uuid/signup_update/with/facebook', to: 'users#facebook_update', as: :facebook_update
 
 #---Redactor---    
@@ -314,6 +314,17 @@ Ratafire::Application.routes.draw do
 	match '/blog-design', to: 'blogposts#design', as: :blog_design
 	match '/blog-news', to: 'blogposts#news', as: :blog_news
 	match '/blog/category-selector/r/r/r/r/:category', to: 'blogposts#category_selector', as: :blog_category_selector
+
+#---Tutorial---	
+
+	match '/:id/user/user_profile/new/tutorial/step1', to: 'tutorials#profile_tutorial_step1', as: :profile_tutorial_step1
+	match '/:id/user/user_profile/new/tutorial/step2', to: 'tutorials#profile_tutorial_step2', as: :profile_tutorial_step2
+	match '/:id/user/user_profile/new/tutorial/step3', to: 'tutorials#profile_tutorial_step3', as: :profile_tutorial_step3	
+	match '/:id/user/user_profile/new/tutorial/step4', to: 'tutorials#profile_tutorial_step4', as: :profile_tutorial_step4
+
+	match '/:id/user/user_project/new/tutorial/step1', to: 'tutorials#project_tutorial_step1', as: :project_tutorial_step1
+	match '/:id/user/user_project/new/tutorial/step2', to: 'tutorials#project_tutorial_step2', as: :project_tutorial_step2
+	match '/:id/user/user_project/new/tutorial/step3', to: 'tutorials#project_tutorial_step3', as: :project_tutorial_step3
 
 #---Help---
 	match '/help', to: 'helps#show', as: :help

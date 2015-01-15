@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150106205548) do
+ActiveRecord::Schema.define(:version => 20150115091056) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -777,6 +777,16 @@ ActiveRecord::Schema.define(:version => 20150106205548) do
     t.boolean  "next_transaction_status",                                :default => false
     t.integer  "counter",                                                :default => 0
     t.integer  "retry",                                                  :default => 0
+  end
+
+  create_table "tutorials", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "profile_tutorial"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "project_tutorial"
+    t.integer  "profile_tutorial_prev"
+    t.integer  "project_tutorial_prev"
   end
 
   create_table "twitters", :force => true do |t|

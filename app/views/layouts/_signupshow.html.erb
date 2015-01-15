@@ -59,7 +59,7 @@ $(document).ready(function() {
 				</ol>
 				
 				<div class="signupshow-facebook" id="signup-with-facebook-button">
-					<%= link_to image_tag("/assets/facebook.png"), user_omniauth_authorize_path(:facebook), class:"tipsy-tipsy-sw no_ajaxify", title:"Signup with Facebook"%>
+					<%= link_to image_tag("/assets/facebook.png"), user_omniauth_authorize_path(:facebook), class:"no_ajaxify" %>
 				</div>
 			<% end %>
 		</div><!-- end .signupshow-signup-form-->

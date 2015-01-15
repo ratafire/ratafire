@@ -25,11 +25,6 @@
 	<!-- if current user has the right to edit -->
 	<% if @project.creator == current_user %>
 
-		<!-- artwork delete button-->
-		<div class="btn-edit-right" id="edit-project-header">
-			<%= link_to 'View Project',user_project_path(@project.creator,@project),class:"btn-delete no_ajaxify"%>
-		</div>
-
 	<% end %><!-- end if @artwork.project == nil-->	
 
 	<% if project_edit(@project) && @project.abandoned != true %>
@@ -105,9 +100,14 @@
 								<%= best_in_place [@project.creator, @project], :title, :path => project_update_path(@project.creator,@project), :classes =>"best_title" %><span class="btn btn-edit" id="best_title-edit" style="display:none;"></span>
 							<% end %>
 						</h1>
-						<ul>
+						<ul id="best_tagline_holder">
 							<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= best_in_place [@project.creator, @project], :tagline, :path => project_update_path(@project.creator,@project),:classes =>"best_tagline" %> <span class="btn btn-edit" id="best_tagline-edit" style="margin:-2px 0 0 0; display:none;"></span></h5>
 						</ul>
+
+						<!-- Tutorial -->
+						<% if @project.creator.tutorial != nil && @project.creator.tutorial.project_tutorial != 4 then %>
+							<%= render 'tutorials/project_first'%>
+						<% end %>	
 	</div>
 
 	<div id="project-goals">

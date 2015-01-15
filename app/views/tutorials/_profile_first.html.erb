@@ -1,0 +1,46 @@
+	<!-- Step 1 Teach the user to use the fire -->
+<% if @user.tutorial.profile_tutorial == nil then %>	
+	<div class="tutorial-fog" id="tutorial-fog">
+	</div>	
+	<%= link_to profile_tutorial_step1_path(@user.tutorial.id), id:"profile-tutorial-step1-link", class:"no_ajaxify", remote: true do %>
+		<div class="fire" id="profile-tutorial-step1">
+		</div>	
+	<% end %>	
+	<div class="dialog" id="profile-totorial-dialog1">
+		You have discovered Ratafire, <%= @user.first_name %>!
+		You can follow the <%= image_tag("/assets/fire_mini.png")%> sign through the tutorial, or explore this world by yourself.
+	</div>	
+<% end %>
+
+	<!-- Step 2 Change tagline -->
+<% if @user.tutorial.profile_tutorial == 1 then %>	
+	<div class="dialog2" id="profile-totorial-dialog2" style="display:block;">
+<% else %>
+	<div class="dialog2" id="profile-totorial-dialog2">		
+<% end %>		
+		<%= link_to profile_tutorial_step2_path(@user.tutorial.id), id:"profile-tutorial-step2-link", class:"no_ajaxify", remote: true do %>Click to edit your tagline.<% end %>
+	</div><!-- end.dialog2-->		
+
+	<!-- Step 3 Upload Photo -->
+<% if @user.tutorial.profile_tutorial == 2 then %>		
+	<div class="fire" id="profile-tutorial-step3" style="display:block;">
+<% else %>
+	<div class="fire" id="profile-tutorial-step3">
+<% end %>
+	</div><!-- end.fire-->
+	<div class="dialog2" id="profile-totorial-dialog3">	
+		<%= link_to profile_tutorial_step3_path(@user.tutorial.id), id:"profile-tutorial-step3-link", class:"no_ajaxify", remote: true do %>Upload a profile photo!<% end %>
+	</div>	
+
+	<!-- Step 4 Write About -->
+<% if @user.tutorial.profile_tutorial == 3 then %>	
+	<div class="fire" id="profile-tutorial-step4" style="display:block;">
+<% else %>		
+	<div class="fire" id="profile-tutorial-step4">
+<% end %>
+	</div><!-- end.fire-->
+	<div class="dialog2" id="profile-totorial-dialog4">	
+		<%= link_to profile_tutorial_step4_path(@user.tutorial.id), id:"profile-tutorial-step4-link", class:"no_ajaxify", remote: true do %>You look around, and decide to tell everyone a bit more about yourself.<% end %>
+	</div>	
+	
+	<!-- Step 5 Home -->

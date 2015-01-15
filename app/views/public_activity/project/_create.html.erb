@@ -59,12 +59,12 @@
 	<!-- published -->
 	<% if activity.trackable.published == true %>
 		<div class="majorpost-title">
-		<li><%= link_to activity.trackable.title, user_project_path(activity.trackable.creator,activity.trackable), class:"no_ajaxify" %></li> new project <%= time_ago_in_words(activity.trackable.created_at) %> ago in <%= link_to realm_selector_path(activity.trackable.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(activity.trackable.realm)%></span><% end %>
+		<li><%= link_to activity.trackable.title, user_project_path(activity.trackable.creator,activity.trackable), class:"no_ajaxify" %></li> posted <%= time_ago_in_words(activity.trackable.created_at) %> ago<% if activity.trackable.realm != nil then %> in <%= link_to realm_selector_path(activity.trackable.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(activity.trackable.realm)%></span><% end %><% end %>
 		</div>
 	<% else %>
 	<!-- not published -->
 		<div class="majorpost-title">
-		<li><%= link_to activity.trackable.title, edit_user_project_path(activity.trackable.creator,activity.trackable), class:"no_ajaxify" %></li> <span>(Draft)</span> new project <%= time_ago_in_words(activity.trackable.created_at) %> ago in <span class="realm-color"><%= project_realm(activity.trackable.realm)%></span>
+		<li><%= link_to activity.trackable.title, edit_user_project_path(activity.trackable.creator,activity.trackable), class:"no_ajaxify" %></li> <span>(Draft)</span> posted <%= time_ago_in_words(activity.trackable.created_at) %> ago<% if activity.trackable.realm != nil then %> in <span class="realm-color"><%= project_realm(activity.trackable.realm)%></span><% else %>.<% end %>
 		</div>	
 	<% end %>	
 <% else %>
@@ -72,11 +72,11 @@
 	<!-- published -->
 	<% if activity.trackable.published == true %>
 		<div class="majorpost-title">
-		<li><%= link_to activity.trackable.title, user_project_path(activity.trackable.creator,activity.trackable), class:"no_ajaxify" %></li> new project <%= time_ago_in_words(activity.trackable.created_at) %> ago in <%= link_to realm_selector_path(activity.trackable.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(activity.trackable.realm)%></span><% end %>
+		<li><%= link_to activity.trackable.title, user_project_path(activity.trackable.creator,activity.trackable), class:"no_ajaxify" %></li> posted <%= time_ago_in_words(activity.trackable.created_at) %> ago<% if activity.trackable.realm != nil then %> in <%= link_to realm_selector_path(activity.trackable.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(activity.trackable.realm)%></span><% end %> <% else %>.<% end %>
 		</div>	
 	<% else %>
 		<div class="majorpost-title">
-		<li><%= activity.trackable.title %></li> <span>(Draft)</span> new project <%= time_ago_in_words(activity.trackable.created_at) %> ago.
+		<li><%= activity.trackable.title %></li> <span>(Draft)</span> posted <%= time_ago_in_words(activity.trackable.created_at) %> ago.
 		</div>		
 	<% end %>
 <% end %>		

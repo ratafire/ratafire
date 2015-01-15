@@ -25,9 +25,9 @@
                                 <td align="center" valign="top">
                                   		<p style="color: #666;">You have discovered Ratafire, <%= @email %>!</p>
 
-                                  		<p style="color: #666;">You can confirm your account email through the link below:</p>
+                                  		<p style="color: #666;">You can verify your account email through the link below:</p>
 
-										<%= link_to confirmation_url(@resource, :confirmation_token => @token),style:"text-decoration:none;" do %><p class="btn2" style="color: #fff;background-position: top;background: #4cbaed;padding: 10px 40px 10px 40px;border-radius: 5px;">Confirm my account</p><% end %>
+										<%= link_to confirmation_url(@resource, :confirmation_token => @token),style:"text-decoration:none;" do %><p class="btn2" style="color: #fff;background-position: top;background: #4cbaed;padding: 10px 40px 10px 40px;border-radius: 5px;">Verify my Email</p><% end %>
 
                                 </td>
                             </tr>

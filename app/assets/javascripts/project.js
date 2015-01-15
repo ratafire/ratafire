@@ -61,9 +61,26 @@ $(function() {
     return alert(content.filename + ' failed to upload');
   });  
 
-  $('#to-recommanded').click(function() {
+  //Project Tutorials
+  //Step 1
+  $("#project-title").click(function (){
+    $("#project-tutorial-step1").hide("fade", {}, 1000);
+    $("#project-tutorial-step1-link")[0].click();
+  });
+  //Step 2
+  $("#best_tagline_holder").click(function (){
+    $("#project-tutorial-step2").hide("fade", {}, 1000);  
+    $("#project-tutorial-step2-link")[0].click();
+  });
 
+  //Step 3
+  $("#project-icon").on("mouseover", function(){
+    $("#project-tutorial-step3").hide("fade", {}, 1000);
+    $("#project-tutorial-dialog3").show("fade", {}, 1000);
+  });
 
-    });
-
+  $("#project-icon").click(function(){
+    $("#project-tutorial-dialog3").hide("fade", {}, 1000);
+    $("#project-tutorial-step3-link")[0].click();
+  });
 });

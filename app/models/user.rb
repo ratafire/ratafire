@@ -62,6 +62,7 @@ class User < ActiveRecord::Base
 	has_one :github
 	has_one :deviantart
 	has_one :vimeo
+	has_one :tutorial
 
 	#--- Payments ---
 	#Subscriptions
