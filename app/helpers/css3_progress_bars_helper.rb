@@ -128,7 +128,7 @@ module Css3ProgressBarsHelper
   end
 
   def bar_style percentage
-    "width: #{percentage+1}%;" #Correction of +1%
+    "width: #{percentage+3}%;" #Correction of +1%
   end
 
   def bar_div classes, style
