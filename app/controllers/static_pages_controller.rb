@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
   before_filter :correct_user,   only: [:edit, :update, :photo]
   before_filter :admin_user,     only: :destroy
 
-  layout 'application_clean'
+  layout :resolve_layout
 
   def home
     @activities = PublicActivity::Activity.order("commented_at desc").where(:featured_home => true).paginate(page: params[:page], :per_page => 3)
@@ -38,6 +38,17 @@ class StaticPagesController < ApplicationController
   end
 
   def pricing
+  end
+
+private
+  
+  def resolve_layout
+    case action_name
+    when "home"
+      "plain"
+    else
+      "application_clean"
+    end
   end
 
 end

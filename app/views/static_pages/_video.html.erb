@@ -7,7 +7,7 @@ $(document).ready(function() {
 		ga('send', 'event', 'video', 'click', 'View_Intro_Video');
 	});
 
-	$('.message-overlay').click(function(){
+	$('.home-page-video-overlay').click(function(){
 		$("#Home-page-video-holder").hide();
 		callPlayer("Home-page-video-youtube","pauseVideo")
 	});
@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 <div id="Home-page-video-holder">
 	<!-- Overlay -->
-	<div class="message-overlay"></div>
+	<div class="home-page-video-overlay"></div>
 	<!-- Video-->
 	<div id="Home-page-video-youtube">
 		<iframe id="youtube-video" width="854" height="480" src="https://www.youtube.com/embed/4GMOwlDCspM?enablejsapi=1" frameborder="0" style="margin-top:50px;"></iframe>

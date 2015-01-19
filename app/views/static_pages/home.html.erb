@@ -27,86 +27,192 @@ $(document).ready(function() {
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
-<% content_for :additional_signup do %>
-	<%= render 'layouts/signupshow'%>	
-<% end %>
-
-				<!-- Video Holder -->
-				<%= render 'static_pages/video'%>	
+	<% content_for :additional_background do %>
 
 		<!-- Window 1 -->
-	<div class="wrapper-main">
 
+		<section class="window" id="window1">
+
+
+
+	<div class="wrapper-main">		
 
 		<!-- Home Page Beta Pic -->
-	
 		<div class="Home-page-bg">
-			<%= image_tag("betabg.jpg") %>
+			<%= image_tag("betabg.png") %>
 		</div>
 
+	<div class="home-overlay"></div>	
+	<video autoplay id="bgvid" loop>
+ 		 <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+	<source src="//s3.amazonaws.com/Ratafire_production_videos/Sara_and_john_mute.mp4" type="video/mp4">
+	<source src="//s3.amazonaws.com/Ratafire_production_videos/Sara_and_john_mute.webm" type="video/webm">
+	</video>
+
+
 			<div class="center" style="margin: 0 auto;width:1089px;position:absolute;">
+				
+					<!-- Video Holder -->
+				<%= render 'static_pages/video'%>	
+
 				<!-- Logo Image -->
-				<div style="margin-top:50px;"><%= image_tag("ratafire.png", alt: "Ratafire") %></div>
-		
-				<!-- Click to Play Video -->
+				<div style="margin-top:40px;"><%= image_tag("ratafire.png", alt: "Ratafire") %></div>
 
 					<!-- Home Page Comment -->
 					<div id="Home-page-comment">
 
 						<h2 style="color:#999;" >
-							Connect with knowledge and creativity
+							Be a part of the future of research and art
 						</h2>
 
 					</div>
-
-
-
 	
-		<div class="center" style="margin: 0 auto;width:1089px;">
+
+				<div id="watch-intro" style="cursor:pointer;">
+					<div id="Home-page-video"></div>
+						<div id="Home-page-video-title">
+							<ul>Watch our intro video</ul> 
+							<ul>on how it works</ul>
+						</div>	
+				</div>		
+				<div class="who-is-ratatoskr"><span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >Who is Ratatoskr?</a></span></div>	
+
+			</div><!-- end.center-->
+
+		
+	</div><!-- end:.wrapper -->	
+	</section><!-- end.first window -->
+
+		<!-- Window 2 -->
+		<section class="window" id="window2">
+			<div class="post-content-home-holder">
+		<div class="home-overlay2"></div>
+			<div class="center" style="margin: 0 auto;width:1089px;">
 				<%= render 'layouts/sidebar_home_staffpicks'%>
-						<!-- post-content-->
-			<!-- Title -->
-			<div class="post-content-home-holder">		
-				<div class="post-content-home">
+
+		
+			<div class="post-content-home">
 				<!-- Activities -->
 					<% if @activities.any? %>
 						<%= render_activities(@activities) %>
 					<% else %>
 						<div class="blank-update-box" style="height:428px;">
-							<h5>There are no featured projects.</h5>
+							<h5>There are no Feature Projects.</h5>
 						</div>						
 					<% end %>
 				</div><!-- end.post-content-->	
-			</div><!-- end.center-->
+			
+		</div><!-- end.center-->
 
-		</div><!-- end .center-->
+		</div><!-- end.holder-->
 
-
-				
-	
-			</div><!-- end.center-->
-
-
-			<div class="center" style="margin: 0 auto;width:1089px;height:400px;margin-top:1200px;">
-
-					<div id="watch-intro" style="cursor:pointer;">
-						<div id="Home-page-video"></div>
-							<div id="Home-page-video-title">
-								<ul>Watch our intro video</ul> 
-								<ul>on how it works</ul>
-							</div>	
-					</div>	
-
-			</div><!-- end.center-->
-
-		
-
-
-	</div><!-- end:.wrapper -->	
+		</section><!-- end.second window-->	
 
 		<!-- Window 2 -->
+		<section class="window" id="window3" >
+				<div class="home-overlay2"></div>
+			<div class="center" style="margin: 0 auto;width:1089px;">
+				<div class="Home-page-container2">
+					<div class="home-page-signup-title">Be a part of the future of research and art
+					</div>					
+					<h2>Post and collaborate on projects</h2>
+					<h2>Discover the best in new ideas, art and research</h2>
+					<h2>Support creatives and researchers with monthly subscriptions</h2>
+				</div>
+
+	<!-- Signup Form -->
+		<div class="signupshow-signup-form-home" id="signupshow-signup-form">	
+			<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true, :html => { :class => 'no_ajaxify'}) do |f| %>
+				<ol>
+					<%= f.text_field :fullname, class: "inputbox signupbox2", placeholder: "First and Last Name", :live => true %>
+				</ol>
+				<ol>
+					<%= f.text_field :email, class: "inputbox signupbox2", placeholder: "Email Address" %>
+				</ol>
+				<ol>
+					<%= f.password_field :password, class: "inputbox signupbox2", placeholder: "Password" %>
+				</ol>
+				<ol>
+					<%= f.text_field :username, class: "inputbox signupbox2",  placeholder: "Pick a username"%>
+				</ol>	
+				<div class="signupshow-signin" id="signupshow-signin" style="margin-top: 20px; margin-left: 310px;">
+					Sign In
+				</div>	
+	
+				<ol style="margin-top: 15px; padding-left: 418px;">
+					<%= f.submit "JOIN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green", id:"email-signup" %>
+				</ol>
+				
+				<div style="margin-top: -32px; margin-left: 280px;" id="signup-with-facebook-button">
+					<%= link_to image_tag("/assets/facebook.png"), user_omniauth_authorize_path(:facebook), class:"no_ajaxify" %>
+				</div>
+			<% end %>
+		</div><!-- end .signupshow-signup-form-->
 
 
+
+
+		<div class="signupshow-signin-form-home" id="signupshow-signin-form">
+					<!-- Signin Form -->
+					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'no_ajaxify'}) do |f| %>
+
+      					<ol>
+      						<%= f.text_field :email, class: "inputbox signupbox2", placeholder: "Email" %>
+      					</ol>
+      					<ol>
+      						<%= f.password_field :password, class: "inputbox signupbox2", placeholder: "Password" %>
+      					</ol>
+      					<ol style="margin-top:15px;color:#999;margin-left:120px;">
+      						<% if devise_mapping.rememberable? -%>
+    						<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  							<% end %>
+      					</ol>
+      					<ol>
+      					<%= link_to "Forgot your password?", new_password_path(resource_name), class:"no_ajaxify", style:"margin-left:150px;" %>
+ 						</ol>
+						<ol style="margin-top: -35px; padding-left: 418px;">
+							<div id="submit">
+								<%= f.submit "SIGN IN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-blue" %>
+							</div>
+						</ol>
+					<div class="signupshow-signup" style="margin-top: -32px; margin-left: 180px;" id="signupshow-signup">
+						Sign Up
+					</div>							
+					<% end %>
+
+		</div><!-- end .signupshow-signin-form-->
+
+
+			</div><!-- end.center-->
+
+						<!-- Footer -->
+						<div style="padding: 0px 20px 18px 0;bottom:0;right:0;position:absolute;">
+						<%= render 'layouts/footer' %>
+						</div>
+
+		</section><!-- end.second window-->	
+
+<script>
+//Google Analytics Event Tracking
+$(document).ready(function() {
+	$('#signup-with-facebook-button-home').on('click', function() {
+  		ga('send', 'event', 'button', 'click', 'Signup');
+	});
+	$("#signupshow-signin").click(function() {
+		$("#signupshow-signup-form").hide();
+		$("#signupshow-signin-form").show();
+	});
+
+	$("#signupshow-signup").click(function() {
+		$("#signupshow-signup-form").show();
+		$("#signupshow-signin-form").hide();
+	});	
+
+});	
+
+</script>
+
+<% end %>		
 
 
 
