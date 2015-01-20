@@ -37,7 +37,6 @@
 //= require jquery.jplayer
 //= require flat.audio
 //= require pdfobject
-//= require static_pages.js
 //= require jquery.slides.min
 //= require_directory .
 //= require_directory ./redactor-rails
