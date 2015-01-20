@@ -220,7 +220,7 @@ $(document).ready(function() {
 
 	/*	Reveal Menu */
 	$('#header-botton-mobile').on(click, function(){
-		$('#header').removeClass('borderRadius');
+		//$('#mobile-header').removeClass('borderRadius');
 		if( !$('#mobile-content').hasClass('inactive') ){
 		
 			// Slide and scale content
@@ -240,7 +240,7 @@ $(document).ready(function() {
 	
 	/*	Close Menu */
 	function closeMenu() {
-		$('#header').addClass('borderRadius');
+		//$('#header').addClass('borderRadius');
 		// Slide and scale content
 		$('#mobile-content').removeClass('inactive flag');
 		

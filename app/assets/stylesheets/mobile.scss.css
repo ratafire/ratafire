@@ -20,6 +20,34 @@
 	padding: 0px;
 }
 
+
+body {
+    /* APPLE FONT --> font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif; */
+    font: 16px "Source Sans", helvetica, arial, sans-serif;
+  	font-weight: 200;
+    font-size:14px;
+    height:100%;
+    width:100%;
+    padding:0;
+	margin:0;
+	border:0;
+	position: fixed;
+	-webkit-transform:translate3d(0,0,0); /* Hardware aceleration */
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+
+h1{
+	color: rgb(51, 51, 51);
+}
+
 /* Prevents slides from flashing */
 #slides {
   display:none;
@@ -28,11 +56,13 @@
 }
 
 /*Header style*/
-#header {
+#mobile-header {
+	background-position: top;
+	background-image: url(/assets/navbarbg.png);
 	position:absolute; z-index:2;
 	top:0; left:0;
 	width:100%;
-	background: #248DC1;
+	
 	padding:0;
 	color:#eee;
 	font-size:14px;
@@ -54,15 +84,15 @@
     -webkit-border-bottom-left-radius: 0; 
 }
 
-.headerBack{
-	background-color: #000;
+.mobile-headerBack{
+
 	width: 100%;
 	height: 50px;
 	position:absolute;
 	padding:0;
 }
 
-#header .btn {
+#mobile-header .btn {
     position: absolute;
     top: 6px;
     left: 6px;
@@ -78,11 +108,11 @@ div.btn i,#posIcon{
 	width: 35px;
 }
 
-#header .btn:active {
+#mobile-header .btn:active {
 opacity: 0.5;
 }
 
-#header .location {
+#mobile-header .location {
     position: absolute;
     top: 6px;
     right: 6px;
@@ -93,7 +123,7 @@ opacity: 0.5;
 	border-radius: 100px;
 }
 
-#header .location:active {
+#mobile-header .location:active {
 opacity: 0.5;
 }
 
@@ -240,7 +270,7 @@ p.date{
 #mapCanvas label { width: auto; display:inline; }
 /* End map style */
 
-div#loading{
+div #loading{
 	margin-top: 30px;
 }
 
@@ -298,19 +328,20 @@ div.screen {
 	position: absolute;
 	overflow: hidden;
 	position: relative;
+
 }
 
 /*	Content */
-div.menu {
+div.mobile-menu {
 	position: absolute;
 	height: 100%; width: 100%;
-	background: url('../img/blur.jpg') no-repeat center center; 
+	background: url('/assets/mobile_background.jpg') no-repeat center center; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 }
-div.menu ul { 
+div.mobile-menu ul { 
 	width: 600px;
 	list-style: none; 
 	margin: 95px 0px 0px 45px;
@@ -318,7 +349,7 @@ div.menu ul {
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
 }
-div.menu li {
+div.mobile-menu li {
 	/*font-family: 'HelveticaNeue-UltraLight', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', sans-serif;*/
 	font-weight: 200;
 	font-size: 19px;
@@ -333,21 +364,21 @@ div.menu li {
 	-webkit-transform: translate3d(-150px, 0px, 0px) scale(0.2);
 	opacity: 0;
 }
-div.menu li.visible {
+div.mobile-menu li.visible {
 	-webkit-transform: translate3d(0px, 0px, 0px) scale(1);
 	opacity: 1;
 }
-div.menu li a {
+div.mobile-menu li a {
 	color: rgba(255,255,255,0.9);
 	text-decoration: none;
 }
 
-div.menu li a i{
+div.mobile-menu li a i{
 	width: 30px;
 	text-align: center;
 }
 
-div.menu li a span{
+div.mobile-menu li a span{
 	margin-left: 20px;
 }
 
@@ -355,15 +386,15 @@ li.active i.fa{
 	color: #58B1FC; !important;
 }
 
-.ulMenu .fa{
+.mobile-ulMenu .fa{
 	margin-right: 0 !important;
 }
 
-div.content {
+div.mobile-content {
 	position: absolute;
 	top: 0px; left: 0px;
 	height: 100%; width: 100%;
-	background: #fff ; 
+
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -375,13 +406,14 @@ div.content {
 	transition: all 300ms ease-in-out;
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
-
+background: rgba(240,240,240,0.7);
 
 }
-div.content.inactive {
+div.mobile-content.inactive {
 	cursor: pointer;
 	-webkit-transform: translate3d(160px, 0px, 0px) scale(0.7);
 	-moz-transform: translate3d(160px, 0px, 0px) scale(0.7);
 	-ms-transform: translate3d(160px, 0px, 0px) scale(0.7);
 	transform: translate3d(160px, 0px, 0px) scale(0.7);
+	border-radius: 20px;
 }
