@@ -16,6 +16,21 @@
 }
 
 
+.mobile-wrapper {
+    /* APPLE FONT --> font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif; */
+    font: 16px "Source Sans", helvetica, arial, sans-serif;
+  	font-weight: 200;
+    font-size:14px;
+    height:100%;
+    width:100%;
+    padding:0;
+	margin:0;
+	border:0;
+	position: fixed;
+	-webkit-transform:translate3d(0,0,0); /* Hardware aceleration */
+}
+
+
 
 /* Prevents slides from flashing */
 #slides {
