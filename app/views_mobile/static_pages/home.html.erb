@@ -10,30 +10,34 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
-<div class="mobile-post-content-holder">	
-	<%= image_tag("ratatoskr_mobile.jpg",class:"mobile-ratatoskr") %>
-	<div class="btn-mobile btn-mobile-green home-mobile-signin">Sign In</div>
-</div><!-- end.mobile-post-content-->	
 
-<!-- Bullets-->
-<div class="mobile-post-content">
-	<div class="mobile-home-bullets">
-		<ol>Post and collaborate on projects</ol>
-		<ol>Discover the best in new ideas, art and research</ol>
-		<ol>Support creatives and researchers with monthly subscriptions</ol>
-	</div>	
-</div><!-- end.mobile-post-content-->
+	<div class="screen">
+		<div class="menu">
+			<ul class="ulMenu">
+				<li><a href="javascript:menu('1');" ><i class="fa fa-home"></i><span>Home</span></a></li>
+				<li><a href="javascript:menu('2');"><i class="fa fa-info"></i><span>About Us</span></a></li>
+				<li><a href="javascript:menu('3');"><i class="fa fa-file-text-o"></i><span>Blog</span></a></li>
+				<li><a href="javascript:menu('4');"><i class="fa fa-picture-o"></i><span>Gallery</span></a></li>
+				<li><a href="javascript:menu('5');"><i class="fa fa-map-marker"></i><span>Contact</span></a></li>
+			</ul>
+		</div><!-- class .menu -->
+		<div class="content tipsy-tipsy" title="Hello" id="mobile-content">
+			<div id="body">
+				<div class="headerBack">
+					<div id="header" class="borderRadius">
+						<a class="button" id="header-botton-mobile" href="#"><div class="btn"><i class="fa fa-reorder"></i></div></a>
+						<h1 class="sectionTitle"></h1>
+						<a id="location" style="display:none;" href="javascript:alert('Button only')">
+							<div class="location"><i id="posIcon" class="fa fa-location-arrow"></i></div>
+						</a>
+					</div>
+				</div>
+				<div id="wrapper">
+					<div class="scroller">
+						<div id="sectionContent"></div>
+					</div>
+				</div>
+			</div>
+		</div><!-- class .content -->
+	</div><!-- end .screen -->
 
-<!-- Video -->
-<%= link_to "https://www.youtube.com/watch?v=4GMOwlDCspM", target:"_blank" do %>
-<div class="mobile-post-content-holder">
-	<%= image_tag("mobile_home_video.jpg",class:"mobile-home-video")%>
-</div>	
-<% end %>
-
-<!-- Under Construction -->
-<div class="mobile-post-content2" >
-	<div class="mobile-home-bullets" style="font-size:1.2em;line-height:1.5em;">
-		Our mobile site is under construction. To start using Ratafire, please visit our full site with a desktop!
-	</div>	
-</div>	
