@@ -14,6 +14,16 @@ $(document).ready(function() {
 		$("#signupshow-signin-form").hide();
 	});	
 
+	$("#signup-hide").click(function() {
+		$("#signupshow-holder").hide();
+		$("#signupshow-holder-small").show();
+	});
+
+	$("#signup-show").click(function() {
+		$("#signupshow-holder").show();
+		$("#signupshow-holder-small").hide();
+	});
+
 });	
 
 </script>
@@ -22,7 +32,7 @@ $(document).ready(function() {
 
 		<div class="signupshow-wrapper">	
 
-
+		<div class="btn-arrow-down" id="signup-hide"></div>
 			
 		<div class="signupshow-title">Be a part of the future of research and art
 		</div>
@@ -109,4 +119,11 @@ $(document).ready(function() {
 	</div><!-- end .signupshow-wrapper-->	
 </div><!-- end .signupshow-holder-->	
 
+<div class="signupshow-holder-small" id="signupshow-holder-small">
+	<div class="signupshow-wrapper">
+		<div class="btn-arrow-up" id="signup-show"></div>
+		<div class="signupshow-title" style="font-size:1.2em;width:800px;">Be a part of the future of research and art. Sign up to start using Ratafire.
+		</div>	
+	</div>	
+</div>	
 	
