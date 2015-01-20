@@ -1,0 +1,39 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:title", content: "Ratafire" %>
+		<%= tag :meta, property: "og:description", content: "Be a part of the future of research and art." %>
+		<a style="display:none;"href="https://plus.google.com/108376636120204861351" rel="publisher">Google+</a>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="mobile-post-content-holder">	
+	<%= image_tag("ratatoskr_mobile.jpg",class:"mobile-ratatoskr") %>
+	<div class="btn-mobile btn-mobile-green home-mobile-signin">Sign In</div>
+</div><!-- end.mobile-post-content-->	
+
+<!-- Bullets-->
+<div class="mobile-post-content">
+	<div class="mobile-home-bullets">
+		<ol>Post and collaborate on projects</ol>
+		<ol>Discover the best in new ideas, art and research</ol>
+		<ol>Support creatives and researchers with monthly subscriptions</ol>
+	</div>	
+</div><!-- end.mobile-post-content-->
+
+<!-- Video -->
+<%= link_to "https://www.youtube.com/watch?v=4GMOwlDCspM", target:"_blank" do %>
+<div class="mobile-post-content-holder">
+	<%= image_tag("mobile_home_video.jpg",class:"mobile-home-video")%>
+</div>	
+<% end %>
+
+<!-- Under Construction -->
+<div class="mobile-post-content2" >
+	<div class="mobile-home-bullets" style="font-size:1.2em;line-height:1.5em;">
+		Our mobile site is under construction. To start using Ratafire, please visit our full site with a desktop!
+	</div>	
+</div>	

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+  		<title><%= full_title(yield(:title)) %></title>
+  		<%= stylesheet_link_tag    "application", :media => "all" %>
+  		<%= csrf_meta_tags %>
+  		<%= javascript_include_tag "application" %>
+  		<%= render 'layouts/shim' %>
+
+	</head>
+	
+	<!-- background -->	
+	<div class="background-special-grey">	
+	</div>	
+
+	<!-- Header -->
+	<header class="navbar-mobile">
+		<div class="navbar-inner-mobile">
+			<%= link_to '', root_path, class:"btn btn-logo no_ajaxify btn-logo-mobile" %>
+
+			<!-- Searchbox -->
+			<div class="searchbox-top-holder-mobile">
+				<%= form_tag search_path, method: :get, :class => 'no_ajaxify' do %>
+					<div class="searchbox-holder-mobile">
+						<%= text_field_tag :search, params[:search], class:"inputbox search-box-mobile", placeholder:"Search..."%>
+						<%= submit_tag "", name: nil, class:"btn btn-search-mobile", style:"width: 13px !important;"%>
+					</div>
+				<% end %>
+			</div>	
+
+		</div><!-- end.navbar-inner-mobile-->	
+	</header>	
+
+	<body style="min-width:200px !important;">
+		<%= yield %>
+	</body>
+</html>
