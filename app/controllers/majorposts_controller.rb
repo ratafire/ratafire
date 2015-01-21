@@ -1,6 +1,7 @@
 class MajorpostsController < ApplicationController
 	layout "application"
 	#autocomplete :tag_list, :name
+	before_filter :check_for_mobile
 
 	def create
 		@project = Project.find(params[:id])

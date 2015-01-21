@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
 	require 'will_paginate/array'
 	before_filter :assigned_user, only: [:newmajorpost]
 	before_filter :project_creator_and_admin, only: [:edit, :settings, :destroy]
+	before_filter :check_for_mobile
 
 	rescue_from "Mechanize::ResponseCodeError", with: :source_code_parser_404
 

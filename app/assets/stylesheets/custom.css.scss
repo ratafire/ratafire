@@ -7844,67 +7844,7 @@ top: 13px;
 	border: 1px solid rgba(34,151,206,1);
 	border-bottom: 1px solid rgba(30,135,185,1);
 }
-/*--- Nav Bar Mobile ---*/
 
-.navbar-mobile {
-
-	z-index: 10000;
-	width: 100%;
-    height: auto !important;
-    height: 100%;
-}
-
-.navbar-inner-mobile {
-	padding: 11px 0 0 0;
-	min-height: 50px;
-	width: 100%;
-	background-position: top;
-	background-image: url(/assets/navbarbg.png);
-	background-repeat: repeat-x;
-}
-
-.searchbox-top-holder-mobile{
-		width: auto;
-	margin-left: 48px;
-	margin-right: 11px;
-	position: relative;
-	z-index: 2000;
-
-}
-
-.searchbox-holder-mobile{
-		margin: -34px 0 0 0px;
-	display: auto;
-	z-index: 1;
-}
-
-.search-box-mobile{
-	height: 24px;	
-	width: 235px;
-	vertical-align:top;
-
-	/* Font */
-	font-size: 1em;
-
-	/* Box */
-	-webkit-box-shadow: inset 1px 2px 2px 0px #e6e6e6;
-	-moz-box-shadow: inset 2px 2px 2px 0px #e6e6e6;
-	border: 1px solid #cfcfcf;
-	background-color: #fff;
-	width: 90%;
-	-webkit-box-shadow: inset 1px 2px 2px 0px #e2e2e2;
-	-moz-box-shadow: inset 2px 2px 2px 0px #e2e2e2;	
-}
-
-.btn-search-mobile{
-	width: 13px !important;
-	height: 13px !important;
-	position: absolute;
-	z-index: 3;
-	display: absolute;
-	margin: 7px 0 0 -20px;
-	background-image: url(/assets/searchicon.png);	
-}
 
 /*-- Mobile Home ---*/
 .ratafire-logo-mobile{
@@ -7912,6 +7852,7 @@ top: 13px;
 	height: 25px;
 	background-image: url(/assets/ratafire_mobile.png);
 	margin: 0 auto;
+	margin-top: 11px;
 }
 
 .mobile-post-content{

@@ -17,6 +17,7 @@
 *= require video-js
 *= require jquery.fileupload-ui
 *= require monokai
+*= require font-awesome
 *= require dataTables/src/demo_table_jui
 *= require flat.audio
 *= require flat2.audio

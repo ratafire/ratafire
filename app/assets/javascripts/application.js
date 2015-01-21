@@ -32,11 +32,13 @@
 //= require dataTables/jquery.dataTables
 //= require s3_direct_upload
 //= require rails.validations
+//= require iscroll
 //= require youtube
 //= require rails.validations.nested_form
 //= require jquery.jplayer
 //= require flat.audio
 //= require pdfobject
+//= require mobile
 //= require jquery.slides.min
 //= require_directory .
 //= require_directory ./redactor-rails

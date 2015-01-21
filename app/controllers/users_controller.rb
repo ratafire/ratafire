@@ -11,6 +11,7 @@ protect_from_forgery :except => [:create_profilephoto]
 				only: [:index, :edit, :settings, :goals, :destroy]
   before_filter :correct_user,   only: [:edit, :settings, :goals, :photo]
   before_filter :admin_user,     only: :destroy
+  before_filter :check_for_mobile
 
   def no_sign_up
 	flash[:info] = 'Registrations are not open yet, try sign up for beta instead.'
