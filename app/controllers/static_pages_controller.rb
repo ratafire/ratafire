@@ -8,6 +8,7 @@ class StaticPagesController < ApplicationController
   def home
     @activities = PublicActivity::Activity.order("commented_at desc").where(:featured_home => true).paginate(page: params[:page], :per_page => 3)
   	@user = current_user
+    @featured_user = User.find(3)
   	unless signed_in?
     else
       redirect_to @user

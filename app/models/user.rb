@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :username
 
+	after_create :create_tutorial
+
 	#Messaging
 	acts_as_messageable
 
@@ -320,6 +322,13 @@ class User < ActiveRecord::Base
   # Queue file processing
   def queue_processing
     User.transfer_and_cleanup(id)
+  end
+
+  # Create Tutorial
+  def create_tutorial
+		tutorial = Tutorial.new
+		tutorial.user_id = self.id 
+		tutorial.save
   end
 
 	private

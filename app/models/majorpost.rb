@@ -68,7 +68,7 @@ class Majorpost < ActiveRecord::Base
     #VALID_TITLE_REGEX = /^[a-z\d\-\:\s]+$/i #alphanumeric, -, or space
     validates_presence_of :title, :message => "'_'"
     #validates_length_of :title, :minimum => 6, :message => "Title must be at least 6 characters long."
-    validates_length_of :title, :maximum => 60, :message => "is too long! Maximum 60 characters."
+    validates_length_of :title, :maximum => 100, :message => "is too long! Maximum 60 characters."
     #validates_format_of :title, with: VALID_TITLE_REGEX, :message => "Alphanumerics, -,: , and space only."
     validates_uniqueness_of :title, :scope => :project_id, :message => "Title repeated."
 
