@@ -1,0 +1,538 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide("Create a discussion") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<html style="background: url(/assets/realmbg.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+       -o-background-size: cover;
+      background-size: cover;">
+
+    <%= form_for [@discussion], :url => discussion_update_path(@discussion),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f| %>
+    	<%= f.hidden_field :realm, id:"realm-selector" %>
+   	<% end %>  
+
+	<!-- Main Content -->
+	<div class="center" style="width: 790px;margin-top:60px;">
+		<!-- Post Content -->
+		<div class="realm-main">
+			<!-- Select a Realm Title -->
+			<div class="post-about-bg">
+				<div class="textbox-mini">
+					<div class="post-about-title">
+						<li style="font-size: 1.4em;">Create a Discussion</li>
+					</div>	
+				</div>	
+			</div>	
+
+			<!-- Greetings -->
+			<div class="lightbox5" style="color:#777;">
+				<div class="textbox-mini">
+					You are about to create a discussion thread for everyone on Ratafire. A discussion thread will allow Ratafirers to discuss a topic in depth and share knowledge. Please select from the following nine realms a general topic of the discussion. 
+					<li style="text-align:right;width:90%;">-- Ratatoskr</li>
+				</div>
+			</div>	
+
+			<!-- Nine Realms -->
+			<div class="archive-case-majorpost">
+
+				<!-- Art Sidebar -->
+				<div class="archive-sidebar" style="border-radius: 0 0 0 5px;" id="realm-art-sidebar">
+					<ol class="archive-sidebar-active btn-art">Art</ol>
+					<ol class="btn-music">Music</ol>
+					<ol class="btn-games">Games</ol>
+					<ol class="btn-writing">Writing</ol>
+					<ol class="btn-videos">Films & Videos</ol>
+					<ol class="btn-math">Math</ol>
+					<ol class="btn-science">Research: Science</ol>
+					<ol class="btn-humanity">Research: Humanity</ol>
+					<ol class="btn-majorpost-bottom btn-engineering">Engineering</ol>
+				</div><!-- end:.archive-sidebar -->	
+
+				<!-- Music Sidebar -->
+				<div class="archive-sidebar" style="border-radius: 0 0 0 5px;" id="realm-music-sidebar">
+					<ol class="btn-art">Art</ol>
+					<ol class="archive-sidebar-active btn-music">Music</ol>
+					<ol class="btn-games">Games</ol>
+					<ol class="btn-writing">Writing</ol>
+					<ol class="btn-videos">Films & Videos</ol>
+					<ol class="btn-math">Math</ol>
+					<ol class="btn-science">Research: Science</ol>
+					<ol class="btn-humanity">Research: Humanity</ol>
+					<ol class="btn-majorpost-bottom btn-engineering">Engineering</ol>
+				</div><!-- end:.archive-sidebar -->	
+
+				<!-- Games Sidebar -->
+				<div class="archive-sidebar" style="border-radius: 0 0 0 5px;" id="realm-games-sidebar">
+					<ol class="btn-art">Art</ol>
+					<ol class="btn-music">Music</ol>
+					<ol class="archive-sidebar-active btn-games">Games</ol>
+					<ol class="btn-writing">Writing</ol>
+					<ol class="btn-videos">Films & Videos</ol>
+					<ol class="btn-math">Math</ol>
+					<ol class="btn-science">Research: Science</ol>
+					<ol class="btn-humanity">Research: Humanity</ol>
+					<ol class="btn-majorpost-bottom btn-engineering">Engineering</ol>
+				</div><!-- end:.archive-sidebar -->	
+
+				<!-- Writing Sidebar -->
+				<div class="archive-sidebar" style="border-radius: 0 0 0 5px;" id="realm-writing-sidebar">
+					<ol class="btn-art">Art</ol>
+					<ol class="btn-music">Music</ol>
+					<ol class="btn-games">Games</ol>
+					<ol class="archive-sidebar-active btn-writing">Writing</ol>
+					<ol class="btn-videos">Films & Videos</ol>
+					<ol class="btn-math">Math</ol>
+					<ol class="btn-science">Research: Science</ol>
+					<ol class="btn-humanity">Research: Humanity</ol>
+					<ol class="btn-majorpost-bottom btn-engineering">Engineering</ol>
+				</div><!-- end:.archive-sidebar -->	
+
+				<!-- Videos Sidebar -->
+				<div class="archive-sidebar" style="border-radius: 0 0 0 5px;" id="realm-videos-sidebar">
+					<ol class="btn-art">Art</ol>
+					<ol class="btn-music">Music</ol>
+					<ol class="btn-games">Games</ol>
+					<ol class="btn-writing">Writing</ol>
+					<ol class="archive-sidebar-active btn-videos">Films & Videos</ol>
+					<ol class="btn-math">Math</ol>
+					<ol class="btn-science">Research: Science</ol>
+					<ol class="btn-humanity">Research: Humanity</ol>
+					<ol class="btn-majorpost-bottom btn-engineering">Engineering</ol>
+				</div><!-- end:.archive-sidebar -->	
+
+				<!-- Math Sidebar -->
+				<div class="archive-sidebar" style="border-radius: 0 0 0 5px;" id="realm-math-sidebar">
+					<ol class="btn-art">Art</ol>
+					<ol class="btn-music">Music</ol>
+					<ol class="btn-games">Games</ol>
+					<ol class="btn-writing">Writing</ol>
+					<ol class="btn-videos">Films & Videos</ol>
+					<ol class="archive-sidebar-active btn-math">Math</ol>
+					<ol class="btn-science">Research: Science</ol>
+					<ol class="btn-humanity">Research: Humanity</ol>
+					<ol class="btn-majorpost-bottom btn-engineering">Engineering</ol>
+				</div><!-- end:.archive-sidebar -->	
+
+				<!-- Science Sidebar -->
+				<div class="archive-sidebar" style="border-radius: 0 0 0 5px;" id="realm-science-sidebar">
+					<ol class="btn-art">Art</ol>
+					<ol class="btn-music">Music</ol>
+					<ol class="btn-games">Games</ol>
+					<ol class="btn-writing">Writing</ol>
+					<ol class="btn-videos">Films & Videos</ol>
+					<ol class="btn-math">Math</ol>
+					<ol class="archive-sidebar-active btn-science">Research: Science</ol>
+					<ol class="btn-humanity">Research: Humanity</ol>
+					<ol class="btn-majorpost-bottom btn-engineering">Engineering</ol>
+				</div><!-- end:.archive-sidebar -->	
+
+				<!-- Humanity Sidebar -->
+				<div class="archive-sidebar" style="border-radius: 0 0 0 5px;" id="realm-humanity-sidebar">
+					<ol class="btn-art">Art</ol>
+					<ol class="btn-music">Music</ol>
+					<ol class="btn-games">Games</ol>
+					<ol class="btn-writing">Writing</ol>
+					<ol class="btn-videos">Films & Videos</ol>
+					<ol class="btn-math">Math</ol>
+					<ol class="btn-science">Research: Science</ol>
+					<ol class="archive-sidebar-active btn-humanity">Research: Humanity</ol>
+					<ol class="btn-majorpost-bottom btn-engineering">Engineering</ol>
+				</div><!-- end:.archive-sidebar -->	
+
+				<!-- Engineering Sidebar -->
+				<div class="archive-sidebar" style="border-radius: 0 0 0 5px;" id="realm-engineering-sidebar">
+					<ol class="btn-art">Art</ol>
+					<ol class="btn-music">Music</ol>
+					<ol class="btn-games">Games</ol>
+					<ol class="btn-writing">Writing</ol>
+					<ol class="btn-videos">Films & Videos</ol>
+					<ol class="btn-math">Math</ol>
+					<ol class="btn-science">Research: Science</ol>
+					<ol class="btn-humanity">Research: Humanity</ol>
+					<ol class="archive-sidebar-active btn-majorpost-bottom btn-engineering">Engineering</ol>
+				</div><!-- end:.archive-sidebar -->	
+
+				<!-- Art Content -->
+				<div class="realm-box" id="realm-art-case">
+					<div class="add-contributors-title">
+						<div class="realm-image" style="background-image:url(/assets/art.png);"></div>
+						<div class="realm-content">
+							<h1>Art</h1>
+							<h2>Primarily the visual arts</h2>
+							<span>"Painting is poetry that is seen rather than felt, and poetry is painting that is felt rather than seen." - Leonardo da Vinci</span>
+						</div>
+						<div style="margin: 148px 15px 0 0; text-align:right;">
+							<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="art">Enter</div>
+						</div>
+					</div>
+				</div><!-- end:.realm-box-->
+
+				<!-- Music Content -->
+				<div class="realm-box" id="realm-music-case">
+					<div class="add-contributors-title">
+						<div class="realm-image" style="background-image:url(/assets/music.png);"></div>
+						<div class="realm-content">
+							<h1>Music</h1>
+							<h2>All forms of music</h2>
+							<span>"The music is not in the notes, but in the silence between."</span>
+							<ul style="margin-left:30px;">- Wolfgang Amadeus Mozart</ul>
+						</div>
+						<div style="margin: 148px 15px 0 0; text-align:right;">
+							<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="music">Enter</div>
+						</div>
+					</div>
+				</div><!-- end:.realm-box-->
+
+				<!-- Games Content -->
+				<div class="realm-box" id="realm-games-case">
+					<div class="add-contributors-title">
+						<div class="realm-image" style="background-image:url(/assets/games.png);"></div>
+						<div class="realm-content">
+							<h1>Games</h1>
+							<h2>Primarily video games</h2>
+							<span>"Great games are played not made. You have to play your own game a ton and revise it."</span>
+							<ul style="margin-left:120px;">- Todd Howard</ul>
+						</div>
+						<div style="margin: 148px 15px 0 0; text-align:right;">
+							<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="games">Enter</div>
+						</div>
+					</div>
+				</div><!-- end:.realm-box-->
+
+				<!-- Writing Content -->
+				<div class="realm-box" id="realm-writing-case">
+					<div class="add-contributors-title">
+						<div class="realm-image" style="background-image:url(/assets/writing.png);"></div>
+						<div class="realm-content">
+							<h1>Writing</h1>
+							<h2>Poetry and prose</h2>
+							<span>"He who kills a man kills a reasonable creature... but he who destroys a good book, kills reason itself." - John Milton</span>
+						</div>
+						<div style="margin: 148px 15px 0 0; text-align:right;">
+							<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="writing">Enter</div>
+						</div>
+					</div>
+				</div><!-- end:.realm-box-->
+
+				<!-- Videos Content -->
+				<div class="realm-box" id="realm-videos-case">
+					<div class="add-contributors-title">
+						<div class="realm-image" style="background-image:url(/assets/filmsandvideos.png);"></div>
+						<div class="realm-content">
+							<h1>Films & Videos</h1>
+							<h2>Videos and films</h2>
+							<span>"The most honest form of filmmaking is to make a film for yourself."</span>
+							<ul style="margin-left:80px;">- Peter Jackson</ul>
+						</div>
+						<div style="margin: 148px 15px 0 0; text-align:right;">
+							<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="films & videos">Enter</div>
+						</div>
+					</div>
+				</div><!-- end:.realm-box-->
+
+				<!-- Math Content -->
+				<div class="realm-box" id="realm-math-case">
+					<div class="add-contributors-title">
+						<div class="realm-image" style="background-image:url(/assets/math.png);"></div>
+						<div class="realm-content">
+							<h1>Math</h1>
+							<h2>Math projects</h2>
+							<span>"The laws of nature are but the mathematical thoughts of God."</span>
+							<ul style="margin-left:135px;">- Euclid</ul>
+						</div>
+						<div style="margin: 148px 15px 0 0; text-align:right;">
+							<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="math">Enter</div>
+						</div>
+					</div>
+				</div><!-- end:.realm-box-->
+
+				<!-- Science Content -->
+				<div class="realm-box" id="realm-science-case">
+					<div class="add-contributors-title">
+						<div class="realm-image" style="background-image:url(/assets/science.png);"></div>
+						<div class="realm-content">
+							<h1>Research: Science</h1>
+							<h2>Research only</h2>
+							<span>"Amicus Plato — amicus Aristoteles — magis amica veritas." - Sir Isaac Newton</span>
+						</div>
+						<div style="margin: 148px 15px 0 0; text-align:right;">
+							<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="Research: Science">Enter</div>
+						</div>
+					</div>
+				</div><!-- end:.realm-box-->
+
+				<!-- Humanity Content -->
+				<div class="realm-box" id="realm-humanity-case">
+					<div class="add-contributors-title">
+						<div class="realm-image" style="background-image:url(/assets/human.png);"></div>
+						<div class="realm-content">
+							<h1>Research: Humanity</h1>
+							<h2>Research only</h2>
+							<span>"Freedom is the freedom to say that two plus two make four. If that is granted, all else follows."</span>
+							<ul style="margin-left:115px;">- George Orwell</ul>
+						</div>
+						<div style="margin: 148px 15px 0 0; text-align:right;">
+							<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="Research: Humanity">Enter</div>
+						</div>
+					</div>
+				</div><!-- end:.realm-box-->
+
+				<!-- Engineering Content -->
+				<div class="realm-box" id="realm-engineering-case">
+					<div class="add-contributors-title">
+						<div class="realm-image" style="background-image:url(/assets/engineering.png);"></div>
+						<div class="realm-content">
+							<h1>Engineering</h1>
+							<h2>All forms of engineering</h2>
+							<span>"Machines take me by surprise with great frequency."</span>
+							<ul style="margin-left:135px;">- Alan Turing</ul>
+						</div>
+						<div style="margin: 148px 15px 0 0; text-align:right;">
+							<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="engineering">Enter</div>
+						</div>
+					</div>
+				</div><!-- end:.realm-box-->
+
+			</div><!-- end:.archive-case-majorpost-->
+		</div><!-- end:.post-content-->	
+	</div><!-- end:.main-content-project-->	
+</html>	
+<script>
+	//art
+	$(".btn-art").hover(function(){
+		$("#realm-art-sidebar").show();
+		$("#realm-art-case").show();
+		$("#realm-music-sidebar").hide();
+		$("#realm-music-case").hide();
+		$("#realm-games-sidebar").hide();
+		$("#realm-games-case").hide();		
+		$("#realm-writing-sidebar").hide();
+		$("#realm-writing-case").hide();
+		$("#realm-videos-sidebar").hide();
+		$("#realm-videos-case").hide();
+		$("#realm-math-sidebar").hide();
+		$("#realm-math-case").hide();	
+		$("#realm-science-sidebar").hide();
+		$("#realm-science-case").hide();
+		$("#realm-humanity-sidebar").hide();
+		$("#realm-humanity-case").hide();
+		$("#realm-engineering-sidebar").hide();
+		$("#realm-engineering-case").hide();
+		$("#realm-selector").val("art");																		
+	});
+
+	//music
+	$(".btn-music").hover(function(){
+		$("#realm-art-sidebar").hide();
+		$("#realm-art-case").hide();
+		$("#realm-music-sidebar").show();
+		$("#realm-music-case").show();
+		$("#realm-games-sidebar").hide();
+		$("#realm-games-case").hide();		
+		$("#realm-writing-sidebar").hide();
+		$("#realm-writing-case").hide();
+		$("#realm-videos-sidebar").hide();
+		$("#realm-videos-case").hide();
+		$("#realm-math-sidebar").hide();
+		$("#realm-math-case").hide();	
+		$("#realm-science-sidebar").hide();
+		$("#realm-science-case").hide();
+		$("#realm-humanity-sidebar").hide();
+		$("#realm-humanity-case").hide();
+		$("#realm-engineering-sidebar").hide();
+		$("#realm-engineering-case").hide();	
+		$("#realm-selector").val("music");		
+	});	
+
+	//games
+	$(".btn-games").hover(function(){
+		$("#realm-art-sidebar").hide();
+		$("#realm-art-case").hide();
+		$("#realm-music-sidebar").hide();
+		$("#realm-music-case").hide();
+		$("#realm-games-sidebar").show();
+		$("#realm-games-case").show();		
+		$("#realm-writing-sidebar").hide();
+		$("#realm-writing-case").hide();
+		$("#realm-videos-sidebar").hide();
+		$("#realm-videos-case").hide();
+		$("#realm-math-sidebar").hide();
+		$("#realm-math-case").hide();	
+		$("#realm-science-sidebar").hide();
+		$("#realm-science-case").hide();
+		$("#realm-humanity-sidebar").hide();
+		$("#realm-humanity-case").hide();
+		$("#realm-engineering-sidebar").hide();
+		$("#realm-engineering-case").hide();	
+		$("#realm-selector").val("games");		
+	});	
+
+	//writing
+	$(".btn-writing").hover(function(){
+		$("#realm-art-sidebar").hide();
+		$("#realm-art-case").hide();
+		$("#realm-music-sidebar").hide();
+		$("#realm-music-case").hide();
+		$("#realm-games-sidebar").hide();
+		$("#realm-games-case").hide();		
+		$("#realm-writing-sidebar").show();
+		$("#realm-writing-case").show();
+		$("#realm-videos-sidebar").hide();
+		$("#realm-videos-case").hide();
+		$("#realm-math-sidebar").hide();
+		$("#realm-math-case").hide();	
+		$("#realm-science-sidebar").hide();
+		$("#realm-science-case").hide();
+		$("#realm-humanity-sidebar").hide();
+		$("#realm-humanity-case").hide();
+		$("#realm-engineering-sidebar").hide();
+		$("#realm-engineering-case").hide();	
+		$("#realm-selector").val("writing");		
+	});	
+
+	//videos
+	$(".btn-videos").hover(function(){
+		$("#realm-art-sidebar").hide();
+		$("#realm-art-case").hide();
+		$("#realm-music-sidebar").hide();
+		$("#realm-music-case").hide();
+		$("#realm-games-sidebar").hide();
+		$("#realm-games-case").hide();		
+		$("#realm-writing-sidebar").hide();
+		$("#realm-writing-case").hide();
+		$("#realm-videos-sidebar").show();
+		$("#realm-videos-case").show();
+		$("#realm-math-sidebar").hide();
+		$("#realm-math-case").hide();	
+		$("#realm-science-sidebar").hide();
+		$("#realm-science-case").hide();
+		$("#realm-humanity-sidebar").hide();
+		$("#realm-humanity-case").hide();
+		$("#realm-engineering-sidebar").hide();
+		$("#realm-engineering-case").hide();	
+		$("#realm-selector").val("videos");		
+	});	
+
+	//Math
+	$(".btn-math").hover(function(){
+		$("#realm-art-sidebar").hide();
+		$("#realm-art-case").hide();
+		$("#realm-music-sidebar").hide();
+		$("#realm-music-case").hide();
+		$("#realm-games-sidebar").hide();
+		$("#realm-games-case").hide();		
+		$("#realm-writing-sidebar").hide();
+		$("#realm-writing-case").hide();
+		$("#realm-videos-sidebar").hide();
+		$("#realm-videos-case").hide();
+		$("#realm-math-sidebar").show();
+		$("#realm-math-case").show();	
+		$("#realm-science-sidebar").hide();
+		$("#realm-science-case").hide();
+		$("#realm-humanity-sidebar").hide();
+		$("#realm-humanity-case").hide();
+		$("#realm-engineering-sidebar").hide();
+		$("#realm-engineering-case").hide();	
+		$("#realm-selector").val("math");		
+	});	
+
+	//Science
+	$(".btn-science").hover(function(){
+		$("#realm-art-sidebar").hide();
+		$("#realm-art-case").hide();
+		$("#realm-music-sidebar").hide();
+		$("#realm-music-case").hide();
+		$("#realm-games-sidebar").hide();
+		$("#realm-games-case").hide();		
+		$("#realm-writing-sidebar").hide();
+		$("#realm-writing-case").hide();
+		$("#realm-videos-sidebar").hide();
+		$("#realm-videos-case").hide();
+		$("#realm-math-sidebar").hide();
+		$("#realm-math-case").hide();	
+		$("#realm-science-sidebar").show();
+		$("#realm-science-case").show();
+		$("#realm-humanity-sidebar").hide();
+		$("#realm-humanity-case").hide();
+		$("#realm-engineering-sidebar").hide();
+		$("#realm-engineering-case").hide();	
+		$("#realm-selector").val("science");		
+	});	
+
+	//Humanity
+	$(".btn-humanity").hover(function(){
+		$("#realm-art-sidebar").hide();
+		$("#realm-art-case").hide();
+		$("#realm-music-sidebar").hide();
+		$("#realm-music-case").hide();
+		$("#realm-games-sidebar").hide();
+		$("#realm-games-case").hide();		
+		$("#realm-writing-sidebar").hide();
+		$("#realm-writing-case").hide();
+		$("#realm-videos-sidebar").hide();
+		$("#realm-videos-case").hide();
+		$("#realm-math-sidebar").hide();
+		$("#realm-math-case").hide();	
+		$("#realm-science-sidebar").hide();
+		$("#realm-science-case").hide();
+		$("#realm-humanity-sidebar").show();
+		$("#realm-humanity-case").show();
+		$("#realm-engineering-sidebar").hide();
+		$("#realm-engineering-case").hide();	
+		$("#realm-selector").val("humanity");		
+	});	
+
+	//Engineering
+	$(".btn-engineering").hover(function(){
+		$("#realm-art-sidebar").hide();
+		$("#realm-art-case").hide();
+		$("#realm-music-sidebar").hide();
+		$("#realm-music-case").hide();
+		$("#realm-games-sidebar").hide();
+		$("#realm-games-case").hide();		
+		$("#realm-writing-sidebar").hide();
+		$("#realm-writing-case").hide();
+		$("#realm-videos-sidebar").hide();
+		$("#realm-videos-case").hide();
+		$("#realm-math-sidebar").hide();
+		$("#realm-math-case").hide();	
+		$("#realm-science-sidebar").hide();
+		$("#realm-science-case").hide();
+		$("#realm-humanity-sidebar").hide();
+		$("#realm-humanity-case").hide();
+		$("#realm-engineering-sidebar").show();
+		$("#realm-engineering-case").show();		
+		$("#realm-selector").val("engineering");	
+	});					
+
+	//Enter
+	$(".enter").click(function(){
+		var realm = this.id;	
+		showConfirmDialog2(realm);
+		return false;
+	});			
+
+		showConfirmDialog2 = function(realm) {
+		
+  html = "<div id=\"dialog-confirm\" title=\"Confirmation\">\n  <p>" + "You are choosing <b>" + realm + " </b>as the realm for this discussion." + "</p>\n</div>";
+  return $(html).dialog({
+    resizable: false,
+    modal: true,
+    buttons: {
+        Cancel: function() {
+        return $(this).dialog("close");
+      },
+      OK: function() {
+        $("#project-form").submit();
+        return $(this).dialog("close");
+      }
+
+    }
+  });
+
+};	
+</script>	

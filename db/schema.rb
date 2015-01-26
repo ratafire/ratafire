@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150115091056) do
+ActiveRecord::Schema.define(:version => 20150124233905) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -139,6 +139,20 @@ ActiveRecord::Schema.define(:version => 20150115091056) do
   add_index "artworks", ["processed"], :name => "index_artworks_on_processed"
   add_index "artworks", ["user_id"], :name => "index_artworks_on_user_id"
 
+  create_table "assigned_discussion_threads", :force => true do |t|
+    t.integer  "assigned_discussion_id"
+    t.integer  "user_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  create_table "assigned_discussions", :force => true do |t|
+    t.integer  "discussion_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "assigned_projects", :force => true do |t|
     t.integer  "project_id"
     t.integer  "user_id"
@@ -259,6 +273,62 @@ ActiveRecord::Schema.define(:version => 20150115091056) do
     t.string   "oauth_token"
     t.string   "oauth_token_expires_at"
     t.string   "link"
+  end
+
+  create_table "discussion_threads", :force => true do |t|
+    t.string   "title"
+    t.text     "excerpt"
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "thread_count"
+    t.integer  "level",           :default => 1
+    t.string   "slug"
+    t.boolean  "published"
+    t.string   "perlink"
+    t.string   "edit_permission", :default => "free"
+    t.datetime "deleted_at"
+    t.boolean  "deleted",         :default => false
+    t.boolean  "featured"
+    t.string   "uuid"
+    t.boolean  "test"
+    t.datetime "published_at"
+    t.datetime "commented_at"
+    t.boolean  "early_access"
+    t.string   "topic"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "realm"
+    t.string   "sub_realm"
+    t.integer  "creator_id"
+    t.boolean  "complete",        :default => false
+  end
+
+  create_table "discussions", :force => true do |t|
+    t.string   "title"
+    t.text     "excerpt"
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "thread_count"
+    t.string   "slug"
+    t.boolean  "published"
+    t.string   "perlink"
+    t.string   "edit_permission", :default => "free"
+    t.datetime "deleted_at"
+    t.boolean  "deleted",         :default => false
+    t.boolean  "featured"
+    t.string   "uuid"
+    t.boolean  "test"
+    t.datetime "published_at"
+    t.datetime "commented_at"
+    t.boolean  "early_access"
+    t.string   "topic"
+    t.integer  "level",           :default => 1
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "realm"
+    t.string   "sub_realm"
+    t.integer  "creator_id"
+    t.boolean  "complete",        :default => false
   end
 
   create_table "facebooks", :force => true do |t|
@@ -491,6 +561,8 @@ ActiveRecord::Schema.define(:version => 20150115091056) do
     t.boolean  "early_access",    :default => false
     t.integer  "audio_id"
     t.integer  "pdf_id"
+    t.string   "realm"
+    t.string   "sub_realm"
   end
 
   create_table "messages", :force => true do |t|
@@ -641,6 +713,7 @@ ActiveRecord::Schema.define(:version => 20150115091056) do
     t.integer  "audio_id"
     t.integer  "pdf_id"
     t.boolean  "featured_home",     :default => false
+    t.string   "sub_realm"
   end
 
   create_table "quotes", :force => true do |t|
@@ -666,6 +739,16 @@ ActiveRecord::Schema.define(:version => 20150115091056) do
 
   add_index "redactor_assets", ["assetable_type", "assetable_id"], :name => "idx_redactor_assetable"
   add_index "redactor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_redactor_assetable_type"
+
+  create_table "subscription_applications", :force => true do |t|
+    t.text     "why"
+    t.text     "plan"
+    t.text     "different"
+    t.string   "status"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "subscription_records", :force => true do |t|
     t.integer  "subscriber_id"

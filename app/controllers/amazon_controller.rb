@@ -12,7 +12,7 @@ class AmazonController < ApplicationController
 		port = Rails.env.production? ? "" : ":3000"
 		callback_url = "#{request.scheme}://#{request.host}#{port}/r/subscriptions/amazon_payments/recipient/postfill"
 		redirect_to AmazonFlexPay.recipient_pipeline(@amazon_recipient.uuid, callback_url,
-			:recipient_pays_fee => true, :max_variable_fee => 9 )
+			:recipient_pays_fee => true, :max_variable_fee => 6 )
 	end
 
 	def post_create_recipient

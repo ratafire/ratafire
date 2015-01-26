@@ -18,13 +18,13 @@ $("#price-slider-special").slider(
                 progress = parseInt( $(this).slider("value")/ 5 * 100, 10);
 				$('.price-slider-inner').css('width', progress + '%');
 				//Calculate Price For Different Conditions
-				var ratafire_3_percent = (creator_receive*0.03)
-					ratafire_6_percent = (creator_receive*0.06)
+				var ratafire_3_percent = (creator_receive*0.07)
+					ratafire_6_percent = (creator_receive*0.07)
 					ratafire_7_percent = (creator_receive*0.07)
-					ratafire_10_percent = (creator_receive*0.10)
+					ratafire_10_percent = (creator_receive*0.07)
 
-					amazon_less_ten = ((creator_receive*0.06+0.05)/0.94)//Amazon less than $10 international credit card rate: 6% + $0.05
-					amazon_free = ((creator_receive*0.039+0.30)/0.961)//Amazon larger than $10 international credit card rate: 3.9% + $0.30
+					amazon_less_ten = (((creator_receive+ratafire_3_percent)*0.06+0.05)/0.94)//Amazon less than $10 international credit card rate: 6% + $0.05
+					amazon_free = (((creator_receive+ratafire_6_percent)*0.039+0.30)/0.961)//Amazon larger than $10 international credit card rate: 3.9% + $0.30
 					amazon_7_percent = (((creator_receive+ratafire_7_percent)*0.039+0.30)/0.961)
 					amazon_10_percent = (((creator_receive+ratafire_10_percent)*0.039+0.30)/0.961)
 					
@@ -62,7 +62,7 @@ $("#price-slider-special").slider(
 						$("#jquery-like").show();
 						$("#jquery-total-value").html("$"+total_ratafire_3_percent.toFixed(2));
 						$("#submit-amount").val(total_ratafire_3_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("3%, about ");
+						$("#ratafire-fee-percent").html("6%, about ");
 						//Change of notice
 						$("#subscription-title").html("Subscribe to");
 						$("#priceof").html("This amount is roughly the price of");
@@ -116,7 +116,7 @@ $("#price-slider-special").slider(
 						$("#jquery-like").show();
 						$("#jquery-total-value").html("$"+total_ratafire_10_percent.toFixed(2));
 						$("#submit-amount").val(total_ratafire_10_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("9%, about ");
+						$("#ratafire-fee-percent").html("6%, about ");
 						//Change of notice
 						$("#subscription-title").html("Subscribe to");
 						$("#priceof").html("This amount is roughly the price of");
@@ -134,7 +134,7 @@ $("#price-slider-special").slider(
 						$("#jquery-like").show();
 						$("#jquery-total-value").html("$"+total_ratafire_10_percent.toFixed(2));
 						$("#submit-amount").val(total_ratafire_10_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("9%, about ");
+						$("#ratafire-fee-percent").html("6%, about ");
 						//Change of notice
 						$("#subscription-title").html("Subscribe to");
 						$("#priceof").html("This amount is roughly the price of");

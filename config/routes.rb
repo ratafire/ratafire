@@ -198,7 +198,7 @@ Ratafire::Application.routes.draw do
 	match ':id/r/supports/supporting_past', to: 'supports#supporting_past', as: :supporting_past
 	
 #---Payments---
-	match ':id/r/payments/why', to:'subscriptions#why', as: :why
+	match ':id/r/subscription/why', to:'subscriptions#why', as: :why
 	match ':id/r/payments/subscribe', to: 'subscriptions#new', as: :subscribe
 	match ':id/r/payments/checkout_amazon', to: 'subscriptions#amazon', as: :amazon
 	match ':id/r/payments/subscription/create', to: 'subscriptions#create',via: :post, as: :create_subscription
@@ -348,6 +348,14 @@ Ratafire::Application.routes.draw do
 	match '/help_look_around', to: 'helps#look_around', as: :look_around
 	match '/help_what_are_the_goals_on_my_profile_page', to: 'helps#what_are_the_goals_on_my_profile_page', as: :what_are_the_goals_on_my_profile_page
 
+#---Discussion---
+
+	match '/:user_id/r/discussion/newdiscussion', to: "discussions#create", via: :post, as: :new_discussion
+	match '/:id/r/discussion/select_a_realm', to: "discussions#realm", as: :discussion_realms
+	match '/:id/r/discussion/update', to: "discussions#update", as: :discussion_update
+	match '/:id/r/discussion/subrealm', to: "discussions#subrealm", as: :discussion_subrealm
+	match '/:id/r/discussion/edit', to: "discussions#edit", as: :discussion_edit
+
 #------Resources------
 	resources :users, :path => '/' do
 		resources :projects, :except => :index do
@@ -380,6 +388,8 @@ Ratafire::Application.routes.draw do
 	resources :updates
 	resources :tags
 	resources :messages
+	resources :discussions
+	resources :discussion_threads
 
 end
 

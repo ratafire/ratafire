@@ -77,4 +77,7 @@ $(function() {
       $("#sidebar-profile-create-project").click(function (){
         $("#sidebar-profile-create-button-main")[0].click();
       });
+      $("#sidebar-profile-create-discussion").click(function(){
+        $("#new_discussion")[0].click();
+      });
 });	

@@ -1,0 +1,53 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide("Create a discussion") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<% content_for(:additional_background) do %>
+<div class="discussion-background-image"></div>
+<% end %>
+
+      
+	<!-- Main Content -->
+	<div class="center" style="width: 790px;margin-top:60px;">
+		<!-- Post Content -->
+		
+
+
+			<!-- Select a Field -->
+			<div class="field-selection-holder">
+
+				<h1>Customize the Discussion</h1>
+
+    			<%= form_for [@discussion], :url => discussion_update_path(@discussion),:validate => true, :html => {:class => 'no_ajaxify',:id => "discussion-form" } do |f| %>
+    				<div class="field-selection-textholder">
+    					<%= f.text_field :title,:placeholder => "Enter Discussion Title", class:"field-input" %>
+    				</div>	
+    				<!-- Art -->
+
+    					<%= f.select(:sub_realm, ['A New Field','Architecture', "Drawing", "Fine Arts", "Graphic Design", "Interior Design", "Jewelry Design", "Illustration", "Painting", "Photography", "Sculpting", "Others"],  {include_blank: "Select a Field"}, { class:"discussion-select-a-field" }) %>
+
+   				<% end %>        
+
+
+   				<div style="margin: 15px 15px 0 0; text-align:right;">
+					<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="field-customization-submit">Next</div>
+				</div>
+
+			</div>	
+
+		
+	</div><!-- end .center-->	
+
+<script>
+    $(document).ready(function() {
+
+	//Enter
+	$("#field-customization-submit").click(function(){
+		$("#discussion-form").submit();
+	});			
+
+});
+</script>
+	

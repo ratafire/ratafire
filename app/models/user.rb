@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
 	has_many :projects, :through => :assigned_projects, :conditions => { :deleted_at => nil }
 	has_many :created_projects, :class_name => "Project", :foreign_key => :creator_id
 
+	has_many :assigned_discussions
+	has_many :discussions, :through => :assigned_discussions, :conditions => { :deleted_at => nil }
+	has_many :created_discussions, :class_name => "Discussion", :foreign_key => :creator_id
+
 	has_many :majorposts, :conditions => { :deleted_at => nil }
 	has_many :archives
 
