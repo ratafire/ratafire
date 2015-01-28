@@ -66,7 +66,7 @@ Ratafire::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   #videojs_rails
-  config.assets.precompile += %w( video-js.swf vjs.eot vjs.svg vjs.ttf vjs.woff rainbow/rainbow.js rainbow/language/c.js rainbow/language/coffeescript.js rainbow/language/csharp.js rainbow/language/css.js rainbow/language/d.js rainbow/language/generic.js rainbow/language/go.js rainbow/language/haskell.js rainbow/language/html.js rainbow/language/java.js rainbow/language/javascript.js rainbow/language/lua.js rainbow/language/php.js rainbow/language/python.js rainbow/language/r.js rainbow/language/ruby.js rainbow/language/scheme.js rainbow/language/shell.js rainbow/language/smalltalk.js mathjax/MathJax.js webfonts/25CB92_0_0.eot webfonts/25CB92_0_0.ttf webfonts/25CB92_0_0.woff)
+  config.assets.precompile += %w( jquery.min video-js.swf vjs.eot vjs.svg vjs.ttf vjs.woff rainbow/rainbow.js rainbow/language/c.js rainbow/language/coffeescript.js rainbow/language/csharp.js rainbow/language/css.js rainbow/language/d.js rainbow/language/generic.js rainbow/language/go.js rainbow/language/haskell.js rainbow/language/html.js rainbow/language/java.js rainbow/language/javascript.js rainbow/language/lua.js rainbow/language/php.js rainbow/language/python.js rainbow/language/r.js rainbow/language/ruby.js rainbow/language/scheme.js rainbow/language/shell.js rainbow/language/smalltalk.js mathjax/MathJax.js webfonts/25CB92_0_0.eot webfonts/25CB92_0_0.ttf webfonts/25CB92_0_0.woff)
 
   #Devise Mailing
   config.action_mailer.default_url_options = { :host => 'www.ratafire.com' }
