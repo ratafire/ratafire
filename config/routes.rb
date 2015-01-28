@@ -327,7 +327,7 @@ Ratafire::Application.routes.draw do
 	match '/:id/user/user_project/new/tutorial/step3', to: 'tutorials#project_tutorial_step3', as: :project_tutorial_step3
 
 	#Intro
-	match '/:id/user/user_intro/new/tutorial/new_world', to: "tutorials#intro", as: :intro_tutorial
+	match '/user/user_intro/tutorial/new_world/:id/', to: "tutorials#intro", as: :intro_tutorial
 	match '/:id/user/user_intro/new/tutorial/start_using', to: "tutorials#after_intro", as: :after_intro_tutorial	
 
 #---Help---
