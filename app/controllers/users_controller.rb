@@ -20,8 +20,14 @@ protect_from_forgery :except => [:create_profilephoto]
 
 
   def show
-	#Find user by username
+ 	#Find user by username
 	@user = User.find(params[:id])
+	 	
+  	#Redirect to Tutorial if Null
+  	if @user.tutorial.intro == nil then
+  		redirect_to intro_tutorial_path(@user)
+  	end
+
 	active_user
 	if @user.website != nil then 
 	  unless @user.website[/\Ahttp:\/\//] || @user.website[/\Ahttps:\/\//]
@@ -167,6 +173,7 @@ protect_from_forgery :except => [:create_profilephoto]
 	@user = User.find(params[:id])
 	@currentprojects = @user.projects.where(:complete => false,:abandoned => false ).paginate(page: params[:current_p], :per_page => 3)
 	@completedprojects = @user.projects.where(:complete => true).paginate(page: params[:complete_p], :per_page => 20)
+	@currentdiscussions = @user.discussions.where(:deleted => false).paginate(page: params[:current_d], :per_page => 3)
   end
 
   def projects_past

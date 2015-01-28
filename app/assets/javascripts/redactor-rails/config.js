@@ -169,7 +169,41 @@ $(document).on('ajaxify:content_loaded', function(){
       } 
 
     } // end of redactor
-  );  
+  ); 
+
+ //--- Discussion ---
+  $('#redactor_discussion').redactor(
+    { toolbarFixedBox: true,
+      "imageUpload":"/redactor_rails/pictures?" + params,
+      "imageGetJson":"/redactor_rails/pictures",
+      "fileUpload":"/redactor_rails/documents?" + params,
+      "fileGetJson":"/redactor_rails/documents",
+      "path":"/assets/redactor-rails",
+      "css":"style.css",
+      plugins: ['fullscreen','quote','advanced'],
+      minHeight: 430,
+      buttons: ['formatting','unorderedlist', '|', 'bold', 'italic', 'deleted', '|', 'link','quote','code', 'equation', '|', 'image','|' 
+      ]
+
+    } // end of redactor
+  );   
+
+ //--- Discussion ---
+  $('#redactor_discussion_thread').redactor(
+    { toolbarFixedBox: true,
+      "imageUpload":"/redactor_rails/pictures?" + params,
+      "imageGetJson":"/redactor_rails/pictures",
+      "fileUpload":"/redactor_rails/documents?" + params,
+      "fileGetJson":"/redactor_rails/documents",
+      "path":"/assets/redactor-rails",
+      "css":"style.css",
+      plugins: ['quote','advanced'],
+      minHeight: 111,
+      buttons: ['formatting','unorderedlist', '|', 'bold', 'italic', 'deleted', '|', 'link','quote','code', 'equation', '|', 'image','|' 
+      ]
+
+    } // end of redactor
+  );     
 
 }
 

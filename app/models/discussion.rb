@@ -3,7 +3,11 @@ class Discussion < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :perlink, :use => :slugged
 
-  	attr_accessible :title, :content, :realm, :sub_realm
+  	attr_accessible :title, :content, :realm, :sub_realm, :published, :tag_list
+
+  	#track activities
+  	include PublicActivity::Model
+  	tracked except: [:update, :destroy], owner: ->(controller, model) { controller && controller.current_user }  	
 
   	belongs_to :creator, :class_name => "User", :foreign_key => :creator_id
   	has_many :users, :through => :assigned_discussions
@@ -11,6 +15,7 @@ class Discussion < ActiveRecord::Base
 
   	has_many :discussion_threads
   	has_many :assigned_discussions
+  	has_many :thread_connectors
 
   	acts_as_taggable
 
@@ -29,7 +34,7 @@ class Discussion < ActiveRecord::Base
 			@discussion.uuid = SecureRandom.random_number(8388608).to_s
 		end while Discussion.find_by_uuid(@discussion.uuid).present?
 		@discussion.creator_id = options[:user_id]
-		@discussion.title = "Untitled New Discussion " + DateTime.now.strftime("%H:%M:%S").to_s
+		@discussion.title = "Enter a Title for this Discussion " + DateTime.now.strftime("%H:%M:%S").to_s
 		@discussion.perlink = @discussion.uuid.to_s
 		@discussion.edit_permission = "free"
 		@discussion.assigned_discussions.each do |as|

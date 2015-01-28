@@ -26,7 +26,7 @@
 					<!-- Tabs Nav -->
 					<div class="tab">
 							<%= link_to "About", user_path , style:"margin-left:0px;", class: "tab tab-size tab-content"%>
-							<%= link_to "Projects", projects_path , class: "tab tab-size tab-content-current tab-left-shadow"%>		
+							<%= link_to "Contributions", projects_path , class: "tab tab-size tab-content-current tab-left-shadow"%>		
 					</div>
 
 					<!-- Content of Projects -->
@@ -49,7 +49,7 @@
 
 									<!-- Indicator -->
 									<div class="textbox-mini">
-										<li style="font-size: 1.4em;">Current</li>
+										<li style="font-size: 1.4em;">Current Projects</li>
 										<li class="counter">[<%= @currentprojects.count %>]</li>
 									</div>
 									
@@ -64,11 +64,31 @@
 								</div><!-- end.current-projects-->
 
 
+								<!-- Discussions -->
+								<div class="current-projects">
+
+									<!-- Indicator -->
+									<div class="textbox-mini">
+										<li style="font-size: 1.4em;">Discussions</li>
+										<li class="counter">[<%= @currentdiscussions.count %>]</li>
+									</div>
+									
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+									<!-- Content -->
+									<div id="current-projects">
+										<%= render 'users/current_discussions'%>
+									</div><!-- end of current-projects ajax-->
+
+
+								</div><!-- end.current-projects-->
+
+								<!-- Completed Projects -->
 								<div class="completed-projects">
 
 									<!-- Indicator -->
 									<div class="textbox-mini">
-										<li style="font-size: 1.4em;">Completed</li>
+										<li style="font-size: 1.4em;">Completed Projects</li>
 										<li class="counter">[<%= @completedprojects.count %>]</li>
 									</div>
 									

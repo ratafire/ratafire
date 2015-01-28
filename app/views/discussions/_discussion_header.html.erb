@@ -1,0 +1,14 @@
+
+<div class="messaging-second-header">
+	<ul>
+		<%= "Discussions" %><i class="fa fa-angle-right"></i>
+		<%= link_to project_realm(@discussion.realm), realm_selector_path(@discussion.realm), class:"no_ajaxify"%><i class="fa fa-angle-right"></i>
+		<%= @discussion.sub_realm %><i class="fa fa-angle-right"></i>
+		<%= link_to @discussion.title, show_discussion_path(@discussion), class:"no_ajaxify" %>
+	</ul>		    	
+</div>
+<% if @discussion_threads != nil %>
+		<div class="message-paginate-holder">
+			<%= will_paginate @discussion_threads, :param_name => 'page', class:"rata_pagination no_ajaxify" %>
+		</div>	
+<% end %><!-- end.if @messages != nil-->		

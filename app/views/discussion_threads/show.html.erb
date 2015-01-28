@@ -1,0 +1,58 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, @discussion_thread.title) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>	
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Messages ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<% content_for(:below_header) do %>
+		<%= render 'discussions/discussion_header' %>
+
+
+
+	<div class="discussion-content">
+
+		<!-- Poster -->
+		<%= render partial: "discussions/discussion_thread_poster", :locals => { :thread => @discussion } %>
+
+		<h1><%= @discussion.title %></h1>
+		
+		<!-- Content -->
+		<%= sanitize @discussion.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+
+		<!-- Tags -->
+		<div id="majorpost-tags">
+			<i class="fa fa-tags"></i> <%= raw @discussion.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %> 
+		</div>	
+
+		<!-- Discussion Threads -->
+		<div class="level_1_holder">
+			<!-- Poster -->
+			<div class="discussion-poseter-holder">
+				<%= link_to @discussion_thread.creator, class:"no_ajaxify" do %>
+					<div class="discussion-image-holder"><%= image_tag(@discussion_thread.creator.profilephoto.url(:small64), class: "image-wrap sidebar-profile-shade") %>
+					</div>
+				<% end %>		
+				<ul><i class="fa fa-user"></i> <%= link_to @discussion_thread.creator.fullname, @discussion_thread.creator%> @<%= @discussion_thread.creator.username %></ul> 
+				<ul><i class="fa fa-terminal"></i> <%= @discussion_thread.creator.tagline %></ul>
+				<ul>Wrote <%= time_ago_in_words(@discussion_thread.created_at) %> ago.</ul>
+			</div>	
+
+			<h3><i class="fa fa-comment-o"></i><%= link_to @discussion_thread.title, discussion_thread_show_path(@discussion_thread.id), class:"no_ajaxify" %></h3>
+		
+			<!-- Content -->
+			<%= sanitize @discussion_thread.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+
+			<!-- Tool Bar -->
+			<%= render partial: "discussions/tool_bar", :locals => { :thread => @discussion_thread } %>
+
+			<!-- Reply -->
+			<%= render 'discussions/discussion_thread_form' %>
+		</div><!-- end.level_1_holder-->
+
+		<%= render partial: "discussions/level_2_threads", collection: @level_1_threads, :as => :thread %>		
+
+	</div><!-- end .post-content-c-->	
+
+	<% end %>

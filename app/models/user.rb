@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
 	has_many :assigned_discussions
 	has_many :discussions, :through => :assigned_discussions, :conditions => { :deleted_at => nil }
 	has_many :created_discussions, :class_name => "Discussion", :foreign_key => :creator_id
+	has_many :discussion_threads, :class_name => "DiscussionThread", :foreign_key => :creator_id
 
 	has_many :majorposts, :conditions => { :deleted_at => nil }
 	has_many :archives

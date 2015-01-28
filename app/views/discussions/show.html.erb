@@ -1,0 +1,37 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, @discussion.title) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>	
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Messages ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<% content_for(:below_header) do %>
+		<%= render 'discussions/discussion_header' %>
+
+
+
+	<div class="discussion-content">
+
+		<!-- Poster -->
+		<%= render partial: "discussions/discussion_thread_poster", :locals => { :thread => @discussion } %>
+
+		<h1><%= @discussion.title %></h1>
+		
+		<!-- Content -->
+		<%= sanitize @discussion.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+
+		<!-- Tags -->
+		<div id="majorpost-tags">
+			<i class="fa fa-tags"></i> <%= raw @discussion.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(' ') %> 
+		</div>	
+
+		<!-- Reply -->
+		<%= render 'discussions/discussion_reply_form' %>
+
+		<!-- Discussion Threads -->
+		<%= render partial: "discussions/level_1_threads", collection: @level_1_threads, :as => :thread %>
+
+	</div><!-- end .post-content-c-->	
+
+	<% end %>

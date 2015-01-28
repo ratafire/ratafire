@@ -1,0 +1,86 @@
+<!-- Script to show Edit button -->
+<script>
+	$(document).ready(function() {
+	$('#<%= discussion.id %>discussion').hover(function() {
+  		$("#<%= discussion.id %>").toggle();
+	});
+	});
+</script>
+
+<div class="lightbox4" id="<%= discussion.id %>discussion">
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~ Project Creator ~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<% if discussion_edit(discussion) %>
+<div class="btn-edit-right" id="<%= discussion.id %>">
+		<% if discussion_delete(discussion) %>
+		<div class="btn-edit-right5"><%= link_to 'Throw Away',throw_discussion_path(discussion),method: :delete,class:"btn-delete no_ajaxify", id:discussion.id, title:"Edit" %></div>
+		<% end %>
+		<%= link_to 'Edit',discussion_edit_path(discussion),class:"btn-delete no_ajaxify" %>
+</div>
+<!-- Project Icon -->
+<div class="project-show-icon">
+		<div class="project-icon-small">
+			<div class="user-icon-small-holder" style="background-image:url(<%= discussion.creator.profilephoto.url(:tiny)%>);"></div>
+		</div>
+</div>
+<div class="project-show-content">
+<!-- Project Title -->
+	<div class="project-show-title"><!-- Cutter --><ol style="margin-top: -8px;"></ol>
+		<h2>
+			<% if discussion.published == false %>
+				<div class="lightbox4-draft">
+					<%= link_to discussion.title, discussion_edit_path(discussion), class:"no_ajaxify" %>
+					<span>(Draft)</span>					
+				</div>
+			<% else %>
+					<% if discussion.creator != @user %>
+						<span class="realm-color">Joined</span> 
+					<% end %>
+					<%= link_to discussion.title, show_discussion_path(discussion), class:"no_ajaxify" %>
+			<% end %>
+		</h2>
+
+		<ol style="margin-top: -18px;"></ol>
+	</div>
+</div>	
+		<div class="project-show-tags">
+			<span><% if discussion.tags.any? %><% if discussion.tags.count >1 %>Tags: <% else %>Tag: <% end %><% end %> 
+				<%= raw discussion.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %></span>
+				<ol style="color:#999;">Created <%= time_ago_in_words(discussion.created_at) %> ago<% if discussion.realm != nil %> in <%= link_to realm_selector_path(discussion.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(discussion.realm)%></span><% if discussion.sub_realm != nil then %> <span class="realm-color"><%= discussion.sub_realm %></span><% end %><% end %><else>.<% end %></ol>
+		</div>
+<% else %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~ Non Project Creator ~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<div class="project-show-icon">
+		<div class="project-icon-small">
+		<div class="project-icon-small-wrapper" >
+			<div id="project-icon-mask">
+				<div class="user-icon-small-holder" style="background-image:url(<%= discussion.creator.profilephoto.url(:tiny)%>);"></div>
+			</div>
+		</div><!-- end project.iconsmall-->
+		</div>
+	</div><!-- end project.showicon-->
+<div class="project-show-content">
+	<div class="project-show-title">
+		<!-- Cutter --><ol style="margin-top: -8px;"></ol>
+		<h2>
+			<% if discussion.published == false %>
+				<div class="lightbox4-draft">
+					<!-- only creator can edit the draft-->
+					<%= discussion.title %>
+					<span>(Draft)</span>
+				</div>
+			<% else %>
+					<% if discussion.creator != @user %>
+						<span class="realm-color">Joined</span> 
+					<% end %>
+					<%= link_to discussion.title, show_discussion_path(discussion), class:"no_ajaxify" %>
+			<% end %>
+		</h2>
+		<ol style="margin-top: -18px;"></ol>
+		<span><% if discussion.tags.any? %><% if discussion.tags.count >1 %>Tags: <% else %>Tag: <% end %><% end %> 
+				<%= raw discussion.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %></span>
+		<ol style="color:#999;">Discussion created <%= time_ago_in_words(discussion.created_at) %> ago <% if discussion.realm != nil %> in <%= link_to realm_selector_path(discussion.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(discussion.realm)%></span><% end %> <% if discussion.sub_realm != nil then %> <span class="realm-color"><%= discussion.sub_realm %></span><% end %><else>.<% end %></ol>		
+	</div>	
+</div>	
+<% end %>		
+<!-- Project Misc -->
+</div>

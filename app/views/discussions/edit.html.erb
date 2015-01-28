@@ -1,0 +1,91 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @discussion.title) %>
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+	<!-- No Ajaxify -->
+	<%= render 'shared/no_ajaxify'%><!-- script -->		
+
+	<!-- Open and Close -->
+	<%= render 'shared/majorpost_open_close'%>
+
+	<!-- Tagit -->
+	<%= render 'shared/tagit'%>
+
+	<!-- Jquery Image Uploader -->
+	<%= render 'shared/jquery_image_upload'%>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'discussions/discussion_header_edit' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_discussion_draft' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">
+		<!-- Post Content -->
+		<div class="post-content2">
+
+			<!-- Project Form-->
+			<%= nested_form_for [@discussion], :url => discussion_update_path(@discussion),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f| %>
+				<%= f.hidden_field :published, id:"project-published" %>
+
+				<!-- Original Image Upload Placer, because the image form is not nested-->
+				<div id="original-placer"></div>
+
+				<!-- Video Upload Placer, because the video form is not nested-->
+				<div id="video-placer"></div>
+
+				<!-- Content -->
+				<div class="majorpostarea">
+					<%= f.text_area :content, id:"redactor_discussion" %>
+				</div>
+
+				<!-- Tools -->
+				<div class="open2" id="tools-open"></div>
+				<div class="close2" id="tools-close"></div>
+				<div id="case">
+					<!-- Tags -->
+					<div id="comment-input2" style="margin-top: 9px;">
+						<div class="majorpost-tags-all">
+							<div class="majorpost-tags-input-holder">
+								<%= f.text_field :tag_list, id:"tags" %>
+							</div>
+						</div>
+					</div>
+					<!-- License -->
+					<%= render 'shared/license'%>
+				</div><!-- end:#case -->
+				
+				<!-- Submit before published -->
+				<% if @discussion.published == false %>
+				<div style="margin: 15px -2px 0 0; text-align:right;">
+					<span id="submit">
+						<%= f.submit "Save", class: "btn-submit btn-submit-small btn btn-small btn-small-white no_ajaxify" %>
+						<div class="btn btn-small2 btn-small-green no_ajaxify" id="project-publish-button">Publish</div>
+					</span>
+				</div>
+				<% else %>
+				<!-- Submit after Published -->
+					<div style="margin: 15px -2px 0 0; text-align:right;">
+					<span id="submit">
+						<%= f.submit "Edit Discussion", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green no_ajaxify" %>
+					</span>
+				</div>
+				<% end %>
+
+			<% end %><!-- end for form_for @majorpost -->				
+
+		</div><!-- end:.post-content2-->
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->	

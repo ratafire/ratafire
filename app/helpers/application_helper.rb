@@ -222,6 +222,43 @@ module ApplicationHelper
 		end	
 	end
 
+	#Discussion Edit
+	def discussion_edit(discussion)
+		if discussion.creator == current_user then
+			if discussion.edit_permission == "edit" || discussion.edit_permission == "free" then
+				if discussion.published == true && discussion.reviewed_at == nil then
+					return false
+				else
+					return true
+				end
+			else
+				return false	
+			end
+		else
+			if user_signed_in? then
+				if current_user.admin? then
+					return true
+				else
+					return false
+				end	
+			else
+				return false
+			end
+		end
+	end	
+
+	#Discussion delete
+	def discussion_delete(discussion)
+		if discussion.creator == current_user then
+			if discussion.edit_permission == "free" then
+				return true
+			else
+				return false	
+			end
+		end
+	end
+
+
 	#Project realms
 	def project_realm(projectrealm)
 		case projectrealm

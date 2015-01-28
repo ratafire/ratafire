@@ -1,0 +1,49 @@
+<!-- Script to view Project button -->
+<script>
+	$(document).ready(function() {
+	//Project-header-case	
+	$('#project-header-case').hover(function() {
+  		$("#edit-project-header").toggle();
+
+	});
+
+	//icon-delete
+	$('#icon-upload-box').hover(function() {
+  		$("#delete-icon").toggle();
+	});
+
+});
+</script>
+
+<div class="project-header-wrapper" id="project-header-case">
+		
+	<!-- project icon-->
+		<div class="project-icon-holder" style="background-image:url(<%= @discussion.creator.profilephoto.url(:small) %>);">
+	</div>
+
+
+	<div id="project-title">
+		<!-- Project Name -->
+		<h1 >
+			<!-- Completed?-->
+			<% if @discussion.complete == true %>
+				<li class="tipsy-tipsy", title="Completed!">[C]</li>
+			<% end %>
+
+			<!-- Completion Flag? -->
+			<% if @discussion.complete == true %>	
+				<%= @discussion.title %>
+			<% else %>				
+				<%= best_in_place [@discussion], :title, :path => discussion_update_path(@discussion), :classes =>"best_title" %><span class="btn btn-edit" id="best_title-edit" style="display:none;"></span>
+			<% end %>
+		</h1>
+		<ul id="best_tagline_holder">
+			<h5><%= project_realm(@discussion.realm)%> ::  <%= @discussion.sub_realm %><span class="btn btn-edit" id="best_tagline-edit" style="margin:-2px 0 0 0; display:none;"></span></h5>
+		</ul>
+	</div><!-- end #project-title-->
+
+	<div id="project-goals">
+		<%= goals_percentage(@discussion.thread_count, @discussion.goal)%><%= progress_bar(goals_count(@discussion.thread_count,@discussion.goal), :color => 'pink', :rounded => true) %>
+	</div>
+
+</div><!-- end .project-header-wrapper-->

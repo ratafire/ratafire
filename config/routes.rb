@@ -326,6 +326,10 @@ Ratafire::Application.routes.draw do
 	match '/:id/user/user_project/new/tutorial/step2', to: 'tutorials#project_tutorial_step2', as: :project_tutorial_step2
 	match '/:id/user/user_project/new/tutorial/step3', to: 'tutorials#project_tutorial_step3', as: :project_tutorial_step3
 
+	#Intro
+	match '/:id/user/user_intro/new/tutorial/new_world', to: "tutorials#intro", as: :intro_tutorial
+	match '/:id/user/user_intro/new/tutorial/start_using', to: "tutorials#after_intro", as: :after_intro_tutorial	
+
 #---Help---
 	match '/help', to: 'helps#show', as: :help
 
@@ -350,11 +354,18 @@ Ratafire::Application.routes.draw do
 
 #---Discussion---
 
+	#Discussion
 	match '/:user_id/r/discussion/newdiscussion', to: "discussions#create", via: :post, as: :new_discussion
 	match '/:id/r/discussion/select_a_realm', to: "discussions#realm", as: :discussion_realms
 	match '/:id/r/discussion/update', to: "discussions#update", as: :discussion_update
 	match '/:id/r/discussion/subrealm', to: "discussions#subrealm", as: :discussion_subrealm
 	match '/:id/r/discussion/edit', to: "discussions#edit", as: :discussion_edit
+	match '/:id/r/discussion/throw', to: "discussions#destroy", as: :throw_discussion	
+	match '/:id/r/discussion/show', to: "discussions#show", as: :show_discussion
+
+	#Discussion Threads
+	match '/create/r/discussion_thread/create', to: "discussion_threads#create", as: :discussion_thread_create	
+	match '/:id/r/discussion_thread/show', to: "discussion_threads#show", as: :discussion_thread_show	
 
 #------Resources------
 	resources :users, :path => '/' do

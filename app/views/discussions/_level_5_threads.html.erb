@@ -1,0 +1,13 @@
+	<div class="level_5_holder">
+		<!-- Poster -->
+		<%= render partial: "discussions/discussion_thread_poster", :locals => { :thread => thread } %>
+
+		<h3><i class="fa fa-comment"></i><%= link_to thread.title, discussion_thread_show_path(thread.id), class:"no_ajaxify" %></h3>
+		
+		<!-- Content -->
+		<%= sanitize thread.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+
+		<!-- Tool Bar -->
+		<%= render partial: "discussions/tool_bar", :locals => { :thread => thread } %>		
+
+	</div><!-- end.level_1_holder-->

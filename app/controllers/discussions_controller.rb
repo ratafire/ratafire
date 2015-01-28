@@ -28,13 +28,42 @@ class DiscussionsController < ApplicationController
 
 	def update
 		@discussion = Discussion.find(params[:id])
+		@discussion.excerpt = Sanitize.clean(@discussion.content)
 			if @discussion.update_attributes(params[:discussion]) then
 				#1 step, update realm
 				if @discussion.realm != nil && @discussion.sub_realm == nil then
+					#activity tags and realms
+					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion.id,'Discussion')
+					if @activity != nil then
+						@activity.realm = @discussion.realm
+						@activity.save
+					end							
 					redirect_to discussion_subrealm_path(@discussion)
 				else
 					if @discussion.realm != nil && @discussion.sub_realm != nil then
-						redirect_to discussion_edit_path(@discussion)
+						if @discussion.published == true then
+							#If Pending
+							if @discussion.review_status == "Pending" then 
+								@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion.id,'Discussion')
+								if @activity != nil then
+									@activity.sub_realm = @discussion.sub_realm
+									@activity.tag_list = @discussion.tag_list
+									@activity.status = "Pending"
+									@activity.save
+								end	
+							else
+								@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion.id,'Discussion')
+								if @activity != nil then
+									@activity.tag_list = @discussion.tag_list
+									@activity.status = @discussion.status
+									@activity.commented_at = @discussion.commented_at
+									@activity.save
+								end	
+							end	
+							redirect_to show_discussion_path(@discussion)								
+						else
+							redirect_to discussion_edit_path(@discussion)
+						end
 					else
 						redirect_to(:back)
 					end	
@@ -43,6 +72,32 @@ class DiscussionsController < ApplicationController
 	end
 
 	def edit
+		@discussion = Discussion.find(params[:id])
+	end
+
+	def destroy
+		@discussion = Discussion.find(params[:id])
+		@user = @discussion.creator
+		#Set Activities of the Discussion as deleted
+		@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion.id,'Discussion')
+		if @activity != nil then
+			@activity.deleted = true
+			@activity.deleted_at = Time.now
+			@activity.save
+		end
+		#Set Discussion as deleted
+		@discussion.deleted = true
+		@discussion.deleted_at = Time.now
+		@discussion.save
+		flash[:success] = "Discussion thrown away, and you hit a pine nut."
+		redirect_to projects_path(@user)		
+	end	
+
+	def show
+		@discussion = Discussion.find(params[:id])
+		@discussion_thread = DiscussionThread.new()
+		@discussion_threads = @discussion.discussion_threads.paginate(page: params[:page], :per_page => 30)
+		@level_1_threads = @discussion.discussion_threads.where(:level => 1).paginate(page: params[:page], :per_page => 30)
 	end
 
 end

@@ -1,0 +1,10 @@
+		<div class="discussion-poseter-holder">
+			<%= link_to thread.creator, class:"no_ajaxify" do %>
+				<div class="discussion-image-holder"><%= image_tag(thread.creator.profilephoto.url(:small64), class: "image-wrap sidebar-profile-shade") %>
+				</div>
+			<% end %>		
+			<ul><i class="fa fa-user"></i> <%= link_to thread.creator.fullname, thread.creator%> @<%= thread.creator.username %></ul> 
+			<ul><i class="fa fa-terminal"></i> <%= thread.creator.tagline %> <span><i class="fa fa-map-marker"></i><%= @discussion.creator.location %></span></ul>
+			<ul>Wrote <%= time_ago_in_words(thread.created_at) %> ago.</ul>
+		</div>	
+		

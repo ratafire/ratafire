@@ -1,0 +1,10 @@
+		<div class="discussion_tool_bar">
+			<% if thread.level != 5 then %>
+				<span><i class="fa fa-comment"></i><%= link_to "Reply","#{request.scheme}://#{request.host}/#{thread.id}/r/discussion_thread/show##{thread.id}",class:"no_ajaxify"%></span>
+			<% end %>	
+			<span><i class="fa fa-comments"></i><%= link_to "Thread",discussion_thread_show_path(thread),class:"no_ajaxify" %></span>
+			<% if thread.parent_id != nil then %>
+				<span><i class="fa fa-code-fork"></i><%= link_to "Parent",discussion_thread_show_path(thread.parent_id),class:"no_ajaxify" %></span>	
+			<% end %>			
+			<span class="tipsy-tipsy" title="Coming Soon!"><i class="fa fa-minus-square"></i>Collapse</span>
+		</div><!-- end .discussion_too_bar -->	

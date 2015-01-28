@@ -1,0 +1,19 @@
+		<%= form_for [@discussion_thread], :validate => true, :url => discussion_thread_create_path, :html => {:class => 'no_ajaxify'} do |f| %>
+			<%= f.hidden_field :creator_id, :value => current_user.id %>
+			<%= f.hidden_field :discussion_id, :value => @discussion.id %>
+			<%= f.hidden_field :level, :value => 1 %>
+			<!-- Title -->
+			
+			<ol class="discussion-thread-area">
+				<div class="discussion-thread-title-holder">
+					<%= f.text_field :title, placeholder:"Enter Reply Title",class:"discussion-thread-title inputbox" %>
+				</div>
+
+				<%= f.text_area :content, id:"redactor_discussion_thread" %>
+			</ol>
+			<ol style="margin: 10px -2px 0 0; text-align:right;">
+				<div id="submit">
+					<%= f.submit "Reply", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+				</div>
+			</ol>
+		<% end %>

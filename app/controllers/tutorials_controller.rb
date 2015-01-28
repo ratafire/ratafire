@@ -1,5 +1,7 @@
 class TutorialsController < ApplicationController
 
+	layout :resolve_layout
+
 	#profile tutorials
 
 	def profile_tutorial_step1
@@ -84,5 +86,27 @@ class TutorialsController < ApplicationController
 			@tutorial_processed = false
 		end	
 	end
+
+	#intro tutorials
+	def intro
+		@user = User.find(params[:id])
+	end
+
+	def after_intro
+		@user = User.find(params[:id])
+		@tutorial = Tutorial.find_by_user_id(@user.id)
+		@tutorial.intro = 1
+		@tutorial.save
+		redirect_to(@user)
+	end
+
+  	def resolve_layout
+   		case action_name
+    	when "intro"
+      		"blank"
+    	else
+      		"application"
+    	end
+  	end	
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150124233905) do
+ActiveRecord::Schema.define(:version => 20150128040408) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20150124233905) do
     t.boolean  "draft"
     t.boolean  "test",           :default => false
     t.boolean  "featured_home",  :default => false
+    t.string   "sub_realm"
+    t.string   "status"
   end
 
   add_index "activities", ["owner_id", "owner_type"], :name => "index_activities_on_owner_id_and_owner_type"
@@ -301,6 +303,12 @@ ActiveRecord::Schema.define(:version => 20150124233905) do
     t.string   "sub_realm"
     t.integer  "creator_id"
     t.boolean  "complete",        :default => false
+    t.integer  "discussion_id"
+    t.integer  "level_2_id"
+    t.integer  "level_3_id"
+    t.integer  "level_4_id"
+    t.integer  "level_1_id"
+    t.integer  "parent_id"
   end
 
   create_table "discussions", :force => true do |t|
@@ -323,12 +331,15 @@ ActiveRecord::Schema.define(:version => 20150124233905) do
     t.boolean  "early_access"
     t.string   "topic"
     t.integer  "level",           :default => 1
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "realm"
     t.string   "sub_realm"
     t.integer  "creator_id"
     t.boolean  "complete",        :default => false
+    t.integer  "goal"
+    t.string   "review_status",   :default => "Pending"
+    t.datetime "reviewed_at"
   end
 
   create_table "facebooks", :force => true do |t|
@@ -831,6 +842,17 @@ ActiveRecord::Schema.define(:version => 20150124233905) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "thread_connectors", :force => true do |t|
+    t.integer  "discussion_id"
+    t.integer  "level_1_id"
+    t.integer  "level_2_id"
+    t.integer  "level_3_id"
+    t.integer  "level_4_id"
+    t.integer  "level_5_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "transactions", :force => true do |t|
     t.datetime "created_at",                                                                  :null => false
     t.decimal  "receive",                 :precision => 10, :scale => 2
@@ -870,6 +892,7 @@ ActiveRecord::Schema.define(:version => 20150124233905) do
     t.integer  "project_tutorial"
     t.integer  "profile_tutorial_prev"
     t.integer  "project_tutorial_prev"
+    t.integer  "intro"
   end
 
   create_table "twitters", :force => true do |t|
