@@ -120,6 +120,8 @@ License URI: http://themeforest.net/licenses/regular_extended
 
 }
 
+
+
 .color-blue{
   color: #2297ce !important;
 }
@@ -261,6 +263,14 @@ body {
     font-family: "Open Sans",Helvetica, Arial, sans-serif !important;
 }
 
+.font-selector-normal{
+    font-family: "Open Sans Regular",Helvetica, Arial, sans-serif !important;
+}
+
+.font-selector-bold{
+    font-family: "Open Sans Bold",Helvetica, Arial, sans-serif !important;
+}
+
 .preloader {
   background-color: #1e2d3a;
   bottom: 0;
@@ -334,12 +344,14 @@ p:last-child {
 }
 
 a {
-  border-bottom: 1px solid rgba(215, 62, 77, 0.1);
+  color: #6bbfe7;
+  border-bottom: 1px solid #97d2ee;
   -webkit-transition: border 0.2s ease-in-out;
   transition: border 0.2s ease-in-out;
 }
 a:hover, a:focus {
-  border-bottom: 2px solid rgba(215, 62, 77, 0.5);
+  color: #2297ce;
+  border-bottom: 2px solid #97d2ee;
   outline: none;
   text-decoration: none;
 }
@@ -524,10 +536,10 @@ audio {
   position: absolute;
 }
 .panel-group .panel .panel-heading .panel-title a:hover {
-  color: #d73e4d;
+  color: #999999
 }
 .panel-group .panel .panel-heading .panel-title .collapse-btn {
-  color: #d73e4d;
+  color: #999999;
   float: right;
   height: 20px;
   margin: 1px 0;
@@ -537,7 +549,7 @@ audio {
   width: 20px;
 }
 .panel-group .panel .panel-heading .panel-title .collapse-btn:before, .panel-group .panel .panel-heading .panel-title .collapse-btn:after {
-  background: #d73e4d;
+  background: #999999;
   display: block;
   content: "";
   height: 100%;
@@ -545,20 +557,34 @@ audio {
   margin: 0 0 0 -1px;
   position: absolute;
   top: 0;
-  width: 2px;
+  width: 1px;
 }
 .panel-group .panel .panel-heading .panel-title .collapse-btn:after {
-  height: 2px;
+  height: 1px;
   left: 0;
   margin: -1px 0 0;
   top: 50%;
   width: 100%;
 }
 .panel-group .panel .panel-body {
+  color: #666666;
   border: 0 none !important;
   line-height: 1.375em;
   padding: 26px 0 0;
 }
+.faq-tutorial{
+    background-color: rgba(255,255,255,0.8);
+    padding: 15px 20px 15px 20px !important;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+.faq-tutorial-title{
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 5px;
+  padding: 3px 10px 3px 10px;
+}
+
 .panel-group .panel.active .panel-heading .panel-title a {
   color: #d73e4d;
 }
@@ -586,7 +612,21 @@ audio {
 .panel-group.third-style .panel.active .panel-heading .panel-title a {
   color: #b58664;
 }
-
+.panel-group.fourth-style .panel .panel-heading {
+  color: #666666;
+}
+.panel-group.fourth-style .panel .panel-heading .panel-title a:hover {
+  color: #999999;
+}
+.panel-group.fourth-style .panel .panel-heading .panel-title a:after {
+ color: #666666;
+}
+.panel-group.fourth-style .panel .panel-heading .panel-title .collapse-btn:before, .panel-group.fourth-style .panel .panel-heading .panel-title .collapse-btn:after {
+   color: #666666;
+}
+.panel-group.fourth-style .panel.active .panel-heading .panel-title a {
+   color: #666666;
+}
 /******************************************************************************
   Alerts
 *******************************************************************************/
