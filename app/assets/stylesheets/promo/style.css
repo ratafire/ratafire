@@ -142,6 +142,10 @@ License URI: http://themeforest.net/licenses/regular_extended
   color: #6bbfe7 !important;
 }
 
+.color-white{
+  color: #ffffff !important;
+}
+
 /* Animation */
 @-webkit-keyframes loader {
   0% {
@@ -4971,7 +4975,7 @@ a.feature-box.feature-box-danger .title {
 *******************************************************************************/
 .grid-post {
   background: rgba(0, 0, 0, 0.05);
-  border-radius: 3px;
+  border-radius: 5px;
   margin: 0 auto 30px;
   max-width: 370px;
   padding: 10px 10px 30px;
@@ -4980,6 +4984,7 @@ a.feature-box.feature-box-danger .title {
 }
 .grid-post .image {
   margin-bottom: 21px;
+  border:1px solid #dddddd;
 }
 .grid-post .title {
   font-size: 1.75em;
@@ -4997,7 +5002,7 @@ a.feature-box.feature-box-danger .title {
   margin: 0 0 18px;
 }
 .grid-post.bg-white {
-  background: #fff;
+  background: rgba(255,255,255,0.95);
 }
 
 /******************************************************************************
@@ -6986,8 +6991,8 @@ a.feature-box.feature-box-danger .title {
   }
 }
 .promo-box .promo-feature .image .bullet .line {
-  background: #1e1e1e;
-  height: 2px;
+  background: #dddddd !important;
+  height: 1px;
   margin: 14px 0 0 15px;
   position: absolute;
   width: 200px;
@@ -7001,7 +7006,7 @@ a.feature-box.feature-box-danger .title {
   }
 }
 .promo-box .promo-feature .image .bullet .line:before, .promo-box .promo-feature .image .bullet .line:after {
-  background: #d73e4d;
+  background: #6bbfe7;
   border-radius: 50%;
   content: "";
   display: block;
@@ -7020,7 +7025,7 @@ a.feature-box.feature-box-danger .title {
   }
 }
 .promo-box .promo-feature .image .bullet .line:after {
-  background: #fff;
+  background: #dddddd;
   border: 2px solid #1e1e1e;
   height: 8px;
   left: auto;
@@ -7062,7 +7067,7 @@ a.feature-box.feature-box-danger .title {
   }
 }
 .promo-box .promo-feature .image .bullet .line .bullet-content .close {
-  background: #d73e4d;
+  background: #6bbfe7;
   background: rgba(215, 62, 77, 0.75);
   border: 0 none !important;
   display: none;
@@ -7146,7 +7151,7 @@ a.feature-box.feature-box-danger .title {
   }
 }
 .inverse .promo-box .promo-feature .image .bullet .line, .promo-box.inverse .promo-feature .image .bullet .line {
-  background: #fff;
+  background: #dddddd;
   background: rgba(255, 255, 255, 0.17);
 }
 @media (max-width: 767px) {
@@ -7155,7 +7160,7 @@ a.feature-box.feature-box-danger .title {
   }
 }
 .inverse .promo-box .promo-feature .image .bullet .line:after, .promo-box.inverse .promo-feature .image .bullet .line:after {
-  border-color: #fff;
+  border-color: #dddddd;
   opacity: .65;
 }
 .one-page .promo-box {
