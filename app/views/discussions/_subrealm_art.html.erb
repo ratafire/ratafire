@@ -1,0 +1,7 @@
+<%= form_for [@discussion], :url => discussion_update_path(@discussion),:validate => true, :html => {:class => 'no_ajaxify',:id => "discussion-form" } do |f| %>
+    <div class="field-selection-textholder">
+    	<%= f.text_field :title,:placeholder => "Enter Discussion Title", class:"field-input" %>
+    </div>	
+    <!-- Art -->
+    <%= f.select(:sub_realm, ['A New Field','Architecture', "Drawing", "Fine Arts", "Graphic Design", "Interior Design", "Jewelry Design", "Illustration", "Painting", "Photography", "Sculpting", "Other"],  {include_blank: "Select a Field"}, { class:"discussion-select-a-field" }) %>
+<% end %>    

@@ -3,14 +3,13 @@
 	<!-- Page Title -->
 	<% provide("Create a discussion") %>
 
-<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Additional Style ~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Font ~~~~~~~~~~~~~~~~~~~~~~~~-->	
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
 
 <% content_for(:additional_background) do %>
 <div class="discussion-background-image"></div>
 <% end %>
-
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
       
 	<!-- Main Content -->
 	<div class="center" style="width: 790px;margin-top:60px;">
@@ -23,21 +22,13 @@
 
 				<h1>Customize the Discussion</h1>
 
-    			<%= form_for [@discussion], :url => discussion_update_path(@discussion),:validate => true, :html => {:class => 'no_ajaxify',:id => "discussion-form" } do |f| %>
-    				<div class="field-selection-textholder">
-    					<%= f.text_field :title,:placeholder => "Enter Discussion Title", class:"field-input" %>
-    				</div>	
-    				<!-- Art -->
-
-    					<%= f.select(:sub_realm, ['A New Field','Architecture', "Drawing", "Fine Arts", "Graphic Design", "Interior Design", "Jewelry Design", "Illustration", "Painting", "Photography", "Sculpting", "Others"],  {include_blank: "Select a Field"}, { class:"discussion-select-a-field" }) %>
-
-   				<% end %>        
-
+				<% if @discussion.realm == "art" %>
+					<%= render "discussions/subrealm_art"%>
+				<% end %>    
 
    				<div style="margin: 15px 15px 0 0; text-align:right;">
 					<div class="btn-light btn-medium2 btn-medium-snow no_ajaxify enter" id="field-customization-submit">Next</div>
 				</div>
-
 			</div>	
 
 		

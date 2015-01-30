@@ -17,15 +17,15 @@
 				<% if activity.trackable.review_status == "Pending" %>
 					<div class="lightbox4-draft">
 						<!-- only creator can edit the draft-->
-						<span><i class="fa fa-comments"></i></span><%= link_to activity.trackable.title, show_discussion_path(activity.trackable), class:"no_ajaxify" %>
+						<span style="color: #dddddd;"><i class="fa fa-comments"></i></span><%= link_to activity.trackable.title, show_discussion_path(activity.trackable), class:"no_ajaxify" %>
 						<span>(Pending)</span>
 					</div>
 				<% else %>
-					<span><i class="fa fa-comments"></i></span><%= link_to activity.trackable.title, show_discussion_path(activity.trackable), class:"no_ajaxify" %>
+					<span style="color: #dddddd;"><i class="fa fa-comments"></i></span><%= link_to activity.trackable.title, show_discussion_path(activity.trackable), class:"no_ajaxify" %>
 				<% end %>
 				</h2>
 				<ol style="margin-top: -18px;"></ol>
-				<span style="color:#999;"><% if activity.trackable.tags.any? %><i class="fa fa-tags"></i><% end %> 
+				<span style="color:#dddddd;"><% if activity.trackable.tags.any? %><i class="fa fa-tags"></i><% end %> 
 				<%= raw activity.trackable.tag_list.first(4).map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %></span>
 				<ol style="color:#999;"><%= activity.trackable.creator.fullname %> created this discussion <%= time_ago_in_words(activity.trackable.created_at) %> ago <% if activity.trackable.realm != nil %> in <%= link_to realm_selector_path(activity.trackable.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(activity.trackable.realm)%></span><% end %> <% if activity.trackable.sub_realm != nil then %> <span class="realm-color"><%= activity.trackable.sub_realm %></span><% end %><else>.<% end %></ol>		
 			</div>	

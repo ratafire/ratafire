@@ -18,6 +18,7 @@ class Discussion < ActiveRecord::Base
   	has_many :thread_connectors
 
   	acts_as_taggable
+	default_scope order: 'discussions.created_at DESC'  	
 
  	#title
 	VALID_TITLE_REGEX = /^[a-z\d\-\/\:\&\"\'\s]+$/i #alphanumeric, -, ',", or space
@@ -34,7 +35,7 @@ class Discussion < ActiveRecord::Base
 			@discussion.uuid = SecureRandom.random_number(8388608).to_s
 		end while Discussion.find_by_uuid(@discussion.uuid).present?
 		@discussion.creator_id = options[:user_id]
-		@discussion.title = "Enter a Title for this Discussion " + DateTime.now.strftime("%H:%M:%S").to_s
+		@discussion.title = "Enter a Title for this Discussion"
 		@discussion.perlink = @discussion.uuid.to_s
 		@discussion.edit_permission = "free"
 		@discussion.assigned_discussions.each do |as|

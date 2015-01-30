@@ -12,7 +12,7 @@
       background-size: cover;">
 
     <%= form_for [@discussion], :url => discussion_update_path(@discussion),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f| %>
-    	<%= f.hidden_field :realm, id:"realm-selector" %>
+    	<%= f.hidden_field :realm, id:"realm-selector", :value => "art" %>
    	<% end %>  
 
 	<!-- Main Content -->

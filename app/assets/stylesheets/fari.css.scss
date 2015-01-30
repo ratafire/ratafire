@@ -2220,7 +2220,6 @@ box-shadow: inset 0px 0px 34px 0px rgba(75,132,172,0.1);
 
 .lightbox4-draft {
 	color: #555;
-	span {color: #ccc;}
 }
 
 .contributor-delete {
@@ -8236,6 +8235,7 @@ height:100%;
 }
 
 .field-selection-holder{
+  font-family: "Open Sans";
 	padding: 40px;
 }
 
@@ -8246,7 +8246,7 @@ height:100%;
 }
 
 .discussion-background-image{
-background: url(/assets/realmbg.jpg);
+background: url(/assets/backgrounds/starmap.jpg);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -8261,11 +8261,7 @@ z-index:-2;
     top:-50px;
     bottom:-50px;
 
-    filter: blur(20px);
-    -webkit-filter: blur(20px);
-    -moz-filter: blur(20px);
-    -ms-filter: blur(20px);
-    -o-filter: blur(20px);
+
 }
 
 .field-selection-holder{
