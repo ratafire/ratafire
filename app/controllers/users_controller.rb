@@ -24,7 +24,7 @@ protect_from_forgery :except => [:create_profilephoto]
 	@user = User.find(params[:id])
 	 	
   	#Redirect to Tutorial if Null
-  	if @user.tutorial.intro == nil then
+  	if current_user.tutorial.intro == nil then
   		redirect_to intro_tutorial_path(@user)
   	end
 
