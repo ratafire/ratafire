@@ -22,11 +22,6 @@ protect_from_forgery :except => [:create_profilephoto]
   def show
  	#Find user by username
 	@user = User.find(params[:id])
-	 	
-  	#Redirect to Tutorial if Null
-  	if current_user.tutorial.intro == nil then
-  		redirect_to intro_tutorial_path(@user)
-  	end
 
 	active_user
 	if @user.website != nil then 
@@ -42,6 +37,10 @@ protect_from_forgery :except => [:create_profilephoto]
 	@activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @user, owner_type: "User").paginate(page: params[:activities], :per_page => 20)
 	#Check if the current user is a subscriber
 	if user_signed_in? then
+		#Redirect to Tutorial if Null
+		if current_user.tutorial.intro == nil then
+  			redirect_to intro_tutorial_path(@user)
+  		end
 		@subscription = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id, :subscribed_id => @user.id).first
 	end
 	#Add User tutorial if there is no user tutorial
