@@ -30,7 +30,7 @@
       background-size: cover;">
 
     <%= form_for [@project.creator, @project], :url => project_update_path(@project.creator,@project),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f| %>
-    	<%= f.hidden_field :realm, id:"realm-selector" %>
+    	<%= f.hidden_field :realm, id:"realm-selector", value: :art %>
    	<% end %>  
 
 	<!-- Main Content -->

@@ -1,0 +1,7 @@
+<%= form_for [@discussion], :url => discussion_update_path(@discussion),:validate => true, :html => {:class => 'no_ajaxify',:id => "discussion-form" } do |f| %>
+    <div class="field-selection-textholder">
+    	<%= f.text_field :title,:placeholder => "Enter Discussion Title", class:"field-input" %>
+    </div>	
+    <!-- Art -->
+    <%= f.select(:sub_realm, ['A New Field', 'Algebraic Geometry', 'Algebraic Topology', 'Analysis of PDEs', 'Category Theory', 'Classical Analysis and ODEs', 'Combinatorics', 'Commutative Algebra', 'Complex Variables', 'Differential Geometry', 'Dynamical Systems', 'Functional Analysis', 'General Mathematics', 'General Topology', 'Geometric Topology', 'Group Theory', 'History and Overview', 'Information Theory', 'K-Theory and Homology', 'Logic', 'Mathematical Physics', 'Metric Geometry', 'Number Theory', 'Numerical Analysis', 'Operator Algebras', 'Optimization and Control', 'Probability', 'Quantum Algebra', 'Representation Theory', 'Rings and Algebras', 'Spectral Theory', 'Statistics Theory', 'Symplectic Geometry', "Other"],  {include_blank: "Select a Field"}, { class:"discussion-select-a-field" }) %>
+<% end %>    

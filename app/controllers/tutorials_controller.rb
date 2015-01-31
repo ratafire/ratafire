@@ -100,6 +100,8 @@ class TutorialsController < ApplicationController
 		redirect_to(@user)
 	end
 
+private
+
   	def resolve_layout
    		case action_name
     	when "intro"

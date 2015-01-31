@@ -547,6 +547,13 @@ ActiveRecord::Schema.define(:version => 20150128040408) do
 
   add_index "mailboxer_receipts", ["notification_id"], :name => "index_mailboxer_receipts_on_notification_id"
 
+  create_table "majorpost_suggestions", :force => true do |t|
+    t.string   "term"
+    t.integer  "popularity"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "majorposts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -771,8 +778,8 @@ ActiveRecord::Schema.define(:version => 20150128040408) do
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
-    t.boolean  "accumulated",                                         :default => false
     t.decimal  "duration",             :precision => 32, :scale => 6
+    t.boolean  "accumulated",                                         :default => false
     t.boolean  "supporter_switch",                                    :default => false
     t.boolean  "past_support",                                        :default => false
     t.boolean  "duration_support",                                    :default => false
@@ -993,8 +1000,6 @@ ActiveRecord::Schema.define(:version => 20150128040408) do
     t.string   "uuid"
     t.string   "location"
     t.string   "bio_html"
-    t.string   "direct_upload_url"
-    t.boolean  "processed",                                                :default => false
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
@@ -1027,7 +1032,6 @@ ActiveRecord::Schema.define(:version => 20150128040408) do
     t.text     "tags_temp"
     t.integer  "archive_id"
     t.string   "thumbnail"
-    t.string   "direct_upload_url",                               :null => false
     t.boolean  "processed",              :default => false,       :null => false
     t.integer  "user_id",                                         :null => false
     t.string   "output_url_mp4"
