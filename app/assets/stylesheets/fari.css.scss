@@ -2220,6 +2220,7 @@ box-shadow: inset 0px 0px 34px 0px rgba(75,132,172,0.1);
 
 .lightbox4-draft {
 	color: #555;
+  span{color: #dddddd;}
 }
 
 .contributor-delete {
@@ -3849,7 +3850,7 @@ display: none;
 /*--- Home Page ---*/
 
 #Home-page-comment {
-	margin-left:100px;
+	margin-left:0px;
 	margin-top: -8px;
 	margin-bottom: -4px;
 	overflow: hidden;
@@ -6179,7 +6180,7 @@ box-shadow: inset 0px 0px 34px 0px rgba(75,132,172,0.1);
 
 .realm-content {
 	display: inline-block;
-	width: 220px;
+	width: 230px;
 	margin-left: 30px;
 	text-align: left;
 	vertical-align: top;
@@ -8256,7 +8257,10 @@ background-position: center;
 
 position:fixed;
 z-index:-2;	
-
+    left:0px;
+    right:0px;
+    top:0px;
+    bottom:0px;
 
 }
 

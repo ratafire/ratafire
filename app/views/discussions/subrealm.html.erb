@@ -23,9 +23,38 @@
 				<h1>Customize the Discussion</h1>
 
 				<% if @discussion.realm == "art" %>
-					<%= render "discussions/subrealm_art"%>
+					<%= render "discussions/subrealm_art" %>
 				<% else %>
 					<% if @discussion.realm == "music" %>
+						<%= render "discussions/subrealm_music" %>
+					<% else %>
+						<% if @discussion.realm == "games" %>
+							<%= render "discussions/subrealm_games" %>
+						<% else %>
+							<% if @discussion.realm == "writing" %>
+								<%= render "discussions/subrealm_writing" %>
+							<% else %>
+								<% if @discussion.realm == "videos" %>
+									<%= render "discussions/subrealm_videos" %>
+								<% else %>
+									<% if @discussion.realm == "math" %>
+										<%= render "discussions/subrealm_math" %>
+									<% else %>
+										<% if @discussion.realm == "science"%>
+											<%= render "discussions/subrealm_science"%>
+										<% else %>
+											<% if @discussion.realm == "humanity"%>
+												<%= render "discussions/subrealm_humanity"%>
+											<% else %>
+												<% if @discussion.realm == "engineering"%>
+													<%= render "discussions/subrealm_engineering"%>
+												<% end %>
+											<% end %>
+										<% end %>
+									<% end %>
+								<% end %>
+							<% end %>
+						<% end %>				
 					<% end %>
 				<% end %>    
 
