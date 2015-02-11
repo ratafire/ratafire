@@ -11,7 +11,7 @@ class StaticPagesController < ApplicationController
     @featured_user = User.find_by_username("colinchromatic")
   	unless signed_in?
     else
-      redirect_to @user
+      redirect_to featured_path
     end
   end
 
