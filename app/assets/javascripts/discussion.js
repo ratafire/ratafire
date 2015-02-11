@@ -6,6 +6,7 @@ $(document).ready(function() {
         return false;
     });
 
+    //Publish confirmation
     showConfirmDialog3 = function() {   
   		html = "<div id=\"dialog-confirm\" title=\"Confirmation\">\n  <p>" + "You are publishing this discussion on Ratafire. We will review it." + "</p>\n</div>";
   		return $(html).dialog({
@@ -30,5 +31,6 @@ $(document).ready(function() {
     $('.best_title').hover(function() {
     	$("#best_title-edit").toggle();
     });
+
 				
 });//end docuemnt ready				

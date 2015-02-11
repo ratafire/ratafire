@@ -1,0 +1,63 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- Page Title -->
+<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+<% content_for(:side_bar) do %>
+<%= render 'layouts/sidebar_admin' %>
+<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
+
+			<h1>Discussion Review</h1>
+			<h5>Use this page to review this discussion.</h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+			<!-- end of textbox-->
+		</div>						
+
+		<!-- Test Resque Jobs -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+				<h2>How to Review a Discussion</h2>
+
+				<%= render 'admin/how_to_review_a_discussion'%>
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->			
+
+		<!-- Add Tests -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+				<h2><%= link_to @discussion.title, show_discussion_path(@discussion), class:"no_ajaxify", target:"_blank"%></h2>
+
+				<!-- Test Projects -->
+				<%= form_for [@review], :url => admin_discussion_review_update_path(@discussion), :validate => true, :html => {:class => 'no_ajaxify'} do |f| %>
+					<%= f.hidden_field :user_id, value: current_user.id %>
+					<%= f.hidden_field :discussion_id, value: @discussion.id %>
+					<%= f.select :status, [['Approve', "Approved"], ['Disapprove', "Disapproved"]] %>
+					<ol style="margin-top: 10px;"></ol>
+					<%= f.text_area :content, style:"width:94.5%;",class: "subscription-plan-input noResize" , placeholder: "Enter your review." %>
+					<ol style="margin: 10px -2px 0 0; text-align:right;">
+						<div id="submit">
+							<%= f.submit "Review", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+						</div>
+					</ol>
+				<% end %>																
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->												
+
+
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+
+</div><!-- end of main-content-->

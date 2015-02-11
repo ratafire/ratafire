@@ -239,6 +239,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.2)
     jwt (1.2.0)
+    letsrate (1.0.9)
     listen (2.8.5)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -495,6 +496,7 @@ DEPENDENCIES
   jquery-datatables-rails!
   jquery-fileupload-rails!
   jquery-rails (= 3.0.4)
+  letsrate
   mailboxer
   mathjax-rails
   mechanize

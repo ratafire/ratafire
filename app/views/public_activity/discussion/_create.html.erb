@@ -1,5 +1,13 @@
 <div class="create-content-wrapper" >
-	<div class="lightbox" style="min-height:90px;" id="<%= activity.id %>activity">
+
+	<div class="lightbox" style="min-height:100px;" id="<%= activity.id %>activity">
+
+			<div id="majorpost-comments" class="tipsy-tipsy" title="Threads" style="margin:20px 45px 0 0;">
+				<%= activity.trackable.discussion_threads.count %>
+			</div>	
+			<div class="create-social-comments tipsy-tipsy" title="Threads" style="margin:20px 5px 0 0;"></div>
+	
+
 	<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~ Non Project Creator ~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 		<div class="project-show-icon">
 			<div class="project-icon-small">
@@ -12,13 +20,16 @@
 		</div><!-- end project.showicon-->
 		<div class="project-show-content">
 			<div class="project-show-title">
-				<!-- Cutter --><ol style="margin-top: -8px;"></ol>
 				<h2>
-				<% if activity.trackable.review_status == "Pending" %>
+				<% if activity.trackable.published == false %>
 					<div class="lightbox4-draft">
 						<!-- only creator can edit the draft-->
-						<span style="color: #dddddd;"><i class="fa fa-comments"></i></span><%= link_to activity.trackable.title, show_discussion_path(activity.trackable), class:"no_ajaxify" %>
-						<span>(Pending)</span>
+						<% if activity.trackable.title == "Enter a Title for this Discussion"%>
+							<span style="color: #dddddd;"><i class="fa fa-comments"></i></span><%= activity.trackable.creator.first_name %> is creating a new discussion
+						<% else %>
+							<span style="color: #dddddd;"><i class="fa fa-comments"></i></span><%= activity.trackable.title %>
+						<% end %>	
+						<span>(Draft)</span>
 					</div>
 				<% else %>
 					<span style="color: #dddddd;"><i class="fa fa-comments"></i></span><%= link_to activity.trackable.title, show_discussion_path(activity.trackable), class:"no_ajaxify" %>

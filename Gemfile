@@ -86,6 +86,8 @@ gem "soundcloud"
 #Auto Html
 gem "auto_html"
 
+#Rating
+gem "letsrate"
 
 #------------Mailer-----------------
 gem 'sendgrid'

@@ -60,5 +60,12 @@ jQuery ->
     #bJQueryUI: true
     bProcessing: true
     bServerSide: true
-    sAjaxSource: $('#test_majorposts').data('source')                       
+    sAjaxSource: $('#test_majorposts').data('source')     
+
+  $('#pending_discussions').dataTable
+    sPaginationType: "full_numbers"
+    #bJQueryUI: true
+    bProcessing: true
+    bServerSide: true
+    sAjaxSource: $('#pending_discussions').data('source')                        
     

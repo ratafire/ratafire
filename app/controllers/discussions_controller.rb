@@ -48,17 +48,31 @@ class DiscussionsController < ApplicationController
 								if @activity != nil then
 									@activity.sub_realm = @discussion.sub_realm
 									@activity.tag_list = @discussion.tag_list
+									@activity.commented_at = Time.now
 									@activity.status = "Pending"
 									@activity.save
 								end	
 							else
-								@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion.id,'Discussion')
-								if @activity != nil then
-									@activity.tag_list = @discussion.tag_list
-									@activity.status = @discussion.status
-									@activity.commented_at = @discussion.commented_at
-									@activity.save
-								end	
+								if @discussion.review_status == "Disapproved" then
+									@discussion.review_status = "Pending"
+									@discussion.reviewed_at = nil
+									@discussion.save
+									@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion.id,'Discussion')
+									if @activity != nil then
+										@activity.sub_realm = @discussion.sub_realm
+										@activity.tag_list = @discussion.tag_list
+										@activity.status = "Pending"
+										@activity.save
+									end	
+								else
+									@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion.id,'Discussion')
+									if @activity != nil then
+										@activity.tag_list = @discussion.tag_list
+										@activity.status = @discussion.status
+										@activity.commented_at = @discussion.commented_at
+										@activity.save
+									end	
+								end
 							end	
 							redirect_to show_discussion_path(@discussion)								
 						else
@@ -73,6 +87,13 @@ class DiscussionsController < ApplicationController
 
 	def edit
 		@discussion = Discussion.find(params[:id])
+		if @discussion.realm == nil && @discussion.sub_realm == nil then
+			redirect_to discussion_realms_path(@discussion)
+		else
+			if @discussion.realm != nil && @discussion.sub_realm == nil then
+				redirect_to discussion_subrealm_path(@discussion)
+			end
+		end
 	end
 
 	def destroy
@@ -90,7 +111,7 @@ class DiscussionsController < ApplicationController
 		@discussion.deleted_at = Time.now
 		@discussion.save
 		flash[:success] = "Discussion thrown away, and you hit a pine nut."
-		redirect_to projects_path(@user)		
+		redirect_to user_path(@user)		
 	end	
 
 	def show

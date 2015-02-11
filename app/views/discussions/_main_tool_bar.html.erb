@@ -1,0 +1,6 @@
+		<div class="discussion_tool_bar">	
+			<span>
+				<%= link_to discussion_edit_path(thread.id), class:"no_ajaxify" do %><i class="fa fa-pencil-square-o tipsy-tipsy" title="Edit"></i><% end %>				
+				<%= link_to throw_discussion_path(thread.id), class:"no_ajaxify",:method => :get,:confirm => "You are abandoning this discussion." do %><i class="fa fa-trash-o tipsy-tipsy" title="Abandon"></i><% end %>
+			</span>
+		</div><!-- end .discussion_too_bar -->	

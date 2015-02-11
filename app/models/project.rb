@@ -26,6 +26,7 @@ class Project < ActiveRecord::Base
   has_many :project_comments
   has_many :majorposts, dependent: :destroy
   has_many :projectimages, dependent: :destroy
+  has_many :reviews
   has_one :video, dependent: :destroy
   has_one :artwork, dependent: :destroy
   has_one :icon, dependent: :destroy

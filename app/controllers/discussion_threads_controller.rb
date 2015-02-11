@@ -12,6 +12,12 @@ class DiscussionThreadsController < ApplicationController
 		@discussion_thread.excerpt = Sanitize.clean(@discussion_thread.content)
 		@discussion = Discussion.find(params[:discussion_thread][:discussion_id])
 
+		#Change Discussion Commented at time
+		@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion.id,'Discussion')
+		if @activity != nil then
+			@activity.commented_at = Time.now
+			@activity.save
+		end
 
 		if @discussion_thread.update_attributes(params[:discussion_thread]) then
 
@@ -56,4 +62,23 @@ class DiscussionThreadsController < ApplicationController
 			@level_1_threads = @discussion_thread.level_2.paginate(page: params[:page], :per_page => 30)
 		end
 	end
+
+	def destroy
+		@discussion_thread = DiscussionThread.find(params[:id])
+		@user = @discussion_thread.creator
+		#Set Activities of the Discussion as deleted
+		@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion_thread.id,'DiscussionThread')
+		if @activity != nil then
+			@activity.deleted = true
+			@activity.deleted_at = Time.now
+			@activity.save
+		end
+		#Set Discussion as deleted
+		@discussion_thread.deleted = true
+		@discussion_thread.deleted_at = Time.now
+		@discussion_thread.save
+		flash[:success] = "Discussion thread thrown away, and you hit a pine nut."
+		redirect_to :back	
+	end	
+
 end

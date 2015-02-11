@@ -3,7 +3,11 @@ class DiscussionThread < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :perlink, :use => :slugged
 
-	attr_accessible :title, :content, :creator_id, :discussion_id, :level, :level_2_id, :level_3_id, :level_4_id, :parent_id
+  	#track activities
+  	include PublicActivity::Model
+  	tracked except: [:update, :destroy], owner: ->(controller, model) { controller && controller.current_user }  	
+
+	attr_accessible :title, :content, :creator_id, :discussion_id, :level, :level_2_id, :level_3_id, :level_4_id, :parent_id, :deleted, :deleted_at
 
   	#track activities
   	#include PublicActivity::Model
@@ -40,6 +44,14 @@ class DiscussionThread < ActiveRecord::Base
 
 	has_many :reverse_level_5_connection, foreign_key: "level_5_id", class_name: "ThreadConnector"
 	has_many :level_45, through: :reverse_level_5_connection, source: :level_4, :conditions => { :deleted_at => nil}	
+
+#--- Validations ---
+
+	#Title
+	validates_presence_of :title, :message => "Enter a title."
+
+	#Content
+	validates_presence_of :content, :message => "Write something."
 
 #--------- Before Save
 	

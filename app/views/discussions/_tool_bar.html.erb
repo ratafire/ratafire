@@ -7,4 +7,7 @@
 				<span><i class="fa fa-code-fork"></i><%= link_to "Parent",discussion_thread_show_path(thread.parent_id),class:"no_ajaxify" %></span>	
 			<% end %>			
 			<span class="tipsy-tipsy" title="Coming Soon!"><i class="fa fa-minus-square"></i>Collapse</span>
+			<% if discussion_thread_edit(thread) then%>
+				<span class="tipsy-tipsy"><i class="fa fa-trash-o"></i><%= link_to "Delete",discussioin_thread_destroy_path(thread.id), class:"no_ajaxify" %></span>
+			<% end %>
 		</div><!-- end .discussion_too_bar -->	

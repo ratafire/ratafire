@@ -255,6 +255,37 @@ module ApplicationHelper
 			else
 				return false	
 			end
+		else 
+			if user_signed_in? then
+				if current_user.admin? then
+					return true
+				else
+					return false
+				end
+			else
+				return false
+			end 
+		end
+	end
+
+	#Discussion Thread Edit
+	def discussion_thread_edit(discussion_thread)
+		if discussion_thread.creator == current_user || @discussion.creator == current_user then
+			if discussion_thread.edit_permission == "free" then
+				return true
+			else
+				return false	
+			end
+		else 
+			if user_signed_in? then
+				if current_user.admin? then
+					return true
+				else
+					return false
+				end
+			else
+				return false
+			end 
 		end
 	end
 

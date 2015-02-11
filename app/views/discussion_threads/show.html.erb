@@ -34,7 +34,7 @@
 					<div class="discussion-image-holder"><%= image_tag(@discussion_thread.creator.profilephoto.url(:small64), class: "image-wrap sidebar-profile-shade") %>
 					</div>
 				<% end %>		
-				<ul><i class="fa fa-user"></i> <%= link_to @discussion_thread.creator.fullname, @discussion_thread.creator%> @<%= @discussion_thread.creator.username %></ul> 
+				<ul><i class="fa fa-user"></i> <%= link_to @discussion_thread.creator.fullname, @discussion_thread.creator, class:"no_ajaxify"%> @<%= @discussion_thread.creator.username %></ul> 
 				<ul><i class="fa fa-terminal"></i> <%= @discussion_thread.creator.tagline %></ul>
 				<ul>Wrote <%= time_ago_in_words(@discussion_thread.created_at) %> ago.</ul>
 			</div>	

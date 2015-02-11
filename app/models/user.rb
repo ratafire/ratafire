@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
 	has_many :comments, :conditions => { :deleted_at => nil }
 
 	has_many :inviteds
+	has_many :reviews
 
 	has_one :facebook
 	has_one :twitter

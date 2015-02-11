@@ -18,6 +18,50 @@ class AdminController < ApplicationController
 		@goal = @user.count.to_f / 1000.to_f * 100
 	end
 
+	def discussion
+	end
+
+	def discussion_review_update
+		@review = Review.new(params[:review])
+		#Save the Review
+		if @review.save 
+			#Change the Status of the Discussion
+			@discussion = Discussion.find(@review.discussion_id)
+			@discussion.reviewed_at = Time.now
+			@discussion.review_status = @review.status
+			@discussion.save 
+			#Send Message
+			@receiver = User.find(@discussion.creator_id)
+			#If Approved
+			if @review.status == "Approved" then
+				#Send Message
+				@message_content = "<p>Your discussion is approved. </p><p>"+@review.content+"</p><p>You can view your discussion via this link: <a class='no_ajaxify' target='_blank' href=\"https://www.ratafire.com/"+@discussion.id.to_s+"/r/discussion/show\">"+@discussion.title+"</a>." 
+				@message_title = "Your Discussion: "+@discussion.title+" is Approved"
+				@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@discussion.id,'Discussion')
+				if @activity != nil then
+					@activity.draft = false
+					@activity.save
+				end
+			else
+				#Send Message
+				@message_title = "Your Discussion: "+@discussion.title+" is Disapproved."
+				@message_content ="<p>Your discussion is disapproved.</p><p>"+@review.content+"</p><p>You can view your discussion via this link: <a class=\"no_ajaxify\" target=\"_blank\" href=\"https://www.ratafire.com/"+@discussion.id.to_s+"/r/discussion/show\">"+@discussion.title+"</a>. You can delete the disapproved discussion and start a new discussion to apply again. Thank you!"
+				@discussion.published = nil
+				@discussion.save
+			end
+			receipt = current_user.send_message(@receiver, @message_content, @message_title)
+			#Send Email
+			DiscussionReviewMailer.discussion_review(@discussion.id,@review.id,@message_content,@message_title).deliver
+		end
+		#Send Email
+		redirect_to admin_discussion_path
+	end
+
+	def discussion_review
+		@discussion = Discussion.find(params[:id])
+		@review = Review.new()
+	end
+
 	def content_users
 		respond_to do |format|
     		format.html
@@ -79,7 +123,14 @@ class AdminController < ApplicationController
     		format.html
     		format.json { render json: TestMajorpostsDatatable.new(view_context) }
   		end	
-	end				
+	end		
+
+	def pending_discussions
+		respond_to do |format|
+    		format.html
+    		format.json { render json: PendingDiscussionsDatatable.new(view_context) }
+  		end		
+	end		
 
 	#This is a test for Resque workder: TestWorker
 	def test_resque

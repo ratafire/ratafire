@@ -24,7 +24,8 @@
 </div>
 <div class="project-show-content">
 <!-- Project Title -->
-	<div class="project-show-title"><!-- Cutter --><ol style="margin-top: -8px;"></ol>
+	<div class="project-show-title">
+		<!-- Cutter --><ol style="margin-top: -8px;"></ol>
 		<h2>
 			<% if discussion.published == false %>
 				<div class="lightbox4-draft">
@@ -36,17 +37,23 @@
 						<span class="realm-color">Joined</span> 
 					<% end %>
 					<%= link_to discussion.title, show_discussion_path(discussion), class:"no_ajaxify" %>
+					<!-- Pending -->
+					<% if discussion.review_status == "Pending" then %>
+						<span style="color:#ddd;">(Pending)</span>
+					<% end %>
+					<!-- Disapproved -->
+					<% if discussion.review_status == "Disapproved" then %>
+						<span style="color:#ddd;">(Disapproved)</span>
+					<% end %>			
 			<% end %>
 		</h2>
 
 		<ol style="margin-top: -18px;"></ol>
+			<span><% if discussion.tags.any? %><% if discussion.tags.count >1 %>Tags: <% else %>Tag: <% end %><% end %> 
+				<%= raw discussion.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %></span>	
+				<ol style="color:#999;">Created <%= time_ago_in_words(discussion.created_at) %> ago<% if discussion.realm != nil %> in <%= link_to realm_selector_path(discussion.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(discussion.realm)%></span><% if discussion.sub_realm != nil then %> <span class="realm-color"><%= discussion.sub_realm %></span><% end %><% end %><else>.<% end %></ol>					
 	</div>
 </div>	
-		<div class="project-show-tags">
-			<span><% if discussion.tags.any? %><% if discussion.tags.count >1 %>Tags: <% else %>Tag: <% end %><% end %> 
-				<%= raw discussion.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %></span>
-				<ol style="color:#999;">Created <%= time_ago_in_words(discussion.created_at) %> ago<% if discussion.realm != nil %> in <%= link_to realm_selector_path(discussion.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(discussion.realm)%></span><% if discussion.sub_realm != nil then %> <span class="realm-color"><%= discussion.sub_realm %></span><% end %><% end %><else>.<% end %></ol>
-		</div>
 <% else %>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~ Non Project Creator ~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 	<div class="project-show-icon">
@@ -65,7 +72,11 @@
 			<% if discussion.published == false %>
 				<div class="lightbox4-draft">
 					<!-- only creator can edit the draft-->
-					<%= discussion.title %>
+					<% if discussion.title == "Enter a Title for this Discussion"%>
+						<span style="color: #dddddd;"><i class="fa fa-comments"></i></span><%= @user.first_name %> is creating a new discussion
+					<% else%>	
+						<%= discussion.title %>
+					<% end %>
 					<span>(Draft)</span>
 				</div>
 			<% else %>
@@ -73,6 +84,14 @@
 						<span class="realm-color">Joined</span> 
 					<% end %>
 					<%= link_to discussion.title, show_discussion_path(discussion), class:"no_ajaxify" %>
+					<!-- Pending -->
+					<% if discussion.review_status == "Pending" then %>
+						<span style="color:#ddd;">(Pending)</span>
+					<% end %>
+					<!-- Disapproved -->
+					<% if discussion.review_status == "Disapproved" then %>
+						<span style="color:#ddd;">(Disapproved)</span>
+					<% end %>				
 			<% end %>
 		</h2>
 		<ol style="margin-top: -18px;"></ol>

@@ -266,6 +266,12 @@ Ratafire::Application.routes.draw do
 	match '/content_deleted_project_comment_admin', to: 'admin#content_deleted_project_comment', as: :admin_content_deleted_project_comment
 	match '/test_projects_admin', to: 'admin#test_projects', as: :admin_test_projects
 	match '/test_majorposts_admin', to: 'admin#test_majorposts', as: :admin_test_majorposts  
+	match '/pending_discussions_admin', to: 'admin#pending_discussions', as: :admin_pending_discussions
+
+	#Discussion
+	match '/discussion_admin', to: "admin#discussion", as: :admin_discussion
+	match '/discussion/review/r/:id', to: "admin#discussion_review", as: :admin_discussion_review
+	match '/discussion/review/update/:id', to: "admin#discussion_review_update", as: :admin_discussion_review_update
 
 	match '/:id/r/ratafire/welcome-new-friend/beta_approve', to: 'beta_users#approve',as: :beta_approve
 	match '/:id/r/ratafire/welcome-new-friend/beta_ignore', to: 'beta_users#ignore', as: :beta_ignore
@@ -366,6 +372,7 @@ Ratafire::Application.routes.draw do
 	#Discussion Threads
 	match '/create/r/discussion_thread/create', to: "discussion_threads#create", as: :discussion_thread_create	
 	match '/:id/r/discussion_thread/show', to: "discussion_threads#show", as: :discussion_thread_show	
+	match '/:id/r/discussion_thread/destroy', to: "discussion_threads#destroy", as: :discussioin_thread_destroy
 
 #------Resources------
 	resources :users, :path => '/' do

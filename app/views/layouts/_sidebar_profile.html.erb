@@ -53,7 +53,7 @@
 			
 			<div class="btn-sidebar-profile-create" id="sidebar-profile-slide-down">
 				<ol class="btn-sidebar-profile-active btn-sidebar-profile-project" id="sidebar-profile-create-project">Project</ol>
-				<ol class="btn-sidebar-profile-discussion" id="sidebar-profile-create-discussion">Discussion</ol>
+				<%= link_to new_discussion_path(@user), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-profile-create-discussion">Discussion</ol><%end%>
 			</div>
 			<%= link_to "CREATE", new_project_path(@user), method: :post,class: "btn btn-medium btn-medium-white no_ajaxify", id:"sidebar-profile-create-button-main"%>
 		</div>		

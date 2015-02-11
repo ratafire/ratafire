@@ -1,0 +1,52 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- Page Title -->
+<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+<% content_for(:side_bar) do %>
+<%= render 'layouts/sidebar_admin' %>
+<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
+
+			<h1>Discussion</h1>
+			<h5>Use this page to manage discussions.</h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+			<!-- end of textbox-->
+		</div>						
+
+		<!-- Test Resque Jobs -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+				<h2>Rules for Reviewing Discussions</h2>
+
+				<%= render 'admin/rules_for_reviewing_discussions'%>
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->			
+
+		<!-- Add Tests -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+				<h2>Pending Discussions</h2>
+
+				<!-- Test Projects -->
+				<%= render 'admin/pending_discussions'%>																	
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->												
+
+
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+
+</div><!-- end of main-content-->

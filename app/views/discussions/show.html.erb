@@ -16,10 +16,15 @@
 		<!-- Poster -->
 		<%= render partial: "discussions/discussion_thread_poster", :locals => { :thread => @discussion } %>
 
-		<h1><%= @discussion.title %></h1>
+		<h1><%= @discussion.title %> <% if @discussion.review_status == "Pending" then %><span style="color:#ddd;">(Pending)</span><% end %></h1>
 		
 		<!-- Content -->
 		<%= sanitize @discussion.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 h5 ul li) %>
+
+		<!-- Tool Bar -->
+		<% if discussion_edit(@discussion) then %>
+			<%= render partial: "discussions/main_tool_bar", :locals => { :thread => @discussion } %>
+		<% end %>	
 
 		<!-- Tags -->
 		<div id="majorpost-tags">

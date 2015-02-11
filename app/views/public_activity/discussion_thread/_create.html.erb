@@ -1,0 +1,25 @@
+<div class="create-content-wrapper" >
+	<div class="lightbox" style="min-height:100px;" id="<%= activity.id %>activity">
+	<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~ Non Project Creator ~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+		<div class="project-show-icon">
+			<div class="project-icon-small">
+				<div class="project-icon-small-wrapper" >
+					<div id="project-icon-mask">
+						<div class="user-icon-small-holder" style="background-image:url(<%= activity.trackable.creator.profilephoto.url(:tiny)%>);"></div>
+					</div>
+				</div><!-- end project.iconsmall-->
+			</div>
+		</div><!-- end project.showicon-->
+		<div class="project-show-content">
+			<div class="project-show-title">
+				<h2>
+					<span style="color: #dddddd;"><i class="fa fa-comment-o"></i></span>Re: <%= link_to activity.trackable.title, discussion_thread_show_path(activity.trackable), class:"no_ajaxify" %>
+				</h2>
+				<ol style="margin-top: -18px;"></ol>
+				<span style="color:#dddddd;"><i class="fa fa-comments"></i><%= link_to activity.trackable.discussion.title, show_discussion_path(activity.trackable.discussion), class:"no_ajaxify"%></span>
+				<ol style="color:#999;"><%= activity.trackable.creator.fullname %> replied to this discussion <%= time_ago_in_words(activity.trackable.created_at) %> ago <% if activity.trackable.discussion.realm != nil %> in <%= link_to realm_selector_path(activity.trackable.discussion.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(activity.trackable.discussion.realm)%></span><% end %> <% if activity.trackable.discussion.sub_realm != nil then %> <span class="realm-color"><%= activity.trackable.discussion.sub_realm %></span><% end %><else>.<% end %></ol>		
+			</div>	
+		</div>			
+<!-- Project Misc -->
+	</div>
+</div>

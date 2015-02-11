@@ -3,7 +3,7 @@ class Discussion < ActiveRecord::Base
 	extend FriendlyId
 	friendly_id :perlink, :use => :slugged
 
-  	attr_accessible :title, :content, :realm, :sub_realm, :published, :tag_list
+  	attr_accessible :title, :content, :realm, :sub_realm, :published, :tag_list, :deleted, :deleted_at
 
   	#track activities
   	include PublicActivity::Model
@@ -13,9 +13,10 @@ class Discussion < ActiveRecord::Base
   	has_many :users, :through => :assigned_discussions
   	belongs_to :user
 
-  	has_many :discussion_threads
+  	has_many :discussion_threads, :conditions => { :deleted_at => nil}
   	has_many :assigned_discussions
   	has_many :thread_connectors
+  	has_many :reviews
 
   	acts_as_taggable
 	default_scope order: 'discussions.created_at DESC'  	
