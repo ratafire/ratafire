@@ -26,7 +26,7 @@
                                   	<p><%=	@discussion_status %></p>
                                     <p><%= @review_content %></p>
                                     <p>You can view your discussion via this link: <a class="no_ajaxify" target="_blank" href="https://www.ratafire.com/<%= @discussion.id.to_s %>/r/discussion/show"><%= @discussion_title%></a></p>
-                                    <% if @discussion_status == "Disapproved" then %><p><%= @extra_message %></p><% end %>
+                                    <% if @discussion.review_status == "Disapproved" then %><p><%= @extra_message %></p><% end %>
                                 </td>
                             </tr>
                         </table>

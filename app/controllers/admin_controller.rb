@@ -45,8 +45,8 @@ class AdminController < ApplicationController
 			else
 				#Send Message
 				@message_title = "Your Discussion: "+@discussion.title+" is Disapproved."
-				@message_content ="<p>Your discussion is disapproved.</p><p>"+@review.content+"</p><p>You can view your discussion via this link: <a class=\"no_ajaxify\" target=\"_blank\" href=\"https://www.ratafire.com/"+@discussion.id.to_s+"/r/discussion/show\">"+@discussion.title+"</a>. You can delete the disapproved discussion and start a new discussion to apply again. Thank you!"
-				@discussion.published = nil
+				@message_content ="<p>Your discussion is disapproved.</p><p>"+@review.content+"</p><p>You can view your discussion via this link: <a class=\"no_ajaxify\" target=\"_blank\" href=\"https://www.ratafire.com/"+@discussion.id.to_s+"/r/discussion/show\">"+@discussion.title+"</a>. You can edit your discussion to apply again or delete it. Thank you."
+				@discussion.published = false
 				@discussion.save
 			end
 			receipt = current_user.send_message(@receiver, @message_content, @message_title)

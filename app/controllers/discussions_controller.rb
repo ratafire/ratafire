@@ -2,6 +2,7 @@ class DiscussionsController < ApplicationController
 
 	layout 'application'
 
+
 	def create
 		@discussion = Discussion.prefill!(:user_id => current_user.id)
 		#AssignedDiscussion
@@ -86,13 +87,20 @@ class DiscussionsController < ApplicationController
 	end
 
 	def edit
-		@discussion = Discussion.find(params[:id])
-		if @discussion.realm == nil && @discussion.sub_realm == nil then
-			redirect_to discussion_realms_path(@discussion)
+		if user_signed_in? then
+			@discussion = Discussion.find(params[:id])
+			if current_user == @discussion.creator || current_user.admin == true
+				if @discussion.realm == nil && @discussion.sub_realm == nil then
+					redirect_to discussion_realms_path(@discussion)
+				else
+					if @discussion.realm != nil && @discussion.sub_realm == nil then
+						redirect_to discussion_subrealm_path(@discussion)
+					end
+
+				end
+			end	
 		else
-			if @discussion.realm != nil && @discussion.sub_realm == nil then
-				redirect_to discussion_subrealm_path(@discussion)
-			end
+			redirect_to root_path
 		end
 	end
 
@@ -116,9 +124,14 @@ class DiscussionsController < ApplicationController
 
 	def show
 		@discussion = Discussion.find(params[:id])
+		if @discussion.published == false then
+			redirect_to discussion_edit_path(@discussion.id)
+		end
 		@discussion_thread = DiscussionThread.new()
 		@discussion_threads = @discussion.discussion_threads.paginate(page: params[:page], :per_page => 30)
 		@level_1_threads = @discussion.discussion_threads.where(:level => 1).paginate(page: params[:page], :per_page => 30)
 	end
+
+
 
 end
