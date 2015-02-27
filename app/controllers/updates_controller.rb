@@ -136,6 +136,11 @@ class UpdatesController < ApplicationController
 	def featured
 		gon.activebutton = "staffpicks"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(:featured => true).paginate(page: params[:page], :per_page => 20)
+		if user_signed_in? then
+			if current_user.tutorial.intro == nil then
+				redirect_to intro_tutorial_path(current_user)
+			end
+		end
 	end
 
 	def all

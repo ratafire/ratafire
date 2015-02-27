@@ -1,0 +1,50 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Setup Subscription") %>
+
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'subscription_applications/header' %>
+	<% end %>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'subscription_applications/sidebar_application_payments' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Main ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">		
+		<!-- Post Content -->
+		<div class="post-content">
+
+			<!-- About Title -->
+			<div class="post-about-bg">
+				<div class="textbox-mini">
+					<div class="post-about-title">
+						<li style="font-size: 1.4em;">Amazon Payments</li>
+					</div>
+				</div>
+			</div>
+
+			<div class="textbox-mini">
+				<% if 1 == 2 then %>
+					<%= render 'subscription_applications/amazon_payments'%>	
+				<% else %>
+					<div style="text-align:center;">
+						<%= image_tag("betabg.png", height: '300')%>
+					</div>		
+					<div style="margin: 15px 24px 40px 0;">
+						<h2>We are updating Ratafire's payment system!</h2>
+						<p>Amazon Payments is updating their system from FPS to Login and Pay with Amazon, therefore we are updating Ratafire's payments system. We expect this update to take at least one week, and we will inform you when the update is completed. Thank you.</p>
+					</div>								
+				<% end %>
+
+			</div><!-- end. textbox-mini-->
+		</div><!-- end:.post-content2-->
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->	

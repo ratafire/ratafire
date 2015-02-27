@@ -1,0 +1,52 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Setup Subscription") %>
+
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'subscription_applications/header' %>
+	<% end %>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'subscription_applications/sidebar_application' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Main ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">		
+		<!-- Post Content -->
+		<div class="post-content">
+
+			<!-- About Title -->
+			<div class="post-about-bg">
+				<div class="textbox-mini">
+					<div class="post-about-title">
+						<li style="font-size: 1.4em;">To Subscribers</li>
+					</div>
+				</div>
+			</div>
+
+			<div class="textbox-mini">
+				<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify"}) do |f| %>
+					<%= f.hidden_field :step, :value => 1 %>
+						<div class="user-why-passage">
+							<ol style="margin-bottom: 10px;margin-top:20px;">Write down why you need subscribers and how the monthly support will help your project come to completion (200 - 2500 characters).</ol>
+							<%= f.text_area :why, class: "subscription-why-input noResize", style:"width:91%;" %>
+						</div>
+					<!-- Back -->
+					<div style="margin: 15px 24px 20px 0; text-align:right;">
+						<%= link_to url_for(:back), class:"no_ajaxify" do %><div class="btn btn-small2 btn-small-white no_ajaxify" >Back</div><% end %>
+						<!-- Next Step -->	
+						<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+					</div>		
+				<% end %>		
+			</div><!-- end. textbox-mini-->
+		</div><!-- end:.post-content2-->
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->	

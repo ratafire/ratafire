@@ -196,9 +196,20 @@ Ratafire::Application.routes.draw do
 	match ':id/r/supports/unsupport/:subscribed_id', to: 'supports#unsub', via: :delete, as: :unsupport
 	match ':id/r/supports/supporters_past', to: 'supports#supporters_past', as: :supporters_past
 	match ':id/r/supports/supporting_past', to: 'supports#supporting_past', as: :supporting_past
-	
+
+	#Setup
+	match ':id/:subscription_application_id/r/update/subscription', to: 'subscription_applications#updates', as: :update_subscription_application
+	match ':id/r/setup/subscription', to: 'subscription_applications#setup', as: :setup_subscription
+	match ':id/:subscription_application_id/goals/subscription', to: 'subscription_applications#goals', as: :goals_subscription
+	match ':id/:subscription_application_id/project/subscription', to: 'subscription_applications#project', as: :project_subscription
+	match ':id/:subscription_application_id/discussion/subscription', to: 'subscription_applications#discussion', as: :discussion_subscription
+	match ':id/:subscription_application_id/payments/subscription', to: 'subscription_applications#payments', as: :payments_subscription
+	match ':id/:subscription_application_id/identification/subscription', to: 'subscription_applications#identification', as: :identification_subscription
+	match ':id/:subscription_application_id/apply/subscription', to: 'subscription_applications#apply', as: :apply_subscription
+	match ':id/:subscription_application_id/pending/subscription', to: 'subscription_applications#pending', as: :pending_subscription
+
 #---Payments---
-	match ':id/r/subscription/why', to:'subscriptions#why', as: :why
+	match ':id/r/r/subscription/', to:'subscriptions#why', as: :why
 	match ':id/r/payments/subscribe', to: 'subscriptions#new', as: :subscribe
 	match ':id/r/payments/checkout_amazon', to: 'subscriptions#amazon', as: :amazon
 	match ':id/r/payments/subscription/create', to: 'subscriptions#create',via: :post, as: :create_subscription
@@ -275,7 +286,13 @@ Ratafire::Application.routes.draw do
 
 	match '/:id/r/ratafire/welcome-new-friend/beta_approve', to: 'beta_users#approve',as: :beta_approve
 	match '/:id/r/ratafire/welcome-new-friend/beta_ignore', to: 'beta_users#ignore', as: :beta_ignore
-	
+
+	#Subscription
+	match '/subscription_admin', to: 'admin#subscription', as: :admin_subscription
+	match '/pending_subscriptions_admin', to: 'admin#pending_subscription_applications', as: :admin_pending_subscription_applications
+	match '/subscription/review/r/:id', to: 'admin#subscription_applications_review', as: :admin_subscription_applications_review
+	match '/subscription/review/update/:id', to: 'admin#subscription_application_review_update', as: :admin_subscription_review_update
+
 	match '/post_staff_pick', to: 'admin#staff_pick', via: :post
 	match '/this_project/is_not/good_enough/:project_id', to: 'admin#project_staff_picks_delete', as: :project_staff_picks_delete
 	match '/this_majorpost/is_not/good_enough/:majorpost_id', to: 'admin#majorpost_staff_picks_delete', as: :majorpost_staff_picks_delete
@@ -408,6 +425,7 @@ Ratafire::Application.routes.draw do
 	resources :messages
 	resources :discussions
 	resources :discussion_threads
+	resources :subscription_applications
 
 end
 

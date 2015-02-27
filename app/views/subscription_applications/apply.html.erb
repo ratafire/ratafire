@@ -1,0 +1,112 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Setup Subscription") %>
+
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'subscription_applications/header' %>
+	<% end %>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'subscription_applications/sidebar_application_apply' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Main ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">		
+		<!-- Post Content -->
+		<div class="post-content">
+
+			<!-- About Title -->
+			<div class="post-about-bg">
+				<div class="textbox-mini">
+					<div class="post-about-title">
+						<li style="font-size: 1.4em;">Review and Apply</li>
+					</div>
+				</div>
+			</div>
+
+			<div class="textbox-mini">
+				<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
+					<%= f.hidden_field :step, :value => 7, id:"step_id" %>
+						<div class="user-why-passage">
+							<!-- With a Project -->
+								<ol style="margin-bottom: 10px;margin-top:20px;">Review your application before you proceed:</ol>
+								<h4>To Subscribers</h4>
+								<ol style="margin-bottom: 10px;margin-top:20px;">Write down why you need subscribers and how the monthly support will help your project come to completion (200 - 2500 characters).</ol>
+							<%= f.text_area :why, class: "subscription-why-input noResize", style:"width:91%;" %>
+							<!-- Subscribers -->
+							<div class="goals-placer">
+								<ul id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Subscribers</span>  </ul><span> </span>
+									<ul id="blue"><%= render :text => @user.subscribers.count %> <span>/</span> </ul>
+									<ul><%= f.text_field :goals_subscribers, class: "inputbox goals-input" %></ul> <span></span>
+								<ol><%= progress_bar(goals_count(@user.subscribers.count,@user.goals_subscribers), :color => 'blue', :rounded => true) %></ol>
+								<span>default: 256, minimum: 32</span>
+							</div>
+
+							<!-- Monthly Subscription Amount -->
+							<div class="goals-placer">
+								<ul id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription</span>  </ul><span> </span>
+									<ul id="green"><%= render :text => @user.subscription_amount.to_s %> <span>/</span> </ul>
+									<ul><%= f.text_field :goals_monthly, class: "inputbox goals-input" %></ul> <span></span>
+								<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
+								<span>default: 7730, minimum: 540</span>
+							</div>
+
+							<!-- Project Completion -->
+							<div class="goals-placer">
+								<ul id="purple"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Project Completion</span>  </ul><span> </span>
+									<ul id="purple"><%= @user.projects.where(:complete => true ).count %> <span>/</span> </ul>
+									<ul><%= f.text_field :goals_project, class: "inputbox goals-input" %></ul> <span></span>
+								<ol><%= progress_bar(goals_count(@user.projects.where(:complete => true ).count, @user.goals_project), :color => 'purple', :rounded => true) %></ol>
+								<span>default: 5, minimum: 1</span>
+							</div>
+
+							<h4>My intended update frequency or plans will be</h4>
+											<div class="user-why-passage">
+												<ol style="margin:20px 20px 10px 0;">Write an intended update frequency or plan for your current project. Example: One post per week in one of my math projects (10 - 500 characters).</ol>
+												<%= f.text_area :plan, class: "subscription-plan-input noResize", style:"width:91%;" %>
+											</div>	
+
+							<h4>Project</h4>				
+								<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one on going project to setup subscription. This is your project:</ol>
+								<%=  render "projects/project_one_application"%>
+								<h4>Collectible</h4>
+								<ol style="margin:20px 20px 10px 0;">Instead of rewards, you can provide your subscribers project collectibles as "rewards". The collectible you enter here is the collectible you provide to subscribers who subscribe to you since this project. When the project is completed, you should send out this collectible you promised to your subscribers. <p>We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters).</p></ol>
+								<%= f.text_area :collectible, class: "subscription-plan-input noResize", style:"width:91%;" %>						
+							<h4>Discussion</h4>			
+							<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one discussion to setup subscription.</ol>
+								<%=  render "discussions/discussion_one_application"%>													
+							<h4>Payments</h4>		
+      							<div class="lightbox3">
+									<div class="inputlabel-social">
+										<%= image_tag("amazon.png", class:"tipsy-tipsy", title:"Amazon") %>
+									</div>
+      								<div class="input-placer socialmedia-placer">
+      									<ul>You are connected to Amazon Payments!</ul>
+      									<ul>Your recipient token: <input onclick="this.select();" class="inputbox" type="recipient" value= <%= @user.amazon_recipient.tokenID %>></ul>
+      									<ul>If you need to contact Amazon regarding transaction issues, contact them with the recipient token above.</ul>
+      								</div>
+      							</div><!-- end.lightbox3--> 							
+						</div>
+					<!-- Back -->
+					<div style="margin: 15px 24px 20px 0; text-align:right;">
+						<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_apply_back">Back</div>
+						<!-- Next Step -->	
+						<% if @project then %>
+							<%= f.submit "Apply", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+						<% else %>
+						<% end %>	
+					</div>	
+
+				<% end %>		
+
+			</div><!-- end. textbox-mini-->
+		</div><!-- end:.post-content2-->
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->		
