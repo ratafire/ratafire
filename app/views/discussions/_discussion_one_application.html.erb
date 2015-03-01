@@ -1,0 +1,28 @@
+<div class="lightbox4" style="border: 0px solid #ddd;background-color:#f9f9f9; border-radius:5px;padding-bottom:27px;margin-right:24px;">
+<!-- Has Project -->
+<% if @discussion != nil %>	
+	<!-- project icon -->
+	<div class="project-show-icon">
+		<div class="project-icon-small">
+				<%= link_to user_path(@user), class:"no_ajaxify" do %>
+					<div class="user-icon-small-holder" style="background-image:url(<%= @user.profilephoto.url(:tiny)%>);"></div>
+				<% end %>		
+		</div>	
+	</div><!-- end.project-show-icon-->
+	<div class="project-show-content-why">
+		<div class="project-show-title">
+			<!-- Cutter --><ol style="margin-top: -8px;"></ol>
+		<h2>
+					<%= link_to @discussion.title, show_discussion_path(@discussion), class:"no_ajaxify" %>
+		</h2>
+		<ol style="margin-top: -18px;"></ol>
+		<ol><%= raw @discussion.tag_list.first(4).map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %> </ol>
+		<ol style="color:#999;"><%= @discussion.creator.fullname %> created this discussion <%= time_ago_in_words(@discussion.created_at) %> ago <% if @discussion.realm != nil %> in <%= link_to realm_selector_path(@discussion.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(@discussion.realm)%></span><% end %> <% if @discussion.sub_realm != nil then %> <span class="realm-color"><%= @discussion.sub_realm %></span><% end %><else>.<% end %></ol>					
+		</div><!-- end.project-show-title-->
+	</div><!-- end.project-show-content-->	
+<% else %>
+	<div  style="text-align:center;padding-top:15px;font-size:0.9em;">
+	<span>You do not have an approved discussion. <p>If your discussion is in "pending", please wait until it is approved.</p> If you don't have a discussion, you can <%= link_to "create a discussion", new_discussion_path(@user), method: :post,class: " no_ajaxify"%>.</span>
+	</div>
+<% end %>
+</div>	

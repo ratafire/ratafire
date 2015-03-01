@@ -1,0 +1,63 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Setup Subscription") %>
+
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'subscription_applications/header' %>
+	<% end %>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'subscription_applications/sidebar_application_discussion' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Main ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Main Content -->
+	<div class="main-content-project">		
+		<!-- Post Content -->
+		<div class="post-content">
+
+			<!-- About Title -->
+			<div class="post-about-bg">
+				<div class="textbox-mini">
+					<div class="post-about-title">
+						<li style="font-size: 1.4em;">Lead a Discussion</li>
+					</div>
+				</div>
+			</div>
+
+			<div class="textbox-mini">
+				<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
+					<%= f.hidden_field :step, :value => 4, id:"step_id" %>
+						<div class="user-why-passage">
+							<!-- With a Project -->
+							<% if @discussion then %>
+								<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one discussion to setup subscription. This is your discussion:</ol>
+								<%=  render "discussions/discussion_one_application"%>
+							<% else %>	
+							<!-- Without a Project -->
+								<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one discussion to setup subscription.</ol>
+								<%=  render "discussions/discussion_one_application"%>
+							<% end %>
+						</div>
+					<!-- Back -->
+					<div style="margin: 15px 24px 20px 0; text-align:right;">
+						<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_discussions_back">Back</div>
+						<!-- Next Step -->	
+						<% if @discussion then %>
+							<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+						<% else %>
+						<% end %>	
+					</div>		
+				<% end %>		
+
+			</div><!-- end. textbox-mini-->
+		</div><!-- end:.post-content2-->
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->	

@@ -1,0 +1,44 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Setup Subscription") %>
+
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'subscription_applications/header' %>
+	<% end %>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'subscription_applications/sidebar_application_apply' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Main ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">		
+		<!-- Post Content -->
+		<div class="post-content">
+
+			<!-- About Title -->
+			<div class="post-about-bg">
+				<div class="textbox-mini">
+					<div class="post-about-title">
+						<li style="font-size: 1.4em;">We are Reviewing your Application</li>
+					</div>
+				</div>
+			</div>
+
+			<div class="textbox-mini">
+				<div style="text-align:center;">
+					<%= image_tag("betabg.png", height: '300')%>
+				</div>
+				<div style="margin: 15px 24px 40px 0;">
+					<p>Thank you for setting up subscription. Your subscription application is now under review. We will inform you the result in two business days.</p>
+				</div>
+			</div><!-- end. textbox-mini-->
+		</div><!-- end:.post-content2-->
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->		

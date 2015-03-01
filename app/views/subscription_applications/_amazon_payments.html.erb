@@ -1,0 +1,62 @@
+				<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
+					<%= f.hidden_field :step, :value => 5, id:"step_id" %>
+						<div class="user-why-passage">
+							<!-- With a Project -->
+								<!-- Amazon Payments Not Connected -->
+								<% if @user.amazon_authorized != true then %>
+      							<div class="lightbox3">
+									<div class="inputlabel-social">
+										<%= image_tag("amazon.png", class:"tipsy-tipsy", title:"Amazon") %>
+									</div>
+      								<div class="input-placer socialmedia-placer">
+      									<ul><%= link_to "Connect your account to Amazon Payments",connect_to_amazon_payments_path(@user), id:"amazon-connect", class:"no_ajaxify"%></ul>
+      									<ul>You must have a verified Amazon Payments business account to accept subscription. Review our <%= link_to "Pricing", pricing_path, class:"no_ajaxify"%> page before you proceed.</ul>
+      									<ul>Since you are using Ratafire as an individual, not as a business, when you create an Amazon Payments business account, select your business type as "Individual", and use your own name and address. As for the website required by Amazon, we suggest that you use your own blog or site. If you do not have a website, you can put Ratafire as the website.</ul>
+      								</div>
+      							</div><!-- end.lightbox3-->
+      							<% end %><!-- end.user.amazon_authorized != true -->
+
+      							<!-- Amazon Payments Not Verified -->
+      							<% if @user.amazon_authorized != true && @user.amazon_recipient != nil then %>
+      							<% unless @user.amazon_recipient.Status == nil %>
+      							<div class="lightbox3">
+									<div class="inputlabel-social">
+										<%= image_tag("amazon.png", class:"tipsy-tipsy", title:"Amazon") %>
+									</div>
+      								<div class="input-placer socialmedia-placer">
+      									<ul><%= link_to "After verifying your Amazon Payments business account, click this link to reconnect",reconnect_recipient_path(@user), id:"amazon-connect", class:"no_ajaxify"%></ul>
+      									<ul>Your Amazon Payments account is not verified.</ul>
+      									<ul>Your recipient token: <input onclick="this.select();" class="inputbox" type="recipient" value= <%= @user.amazon_recipient.tokenID %>></ul>
+      									<ul>If you need to contact Amazon regarding transaction issues, contact them with the recipient token above.</ul>
+      									<ul><%= link_to "Disconnect your account from Amazon Payments",cancel_recipient_path(@user), id:"amazon-connect", class:"no_ajaxify", style:"color:#999;", :method => :get, :confirm => "Are you sure to disconnect? Disconnect from Amazon Payments will result in losing all your current subscribers."%></ul>
+      								</div>
+      							</div><!-- end.lightbox3--> 
+      							<% end %>
+      							<% end %>
+
+      							<!-- Amazon Payments Verified -->  
+      							<% if @user.amazon_authorized == true then %>   							
+      							<div class="lightbox3">
+									<div class="inputlabel-social">
+										<%= image_tag("amazon.png", class:"tipsy-tipsy", title:"Amazon") %>
+									</div>
+      								<div class="input-placer socialmedia-placer">
+      									<ul><%= link_to "Disconnect your account from Amazon Payments",cancel_recipient_path(@user), id:"amazon-connect", class:"no_ajaxify",style:"color:#999;", :method => :get, :confirm => "Are you sure to disconnect? Disconnect from Amazon Payments will result in losing all your current subscribers."%></ul>
+      									<ul>You are connected to Amazon Payments!</ul>
+      									<ul>Your recipient token: <input onclick="this.select();" class="inputbox" type="recipient" value= <%= @user.amazon_recipient.tokenID %>></ul>
+      									<ul>If you need to contact Amazon regarding transaction issues, contact them with the recipient token above.</ul>
+      								</div>
+      							</div><!-- end.lightbox3--> 
+      							<% end %><!-- end.user.amazon_authorized == true -->
+
+						</div>
+					<!-- Back -->
+					<div style="margin: 15px 24px 20px 0; text-align:right;">
+						<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_payments_back" >Back</div>
+						<!-- Next Step -->	
+						<% if @user.amazon_authorized == true then %>
+							<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+						<% else %>
+						<% end %>	
+					</div>		
+				<% end %>	

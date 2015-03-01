@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150210201222) do
+ActiveRecord::Schema.define(:version => 20150227051744) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -725,6 +725,7 @@ ActiveRecord::Schema.define(:version => 20150210201222) do
     t.integer  "pdf_id"
     t.boolean  "featured_home",     :default => false
     t.string   "sub_realm"
+    t.text     "collectible"
   end
 
   create_table "quotes", :force => true do |t|
@@ -757,13 +758,14 @@ ActiveRecord::Schema.define(:version => 20150210201222) do
     t.text     "content"
     t.string   "title"
     t.integer  "user_id"
-    t.boolean  "admin_review",  :default => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.boolean  "admin_review",                :default => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.datetime "deleted_at"
     t.boolean  "deleted"
     t.text     "message"
     t.string   "status"
+    t.integer  "subscription_application_id"
   end
 
   create_table "subscription_applications", :force => true do |t|
@@ -772,8 +774,14 @@ ActiveRecord::Schema.define(:version => 20150210201222) do
     t.text     "different"
     t.string   "status"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "step"
+    t.integer  "goals_subscribers"
+    t.integer  "goals_monthly"
+    t.integer  "goals_project"
+    t.text     "collectible"
+    t.integer  "project_id"
   end
 
   create_table "subscription_records", :force => true do |t|
@@ -941,7 +949,7 @@ ActiveRecord::Schema.define(:version => 20150210201222) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "tagline",                                                  :default => "Sits down at the fire of Ratatoskr"
+    t.string   "tagline",                                                   :default => "Sits down at the fire of Ratatoskr"
     t.string   "fullname"
     t.string   "username"
     t.string   "email"
@@ -964,9 +972,9 @@ ActiveRecord::Schema.define(:version => 20150210201222) do
     t.string   "profilephoto_content_type"
     t.integer  "profilephoto_file_size"
     t.datetime "profilephoto_updated_at"
-    t.integer  "goals_subscribers",                                        :default => 256
-    t.integer  "goals_monthly",                                            :default => 7730
-    t.integer  "goals_project",                                            :default => 5
+    t.integer  "goals_subscribers",                                         :default => 256
+    t.integer  "goals_monthly",                                             :default => 7730
+    t.integer  "goals_project",                                             :default => 5
     t.string   "encrypted_password"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -982,15 +990,15 @@ ActiveRecord::Schema.define(:version => 20150210201222) do
     t.string   "unconfirmed_email"
     t.string   "provider"
     t.string   "uid"
-    t.decimal  "subscription_amount",        :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "subscription_amount",         :precision => 8, :scale => 2, :default => 0.0
     t.text     "why"
-    t.boolean  "subscription_status",                                      :default => false
+    t.boolean  "subscription_status",                                       :default => false
     t.text     "plan"
-    t.boolean  "subscription_switch",                                      :default => false
-    t.boolean  "amazon_authorized",                                        :default => false
+    t.boolean  "subscription_switch",                                       :default => false
+    t.boolean  "amazon_authorized",                                         :default => false
     t.string   "subscribed_permission"
     t.string   "subscriber_permission"
-    t.boolean  "disabled",                                                 :default => false
+    t.boolean  "disabled",                                                  :default => false
     t.datetime "deactivated_at"
     t.datetime "goals_updated_at"
     t.string   "invitation_token"
@@ -1000,16 +1008,17 @@ ActiveRecord::Schema.define(:version => 20150210201222) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invitations_count",                                        :default => 0
-    t.decimal  "subscribing_amount",         :precision => 8, :scale => 2, :default => 0.0
-    t.integer  "supporter_slot",                                           :default => 5
-    t.boolean  "amount_display_switch",                                    :default => false
-    t.boolean  "accept_message",                                           :default => true
+    t.integer  "invitations_count",                                         :default => 0
+    t.decimal  "subscribing_amount",          :precision => 8, :scale => 2, :default => 0.0
+    t.integer  "supporter_slot",                                            :default => 5
+    t.boolean  "amount_display_switch",                                     :default => false
+    t.boolean  "accept_message",                                            :default => true
     t.string   "uuid"
     t.string   "location"
     t.string   "bio_html"
     t.string   "direct_upload_url"
-    t.boolean  "processed",                                                :default => false
+    t.boolean  "processed",                                                 :default => false
+    t.string   "subscription_status_initial"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

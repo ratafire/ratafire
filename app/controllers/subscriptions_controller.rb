@@ -83,7 +83,11 @@ class SubscriptionsController < ApplicationController
 
 	def settings
 		@user = User.find(params[:id])
-		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+		if @user.subscription_status_initial != "Approved" then
+			redirect_to setup_subscription_path(@user.id)
+		else
+			@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+		end
 	end
 
 	def transactions
@@ -321,7 +325,7 @@ private
     def subscription_permission
     	@subscribed = User.find(params[:id])
     	@subscriber = current_user
-    	if Rails.env.production?
+    	if Rails.env.production? then
     		#Check History to see if the last subscription is within one month
     		if subscription_permission_30days then
     			redirect_to(:back)
@@ -330,35 +334,40 @@ private
     			if subscription_permission_opened?	then
     				redirect_to(:back)
     			else
-    				#Check if the subscribed does not have a subscription note
-    				if subscription_permission_note? then
+    				#Check if the subscription is approved
+    				if subscription_status_initial? then
     					redirect_to(:back)
     				else
-    					#Check if the subscribed has an on going project
-    					if subscription_permission_project? then
+    					#Check if the subscribed does not have a subscription note
+    					if subscription_permission_note? then
     						redirect_to(:back)
     					else
-    						#Check if the subscribed is banned
-    						if subscription_permission_subscribed_banned? then
+    						#Check if the subscribed has an on going project
+    						if subscription_permission_project? then
     							redirect_to(:back)
     						else
-    							#Check if the subscriber is banned
-    							if subscription_permission_subscriber_banned? then
-	    							redirect_to(:back)
-	    						else
-	    							#Check if the subscribed reached her goal
-	    							if subscription_maximum_amount? then
+    							#Check if the subscribed is banned
+    							if subscription_permission_subscribed_banned? then
+    								redirect_to(:back)
+    							else
+    								#Check if the subscriber is banned
+    								if subscription_permission_subscriber_banned? then
 	    								redirect_to(:back)
-	    							#Check if the subscriber is ok to subscribe
 	    							else
-	    								if subscriber_status? then
+	    								#Check if the subscribed reached her goal
+	    								if subscription_maximum_amount? then
 	    									redirect_to(:back)
+	    								#Check if the subscriber is ok to subscribe
 	    								else
-	    									if exceed_supporters? then
+	    									if subscriber_status? then
 	    										redirect_to(:back)
+	    									else
+	    										if exceed_supporters? then
+	    											redirect_to(:back)
+	    										end
 	    									end
 	    								end
-	    							end
+    								end
     							end
     						end
     					end
@@ -386,10 +395,19 @@ private
     	return false
     end	
 
+    def subscription_status_initial?
+    	#Check if the subscription is approved
+    	if @subscribed.subscription_status_initial == nil then
+    		flash[:success] = "We are updating our payments system. Please come back in a week!"
+    		return true
+    	end
+    	return false
+    end
+
     def subscription_permission_opened?
     	#Check if the subscribed has opened subscription
     	if @subscribed.subscription_switch != true || @subscribed.amazon_authorized != true then
-    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+" has not turned on subscription."
+    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+" did not setup subscription."
     		return true
     	end
     	return false

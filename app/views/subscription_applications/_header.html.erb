@@ -1,0 +1,36 @@
+<!-- Script to view Project button -->
+<script>
+	$(document).ready(function() {
+	//Project-header-case	
+	$('#project-header-case').hover(function() {
+  		$("#edit-project-header").toggle();
+
+	});
+
+	//icon-delete
+	$('#icon-upload-box').hover(function() {
+  		$("#delete-icon").toggle();
+	});
+
+});
+</script>
+
+<div class="project-header-wrapper" id="project-header-case">
+		
+	<!-- project icon-->
+		<div class="project-icon-holder" style="background-image:url(<%= @user.profilephoto.url(:small) %>);">
+	</div>
+
+
+	<div id="project-title">
+		<!-- Project Name -->
+		<h1>
+			Setup Subscription
+		</h1>
+	</div><!-- end #project-title-->
+
+	<div id="project-goals">
+		<%= progress_bar(@subscription_progression, :color => 'pink', :rounded => true) %>
+	</div>
+
+</div><!-- end .project-header-wrapper-->

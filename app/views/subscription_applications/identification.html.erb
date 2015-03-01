@@ -1,0 +1,80 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Setup Subscription") %>
+
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'subscription_applications/header' %>
+	<% end %>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'subscription_applications/sidebar_application_identification' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Main ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">		
+		<!-- Post Content -->
+		<div class="post-content">
+
+			<!-- About Title -->
+			<div class="post-about-bg">
+				<div class="textbox-mini">
+					<div class="post-about-title">
+						<li style="font-size: 1.4em;">Connect to GitHub or Facebook</li>
+					</div>
+				</div>
+			</div>
+
+			<div class="textbox-mini">
+				<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
+					<%= f.hidden_field :step, :value => 6, id:"step_id" %>
+						<div class="user-why-passage">
+      								<!-- GitHub-->
+									<div class="inputlabel-social">
+										<%= image_tag("github.png", class:"tipsy-tipsy", title:"GitHub") %>
+									</div>
+      								<div class="input-placer socialmedia-placer">
+      									<% if @user.github == nil %>
+      									<ul><%= link_to "Connect your account to GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %></ul>
+      									<ul>Welcome, GitHuber! You must have a connected GitHub or Facebook account to accept subscription.</ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from GitHub",disconnect_path(@user,:github),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<ul>Welcome, GitHuber! </ul>
+      									<% end %>
+      								</div>      								
+      								<!-- Facebook -->
+									<div class="inputlabel-social">
+										<%= image_tag("facebook.png", class:"tipsy-tipsy", title:"Facebook") %>
+									</div>
+      								<div class="input-placer socialmedia-placer">
+      									<% if @user.facebook == nil %>
+      									<ul><%= link_to "Connect your account to Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %></ul>
+      									<ul>You must have a connected GitHub or Facebook account to accept subscription.</ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from Facebook",disconnect_path(@user,:facebook),class:"no_ajaxify",style:"color:#999;" %></ul>
+										<ul>You are connected to Facebook.</ul>
+      									<% end %>
+      									
+      								</div>
+						</div>
+					<!-- Back -->
+					<div style="margin: 15px 24px 20px 0; text-align:right;">
+						<div class="btn btn-small2 btn-small-white no_ajaxify"  id="subscription_application_identification_back">Back</div>
+						<!-- Next Step -->	
+						<% if @user.facebook != nil || @user.github != nil then %>
+							<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+						<% else %>
+						<% end %>	
+					</div>		
+				<% end %>		
+
+			</div><!-- end. textbox-mini-->
+		</div><!-- end:.post-content2-->
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->	

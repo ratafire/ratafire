@@ -347,6 +347,14 @@ p:last-child {
   margin-bottom: 0;
 }
 
+.no_a{
+  border-bottom:none;
+}
+
+.no_a:hover, .no_a:focus{
+  border-bottom: none;
+}
+
 a {
   color: #6bbfe7;
   border-bottom: 1px solid #97d2ee;

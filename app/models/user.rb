@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
 	has_many :archives
 
 	has_many :comments, :conditions => { :deleted_at => nil }
+	has_many :subscription_application, :conditions => { :status => nil }
 
 	has_many :inviteds
 	has_many :reviews

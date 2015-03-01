@@ -9,7 +9,7 @@ class DiscussionReviewMailer < ActionMailer::Base
   	if @discussion.review_status == "Approved" then
   		@discussion_status = "Your discussion is approved. Congratulations!!"
   	else
-  		@discussion_status = "Your discussion is approved."
+  		@discussion_status = "Your discussion is disapproved."
   	end
   	@review_content = @review.content
   	@discussion_id = @discussion.id.to_s

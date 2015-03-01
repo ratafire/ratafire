@@ -1,0 +1,91 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- Page Title -->
+<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+<% content_for(:side_bar) do %>
+<%= render 'layouts/sidebar_admin' %>
+<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
+
+			<h1>Subscription Application Review</h1>
+			<h5>Use this page to review this Subscription Application.</h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+			<!-- end of textbox-->
+		</div>						
+
+		<!-- Test Resque Jobs -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+				<p>This is the application of: <%= link_to @subscription_application.user.fullname, @subscription_application.user, class:"no_ajaxify", target:"_blank"%>.</p>
+
+				<h2>To subscribers</h2>
+
+					<p><%= @subscription_application.why %></p>
+				
+				<h2>Goals</h2>
+
+					<div>
+						<p>Subscribers Goal: <%= @subscription_application.goals_subscribers %></p>
+						<p>Subscription Amount: <%= @subscription_application.goals_monthly %></p>
+						<p>Project Goal: <%= @subscription_application.goals_project %></p>
+					</div>	
+
+				<h2>Plan</h2>
+
+					<p><%= @subscription_application.plan %></p>
+
+				<h2>Project</h2>
+
+					<% if @project != nil then %>
+						<p><%= link_to @project.title, user_project_path(@project.creator, @project), class:"no_ajaxify", target:"_blank"%></p>
+					<% else %>
+						<p>This user does not have an on-going project.</p>
+					<% end %>	
+
+				<h2>Discussion</h2>
+
+					<% if @discussion != nil then %>
+						<p><%= link_to @discussion.title, show_discussion_path(@discussion), class:"no_ajaxify", target:"_blank"%></p>
+					<% else %>
+						<p>This user does not have an approved discussion.</p>
+					<% end %>
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->			
+
+		<!-- Add Tests -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+				<!-- Test Projects -->
+				<%= form_for [@review], :url => admin_subscription_review_update_path(@subscription_application), :validate => true, :html => {:class => 'no_ajaxify'} do |f| %>
+					<%= f.hidden_field :user_id, value: current_user.id %>
+					<%= f.hidden_field :subscription_application_id, value: @subscription_application.id %>
+					<%= f.select :status, [['Approve', "Approved"], ['Disapprove', "Disapproved"]] %>
+					<ol style="margin-top: 10px;"></ol>
+					<%= f.text_area :content, style:"width:94.5%;",class: "subscription-plan-input noResize" , placeholder: "Enter your review." %>
+					<ol style="margin: 10px -2px 0 0; text-align:right;">
+						<div id="submit">
+							<%= f.submit "Review", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+						</div>
+					</ol>
+				<% end %>																
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->												
+
+
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+
+</div><!-- end of main-content-->

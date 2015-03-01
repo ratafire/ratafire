@@ -62,6 +62,56 @@ class AdminController < ApplicationController
 		@review = Review.new()
 	end
 
+	def subscription
+	end
+
+	def subscription_applications_review
+		@subscription_application = SubscriptionApplication.find(params[:id])
+		@project = @subscription_application.user.projects.where(:published => true, :complete => false, :abandoned => false).first
+		@discussion =@subscription_application.user.discussions.where(:published => true, :review_status => "Approved", :deleted => false).first
+		@review = Review.new()
+	end
+
+	def subscription_application_review_update
+		@review = Review.new(params[:review])
+		#Save the Review
+		if @review.save 
+			#Change the Status of the Discussion
+			@subscription_application = SubscriptionApplication.find(@review.subscription_application_id)
+			@subscription_application.status = @review.status
+			@subscription_application.save 
+			#Send Message
+			@receiver = User.find(@subscription_application.user_id)
+			#If Approved
+			if @review.status == "Approved" then
+				#Make the user subscription status be on
+				@receiver.subscription_status_initial = "Approved"
+				#Map Subscription Info
+				@receiver.why = @subscription_application.why
+				@receiver.plan = @subscription_application.plan
+				@receiver.goals_subscribers = @subscription_application.goals_subscribers
+				@receiver.goals_monthly = @subscription_application.goals_monthly
+				@receiver.goals_project = @subscription_application.goals_project
+				@receiver.save
+				#Set project
+				@project = Project.find(@subscription_application.project_id)
+				@project.collectible = @subscription_application.collectible
+				#Send Message
+				@message_content = "<p>Your subscription setup is approved. </p><p>"+@review.content+"</p><p>You can view your subscription page via <a class='no_ajaxify' target='_blank' href=\"https://www.ratafire.com/"+@receiver.username.to_s+"/r/r/subscription\">this link</a>."
+				@message_title = "Your Subscription Setup is Approved"
+			else
+				#Send Message
+				@message_title = "Your Discussion Setup is Disapproved"
+				@message_content ="<p>Your discussion is disapproved.</p><p>"+@review.content+"</p><p>You can re-apply via <a class=\"no_ajaxify\" target=\"_blank\" href=\"https://www.ratafire.com/"+@receiver.username.to_s+"/r/settings/subscription\">this link</a>. Thank you."
+			end
+			receipt = current_user.send_message(@receiver, @message_content, @message_title)
+			#Send Email
+			SubscriptionApplicationReviewMailer.subscription_application_review(@subscription_application.id,@review.id,@message_content,@message_title).deliver
+		end
+		#Send Email
+		redirect_to admin_subscription_path		
+	end
+
 	def content_users
 		respond_to do |format|
     		format.html
@@ -131,6 +181,13 @@ class AdminController < ApplicationController
     		format.json { render json: PendingDiscussionsDatatable.new(view_context) }
   		end		
 	end		
+
+	def pending_subscription_applications
+		respond_to do |format|
+    		format.html
+    		format.json { render json: PendingSubscriptionApplicationsDatatable.new(view_context) }
+  		end				
+	end
 
 	#This is a test for Resque workder: TestWorker
 	def test_resque
