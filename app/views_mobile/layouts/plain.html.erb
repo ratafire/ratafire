@@ -1,29 +1,31 @@
-<!doctype html>
-<html>
+<!DOCTYPE HTML>
 <!-- CSS -->
 <head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
     <title><%= full_title(yield(:title)) %></title>
-<%= stylesheet_link_tag  "slidebox/style/animate.min" %>
-<%= stylesheet_link_tag  "slidebox/style/font/font-awesome.css" %>
-<%= stylesheet_link_tag  "slidebox/style/font/font-awesome2.css" %>
-<%= stylesheet_link_tag  "slidebox/style/framwork.css" %>
-<%= stylesheet_link_tag  "slidebox/style/owl.theme.css" %>
-<%= stylesheet_link_tag  "slidebox/style/style.css" %>
-<%= stylesheet_link_tag  "slidebox/style/swipebox.css" %>
+<%= stylesheet_link_tag  "slidebox/animate.min" %>
+<%= stylesheet_link_tag  "font-awesome" %>
+<%= stylesheet_link_tag  "slidebox/framework" %>
+<%= stylesheet_link_tag  "slidebox/owl.theme" %>
+<%= stylesheet_link_tag  "slidebox/style" %>
+<%= stylesheet_link_tag  "slidebox/swipebox" %>
 <%= csrf_meta_tags %>
+
 
 </head>
 <body>
-<%= javascript_include_tag "jquery.js" %>
-<%= javascript_include_tag "slidebox/script/contact.js" %>
-<%= javascript_include_tag "slidebox/script/custom.js" %>
-<%= javascript_include_tag "slidebox/script/framwork.js" %>
-<%= javascript_include_tag "slidebox/script/framwork.launcher.js" %>
-<%= javascript_include_tag "slidebox/script/framwork.plugins.js" %>
-<%= javascript_include_tag "slidebox/script/jqueryui.js" %>
-  <%= yield %>
-</body>
+<%= yield %>
+<%= javascript_include_tag "application" %>
+<%= javascript_include_tag "slidebox/custom.js" %>
+<%= javascript_include_tag "slidebox/framwork.js" %>
+<%= javascript_include_tag "slidebox/framwork.launcher.js" %>
+<%= javascript_include_tag "slidebox/framwork.plugins.js" %>
 
-</html>
+</body>
 
 

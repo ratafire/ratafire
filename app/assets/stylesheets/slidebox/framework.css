@@ -469,7 +469,7 @@ a{
 	position:absolute;
 	left:50%; 
 	top:50%; 
-	background-image:url(../images/status.gif); 
+	background-image:url(/assets/slidebox/status.gif); 
 	background-size:64px 64px;
 	background-repeat:no-repeat;
 	background-position:center;
@@ -597,6 +597,7 @@ a{
 .button{
 	display:inline-block;
 	padding:10px 20px;	
+	border-radius: 5px;
 }
 
 .button-3d{
@@ -749,171 +750,171 @@ a{
 }
 
 .address-list{
-	background-image:url(../images/lists/address_48.png);
+	background-image:url(/assets/slidebox/lists/address_48.png);
 }
 
 .block-list{
-	background-image:url(../images/lists/block_48.png);
+	background-image:url(/assets/slidebox/lists/block_48.png);
 }
 
 .bookmark-list{
-	background-image:url(../images/lists/bookmark_48.png);
+	background-image:url(/assets/slidebox/lists/bookmark_48.png);
 }
 
 .briefcase-list{
-	background-image:url(../images/lists/briefcase_48.png);
+	background-image:url(/assets/slidebox/lists/briefcase_48.png);
 }
 
 .bubble-list{
-	background-image:url(../images/lists/bubble_48.png);
+	background-image:url(/assets/slidebox/lists/bubble_48.png);
 }
 
 .buy-list{
-	background-image:url(../images/lists/buy_48.png);
+	background-image:url(/assets/slidebox/lists/buy_48.png);
 }
 
 .calendar-list{
-	background-image:url(../images/lists/calendar_48.png);
+	background-image:url(/assets/slidebox/lists/calendar_48.png);
 }
 
 .clipboard-list{
-	background-image:url(../images/lists/clipboard_48.png);
+	background-image:url(/assets/slidebox/lists/clipboard_48.png);
 }
 
 .clock-list{
-	background-image:url(../images/lists/clock_48.png);
+	background-image:url(/assets/slidebox/lists/clock_48.png);
 }
 
 .delete-list{
-	background-image:url(../images/lists/delete_48.png);
+	background-image:url(/assets/slidebox/lists/delete_48.png);
 }
 
 .diagram-list{
-	background-image:url(../images/lists/diagram_48.png);
+	background-image:url(/assets/slidebox/lists/diagram_48.png);
 }
 
 .document-list{
-	background-image:url(../images/lists/document_48.png);
+	background-image:url(/assets/slidebox/lists/document_48.png);
 }
 
 .down-list{
-	background-image:url(../images/lists/down_48.png);
+	background-image:url(/assets/slidebox/lists/down_48.png);
 }
 
 .flag-list{
-	background-image:url(../images/lists/flag_48.png);
+	background-image:url(/assets/slidebox/lists/flag_48.png);
 }
 
 .folder-list{
-	background-image:url(../images/lists/folder_48.png);
+	background-image:url(/assets/slidebox/lists/folder_48.png);
 }
 
 .gear-list{
-	background-image:url(../images/lists/gear_48.png);
+	background-image:url(/assets/slidebox/lists/gear_48.png);
 }
 
 .globe-list{
-	background-image:url(../images/lists/globe_48.png);
+	background-image:url(/assets/slidebox/lists/globe_48.png);
 }
 
 .heart-list{
-	background-image:url(../images/lists/heart_48.png);
+	background-image:url(/assets/slidebox/lists/heart_48.png);
 }
 
 .help-list{
-	background-image:url(../images/lists/help_48.png);
+	background-image:url(/assets/slidebox/lists/help_48.png);
 }
 
 .home-list{
-	background-image:url(../images/lists/home_48.png);
+	background-image:url(/assets/slidebox/lists/home_48.png);
 }
 
 .info-list{
-	background-image:url(../images/lists/info_48.png);
+	background-image:url(/assets/slidebox/lists/info_48.png);
 }
 
 .key-list{
-	background-image:url(../images/lists/key_48.png);
+	background-image:url(/assets/slidebox/lists/key_48.png);
 }
 
 .label-list{
-	background-image:url(../images/lists/label_48.png);
+	background-image:url(/assets/slidebox/lists/label_48.png);
 }
 
 .left-list{
-	background-image:url(../images/lists/left_48.png);
+	background-image:url(/assets/slidebox/lists/left_48.png);
 }
 
 .letter-list{
-	background-image:url(../images/lists/letter_48.png);
+	background-image:url(/assets/slidebox/lists/letter_48.png);
 }
 
 .monitor-list{
-	background-image:url(../images/lists/monitor_48.png);
+	background-image:url(/assets/slidebox/lists/monitor_48.png);
 }
 
 .pencil-list{
-	background-image:url(../images/lists/pencil_48.png);
+	background-image:url(/assets/slidebox/lists/pencil_48.png);
 }
 
 .plus-list{
-	background-image:url(../images/lists/plus_48.png);
+	background-image:url(/assets/slidebox/lists/plus_48.png);
 }
 
 .present-list{
-	background-image:url(../images/lists/present_48.png);
+	background-image:url(/assets/slidebox/lists/present_48.png);
 }
 
 .print-list{
-	background-image:url(../images/lists/print_48.png);
+	background-image:url(/assets/slidebox/lists/print_48.png);
 }
 
 .right-list{
-	background-image:url(../images/lists/right_48.png);
+	background-image:url(/assets/slidebox/lists/right_48.png);
 }
 
 .save-list{
-	background-image:url(../images/lists/save_48.png);
+	background-image:url(/assets/slidebox/lists/save_48.png);
 }
 
 .search-list{
-	background-image:url(../images/lists/search_48.png);
+	background-image:url(/assets/slidebox/lists/search_48.png);
 }
 
 .shield-list{
-	background-image:url(../images/lists/shield_48.png);
+	background-image:url(/assets/slidebox/lists/shield_48.png);
 }
 
 .statistics-list{
-	background-image:url(../images/lists/statistics_48.png);
+	background-image:url(/assets/slidebox/lists/statistics_48.png);
 }
 
 .stop-list{
-	background-image:url(../images/lists/stop_48.png);
+	background-image:url(/assets/slidebox/lists/stop_48.png);
 }
 
 .tick-list{
-	background-image:url(../images/lists/tick_48.png);
+	background-image:url(/assets/slidebox/lists/tick_48.png);
 }
 
 .trash-list{
-	background-image:url(../images/lists/trash_48.png);
+	background-image:url(/assets/slidebox/lists/trash_48.png);
 }
 
 .up-list{
-	background-image:url(../images/lists/up_48.png);
+	background-image:url(/assets/slidebox/lists/up_48.png);
 }
 
 .user-list{
-	background-image:url(../images/lists/user_48.png);
+	background-image:url(/assets/slidebox/lists/user_48.png);
 }
 
 .wallet-list{
-	background-image:url(../images/lists/wallet_48.png);
+	background-image:url(/assets/slidebox/lists/wallet_48.png);
 }
 	
 .warning-list{
-	background-image:url(../images/lists/warning_48.png);
+	background-image:url(/assets/slidebox/lists/warning_48.png);
 }
 
 /*	8. Table  */ 
@@ -1150,7 +1151,7 @@ table tr:hover td{
 /*	11. Radio and Checkboxe */ 
 
 .checkbox-one{
-	background-image:url(../images/ui/checkbox1.png);
+	background-image:url(/assets/slidebox/ui/checkbox1.png);
 	background-size:16px 18px;
 	background-repeat:no-repeat;
 	padding-left:30px;
@@ -1159,11 +1160,11 @@ table tr:hover td{
 }
 
 .checkbox-one-checked{
-	background-image:url(../images/ui/checkbox1c.png);
+	background-image:url(/assets/slidebox/ui/checkbox1c.png);
 }
 
 .checkbox-two{
-	background-image:url(../images/ui/checkbox2.png);
+	background-image:url(/assets/slidebox/ui/checkbox2.png);
 	background-size:16px 18px;
 	background-repeat:no-repeat;
 	padding-left:30px;
@@ -1172,11 +1173,11 @@ table tr:hover td{
 }
 
 .checkbox-two-checked{
-	background-image:url(../images/ui/checkbox2c.png);
+	background-image:url(/assets/slidebox/ui/checkbox2c.png);
 }
 
 .checkbox-three{
-	background-image:url(../images/ui/checkbox3.png);
+	background-image:url(/assets/slidebox/ui/checkbox3.png);
 	background-size:16px 16px;
 	background-repeat:no-repeat;
 	padding-left:30px;
@@ -1185,11 +1186,11 @@ table tr:hover td{
 }
 
 .checkbox-three-checked{
-	background-image:url(../images/ui/checkbox3c.png);
+	background-image:url(/assets/slidebox/ui/checkbox3c.png);
 }
 
 .radio-one{
-	background-image:url(../images/ui/radio1.png);
+	background-image:url(/assets/slidebox/ui/radio1.png);
 	background-size:16px 18px;
 	background-repeat:no-repeat;
 	padding-left:30px;
@@ -1198,11 +1199,11 @@ table tr:hover td{
 }
 
 .radio-one-checked{
-	background-image:url(../images/ui/radio1c.png);
+	background-image:url(/assets/slidebox/ui/radio1c.png);
 }
 
 .radio-two{
-	background-image:url(../images/ui/radio2.png);
+	background-image:url(/assets/slidebox/ui/radio2.png);
 	background-size:16px 18px;
 	background-repeat:no-repeat;
 	padding-left:30px;
@@ -1211,7 +1212,7 @@ table tr:hover td{
 }
 
 .radio-two-checked{
-	background-image:url(../images/ui/radio2c.png);
+	background-image:url(/assets/slidebox/ui/radio2c.png);
 }
 
 /*	12. Charts */ 
@@ -1589,14 +1590,14 @@ table tr:hover td{
 	font-size:13px;
 	color:#343434;
 	text-transform:uppercase;
-	background-image:url(../images/ui/plus.png);
+	background-image:url(/assets/slidebox/ui/plus.png);
 	background-repeat:no-repeat;
 	background-size:12px 12px;
 	background-position:15px 19px;
 }
 
 .toggle-1-active{
-	background-image:url(../images/ui/minus.png);
+	background-image:url(/assets/slidebox/ui/minus.png);
 }
 
 .deploy-toggle-2{
@@ -1605,14 +1606,14 @@ table tr:hover td{
 	font-size:13px;
 	color:#343434;
 	text-transform:uppercase;
-	background-image:url(../images/lists/plus_48.png);
+	background-image:url(/assets/slidebox/lists/plus_48.png);
 	background-repeat:no-repeat;
 	background-size:14px 14px;
 	background-position:15px 18px;
 }
 
 .toggle-2-active{
-	background-image:url(../images/lists/delete_48.png);
+	background-image:url(/assets/slidebox/lists/delete_48.png);
 }
 
 .deploy-toggle-3{
@@ -1667,14 +1668,14 @@ table tr:hover td{
 	padding:15px;
 	padding-left:40px;
 	text-transform:uppercase;
-	background-image:url(../images/ui/arrow-down.png);
+	background-image:url(/assets/slidebox/ui/arrow-down.png);
 	background-repeat:no-repeat;
 	background-size:8px 5px;
 	background-position:15px 23px;
 }
 
 .submenu-nav-deploy-active{
-	background-image:url(../images/ui/arrow-up.png);
+	background-image:url(/assets/slidebox/ui/arrow-up.png);
 }
 
 .submenu-nav-items{
@@ -1765,7 +1766,7 @@ table tr:hover td{
 }
 
 .sliding-door-bottom a em{
-	background-image:url(../images/ui/minus.png);
+	background-image:url(/assets/slidebox/ui/minus.png);
 	background-size:12px 12px;
 	background-repeat:no-repeat;
 	background-position:13px 13px;
@@ -1778,7 +1779,7 @@ table tr:hover td{
 
 
 .sliding-door-top a em{
-	background-image:url(../images/ui/plus.png);
+	background-image:url(/assets/slidebox/ui/plus.png);
 	background-size:12px 12px;
 	background-repeat:no-repeat;
 	background-position:13px 13px;
@@ -2135,7 +2136,7 @@ table tr:hover td{
 }
 
 .profile-header {
-	background-image:url(../images/pictures/5.jpg);
+	background-image:url(/assets/slidebox/pictures/5.jpg);
 	background-repeat:repeat;	
 }
 
@@ -2151,7 +2152,7 @@ table tr:hover td{
 }
 
 .profile-header-background{
-	background-image:url(../images/pictures/5w.jpg);
+	background-image:url(/assets/slidebox/pictures/5w.jpg);
 	background-repeat:repeat;	
 	position:absolute;
 	left:0px;
@@ -3016,12 +3017,12 @@ table tr:hover td{
 /* Default demo styles */
 
 .snap-drawers {
-	background-image:url(../images/misc/menu-bg.png);
+	background-image:url(/assets/slidebox/misc/menu-bg.png);
     background-size:100px 100px;
 }
 
 .snap-drawer {
-	background-image:url(../images/misc/menu-bg.png);
+	background-image:url(/assets/slidebox/misc/menu-bg.png);
     background-size:100px 100px;
 }
 
@@ -3094,7 +3095,7 @@ table tr:hover td{
 }
 
 .login-logo{
-    background-image:url(../images/misc/logo.png);
+    background-image:url(/assets/slidebox/misc/logo.png);
     width:110px;
     height:35px;
     background-size:110px 35px;
@@ -3164,7 +3165,7 @@ table tr:hover td{
 }
 
 .signup-logo{
-    background-image:url(../images/misc/logo.png);
+    background-image:url(/assets/slidebox/misc/logo.png);
     width:110px;
     height:35px;
     background-size:110px 35px;
@@ -3183,7 +3184,6 @@ table tr:hover td{
     line-height:100%;
     border:solid 1px #cacaca; 
     color:#666666;
-    border-radius:0px;
 }
 
 .signup-password{
@@ -3917,7 +3917,7 @@ table tr:hover td{
 /*/////////////*/
 
 .error-page-wrapper{
-    background-image:url(../images/pictures/3.jpg);
+    background-image:url(/assets/slidebox/pictures/3.jpg);
     background-position:center center;
     background-size:cover;
     position:absolute;
@@ -3993,7 +3993,7 @@ table tr:hover td{
 /*////////////*/
 
 .soon-page-wrapper{
-    background-image:url(../images/pictures/3.jpg);
+    background-image:url(/assets/slidebox/pictures/3.jpg);
     background-position:center center;
     background-size:cover;
     position:absolute;
