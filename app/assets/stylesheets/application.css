@@ -23,6 +23,7 @@
 *= require flat.audio
 *= require flat2.audio
 *= require flat3.audio
+*= require mobile.css.scss
 *= require_directory .
 
  */
