@@ -50,4 +50,13 @@ private
     end
   end
 
+  def mobile_device?
+      # Season this regexp to taste. I prefer to treat iPad as non-mobile.
+      if (request.user_agent =~ /Mobile|webOS/) && (request.user_agent !~ /iPad/) then
+        return true
+      else
+        return false
+      end
+  end
+
 end

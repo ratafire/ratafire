@@ -16,11 +16,12 @@ class ApplicationController < ActionController::Base
 
   #Mobile Pages
   def check_for_mobile
-    prepare_for_mobile if mobile_device?
+    prepare_for_mobile#if mobile_device?
   end
 
   def prepare_for_mobile
     prepend_view_path Rails.root + 'app' + 'views_mobile'
+    # prepend_view_path "app/views/mobile" if mobile_device?
   end
 
   def mobile_device?
@@ -32,6 +33,19 @@ class ApplicationController < ActionController::Base
       end
   end
   helper_method :mobile_device?  
+
+  def resource_name
+    :user
+  end
+ 
+  def resource
+    @resource ||= User.new
+  end
+ 
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+  helper_method :resource, :resource_name, :devise_mapping
 
 protected
 

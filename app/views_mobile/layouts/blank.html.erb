@@ -3,21 +3,25 @@
 <!-- CSS -->
 <head>
     <title><%= full_title(yield(:title)) %></title>
-<%= stylesheet_link_tag  "promo/animate.min" %>
-<%= stylesheet_link_tag  "promo/bootstrap-select.min" %>
-<%= stylesheet_link_tag  "promo/bootstrap" %>
-<%= stylesheet_link_tag  "promo/datepicker" %>
-<%= stylesheet_link_tag  "font-awesome" %>
-<%= stylesheet_link_tag  "promo/jquery.fullPage" %>
-<%= stylesheet_link_tag  "promo/jquery.jqplot" %>
-<%= stylesheet_link_tag  "promo/jquery.mCustomScrollbar.min" %>
-<%= stylesheet_link_tag  "promo/morris" %>
-<%= stylesheet_link_tag  "promo/owl.carousel" %>
-<%= stylesheet_link_tag  "promo/revolution/settings" %>
-<%= stylesheet_link_tag  "promo/style" %>
-<%= stylesheet_link_tag  "promo/theme-styles" %>
+<%= stylesheet_link_tag  "slidebox/style/animate.min" %>
+<%= stylesheet_link_tag  "slidebox/style/font/font-awesome.css" %>
+<%= stylesheet_link_tag  "slidebox/style/font/font-awesome2.css" %>
+<%= stylesheet_link_tag  "slidebox/style/framwork.css" %>
+<%= stylesheet_link_tag  "slidebox/style/owl.theme.css" %>
+<%= stylesheet_link_tag  "slidebox/style/style.css" %>
+<%= stylesheet_link_tag  "slidebox/style/swipebox.css" %>
 <%= csrf_meta_tags %>
 
 </head>
-<%= yield %>
+<body>
+<%= javascript_include_tag "jquery.js" %>
+<%= javascript_include_tag "slidebox/script/contact.js" %>
+<%= javascript_include_tag "slidebox/script/custom.js" %>
+<%= javascript_include_tag "slidebox/script/framwork.js" %>
+<%= javascript_include_tag "slidebox/script/framwork.launcher.js" %>
+<%= javascript_include_tag "slidebox/script/framwork.plugins.js" %>
+<%= javascript_include_tag "slidebox/script/jqueryui.js" %>
+  <%= yield %>
+</body>
+
 </html>
