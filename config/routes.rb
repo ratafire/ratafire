@@ -2,6 +2,8 @@ Ratafire::Application.routes.draw do
 
 
 
+  post '/rate' => 'rater#create', :as => 'rate'
+
 #------Gems------
 
 #---Mathjax---

@@ -1,6 +1,9 @@
 class Project < ActiveRecord::Base
-  #friendly id
 
+  #Rating
+  letsrate_rateable "rating"
+
+  #friendly id
   extend FriendlyId
   friendly_id :perlink, :use => :slugged
 

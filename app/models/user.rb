@@ -11,6 +11,10 @@
 #
 
 class User < ActiveRecord::Base
+
+	#Rater
+	letsrate_rater
+
 	#friendly id
 	extend FriendlyId
 	friendly_id :username
