@@ -120,7 +120,15 @@ License URI: http://themeforest.net/licenses/regular_extended
 
 }
 
-
+.user-links {
+  right: 0;
+  top: 20px;
+  margin-right:27px;
+  color: #999;
+  position: fixed;
+  display: auto;
+  z-index: 999;
+}
 
 .color-blue{
   color: #2297ce !important;
