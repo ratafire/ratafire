@@ -100,14 +100,13 @@
 					<div class="post-content-blank">
 						<%= render "projects/project_rating" %>
 
-						<div class="project-reviews-title">
-							<div class="textbox-mini">
-								<h2>Most Helpful Reviews</h2>
-							</div>	
-						</div>
-
 						<!-- Project Comments -->
 						<% if @project.project_comments.any? %>
+							<div class="project-reviews-title">
+								<div class="textbox-mini">
+									<h2>Most Helpful Reviews</h2>
+								</div>	
+							</div>
 							<%= render @project_comments %>
 						<% end %>
 
