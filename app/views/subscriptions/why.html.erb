@@ -12,11 +12,21 @@
 		<%= render 'layouts/sidebar_profile' %>
 	<% end %>
 
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>	
+		<%= tag :meta, property: "og:url", content: request.scheme+"://"+request.host+"/"+@user.username+"/r/r/subscription" %>
+		<%= tag :meta, property: "og:title", content: "Ratafire - "+@user.fullname %>
+		<%= tag :meta, property: "og:image", content: @user.profilephoto.url(:small) %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:description", content: @user.why %>
+	<% end %>	
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 	<!-- Main Content -->
 	<div class="main-content">
-
+		<%= render 'users/social_media_subscription'%>
 		<!-- Full Name-->
 		<%= render 'shared/fullname'%>
 

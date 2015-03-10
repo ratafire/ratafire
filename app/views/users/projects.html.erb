@@ -6,6 +6,17 @@
 	<!-- Best in Place -->
 	<%= render 'shared/best_in_place'%>	
 
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>	
+		<%= tag :meta, property: "og:url", content: request.scheme+"://"+request.host+"/"+@user.username %>
+		<%= tag :meta, property: "og:title", content: "Ratafire - "+@user.fullname %>
+		<%= tag :meta, property: "og:image", content: @user.profilephoto.url(:small) %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:description", content: @user.bio %>
+	<% end %>
+
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 	<% content_for(:side_bar) do %>
@@ -13,9 +24,10 @@
 	<% end %>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
-
+	
 	<!-- Main Content -->
 	<div class="main-content">
+		<%= render 'users/social_media'%>
 				<div>
 
 					<!-- Full Name -->

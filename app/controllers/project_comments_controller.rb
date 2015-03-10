@@ -35,11 +35,12 @@ class ProjectCommentsController < ApplicationController
 				@activity.commented_at = @project.commented_at
 				@activity.save
 			end
-			flash[:success] = "You commented on the project!"
-			redirect_to(:back)
+			flash[:success] = "You reviewed the project!"
+			redirect_to user_project_project_comment_path(@project.creator, @project, @project_comment)
+			ProjectReviewMailer.project_review(@project_comment.id,@project_comment.title,@project_comment.stars,@project_comment.user_id).deliver
 		else
 			flash[:error] = "'_' Unsucessful comment submission. Comment can't be blank or shorter than 24 characters."	
-			redirect_to user_project_project_comment_path(@project.creator, @project, @project_comment)
+			redirect_to(:back)
 		end
 	end
 
@@ -75,7 +76,7 @@ class ProjectCommentsController < ApplicationController
 			@project.save
 		end
 		flash[:success] = "Comment deleted."
-		redirect_to(:back)
+		redirect_to user_project_path(@project.creator,@project)
 	end
 
 	def upvote
