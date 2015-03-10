@@ -30,8 +30,10 @@
 		<% if @project.artwork != nil %>
 			<%= tag :meta, property: "og:image", content: @project.artwork.image.url(:preview) %>
 		<% else %>
-			<% if @project.video_id != nil && @project.video_id != "" && if @video != nil %>
-				<%= tag :meta, property: "og:image", content: @video.thumbnail %>	
+			<% if @project.video_id != nil && @project.video_id != "" %>
+				<% if @video != nil then %>
+					<%= tag :meta, property: "og:image", content: @video.thumbnail %>	
+				<% end %>
 			<% else %>
 				<% if @icon != nil %>
 					<%= tag :meta, property: "og:image", content: @icon.image.url(:pageview) %>	
