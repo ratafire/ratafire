@@ -16,7 +16,8 @@
 	});
 
 </script>
-
+		<!-- Post to Social Media -->
+		<%= render 'layouts/post_to_social_media'%>	
 <!-- Header Wrapper -->
 <div class="project-header-wrapper" id="project-header-case">
 	
@@ -147,8 +148,9 @@
 				<% end %>								
 			</div><!-- end .project-social-watch-holder-->	
 		<% end %><!-- end if user_signed_in -->
+
 	</div><!-- end .project-social-holder-->	
-	
+
 	<!-- Project Header Edit -->
 	<!-- if current user has the right to edit -->
 	<% if project_header_edit(@project) %>
@@ -257,7 +259,7 @@
 		
 		<ul>
 			<!-- Show Tagline if there is a-->
-				<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= @project.tagline %></h5>
+				<h5 class="rating-h5"><%= rating_for @project, "content",:star => 5, :readonly => true %> <%= @project.content_rates.count %> ratings <i class="fa fa-angle-right"></i> <%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> <i class="fa fa-angle-right"></i> <%= @project.tagline %></h5>
 		</ul>
 	</div>
 

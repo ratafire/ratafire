@@ -1,0 +1,52 @@
+<!-- Post Content -->
+<div class="project-reviews-holder">
+
+	<div class="project-reviews-title">
+		<div class="textbox-mini">
+			<h2>Project Reviews</h2>
+		</div>	
+	</div>	
+
+	<div class="textbox-mini">
+
+		<div><%= rating_for @project, "content",:star => 5, :readonly => true %> (<%= @project.content_rates.count %>)</div>
+
+			<div class="write-a-review">
+				<% if signed_in? %>
+					<ul>Your rating for this project <i class="fa fa-angle-down"></i></ul>
+					<ul><%= rating_for_user @project, current_user,"content",:star => 5 %></ul>				
+					<% if @current_user_project_comment == nil then %>
+						<ul>Share your thoughts with others <i class="fa fa-angle-down"></i></ul>
+						<ul><%= link_to "Write a Review",new_project_review_path(@project.creator, @project),class:"btn btn-medium2 btn-medium-green no_ajaxify" %></ul>
+					<% else %>
+						<ul>View your review for this project <i class="fa fa-angle-down"></i></ul>
+						<ul><%= link_to "View Review",user_project_project_comment_path(@project.creator, @project, @current_user_project_comment),class:"btn btn-medium2 btn-medium-green no_ajaxify" %></ul>							
+					<% end %>	
+				<% else %>
+					<ul>Sign in to review this project <i class="fa fa-angle-down"></i></ul>
+					<ul><%= link_to "Sign in",new_user_session_path,class:"btn btn-medium2 btn-medium-green no_ajaxify" %></ul>
+					<ul>Don't have an account? <%= link_to 'Sign up', new_user_registration_path, class:"no_ajaxify" %></ul>
+				<% end %>
+			</div>			
+
+		<% if @project.content_average != nil then %>
+			<div><%= @project.content_average.avg.to_f %> out of 5 stars</div>
+			<div class="rating-bars">
+				<ul class="rating-bar-star">5 star</ul><div class="rating-bar-holder"><%= progress_bar(@project.content_average.star_5_per, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right"><%= @project.content_average.star_5_qty %></ul> 
+				<ul class="rating-bar-star">4 star</ul><div class="rating-bar-holder"><%= progress_bar(@project.content_average.star_4_per, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right"><%= @project.content_average.star_4_qty %></ul>  		
+				<ul class="rating-bar-star">3 star</ul><div class="rating-bar-holder"><%= progress_bar(@project.content_average.star_3_per, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right"><%= @project.content_average.star_3_qty %></ul>  
+				<ul class="rating-bar-star">2 star</ul><div class="rating-bar-holder"><%= progress_bar(@project.content_average.star_2_per, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right"><%= @project.content_average.star_2_qty %></ul>  	
+				<ul class="rating-bar-star">1 star</ul><div class="rating-bar-holder"><%= progress_bar(@project.content_average.star_1_per, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right"><%= @project.content_average.star_1_qty %></ul>  							
+			</div>
+		<% else %>
+			<div>Be the first to rate this project</div>
+			<div class="rating-bars">
+				<ul class="rating-bar-star">5 star</ul><div class="rating-bar-holder"><%= progress_bar(0, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right">0</ul> 
+				<ul class="rating-bar-star">4 star</ul><div class="rating-bar-holder"><%= progress_bar(0, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right">0</ul>  		
+				<ul class="rating-bar-star">3 star</ul><div class="rating-bar-holder"><%= progress_bar(0, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right">0</ul>  
+				<ul class="rating-bar-star">2 star</ul><div class="rating-bar-holder"><%= progress_bar(0, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right">0</ul>  	
+				<ul class="rating-bar-star">1 star</ul><div class="rating-bar-holder"><%= progress_bar(0, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right">0</ul>  							
+			</div>					
+		<% end %>
+	</div><!-- end .textbox-mini-->
+</div>

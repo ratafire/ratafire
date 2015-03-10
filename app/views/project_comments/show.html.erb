@@ -1,7 +1,7 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 	<!-- Page Title -->
-	<% provide(:title, @project.title) %>
+	<% provide(:title, @project_comment.title) %>
 
 	<!-- External Link -->
 	<%= render 'shared/externallink'%><!-- script -->	
@@ -11,6 +11,46 @@
 
     <!-- Radius Image-->
 	<%= render 'shared/radius_image' %><!-- script -->	
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=249146721904203";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:type:profile:username", content: @project_comment.user.fullname %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:title", content: @project_comment.title %>
+			
+		<% if @project.artwork != nil %>
+			<%= tag :meta, property: "og:image", content: @project.artwork.image.url(:preview) %>
+		<% else %>
+			<% if @project.video_id != nil && @project.video_id != ""%>
+				<%= tag :meta, property: "og:image", content: @video.thumbnail %>	
+			<% else %>
+				<% if @icon != nil %>
+					<%= tag :meta, property: "og:image", content: @icon.image.url(:pageview) %>	
+				<% else %>
+					<% if @project.projectimages.count > 0 %>
+						<%= tag :meta, property: "og:image", content: @project.projectimages.first.url %>	
+					<% end %>	
+				<% end %>
+			<% end %>	
+		<% end %>	
+
+		<% if @project.video_id != nil && @project.video_id != "" %>
+			<%= tag :meta, property: "og:video:url", content: @video.output_url %>
+			<%= tag :meta, property: "og:video:width", content: "444" %>
+			<%= tag :meta, property: "og:video:height", content: "790" %>
+		<% end %>
+
+		<%= tag :meta, property: "og:description", content: truncate(@project_comment.excerpt, :length => 180) %>
+	<% end %><!-- end.content_for :head do -->		
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Extra Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 
@@ -39,7 +79,9 @@
 	<div class="main-content-project">
 					<!-- Post Content -->
 					<div class="post-content">
+						<%= render "projects/project_rating" %>	
 						<div class="textbox2">
+							<h2>User Review</h2>
 							<!-- Post User Icon -->
 							<!-- Post User Icon -->
 							<span id="post-usericon">
@@ -52,10 +94,9 @@
 
 							<!-- Post Title -->
 							<div id="post-title">
-								<h2>Comment on <%= link_to @project_comment.project.title, user_project_path(@project_comment.project.creator,@project_comment.project), class:"no_ajaxify" %></h2>
-								<ul></ul>
-								<ol><%= link_to @project_comment.user.fullname , @project_comment.user,class:"no_ajaxify" %><% unless @project_comment.user.tagline.blank?%><span>,</span> <%= @project_comment.user.tagline%><% end %></ol>
-								<ol style="margin-top:0px;"><%= time_ago_in_words(@project_comment.created_at) %> ago</ol>
+								<h2><%= link_to @project_comment.title,user_project_project_comment_path(@project_comment.project.creator,@project_comment.project,@project_comment),class:"no_ajaxify"%></h2>
+								<ol style="margin-top:-10px;"><%= rating_for_user @project, @project_comment.user,"content",:star => 5, :readonly => true %> <%= @project_comment.get_upvotes.size %> of <%= @project_comment.votes_for.size %> people found the following review helpful</ol>
+								<ol style="margin-top:0px;"><%= link_to @project_comment.user.fullname , @project_comment.user, class:"no_ajaxify" %><% unless @project_comment.user.tagline.blank?%><span>,</span> <%= @project_comment.user.tagline%><% end %> reviewed <%= time_ago_in_words(@project_comment.created_at) %> ago.</ol>
 							</div>
 
 							<!-- Post Content -->
@@ -63,7 +104,21 @@
 								<!-- Cutter --><ol style="margin-top: 15px;"></ol>
 								<%= sanitize @project_comment.content, tags: %w(p img a pre blockquote) %>
 							</div>
+						<!-- Tools -->
+						<% if signed_in? %>
+							<div class="toolbox" style="margin-top:20px;">
 
+								<li id="review-useful_<%= @project_comment.id%>">
+								Was this review helpful to you? <%= link_to "Yes",upvote_path(current_user.id, @project_comment.id), class:"no_ajaxify", class:"btn-delete-light", style:"width:20px;", remote: true %> <%= link_to "No",downvote_path(current_user.id, @project_comment.id), class:"no_ajaxify", class:"btn-delete-light", style:"width:20px;", remote: true %>
+								</li>
+								<li id="review-useful-over_<%= @project_comment.id%>" style="display:none;color:#72aa35;">
+									Thank you for your feedback!
+								</li>	
+								<% if current_user?(@project_comment.user)%>
+									<li>/ <%= link_to "x", [@project_comment.project.creator,@project_comment.project, @project_comment], :method => :delete, class:"tipsy-tipsy no_ajaxify", title:"Delete comment.", :confirm => "Are you sure to delete this comment?" %></li>
+                 				<% end %>
+							</div><!-- end.toolbox-->
+						<% end %>
 
 						</div><!-- end of textbox2 -->
 					</div><!-- end of post-content -->

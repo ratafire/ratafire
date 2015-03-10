@@ -436,7 +436,7 @@
 		click			: undefined,
 		half			: false,
 		halfShow		: true,
-		hints			: ['bad', 'poor', 'regular', 'good', 'gorgeous'],
+		hints			: ['I hate it', 'I don\'t like it', 'It\'s okay', 'I like it', 'I love it'],
 		iconRange		: undefined,
 		mouseover		: undefined,
 		noRatedMsg		: 'not rated yet',

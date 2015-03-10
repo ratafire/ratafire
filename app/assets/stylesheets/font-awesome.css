@@ -33,6 +33,7 @@
   font-style: normal;
 }
 .fa {
+  margin-right: 5px;
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
