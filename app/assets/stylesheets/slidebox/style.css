@@ -21,6 +21,10 @@ Platforms:   Mobile & Tablet
     border-radius: 0 0 5px 5px;
 }
 
+.no-radius{
+    border-radius: 0 0 0 0 !important;
+}
+
 .margin-top-20{
     margin-top: 20px;
 }
