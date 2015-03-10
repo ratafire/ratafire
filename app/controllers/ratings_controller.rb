@@ -11,7 +11,7 @@ class RatingsController < ApplicationController
   		@rate.stars = params[:score]
   		@rate.dimension = params[:dimension]
   		@rate.save
-  		update_rate_average(0,params[:score],true, params[:dimension])
+  		update_rate_average("Project",params[:id],0,params[:score],true, params[:dimension])
   	else
   		@rate = Rate.find_by_rater_id_and_rateable_id(current_user.id,params[:id])
   		update_rate_average(@rate.stars,params[:score],false, params[:dimension])
@@ -23,8 +23,8 @@ class RatingsController < ApplicationController
 
 private  
 
-  def update_rate_average(prestars,stars,quantity, dimension=nil)
-    if RatingCache.find_by_dimension(dimension) == nil then 
+  def update_rate_average(cacheable_type,cacheable_id,prestars,stars,quantity, dimension=nil)
+    if RatingCache.find_by_cacheable_type_and_cacheable_id(cacheable_type,cacheable_id) == nil then 
       RatingCache.create do |avg|
         avg.cacheable_id = params[:id]
         avg.cacheable_type = @rate.rateable_type
@@ -52,7 +52,7 @@ private
         avg.save
       end                     
     else
-      a = RatingCache.find_by_dimension(dimension)
+      a = RatingCache.find_by_cacheable_type_and_cacheable_id(cacheable_type,cacheable_id)
       a.avg = (a.avg + stars.to_f) / (a.qty+1)
       	if quantity == true then
       		a.qty = a.qty + 1
