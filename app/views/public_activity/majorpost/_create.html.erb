@@ -113,12 +113,12 @@
 		<% if activity.trackable.early_access == false %>
 			<!-- When Early Access is Off -->
 			<div id="majorpost-time">
-				Posted by <%= link_to activity.trackable.user.fullname,user_path(activity.trackable.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago. <% if activity.trackable.comments.count >0 then%>Commented by <%= link_to activity.trackable.comments.last.user.fullname,user_path(activity.trackable.comments.last.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.commented_at)%> ago.<% end %>
+				<%= rating_for activity.trackable.project, "content",:star => 5, :readonly => true %> (<%= activity.trackable.project.content_rates.count %>) Posted by <%= link_to activity.trackable.user.first_name,user_path(activity.trackable.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago. <% if activity.trackable.comments.count >0 then%>Commented by <%= link_to activity.trackable.comments.last.user.first_name,user_path(activity.trackable.comments.last.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.commented_at)%> ago.<% end %>
 			</div>
 		<% else %>
 			<!-- When Early Access is On -->
 			<div id="majorpost-time-early-access">
-				Posted by <%= link_to activity.trackable.user.fullname,user_path(activity.trackable.user),class:"no_ajaxify" %>. Releases in <%= distance_of_time_in_words(Time.now,activity.trackable.published_at+6.days,include_seconds: false) %>. <% if subscription_status_universial(activity.trackable.user) == true then %><%= early_access(activity.trackable.id) %><% end %>
+				<%= rating_for activity.trackable.project, "content",:star => 5, :readonly => true %> (<%= activity.trackable.project.content_rates.count %>) Posted by <%= link_to activity.trackable.user.first_name,user_path(activity.trackable.user),class:"no_ajaxify" %>. Releases in <%= distance_of_time_in_words(Time.now,activity.trackable.published_at+6.days,include_seconds: false) %>. <% if subscription_status_universial(activity.trackable.user) == true then %><%= early_access(activity.trackable.id) %><% end %>
 			</div>			
 		<% end %><!-- end if activity.trackable.earlly_access == false-->	
 

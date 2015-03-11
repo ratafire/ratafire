@@ -11,6 +11,8 @@
 	<!-- Page Specific JS -->
 	<%= render 'users/showjs' %>
 
+	
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 	<% content_for :head do %>	
@@ -26,13 +28,12 @@
 	<% content_for(:side_bar) do %>
     	<%= render 'layouts/sidebar_profile' %>
 	<% end %>
-		
+
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 	<!-- Main Content -->
 	<div class="main-content">
-
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Tutorial ~~~~~~~~~~~~~~~~~~~~~~~~-->	
-
+	<%= render 'users/social_media'%>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Tutorial ~~~~~~~~~~~~~~~~~~~~~~~~-->		
 
 					<!-- Full Name -->

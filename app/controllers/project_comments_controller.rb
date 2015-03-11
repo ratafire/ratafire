@@ -13,11 +13,17 @@ class ProjectCommentsController < ApplicationController
 	end
 
 	def new
+		@project = Project.find(params[:project_id])
+		@project_comment = ProjectComment.new(params[:project_comment])		
 	end
 
 	def create
 		@project_comment = ProjectComment.new(params[:project_comment])
 		@project = @project_comment.project
+		@rate = Rate.find_by_rater_id_and_rateable_id(@project_comment.user_id, @project.id)
+		if @rate != nil then 
+			@project_comment.stars = @rate.stars
+		end
 		if @project_comment.save
 			image_parser
 			excerpt_generator
@@ -29,8 +35,9 @@ class ProjectCommentsController < ApplicationController
 				@activity.commented_at = @project.commented_at
 				@activity.save
 			end
-			flash[:success] = "You commented on the project!"
-			redirect_to(:back)
+			flash[:success] = "You reviewed the project!"
+			redirect_to user_project_project_comment_path(@project.creator, @project, @project_comment)
+			ProjectReviewMailer.project_review(@project_comment.id,@project_comment.title,@project_comment.stars,@project_comment.user_id).deliver
 		else
 			flash[:error] = "'_' Unsucessful comment submission. Comment can't be blank or shorter than 24 characters."	
 			redirect_to(:back)
@@ -69,7 +76,19 @@ class ProjectCommentsController < ApplicationController
 			@project.save
 		end
 		flash[:success] = "Comment deleted."
-		redirect_to(:back)
+		redirect_to user_project_path(@project.creator,@project)
+	end
+
+	def upvote
+		@user = User.find(params[:id])
+		@project_comment = ProjectComment.find(params[:project_comment_id])
+		@project_comment.vote_by :voter => @user, :vote => 'like'
+	end
+
+	def downvote
+		@user = User.find(params[:id])
+		@project_comment = ProjectComment.find(params[:project_comment_id])
+		@project_comment.vote_by :voter => @user, :vote => 'bad'		
 	end
 
 private

@@ -11,7 +11,7 @@
 
                 <div class="signup-page-wrapper">
 
-                    <a href="#" class="signup-logo"></a>
+                    <a href="#" class="signup-logo" style="margin-top:80px;"></a>
 
                     <p>
                         Create an account bellow, it's really easy! 
@@ -24,11 +24,11 @@
                         </div>
                                    
                         <div class="field">
-                            <%= f.text_field :username , class: "signup-email",  placeholder: "Pick a username"%>
+                            <%= f.text_field :username , class: "signup-email no-radius",  placeholder: "Pick a username"%>
                         </div>
 
                         <div class="field">
-                            <%= f.email_field :email, autofocus: true, class: "signup-email", placeholder: "signup-email" %>
+                            <%= f.email_field :email, autofocus: true, class: "signup-email no-radius", placeholder: "signup-email" %>
                         </div>
 
                         <div class="field">

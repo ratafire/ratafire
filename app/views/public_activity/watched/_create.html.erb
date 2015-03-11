@@ -7,7 +7,7 @@
 		<% end %>
 		<!-- Subscriber Holder -->
 		<div class="subscriber-activity-holder">
-			<h2><%= link_to activity.trackable.user.fullname,activity.trackable.user, class:"no_ajaxify" %></h2>
+			<h2><%= link_to activity.trackable.user.first_name,activity.trackable.user, class:"no_ajaxify" %></h2>
 			<ul>is watching</ul>
 			<%= image_tag("/assets/create_social_watch.png")%>
 		</div><!-- end.subscriber-activity-holder-->	
@@ -24,7 +24,7 @@
 		<!-- Subscribed Holder -->
 		<div class="subscribed-activity-holder">
 			<h2><%= link_to activity.trackable.project.title,user_project_path(activity.trackable.project.creator,activity.trackable.project), class:"no_ajaxify" %></h2>
-			<ul>created by <span><%= link_to activity.trackable.project.creator.fullname,activity.trackable.project.creator,class:"no_ajaxify" %></span></ul>
+			<ul>created by <span><%= link_to activity.trackable.project.creator.first_name,activity.trackable.project.creator,class:"no_ajaxify" %></span></ul>
 			<ol><%= time_ago_in_words(activity.trackable.created_at) %> ago.</ol>
 		</div>
 	</div><!-- end.textbox3-->

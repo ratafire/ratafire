@@ -96,35 +96,27 @@
 					<%= render 'projects/about_view'%>
 					<!-- Cutter --><ol style="margin-top: 15px;"></ol>
 
-					<!-- Project Comments -->
-					<% if @project.project_comments.any? %>
-						<%= render @project_comments %>
-					<% end %>
+					<!-- Project Rating -->
+					<div class="post-content-blank">
+						<%= render "projects/project_rating" %>
 
-					<!-- Project Comments Pagination -->
-					<div id="project-comment">
-						<%= will_paginate @project_comments, :param_name => 'project_comments', class:"rata_pagination"%>
-					</div>	
-
-					<!-- Add Project Comment -->
-					<% if user_signed_in? %>
-						<div id="comment-input">
-							<div class="textbox2">
-
-										<!-- Post User Icon -->
-							<span id="post-usericon" style="float:left;">
-												<div class="user-icon-small-holder tipsy-tipsy" title="you" style="background-image:url(<%= current_user.profilephoto.url(:tiny) %>);"></div>
-							</span>
-
-							<div id= "comment-input-area">
-							<ul>Comment on <%= @project.title %></ul>
-								<%= render "comments/project_comment_form" %>
+						<!-- Project Comments -->
+						<% if @project.project_comments.any? %>
+							<div class="project-reviews-title">
+								<div class="textbox-mini">
+									<h2>Most Helpful Reviews</h2>
+								</div>	
 							</div>
+							<%= render @project_comments %>
+						<% end %>
 
-							</div>	
+						<!-- Project Comments Pagination -->
+						<div id="project-comment">
+							<%= will_paginate @project_comments, :param_name => 'project_comments', class:"rata_pagination"%>
 						</div>
-						<!-- Cutter --><ol style="margin-top: 15px;"></ol>
-					<% end %>
+					</div><!-- end .post-content-blank-->							
+
+					<!-- Cutter --><ol style="margin-top: 30px;"></ol>
 
 					<!-- Majorpost -->
 					<% if @project.majorposts.where(:published => true).any? %>

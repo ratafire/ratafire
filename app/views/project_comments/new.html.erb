@@ -1,0 +1,76 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @project.title) %>
+
+	<!-- External Link -->
+	<%= render 'shared/externallink'%><!-- script -->	
+
+	<!-- Project Progress Bar Hover -->
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+    <!-- Radius Image-->
+	<%= render 'shared/radius_image' %><!-- script -->
+
+	<!-- Like Button -->
+	<%= render 'shared/like_button'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'projects/project_header' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_project' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">
+		<!-- Project Rating -->
+		<div class="post-content">
+			<%= render "projects/project_rating" %>	
+			<% if Rate.find_by_rater_id_and_rateable_id(current_user.id, @project.id) != nil then%>
+				<!-- Step 2 -->
+				<div class="project-reviews-title">
+					<div class="textbox-mini">
+						<h2>Write a Review</h2>
+						<div class="textbox2">
+								<div style="margin:0 0 10px 10px;">Your rating for this project: <%= rating_for_user @project, current_user,"content",:star => 5 %></div>							
+							<div id= "comment-input-area">
+								<%= render "comments/project_comment_form" %>
+							</div>
+						</div>						
+					</div>	
+				</div>
+			<% else %>
+				<script>
+				$(document).ready(function(){
+					$("#submit-rating").hide();
+					$("#rate_the_project").click(function(){
+						$("#submit-rating").show();
+					});
+				});	
+				</script>
+				<!-- Step 2 -->
+				<div class="project-reviews-title">
+					<div class="textbox-mini">
+						<h2>Write a Review</h2>
+						<div class="textbox2">
+								<div style="margin:0 0 10px 10px;">Your rating for this project: <span id="rate_the_project"><%= rating_for_user @project, current_user,"content",:star => 5 %></span></div>							
+							<div id= "comment-input-area">
+								<%= render "comments/project_comment_form" %>
+							</div>
+						</div>						
+					</div>	
+				</div>							
+			<% end %>						
+		</div><!-- end .post-content-->		
+		<!-- License -->
+		<%= render 'shared/license'%>
+		<!-- Footer -->
+		<%= render 'layouts/footer' %>		
+	</div><!-- end of main-content -->

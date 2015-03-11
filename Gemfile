@@ -87,7 +87,9 @@ gem "soundcloud"
 gem "auto_html"
 
 #Rating
-gem "letsrate"
+gem 'letsrate', :path => "vendor/gems/ratyrate"
+gem 'acts_as_votable', '~> 0.10.0'
+
 
 #------------Mailer-----------------
 gem 'sendgrid'

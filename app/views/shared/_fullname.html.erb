@@ -1,7 +1,8 @@
 					<!-- Full Name -->
 					<!-- normal: profile-name-->
 					<div class="profile-name-background" id="profile-name-background">
-						<h1><%= link_to @user.fullname, @user %></h1>
+							<!-- Project Header Social -->
+						<h1><%= link_to @user.fullname, @user, class:"no_ajaxify" %></h1>
 						<ul style="margin-top: -8px;">
 								<!-- Show Tagline if there is a-->
 									<h5>@<%= @user.username %> :: 

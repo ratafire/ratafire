@@ -1,4 +1,4 @@
-<div class="comment-display" id="project_comment_<%= project_comment.id%>">
+<div id="project_comment_<%= project_comment.id%>">
 	<div class="textbox2">
 
 		<!-- Post User Icon -->
@@ -10,38 +10,26 @@
 
 		<!-- Post Title -->
 		<div id="post-title">
-			<h2><%= link_to "._.",user_project_project_comment_path(project_comment.project.creator,project_comment.project,project_comment),class:"no_ajaxify",style:"color:#fff;"%></h2>
-			<ul></ul>
-				<ol><%= link_to project_comment.user.fullname , project_comment.user, class:"no_ajaxify" %> <span>[</span><%= project_comment.user.username %><span>]</span><% unless project_comment.user.tagline.blank?%><span>,</span> <%= project_comment.user.tagline%><% end %></ol>
-				<ol style="margin-top:0px;"><%= time_ago_in_words(project_comment.created_at) %> ago</ol>
+			<h2><%= link_to project_comment.title,user_project_project_comment_path(project_comment.project.creator,project_comment.project,project_comment),class:"no_ajaxify"%></h2>
+				<ol style="margin-top:-10px;"><%= rating_for_user @project, project_comment.user,"content",:star => 5, :readonly => true %> <%= project_comment.get_upvotes.size %> of <%= project_comment.votes_for.size %> people found the following review helpful</ol>
+				<ol style="margin-top:0px;"><%= link_to project_comment.user.fullname , project_comment.user, class:"no_ajaxify" %><% unless project_comment.user.tagline.blank?%><span>,</span> <%= project_comment.user.tagline%><% end %> reviewed <%= time_ago_in_words(project_comment.created_at) %> ago.</ol>
 		</div>
 
 		<!-- Post Content -->
-		<div class="post-content-c">
+		<div class="post-content-c" >
 			<!-- Cutter --><ol style="margin-top: 15px;"></ol>
 			<%= sanitize project_comment.content, tags: %w(p img a pre blockquote h1 h2 h3 h4 ul li strong em del code) %>
 		</div>
 
 		<!-- Tools -->
 		<% if signed_in? %>
-							<div class="toolbox">
-								<li>
-									<% if liked_comment(project_comment.id) then %>
-										<!-- like -->
-										<%= link_to like_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand" id="<%= project_comment.id%>comment-like" style="display:none;">
-										</div><% end %>
-										<!-- unlike -->
-										<%= link_to unlike_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-unrecommand" id="<%= project_comment.id%>comment-unlike">
-										</div><% end %>	
-									<% else %>
-										<!-- like -->
-										<%= link_to like_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify",remote: true do %><div class="btn btn-recommand" id="<%= project_comment.id%>comment-like">
-										</div><% end %>
-										<!-- unlike -->
-										<%= link_to unlike_project_comment_path(project_comment.id,current_user.id),class:"no_ajaxify ",remote: true do %><div class="btn btn-unrecommand" id="<%= project_comment.id%>comment-unlike" style="display:none;">
-										</div><% end %>										
-									<% end %>	
-								</li>  <span id="<%= project_comment.id %>liked-count"><%= project_comment.liked_comments.count %></span>
+							<div class="toolbox" style="margin-top:20px;">
+								<li id="review-useful_<%= project_comment.id%>">
+								Was this review helpful to you? <%= link_to "Yes",upvote_path(current_user.id, project_comment.id), class:"no_ajaxify", class:"btn-delete-light", style:"width:20px;", remote: true %> <%= link_to "No",downvote_path(current_user.id, project_comment.id), class:"no_ajaxify", class:"btn-delete-light", style:"width:20px;", remote: true %>
+								</li>
+								<li id="review-useful-over_<%= project_comment.id%>" style="display:none;color:#72aa35;">
+									Thank you for your feedback!
+								</li>	
 								<% if current_user?(project_comment.user)%>
 									<li>/ <%= link_to "x", [project_comment.project.creator,project_comment.project, project_comment], :method => :delete, class:"tipsy-tipsy no_ajaxify", title:"Delete comment.", :confirm => "Are you sure to delete this comment?" %></li>
                  				<% end %>

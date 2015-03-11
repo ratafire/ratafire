@@ -11,6 +11,9 @@
 #
 
 class User < ActiveRecord::Base
+
+	letsrate_rater
+
 	#friendly id
 	extend FriendlyId
 	friendly_id :username
@@ -47,6 +50,7 @@ class User < ActiveRecord::Base
 	validates_attachment :profilephoto, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }, :size => { :in => 0..1024.kilobytes}
 
 	#Relationship
+	has_many :ratings
 
 	has_many :assigned_projects
 	has_many :projects, :through => :assigned_projects, :conditions => { :deleted_at => nil }

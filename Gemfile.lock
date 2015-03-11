@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: git://github.com/jrgifford/delayed_paperclip.git
-  revision: 223a265e17f1efae14bfec9e3b649527ee77f90c
+  revision: da42152039dd3e3ff5afc1cd1458c460d7fd3c33
   specs:
-    delayed_paperclip (2.9.0)
+    delayed_paperclip (2.9.1)
       paperclip (>= 3.3)
 
 GIT
@@ -55,7 +55,7 @@ GIT
 
 GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
-  revision: dbff2bfa3b5c027b71c3337faf322abe5861fdd7
+  revision: 2fed0538ecdeaeb6e36651e36e329b0a595f7fac
   specs:
     jquery-datatables-rails (3.1.1)
       actionpack (>= 3.1)
@@ -85,6 +85,11 @@ PATH
       activerecord (>= 3.0)
       i18n (>= 0.5.0)
       railties (>= 3.0.0)
+
+PATH
+  remote: vendor/gems/ratyrate
+  specs:
+    letsrate (1.0.7)
 
 GEM
   remote: https://rubygems.org/
@@ -116,8 +121,9 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    acts-as-taggable-on (3.4.3)
+    acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
+    acts_as_votable (0.10.0)
     ajaxify_rails (0.9.5)
       rails (>= 3.2.0)
     annotate (2.5.0)
@@ -134,7 +140,7 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
-    bcrypt (3.1.9)
+    bcrypt (3.1.10)
     browser (0.8.0)
     builder (3.0.4)
     carrierwave (0.10.0)
@@ -146,7 +152,7 @@ GEM
       timers (~> 4.0.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.5)
+    cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (3.2.2)
@@ -155,7 +161,7 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.8.0)
+    coffee-script-source (1.9.1)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -171,13 +177,13 @@ GEM
     em-synchrony (1.0.3)
       eventmachine (>= 1.0.0.beta.1)
     erubis (2.7.0)
-    eventmachine (1.0.4)
-    excon (0.43.0)
-    execjs (2.2.2)
+    eventmachine (1.0.7)
+    excon (0.44.4)
+    execjs (2.4.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
-    figaro (1.0.0)
+    figaro (1.1.0)
       thor (~> 0.14)
     fog (1.21.0)
       fog-brightbox
@@ -188,7 +194,7 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.27.3)
+    fog-core (1.29.0)
       builder
       excon (~> 0.38)
       formatador (~> 0.2)
@@ -204,7 +210,7 @@ GEM
     gon (5.0.4)
       actionpack (>= 2.3.0)
       json
-    guard (2.11.1)
+    guard (2.12.4)
       formatador (>= 0.2.4)
       listen (~> 2.7)
       lumberjack (~> 1.0)
@@ -215,7 +221,7 @@ GEM
       thor (>= 0.18.1)
     guard-rspec (1.2.1)
       guard (>= 1.1)
-    hashie (3.3.2)
+    hashie (3.4.0)
     hike (1.2.3)
     hiredis (0.5.1)
     hitimes (1.2.2)
@@ -238,8 +244,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.2)
-    jwt (1.2.0)
-    letsrate (1.0.9)
+    jwt (1.3.0)
     listen (2.8.5)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -252,7 +257,7 @@ GEM
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (>= 3.2.0)
-    mathjax-rails (2.3.0)
+    mathjax-rails (2.5.1)
       railties (>= 3.0)
     mechanize (2.7.2)
       domain_name (~> 0.5, >= 0.5.1)
@@ -271,10 +276,10 @@ GEM
       subexec (~> 0.2.1)
     mini_portile (0.6.2)
     mono_logger (1.1.0)
-    multi_json (1.10.1)
+    multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.3.17)
+    mysql2 (0.3.18)
     nenv (0.2.0)
     nested_form (0.3.2)
     net-http-digest_auth (1.4)
@@ -282,9 +287,9 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
-    nokogiri (1.6.5)
+    nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    notiffany (0.0.3)
+    notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
     ntlm-http (0.1.1)
@@ -301,7 +306,7 @@ GEM
     omniauth-deviantart (0.0.1)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
-    omniauth-facebook (2.0.0)
+    omniauth-facebook (2.0.1)
       omniauth-oauth2 (~> 1.2)
     omniauth-github (1.1.2)
       omniauth (~> 1.0)
@@ -402,7 +407,7 @@ GEM
       tzinfo (>= 0.3.22)
     sanitize (2.1.0)
       nokogiri (>= 1.4.4)
-    sass (3.4.10)
+    sass (3.4.13)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -443,8 +448,8 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     trollop (2.1.1)
-    tzinfo (0.3.42)
-    uglifier (2.7.0)
+    tzinfo (0.3.43)
+    uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.4)
@@ -457,7 +462,7 @@ GEM
       rack (>= 1.0)
     webrobots (0.1.1)
     will_paginate (3.0.7)
-    xml-simple (1.1.4)
+    xml-simple (1.1.5)
     zencoder-fetcher (0.2.8)
       activesupport
       httparty
@@ -470,6 +475,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
+  acts_as_votable (~> 0.10.0)
   ajaxify_rails (= 0.9.5)
   amazon_flex_pay!
   annotate (= 2.5.0)
@@ -496,7 +502,7 @@ DEPENDENCIES
   jquery-datatables-rails!
   jquery-fileupload-rails!
   jquery-rails (= 3.0.4)
-  letsrate
+  letsrate!
   mailboxer
   mathjax-rails
   mechanize

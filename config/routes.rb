@@ -2,6 +2,8 @@ Ratafire::Application.routes.draw do
 
 
 
+  post '/rate' => 'rater#create', :as => 'rate'
+
 #------Gems------
 
 #---Mathjax---
@@ -390,6 +392,16 @@ Ratafire::Application.routes.draw do
 	match '/create/r/discussion_thread/create', to: "discussion_threads#create", as: :discussion_thread_create	
 	match '/:id/r/discussion_thread/show', to: "discussion_threads#show", as: :discussion_thread_show	
 	match '/:id/r/discussion_thread/destroy', to: "discussion_threads#destroy", as: :discussioin_thread_destroy
+
+#---Project Rating---
+
+	match '/project_rating', to: 'ratings#create', as: :ratings
+	match '/post_to_rating', to: 'ratings#letsrate', as: :post_to_rating
+	match '/:id/:project_id/r/review', to: 'project_comments#new', as: :new_project_review
+
+	#upvote and downvote
+	match '/:id/:project_comment_id/upvote/r', to: 'project_comments#upvote', as: :upvote
+	match '/:id/:project_comment_id/downvote/r', to: 'project_comments#downvote', as: :downvote
 
 #------Resources------
 	resources :users, :path => '/' do

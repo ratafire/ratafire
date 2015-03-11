@@ -19,7 +19,7 @@
 		<% if activity.trackable %>
 		<!-- Title -->
 		<div class="majorpost-title">
-		<%= link_to activity.owner.fullname, activity.owner, class:"no_ajaxify" %> commented on <li><%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator,activity.trackable.project), class:"no_ajaxify" %></li> <%= time_ago_in_words(activity.trackable.created_at) %> ago.
+		<%= link_to activity.owner.fullname, activity.owner, class:"no_ajaxify" %> reviewed <li><%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator,activity.trackable.project), class:"no_ajaxify" %></li> <%= time_ago_in_words(activity.trackable.created_at) %> ago <%= rating_for_user activity.trackable.project, activity.owner,"content",:star => 5, :readonly => true %>
 		</div>
 		<div id="majorpost-comments">
 			

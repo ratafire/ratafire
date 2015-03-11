@@ -89,7 +89,7 @@
 		<div id="majorpost-comments">
 		</div>
 		<div id="majorpost-time">
-			Created by <%= link_to activity.trackable.creator.fullname,user_path(activity.trackable.creator),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago. <% if activity.trackable.project_comments.count >0 then%>Commented by <%= link_to activity.trackable.project_comments.last.user.fullname,user_path(activity.trackable.project_comments.last.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.commented_at)%> ago.<% end %>
+			<%= rating_for activity.trackable, "content",:star => 5, :readonly => true %> (<%= activity.trackable.content_rates.count %>) Created by <%= link_to activity.trackable.creator.first_name,user_path(activity.trackable.creator),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.created_at) %> ago. <% if activity.trackable.project_comments.count >0 then%>Reviewed by <%= link_to activity.trackable.project_comments.last.user.first_name,user_path(activity.trackable.project_comments.last.user),class:"no_ajaxify" %>, <%= time_ago_in_words(activity.trackable.commented_at)%> ago.<% end %>
 		</div>
 		<!-- When it is not a draft-->
 		<% if activity.trackable.published == true %>

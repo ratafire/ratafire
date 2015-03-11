@@ -2,11 +2,12 @@
 	<%= f.hidden_field :user_id, :value => current_user.id %>
 	<%= f.hidden_field :project_id, :value => @project.id %>
 	<ol class="commentarea">
-		<%= f.text_area :content, id:"redactor_project_comment" %>
+		<%= f.text_area :content, class: "subscription-plan-input noResize", style:"width:94.5%;",placeholder:"Write your review." %>
+		<%= f.text_field :title, placeholder:"Write a headline for your review.",style:"width:98.2%;",class:"discussion-thread-title inputbox"%>
 	</ol>
 	<ol style="margin: 10px -2px 0 0; text-align:right;">
 		<div id="submit">
-			<%= f.submit "Comment", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+			<%= f.submit "Submit", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green",id:"submit-rating" %>
 		</div>
 	</ol>
 <% end %>

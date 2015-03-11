@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150227051744) do
+ActiveRecord::Schema.define(:version => 20150310021840) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -668,10 +668,27 @@ ActiveRecord::Schema.define(:version => 20150227051744) do
     t.integer  "project_id"
     t.text     "excerpt"
     t.datetime "deleted_at"
-    t.boolean  "deleted",    :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "deleted",                 :default => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "stars",                   :default => 0
+    t.string   "title"
+    t.integer  "cached_votes_total",      :default => 0
+    t.integer  "cached_votes_score",      :default => 0
+    t.integer  "cached_votes_up",         :default => 0
+    t.integer  "cached_votes_down",       :default => 0
+    t.integer  "cached_weighted_score",   :default => 0
+    t.integer  "cached_weighted_total",   :default => 0
+    t.float    "cached_weighted_average", :default => 0.0
   end
+
+  add_index "project_comments", ["cached_votes_down"], :name => "index_project_comments_on_cached_votes_down"
+  add_index "project_comments", ["cached_votes_score"], :name => "index_project_comments_on_cached_votes_score"
+  add_index "project_comments", ["cached_votes_total"], :name => "index_project_comments_on_cached_votes_total"
+  add_index "project_comments", ["cached_votes_up"], :name => "index_project_comments_on_cached_votes_up"
+  add_index "project_comments", ["cached_weighted_average"], :name => "index_project_comments_on_cached_weighted_average"
+  add_index "project_comments", ["cached_weighted_score"], :name => "index_project_comments_on_cached_weighted_score"
+  add_index "project_comments", ["cached_weighted_total"], :name => "index_project_comments_on_cached_weighted_total"
 
   create_table "project_suggestions", :force => true do |t|
     t.string   "term"
@@ -733,6 +750,50 @@ ActiveRecord::Schema.define(:version => 20150227051744) do
     t.string   "by"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "rates", :force => true do |t|
+    t.integer  "rater_id"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
+    t.float    "stars",         :null => false
+    t.string   "dimension"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "rates", ["rateable_id", "rateable_type"], :name => "index_rates_on_rateable_id_and_rateable_type"
+  add_index "rates", ["rater_id"], :name => "index_rates_on_rater_id"
+
+  create_table "rating_caches", :force => true do |t|
+    t.integer  "cacheable_id"
+    t.string   "cacheable_type"
+    t.float    "avg",                             :null => false
+    t.integer  "qty",                             :null => false
+    t.string   "dimension"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "star_1_qty",     :default => 0
+    t.float    "star_1_per",     :default => 0.0
+    t.integer  "star_2_qty",     :default => 0
+    t.float    "star_2_per",     :default => 0.0
+    t.integer  "star_3_qty",     :default => 0
+    t.float    "star_3_per",     :default => 0.0
+    t.integer  "star_4_qty",     :default => 0
+    t.float    "star_4_per",     :default => 0.0
+    t.integer  "star_5_qty",     :default => 0
+    t.float    "star_5_per",     :default => 0.0
+    t.integer  "project_id"
+  end
+
+  add_index "rating_caches", ["cacheable_id", "cacheable_type"], :name => "index_rating_caches_on_cacheable_id_and_cacheable_type"
+
+  create_table "ratings", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.float    "stars",      :default => 0.0
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "redactor_assets", :force => true do |t|
@@ -1074,6 +1135,23 @@ ActiveRecord::Schema.define(:version => 20150227051744) do
     t.text     "description"
     t.string   "image"
   end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], :name => "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["votable_id", "votable_type"], :name => "index_votes_on_votable_id_and_votable_type"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], :name => "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type"], :name => "index_votes_on_voter_id_and_voter_type"
 
   create_table "watcheds", :force => true do |t|
     t.integer  "project_id"

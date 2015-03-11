@@ -19,20 +19,20 @@
 </div>
 
 <div class="sidebar" type="update" >
-	<%= link_to art_path do %><ol id="update-art">Art</ol><% end %>
-	<%= link_to music_path do %><ol id="update-music">Music</ol><% end %>
-	<%= link_to games_path do %><ol id="update-games">Games</ol><% end %>
-	<%= link_to writing_path do %><ol id="update-writing">Writing</ol><% end %>
-	<%= link_to videos_path do %><ol id="update-videos">Films & Videos</ol><% end %>
-	<%= link_to math_path do %><ol id="update-math" class="archive-sidebar-active">Math</ol><% end %>
-	<%= link_to science_path do %><ol id="update-science">Research: Science</ol><% end %>
-	<%= link_to humanity_path do %><ol id="update-humanity">Research: Humanity</ol><% end %>
-	<%= link_to engineering_path do %><ol id="update-engineering">Engineering</ol><% end %>
+	<%= link_to art_path,class:"no_ajaxify" do %><ol id="update-art">Art</ol><% end %>
+	<%= link_to music_path,class:"no_ajaxify" do %><ol id="update-music">Music</ol><% end %>
+	<%= link_to games_path,class:"no_ajaxify" do %><ol id="update-games">Games</ol><% end %>
+	<%= link_to writing_path,class:"no_ajaxify" do %><ol id="update-writing">Writing</ol><% end %>
+	<%= link_to videos_path,class:"no_ajaxify" do %><ol id="update-videos">Films & Videos</ol><% end %>
+	<%= link_to math_path,class:"no_ajaxify" do %><ol id="update-math" class="archive-sidebar-active">Math</ol><% end %>
+	<%= link_to science_path,class:"no_ajaxify" do %><ol id="update-science">Research: Science</ol><% end %>
+	<%= link_to humanity_path,class:"no_ajaxify" do %><ol id="update-humanity">Research: Humanity</ol><% end %>
+	<%= link_to engineering_path,class:"no_ajaxify" do %><ol id="update-engineering">Engineering</ol><% end %>
 </div>	
 
 <div class="update2">
-	<%= link_to featured_path do %><ol id="update-staffpicks">Feature Projects</ol><% end %>
-	<%= link_to all_path do %><ol id="update-all">All</ol><% end %>
+	<%= link_to featured_path,class:"no_ajaxify" do %><ol id="update-staffpicks">Feature Projects</ol><% end %>
+	<%= link_to all_path,class:"no_ajaxify" do %><ol id="update-all">All</ol><% end %>
 </div>
 <!-- Script for changing tags -->
 <%= render 'layouts/sidebar_update_realms_js'%>
