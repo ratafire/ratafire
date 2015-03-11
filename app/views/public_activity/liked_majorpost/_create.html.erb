@@ -7,7 +7,7 @@
 		<% end %>
 		<!-- Subscriber Holder -->
 		<div class="subscriber-activity-holder">
-			<h2><%= link_to activity.trackable.user.fullname,activity.trackable.user, class:"no_ajaxify" %></h2>
+			<h2><%= link_to activity.trackable.user.first_name,activity.trackable.user, class:"no_ajaxify" %></h2>
 			<ul>recommended</ul>
 			<%= image_tag("/assets/create_social_rec.png")%>
 		</div><!-- end.subscriber-activity-holder-->	
@@ -19,7 +19,7 @@
 		<!-- Subscribed Holder -->
 		<div class="subscribed-activity-holder">
 			<h2><%= link_to activity.trackable.majorpost.title,user_project_majorpost_path(activity.trackable.majorpost.project.creator,activity.trackable.majorpost.project, activity.trackable.majorpost), class:"no_ajaxify" %></h2>
-			<ul>posted by <span><%= link_to activity.trackable.majorpost.user.fullname,activity.trackable.majorpost.project.creator,class:"no_ajaxify" %></span> at project <span><%= link_to truncate(activity.trackable.majorpost.project.title, :length => 50),user_project_path(activity.trackable.majorpost.project.creator, activity.trackable.majorpost.project),class:"no_ajaxify" %></span></ul>
+			<ul>posted by <span><%= link_to activity.trackable.majorpost.user.first_name,activity.trackable.majorpost.project.creator,class:"no_ajaxify" %></span> at project <span><%= link_to truncate(activity.trackable.majorpost.project.title, :length => 50),user_project_path(activity.trackable.majorpost.project.creator, activity.trackable.majorpost.project),class:"no_ajaxify" %></span></ul>
 			<ol><%= time_ago_in_words(activity.trackable.created_at) %> ago.</ol>
 		</div>
 	</div><!-- end.textbox3-->
