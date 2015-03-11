@@ -53,7 +53,7 @@ private
       end                     
     else
       a = RatingCache.find_by_cacheable_type_and_cacheable_id(cacheable_type,cacheable_id)
-      a.avg = (a.avg + stars.to_f) / (a.qty+1)
+      a.avg = (a.avg*a.qty + stars.to_i) / (a.qty+1)
       	if quantity == true then
       		a.qty = a.qty + 1
   		  end
