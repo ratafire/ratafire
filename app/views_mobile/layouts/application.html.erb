@@ -28,7 +28,10 @@
         <div class="snap-drawer snap-drawer-left">
             <% if user_signed_in? %>
             	<div class="sidebar-logo">
-                	<div class="mobile-name"><%= current_user.first_name%></div>
+                	<div class="mobile-name">
+                        <ul><%= current_user.fullname %></ul>
+                        <ul class="user-tagline"><%= current_user.tagline %></ul>
+                    </div>
                     <div class="majorpost-usericon" style="background-image:url(<%= current_user.profilephoto.url(:small64) %>);"></div>
             	</div>
             <% else %>

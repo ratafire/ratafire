@@ -201,8 +201,21 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 
 .mobile-name{
     position: absolute;
-    margin:30px 0 0 100px;
+    margin:30px 0 0 113px;
     color: #ffffff;
+    font-size: 1.2em;
+}
+
+.mobile-name ul{
+    margin: 0 0 0 0;
+}
+
+.user-tagline{
+    margin-top: -4px;
+    color: #dddddd;
+    font-size: 0.8em;
+    line-height: 1.5em;
+    width: 130px;
 }
 
 .sidebar-divider{
