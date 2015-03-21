@@ -14,6 +14,7 @@ class SubscriptionsController < ApplicationController
 		@subscribers = @user.subscribers.paginate(page: params[:subscribers], :per_page =>32)
 		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 		@message = Message.new
+		@subscription_application = @user.approved_subscription_application
 	end
 
 	def subscribers_past
@@ -75,6 +76,7 @@ class SubscriptionsController < ApplicationController
 	def why
 		@user = User.find(params[:id])
 		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+		@subscription_application = @user.approved_subscription_application
 	end
 
 	def amazon

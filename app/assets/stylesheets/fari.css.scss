@@ -1240,6 +1240,13 @@ box-shadow: 0px -4px 21px -9px rgba(204,204,204,1);
 	width: 20px !important;
 }
 
+.opacity-100{
+    opacity: 100 !important;
+    height: 20px !important;
+    width: 100px !important;
+    margin-bottom: -6px;
+}
+
 .fb-share-button {
 	opacity: 0;
 }
@@ -3235,6 +3242,20 @@ textarea.noResize { resize:none; }
 	color: #222 !important;
 }
 
+.best_project_title_edit{
+  font-size: 1em !important;
+  color: #222 !important;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.best_project_tagline_edit{
+  font-size: 1em !important;
+  color: #999 !important; 
+  background-color: #f9f9f9;
+  border-radius: 5px;   
+}
+
 .best_tagline{
 	font-size: 1em !important;
 	color: #999 !important;
@@ -3870,7 +3891,7 @@ display: none;
 /*--- Home Page ---*/
 
 #Home-page-comment {
-	margin-left:0px;
+	margin-left:10px;
 	margin-top: -8px;
 	margin-bottom: -4px;
 	overflow: hidden;
@@ -6656,6 +6677,21 @@ display:inline-block;
 	color:#999;
 		font-weight: normal;
 	}
+}
+
+.user-why-edit2 {
+  margin-top: -20px;
+  padding: 0px 40px 0 40px;
+  @extend .ratafire-readable;
+  font-size: 1.1em;
+  line-height: 1.7em;
+  p {
+    margin: 21px 0;
+  }
+  h4 {
+  color:#999;
+    font-weight: normal;
+  }
 }
 
 .user-why-passage {

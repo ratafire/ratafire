@@ -27,6 +27,7 @@ class Subscription < ActiveRecord::Base
 
   #8. Supported remove the supporter
   #9. Supporter unsupported
+  #10. Did not pass the 3 supporters test
 
   #--- Validations ---
 

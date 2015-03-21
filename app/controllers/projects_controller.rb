@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
 			@comments = @majorpost.comments.paginate(page: params[:comments], :per_page => 20)
 			@comment = Comment.new(params[:comment])
 			end
-			@project_comments = @project.project_comments.order(:cached_weighted_score => :desc).paginate(page: params[:project_comments], :per_page => 5)
+			@project_comments = @project.project_comments.order(:cached_weighted_score => :desc, :created_at => :desc).paginate(page: params[:project_comments], :per_page => 5)
 			@project_comment = ProjectComment.new(params[:project_comment])		
 			if current_user != nil then	
 				@current_user_project_comment = ProjectComment.find_by_user_id_and_project_id(current_user.id, @project.id)

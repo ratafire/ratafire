@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150310021840) do
+ActiveRecord::Schema.define(:version => 20150311181508) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -843,6 +843,9 @@ ActiveRecord::Schema.define(:version => 20150310021840) do
     t.integer  "goals_project"
     t.text     "collectible"
     t.integer  "project_id"
+    t.datetime "approved_at"
+    t.datetime "completed_at"
+    t.boolean  "completion"
   end
 
   create_table "subscription_records", :force => true do |t|
