@@ -13,6 +13,15 @@ Platforms:   Mobile & Tablet
 
 /* Extras */
 
+form#mobile-signup-form input[type=submit]{
+    display:inline-block;
+    padding:10px 20px;  
+    border-radius: 5px;
+    height: 40px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+}
+
 .upper-radius{
     border-radius: 5px 5px 0 0;
 }
@@ -34,6 +43,8 @@ Platforms:   Mobile & Tablet
 
 body{
 	height:100%;
+
+
 }
 
 ::-webkit-scrollbar { 
@@ -50,6 +61,15 @@ body{
 }
 
 /*Backgrounds */
+
+.grey-bg{
+    background-size:cover;
+    position:absolute;
+    width:100%;
+    height:100%;
+    margin-bottom:-60px;    
+    background-color: rgba(240,240,240,1) !important;
+}
 
 .bg1{
     background-image:url(/assets/slidebox/pictures/1.jpg);   
@@ -75,18 +95,18 @@ body{
 /* Header*/
 
 .header{
-	background-image:url(/assets/slidebox/misc/menu-bg.png);
-    background-size:100px 100px;
+    background-image: url(/assets/navbarbg.png);
+	/*background-image:url(/assets/slidebox/misc/menu-bg.png);*/
+    background-size:61px 61px;
     height:61px;
 }
 
 .header-logo{
-    margin-top:18px;
+    margin-top:12px;
     margin-left:25px;
-    background-image:url(/assets/slidebox/misc/logo.png);
-    width:80px;
-    height:24px;
-    background-size:80px 24px;
+    background-image: url(/assets/logo.png);
+    width: 29px; 
+    height:29px;
     float:right;
     margin-right:25px;
 }
@@ -96,7 +116,7 @@ body{
 }
 
 .open-menu{
-    color:#bcbcbc;
+    navbarcolor:#bcbcbc;
     position:absolute;
     width:55px;
     height:60px;
@@ -106,7 +126,7 @@ body{
 }
 
 .open-menu:hover{
-    color:#FFFFFF;
+    color:#999999;
     background-color:rgba(255,255,255,0.02);
     transition:all 250ms ease;
 }
@@ -114,9 +134,9 @@ body{
 .open-menu i{
     width:55px;
     height:60px;
-    line-height:60px;
+    line-height:53px;
     text-align:center;
-    font-size:14px;
+    font-size:18px;
 }
 
 .sidebar-header a i{
@@ -151,6 +171,10 @@ body{
 }
 
 
+.sidebar-logo{
+    background-color: #2297ce;
+}
+
 .sidebar-logo a{
     background-image:url(/assets/slidebox/misc/logo-big.png);
     width:187px;
@@ -161,16 +185,36 @@ body{
     margin-left:25px;
 }
 
+.majorpost-usericon {
+    margin-top:30px;
+    margin-bottom:30px;
+    margin-left:25px;
+                    border: 1px solid #666;
+    border-bottom: 1px solid #333;
+    border-radius: 6px;
+        height: 62px;
+    width: 62px;
+    -webkit-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
+-moz-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
+box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
+}
+
+.mobile-name{
+    position: absolute;
+    margin:30px 0 0 100px;
+    color: #ffffff;
+}
+
 .sidebar-divider{
-    background-color:#191b1c;
+    background-color:rgba(210,210,210,0.3);
     height:30px;
     font-size:10px;
     font-family:'Roboto', sans-serif;
     text-transform:uppercase;
     font-weight:800;
     color:#636464;
-    border-bottom:solid 1px rgba(255,255,255,0.1);
-    border-top:solid 1px rgba(255,255,255,0.1);
+    border-bottom:solid 1px rgba(230,230,230,0.1);
+    border-top:solid 1px rgba(230,230,230,0.1);
     line-height:30px;
     padding-left:30px;
 }
@@ -185,7 +229,7 @@ body{
     display:block;
     list-style:none;
     line-height:60px;
-    border-bottom:solid 1px rgba(255,255,255,0.05);
+    border-bottom:solid 1px rgba(230,230,230,0.05);
     margin-bottom:0px;
 }
 
@@ -195,9 +239,9 @@ body{
 
 .sidebar-navigation li a{
     padding-left:70px;
-    color:#FFFFFF;
+    color:#2297ce;
     font-family:'Roboto', sans-serif;
-    border-bottom:solid 1px rgba(0,0,0,0.2);
+    border-bottom:solid 1px rgba(0,0,0,0.05);
     transition:all 350ms ease;
 }
 
@@ -209,7 +253,7 @@ body{
     text-align:center;
     left:10px;
     font-size:16px;
-    color:#bcbdbd;
+    color:#2297ce;
 }
 
 .sidebar-navigation li a i:last-child{
@@ -271,7 +315,7 @@ body{
 }
 
 .active-menu .fa-circle{
-    color:#27ae60!important;
+    color:#2297ce!important;
     font-size:6px!important;
 }
 
@@ -286,7 +330,7 @@ body{
 }
 
 .active-submenu .fa-plus{
-    color:#c0392b!important;
+    color:#2297ce!important;
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg); 
     transform: rotate(45deg);

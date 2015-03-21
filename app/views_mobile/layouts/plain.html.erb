@@ -2,10 +2,7 @@
 <!-- CSS -->
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
 
     <title><%= full_title(yield(:title)) %></title>
 <%= stylesheet_link_tag  "slidebox/animate" %>
@@ -16,15 +13,19 @@
 <%= stylesheet_link_tag  "slidebox/swipebox" %>
 <%= csrf_meta_tags %>
 
-
+<%= javascript_include_tag "slidebox/jquery.js" %>
+<%= javascript_include_tag "slidebox/jqueryui.js" %>
+<%= javascript_include_tag "slidebox/framework.plugins.js" %>
+<%= javascript_include_tag "slidebox/custom.js" %>
 </head>
 <body>
-<%= yield %>
-<%= javascript_include_tag "application" %>
-<%= javascript_include_tag "slidebox/custom.js" %>
-<%= javascript_include_tag "slidebox/framework.js" %>
-<%= javascript_include_tag "slidebox/framework.launcher.js" %>
-<%= javascript_include_tag "slidebox/framework.plugins.js" %>
+<div class="all-elements">
+       <!-- Page Content-->
+
+		<%= yield %>
+
+</div><!-- end .all-elements-->		
+
 
 </body>
 

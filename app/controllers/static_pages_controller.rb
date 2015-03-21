@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
 
   layout :resolve_layout
 
-  before_filter :check_for_mobile, :only => :home
+  before_filter :check_for_mobile
 
 
   def home
@@ -39,11 +39,19 @@ class StaticPagesController < ApplicationController
   def pricing
   end
 
+  def mobile_sign_in
+    if signed_in?
+      redirect_to featured_path
+    end
+  end
+
 private
   
   def resolve_layout
     case action_name
     when "home"
+      "plain"
+    when "mobile_sign_in"
       "plain"
     else
       "application_clean"
