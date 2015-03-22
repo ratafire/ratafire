@@ -186,6 +186,9 @@ Ratafire::Application.routes.draw do
 	match ':id/subscriptions/amazon_payments/recipient/reconnect', to: 'amazon#reconnect_recipient', as: :reconnect_recipient
 	match 'r/subscriptions/amazon_payments/subscribe/post_subscribe', to: 'amazon#post_subscribe', :via => [:get, :post]
 
+	#Amazon Login and Pay
+	match 'r/subscriptions/amazon_login_and_pay/recipient/postfill', to: 'amazon_lap#post_create_seller', :via => [:get, :post]
+
 	#Transactions
 	match 'r/subscriptions/transactions/:id/receiving_transactions', to: 'subscriptions#receiving_transactions', as: :receiving_transactions
 	match 'r/subscriptions/transactions/:id/paying_transactions', to: 'subscriptions#paying_transactions', as: :paying_transactions

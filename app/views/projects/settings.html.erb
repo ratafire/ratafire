@@ -70,7 +70,16 @@
 						<div class="source-code-placer" style="margin-left:21px;">
 							<%= f.text_field :source_code, placeholder:"Enter project source code url if any", class:"completion-input inputbox",style:"width:695px; margin-left:0px;" %>
 						</div>
-							
+					
+					<!-- Early Access -->
+					<% if @project.creator.subscription_status_initial == "Approved"%>
+						<h2>Collectible</h2>
+						<div class="source-code-placer" style="margin-left:21px;">
+							<ol style="margin:20px 20px 10px 0;">Instead of rewards, you can provide your subscribers project collectibles as "rewards". The collectible you enter here is the collectible you provide to subscribers who subscribe to you since this project. When the project is completed, you should send out this collectible you promised to your subscribers. <p>We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters).</p></ol>
+							<%= f.text_area :collectible, placeholder:"Enter project collectible", class: "subscription-plan-input noResize", style:"width:670px; margin-left:0px;" %>	
+						</div>			
+					<% end %>							
+
 						<div style="text-align:right;margin-right:17px;margin-top:40px;">
 							<%= link_to "Abandon Project",you_shall_not_pass_path(@project.creator,@project),class:"no_ajaxify btn btn-medium3 btn-medium-white",:method => :get,:confirm => "Are you sure to abandon this project? <p>Review the following changes: </p> <p>1. This project will be marked as abandoned.</p> <p>2. No one can edit this project unless you reopen it.</p>", style:"margin-right:5px;"%>
 							<%= f.submit "Save Changes", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green project-settings-save"%>

@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :perlink, :use => :slugged
 
-  attr_accessible :tagline, :title, :user_id,:perlink, :about,:published,:complete, :tag_list, :p_u_inspirations_attributes, :p_m_inspirations_attributes, :p_p_inspirations_attributes, :p_e_inspirations_attributes, :artwork_id, :video_id, :icon_id, :goal, :source_code, :edit_permission, :realm
+  attr_accessible :tagline, :title, :user_id,:perlink, :about,:published,:complete, :tag_list, :p_u_inspirations_attributes, :p_m_inspirations_attributes, :p_p_inspirations_attributes, :p_e_inspirations_attributes, :artwork_id, :video_id, :icon_id, :goal, :source_code, :edit_permission, :realm, :collectible
   default_scope order: 'projects.created_at DESC'
   default_scope where(:deleted => false)
 
