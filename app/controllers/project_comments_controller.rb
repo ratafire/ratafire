@@ -10,6 +10,9 @@ class ProjectCommentsController < ApplicationController
 		if @project.icon_id != "" && @project.icon_id != nil then
 			@icon = Icon.find(@project.icon_id)	
 		end		
+		if current_user != nil then	
+			@current_user_project_comment = ProjectComment.find_by_user_id_and_project_id(current_user.id, @project.id)
+		end		
 	end
 
 	def new

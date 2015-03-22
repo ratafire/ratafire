@@ -90,6 +90,12 @@ class AmazonController < ApplicationController
 				subscription_register
 				Resque.enqueue(SubscriptionNowWorker,params[:callerReference])
 			end
+			#Check if the subscribed is in the 3 supporters task.
+			if @subscription.subscribed.approved_subscription_application != nil && @subscription.subscribed.approved_subscription_application.completion == nil then 
+				if @subscription.subscribed.sub_sus.count == ENV["TIMEBOMB_COUNT"].to_i then
+					Resque.enqueue(SubscriptionUnbombWorker,@subscription.subscribed.id)
+				end
+			end			
 		else
 			@subscription.destroy
 			PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|

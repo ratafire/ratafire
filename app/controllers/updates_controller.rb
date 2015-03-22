@@ -2,6 +2,8 @@ class UpdatesController < ApplicationController
 	layout 'application'
 	require 'will_paginate/array'
 
+	before_filter :check_for_mobile
+
 	before_filter :signed_in_user, 
 				only: [:subscribing_update, :followed_tags, :liked, :watched]
 

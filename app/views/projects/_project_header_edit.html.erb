@@ -1,20 +1,3 @@
-<!-- Script to view Project button -->
-<script>
-	$(document).ready(function() {
-	//Project-header-case	
-	$('#project-header-case').hover(function() {
-  		$("#edit-project-header").toggle();
-
-	});
-
-	//icon-delete
-	$('#icon-upload-box').hover(function() {
-  		$("#delete-icon").toggle();
-	});
-
-});
-</script>
-
 <div class="project-header-wrapper" id="project-header-case">
 
 	<!-- Flag for completion -->
@@ -97,11 +80,11 @@
 							<% if @project.complete == true %>	
 								<%= @project.title %>
 							<% else %>				
-								<%= best_in_place [@project.creator, @project], :title, :path => project_update_path(@project.creator,@project), :classes =>"best_title" %><span class="btn btn-edit" id="best_title-edit" style="display:none;"></span>
+								<%= best_in_place [@project.creator, @project], :title, :path => project_update_path(@project.creator,@project), :classes =>"best_project_title_edit"%><span class="btn btn-edit" id="best_title-edit" style="margin:-2px 0 0 2px;"></span>
 							<% end %>
 						</h1>
 						<ul id="best_tagline_holder">
-							<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= best_in_place [@project.creator, @project], :tagline, :path => project_update_path(@project.creator,@project),:classes =>"best_tagline" %> <span class="btn btn-edit" id="best_tagline-edit" style="margin:-2px 0 0 0; display:none;"></span></h5>
+							<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= best_in_place [@project.creator, @project], :tagline, :path => project_update_path(@project.creator,@project),:classes =>"best_project_tagline_edit" %> <span class="btn btn-edit" id="best_tagline-edit" style="margin:-2px 0 0 0;"></span></h5>
 						</ul>
 
 						<!-- Tutorial -->

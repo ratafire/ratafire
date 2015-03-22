@@ -257,32 +257,32 @@ h1{
 	font-size:21px;
 	margin-bottom:10px;
 	font-weight:800;
-	color:#212935;
+	color:#555555 !important;
 }
 
 h2{
 	font-size:19px;
 	margin-bottom:10px;
 	font-weight:800;
-	color:#212935;
+	color:#555555 !important;
 }
 
 h3{
 	font-size:17px;
 	margin-bottom:10px;
 	font-weight:700;
-	color:#212935
+	color:#555555 !important;
 }
 
 h4{
 	font-size:15px;
 	margin-bottom:10px;
 	font-weight:800;
-	color:#212935;
+	color:#555555 !important;
 }
 
 h5{
-	color:#212935;
+	color:#555555 !important;
 	font-size:13px;
 	margin-bottom:5px;
 	font-weight:800;
@@ -2938,6 +2938,7 @@ table tr:hover td{
       -ms-transform: translate3d(0, 0, 0);
        -o-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
+  border-left: 1px solid #dddddd;
 }
 
 .snap-drawers {
@@ -3017,12 +3018,14 @@ table tr:hover td{
 /* Default demo styles */
 
 .snap-drawers {
-	background-image:url(/assets/slidebox/misc/menu-bg.png);
+	/*background-image:url(/assets/slidebox/misc/menu-bg.png);*/
     background-size:100px 100px;
+    background-color: rgba(240,240,240,0.9);
 }
 
 .snap-drawer {
-	background-image:url(/assets/slidebox/misc/menu-bg.png);
+	/*background-image:url(/assets/slidebox/misc/menu-bg.png);*/
+	background-color: rgba(240,240,240,0.7);
     background-size:100px 100px;
 }
 
@@ -3182,7 +3185,7 @@ table tr:hover td{
     padding-right:20px;
     line-height:45px;
     line-height:100%;
-    border:solid 1px #cacaca; 
+    border:solid 1px #efefef; 
     color:#666666;
 }
 

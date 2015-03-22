@@ -3,6 +3,8 @@ class SubscriptionApplication < ActiveRecord::Base
   belongs_to :user
   has_one :review
 
+  default_scope order: 'subscription_applications.created_at DESC'  
+
   #Validations
   validates_length_of :why, :minimum => 200, :message => "Too short", :allow_blank => true, :allow_nil => true
   validates_length_of :why, :maximum => 2500, :message => "Too long", :allow_blank => true, :allow_nil => true

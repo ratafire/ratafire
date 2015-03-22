@@ -99,6 +99,11 @@ class AdminController < ApplicationController
 				#Send Message
 				@message_content = "<p>Your subscription setup is approved. </p><p>"+@review.content+"</p><p>You can view your subscription page via <a class='no_ajaxify' target='_blank' href=\"https://www.ratafire.com/"+@receiver.username.to_s+"/r/r/subscription\">this link</a>."
 				@message_title = "Your Subscription Setup is Approved"
+				#Set the time bomb
+				@subscription_application.approved_at = Time.now
+				@subscription_application.completed_at = Time.now + 15.days
+				@subscription_application.save
+				Resque.enqueue_in(15.day,SubscriptionTimebombWorker,@receiver.id)
 			else
 				#Send Message
 				@message_title = "Your Discussion Setup is Disapproved"

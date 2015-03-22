@@ -1,0 +1,82 @@
+<!-- CSS -->
+<%= stylesheet_link_tag  "flipclock/flipclock" %>
+<%= stylesheet_link_tag  "flipclock/style" %>
+<%= stylesheet_link_tag  "flipclock/theme" %>
+<!-- Countdown Time -->
+<script type="text/javascript">
+	$(document).ready(function () {
+    	var date = new Date(<%= @subscription_application.completed_at.strftime("%Y,%m,%d,%H,%M,%S")%>),// Change your date here (YYYY, MONTH, DATE)
+  	clock = $('#countdown-clock').FlipClock(date.getTime() / 1000 - new Date(<%= Time.now.strftime("%Y,%m,%d,%H,%M,%S")%>) / 1000, {
+    	clockFace: 'DailyCounter',
+    	countdown: true,
+    	language: 'english' /*Change Clock Label in your Language*/
+	});
+
+  $("#countdown-clock").append('<span class="modify">');
+  $("span.days").nextUntil("span.hours").wrapAll("<div class='days-wrapper'></div>");
+  $("span.hours").nextUntil("span.minutes").wrapAll("<div class='hours-wrapper'></div>");
+  $("span.minutes").nextUntil("span.seconds").wrapAll("<div class='minutes-wrapper'></div>");
+  $("span.seconds").nextUntil("span.remove").wrapAll("<div class='seconds-wrapper'></div>");
+  $(".modify").remove()
+
+  /* Form validation*/
+
+$("a.tool-tip").tooltip(); 
+
+});
+
+$(function () {
+    "use strict";
+    // subscribe
+    $('#subscribe-submit').click(function () {
+        $('.subscribe-error-field').hide();
+        $('.subscribe-message').hide();
+
+        var emailReg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        var emailVal = $('#subscribe-email').val();
+
+        if (emailVal == "" || emailVal == "Email Address *") {
+            $('.subscribe-error-field').html('<p><i class="fa fa-times"></i>Email address required.</p>').fadeIn();
+            return false;
+
+        } else if (!emailReg.test(emailVal)) {
+            $('.subscribe-error-field').html('<p><i class="fa fa-times"></i>Invalid email address.</p>').fadeIn();
+            return false;
+        }
+
+        var data_string = $('.subscribe-form').serialize();
+        $.ajax({
+            type: "POST",
+            url: "subscribe.php",
+            data: data_string,
+
+            //success
+            success: function (data) {
+                $('.subscribe-message').html('<p class="subscribe-success"><i class="fa fa-check"></i>You have been subscribed.</p>').fadeIn();
+            },
+            error: function (data) {
+                $('.subscribe-message').html('<p class="subscribe-error"><i class="fa fa-times"></i>Something went wrong.</p>').fadeIn();
+            }
+
+        }) //end ajax call
+        return false;
+    });
+
+});	
+</script>
+<!-- JS -->
+<%= javascript_include_tag "flipclock/flipclock.min.js" %>
+<div class="user-why-edit2">
+	<h4>Find your first 3 supporters in:</h4>
+</div>	
+<!-- Countdown start here -->
+<div id="countdown-wrapper">
+	<div id="countdown-clock"></div>
+</div>
+<div class="user-why-edit2">
+	<div class="user-why-passage" style="padding: 15px 0 5px 20px;">
+		<p>You have found <%= @user.sub_sus.count %> of 3.</p>
+		<p>Start by <span class="fb-share-button" style="opacity: 100;"data-href="https://www.ratafire.com<%=why_path(@user)%>" data-layout="button_count"></span> <a href="https://twitter.com/share" class="twitter-share-button opacity-100"></a> or  <span class="tipsy-tipsy" title="Coming Soon!"><i class="fa fa-envelope"></i>email your friends.</span></p>
+	</div>	
+</div>
+

@@ -1,0 +1,34 @@
+            <div class="signup-page bg2">
+                
+                <div class="signup-page-wrapper">
+
+                    <a href="#" class="signup-logo" style="margin-top:80px;"></a>
+
+                    <p>
+                        Cloud patronage, elegantly
+                    </p>
+
+                    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name),:html => {:class => "no_ajaxify", :id => "mobile-signup-form"}) do |f| %>
+
+                        <div class="field">
+                            <%= f.text_field :email, autofocus: true, class: "signup-email upper-radius", placeholder: "email" %>
+                        </div>
+
+                        <div class="field">
+                            <%= f.password_field :password, autocomplete: "off", class: "signup-email lower-radius", placeholder: "password" %>
+                        </div>
+
+                        <div class="one-half margin-top-20">
+                            <%= f.submit("Sign in", class: "button button-green full-button btn-submit") %>
+                        </div>
+
+                        <div class="one-half last-column margin-top-20">
+                            <%= link_to "Sign up", root_path, class:"button button-blue full-button no_ajaxify" %>
+                        </div>                        
+                        
+                    <% end %>
+
+                </div><!-- end .signup-page-wrapper-->
+
+            </div><!-- end .signup-page-->
+   

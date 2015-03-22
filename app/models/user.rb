@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
 
 	has_many :comments, :conditions => { :deleted_at => nil }
 	has_many :subscription_application, :conditions => { :status => nil }
+	has_one :approved_subscription_application, class_name: "SubscriptionApplication", :conditions => { :status => "Approved", :completion => nil }
 
 	has_many :inviteds
 	has_many :reviews

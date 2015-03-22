@@ -17,4 +17,18 @@ class SubscriptionApplicationReviewMailer < ActionMailer::Base
     mail to: @subscription_application.user.email, subject: subject
   end
 
+  #A Receipt Email for Failed 3 Supporters Task
+  def fail_supporters(id)
+    @user = User.find(id)
+    subject = "Your Subscription is Deactivated"
+    mail to: @user.email, subject: subject
+  end
+
+  #A Receipt Email for Successful 3 Supporters Task
+  def success_supporters(id)
+    @user = User.find(id)
+    subject = "You have found your first few Subscribers!"
+    mail to: @user.email, subject: subject    
+  end
+
 end

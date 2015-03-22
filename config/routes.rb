@@ -19,6 +19,7 @@ Ratafire::Application.routes.draw do
 	#Facebook Signup
 	match ':uuid/signup/with/facebook', to: 'facebooks#facebook_signup', as: :facebook_signup
 	match ':uuid/signup_update/with/facebook', to: 'users#facebook_update', as: :facebook_update
+	match'/mobile_sign_in', to: 'static_pages#mobile_sign_in', as: :mobile_sign_in
 
 #---Redactor---    
 	mount RedactorRails::Engine => '/redactor_rails'
