@@ -44,7 +44,7 @@ class ChargesController < ApplicationController
 	#Remove a card
 	def remove_a_card
 		#Delete the card on Ratafire
-		card = Card.find_by_customer_stripe_id(params[:id])
+		card = Card.find_by_customer_stripe_id(params[:id], :conditions => {:deleted => nil})
 		if card != nil then
 			card.deleted = true
 			card.deleted_at = Time.now
@@ -56,6 +56,9 @@ class ChargesController < ApplicationController
 			#Redirect
 			redirect_to(:back)
 		end
+	rescue Stripe::InvalidRequestError => e
+			flash[:error] = "Unsucessful."
+			redirect_to(:back)		
 	end
 
 	#Add a recipient path
@@ -119,7 +122,7 @@ class ChargesController < ApplicationController
 		#Adda card
 		stripe_add_card(params[:id],params[:stripeToken])
 		#Subscribe
-		
+
 	end
 
 private
