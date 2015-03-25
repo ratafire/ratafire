@@ -1,0 +1,54 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+	<!-- Javascript for on and off button -->
+	<%= render 'subscriptions/on_off_js' %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_settings' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">		
+			<h1>Payment Settings</h1>
+			<h5>Edit your payment settings. Review our <%= link_to "Pricing", pricing_path, class:"no_ajaxify"%> page before you proceed.</h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+		</div><!-- end of textbox-->
+
+		<!-- Subscription Status -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+				<h2>How I Pay</h2>
+				<!-- If the user does not have a card -->
+				<% if @user.cards.first == nil then %>
+					<%= render 'subscriptions/add_a_card'%>
+				<% else %>
+					<%= render 'subscriptions/added_card'%>
+				<% end %>	
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->				
+
+		<!-- Subscription Status -->
+		<% if @user.subscription_status_initial == nil then %>
+			<%= render 'subscriptions/hint_to_setup'%>
+		<% else %>
+			<div class="lightbox2-bordered">
+				<div class="textbox-mini">
+					<h2>How I Get Paid</h2>
+					<%= render 'subscriptions/how_I_get_paid'%>
+				</div><!-- end.textbox-mini-->
+			</div><!-- end.lightbox2-bordered-->		
+		<% end %>
+
+	<!-- Cutter --><ol style="margin-top: 70px;"></ol>
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+</div><!-- end of main-content-->					

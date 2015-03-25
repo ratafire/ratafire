@@ -1,6 +1,6 @@
 <script>
 //Price Counter
-var amts=[2,12,17,24,50,100];
+var amts=[2,8,15,22,45,89];
 $("#submit-amount").val(13.16);
 
 $("#price-slider-special").slider(
@@ -18,33 +18,20 @@ $("#price-slider-special").slider(
                 progress = parseInt( $(this).slider("value")/ 5 * 100, 10);
 				$('.price-slider-inner').css('width', progress + '%');
 				//Calculate Price For Different Conditions
-				var ratafire_3_percent = (creator_receive*0.07)
-					ratafire_6_percent = (creator_receive*0.07)
-					ratafire_7_percent = (creator_receive*0.07)
-					ratafire_10_percent = (creator_receive*0.07)
-
-					amazon_less_ten = (((creator_receive+ratafire_3_percent)*0.06+0.05)/0.94)//Amazon less than $10 international credit card rate: 6% + $0.05
-					amazon_free = (((creator_receive+ratafire_6_percent)*0.039+0.30)/0.961)//Amazon larger than $10 international credit card rate: 3.9% + $0.30
-					amazon_7_percent = (((creator_receive+ratafire_7_percent)*0.039+0.30)/0.961)
-					amazon_10_percent = (((creator_receive+ratafire_10_percent)*0.039+0.30)/0.961)
-					
-					total_less_ten = creator_receive+amazon_less_ten//Without Ratafire fee, less than 10
-					total = creator_receive+amazon_free//Without Ratafire fee
-					total_ratafire_7_percent_less_ten = creator_receive+amazon_less_ten+ratafire_6_percent
-					total_ratafire_3_percent = creator_receive+amazon_free+ratafire_3_percent
-					total_ratafire_7_percent = creator_receive+amazon_7_percent+ratafire_7_percent//With Ratafire fee 5%
-					total_ratafire_10_percent = creator_receive+amazon_10_percent+ratafire_10_percent;//With Ratafire fee 10%
+				var ratafire_5_percent = (creator_receive*0.06)
+					stripe = (((creator_receive+ratafire_5_percent)*0.029+0.30)/0.971)
+					total = creator_receive+stripe+ratafire_5_percent//Without Ratafire fee
 
 				switch(slider_value){
 					case 0:
 						//This is the supporter price
-						$("#jquery-amazon").html("$"+amazon_less_ten.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_7_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_7_percent_less_ten.toFixed(2)+"/m");
+						$("#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
+						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
+						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").hide();
-						$("#jquery-total-value").html("$"+total_ratafire_7_percent_less_ten.toFixed(2));
-						$("#submit-amount").val(total_ratafire_7_percent_less_ten.toFixed(2));
-						$("#ratafire-fee-percent").html("6%, about ");
+						$("#jquery-total-value").html("$"+total.toFixed(2));
+						$("#submit-amount").val(total.toFixed(2));
+						$("#ratafire-fee-percent").html("5%, about ");
 						//Change of notice
 						$("#subscription-title").html("Support");
 						$("#priceof").html("You can still support");
@@ -55,14 +42,14 @@ $("#price-slider-special").slider(
 						$("#checkout").html("Become a supporter of ");
 						break;
 					case 1:
-						$( "#jquery-amazon").html("$"+amazon_free.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_3_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_3_percent.toFixed(2)+"/m");
+						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
+						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
+						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("A Lava Cake");
 						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_3_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_3_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("6%, about ");
+						$("#jquery-total-value").html("$"+total.toFixed(2));
+						$("#submit-amount").val(total.toFixed(2));
+						$("#ratafire-fee-percent").html("5%, about ");
 						//Change of notice
 						$("#subscription-title").html("Subscribe to");
 						$("#priceof").html("This amount is roughly the price of");
@@ -73,14 +60,14 @@ $("#price-slider-special").slider(
 						$("#checkout").html("Subscribe to ");
 						break;	
 					case 2:
-						$( "#jquery-amazon").html("$"+amazon_7_percent.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_7_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_7_percent.toFixed(2)+"/m");
+						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
+						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
+						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("A Meal With Fish");
 						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_7_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_7_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("6%, about ");
+						$("#jquery-total-value").html("$"+total.toFixed(2));
+						$("#submit-amount").val(total.toFixed(2));
+						$("#ratafire-fee-percent").html("5%, about ");
 						//Change of notice
 						$("#subscription-title").html("Subscribe to");
 						$("#priceof").html("This amount is roughly the price of");
@@ -91,14 +78,14 @@ $("#price-slider-special").slider(
 						$("#checkout").html("Subscribe to ");		
 						break;
 					case 3:
-						$( "#jquery-amazon").html("$"+amazon_7_percent.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_7_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_7_percent.toFixed(2)+"/m");
+						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
+						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
+						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("A Book");
 						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_7_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_7_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("6%, about ");
+						$("#jquery-total-value").html("$"+total.toFixed(2));
+						$("#submit-amount").val(total.toFixed(2));
+						$("#ratafire-fee-percent").html("5%, about ");
 						//Change of notice
 						$("#subscription-title").html("Subscribe to");
 						$("#priceof").html("This amount is roughly the price of");
@@ -109,14 +96,14 @@ $("#price-slider-special").slider(
 						$("#checkout").html("Subscribe to ");
 						break;
 					case 4:
-						$( "#jquery-amazon").html("$"+amazon_10_percent.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_10_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_10_percent.toFixed(2)+"/m");
+						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
+						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
+						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("A Surprise");
 						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_10_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_10_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("6%, about ");
+						$("#jquery-total-value").html("$"+total.toFixed(2));
+						$("#submit-amount").val(total.toFixed(2));
+						$("#ratafire-fee-percent").html("5%, about ");
 						//Change of notice
 						$("#subscription-title").html("Subscribe to");
 						$("#priceof").html("This amount is roughly the price of");
@@ -127,14 +114,14 @@ $("#price-slider-special").slider(
 						$("#checkout").html("Subscribe to ");
 						break;
 					case 5:
-						$( "#jquery-amazon").html("$"+amazon_10_percent.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_10_percent.toFixed(2)+"/m");
-						$("#jquery-total").html("Total $"+total_ratafire_10_percent.toFixed(2)+"/m");
+						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
+						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
+						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("1024 Pine Nuts");
 						$("#jquery-like").show();
-						$("#jquery-total-value").html("$"+total_ratafire_10_percent.toFixed(2));
-						$("#submit-amount").val(total_ratafire_10_percent.toFixed(2));
-						$("#ratafire-fee-percent").html("6%, about ");
+						$("#jquery-total-value").html("$"+total.toFixed(2));
+						$("#submit-amount").val(total.toFixed(2));
+						$("#ratafire-fee-percent").html("5%, about ");
 						//Change of notice
 						$("#subscription-title").html("Subscribe to");
 						$("#priceof").html("This amount is roughly the price of");
@@ -166,8 +153,4 @@ $("#edit").click(function(){
 	$("#payments-case").show();
 });
 
-//temporary submit button
-$("#next_step_checkout_amazon").click(function(){
-	$("#subscrption-form").submit();
-	});
 </script>

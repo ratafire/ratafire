@@ -92,6 +92,10 @@ class SubscriptionsController < ApplicationController
 		end
 	end
 
+	def payment_settings
+		@user = User.find(params[:id])
+	end
+
 	def transactions
 		balance = @user.subscription_amount - @user.subscribing_amount
 		if balance < 0 then
@@ -399,8 +403,8 @@ private
 
     def subscription_status_initial?
     	#Check if the subscription is approved
-    	if @subscribed.subscription_status_initial == nil then
-    		flash[:success] = "We are updating our payments system. Please come back in a week!"
+    	if 1 == 1 then
+    		flash[:success] = "We are updating our payment system. Please come back in a week!"
     		return true
     	end
     	return false

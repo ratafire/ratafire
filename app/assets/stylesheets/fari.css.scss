@@ -721,6 +721,13 @@ border-radius: 5px;
 }
 
 
+.btn-small3 {
+  padding: 6px 0 0 0;
+  width: 97px; 
+  height: 26px;
+border-radius: 5px;
+}
+
 .btn-small-green {
 	background-image: url(/assets/btn_small_green.png);
 }
@@ -1112,6 +1119,7 @@ text-shadow: 3px 0px 0px rgba(0,0,0,.05);
 		padding: 0 0 3px 0 !important;
 	height: 32px !important;
 }
+
 
 .btn-submit-medium {
 	height: 33px !important;
@@ -2423,6 +2431,7 @@ box-shadow: -4px -3px 21px -9px rgba(204,204,204,1);*/
 	background-color: #ffffff;
 	border: 1px solid #cccccc;
 	width:135px;
+  white-space: nowrap;
 	height:auto;
 	/* Border Shadow */
 	-moz-box-shadow: 0px 0px 40px #e5f9ff;
@@ -3882,7 +3891,7 @@ display: none;
 
 /*--- Sign Up ---*/
 #Join-Ratafire {
-	color: #2297ce;
+	color: #ffffff;
 	font-family: "Open Sans",Helvetica, Arial, sans-serif;
 	font-weight: 300;
 	white-space:nowrap;
@@ -4237,7 +4246,7 @@ padding: 20px 0 80px 0;
 	float:right; 
 	margin-right:27px;
 	margin-top:50px;
-	color: #999;
+	color: #dddddd;
 }
 
 #Signup-box {

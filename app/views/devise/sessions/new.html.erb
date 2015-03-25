@@ -4,7 +4,7 @@
 
       <!-- Page Background -->
       <!DOCTYPE html>
-      <html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
+      <html style="background: url(<%= signup_random_background %>) no-repeat center center fixed; 
       -webkit-background-size: cover;
       -moz-background-size: cover;
        -o-background-size: cover;
@@ -40,7 +40,7 @@
 			<% if devise_mapping.rememberable? -%>
 			<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
 			<% end -%>
-			<%= link_to "Forgot password?", new_password_path(resource_name) %>
+			<%= link_to "Forgot password?", new_password_path(resource_name), class:"no_ajaxify" %>
 		</ul>
 		<ol style="margin-top: 15px; padding-left: 157px;">
 			<%= f.submit "SIGN IN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-blue" %>

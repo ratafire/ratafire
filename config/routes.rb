@@ -59,7 +59,7 @@ Ratafire::Application.routes.draw do
 
 	match ':user_id/projects/:project_id/assigned_projects/:id', to: 'assigned_projects#destroy', via: :delete, as: :delete_assigned_project
 
-		#Inspirations
+	#Inspirations
 	match ':user_id/projects/:project_id/p_u_inspirations/:id', to: 'pu_inspirations#destroy', via: :delete, as: :delete_p_u
 	match ':user_id/projects/:project_id/p_p_inspirations/:id', to: 'pp_inspirations#destroy', via: :delete, as: :delete_p_p
 	match ':user_id/projects/:project_id/p_m_inspirations/:id', to: 'pm_inspirations#destroy', via: :delete, as: :delete_p_m
@@ -188,6 +188,16 @@ Ratafire::Application.routes.draw do
 
 	#Amazon Login and Pay
 	match 'r/subscriptions/amazon_login_and_pay/recipient/postfill', to: 'amazon_lap#post_create_seller', :via => [:get, :post]
+
+	#Stripe
+	match ':id/r/stripe/add_a_card', to: 'charges#add_a_card', as: :add_a_card
+	match ':id/r/stripe/remove_a_card', to: 'charges#remove_a_card', as: :remove_a_card
+	match ':id/:application_id/r/stripe/add_a_recipient', to: 'charges#add_a_recipient', as: :add_a_recipient
+	match ':id/r/stripe/update_recipient', to: 'charges#update_recipient', as: :update_recipient
+	match ':id/r/stripe/add_card_subscribe', to: 'charges#add_card_subscribe', as: :add_card_subscribe
+
+	#Payment Settings
+	match '/:id/r/settings/payment', to: "subscriptions#payment_settings", as: :payment_settings
 
 	#Transactions
 	match 'r/subscriptions/transactions/:id/receiving_transactions', to: 'subscriptions#receiving_transactions', as: :receiving_transactions

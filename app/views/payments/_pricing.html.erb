@@ -14,15 +14,15 @@
 				</div>	
 				<!-- Creator Price-->
 				<div class='creator-price-holder'>
-					<span>↳ Receives at least <span class="price-size" id="jquery-creator-receive">$12.00/m</span></span>
+					<span>↳ Receives at least <span class="price-size" id="jquery-creator-receive">$8.00/m</span></span>
 				</div>	
 				<!-- Amazon Payments-->
 				<div class='creator-price-holder'>
-					<span>Amazon Payments Fee at most <span class="price-size" style="color:#999;" id="jquery-amazon">$0.84/m</span></span>
+					<span>Stripe's Payment Fee <span class="price-size" style="color:#999;" id="jquery-amazon">$0.84/m</span></span>
 				</div>		
 				<!-- Ratafire Fee-->
 				<div class='creator-price-holder'>
-					<span>Ratafire Fee <span id="ratafire-fee-percent">6%, about </span><span class="price-size" style="color:#999;" id="jquery-ratafire">$0.84/m</span></span>
+					<span>Ratafire Fee <span id="ratafire-fee-percent">5%, about </span><span class="price-size" style="color:#999;" id="jquery-ratafire">$0.48/m</span></span>
 				</div>
 			</div><!-- end:.price-mask-->	
 				<!-- Total Amount-->	
@@ -31,7 +31,7 @@
 						<span>+</span>
 					</div>	
 					<div class='creator-price-holder'>
-						<span class="price-size" id="jquery-total">Total $13.67/m</span>
+						<span class="price-size" id="jquery-total">Total $9.04/m</span>
 					</div>	
 				</div><!-- end:.price-line-holder-->		
 		</div><!-- end:.price-box-->	
@@ -71,16 +71,19 @@
 <!-- Payments Amazon Case-->
 <div id="payments-amazon-case">
 	<div class="checkout-holder">
-		<h2>Check out with Amazon Payments</h2>
-		<ol><span id="checkout">Subscribe to </span><%= @user.fullname %> with the monthly amount of <span class="price-size" id="jquery-total-value">$13.16</span> <span id="edit">Edit</span></ol>
-		<ul><%= image_tag("Amazon-Payments-Logo_lores.gif") %></ul>
+		<h2>Check out your Subscription</h2>
+		<ol><span id="checkout">Subscribe to </span><%= @user.fullname %> with the monthly amount of <span class="price-size" id="jquery-total-value">$9.04</span> <span id="edit">Edit</span></ol>
 	</div>
 	<!-- Next Step Button-->
-	<div style="margin: 0 40px 40px 0; text-align:right;">
-		<div class="btn btn-medium2 btn-medium-blue no_ajaxify" id="next_step_checkout_amazon">
-			To Amazon
-		</div>	
-	</div>	
+	<% if current_user.cards.first == nil then %>
+		<%= render 'subscriptions/add_card_subscribe'%>
+	<% else %>
+		<div style="margin: 0 40px 40px 0; text-align:right;">
+			<div class="btn btn-medium2 btn-medium-blue no_ajaxify" id="next_step_checkout_amazon">
+				Subscribe
+			</div>	
+		</div>		
+	<% end %>
 </div><!-- end#payments-amazon-case-->	
 <!-- Payments Form-->
 <%= render 'payments/amount_form'%>

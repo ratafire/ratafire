@@ -51,6 +51,9 @@ class User < ActiveRecord::Base
 
 	#Relationship
 	has_many :ratings
+	has_many :cards, :conditions => { :deleted => nil }
+	has_one :customer, :conditions => { :deleted => nil}
+	has_one :recipient, :conditions => { :deleted => nil }
 
 	has_many :assigned_projects
 	has_many :projects, :through => :assigned_projects, :conditions => { :deleted_at => nil }

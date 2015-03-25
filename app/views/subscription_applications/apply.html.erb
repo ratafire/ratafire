@@ -71,7 +71,7 @@
 											<div class="user-why-passage">
 												<ol style="margin:20px 20px 10px 0;">Write an intended update frequency or plan for your current project. Example: One post per week in one of my math projects (10 - 500 characters).</ol>
 												<%= f.text_area :plan, class: "subscription-plan-input noResize", style:"width:91%;" %>
-											</div>	
+											</div>											
 
 							<h4>Project</h4>				
 								<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one on going project to setup subscription. This is your project:</ol>
@@ -82,26 +82,12 @@
 							<h4>Discussion</h4>			
 							<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one discussion to setup subscription.</ol>
 								<%=  render "discussions/discussion_one_application"%>													
-							<h4>Payments</h4>		
-      							<div class="lightbox3">
-									<div class="inputlabel-social">
-										<%= image_tag("amazon.png", class:"tipsy-tipsy", title:"Amazon") %>
-									</div>
-      								<div class="input-placer socialmedia-placer">
-      									<ul>You are connected to Amazon Payments!</ul>
-      									<ul>Your recipient token: <input onclick="this.select();" class="inputbox" type="recipient" value= <%= @user.amazon_recipient.tokenID %>></ul>
-      									<ul>If you need to contact Amazon regarding transaction issues, contact them with the recipient token above.</ul>
-      								</div>
-      							</div><!-- end.lightbox3--> 							
 						</div>
 					<!-- Back -->
 					<div style="margin: 15px 24px 20px 0; text-align:right;">
-						<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_apply_back">Back</div>
+						<div class="btn btn-small3 btn-small-white no_ajaxify" id="subscription_application_apply_back">Back</div>
 						<!-- Next Step -->	
-						<% if @project then %>
 							<%= f.submit "Apply", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
-						<% else %>
-						<% end %>	
 					</div>	
 
 				<% end %>		

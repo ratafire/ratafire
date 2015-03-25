@@ -1,0 +1,43 @@
+<!-- Has recipient -->
+<% if @user.recipient != nil then %>
+	<div class="lightbox4" style="border: 0px solid #ddd;background-color:#f9f9f9; border-radius:5px;padding-top:20px;padding-bottom:27px;min-height:10px;">
+		<table class="display">
+			<thead>
+				<tr>
+					<th width="180"><%= @user.recipient.bank_name %></th>
+					<th width="382">****<%= @user.recipient.account_number %></th>
+					<th><div class="btn btn-small2 btn-small-white tipsy-tipsy" title="Coming Soon!">Edit</div></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>			
+	<div id="update_account_info_holder" style="display:none;">
+		<%= form_tag(update_recipient_path(@user.id), class:"no_ajaxify") do %>
+      		<!-- Routing Number -->
+			<div class="inputlabel">
+				<li>Routing Number</li>
+			</div>
+			<div class="input-placer">
+      			<%= text_field_tag "routing_number",nil, class: "inputbox settingsinput" %>
+      			<ul>Enter your bank account's routing number</ul>
+      			<%= image_tag("/assets/us-routing.png",style:"margin:5px 0 0 10px;")%>
+      			<ul>Your routing number is normally found on a check provided by your bank.</ul>
+      		</div>   			
+			<!-- Account Number -->
+			<div class="inputlabel">
+				<li>Account Number</li>
+			</div>	
+			<div class="input-placer">
+      			<%= text_field_tag "account_number",nil, class: "inputbox settingsinput" %>
+      			<ul>Enter your bank account's account number</ul>
+      			<%= image_tag("/assets/us-account.png",style:"margin:5px 0 0 10px;")%>
+      			<ul>Your account number is normally found on a check provided by your bank.</ul>
+      		</div>
+      		<div style="margin: 15px 24px 20px 0; text-align:right;">  
+      			<%= submit_tag "Update Account", class: "btn-submit2 btn-submit-medium btn btn-medium3 btn-medium-green no_ajaxify" %>
+      		</div>	
+      	<% end %>	 
+	</div>	
+<% end %>
