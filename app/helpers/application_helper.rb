@@ -642,10 +642,5 @@ module ApplicationHelper
     	@devise_mapping ||= Devise.mappings[:user]
   	end	
 
-  	#Signup Random Background
-  	def signup_random_background
-  		images = ["/assets/backgrounds/sky.jpg", "/assets/backgrounds/starcloud.jpg",  "/assets/backgrounds/starmap.jpg"]
-  		images[rand(images.size)]  		
-  	end
 
 end
