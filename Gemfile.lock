@@ -305,6 +305,10 @@ GEM
       mime-types
     paperclip-ghostscript (0.1.0)
       paperclip
+    paypal-sdk-rest (1.1.2)
+      multi_json (~> 1.0)
+      uuidtools (~> 2.1)
+      xml-simple
     polyglot (0.3.5)
     rack (1.4.5)
     rack-cache (1.2)
@@ -479,6 +483,7 @@ DEPENDENCIES
   omniauth-vimeo!
   paperclip (= 3.5.4)
   paperclip-ghostscript
+  paypal-sdk-rest
   public_activity!
   rack-google-analytics
   rails (= 3.2.13)

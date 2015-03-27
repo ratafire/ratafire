@@ -13,7 +13,7 @@
 										<!-- Cutter --><ul style="margin-top: 15px;"></ul>
 
 										<ol id="purple"> 
-											<span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Project Completion</span>
+											<span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Work Collection Completion</span>
 											<%= @user.projects.where(:complete => true ).count %>/<%= render :text => @user.goals_project%>
 										</ol>
 

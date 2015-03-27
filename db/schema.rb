@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150324222320) do
+ActiveRecord::Schema.define(:version => 20150327053807) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -204,6 +204,61 @@ ActiveRecord::Schema.define(:version => 20150324222320) do
     t.datetime "updated_at"
   end
 
+  create_table "billing_agreements", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "billing_agreement_id"
+    t.string   "status"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.string   "uuid"
+  end
+
+  create_table "billing_artists", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "count"
+    t.decimal  "accumulated_receive",     :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_payment_fee", :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_ratafire",    :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_total",       :precision => 10, :scale => 2, :default => 0.0
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "this_billing_date"
+    t.datetime "next_billing_date"
+    t.datetime "prev_billing_date"
+    t.decimal  "this_amount",             :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "next_amount",             :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "retry"
+    t.string   "uuid"
+    t.boolean  "activated"
+    t.datetime "activated_at"
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
+  end
+
+  create_table "billing_subscriptions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "count"
+    t.decimal  "accumulated_receive",     :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_payment_fee", :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_ratafire",    :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_total",       :precision => 10, :scale => 2, :default => 0.0
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "this_billing_date"
+    t.datetime "next_billing_date"
+    t.datetime "prev_billing_date"
+    t.decimal  "this_amount",             :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "next_amount",             :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "retry"
+    t.string   "uuid"
+    t.boolean  "activated"
+    t.datetime "activated_at"
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
+  end
+
   create_table "blacklists", :force => true do |t|
     t.integer  "blacklister_id"
     t.integer  "blacklisted_id"
@@ -255,6 +310,9 @@ ActiveRecord::Schema.define(:version => 20150324222320) do
     t.boolean  "deleted"
     t.string   "customer_stripe_id"
     t.string   "card_stripe_id"
+    t.string   "cardno"
+    t.string   "cardcvc"
+    t.string   "uuid"
   end
 
   create_table "commentimages", :force => true do |t|
@@ -310,6 +368,7 @@ ActiveRecord::Schema.define(:version => 20150324222320) do
     t.boolean  "deleted"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "uuid"
   end
 
   create_table "deviantarts", :force => true do |t|
@@ -1054,6 +1113,26 @@ ActiveRecord::Schema.define(:version => 20150324222320) do
     t.boolean  "next_transaction_status",                                :default => false
     t.integer  "counter",                                                :default => 0
     t.integer  "retry",                                                  :default => 0
+    t.decimal  "payment_fee",             :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "billing_subscription_id"
+    t.integer  "billing_artist_id"
+    t.string   "created"
+    t.boolean  "livemode"
+    t.boolean  "paid"
+    t.string   "currency"
+    t.boolean  "refunded"
+    t.string   "card_stripe_id"
+    t.string   "customer_stripe_id"
+    t.boolean  "captured"
+    t.string   "balance_transaction"
+    t.string   "failure_message"
+    t.string   "failure_code"
+    t.decimal  "amount_refunded",         :precision => 10, :scale => 2, :default => 0.0
+    t.string   "recipient_stripe_id"
+    t.boolean  "reversed"
+    t.string   "klass"
+    t.string   "stripe_id"
+    t.string   "description"
   end
 
   create_table "tutorials", :force => true do |t|

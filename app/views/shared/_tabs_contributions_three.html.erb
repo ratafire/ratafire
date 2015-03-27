@@ -1,0 +1,6 @@
+<!-- Tabs Nav -->
+<div class="tab">
+		<%= link_to "Updates",user_update_feed_path(@user) , style:"margin-left:0px;", class: "tab tab-size tab-content tab-priority-1 tab-right-shadow"%>
+		<%= link_to "Subscription", why_path(@user) , class: "tab tab-size tab-content tab-priority-2 no_ajaxify"%>
+		<%= link_to "Contributions", projects_path , class: "tab tab-size tab-content-current  tab-priority-3 no_ajaxify"%>
+</div>

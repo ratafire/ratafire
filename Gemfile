@@ -122,6 +122,9 @@ gem "figaro" #May be needed for fog
 #Stripe
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
+#Paypal
+gem 'paypal-sdk-rest'
+
 #------------Rails Utilities------------
 gem 'rake', '10.2.2'
 gem 'rails', '3.2.13'

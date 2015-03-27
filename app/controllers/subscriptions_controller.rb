@@ -34,9 +34,11 @@ class SubscriptionsController < ApplicationController
 	end
 
 	def new
+		@default = params[:default]
 		@user = User.find(params[:id])
 		@current_user = current_user
 		@subscription = Subscription.new
+		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 	end	
 
 	def create
@@ -77,6 +79,14 @@ class SubscriptionsController < ApplicationController
 		@user = User.find(params[:id])
 		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 		@subscription_application = @user.approved_subscription_application
+		if @user.website != nil then 
+	  		unless @user.website[/\Ahttp:\/\//] || @user.website[/\Ahttps:\/\//]
+				@user_website = "http://#{@user.website}"
+	  		else
+				@user_website = @user.website
+	 		end
+		end
+		  		
 	end
 
 	def amazon

@@ -112,6 +112,7 @@ Ratafire::Application.routes.draw do
 
 	match ':id/r/projects/list', to: 'users#projects', as: :projects
 	match ':id/r/projects_past/list', to: 'users#projects_past', as: :projects_past
+	match ':id/r/r/updatefeed', to: 'users#update_feed', as: :user_update_feed
 
 	match ':id/r/settings/goals', to: 'users#goals', as: :goals
 	match ':id/r/settings/profile', to: 'users#edit', as: :edit_user
@@ -195,6 +196,10 @@ Ratafire::Application.routes.draw do
 	match ':id/:application_id/r/stripe/add_a_recipient', to: 'charges#add_a_recipient', as: :add_a_recipient
 	match ':id/r/stripe/update_recipient', to: 'charges#update_recipient', as: :update_recipient
 	match ':id/r/stripe/add_card_subscribe', to: 'charges#add_card_subscribe', as: :add_card_subscribe
+	match ':id/r/stripe/with_card_subscribe', to: 'charges#with_card_subscribe', as: :with_card_subscribe
+
+	#Paypal
+	match 'postfill_of_paypal', to: 'billing_agreement#post_create_billing_agreement', as: :post_create_billing_agreement
 
 	#Payment Settings
 	match '/:id/r/settings/payment', to: "subscriptions#payment_settings", as: :payment_settings
@@ -226,7 +231,7 @@ Ratafire::Application.routes.draw do
 
 #---Payments---
 	match ':id/r/r/subscription/', to:'subscriptions#why', as: :why
-	match ':id/r/payments/subscribe', to: 'subscriptions#new', as: :subscribe
+	match ':id/:default/r/payments/subscribe', to: 'subscriptions#new', as: :subscribe
 	match ':id/r/payments/checkout_amazon', to: 'subscriptions#amazon', as: :amazon
 	match ':id/r/payments/subscription/create', to: 'subscriptions#create',via: :post, as: :create_subscription
 

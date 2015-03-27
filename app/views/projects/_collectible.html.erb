@@ -8,13 +8,10 @@
 		</div>
 	</div>
 	<!-- Collectible -->
-	<div class="textbox-mini" >
-		If you subscribe to <%= @project.creator.fullname %> during this project, you may receive this collectible:
-	</div>	
 	<!-- To Collectible Content -->
 	<div class="lightbox2 post-content-c" style="margin-top:0px;">
-		<div class="textbox-mini" >
-			<div class="project-to-subscribers-holder">
+		<div class="textbox-mini">
+			<div class="project-to-subscribers-holder" style="padding-bottom:5px;">
 				<%= simple_format(@project.collectible) %>
 			</div><!-- end.project-to-subscribers-holder-->	
 		</div><!-- end.project-to-subscribers-holder-->

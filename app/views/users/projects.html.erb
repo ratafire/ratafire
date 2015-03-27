@@ -36,10 +36,13 @@
 					<!-- Cutter --><ol style="margin-top: -5px;"></ol>
 
 					<!-- Tabs Nav -->
-					<div class="tab">
-							<%= link_to "About", user_path , style:"margin-left:0px;", class: "tab tab-size tab-content"%>
-							<%= link_to "Contributions", projects_path , class: "tab tab-size tab-content-current tab-left-shadow"%>		
-					</div>
+					
+					<!-- Tabs Nav -->
+					<% if @user.subscription_status_initial == "Approved" then %>
+						<%= render 'shared/tabs_contributions_three'%>
+					<% else %>
+						<%= render 'shared/tabs_contributions'%>
+					<% end %>	
 
 					<!-- Content of Projects -->
 					<div class="profile-content">
@@ -61,7 +64,7 @@
 
 									<!-- Indicator -->
 									<div class="textbox-mini">
-										<li style="font-size: 1.4em;">Current Projects</li>
+										<li style="font-size: 1.4em;">Current Work Collections</li>
 										<li class="counter">[<%= @currentprojects.count %>]</li>
 									</div>
 									
@@ -100,7 +103,7 @@
 
 									<!-- Indicator -->
 									<div class="textbox-mini">
-										<li style="font-size: 1.4em;">Completed Projects</li>
+										<li style="font-size: 1.4em;">Completed Work Collection</li>
 										<li class="counter">[<%= @completedprojects.count %>]</li>
 									</div>
 									

@@ -1,7 +1,7 @@
 <script>
 //Price Counter
-var amts=[2,8,15,22,45,89];
-$("#submit-amount").val(13.16);
+var amts=[2.49,9,14.99,24,49,99];
+$("#submit-amount").val(9);
 
 $("#price-slider-special").slider(
 {	
@@ -11,22 +11,25 @@ $("#price-slider-special").slider(
             value:1,
             change: function( event, ui ) {
             	//Value equals to creator amount
-            	var creator_receive = amts[$(this).slider("value")]
+            	var total = amts[$(this).slider("value")]
             		slider_value = $(this).slider("value");
-                $( "#jquery-creator-receive" ).html("$"+creator_receive.toFixed(2)+"/m");
+                
                 //Progress bar
                 progress = parseInt( $(this).slider("value")/ 5 * 100, 10);
 				$('.price-slider-inner').css('width', progress + '%');
 				//Calculate Price For Different Conditions
-				var ratafire_5_percent = (creator_receive*0.06)
-					stripe = (((creator_receive+ratafire_5_percent)*0.029+0.30)/0.971)
-					total = creator_receive+stripe+ratafire_5_percent//Without Ratafire fee
+				//var ratafire_5_percent = (creator_receive*0.06)
+				//	stripe = (((creator_receive+ratafire_5_percent)*0.029+0.30)/0.971)
+				//	total = creator_receive+stripe+ratafire_5_percent//Without Ratafire fee
+				var stripe = total*0.029+0.30+0.25
+					creator_receive = total - stripe
+
+				$( "#jquery-creator-receive" ).html("$"+creator_receive.toFixed(2)+"/m");
 
 				switch(slider_value){
 					case 0:
 						//This is the supporter price
 						$("#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
 						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").hide();
 						$("#jquery-total-value").html("$"+total.toFixed(2));
@@ -38,12 +41,12 @@ $("#price-slider-special").slider(
 						$("#supporter-number").show();
 						$("#difference").show();
 						$("#subscriber-features").hide();
+						$("#collectible-holder").hide();
 						$("#selector").html("Try Ratafre by supporting");
 						$("#checkout").html("Become a supporter of ");
 						break;
 					case 1:
 						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
 						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("A Lava Cake");
 						$("#jquery-like").show();
@@ -56,12 +59,12 @@ $("#price-slider-special").slider(
 						$("#supporter-number").hide();
 						$("#difference").hide();
 						$("#subscriber-features").show();
+						$("#collectible-holder").show();
 						$("#selector").html("Subscription Amount Selector");
 						$("#checkout").html("Subscribe to ");
 						break;	
 					case 2:
 						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
 						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("A Meal With Fish");
 						$("#jquery-like").show();
@@ -74,12 +77,12 @@ $("#price-slider-special").slider(
 						$("#supporter-number").hide();
 						$("#difference").hide();	
 						$("#subscriber-features").show();	
+						$("#collectible-holder").show();
 						$("#selector").html("Subscription Amount Selector");	
 						$("#checkout").html("Subscribe to ");		
 						break;
 					case 3:
 						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
 						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("A Book");
 						$("#jquery-like").show();
@@ -92,12 +95,12 @@ $("#price-slider-special").slider(
 						$("#supporter-number").hide();	
 						$("#difference").hide();	
 						$("#subscriber-features").show();	
+						$("#collectible-holder").show();
 						$("#selector").html("Subscription Amount Selector");	
 						$("#checkout").html("Subscribe to ");
 						break;
 					case 4:
 						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
 						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("A Surprise");
 						$("#jquery-like").show();
@@ -110,12 +113,12 @@ $("#price-slider-special").slider(
 						$("#supporter-number").hide();	
 						$("#difference").hide();	
 						$("#subscriber-features").show();	
+						$("#collectible-holder").show();
 						$("#selector").html("Subscription Amount Selector");	
 						$("#checkout").html("Subscribe to ");
 						break;
 					case 5:
 						$( "#jquery-amazon").html("$"+stripe.toFixed(2)+"/m");
-						$("#jquery-ratafire").html("$"+ratafire_5_percent.toFixed(2)+"/m");
 						$("#jquery-total").html("Total $"+total.toFixed(2)+"/m");
 						$("#jquery-like").html("1024 Pine Nuts");
 						$("#jquery-like").show();
@@ -128,6 +131,7 @@ $("#price-slider-special").slider(
 						$("#supporter-number").hide();	
 						$("#difference").hide();	
 						$("#subscriber-features").show();	
+						$("#collectible-holder").show();
 						$("#selector").html("Subscription Amount Selector");	
 						$("#checkout").html("Subscribe to ");
 						break;			
@@ -153,4 +157,8 @@ $("#edit").click(function(){
 	$("#payments-case").show();
 });
 
+//temporary submit button
+$("#next_step_checkout_amazon").click(function(){
+	$("#subscrption-form").submit();
+	});
 </script>

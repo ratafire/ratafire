@@ -8,7 +8,7 @@
 
 <div style="margin: 0 40px 40px 0; text-align:right;">
   <div class="btn btn-medium2 btn-medium-blue no_ajaxify" id="customButton">
-    Subscribe
+    Confirm and Pay
   </div>  
 </div>    
 
@@ -27,7 +27,7 @@
     	// Open Checkout with further options
     	handler.open({
       		name: 'Ratafire, Inc.',
-      		description: 'Subscribe',
+      		description: 'Subscribe to <%= @user.fullname %>',
       		allowRememberMe:"false",
       		billingAddress:"true",
      	 	  zipCode:"true",

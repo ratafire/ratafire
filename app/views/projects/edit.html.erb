@@ -67,11 +67,7 @@
 
 				<!-- Content -->
 				<div class="majorpostarea">
-					<% if @project.about != "About your project"%>
-						<%= f.text_area :about, id:"redactor_majorpost"%>
-					<% else %>
-						<%= f.text_area :about, id:"redactor_majorpost", value: "", placeholder: "About..."%>
-					<% end %>
+					<%= f.text_area :about, id:"redactor_majorpost", placeholder: "Enter a description for your work collection. Tools for media upload ⤴"%>
 				</div>
 
 				<!-- Tools -->
@@ -95,7 +91,7 @@
 				<div style="margin: 15px -2px 0 0; text-align:right;">
 					<span id="submit">
 						<%= f.submit "Save", class: "btn-submit btn-submit-small btn btn-small btn-small-white no_ajaxify" %>
-						<div class="btn btn-small2 btn-small-green no_ajaxify" id="project-publish-button">Publish</div>
+						<div class="btn btn-small2 btn-small-green no_ajaxify" id="project-publish-button2">Publish</div>
 					</span>
 				</div>
 				<% else %>

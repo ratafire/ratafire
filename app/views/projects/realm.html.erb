@@ -41,7 +41,7 @@
 			<div class="post-about-bg">
 				<div class="textbox-mini">
 					<div class="post-about-title">
-						<li style="font-size: 1.4em;">Create a Project</li>
+						<li style="font-size: 1.4em;">Create a Work Collection</li>
 					</div>	
 				</div>	
 			</div>	
@@ -49,7 +49,7 @@
 			<!-- Greetings -->
 			<div class="lightbox5" style="color:#777;">
 				<div class="textbox-mini">
-					Greetings, traveler! You must first select a realm for your project, and your project must belong to one of the following nine realms. Once selected, it cannot be changed. Tread carefully.
+					Greetings, traveler! You must first select a realm for your work collection, and your project must belong to one of the following nine realms. Once selected, it cannot be changed. Tread carefully.
 					<li style="text-align:right;width:90%;">-- Ratatoskr</li>
 				</div>
 			</div>	
@@ -529,9 +529,10 @@
 
 	//Enter
 	$(".enter").click(function(){
-		var realm = this.id;	
-		showConfirmDialog2(realm);
-		return false;
+		$("#project-form").submit();
+		//var realm = this.id;	
+		//showConfirmDialog2(realm);
+		//return false;
 	});			
 
 		showConfirmDialog2 = function(realm) {

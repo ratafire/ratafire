@@ -1,0 +1,35 @@
+							<!-- Cutter --><ol style="margin-top: -15px;"></ol>
+							
+								<!-- Activities -->
+								<div>
+
+									<!-- Indicator -->
+									<div id="Profile-page-title">
+										<div class="textbox-mini">
+											<div id="open-recent-major-post" class="water-open"></div>
+	
+												<div id="close-recent-major-post" class="water-close"></div>
+										</div>
+									</div>
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+									<!-- Content -->
+									<div id="recent-majorposts">
+										<% if @activities.any? %>
+											<%= render_activities(@activities) %>
+										<% else %>
+											<div class="lightbox" style="text-align: center;border:0;margin-bottom:-130px;">
+												<h5><%= @user.fullname %> does't have activities.</h5>
+											</div>
+										<% end %>
+									<!-- Pagination -->
+									<div id="profile-paginate">
+										<div class="textbox-mini">
+											<span><%= will_paginate @activities, :param_name => 'activities', class:"rata_pagination" %></span>	
+										</div>
+									</div>
+									</div><!-- end of activities-->
+
+									
+								<!-- end of Recent Major Posts -->	
+								</div>

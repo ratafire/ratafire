@@ -119,7 +119,7 @@
 		<ol style="margin-top: -18px;"></ol>
 		<ol><%= project.tagline %> </ol>
 		<span><% if project.tags.any? %><% if project.tags.count >1 %>Tags: <% else %>Tag: <% end %><% end %> 
-				<%= raw project.tag_list.map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %></span>
+				<%= raw project.tag_list.first(4).map { |t| link_to t, tag_path(t), class:"no_ajaxify" }.join(', ') %></span>
 		<ol style="color:#999;">Project created <%= time_ago_in_words(project.created_at) %> ago <% if project.realm != nil %> in <%= link_to realm_selector_path(project.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(project.realm)%></span><% end %><else>.<% end %></ol>		
 	</div>	
 </div>	
