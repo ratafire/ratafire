@@ -20,7 +20,7 @@
 
 	<!-- Subscription Button-->		
 	<% if subscriber_status then%>
-		<% if @user.subscribed_by?(current_user) == false%>
+		<% if @user.subscribed_by?(current_user) == false && @user != current_user %>
 			<div style="margin: 15px -2px 0 580px;">
 				<%= render 'users/portable_subscribe_button'%>
 			</div>

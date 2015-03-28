@@ -96,7 +96,7 @@ class SubscriptionsController < ApplicationController
 	def settings
 		@user = User.find(params[:id])
 		if @user.subscription_status_initial != "Approved" then
-			redirect_to setup_subscription_path(@user.id)
+			redirect_to goals_subscription_path(@user.id)
 		else
 			@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 		end

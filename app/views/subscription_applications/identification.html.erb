@@ -33,7 +33,7 @@
 
 			<div class="textbox-mini">
 				<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
-					<%= f.hidden_field :step, :value => 6, id:"step_id" %>
+					<%= f.hidden_field :step, :value => 7, id:"step_id" %>
 						<div class="user-why-passage">
       								<!-- GitHub-->
 									<div class="inputlabel-social">
@@ -65,10 +65,10 @@
 						</div>
 					<!-- Back -->
 					<div style="margin: 15px 24px 20px 0; text-align:right;">
-						<div class="btn btn-small2 btn-small-white no_ajaxify"  id="subscription_application_identification_back">Back</div>
+						<div class="btn btn-small3 btn-small-white no_ajaxify"  id="subscription_application_identification_back">Back</div>
 						<!-- Next Step -->	
 						<% if @user.facebook != nil || @user.github != nil then %>
-							<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+							<%= f.submit "Apply", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
 						<% else %>
 						<% end %>	
 					</div>		

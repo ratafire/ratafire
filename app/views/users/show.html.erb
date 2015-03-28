@@ -48,9 +48,6 @@
 					<!-- Content of Profile -->
 					<div class="profile-content">
 
-							<!-- fist block -->
-							<%= render 'users/profile_first_block'%>
-
 							<!-- Update Feed -->
 							<%= render 'subscriptions/subscription_info'%>
 					<% else %>
@@ -65,8 +62,9 @@
 
 							<!-- Update Feed -->
 							<%= render 'users/update_feed'%>
-					<% end %>
 							<!-- Cutter --><ol id="profile-cutter-bottom" style="height: 130px;"></ol>
+					<% end %>
+							
 							
 					<!-- end of profile-content-->
 					</div>

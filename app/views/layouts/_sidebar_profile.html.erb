@@ -98,7 +98,9 @@
 							<% end %>
 						<% else %>
 							<!-- Subscribe Button -->
-							<%= render 'users/subscribe_button'%>										
+							<% if @user.subscription_status_initial == "Approved"%>
+								<%= render 'users/subscribe_button'%>	
+							<% end %>									
 						<% end %>
 					<% end %>
 			<% end %><!-- end.current_user.subscribed_by?-->
@@ -107,7 +109,9 @@
 				
 <% else %>
 	<!-- Subscribe Button -->
-	<%= render 'users/subscribe_button'%>
+	<% if @user.subscription_status_initial == "Approved"%>
+		<%= render 'users/subscribe_button'%>
+	<% end %>
 <% end %><!-- end.if user_signed_in?-->	
 	<!-- Subscribed -->
 	<%= link_to subscribers_path(@user), class:"subscription no_ajaxify" do %>

@@ -122,12 +122,82 @@ class ChargesController < ApplicationController
 		#Adda card
 		stripe_add_card(params[:id],params[:stripeToken])
 		#Subscribe
-
+		subscribe_through_stripe
 	end
 
 	#Not add card subscribe
 	def with_card_subscribe
 		#Create subscription
+		subscribe_through_stripe
+	end
+
+private
+
+	def stripe_add_card(user_id,stripeToken)
+		@customer = Customer.find_by_user_id(user_id)
+		if @customer != nil then
+			#use the old customer
+			customer = Stripe::Customer.retrieve(@customer.customer_id)
+			#create a token for the card
+			token = stripeToken
+			r = customer.sources.create(:card => token)
+			#if successful
+			if r.id != nil then
+				@card = Card.prefill!(customer, user_id, @customer.id)
+			else
+				flash[:error] = "Fail to add a new card."
+				redirect_to(:back)
+			end
+		else
+			#Create a new customer
+			# Get the credit card details submitted by the form
+			token = stripeToken
+			# Create a Customer
+			customer = Stripe::Customer.create(
+  				:source => token
+			)
+			#Add subscription to this customer if the customer subscribes to another customer
+			# Save the customer
+			@customer = Customer.prefill!(customer,user_id)
+			@customer = Customer.find_by_user_id(user_id)
+			# Save the customer's card in your database so you can use it later
+			card = Card.prefill!(customer, user_id, @customer.id)
+		end			
+	end
+
+	def subscription_post_payment
+		@user.subscription_amount = @user.subscription_amount + @subscription.amount
+		@subscriber.subscribing_amount = @subscriber.subscribing_amount + @subscription.amount
+		#Enqueue post processor for payments
+		if @subscription.supporter_switch == true
+			#Create Support
+			@user.supporter_slot -= 1
+		else
+			#Create Subscription
+			#For subscribed
+			@activity = PublicActivity::Activity.new
+			@activity.trackable_id = @subscription.id
+			@activity.trackable_type = "Subscription"
+			@activity.owner_id = @subscription.subscribed.id
+			@activity.owner_type = "User"
+			@activity.key = "subscription.create"
+			@activity.save
+			#For subscriber
+			@activity = PublicActivity::Activity.new
+			@activity.trackable_id = @subscription.id
+			@activity.trackable_type = "Subscription"
+			@activity.owner_id = @subscription.subscriber.id
+			@activity.owner_type = "User"
+			@activity.key = "subscription.create"
+			@activity.save
+		end
+		@user.save
+		@subscriber.save
+		flash[:success] = "You subscribed to "+@subscription.subscribed.fullname+"!"
+		redirect_to subscribers_path(@subscription.subscribed_id)
+	end
+
+	def subscribe_through_stripe
 		@subscription = Subscription.new(params[:subscription])
 		#See if it is a support
 		if @subscription.amount == ENV["PRICE_1"].to_f
@@ -180,72 +250,6 @@ class ChargesController < ApplicationController
 			flash[:error] = "Failed to subscribe2."
 			redirect_to(@user)
 		end		
-	end
-
-private
-
-	def stripe_add_card(user_id,stripeToken)
-		@customer = Customer.find_by_user_id(user_id)
-		if @customer != nil then
-			#use the old customer
-			customer = Stripe::Customer.retrieve(@customer.customer_id)
-			#create a token for the card
-			token = stripeToken
-			r = customer.sources.create(:card => token)
-			#if successful
-			if r.id != nil then
-				card = Card.prefill!(customer, user_id, @customer.id)
-			else
-				flash[:error] = "Fail to add a new card."
-				redirect_to(:back)
-			end
-		else
-			#Create a new customer
-			# Get the credit card details submitted by the form
-			token = stripeToken
-			# Create a Customer
-			customer = Stripe::Customer.create(
-  				:source => token
-			)
-			#Add subscription to this customer if the customer subscribes to another customer
-			# Save the customer
-			@customer = Customer.prefill!(customer,user_id)
-			@customer = Customer.find_by_user_id(user_id)
-			# Save the customer's card in your database so you can use it later
-			card = Card.prefill!(customer, user_id, @customer.id)
-		end			
-	end
-
-	def subscription_post_payment
-		@user.subscription_amount = @user.subscription_amount + @subscription.amount
-		@subscriber.subscribing_amount = @subscriber.subscribing_amount + @subscription.amount
-		#Enqueue post processor for payments
-		if @subscription.supporter_switch == true
-			#Create Support
-			@user.supporter_slot -= 1
-		else
-			#Create Subscription
-			#For subscribed
-			@activity = PublicActivity::Activity.new
-			@activity.trackable_id = @subscription.id
-			@activity.trackable_type = "Subscription"
-			@activity.owner_id = @subscription.subscribed.id
-			@activity.owner_type = "User"
-			@activity.key = "subscription.create"
-			@activity.save
-			#For subscriber
-			@activity = PublicActivity::Activity.new
-			@activity.trackable_id = @subscription.id
-			@activity.trackable_type = "Subscription"
-			@activity.owner_id = @subscription.subscriber.id
-			@activity.owner_type = "User"
-			@activity.key = "subscription.create"
-			@activity.save
-		end
-		@user.save
-		@subscriber.save
-		flash[:success] = "You subscribed to "+@subscription.subscribed.fullname+"!"
-		redirect_to subscribers_path(@subscription.subscribed_id)
 	end
 
 end

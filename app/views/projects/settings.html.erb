@@ -75,8 +75,8 @@
 					<% if @project.creator.subscription_status_initial == "Approved"%>
 						<h2>Collectible</h2>
 						<div class="source-code-placer" style="margin-left:21px;">
-							<ol style="margin:20px 20px 10px 0;">Instead of rewards, you can provide your subscribers project collectibles as "rewards". The collectible you enter here is the collectible you provide to subscribers who subscribe to you since this project. When the project is completed, you should send out this collectible you promised to your subscribers. <p>We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters).</p></ol>
-							<%= f.text_area :collectible, placeholder:"Enter project collectible", class: "subscription-plan-input noResize", style:"width:670px; margin-left:0px;" %>	
+							<ol style="margin:20px 20px 10px 0;">Provide a collectible for subscribers who paid $9/m or more to you since this work collection.</ol>
+							<%= f.text_area :collectible, placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters).", class: "subscription-plan-input noResize", style:"width:670px; margin-left:0px;" %>	
 						</div>			
 					<% end %>							
 

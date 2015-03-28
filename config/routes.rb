@@ -221,13 +221,13 @@ Ratafire::Application.routes.draw do
 	#Setup
 	match ':id/:subscription_application_id/r/update/subscription', to: 'subscription_applications#updates', as: :update_subscription_application
 	match ':id/r/setup/subscription', to: 'subscription_applications#setup', as: :setup_subscription
-	match ':id/:subscription_application_id/goals/subscription', to: 'subscription_applications#goals', as: :goals_subscription
+	match ':id/r/goals/subscription', to: 'subscription_applications#goals', as: :goals_subscription
 	match ':id/:subscription_application_id/project/subscription', to: 'subscription_applications#project', as: :project_subscription
 	match ':id/:subscription_application_id/discussion/subscription', to: 'subscription_applications#discussion', as: :discussion_subscription
 	match ':id/:subscription_application_id/payments/subscription', to: 'subscription_applications#payments', as: :payments_subscription
 	match ':id/:subscription_application_id/identification/subscription', to: 'subscription_applications#identification', as: :identification_subscription
 	match ':id/:subscription_application_id/apply/subscription', to: 'subscription_applications#apply', as: :apply_subscription
-	match ':id/:subscription_application_id/pending/subscription', to: 'subscription_applications#pending', as: :pending_subscription
+	match ':id/:subscription_application_id/pending/subscription', to: 'tutorials#subscription', as: :pending_subscription
 
 #---Payments---
 	match ':id/r/r/subscription/', to:'subscriptions#why', as: :why
@@ -372,7 +372,7 @@ Ratafire::Application.routes.draw do
 
 	#Intro
 	match '/user/user_intro/tutorial/new_world/:id/', to: "tutorials#intro", as: :intro_tutorial
-	match '/:id/user/user_intro/new/tutorial/start_using', to: "tutorials#after_intro", as: :after_intro_tutorial	
+	match '/:id/user/user_intro/new/tutorial/start_using', to: "tutorials#after_intro", as: :after_intro_tutorial
 
 #---Help---
 	match '/help', to: 'helps#show', as: :help

@@ -1,0 +1,58 @@
+<body class="one-page" style="min-width:100%;">
+<!-- Sign In -->
+<div class="main">
+  <section
+	class="section call-action-section"
+	data-background-image="/assets/backgrounds/starmap.jpg"
+	data-shadow="rgba(0,0,0,0.02)"
+	data-nav-color="rgba(255,255,255,0.4)"
+	data-nav-color-text="rgba(0,0,0,0.5)"
+	data-color="#768088"
+	data-title-color="#ffffff"
+	data-title="Home"
+	data-anchor="home">
+	<div class="section-content">
+	  <div class="section-wrap" >
+		<div class="container" >
+		  <div class="row" >
+			<div class="col-sm-12 col-md-12 info text-center">
+			  <h1 class="section-title font-selector" data-appear-animation="bounceInUp" data-appear-animation-delay="100"><strong>Thank you, <%= @user.first_name %>!</strong><br>We are reviewing your application now.</h1>
+			  <% if Rails.env.production? %>
+			  	<a href="https://www.ratafire.com/<%= @user.username%>" class="btn btn-lg btn-info font-selector" data-appear-animation="bounceInUp" data-appear-animation-delay="300">Back to Ratafire</a>
+			  <% else %>
+			  	<a href="http://localhost:3000/<%= @user.username%>" class="btn btn-lg btn-info font-selector" data-appear-animation="bounceInUp" data-appear-animation-delay="300">Back to Ratafire</a>
+			  <% end %>
+			</div><!-- .info -->
+		  </div>
+		</div>
+	  </div>
+	</div><!-- .section-content -->
+  </section><!-- .section -->
+</div><!-- .main -->
+<!-- Javascript-->
+<%= javascript_include_tag "jquery.min.js" %>
+<%= javascript_include_tag "promo/bootstrap.min.js" %>
+<%= javascript_include_tag "promo/bootstrap-select.min.js" %>
+<%= javascript_include_tag "promo/bootstrap-datepicker.min.js" %>
+<%= javascript_include_tag "promo/jquery.appear.js" %>
+<%= javascript_include_tag "promo/jquery.easings.min.js" %>
+<%= javascript_include_tag "promo/jquery.carouFredSel-6.2.1-packed.js" %>
+<%= javascript_include_tag "promo/jquery.touchwipe.min.js" %>
+<%= javascript_include_tag "promo/jquery.themepunch.tools.min.js" %>   
+<%= javascript_include_tag "promo/jquery.themepunch.revolution.min.js" %>
+<%= javascript_include_tag "promo/jquery.mCustomScrollbar.concat.min.js" %>
+<%= javascript_include_tag "promo/jquery.mlens-1.5.min.js" %>
+<%= javascript_include_tag "promo/jquery.jqplot.min.js" %>
+<%= javascript_include_tag "promo/jqplot.donutRenderer.min.js" %>
+<%= javascript_include_tag "promo/raphael-min.js" %>
+<%= javascript_include_tag "promo/morris.min.js" %>
+<%= javascript_include_tag "promo/easy-circle-skill.js" %>
+<%= javascript_include_tag "promo/owl.carousel.min.js" %>
+<%= javascript_include_tag "promo/isotope.pkgd.min.js" %>
+<%= javascript_include_tag "promo/TimeCircles.js" %>
+<%= javascript_include_tag "promo/jquery.fullPage.min.js" %>
+<script src="http://cdn.getshar.es/lib/0.8.0.min.js"></script>
+<%= javascript_include_tag "promo/included-plagins.js" %>
+<%= javascript_include_tag "promo/main.js" %>
+
+</body>  

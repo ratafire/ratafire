@@ -8,7 +8,7 @@ class Recipient < ActiveRecord::Base
   	@recipient.recipient_id = recipient.id
   	@recipient.object = recipient.object
   	@recipient.livemode = recipient.livemode
-    @recipient.ssn = ssn
+    @recipient.tax_id = ssn
   	@recipient.klass = recipient.type
   	@recipient.description = recipient.description
   	@recipient.email = recipient.email
