@@ -16,10 +16,15 @@
 						<div class="user-icon-holder" style="background-image:url(<%= @project.creator.profilephoto.url(:small64) %>);"></div>
 					<% end %>
 				</span>
-				<%= simple_format(@project.creator.why)%>
+		<div class="goals" style="width:100%;margin-top:15px;">
+			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%>">Monthly Subscription Amount</span> <%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%> of $<%= render :text => @project.creator.goals_monthly%></ol>
+			<ol><%= progress_bar(goals_count(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly), :color => 'green', :rounded => true) %></ol>
+		</div>					
 		<!-- Those who have subscribed to the user -->
-		
-		<%= render 'subscriptions/faces'%>
+		<div style="margin-bottom:10px;">If the subscription amount goal is reached, <%= link_to @project.creator.fullname,@project.creator,class:"no_ajaxify" %> will be able to continue this work collection.</div>
+		<div>
+			<%= render 'subscriptions/faces'%>
+		</div>	
 	</div><!-- end .project-to-subscribers-holder-->
 	<!-- Subscription Button-->		
 <% if current_user != @project.creator && @project.users.count == 1 then %>	
