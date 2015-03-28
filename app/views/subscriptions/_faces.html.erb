@@ -21,7 +21,7 @@
 						<% end %>
 					</div>	
 					
-					<%= render partial: "supports/project_current_subscribers", collection: @subscribers, :as => :user %>
+					<%= render partial: "supports/project_current_subscribers", collection: @project.creator.subscribers, :as => :user %>
 
 					<!-- if User has subscribers-->
 					<% if @project.creator.subscribers then %>

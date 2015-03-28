@@ -1,0 +1,44 @@
+<!-- Navbar -->
+<header class="navbar" style="position:absolute;">
+
+
+
+	<div class="navbar-inner">
+
+		<div class="">
+
+			<!-- Logo Button -->
+			<span>
+				<%= link_to '', root_path, class:"btn btn-logo no_ajaxify" %>
+			</span>
+
+			<!-- Searchbox -->
+			<div class="searchbox-holder-top">
+				<%= form_tag search_path, method: :get, :class => 'no_ajaxify' do %>
+					<div class="searchbox-holder">
+						<%= text_field_tag :search, params[:search], class:"inputbox searchbox", type:"searchbox", placeholder:"Search..."%>
+						<%= submit_tag "", name: nil, class:"btn btn-search", style:"width: 13px !important; position:absolute;"%>
+					</div>
+				<% end %>
+			</div>	
+
+
+				<!-- Functional Buttons -->
+				<div class="functional-buttons">
+					<%= link_to "Home", root_path, class:"no_ajaxify home"%>
+					<%= link_to "Explore", featured_path, class:"no_ajaxify home2"%>
+				</div>				
+
+				<!-- Settings Button -->
+				<div id="namebox" >
+					<%= link_to "Sign In", new_user_registration_path, class:"no_ajaxify home", style:"margin-right:15px;"%>
+				</div>	
+
+				<div id="settingsbox" >	
+					 <%= link_to '', new_user_session_path,class:"btn btn-settings no_ajaxify", id: "Sign_In", title:"Sign In"%>
+			<!-- end of settingsbox-->
+			</div>
+
+		</div>
+	</div>
+</header>
