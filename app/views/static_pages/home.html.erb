@@ -76,14 +76,7 @@ $(document).ready(function() {
 
 				<%= link_to new_user_registration_path, class:"no_ajaxify" do %><div class="btn-home-join" style="margin-top:80px;"></div><% end %>
 
-				<!-- featured user -->
-				<% if @featured_user != nil then %>
-					<div class="who-is-ratatoskr"><span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >Who is Ratatoskr?</a></span></div>	
-					<div class="who-is-using-ratafire"><span class="darkgrey">Who are using Ratafire?</span>					
-					</div>	
-					<%= link_to @featured_user, class:"no_ajaxify" do %><div class="majorpost-usericon who-is-using-ratafire2" style="background-image:url(<%= @featured_user.profilephoto.url(:small64) %>);"></div><% end %>
-					<div class="Colin-ratafire"><%= link_to "Colin Huggins",@featured_user,class:"no_ajaxify"%>, the Crazy Piano guy seen in Washington Square Park, now creating <%= link_to "Colin Huggins Art Collective", "https://www.ratafire.com/colinchromatic/6644863/230426", class:"no_ajaxify" %> is using Ratafire.</div>
-				<% end %>	
+				<div class="who-is-ratatoskr"><span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >What is Ratatoskr...?</a></span>
 			</div><!-- end.center-->
 		
 	</div><!-- end:.wrapper -->	
