@@ -4,7 +4,7 @@
 
 	  <!-- Page Background -->
 	  <!DOCTYPE html>
-	  <html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
+	  <html style="background: url(/assets/backgrounds/starmap.jpg) no-repeat center center fixed; 
 	  -webkit-background-size: cover;
 	  -moz-background-size: cover;
 	   -o-background-size: cover;
@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 <!-- Sign In -->
 <div class="user-links">
-	Have an account? <%= link_to 'Sign in', new_user_session_path %>
+	Have an account? <%= link_to 'Sign in', new_user_session_path,class:"no_ajaxify" %>
 </div>
 
 <div class="center" style="width: 310px;">

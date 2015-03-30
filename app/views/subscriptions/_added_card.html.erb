@@ -1,0 +1,18 @@
+<div class="lightbox2 post-content-c" style="margin-top:0px;">
+
+		<div class="project-to-subscribers-holder" style="padding-top:20px;">
+			<table class="display">
+				<thead>
+					<tr>
+						<th width="180"><%= @user.cards.first.brand %></th>
+						<th width="180">****<%= @user.cards.first.last4 %></th>
+						<th width="180"><%= @user.cards.first.exp_month %>/<%= @user.cards.first.exp_year %></th>
+						<th><%= link_to remove_a_card_path(@user.customer.customer_id), class:"no_ajaxify" do %><div class="btn btn-small btn-small-green">Delete</div><% end %></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		
+</div>	

@@ -1,0 +1,46 @@
+<%= form_for [@user,@subscription], :url => add_card_subscribe_path(@user),:html => {:class => 'no_ajaxify',:id => "subscrption-form"} do |f| %>
+<%= f.hidden_field :subscriber_id, :value => @current_user.id %>
+<%= f.hidden_field :subscribed_id, :value => @user.id %>
+<%= f.hidden_field :amount, id:"submit-amount" %><!-- working-->
+
+<script src="https://checkout.stripe.com/checkout.js">
+</script>
+
+<div style="margin: 0 40px 40px 0; text-align:right;">
+  <div class="btn btn-medium2 btn-medium-blue no_ajaxify" id="customButton">
+    Confirm and Pay
+  </div>  
+</div>    
+
+<script>
+	var handler = StripeCheckout.configure({
+    	key: '<%= ENV["STRIPE_TEST_PUBLIC_KEY"] %>',
+    	image: '/assets/logoicon_medium_facebook.png',
+    	token: function(response) {
+  			var tokenInput = $("<input type=hidden name=stripeToken />").val(response.id);
+  			var emailInput = $("<input type=hidden name=stripeEmail />").val(response.email);
+        	$("#subscrption-form").append(tokenInput).append(emailInput).submit();
+    	}
+  	});
+
+  	$('#customButton').on('click', function(e) {
+    	// Open Checkout with further options
+    	handler.open({
+      		name: 'Ratafire, Inc.',
+      		description: 'Subscribe to <%= @user.fullname %>',
+      		allowRememberMe:"false",
+      		billingAddress:"true",
+     	 	  zipCode:"true",
+      		panelLabel:"Subscribe",
+          email:"<%= current_user.email %>",
+    	});
+    	e.preventDefault();
+  	});
+
+  	// Close Checkout on page navigation
+  	$(window).on('popstate', function() {
+    	handler.close();
+  	});
+</script>
+
+<% end %>

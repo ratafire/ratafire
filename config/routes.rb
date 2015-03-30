@@ -59,7 +59,7 @@ Ratafire::Application.routes.draw do
 
 	match ':user_id/projects/:project_id/assigned_projects/:id', to: 'assigned_projects#destroy', via: :delete, as: :delete_assigned_project
 
-		#Inspirations
+	#Inspirations
 	match ':user_id/projects/:project_id/p_u_inspirations/:id', to: 'pu_inspirations#destroy', via: :delete, as: :delete_p_u
 	match ':user_id/projects/:project_id/p_p_inspirations/:id', to: 'pp_inspirations#destroy', via: :delete, as: :delete_p_p
 	match ':user_id/projects/:project_id/p_m_inspirations/:id', to: 'pm_inspirations#destroy', via: :delete, as: :delete_p_m
@@ -112,6 +112,7 @@ Ratafire::Application.routes.draw do
 
 	match ':id/r/projects/list', to: 'users#projects', as: :projects
 	match ':id/r/projects_past/list', to: 'users#projects_past', as: :projects_past
+	match ':id/r/r/updatefeed', to: 'users#update_feed', as: :user_update_feed
 
 	match ':id/r/settings/goals', to: 'users#goals', as: :goals
 	match ':id/r/settings/profile', to: 'users#edit', as: :edit_user
@@ -186,6 +187,23 @@ Ratafire::Application.routes.draw do
 	match ':id/subscriptions/amazon_payments/recipient/reconnect', to: 'amazon#reconnect_recipient', as: :reconnect_recipient
 	match 'r/subscriptions/amazon_payments/subscribe/post_subscribe', to: 'amazon#post_subscribe', :via => [:get, :post]
 
+	#Amazon Login and Pay
+	match 'r/subscriptions/amazon_login_and_pay/recipient/postfill', to: 'amazon_lap#post_create_seller', :via => [:get, :post]
+
+	#Stripe
+	match ':id/r/stripe/add_a_card', to: 'charges#add_a_card', as: :add_a_card
+	match ':id/r/stripe/remove_a_card', to: 'charges#remove_a_card', as: :remove_a_card
+	match ':id/:application_id/r/stripe/add_a_recipient', to: 'charges#add_a_recipient', as: :add_a_recipient
+	match ':id/r/stripe/update_recipient', to: 'charges#update_recipient', as: :update_recipient
+	match ':id/r/stripe/add_card_subscribe', to: 'charges#add_card_subscribe', as: :add_card_subscribe
+	match ':id/r/stripe/with_card_subscribe', to: 'charges#with_card_subscribe', as: :with_card_subscribe
+
+	#Paypal
+	match 'postfill_of_paypal', to: 'billing_agreement#post_create_billing_agreement', as: :post_create_billing_agreement
+
+	#Payment Settings
+	match '/:id/r/settings/payment', to: "subscriptions#payment_settings", as: :payment_settings
+
 	#Transactions
 	match 'r/subscriptions/transactions/:id/receiving_transactions', to: 'subscriptions#receiving_transactions', as: :receiving_transactions
 	match 'r/subscriptions/transactions/:id/paying_transactions', to: 'subscriptions#paying_transactions', as: :paying_transactions
@@ -203,17 +221,17 @@ Ratafire::Application.routes.draw do
 	#Setup
 	match ':id/:subscription_application_id/r/update/subscription', to: 'subscription_applications#updates', as: :update_subscription_application
 	match ':id/r/setup/subscription', to: 'subscription_applications#setup', as: :setup_subscription
-	match ':id/:subscription_application_id/goals/subscription', to: 'subscription_applications#goals', as: :goals_subscription
+	match ':id/r/goals/subscription', to: 'subscription_applications#goals', as: :goals_subscription
 	match ':id/:subscription_application_id/project/subscription', to: 'subscription_applications#project', as: :project_subscription
 	match ':id/:subscription_application_id/discussion/subscription', to: 'subscription_applications#discussion', as: :discussion_subscription
 	match ':id/:subscription_application_id/payments/subscription', to: 'subscription_applications#payments', as: :payments_subscription
 	match ':id/:subscription_application_id/identification/subscription', to: 'subscription_applications#identification', as: :identification_subscription
 	match ':id/:subscription_application_id/apply/subscription', to: 'subscription_applications#apply', as: :apply_subscription
-	match ':id/:subscription_application_id/pending/subscription', to: 'subscription_applications#pending', as: :pending_subscription
+	match ':id/:subscription_application_id/pending/subscription', to: 'tutorials#subscription', as: :pending_subscription
 
 #---Payments---
 	match ':id/r/r/subscription/', to:'subscriptions#why', as: :why
-	match ':id/r/payments/subscribe', to: 'subscriptions#new', as: :subscribe
+	match ':id/:default/r/payments/subscribe', to: 'subscriptions#new', as: :subscribe
 	match ':id/r/payments/checkout_amazon', to: 'subscriptions#amazon', as: :amazon
 	match ':id/r/payments/subscription/create', to: 'subscriptions#create',via: :post, as: :create_subscription
 
@@ -354,7 +372,7 @@ Ratafire::Application.routes.draw do
 
 	#Intro
 	match '/user/user_intro/tutorial/new_world/:id/', to: "tutorials#intro", as: :intro_tutorial
-	match '/:id/user/user_intro/new/tutorial/start_using', to: "tutorials#after_intro", as: :after_intro_tutorial	
+	match '/:id/user/user_intro/new/tutorial/start_using', to: "tutorials#after_intro", as: :after_intro_tutorial
 
 #---Help---
 	match '/help', to: 'helps#show', as: :help

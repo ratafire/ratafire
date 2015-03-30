@@ -1,0 +1,52 @@
+<%= form_tag(add_a_recipient_path(@user.id,@subscription_application.id), class:"no_ajaxify") do %>
+	<div class="lightbox3">
+		<!-- Name -->
+		<div class="inputlabel">
+			<li>Name</li>
+		</div>
+		<div class="input-placer">
+      		<%= text_field_tag "legalname",nil, class: "inputbox settingsinput" %>
+      		<ul>Enter your legal name</ul>
+      	</div>
+      	<!-- SSN -->
+		<div class="inputlabel">
+			<li>SSN</li>
+		</div>
+		<div class="input-placer">
+      		<%= text_field_tag "ssn", nil,class: "inputbox settingsinput" %>
+      		<ul>Enter your full SSN</ul>
+      	</div>  
+      	<!-- Routing Number -->
+		<div class="inputlabel">
+			<li>Routing Number</li>
+		</div>
+		<div class="input-placer">
+      		<%= text_field_tag "routing_number",nil, class: "inputbox settingsinput" %>
+      		<ul>Enter your bank account's routing number</ul>
+      		<%= image_tag("/assets/us-routing.png",style:"margin:5px 0 0 10px;")%>
+      		<ul>Your routing number is normally found on a check provided by your bank.</ul>
+      	</div>   
+      	<!-- Account Number -->  
+		<div class="inputlabel">
+			<li>Account Number</li>
+		</div>
+		<div class="input-placer">
+      		<%= text_field_tag "account_number",nil, class: "inputbox settingsinput" %>
+      		<ul>Enter your bank account's account number</ul>
+      		<%= image_tag("/assets/us-account.png",style:"margin:5px 0 0 10px;")%>
+      		<ul>Your account number is normally found on a check provided by your bank.</ul>
+      	</div>        	   	    	
+    </div>
+
+    <!-- Submit -->
+	<div style="margin: 15px 24px 20px 0; text-align:right;">
+		<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_payments_back" >Back</div>
+			<!-- Next Step -->	
+			<%= submit_tag "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+	</div>    
+
+<% end %>
+
+<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
+	<%= f.hidden_field :step, :value => 5, id:"step_id" %>
+<% end %>

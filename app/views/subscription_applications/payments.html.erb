@@ -26,24 +26,27 @@
 			<div class="post-about-bg">
 				<div class="textbox-mini">
 					<div class="post-about-title">
-						<li style="font-size: 1.4em;">Amazon Payments</li>
+						<li style="font-size: 1.4em;">How You Get Paid</li>
 					</div>
 				</div>
 			</div>
 
 			<div class="textbox-mini">
-				<% if 1 == 1 then %>
-					<%= render 'subscription_applications/amazon_payments'%>	
+				<% if @user.recipient == nil then %>
+					<%= render 'subscription_applications/account_info'%>	
 				<% else %>
-					<div style="text-align:center;">
-						<%= image_tag("betabg.png", height: '300')%>
-					</div>		
-					<div style="margin: 15px 24px 40px 0;">
-						<h2>We are updating Ratafire's payment system!</h2>
-						<p>Amazon Payments is updating their system from FPS to Login and Pay with Amazon, therefore we are updating Ratafire's payments system. We expect this update to take at least one week, and we will inform you when the update is completed. Thank you.</p>
-					</div>								
+					<ol style="margin-bottom: 10px;margin-top:20px;">This is your bank account to receive payments:</ol>
+					<%= render 'subscriptions/how_I_get_paid'%>
+					<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
+						<%= f.hidden_field :step, :value => 5, id:"step_id" %>
+						<!-- Back -->
+						<div style="margin: 15px 24px 20px 0; text-align:right;">
+							<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_discussions_back">Back</div>
+							<!-- Next Step -->	
+								<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+						</div>							
+					<% end %>
 				<% end %>
-
 			</div><!-- end. textbox-mini-->
 		</div><!-- end:.post-content2-->
 		<%= render 'layouts/footer' %>

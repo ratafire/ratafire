@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150311181508) do
+ActiveRecord::Schema.define(:version => 20150327053807) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -204,6 +204,61 @@ ActiveRecord::Schema.define(:version => 20150311181508) do
     t.datetime "updated_at"
   end
 
+  create_table "billing_agreements", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "billing_agreement_id"
+    t.string   "status"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.string   "uuid"
+  end
+
+  create_table "billing_artists", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "count"
+    t.decimal  "accumulated_receive",     :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_payment_fee", :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_ratafire",    :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_total",       :precision => 10, :scale => 2, :default => 0.0
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "this_billing_date"
+    t.datetime "next_billing_date"
+    t.datetime "prev_billing_date"
+    t.decimal  "this_amount",             :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "next_amount",             :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "retry"
+    t.string   "uuid"
+    t.boolean  "activated"
+    t.datetime "activated_at"
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
+  end
+
+  create_table "billing_subscriptions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "count"
+    t.decimal  "accumulated_receive",     :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_payment_fee", :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_ratafire",    :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_total",       :precision => 10, :scale => 2, :default => 0.0
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "this_billing_date"
+    t.datetime "next_billing_date"
+    t.datetime "prev_billing_date"
+    t.decimal  "this_amount",             :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "next_amount",             :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "retry"
+    t.string   "uuid"
+    t.boolean  "activated"
+    t.datetime "activated_at"
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
+  end
+
   create_table "blacklists", :force => true do |t|
     t.integer  "blacklister_id"
     t.integer  "blacklisted_id"
@@ -225,6 +280,39 @@ ActiveRecord::Schema.define(:version => 20150311181508) do
     t.boolean  "featured"
     t.boolean  "published"
     t.datetime "deleted_at"
+  end
+
+  create_table "cards", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "customer_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "last4"
+    t.string   "brand"
+    t.string   "funding"
+    t.string   "exp_month"
+    t.string   "exp_year"
+    t.string   "fingerprint"
+    t.string   "country"
+    t.string   "name"
+    t.string   "address_line1"
+    t.string   "address_line2"
+    t.string   "address_city"
+    t.string   "address_state"
+    t.string   "address_zip"
+    t.string   "address_country"
+    t.string   "object"
+    t.string   "cvc_check"
+    t.string   "address_line1_check"
+    t.string   "address_zip_check"
+    t.string   "dynamic_last4"
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.string   "customer_stripe_id"
+    t.string   "card_stripe_id"
+    t.string   "cardno"
+    t.string   "cardcvc"
+    t.string   "uuid"
   end
 
   create_table "commentimages", :force => true do |t|
@@ -263,6 +351,24 @@ ActiveRecord::Schema.define(:version => 20150311181508) do
     t.integer  "creator_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "customers", :force => true do |t|
+    t.string   "customer_id"
+    t.string   "object"
+    t.boolean  "livemode"
+    t.integer  "account_balance"
+    t.string   "currency"
+    t.string   "default_source"
+    t.boolean  "delinquent"
+    t.string   "description"
+    t.string   "email"
+    t.integer  "user_id"
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "uuid"
   end
 
   create_table "deviantarts", :force => true do |t|
@@ -796,6 +902,41 @@ ActiveRecord::Schema.define(:version => 20150311181508) do
     t.datetime "updated_at",                  :null => false
   end
 
+  create_table "recipients", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "recipient_id"
+    t.string   "object"
+    t.boolean  "livemode"
+    t.string   "klass"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "tax_id"
+    t.string   "email"
+    t.string   "name"
+    t.boolean  "verified"
+    t.string   "country"
+    t.string   "routing_number"
+    t.string   "account_number"
+    t.string   "last4"
+    t.string   "exp_mongth"
+    t.string   "exp_year"
+    t.string   "cvc"
+    t.string   "card_name"
+    t.string   "address_line1"
+    t.string   "address_line2"
+    t.string   "address_city"
+    t.string   "address_zip"
+    t.string   "address_state"
+    t.string   "address_country"
+    t.string   "description"
+    t.string   "account_id"
+    t.string   "bank_name"
+    t.string   "fingerprint"
+    t.string   "account_status"
+  end
+
   create_table "redactor_assets", :force => true do |t|
     t.integer  "user_id"
     t.string   "data_file_name",                  :null => false
@@ -846,6 +987,9 @@ ActiveRecord::Schema.define(:version => 20150311181508) do
     t.datetime "approved_at"
     t.datetime "completed_at"
     t.boolean  "completion"
+    t.integer  "ssn"
+    t.integer  "routing_number"
+    t.integer  "account_number"
   end
 
   create_table "subscription_records", :force => true do |t|
@@ -969,6 +1113,26 @@ ActiveRecord::Schema.define(:version => 20150311181508) do
     t.boolean  "next_transaction_status",                                :default => false
     t.integer  "counter",                                                :default => 0
     t.integer  "retry",                                                  :default => 0
+    t.decimal  "payment_fee",             :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "billing_subscription_id"
+    t.integer  "billing_artist_id"
+    t.string   "created"
+    t.boolean  "livemode"
+    t.boolean  "paid"
+    t.string   "currency"
+    t.boolean  "refunded"
+    t.string   "card_stripe_id"
+    t.string   "customer_stripe_id"
+    t.boolean  "captured"
+    t.string   "balance_transaction"
+    t.string   "failure_message"
+    t.string   "failure_code"
+    t.decimal  "amount_refunded",         :precision => 10, :scale => 2, :default => 0.0
+    t.string   "recipient_stripe_id"
+    t.boolean  "reversed"
+    t.string   "klass"
+    t.string   "stripe_id"
+    t.string   "description"
   end
 
   create_table "tutorials", :force => true do |t|
@@ -1083,6 +1247,8 @@ ActiveRecord::Schema.define(:version => 20150311181508) do
     t.string   "direct_upload_url"
     t.boolean  "processed",                                                 :default => false
     t.string   "subscription_status_initial"
+    t.string   "legalname"
+    t.integer  "ssn"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

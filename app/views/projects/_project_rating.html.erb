@@ -3,7 +3,7 @@
 
 	<div class="project-reviews-title">
 		<div class="textbox-mini">
-			<h2>Project Reviews</h2>
+			<h2>Work Collection Reviews</h2>
 		</div>	
 	</div>	
 
@@ -13,7 +13,7 @@
 
 			<div class="write-a-review">
 				<% if signed_in? %>
-					<ul>Your rating for this project <i class="fa fa-angle-down"></i></ul>
+					<ul>Your rating for this work collection <i class="fa fa-angle-down"></i></ul>
 					<ul><%= rating_for_user @project, current_user,"content",:star => 5 %></ul>				
 					<% if @current_user_project_comment == nil then %>
 						<ul>Share your thoughts with others <i class="fa fa-angle-down"></i></ul>
@@ -39,7 +39,7 @@
 				<ul class="rating-bar-star">1 star</ul><div class="rating-bar-holder"><%= progress_bar(@project.content_average.star_1_per, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right"><%= @project.content_average.star_1_qty %></ul>  							
 			</div>
 		<% else %>
-			<div>Be the first to rate this project</div>
+			<div>Be the first to rate this work collection</div>
 			<div class="rating-bars">
 				<ul class="rating-bar-star">5 star</ul><div class="rating-bar-holder"><%= progress_bar(0, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right">0</ul> 
 				<ul class="rating-bar-star">4 star</ul><div class="rating-bar-holder"><%= progress_bar(0, :color => 'rating', :rounded => true) %></div><ul class="rating-bar-star-right">0</ul>  		

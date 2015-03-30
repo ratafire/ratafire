@@ -1,0 +1,47 @@
+development:
+
+  # Credentials for REST APIs
+  client_id: AToRZkRVMGGxuNMmypMmQiJN8dTEyGXrN7Kr8SC3SdkLNh16qfCbaCj3DbEaqkJsxG4U4MBJufxc2lZJ
+  client_secret: ELYr3VOscSscypDVsM3A9k3TiyfpDppAQYeORpDzAoZWwgwNxmjR1cvYEKXutBIbOBSTCG6tHQtvbvpj
+
+  # Mode can be 'live' or 'sandbox'
+  mode: sandbox
+
+  # Credentials for Classic APIs
+  app_id: Ratafire
+  username: paypal-facilitator@ratafire.com
+  password: happynewyear1234
+  signature: AvigQk98pmsZuOmn9o2jUgUI9wHvAn20GS1qNYUTjZYCTf9kh2Xwgi4m
+  # # With Certificate
+  # cert_path: "config/cert_key.pem"
+  sandbox_email_address: Platform.sdk.seller@gmail.com
+
+  # # IP Address
+  # ip_address: 127.0.0.1
+  # # HTTP Proxy
+  # http_proxy: http://proxy-ipaddress:3129/
+
+  # verbose_logging: true
+
+production:
+  # Credentials for REST APIs
+  client_id: AbmzMPO6vNkeHOIomMlOc-z0okktJzfFR3kFDrCPYr9_pWaKA7GQeI0ZRdjtJysR5kIgPrWIgDfGSPMv
+  client_secret: EIcuAqGe3ad7M1zOBY7SmjNvOmzED3EqOiaBMmD0EiuCY3bd6N5gXT6ED47qjCgLaOVk5XQ8clfRrVRA
+
+  # Mode can be 'live' or 'sandbox'
+  mode: live
+
+  # Credentials for Classic APIs
+  app_id: Ratafire
+  username: paypal_api1.ratafire.com
+  password: D32PHUYV86CCHXBZ
+  signature: AiPC9BjkCyDFQXbSkoZcgqH3hpacAyyafoEkPkvGs6daNRbK-k9nWg2e
+  # # With Certificate
+  # cert_path: "config/cert_key.pem"
+
+  # # IP Address
+  # ip_address: 127.0.0.1
+  # # HTTP Proxy
+  # http_proxy: http://proxy-ipaddress:3129/
+
+  # verbose_logging: true

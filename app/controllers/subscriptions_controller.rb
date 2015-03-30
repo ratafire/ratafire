@@ -34,9 +34,11 @@ class SubscriptionsController < ApplicationController
 	end
 
 	def new
+		@default = params[:default]
 		@user = User.find(params[:id])
 		@current_user = current_user
 		@subscription = Subscription.new
+		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 	end	
 
 	def create
@@ -77,6 +79,14 @@ class SubscriptionsController < ApplicationController
 		@user = User.find(params[:id])
 		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 		@subscription_application = @user.approved_subscription_application
+		if @user.website != nil then 
+	  		unless @user.website[/\Ahttp:\/\//] || @user.website[/\Ahttps:\/\//]
+				@user_website = "http://#{@user.website}"
+	  		else
+				@user_website = @user.website
+	 		end
+		end
+		  		
 	end
 
 	def amazon
@@ -86,10 +96,14 @@ class SubscriptionsController < ApplicationController
 	def settings
 		@user = User.find(params[:id])
 		if @user.subscription_status_initial != "Approved" then
-			redirect_to setup_subscription_path(@user.id)
+			redirect_to goals_subscription_path(@user.id)
 		else
 			@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 		end
+	end
+
+	def payment_settings
+		@user = User.find(params[:id])
 	end
 
 	def transactions
@@ -399,8 +413,8 @@ private
 
     def subscription_status_initial?
     	#Check if the subscription is approved
-    	if @subscribed.subscription_status_initial == nil then
-    		flash[:success] = "We are updating our payments system. Please come back in a week!"
+    	if 1 == 1 then
+    		flash[:success] = "We are updating our payment system. Please come back in a week!"
     		return true
     	end
     	return false

@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :perlink, :use => :slugged
 
-  attr_accessible :tagline, :title, :user_id,:perlink, :about,:published,:complete, :tag_list, :p_u_inspirations_attributes, :p_m_inspirations_attributes, :p_p_inspirations_attributes, :p_e_inspirations_attributes, :artwork_id, :video_id, :icon_id, :goal, :source_code, :edit_permission, :realm
+  attr_accessible :tagline, :title, :user_id,:perlink, :about,:published,:complete, :tag_list, :p_u_inspirations_attributes, :p_m_inspirations_attributes, :p_p_inspirations_attributes, :p_e_inspirations_attributes, :artwork_id, :video_id, :icon_id, :goal, :source_code, :edit_permission, :realm, :collectible
   default_scope order: 'projects.created_at DESC'
   default_scope where(:deleted => false)
 
@@ -112,9 +112,9 @@ class Project < ActiveRecord::Base
       @project.uuid = SecureRandom.random_number(8388608).to_s
     end while Project.find_by_uuid(@project.uuid).present?
     @project.creator_id = options[:user_id]
-    @project.title = 'New Project ' + DateTime.now.strftime("%H:%M:%S").to_s
+    @project.title = 'Click to enter a title for this work collection ' + DateTime.now.strftime("%H:%M:%S").to_s
     @project.perlink = @project.uuid.to_s
-    @project.tagline = @project.uuid.to_s + " pine nuts on the tree"
+    @project.tagline = @project.uuid.to_s + " pine nuts on the tree - click to enter tagline"
     @project.goal = 5
     @project.edit_permission = "free"
     #Mysterious multiple users bug that I only know this way of fixing...

@@ -1,0 +1,73 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+	<!-- Open and Close -->
+	<%= render 'shared/profile_open_close'%><!-- script -->
+
+	<!-- Best in Place -->
+	<%= render 'shared/best_in_place'%>
+
+	<!-- Page Specific JS -->
+	<%= render 'users/showjs' %>
+
+	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>	
+		<%= tag :meta, property: "og:url", content: request.scheme+"://"+request.host+"/"+@user.username %>
+		<%= tag :meta, property: "og:title", content: "Ratafire - "+@user.fullname %>
+		<%= tag :meta, property: "og:image", content: @user.profilephoto.url(:small) %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:description", content: @user.bio %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_profile' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content">
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Tutorial ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+	<%= render 'users/social_media'%>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Tutorial ~~~~~~~~~~~~~~~~~~~~~~~~-->		
+
+					<!-- Full Name -->
+					<%= render 'shared/fullname'%>
+
+					<!-- Cutter --><ol style="margin-top: -5px;"></ol>
+
+					<!-- Tabs Nav -->
+					<% if @user.subscription_status_initial == "Approved" then %>
+						<%= render 'shared/tabs_nav_three'%>
+					<% else %>
+						<%= render 'shared/tabs_nav'%>
+					<% end %>	
+
+					<!-- Content of Profile -->
+					<div class="profile-content">
+
+							<!-- fist block -->
+							<%= render 'users/profile_first_block'%>
+
+							<!-- Update Feed -->
+							<%= render 'users/update_feed'%>
+
+							<!-- Cutter --><ol id="profile-cutter-bottom" style="height: 130px;"></ol>
+							
+					<!-- end of profile-content-->
+					</div>
+
+					<!-- Back to Top 
+					<div id="back-top">
+						<div href="#top" class="no_ajaxify"><span></span></div>
+					</div>	-->	
+				<!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+	<!-- end of main-content-->
+	</div>

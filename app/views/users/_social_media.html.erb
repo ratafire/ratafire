@@ -6,15 +6,7 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=249146721904203";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>	
-	<div class="project-social-holder">
-		<div class="project-social-recommand-holder">
-			<%= link_to  why_path(@user),class:"no_ajaxify" do %>
-						<div class="project-social-recommand-inner">
-							<ol  style="padding-left:10px;" id="to-recommanded-like">Subscription Page</ol>
-						</div>	
-			<% end %>						
-		</div>	
-	</div>	
+
 <div class="btn-facebook-large tipsy-tipsy" title="Share to Facebook">
 	<div class="fb-share-button" style="width:32px;height:32px;" data-href="https://www.ratafire.com<%=user_path(@user)%>" data-layout="button">
 	</div>

@@ -100,6 +100,10 @@ class TutorialsController < ApplicationController
 		redirect_to(@user)
 	end
 
+	#After setting up subscription
+	def subscription
+		@user = User.find(params[:id])
+	end
 
 private
 

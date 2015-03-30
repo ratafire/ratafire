@@ -18,9 +18,10 @@
                 });                           
                     
               //publish-button
-              $('#project-publish-button').click(function() {
-                showConfirmDialog3();
-                return false;
+              $('#project-publish-button2').click(function() {
+                  $("#project-published").val("t");
+                  $("#project-edit-permission").val("edit");
+                  $("#project-form").submit();
 
               });
 
@@ -38,26 +39,6 @@
                 $('#project-icon-upload').toggle();
                });
 
-                  showConfirmDialog3 = function() {   
-  html = "<div id=\"dialog-confirm\" title=\"Confirmation\">\n  <p>" + "You are publishing this project on Ratafire." + "</p>\n</div>";
-  return $(html).dialog({
-    resizable: false,
-    modal: true,
-    buttons: {
-        Cancel: function() {
-        return $(this).dialog("close");
-      },
-      OK: function() {
-                          $("#project-published").val("t");
-                  $("#project-edit-permission").val("edit");
-                  $("#project-form").submit();
-        return $(this).dialog("close");
-      }
-
-    }
-  });
-
-};  
 
 
 

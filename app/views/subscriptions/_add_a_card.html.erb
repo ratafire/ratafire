@@ -1,0 +1,73 @@
+<% if Rails.env.production? %>
+	<%= form_tag add_a_card_path(@user.id), class:"no_ajaxify",id:"addcardForm" do %>
+	<div id="customButton" class="btn btn-medium2 btn-medium-blue">Add a Card</div>
+
+	<script>
+		var handler = StripeCheckout.configure({
+				key: '<%= ENV["STRIPE_PUBLIC_KEY"] %>',
+				image: '/assets/logoicon_medium_facebook.png',
+				token: function(response) {
+					var tokenInput = $("<input type=hidden name=stripeToken />").val(response.id);
+					var emailInput = $("<input type=hidden name=stripeEmail />").val(response.email);
+						$("#addcardForm").append(tokenInput).append(emailInput).submit();
+					}  
+			});
+
+			$('#customButton').on('click', function(e) {
+				// Open Checkout with further options
+				handler.open({
+						name: 'Ratafire, Inc.',
+						description: 'Add a Card',
+						allowRememberMe:"false",
+						billingAddress:"true",
+						zipCode:"true",
+						email:"<%= @user.email %>",
+						panelLabel:"Add a Card"
+				});
+				e.preventDefault();
+			});
+
+			// Close Checkout on page navigation
+			$(window).on('popstate', function() {
+				handler.close();
+			});
+	</script>
+
+	<% end %>
+<% else %>
+	<%= form_tag add_a_card_path(@user.id), class:"no_ajaxify",id:"addcardForm" do %>
+	<div id="customButton" class="btn btn-medium2 btn-medium-blue">Add a Card</div>
+
+	<script>
+		var handler = StripeCheckout.configure({
+				key: '<%= ENV["STRIPE_TEST_PUBLIC_KEY"] %>',
+				image: '/assets/logoicon_medium_facebook.png',
+				token: function(response) {
+					var tokenInput = $("<input type=hidden name=stripeToken />").val(response.id);
+					var emailInput = $("<input type=hidden name=stripeEmail />").val(response.email);
+						$("#addcardForm").append(tokenInput).append(emailInput).submit();
+					}  
+			});
+
+			$('#customButton').on('click', function(e) {
+				// Open Checkout with further options
+				handler.open({
+						name: 'Ratafire, Inc.',
+						description: 'Add a Card',
+						allowRememberMe:"false",
+						billingAddress:"true",
+						zipCode:"true",
+						email:"<%= @user.email %>",
+						panelLabel:"Add a Card"
+				});
+				e.preventDefault();
+			});
+
+			// Close Checkout on page navigation
+			$(window).on('popstate', function() {
+				handler.close();
+			});
+	</script>
+
+	<% end %>
+<% end %>	

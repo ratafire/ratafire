@@ -1,0 +1,19 @@
+<% if @project.collectible != nil then %>
+	<!-- Collectible Title -->
+	<div class="inspiration-bg">
+		<div class="textbox-mini">
+			<div class="post-about-title">
+				<li style="font-size: 1.4em;">Collectible</li>
+			</div>
+		</div>
+	</div>
+	<!-- Collectible -->
+	<!-- To Collectible Content -->
+	<div class="lightbox2 post-content-c" style="margin-top:0px;">
+		<div class="textbox-mini">
+			<div class="project-to-subscribers-holder" style="padding-bottom:5px;">
+				<%= simple_format(@project.collectible) %>
+			</div><!-- end.project-to-subscribers-holder-->	
+		</div><!-- end.project-to-subscribers-holder-->
+	</div><!-- end .project-to-subscribers-holder-->							
+<% end %>

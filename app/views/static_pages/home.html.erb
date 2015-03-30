@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 		<!-- Home Page Beta Pic -->
 		<div class="Home-page-bg">
-			<%= image_tag("betabg.png") %>
+			<%= image_tag("betabg_no_leaf.png") %>
 		</div>
 
 	<div class="home-overlay"></div>	
@@ -60,7 +60,7 @@ $(document).ready(function() {
 					<div id="Home-page-comment">
 
 						<h2 style="color:#999;" >
-							Cloud patronage, elegantly
+							Cloud Patronage
 						</h2>
 
 					</div>
@@ -73,17 +73,11 @@ $(document).ready(function() {
 							<ul>on how it works</ul>
 						</div>	
 				</div>		
-				<!-- featured user -->
-				<% if @featured_user != nil then %>
-					<div class="who-is-ratatoskr"><span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >Who is Ratatoskr?</a></span></div>	
-					<div class="who-is-using-ratafire"><span class="darkgrey">Who are using Ratafire?</span>					
-					</div>	
-					<%= link_to @featured_user, class:"no_ajaxify" do %><div class="majorpost-usericon who-is-using-ratafire2" style="background-image:url(<%= @featured_user.profilephoto.url(:small64) %>);"></div><% end %>
-					<div class="Colin-ratafire"><%= link_to "Colin Huggins",@featured_user,class:"no_ajaxify"%>, the Crazy Piano guy seen in Washington Square Park, now creating <%= link_to "Colin Huggins Art Collective", "https://www.ratafire.com/colinchromatic/6644863/230426", class:"no_ajaxify" %> is using Ratafire.</div>
-				<% end %>	
-			</div><!-- end.center-->
 
-			<div class="home-signin"><%= link_to 'Sign in', new_user_session_path, class:"no_ajaxify" %></div>
+				<%= link_to new_user_registration_path, class:"no_ajaxify" do %><div class="btn-home-join" style="margin-top:80px;"></div><% end %>
+
+				<div class="who-is-ratatoskr"><span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >What is Ratatoskr...?</a></span>
+			</div><!-- end.center-->
 		
 	</div><!-- end:.wrapper -->	
 	</section><!-- end.first window -->
@@ -108,93 +102,14 @@ $(document).ready(function() {
 					</div><!-- end.post-content-->	
 			
 				</div><!-- end.center-->
-
-
-			</div><!-- end.holder-->
-
-		</section><!-- end.second window-->	
-
-		<!-- Window 5 -->
-		<section class="window" id="window5" >
-				<div class="home-overlay2"></div>
-			<div class="center" style="margin: 0 auto;width:1089px;">
-				<div class="Home-page-container2">
-					<div class="home-page-signup-title">Cloud patronage, elegantly
-					</div>					
-					<h2>Decide what are the best in new ideas, art and research</h2>
-					<h2>Spot unfound talents and make connections</h2>
-					<h2>Support creatives and researchers with monthly subscriptions</h2>
-				</div>
-
-	<!-- Signup Form -->
-		<div class="signupshow-signup-form-home" id="signupshow-signup-form">	
-			<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true, :html => { :class => 'no_ajaxify'}) do |f| %>
-				<ol>
-					<%= f.text_field :fullname, class: "inputbox signupbox2", placeholder: "First and Last Name", :live => true %>
-				</ol>
-				<ol>
-					<%= f.text_field :email, class: "inputbox signupbox2", placeholder: "Email Address" %>
-				</ol>
-				<ol>
-					<%= f.password_field :password, class: "inputbox signupbox2", placeholder: "Password" %>
-				</ol>
-				<ol>
-					<%= f.text_field :username, class: "inputbox signupbox2",  placeholder: "Pick a username"%>
-				</ol>	
-				<div class="signupshow-signin" id="signupshow-signin" style="margin-top: 20px; margin-left: 310px;">
-					Sign In
-				</div>	
-	
-				<ol style="margin-top: 15px; padding-left: 418px;">
-					<%= f.submit "JOIN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green", id:"email-signup" %>
-				</ol>
-				
-				<div style="margin-top: -32px; margin-left: 280px;" id="signup-with-facebook-button">
-					<%= link_to image_tag("/assets/facebook.png"), user_omniauth_authorize_path(:facebook), class:"no_ajaxify" %>
-				</div>
-			<% end %>
-		</div><!-- end .signupshow-signup-form-->
-
-
-
-
-		<div class="signupshow-signin-form-home" id="signupshow-signin-form">
-					<!-- Signin Form -->
-					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'no_ajaxify'}) do |f| %>
-
-      					<ol>
-      						<%= f.text_field :email, class: "inputbox signupbox2", placeholder: "Email" %>
-      					</ol>
-      					<ol>
-      						<%= f.password_field :password, class: "inputbox signupbox2", placeholder: "Password" %>
-      					</ol>
-      					<ol style="margin-top:15px;color:#999;margin-left:120px;">
-      						<% if devise_mapping.rememberable? -%>
-    						<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  							<% end %>
-      					</ol>
-      					<ol>
-      					<%= link_to "Forgot your password?", new_password_path(resource_name), class:"no_ajaxify", style:"margin-left:150px;" %>
- 						</ol>
-						<ol style="margin-top: -35px; padding-left: 418px;">
-							<div id="submit">
-								<%= f.submit "SIGN IN", class: "btn-submit btn-submit-small btn btn-small2 btn-small-blue" %>
-							</div>
-						</ol>
-					<div class="signupshow-signup" style="margin-top: -32px; margin-left: 180px;" id="signupshow-signup">
-						Sign Up
-					</div>							
-					<% end %>
-
-		</div><!-- end .signupshow-signin-form-->
-
-
-			</div><!-- end.center-->
-
 						<!-- Footer -->
 						<div style="padding: 0px 20px 18px 0;">
 						<%= render 'layouts/footer' %>
 						</div>
+
+
+			</div><!-- end.holder-->
+
 
 		</section><!-- end.second window-->	
 

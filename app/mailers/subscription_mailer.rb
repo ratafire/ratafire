@@ -18,8 +18,8 @@ class SubscriptionMailer < ActionMailer::Base
     #Specific items
     @subscribed_fullname = @subscribed.fullname
     @subscribed_username = @subscribed.username
-    @transaction_amount = @transaction.amount
-    @subscription_next_billing_date = @subscription.next_billing_date.strftime("%m/%d/%Y")
+    #@transaction_amount = @transaction.total.to_s
+    #@subscription_next_billing_date = @subscription.next_billing_date.strftime("%m/%d/%Y")
     @subscriber_username = @subscriber.username
     @transaction_uuid = @transaction.uuid
     subject = "Payment to "+ @subscribed_fullname+" Receipt"
@@ -36,7 +36,7 @@ class SubscriptionMailer < ActionMailer::Base
     @subscriber_fullname = @subscriber.fullname
     @subscriber_username = @subscriber.username
     @receive_amount = @transaction.receive
-    @subscription_next_billing_date = @subscription.next_billing_date.strftime("%m/%d/%Y")
+    #@subscription_next_billing_date = @subscription.next_billing_date.strftime("%m/%d/%Y")
     @subscribed_username = @subscribed.username
     @transaction_uuid = @transaction.uuid
     subject = "You have a New Subscriber: "+ @subscriber_fullname

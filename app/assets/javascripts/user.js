@@ -80,4 +80,33 @@ $(function() {
       $("#sidebar-profile-create-discussion").click(function(){
         $("#new_discussion")[0].click();
       });
+
+  //Sidebar Profile Give Button
+      $("#sidebar-give-button").hover(
+          function () {
+            $('#sidebar-give-slide-down').slideDown('medium');
+          }, 
+          function () {
+            $('#sidebar-give-slide-down').slideUp('medium');          
+          }
+      );
+      $("#sidebar-give-9-button").hover(
+          function (){
+            $("#sidebar-give-9-button").addClass("btn-sidebar-give-active");
+            $("#sidebar-give-2-button").removeClass("btn-sidebar-give-active");
+          }      
+        );
+      $("#sidebar-give-2-button").hover(
+          function (){
+            $("#sidebar-give-2-button").addClass("btn-sidebar-give-active");
+            $("#sidebar-give-9-button").removeClass("btn-sidebar-give-active");
+          }      
+        );
+      $("#sidebar-profile-create-project").click(function (){
+        $("#sidebar-profile-create-button-main")[0].click();
+      });
+      $("#sidebar-give-9-button").click(function(){
+        $("#sidebar-give-9")[0].click();
+      });
+
 });	

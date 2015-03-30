@@ -16,57 +16,23 @@
 						<div class="user-icon-holder" style="background-image:url(<%= @project.creator.profilephoto.url(:small64) %>);"></div>
 					<% end %>
 				</span>
-				<%= simple_format(@project.creator.why)%>
+		<div class="goals" style="width:100%;margin-top:15px;">
+			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%>">Monthly Subscription Amount</span> <%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%> of $<%= render :text => @project.creator.goals_monthly%></ol>
+			<ol><%= progress_bar(goals_count(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly), :color => 'green', :rounded => true) %></ol>
+		</div>					
 		<!-- Those who have subscribed to the user -->
-		
-			<!-- Without Sub-sus-->
-			<% unless @subscribers.any? then %>
-				<div class="sub-sus-holder" style="margin-left:0px;">
-					Be the first to subscribe to <%= link_to @project.creator.fullname, @project.creator,class:"no_ajaxify" %>.
-				</div>					
-			<% else %>
-				<div class="project-subscribed-users-holder">
-					<!-- With Sub-sus -->
-					<!-- 1 Sub-sus -->
-					<div class="sub-sus-holder">
-						<% if @subscribers.count == 1 then %>
-							<%= link_to @project.creator.sub_susers[0].fullname, @project.creator.sub_susers[0], class:"no_ajaxify"%> supports <%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify"%>.
-						<% else %>		
-							<!-- 2 Sub-sus -->
-							<% if @subscribers.count == 2 then %>
-								<%= link_to @project.creator.sub_susers[0].fullname, @project.creator.sub_susers[0], class:"no_ajaxify"%> and <%= link_to @project.creator.sub_susers[1].fullname, @project.creator.sub_susers[1], class:"no_ajaxify"%> support <%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify"%>.
-							<% else %>
-								<!-- >2 Sub-sus -->
-								<%= link_to @project.creator.sub_susers[0].fullname, @project.creator.sub_susers[0], class:"no_ajaxify"%>, <%= link_to @project.creator.sub_susers[1].fullname, @project.creator.sub_susers[1], class:"no_ajaxify"%> and <%= link_to @subscribers_others, subscribers_path(@project.creator), class:"no_ajaxify"%> support <%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify"%>.
-							<% end %>
-						<% end %>
-					</div>	
-					
-					<%= render partial: "supports/project_current_subscribers", collection: @subscribers, :as => :user %>
-
-					<!-- if User has subscribers-->
-					<% if @project.creator.subscribers then %>
-						<%= link_to subscribers_path(@project.creator), class:"subscription no_ajaxify" do %>
-							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: 1px solid #ddd;"></div>
-						<% end %>	
-					<% else %>
-						<%= link_to supporters_path(@project.creator), class:"subscription no_ajaxify" do %>
-							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: 1px solid #ddd;"></div>
-						<% end %>
-					<% end %>
-				</div><!-- end .project-subscribed-users-holder-->		
-			<% end %>		
-
-		
-	</div><!-- end .project-to-subscribers-holder-->		
-
+		<div style="margin-bottom:10px;">If the subscription amount goal is reached, <%= link_to @project.creator.fullname,@project.creator,class:"no_ajaxify" %> will be able to continue this work collection.</div>
+		<div>
+			<%= render 'subscriptions/faces'%>
+		</div>	
+	</div><!-- end .project-to-subscribers-holder-->
 	<!-- Subscription Button-->		
 <% if current_user != @project.creator && @project.users.count == 1 then %>	
 	<% if subscriber_status then %>
 		<% if @project.creator.subscribed_by?(current_user) %>
 		<% else %>
 			<div style="margin: 15px -2px 0 0; text-align:right;">
-				<%= link_to "Subscribe", subscribe_path(@project.creator), class:"btn btn-medium btn-medium-green no_ajaxify"%>
+				<%= link_to "Subscribe", subscribe_path(@project.creator,"false"), class:"btn btn-medium btn-medium-green no_ajaxify"%>
 			</div>
 		<% end %>	
 	<% else %>

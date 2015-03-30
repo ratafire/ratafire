@@ -101,7 +101,7 @@ class AdminController < ApplicationController
 				@message_title = "Your Subscription Setup is Approved"
 				#Set the time bomb
 				@subscription_application.approved_at = Time.now
-				@subscription_application.completed_at = Time.now + 15.days
+				@subscription_application.completed_at = Time.now + 16.days
 				@subscription_application.save
 				Resque.enqueue_in(15.day,SubscriptionTimebombWorker,@receiver.id)
 			else

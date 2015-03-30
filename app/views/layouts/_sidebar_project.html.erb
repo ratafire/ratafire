@@ -39,8 +39,8 @@
 			<% end %>
 
 			<% if project_header_edit(@project) %>
-				<ol><%= link_to 'Settings',project_settings_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
-				<ol><%= link_to 'Edit Project',edit_user_project_path(@project.creator,@project), class:"no_ajaxify"  %></ol>	
+				<ol><%= link_to 'Edit',edit_user_project_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+				<ol><%= link_to 'Settings',project_settings_path(@project.creator,@project), class:"no_ajaxify"  %></ol>	
 			<% end %>
 
 	</ul>

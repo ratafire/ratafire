@@ -1,0 +1,20 @@
+			<!-- Cutter --><ol style="margin-top: -15px;"></ol>
+
+									<!-- Indicator -->
+									<div id="Profile-page-title">
+										<div class="textbox-mini">
+											<div class="water-open" id="shydrop-open" style="margin-top:50px;display:none;"></div>
+											<div class="water-close" id="shydrop-close" style="margin-top:10px;"></div>
+										</div>
+									</div>
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+			<div id="current-subscribers">
+
+					<!-- Pre established -->
+					<% if @subscription_application != nil && @user == current_user && @subscription_application.status == "Approved" && @subscription_application.completion == nil then %>
+						<%= render 'find_subscribers/countdown' %>
+					<% end %>	
+					<!-- Main Content -->
+					<%= render "payments/why" %>
+			</div><!-- end:.current-subscribers-->
