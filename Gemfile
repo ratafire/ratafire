@@ -116,7 +116,7 @@ gem 'paperclip-ghostscript' #pdf
 #Amazon Payments
 gem "rest-client", :require => "rest_client"
 #gem 'netrc' #rest-client dependency
-gem 'amazon_flex_pay', github: 'ratafire/amazon_flex_pay' #changed for reacurring pipeline
+# gem 'amazon_flex_pay', github: 'ratafire/amazon_flex_pay' #changed for reacurring pipeline
 gem "figaro" #configuration
 
 #------------Rails Utilities------------
@@ -129,7 +129,7 @@ gem 'mysql2'
 group :development do
 	#gem 'sqlite3', '1.3.5'
 	gem 'rspec-rails', '2.10.0' 
-	gem 'guard-rspec' #For automatically running rspec
+	# gem 'guard-rspec' #For automatically running rspec
 	gem 'annotate', '2.5.0' #For showing up database structure in schema
 end
 
