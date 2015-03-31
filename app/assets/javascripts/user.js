@@ -53,13 +53,11 @@ $(function() {
       $("#sidebar-profile-create-button").hover(
           function () {
             $('#sidebar-profile-slide-down').slideDown('medium');
-            $("#sidebar-profile-create-button-main").addClass("btn-medium-darkblue");
             $("#sidebar-profile-create-button-main").removeClass("btn-medium-white");   
           }, 
           function () {
             $('#sidebar-profile-slide-down').slideUp('medium');
-            $("#sidebar-profile-create-button-main").addClass("btn-medium-white");
-            $("#sidebar-profile-create-button-main").removeClass("btn-medium-darkblue");               
+            $("#sidebar-profile-create-button-main").addClass("btn-medium-white");             
           }
       );
       $("#sidebar-profile-create-project").hover(

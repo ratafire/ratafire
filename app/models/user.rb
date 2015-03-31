@@ -12,6 +12,7 @@
 
 class User < ActiveRecord::Base
 
+
 	letsrate_rater
 
 	#friendly id
@@ -347,6 +348,15 @@ class User < ActiveRecord::Base
 		tutorial = Tutorial.new
 		tutorial.user_id = self.id 
 		tutorial.save
+  end
+
+  def process_uri(url)
+  	require "open-uri"
+  	require 'open_uri_redirections'
+  	url = url+"?type=large"
+    open(url, :allow_redirections => :safe) do |r|
+    	r.base_uri.to_s
+    end
   end
 
 	private

@@ -79,9 +79,9 @@ class ChargesController < ApplicationController
 			@recipient = Recipient.prefill!(recipient,params[:id], params[:account_number], params[:ssn])	
 			#Push the application to next step
 			@subscription_application = SubscriptionApplication.find(params[:application_id])
-			@subscription_application.step = 5
+			@subscription_application.step = 7
 			@subscription_application.save
-			redirect_to identification_subscription_path(params[:id], params[:application_id])
+			redirect_to pending_subscription_path(params[:id], params[:application_id])
 		else
 			flash[:error] = "Invalid Info"
 			redirect_to(:back)

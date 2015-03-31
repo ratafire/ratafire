@@ -35,13 +35,21 @@
 					<%= render 'subscriptions/added_card'%>
 				<% end %>	
 				<!-- If the user does not have paypal -->
-
+				<% if @user.billing_agreement == nil then %>
+					<div style="margin-top:5px;"><%= link_to 'Add PayPal',create_billing_agreement_path(@user.id), class:"no_ajaxify btn btn-medium3 btn-medium-blue"%></div>
+				<% else %>
+					<%= render 'subscriptions/added_paypal'%>
+				<% end %>
 			</div><!-- end.textbox-mini-->
 		</div><!-- end.lightbox2-bordered-->				
 
 		<!-- Subscription Status -->
 		<% if @user.subscription_status_initial == nil then %>
-			<%= render 'subscriptions/hint_to_setup'%>
+			<% if @user.subscription_application[0] != nil && @user.subscription_application[0].step == 7 then %>
+				<%= render 'subscriptions/under_review'%>
+			<% else %>
+				<%= render 'subscriptions/hint_to_setup'%>
+			<% end %>	
 		<% else %>
 			<div class="lightbox2-bordered">
 				<div class="textbox-mini">

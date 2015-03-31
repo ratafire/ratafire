@@ -230,6 +230,17 @@ protect_from_forgery :except => [:create_profilephoto]
 	@profilephoto = @user.profilephoto
   end
 
+  #Upload profile photo in settings page
+  def create_profilephoto_settings
+	@user = User.find(params[:id])
+	
+	@user.direct_upload_url = params[:profilephoto][:direct_upload_url]
+	@user.set_upload_attributes
+	@user.queue_processing
+	@profilephoto = @user.profilephoto
+	redirect_to edit_user_path(@user.id)  	
+  end
+
   private
 
 	def correct_user

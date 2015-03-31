@@ -1,4 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+	require "open-uri"
 
 	def facebook
 		if current_user != nil
@@ -7,6 +8,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
 			if facebook.persisted?
 				flash[:success] = "Connected to Facebook."
+				#Add Facebook to profile photo if profile photo is nil
+				unless @user.profilephoto.exists? then
+					avatar_url = @user.process_uri(facebook.image)
+					@user.update_attribute(:profilephoto, URI.parse(avatar_url))
+				end
 				redirect_to(:back)
 			else
 				flash[:success] = "Fail to connect to Facebook."
@@ -31,6 +37,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 					@user.update_column(:email,facebook.email)					
 				end				
 				redirect_to facebook_signup_path(@user.uuid)	
+				avatar_url = @user.process_uri(facebook.image)
+				@user.update_attribute(:profilephoto, URI.parse(avatar_url))		
 				#Resque.enqueue_at(10.minutes.from_now, AbortedFacebookSignupWorker, @user.id)	
 			else
 				redirect_to new_user_registration_path

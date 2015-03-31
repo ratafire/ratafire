@@ -9,8 +9,8 @@ development:
 
   # Credentials for Classic APIs
   app_id: Ratafire
-  username: paypal-facilitator@ratafire.com
-  password: happynewyear1234
+  username: paypal-facilitator_api1.ratafire.com
+  password: JPNM2USSNDPFPEUM
   signature: AvigQk98pmsZuOmn9o2jUgUI9wHvAn20GS1qNYUTjZYCTf9kh2Xwgi4m
   # # With Certificate
   # cert_path: "config/cert_key.pem"

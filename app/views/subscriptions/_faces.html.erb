@@ -26,11 +26,11 @@
 					<!-- if User has subscribers-->
 					<% if @project.creator.subscribers then %>
 						<%= link_to subscribers_path(@project.creator), class:"subscription no_ajaxify" do %>
-							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: 1px solid #ddd;"></div>
+							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
 						<% end %>	
 					<% else %>
 						<%= link_to supporters_path(@project.creator), class:"subscription no_ajaxify" do %>
-							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: 1px solid #ddd;"></div>
+							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
 						<% end %>
 					<% end %>
 				</div><!-- end .project-subscribed-users-holder-->		

@@ -720,6 +720,12 @@ border-radius: 5px;
 border-radius: 5px;
 }
 
+.btn-small3 {
+  padding: 6px 0 0 0;
+  width: 97px; 
+  height: 27px;
+border-radius: 5px;
+}
 
 .btn-small3 {
   padding: 6px 0 0 0;
@@ -919,12 +925,12 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 }
 
 .btn-sidebar-profile-active{
-	background-color: rgba(34, 151, 206, 0.95) !important;
+	background-color: rgba(45, 160, 214, 0.95) !important;
 	color: #fff !important;
 }
 
 .btn-sidebar-give-active{
-  background-color: rgba(114,170,53, 0.95) !important;
+  background-color: rgba(128,188,63, 0.95) !important;
   color: #fff !important;
 }
 
@@ -4515,7 +4521,7 @@ ul{
 }
 
 #Profile-page-title {
-	border-bottom: 1px solid #e2e2e2;
+
 	margin-bottom: 2px;
 }
 
@@ -6805,8 +6811,9 @@ display:inline-block;
 		margin: 21px 0;
 	}
 	h4 {
-	color:#999;
+	color:#cccccc;
 		font-weight: normal;
+    font-family: "Open Sans";
 	}
 }
 
@@ -7556,15 +7563,12 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 /*--- Supporters ---*/
 .supporter-image{
 	float: left;
-	border: 1px solid #666;
+	border: 1px solid #ddd;
 	border-bottom: 1px solid #333;
 	border-radius: 6px;
 	margin: 0 0 5px 5px;
 	height: 40px;
 	width: 40px;
-	-webkit-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
-	-moz-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
-	box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	&:hover{
 		border: 1px solid #ccc;
 	}	
