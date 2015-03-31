@@ -2,7 +2,6 @@
 //Price Counter
 var amts=[5,10,15,25,50,100];
 $("#submit-amount").val(10);
-
 $("#price-slider-special").slider(
 {	
 	min:0,
@@ -158,7 +157,8 @@ $("#edit").click(function(){
 });
 
 //temporary submit button
-$("#next_step_checkout_amazon").click(function(){
+$("#paypalButton").click(function(){
+	$("#payment_method").val("PayPal");
 	$("#subscrption-form").submit();
 	});
 </script>

@@ -119,16 +119,36 @@ class ChargesController < ApplicationController
 
 	#Add a card and subscribe
 	def add_card_subscribe
+		@subscription = Subscription.new(params[:subscription])
+		#See if it is a support
+		if @subscription.amount == ENV["PRICE_1"].to_f
+			@subscription.supporter_switch = true
+		end
+		#Set basic info of the subscription
+		@user = User.find(params[:id])
+		@subscriber = User.find(@subscription.subscriber_id)
+		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id		
 		#Adda card
-		stripe_add_card(params[:id],params[:stripeToken])
+		
+		stripe_add_card(@subscriber.id,params[:stripeToken])
 		#Subscribe
-		subscribe_through_stripe
+		subscribe_for_user
 	end
 
 	#Not add card subscribe
 	def with_card_subscribe
+		@subscription = Subscription.new(params[:subscription])
+		#See if it is a support
+		if @subscription.amount == ENV["PRICE_1"].to_f
+			@subscription.supporter_switch = true
+		end
+		#Set basic info of the subscription
+		@user = User.find(params[:id])
+		@subscriber = User.find(@subscription.subscriber_id)
+		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id		
 		#Create subscription
-		subscribe_through_stripe
+		
+		subscribe_for_user
 	end
 
 private
@@ -197,59 +217,64 @@ private
 		redirect_to subscribers_path(@subscription.subscribed_id)
 	end
 
-	def subscribe_through_stripe
-		@subscription = Subscription.new(params[:subscription])
-		#See if it is a support
-		if @subscription.amount == ENV["PRICE_1"].to_f
-			@subscription.supporter_switch = true
-		end
-		#Set basic info of the subscription
-		@user = User.find(params[:id])
-		@subscriber = User.find(@subscription.subscriber_id)
-		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id
+	def subscribe_for_user
 		unless @user.subscribed_by?(@subscriber) || @subscriber.subscribed_by?(@user) then
 			@subscription.activated = true
 			@subscription.activated_at = Time.now
 			if @subscription.save then
 				#Make first payment
-				#With Stripe
-				response = Stripe::Charge.create(
-					:amount => @subscription.amount.to_i*100,
-					:currency => "usd",
-					:customer => @user.customer.customer_id,
-					:description => "Subscription fee to <%= @user.fullname %> on Ratafire."
-				)
-				if response.captured == true then
-					transaction = Transaction.prefill!(
-						response,
-						:subscription_id => @subscription.id,
-						:subscriber_id => @subscriber.id,
-						:subscribed_id => @user.id,
-						:supporter_switch => @subscription.supporter_switch
-					)
-					subscription_post_payment
-					#Enqueue Post Processing
-					Resque.enqueue(SubscriptionNowWorker,@subscription.id,transaction.id)
+				
+				if @subscriber.billing_agreement != nil || params[:method] == "PayPal" then
+					subscribe_through_paypal
 				else
-					@subscription.destroy
-					PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|
-						if activity != nil then 
-							activity.deleted = true
-							activity.deleted_at = Time.now
-							activity.save
-						end
+					if @subscriber.cards.first != nil || params[:method] == "Card" then
+						#With Stripe
+						subscribe_through_stripe
+					end
+				end
+			else
+				@subscription.destroy
+				PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|
+					if activity != nil then 
+						activity.deleted = true
+						activity.deleted_at = Time.now
+						activity.save
 					end
 					flash[:success] = "The subscription to "+@subscription.subscribed.fullname+" did not go through."
 					redirect_to subscribers_path(@subscription.subscribed_id)
 				end
-			else
-				flash[:error] = "Failed to subscribe1."
-				redirect_to(:back)
+				flash[:error] = "Failed to subscribe."
+				redirect_to(@user)				
 			end
 		else
-			flash[:error] = "Failed to subscribe2."
+			flash[:error] = "Failed to subscribe2222."
 			redirect_to(@user)
 		end		
+	end
+
+	def subscribe_through_stripe
+		response = Stripe::Charge.create(
+			:amount => @subscription.amount.to_i*100,
+			:currency => "usd",
+			:customer => @subscriber.customer.customer_id,
+			:description => "Subscription fee to <%= @user.fullname %> on Ratafire."
+		)
+		if response.captured == true then
+			transaction = Transaction.prefill!(
+			response,
+			:subscription_id => @subscription.id,
+			:subscriber_id => @subscriber.id,
+			:subscribed_id => @user.id,
+			:supporter_switch => @subscription.supporter_switch
+		)
+		subscription_post_payment
+		#Enqueue Post Processing
+		Resque.enqueue(SubscriptionNowWorker,@subscription.id,transaction.id)
+		else
+			#Transaction failed
+			flash[:error] = "Invalid payment method."
+			redirect_to(:back)			
+		end
 	end
 
 end

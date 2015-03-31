@@ -5,13 +5,17 @@
 <% end %>
 
 <div style="margin: 0 40px 40px 0; text-align:right;">
-  <div class="btn btn-medium2 btn-medium-blue no_ajaxify" id="customButton">
+  <span class="btn btn-medium2 btn-medium-blue no_ajaxify" id="customButton">
     Confirm and Pay
-  </div>  
+  </span>
+  <span class="btn btn-medium2 btn-medium-blue no_ajaxify">
+    PayPal
+  </span>  
 </div>    
 
 <script>
 $('#customButton').on('click', function() {
+		$("#payment_method").val("Card");
 		$("#subscrption-form").submit();
   	});
 </script>
