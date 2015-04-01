@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150331121559) do
+ActiveRecord::Schema.define(:version => 20150401001327) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -1135,6 +1135,9 @@ ActiveRecord::Schema.define(:version => 20150331121559) do
     t.string   "stripe_id"
     t.string   "description"
     t.string   "method"
+    t.string   "paypal_correlation_id"
+    t.string   "billing_agreement_id"
+    t.string   "paypal_transaction_id"
   end
 
   create_table "tutorials", :force => true do |t|
@@ -1251,6 +1254,9 @@ ActiveRecord::Schema.define(:version => 20150331121559) do
     t.string   "subscription_status_initial"
     t.string   "legalname"
     t.integer  "ssn"
+    t.boolean  "need_username",                                             :default => false
+    t.string   "after_subscription_url"
+    t.boolean  "signup_during_subscription",                                :default => false
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

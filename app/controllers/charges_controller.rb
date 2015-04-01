@@ -129,13 +129,59 @@ class ChargesController < ApplicationController
 		@subscriber = User.find(@subscription.subscriber_id)
 		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id		
 		#Adda card
-		
-		stripe_add_card(@subscriber.id,params[:stripeToken])
-		#Subscribe
-		subscribe_for_user
+		unless @user.subscribed_by?(@subscriber) || @subscriber.subscribed_by?(@user) then
+			if @subscription.method == "Card" then
+				stripe_add_card(@subscriber.id,params[:stripeToken])
+				#Subscribe
+			else
+				@subscription.save
+				create_request
+				port = Rails.env.production? ? "" : ":3000"
+				redirect_url = "#{request.scheme}://#{request.host}#{port}/"+@subscription.id.to_s+"/r/paypal/add_paypal_subscribe_success"
+				failure_url = "#{request.scheme}://#{request.host}#{port}/"+@user.username
+				payment_request = Paypal::Payment::Request.new(
+		  			:billing_type  => "MerchantInitiatedBilling",
+		  			# Or ":billing_type => :MerchantInitiatedBillingSingleAgreement"
+		  			# Read official document for details
+		  			:billing_agreement_description => "Pay Ratafire with PayPal"
+				)
+				response = @request.setup(
+	  				payment_request,
+	  				redirect_url,
+	  				failure_url
+				)
+				redirect_to response.redirect_uri			
+			end
+		else
+			flash[:success] = "Subscription failed."
+			redirect_to subscribers_path(@user.id)				
+		end
 	end
 
-	#Not add card subscribe
+	#Add paypal subscribe
+	def add_paypal_subscribe
+		create_request
+		response = @request.agree! params[:token]
+		if current_user != nil then
+			#Find the user
+			@user = User.find(current_user.id)
+			#Destry existed paypal billing agreement
+			if @user.billing_agreement != nil then
+				@request.revoke! @billing_agreement.billing_agreement_id
+				@user.billing_agreement.deleted = true
+				@user.billing_agreement.save
+			end
+			#Create a new billing agreement
+			@billing_agreement = BillingAgreement.prefill!(:user_id => @user.id, :billing_agreement_id => response.billing_agreement.identifier)
+			@subscription = Subscription.find(params[:subscription_id])
+			subscribe_for_user
+		else
+			@subscription = Subscription.find(params[:subscription_id])
+			redirect_to user_path(@subscription.subscribed)
+		end		
+	end
+
+	#User already has a card
 	def with_card_subscribe
 		@subscription = Subscription.new(params[:subscription])
 		#See if it is a support
@@ -147,9 +193,16 @@ class ChargesController < ApplicationController
 		@subscriber = User.find(@subscription.subscriber_id)
 		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id		
 		#Create subscription
-		
 		subscribe_for_user
 	end
+
+	def subscription_thank_you
+		@subscription = Subscription.find(params[:subscription_id])
+		@subscribed = User.find(@subscription.subscribed_id)
+		@subscriber = User.find(@subscription.subscriber_id)
+	end	
+
+	#After a new user is created
 
 private
 
@@ -162,8 +215,9 @@ private
 			token = stripeToken
 			r = customer.sources.create(:card => token)
 			#if successful
-			if r.id != nil then
+			if r.id != nil && customer != nil then
 				@card = Card.prefill!(customer, user_id, @customer.id)
+				subscribe_for_user
 			else
 				flash[:error] = "Fail to add a new card."
 				redirect_to(:back)
@@ -182,6 +236,7 @@ private
 			@customer = Customer.find_by_user_id(user_id)
 			# Save the customer's card in your database so you can use it later
 			card = Card.prefill!(customer, user_id, @customer.id)
+			subscribe_for_user
 		end			
 	end
 
@@ -214,22 +269,22 @@ private
 		@user.save
 		@subscriber.save
 		flash[:success] = "You subscribed to "+@subscription.subscribed.fullname+"!"
-		redirect_to subscribers_path(@subscription.subscribed_id)
+		redirect_to subscription_thank_you_path(@subscription.id)
 	end
 
 	def subscribe_for_user
-		unless @user.subscribed_by?(@subscriber) || @subscriber.subscribed_by?(@user) then
+		@subscribed = User.find(@subscription.subscribed.id)
+		@subscriber = User.find(@subscription.subscriber.id)
+		
 			@subscription.activated = true
 			@subscription.activated_at = Time.now
 			if @subscription.save then
 				#Make first payment
-				
-				if @subscriber.billing_agreement != nil || params[:method] == "PayPal" then
-					subscribe_through_paypal
+				if @subscriber.cards.first != nil || params[:method] == "Card" || @subscription.method == "Card" then
+					subscribe_through_stripe
 				else
-					if @subscriber.cards.first != nil || params[:method] == "Card" then
-						#With Stripe
-						subscribe_through_stripe
+					if @subscriber.billing_agreement != nil || params[:method] == "PayPal"  || @subscription.method == "Card" then
+						subscribe_through_paypal
 					end
 				end
 			else
@@ -240,16 +295,10 @@ private
 						activity.deleted_at = Time.now
 						activity.save
 					end
-					flash[:success] = "The subscription to "+@subscription.subscribed.fullname+" did not go through."
-					redirect_to subscribers_path(@subscription.subscribed_id)
-				end
-				flash[:error] = "Failed to subscribe."
-				redirect_to(@user)				
-			end
-		else
-			flash[:error] = "Failed to subscribe2222."
-			redirect_to(@user)
-		end		
+				end	
+				flash[:success] = "The subscription to "+@subscription.subscribed.fullname+" did not go through."
+				redirect_to subscribers_path(@subscription.subscribed_id)		
+			end	
 	end
 
 	def subscribe_through_stripe
@@ -276,5 +325,41 @@ private
 			redirect_to(:back)			
 		end
 	end
+
+	def subscribe_through_paypal
+		create_request
+		response = @request.charge! @subscriber.billing_agreement.billing_agreement_id, @subscription.amount.to_i
+		if response.ack == "Success" then
+			transaction = Transaction.paypal!(
+			response,
+			:subscription_id => @subscription.id,
+			:subscriber_id => @subscriber.id,
+			:subscribed_id => @user.id,
+			:supporter_switch => @subscription.supporter_switch
+		)			
+			subscription_post_payment
+		else
+			#Transaction failed
+			flash[:error] = "Invalid payment method."
+			redirect_to(:back)		
+			Resque.enqueue(SubscriptionNowWorker,@subscription.id,transaction.id)		
+		end
+	end
+
+	def create_request
+		if Rails.env.development? then
+			@request = Paypal::Express::Request.new(
+  				:username   => ENV["PAYPAL_SANDBOX_USERNAME"],
+  				:password   => ENV["PAYPAL_SANDBOX_PASSWORD"],
+  				:signature  => ENV["PAYPAL_SANDBOX_SIGNATURE"]
+			)	
+		else
+			@request = Paypal::Express::Request.new(
+  				:username   => ENV["PAYPAL_USERNAME"],
+  				:password   => ENV["PAYPAL_PASSWORD"],
+  				:signature  => ENV["PAYPAL_SIGNATURE"]
+			)				
+		end	
+	end	
 
 end

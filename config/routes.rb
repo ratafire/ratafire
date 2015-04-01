@@ -198,12 +198,14 @@ Ratafire::Application.routes.draw do
 	match ':id/r/stripe/update_recipient', to: 'charges#update_recipient', as: :update_recipient
 	match ':id/r/stripe/add_card_subscribe', to: 'charges#add_card_subscribe', as: :add_card_subscribe
 	match ':id/r/stripe/with_card_subscribe', to: 'charges#with_card_subscribe', as: :with_card_subscribe
+	match ':subscription_id/r/subscription/thank_you', to: 'charges#subscription_thank_you', as: :subscription_thank_you
 
 	#Paypal
 	match '/:id/r/paypal/create_billing_agreement', to: 'payments#create_billing_agreement', as: :create_billing_agreement
 	match '/paypal_agreement_success', to: 'payments#billing_agreement_success'
 	match '/paypal_agreement_cancel', to: 'payments#billing_agreement_cancel'
 	match '/:id/r/paypal/remove_billing_agreement', to: 'payments#remove_billing_agreement', as: :remove_billing_agreement
+	match '/:subscription_id/r/paypal/add_paypal_subscribe_success', to: 'charges#add_paypal_subscribe'
 
 	#Payment Settings
 	match '/:id/r/settings/payment', to: "subscriptions#payment_settings", as: :payment_settings

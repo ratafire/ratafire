@@ -3,15 +3,18 @@
 <%= f.hidden_field :subscriber_id, :value => @current_user.id %>
 <%= f.hidden_field :subscribed_id, :value => @user.id %>
 <%= f.hidden_field :amount, id:"submit-amount" %><!-- working-->
-<%= f.hidden_field :method, id:"payment_method" %>
+<%= f.hidden_field :method, id:"payment_method",:value => "Card" %>
 
 <script src="https://checkout.stripe.com/checkout.js">
 </script>
 
 <div style="margin: 0 40px 40px 0; text-align:right;">
-  <span class="btn btn-medium2 btn-medium-blue no_ajaxify" id="customButton">
-    Confirm and Pay
-  </span>
+    <span class="btn btn-medium2 btn-medium-blue no_ajaxify" id="customButton">
+        Confirm and Pay
+    </span>
+    <div class="btn btn-medium2 btn-medium-blue no_ajaxify" id="paypalButton">
+        PayPal
+    </div>     
 </div>    
 
 

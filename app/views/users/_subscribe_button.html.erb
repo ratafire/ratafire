@@ -1,7 +1,13 @@
 	<div style="margin-top: 10px;" id="sidebar-give-button">
 		<div class="btn-sidebar-profile-create" id="sidebar-give-slide-down">
 			<ol class="btn-sidebar-give-active btn-sidebar-profile-project" id="sidebar-give-9-button">To Subscribe</ol>
-			<%= link_to subscribe_path(@user,"false"), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button">Other Amounts</ol><%end%>
-		</div>	
-		<%= link_to "Give $10/m", subscribe_path(@user,"true"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"sidebar-give-9"%>	
+			<% if current_user != nil && current_user.facebook != nil then %>
+				<%= link_to subscribe_path(@user,"false"), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button">Other Amounts</ol><%end%>
+				</div> 
+				<%= link_to "Give $10/m", subscribe_path(@user,"true"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"sidebar-give-9"%>                
+			<% else %>    
+				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "false"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button">Other Amounts</ol><%end%>
+				</div>	
+				<%= link_to "Give $10/m", user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"sidebar-give-9"%>	
+			<% end %> 
 	</div>	

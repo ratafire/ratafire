@@ -12,11 +12,19 @@ class PaymentsController < ApplicationController
   			# Read official document for details
   			:billing_agreement_description => "Pay Ratafire with PayPal"
 		)
-		response = @request.setup(
-  			payment_request,
-  			"http://localhost:3000/paypal_agreement_success",
-  			"http://localhost:3000/paypal_agreement_cancel"
-		)
+		if Rails.env.development? then
+			response = @request.setup(
+  				payment_request,
+  				"http://localhost:3000/paypal_agreement_success",
+  				"http://localhost:3000/paypal_agreement_cancel"
+			)
+		else
+			response = @request.setup(
+  				payment_request,
+  				"https://www.ratafire.com/paypal_agreement_success",
+  				"https://www.ratafire.com/paypal_agreement_cancel"
+			)			
+		end
 		redirect_to response.redirect_uri
 	end
 
@@ -60,6 +68,11 @@ class PaymentsController < ApplicationController
 		else
 			redirect_to(:back)
 		end
+	rescue Paypal::Exception::APIError
+		flash[:error] = "PayPal not valid."
+		@billing_agreement.deleted = true
+		@billing_agreement.save
+		redirect_to(:back)
 	end
 	
 private

@@ -87,7 +87,11 @@
 	</div>
 	<!-- Next Step Button-->
 	<% if current_user.cards.first == nil then %>
-		<%= render 'subscriptions/add_card_subscribe'%>
+		<% if current_user.billing_agreement == nil then %>
+			<%= render 'subscriptions/add_card_subscribe'%>
+		<% else %>
+			<%= render 'subscriptions/with_paypal_subscribe'%>
+		<% end %>
 	<% else %>
 		<%= render 'subscriptions/with_card_subscribe'%>
 	<% end %>

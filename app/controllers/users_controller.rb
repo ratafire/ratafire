@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
 SEND_FILE_METHOD = :default
 
-protect_from_forgery :except => [:create_profilephoto]
+protect_from_forgery :except => [:create_profilephoto, :update]
 
   layout 'application'
   before_filter :signed_in_user,
@@ -64,33 +64,53 @@ protect_from_forgery :except => [:create_profilephoto]
   #end
 
   def update
-	  @user = User.find(params[:id])    
-	if signed_in? && @user == current_user then
+	@user = User.find(params[:id])    
+	if @user == nil then 
+		@user = User.find_by_uuid(params[:user][:uuid])
+	end
+	if @user.encrypted_password == nil then
 		respond_to do |format|
 			if @user.update_attributes(params[:user])
-				format.json { respond_with_bip(@user) }
-				if params[:user][:profilelarge].blank?
-					format.html { redirect_to(@user) }
-					flash[:success] = "Ah, new info!"
-				else
-					format.html { render :action => "edit" }
-				end
+				@user.tutorial.intro = false
+				@user.tutorial.save
+				format.html { redirect_to intro_tutorial_path(@user) }
+				sign_in(:user, @user)
+				Devise::Mailer.confirmation_instructions(@user).deliver
+				flash[:success] = "You have discovered Ratafire!"
 			else
-				format.json { respond_with_bip(@user) }
-				format.html { render :action => "edit" }
+				flash[:success] = "Please create account info!"
+				sign_in(:user, @user)
+				format.html { redirect_to(:back) }
 			end
 		end
 	else
-		if @user.confirmed_at == nil then
-			if @user.update_attributes(params[:user])
-				@user.skip_confirmation!
-				@user.save
-				sign_in(:user, @user)
-				flash[:success] = "You have discovered Ratafire!"
-				redirect_to(@user)              
-			else
-				redirect_to(:back)
-				flash[:success] = "Please enter the required information."              
+		if signed_in? && @user == current_user then
+			respond_to do |format|
+				if @user.update_attributes(params[:user])
+					format.json { respond_with_bip(@user) }
+					if params[:user][:profilelarge].blank?
+						format.html { redirect_to(@user) }
+						flash[:success] = "Ah, new info!"
+					else
+						format.html { render :action => "edit" }
+					end
+				else
+					format.json { respond_with_bip(@user) }
+					format.html { render :action => "edit" }
+				end
+			end
+		else
+			if @user.confirmed_at == nil then
+				if @user.update_attributes(params[:user])
+					@user.skip_confirmation!
+					@user.save
+					sign_in(:user, @user)
+					flash[:success] = "You have discovered Ratafire!"
+					redirect_to(@user)              
+				else
+					redirect_to(:back)
+					flash[:success] = "Please enter the required information."              
+				end
 			end
 		end
 	end
