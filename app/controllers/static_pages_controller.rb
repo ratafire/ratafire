@@ -45,6 +45,9 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def mobile_about
+  end
+
 private
   
   def resolve_layout
@@ -53,18 +56,24 @@ private
       "plain"
     when "mobile_sign_in"
       "plain"
+    when "mobile_about"
+    "plain"
+  when "about"
+    "plain"
+    when "faq"
+    "plain"
     else
       "application_clean"
     end
   end
 
-  def mobile_device?
-      # Season this regexp to taste. I prefer to treat iPad as non-mobile.
-      if (request.user_agent =~ /Mobile|webOS/) && (request.user_agent !~ /iPad/) then
-        return true
-      else
-        return false
-      end
-  end
+  # def mobile_device?
+  #     # Season this regexp to taste. I prefer to treat iPad as non-mobile.
+  #     if (request.user_agent =~ /Mobile|webOS/) && (request.user_agent !~ /iPad/) then
+  #       return true
+  #     else
+  #       return false
+  #     end
+  # end
 
 end

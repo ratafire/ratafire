@@ -22,21 +22,21 @@
 </head>
 <body>
 <div class="all-elements">
-    <div class="snap-drawers">	
+    <div class="snap-drawers">  
 
         <!-- Left Sidebar -->
         <div class="snap-drawer snap-drawer-left">
             <% if user_signed_in? %>
-            	<div class="sidebar-logo">
-                	<div class="mobile-name">
+              <div class="sidebar-logo">
+                  <div class="mobile-name">
                         <ul><%= current_user.fullname %></ul>
                         <ul class="user-tagline"><%= current_user.tagline %></ul>
                     </div>
                     <div class="majorpost-usericon" style="background-image:url(<%= current_user.profilephoto.url(:small64) %>);"></div>
-            	</div>
+              </div>
             <% else %>
-            	<div class="majorpost-usericon" style="background-image:url(/assets/usericon_small64.png);"></div>   	
-            <% end %>	
+              <div class="majorpost-usericon" style="background-image:url(/assets/usericon_small64.png);"></div>    
+            <% end %> 
             
             <div class="sidebar-divider">
                 Navigation
@@ -61,9 +61,9 @@
             </div>
             
             <ul class="sidebar-navigation">
-				<li><a href="#" class="active-menu"><i class="fa fa-comments"></i>Subscribers<i class="fa fa-circle"></i></a></li>
+        <li><a href="#" class="active-menu"><i class="fa fa-comments"></i>Subscribers<i class="fa fa-circle"></i></a></li>
                 <li><a href="#" class="active-menu"><i class="fa fa-comments-o"></i>Subscribing<i class="fa fa-circle"></i></a></li>
-				<li><a href="#" class="active-menu"><i class="fa fa-comment"></i>Supporters<i class="fa fa-circle"></i></a></li>
+        <li><a href="#" class="active-menu"><i class="fa fa-comment"></i>Supporters<i class="fa fa-circle"></i></a></li>
                 <li><a href="#" class="active-menu"><i class="fa fa-comment-o"></i>Supporting<i class="fa fa-circle"></i></a></li>
             </ul>
             
@@ -77,17 +77,17 @@
         </div>
     </div><!-- end .snap-drawers-->
        <!-- Page Content-->
-   	<div id="content" class="snap-content grey-bg">
-       	<div class="header">
+    <div id="content" class="snap-content grey-bg">
+        <div class="header">
             <a href="index.html" class="header-logo"></a>
             <a href="#" class="open-menu"><i class="fa fa-cog"></i></a>
         </div>
         <div class="header-clear"></div>
         <div class="content">
-		  <%= yield %>
+      <%= yield %>
         </div><!-- end .content-->  
     </div><!-- end #content-->
-</div><!-- end .all-elements-->		
+</div><!-- end .all-elements-->   
 
 
 </body>
