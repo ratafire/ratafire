@@ -15,7 +15,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
-					redirect_to(:back)
 				else
 					flash[:success] = "Fail to connect to Facebook."
 					redirect_to(:back)
