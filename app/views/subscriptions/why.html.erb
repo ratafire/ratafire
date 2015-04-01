@@ -6,9 +6,6 @@
 	<!-- Best in Place -->
 	<%= render 'shared/best_in_place'%>	
 
-	<!-- Open and Close -->
-	<%= render 'shared/profile_open_close'%><!-- script -->	
-
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 	<% content_for(:side_bar) do %>
@@ -29,7 +26,7 @@
 
 	<!-- Main Content -->
 	<div class="main-content">
-		<%= render 'users/social_media'%>
+		<%= render 'users/social_media_subscription'%>
 		<!-- Full Name-->
 		<%= render 'shared/fullname'%>
 
@@ -38,13 +35,36 @@
 		<!-- Tabs Nav -->
 		<%= render 'shared/tabs_nav_payments' %>
 
+		<!-- Content of Profile -->
+		<div class="profile-content">
+			<div id="current-subscribers">
+			<% if @user.why == nil or @user.why == "" %>	
+				<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;margin-top: -21px;">
+					<h5>You cannot subscribe to <%= @user.fullname %> now, because <%= @user.fullname %> didn't setup subscription.</h5>
+					<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+				</div>	
+			<% else %>
+				<% if @project == nil %>
+				<div class="lightbox2" style="text-align: center; border-bottom: 1px solid transparent;">
+					<h5>You cannot subscribe to <%= @user.fullname %> now, because <%= @user.fullname %> does't have an ongoing project.</h5>
+					<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+				</div>	
+				<% else %>
+					<!-- Pre established -->
+					<% if @subscription_application != nil && @user == current_user && @subscription_application.status == "Approved" && @subscription_application.completion == nil then %>
+						<%= render 'find_subscribers/countdown' %>
+					<% end %>	
+					<!-- Main Content -->
+					<%= render "payments/why" %>
+				<% end %>	
+			<% end %>
+			</div><!-- end:.current-subscribers-->
 
+						<!-- Pagination -->
+			<div id="Profile-page-load-more">
+				<!-- Cutter --><ol style="margin-top: 40px;"></ol>
+			</div><!--end:profile-pageload-more -->
 
-			<!-- Subscription Info -->
-			<%= render 'subscriptions/subscription_info'%>
-
-
-
-	</div><!-- end:.profile-content -->	
+		</div><!-- end:.profile-content -->	
 		<%= render 'layouts/footer' %>
 	</div><!-- end:.main-content-->			

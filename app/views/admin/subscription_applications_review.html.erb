@@ -28,6 +28,9 @@
 
 				<p>This is the application of: <%= link_to @subscription_application.user.fullname, @subscription_application.user, class:"no_ajaxify", target:"_blank"%>.</p>
 
+				<h2>To subscribers</h2>
+
+					<p><%= @subscription_application.why %></p>
 				
 				<h2>Goals</h2>
 
@@ -37,6 +40,9 @@
 						<p>Project Goal: <%= @subscription_application.goals_project %></p>
 					</div>	
 
+				<h2>Plan</h2>
+
+					<p><%= @subscription_application.plan %></p>
 
 				<h2>Project</h2>
 

@@ -20,7 +20,7 @@
 
 					<div id="edit-profile-photo" class="artwork-button fileinput-button">
 						<!-- fields for profilephoto -->
-						<%= s3_uploader_form callback_url: create_profilephoto_settings_path(current_user.id),
+						<%= s3_uploader_form callback_url: create_profilephoto_path(current_user.id),
   							id: "s3_uploader_icon",
 							callback_param: "profilephoto[direct_upload_url]",
 							expiration: 24.hours.from_now.utc.iso8601,
@@ -55,7 +55,7 @@
 				<%= link_to new_project_path(@user), class:"no_ajaxify" do %><ol class="btn-sidebar-profile-active btn-sidebar-profile-project" id="sidebar-profile-create-project">Work Collection</ol><% end %>
 				<%= link_to new_discussion_path(@user), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-profile-create-discussion">Discussion</ol><%end%>
 			</div>
-			<%= link_to "CREATE", new_project_path(@user), method: :post,class: "btn btn-medium btn-medium-blue no_ajaxify", id:"sidebar-profile-create-button-main"%>
+			<%= link_to "CREATE", new_project_path(@user), method: :post,class: "btn btn-medium btn-medium-white no_ajaxify", id:"sidebar-profile-create-button-main"%>
 		</div>		
 	<% else %>		
 		<% if @user.subscribed_by?(current_user)%>
@@ -98,9 +98,7 @@
 							<% end %>
 						<% else %>
 							<!-- Subscribe Button -->
-							<% if @user.subscription_status_initial == "Approved"%>
-								<%= render 'users/subscribe_button'%>	
-							<% end %>									
+							<%= render 'users/subscribe_button'%>										
 						<% end %>
 					<% end %>
 			<% end %><!-- end.current_user.subscribed_by?-->
@@ -109,9 +107,7 @@
 				
 <% else %>
 	<!-- Subscribe Button -->
-	<% if @user.subscription_status_initial == "Approved"%>
-		<%= render 'users/subscribe_button'%>
-	<% end %>
+	<%= render 'users/subscribe_button'%>
 <% end %><!-- end.if user_signed_in?-->	
 	<!-- Subscribed -->
 	<%= link_to subscribers_path(@user), class:"subscription no_ajaxify" do %>

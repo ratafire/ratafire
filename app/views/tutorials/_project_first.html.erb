@@ -1,7 +1,7 @@
 		
 	<!-- Step 1 Teach the user to edit project title -->
 <% if @project.creator.tutorial.project_tutorial == nil then %>	
-	<div class="dialog2" id="project-tutorial-step1" style="display:none;">
+	<div class="dialog2" id="project-tutorial-step1">
 		<%= link_to project_tutorial_step1_path(@project.creator.tutorial.id), id:"project-tutorial-step1-link", class:"no_ajaxify", remote: true do %>Click to change the title of your work collection.<% end %>
 	</div>
 <% end %>

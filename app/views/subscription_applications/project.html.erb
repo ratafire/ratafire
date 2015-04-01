@@ -26,23 +26,24 @@
 			<div class="post-about-bg">
 				<div class="textbox-mini">
 					<div class="post-about-title">
-						<li style="font-size: 1.4em;">Current Work Collection</li>
+						<li style="font-size: 1.4em;">An On Going Project</li>
 					</div>
 				</div>
 			</div>
 
 			<div class="textbox-mini">
 				<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
-					<%= f.hidden_field :step, :value => 4, id:"step_id" %>
+					<%= f.hidden_field :step, :value => 3, id:"step_id" %>
 					
 						<div class="user-why-passage">
 							<!-- With a Project -->
 							<% if @project then %>
 								<%= f.hidden_field :project_id, :value => @project.id %>
-								<ol style="margin-bottom: 10px;margin-top:20px;"><%=  render "projects/project_one_application"%></ol>
-								<h4>Work Collection Collectible</h4>
-								<ol style="margin:-10px 20px 10px 0;">Enter a collectible for subscribers who paid $10/m or more to you since this work collection. </ol>
-								<%= f.text_area :collectible, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters)." %>
+								<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one on going project to setup subscription. This is your project:</ol>
+								<%=  render "projects/project_one_application"%>
+								<h4>Collectible</h4>
+								<ol style="margin:20px 20px 10px 0;">Instead of rewards, you can provide your subscribers project collectibles as "rewards". The collectible you enter here is the collectible you provide to subscribers who subscribe to you since this project. When the project is completed, you should send out this collectible you promised to your subscribers. <p>We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters).</p></ol>
+								<%= f.text_area :collectible, class: "subscription-plan-input noResize", style:"width:91%;" %>
 							<% else %>	
 							<!-- Without a Project -->
 								<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one on going project to setup subscription.</ol>

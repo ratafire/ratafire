@@ -4,7 +4,7 @@
 
 <!-- Page Background -->
 <!DOCTYPE html>
-<html style="background: url(/assets/backgrounds/starmap.jpg) no-repeat center center fixed; 
+<html style="background: url(/assets/background1.jpg) no-repeat center center fixed; 
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
@@ -32,7 +32,7 @@ background-size: cover;"><!-- Signup Page Background -->
 				<%= f.text_field :email, class: "inputbox signupbox", placeholder: "Email" %>
 			</ol>
 			<ul>
-				<%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name),class:"no_ajaxify" %>
+				<%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %>
 			</ul>	
 
 			<ol style="margin-top: 40px; padding-left: 124px;">

@@ -300,10 +300,10 @@ Devise.setup do |config|
   require "omniauth-facebook"
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
   if Rails.env.production?
-    config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'],{:scope => 'email, offline_access'}
+    config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'],{:scope => 'email, offline_access, user_birthday'}
     #On Engine Yard Cloud servers, the CA file is located at /etc/ssl/certs/ca-certificates.crt
   else
-    config.omniauth :facebook, ENV['FACEBOOK_KEY_TEST'], ENV['FACEBOOK_SECRET_TEST'],{:scope => 'email, offline_access'}
+    config.omniauth :facebook, ENV['FACEBOOK_KEY_TEST'], ENV['FACEBOOK_SECRET_TEST'],{:scope => 'email, offline_access, user_birthday'}
   end
 
   #Twitter
