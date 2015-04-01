@@ -14,4 +14,5 @@ class DeviseInvitable::RegistrationsController < Devise::RegistrationsController
     end
     self.resource ||= super
   end
+  
 end

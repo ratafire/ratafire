@@ -1,37 +1,43 @@
-	<div style="margin-top: 10px;" id="give-portable">
-		<div class="btn-sidebar-profile-create" id="give-portable-slide-down">
-			<ol class="btn-sidebar-give-active btn-sidebar-profile-project" id="give-9-button">To Subscribe</ol>
-			<%= link_to subscribe_path(@user,"false"), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="give-2-button">Other Amount</ol><%end%>
-		</div>	
-		<%= link_to "Give $9/m", subscribe_path(@user,"true"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"give-9-original"%>	
-	</div>	
+    <div style="margin-top: 10px;" id="give-portable">
+        <div class="btn-sidebar-profile-create" id="give-portable-slide-down">
+            <ol class="btn-sidebar-give-active btn-sidebar-profile-project" id="give-9-button">To Subscribe</ol>
+            <% if current_user != nil && current_user.facebook != nil then %>
+                <%= link_to subscribe_path(@user,"false"), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="give-2-button">Other Amounts</ol><%end%>
+                </div>  
+                <%= link_to "Give $10/m", subscribe_path(@user,"true"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"give-9-original"%>                 
+            <% else %>    
+                <%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "false"), class:"no_ajaxify" do %><ol class="btn-sidebar-profile-discussion" id="give-2-button">Other Amounts</ol><% end %>
+                </div>  
+                <%= link_to "Give $10/m", user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"give-9-original"%>  
+            <% end %> 
+    </div>  
 
-	<script>
-  	//Sidebar Profile Give Button
-      $("#give-portable").hover(
-          function () {
-            $('#give-portable-slide-down').slideDown('medium');
-          }, 
-          function () {
-            $('#give-portable-slide-down').slideUp('medium');          
-          }
-      );
-      $("#give-9-button").hover(
-          function (){
-            $("#give-9-button").addClass("btn-sidebar-give-active");
-            $("#give-2-button").removeClass("btn-sidebar-give-active");
-          }      
-        );
-      $("#give-2-button").hover(
-          function (){
-            $("#give-2-button").addClass("btn-sidebar-give-active");
-            $("#give-9-button").removeClass("btn-sidebar-give-active");
-          }      
-        );
-      $("#give-9-button").click(function (){
+    <script>
+    //Sidebar Profile Give Button
+    $("#give-portable").hover(
+      function () {
+        $('#give-portable-slide-down').slideDown('medium');
+    }, 
+    function () {
+        $('#give-portable-slide-down').slideUp('medium');          
+    }
+    );
+    $("#give-9-button").hover(
+      function (){
+        $("#give-9-button").addClass("btn-sidebar-give-active");
+        $("#give-2-button").removeClass("btn-sidebar-give-active");
+    }      
+    );
+    $("#give-2-button").hover(
+      function (){
+        $("#give-2-button").addClass("btn-sidebar-give-active");
+        $("#give-9-button").removeClass("btn-sidebar-give-active");
+    }      
+    );
+    $("#give-9-button").click(function (){
         $("#give-9-original")[0].click();
-      });
-      $("#sidebar-give-9-button").click(function(){
+    });
+    $("#sidebar-give-9-button").click(function(){
         $("#sidebar-give-9")[0].click();
-      });	
-	</script>
+    });   
+    </script>

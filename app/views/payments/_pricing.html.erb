@@ -23,7 +23,7 @@
 				</div>	
 				<!-- Creator Price-->
 				<div class='creator-price-holder'>
-					<span>↳ Receives at least <span class="price-size" id="jquery-creator-receive">$8.19/m</span></span>
+					<span>↳ Receives at least <span class="price-size" id="jquery-creator-receive">$9.16/m</span></span>
 				</div>	
 				<!-- Amazon Payments-->
 				<div class='creator-price-holder'>
@@ -40,7 +40,7 @@
 						<span>+</span>
 					</div>	
 					<div class='creator-price-holder'>
-						<span class="price-size" id="jquery-total">Total $9.00/m</span>
+						<span class="price-size" id="jquery-total">Total $10.00/m</span>
 					</div>	
 				</div><!-- end:.price-line-holder-->		
 		</div><!-- end:.price-box-->	
@@ -49,11 +49,10 @@
 	<div class="price-is-like-box">
 		<span id="priceof">This amount is roughly the price of</span>
 		<div class="price-is-like-item" id="jquery-like">A Lava Cake</div>
-		<div class="price-is-like-item" style="display:none;"id="supporter-number"><%= @current_user.supporter_slot.to_s %> <span id="user-support">Users</span></div>
+		<div class="price-is-like-item" style="display:none;"id="supporter-number"><span id="user-support">Supporter</span></div>
 		<!-- Supporter -->
 		<div class="supporter-difference" id="difference">
 			<ul><%= link_to "What are the differences between subscribers and supporters?", "#{request.scheme}://#{request.host}/faq#faq-2347915", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
-			<ul><%= link_to "How do I get more supporter slots?", "#{request.scheme}://#{request.host}/faq#faq-2348935", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
 		</div>
 		<!-- Subscribers -->
 		<div class="supporter-difference" id="subscriber-features" style="display:block;">
@@ -72,16 +71,13 @@
 		<div class="btn btn-medium2 btn-medium-blue no_ajaxify" id="next_step_checkout">
 			Next Step
 		</div>	
-		<div class="btn btn-medium2 btn-medium-white no_ajaxify" style="display:none;cursor:auto;"id="next_step_no">
-			Next Step
-		</div>	
 	</div>	
 </div><!-- end#payments-case-->
 <!-- Payments Amazon Case-->
 <div id="payments-amazon-case">
 	<div class="checkout-holder">
-		<h2>Checkout your Subscription</h2>
-		<ol><span id="checkout">Subscribe to </span><%= @user.fullname %> with the monthly amount of <span class="price-size" id="jquery-total-value">$9.00</span> <span id="edit">Edit</span></ol>
+		<h2 style="color:#999;">Checkout your Subscription</h2>
+		<ol><span id="checkout">Subscribe to </span><%= @user.fullname %> with the monthly amount of <span class="price-size" id="jquery-total-value">$10.00</span> <span id="edit">Edit</span></ol>
 		<h2 style="color:#999;">You will be subscribed to <%= @user.fullname %> since</h2>
 		<%=  render "projects/project_one_exp"%>
 		<div id="collectible-holder">
@@ -91,15 +87,14 @@
 	</div>
 	<!-- Next Step Button-->
 	<% if current_user.cards.first == nil then %>
-		<%= render 'subscriptions/add_card_subscribe'%>
+		<% if current_user.billing_agreement == nil then %>
+			<%= render 'subscriptions/add_card_subscribe'%>
+		<% else %>
+			<%= render 'subscriptions/with_paypal_subscribe'%>
+		<% end %>
 	<% else %>
 		<%= render 'subscriptions/with_card_subscribe'%>
 	<% end %>
 </div><!-- end#payments-amazon-case-->	
 <!-- Payments Form-->
-<%= render 'payments/amount_form'%>
-<% if @current_user.supporter_slot >= 1 %>
-	<%= render 'payments/pricing_js'%>
-<% else %>
-	<%= render 'payments/pricing_js_nosupport'%>
-<% end %>
+<%= render 'payments/pricing_js'%>

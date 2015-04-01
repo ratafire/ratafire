@@ -8,6 +8,7 @@ class BillingAgreement < ActiveRecord::Base
 	def self.prefill!(options = {})
   		@billing_agreement = BillingAgreement.new
   		@billing_agreement.user_id = options[:user_id]
+  		@billing_agreement.billing_agreement_id = options[:billing_agreement_id]
   		@billing_agreement.save
   		@billing_agreement
 	end

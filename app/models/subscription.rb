@@ -1,5 +1,5 @@
 class Subscription < ActiveRecord::Base
-  attr_accessible :amount, :subscriber_id, :subscribed_id, :created_at, :supporter
+  attr_accessible :amount, :subscriber_id, :subscribed_id, :created_at, :supporter, :method
 
   default_scope order: 'subscriptions.created_at DESC'
 

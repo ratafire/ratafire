@@ -1,0 +1,17 @@
+<div class="lightbox2 post-content-c" style="margin-top:0px;">
+
+		<div class="project-to-subscribers-holder" style="padding-top:20px;">
+			<table class="display">
+				<thead>
+					<tr>
+						<th width="180">PayPal</th>
+						<th width="370"><%= @user.billing_agreement.billing_agreement_id %></th>
+						<th><%= link_to remove_billing_agreement_path(@user.billing_agreement.id), class:"no_ajaxify" do %><div class="btn btn-small btn-small-green">Delete</div><% end %></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		
+</div>	

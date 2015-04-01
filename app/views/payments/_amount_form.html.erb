@@ -4,4 +4,5 @@
 	<%= f.hidden_field :subscriber_id, :value => @current_user.id %>
 	<%= f.hidden_field :subscribed_id, :value => @user.id %>
 	<%= f.hidden_field :amount, id:"submit-amount" %><!-- working-->
+	<%= f.hidden_field :method, id:"payment_method", :value => "Card" %>
 <% end %>

@@ -8,6 +8,7 @@ ruby "1.9.3" #Ruby 2.0 will cause S3 connection timeout, omg
 gem 'devise', '3.2.4' #important
 gem 'devise_invitable', '1.3.4' #not in use, rails cannot start because of from /data/ratafire/releases/20140326193429/app/controllers/invitations_controller.rb:1
 
+
 #Social Media
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -15,6 +16,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'omniauth-deviantart'
 gem 'omniauth-vimeo', :git => "git://github.com/lomography/omniauth-vimeo"
+gem 'open_uri_redirections' #To get Facebook image
 
 #------------Background Processes------------
 #redis 
@@ -125,6 +127,8 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 #Paypal
 gem 'paypal-sdk-rest'
+gem 'paypal-sdk-merchant'
+gem 'paypal-express'
 
 #------------Rails Utilities------------
 gem 'rake', '10.2.2'

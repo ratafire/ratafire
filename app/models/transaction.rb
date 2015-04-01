@@ -13,7 +13,11 @@ class Transaction < ActiveRecord::Base
 		@transaction.subscribed_id = options[:subscribed_id]
 		@transaction.subscription_id = options[:subscription_id]
 		@transaction.stripe_id = response.id
-		@transaction.status = response.status
+		if response.status == "succeeded" then
+			@transaction.status = "Success"
+		else
+			@transaction.status = response.status
+		end
 		@transaction.captured = response.captured
 		@transaction.paid = response.paid
 		@transaction.customer_stripe_id = response.source.customer 
@@ -21,6 +25,27 @@ class Transaction < ActiveRecord::Base
 		@transaction.card_stripe_id = response.source.id
 		@transaction.save
 		@transaction
+	end
+
+	#This is the prefill for paypal transaction
+	def self.paypal!(response,options = {})
+		@transaction = Transaction.new
+		@transaction.total = response.amount
+		@transaction.supporter_switch = options[:supporter_switch]
+		@transaction.subscriber_id = options[:subscriber_id]
+		@transaction.subscribed_id = options[:subscribed_id]
+		@transaction.subscription_id = options[:subscription_id]		
+		@transaction.status = response.ack
+		@transaction.paypal_correlation_id = response.correlation_id
+		@subscriber = User.find(options[:subscriber_id])
+		if @subscriber != nil then
+			@transaction.billing_agreement_id = @subscriber.billing_agreement.billing_agreement_id
+			@transaction.paypal_transaction_id = response.transaction_id
+			@transaction.save
+			@transaction	
+		else
+			#failure
+		end	
 	end
 	
 	#After authenicating with Amazon, we get the rest of the details
