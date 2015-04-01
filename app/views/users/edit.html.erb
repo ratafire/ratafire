@@ -177,7 +177,7 @@
 
       								<div class="input-placer socialmedia-placer">
       									<% if @user.facebook == nil %>
-      									<ul><%= link_to "Connect your account to Facebook",user_omniauth_authorize_path(:facebook, :origin => "https://www.ratafire.com/#{@user.username}/r/settings/profile"),class:"no_ajaxify" %></ul>
+      									<ul><%= link_to "Connect your account to Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %></ul>
       									<% else %>
       									<ul><%= link_to "Disconnect your account from Facebook",disconnect_path(@user,:facebook),class:"no_ajaxify",style:"color:#999;" %></ul>
       									<% end %>
