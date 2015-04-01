@@ -2,9 +2,9 @@ class SubscriptionApplicationsController < ApplicationController
 
 	before_filter :correct_user
 
-	def goals
+	def setup
 		@user = User.find(params[:id])
-		@subscription_progression = 20
+		@subscription_progression = 14
 		unless @user.subscription_application.any? then
 			@subscription_application = SubscriptionApplication.new
 			@subscription_application.user_id = @user.id
@@ -21,23 +21,29 @@ class SubscriptionApplicationsController < ApplicationController
 		#Redirect
 		if @subscription_application.step != nil then 
 			if @subscription_application.step == 1 then #To Goals
-				#redirect_to goals_subscription_path(@user,@subscription_application)
+				redirect_to goals_subscription_path(@user,@subscription_application)
 			else
 				if @subscription_application.step == 2 then #To Project
 					redirect_to project_subscription_path(@user, @subscription_application)
 				else
-					if @subscription_application.step == 4 then #To Payments
-						redirect_to payments_subscription_path(@user, @subscription_application)
+					if @subscription_application.step == 3 then #To Discussion
+						redirect_to discussion_subscription_path(@user, @subscription_application)
 					else
-						if @subscription_application.step == 5 then #To Identification
-							redirect_to identification_subscription_path(@user, @subscription_application)
+						if @subscription_application.step == 4 then #To Payments
+							redirect_to payments_subscription_path(@user, @subscription_application)
 						else
-							if @subscription_application.step == 6 then #To Apply
-								redirect_to apply_subscription_path(@user, @subscription_application)
-							else 
-								if @subscription_application.step == 7 then #To Review
-									redirect_to pending_subscription_path(@user, @subscription_application)
-								end	
+							if @subscription_application.step == 5 then #To Identification
+								redirect_to identification_subscription_path(@user, @subscription_application)
+							else
+								if @subscription_application.step == 6 then #To Apply
+									redirect_to apply_subscription_path(@user, @subscription_application)
+								else 
+									if @subscription_application.step == 7 then #To Review
+										redirect_to pending_subscription_path(@user, @subscription_application)
+									else
+										
+									end
+								end
 							end
 						end
 					end
@@ -53,18 +59,30 @@ class SubscriptionApplicationsController < ApplicationController
 		application_redirect		
 	end
 
-	def project
+	def goals
 		@user = User.find(params[:id])
-		@subscription_progression = 40		
+		@subscription_progression = 28
 		@subscription_application = @user.subscription_application[0]
-		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+		if @user.plan != nil then
+			@subscription_application.plan = @user.plan
+			@subscription_application.save
+		end
+		if @subscription_application.why == nil then
+			flash[:success] = "Please fill out 'To Subscribers'."
+			@subscription_application.step = nil
+			@subscription_application.save
+			redirect_to setup_subscription_path(@user.id)
+		end
 		#Redirect
-			if @subscription_application.step != 2 then 
-				if @subscription_application.step == 1 then #To Goals
-					redirect_to goals_subscription_path(@user,@subscription_application)
+		if @subscription_application.step != 1 then 
+			if @subscription_application.step == 1 then #To Goals
+				#redirect_to goals_subscription_path(@user,@subscription_application)
+			else
+				if @subscription_application.step == 2 then #To Project
+					redirect_to project_subscription_path(@user, @subscription_application)
 				else
-					if @subscription_application.step == 2 then #To Project
-						#redirect_to project_subscription_path(@user, @subscription_application)
+					if @subscription_application.step == 3 then #To Discussion
+						redirect_to discussion_subscription_path(@user, @subscription_application)
 					else
 						if @subscription_application.step == 4 then #To Payments
 							redirect_to payments_subscription_path(@user, @subscription_application)
@@ -77,33 +95,124 @@ class SubscriptionApplicationsController < ApplicationController
 								else 
 									if @subscription_application.step == 7 then #To Review
 										redirect_to pending_subscription_path(@user, @subscription_application)
-									else	
+									else
+										
 									end
 								end
 							end
 						end
 					end
 				end
-			end				
+			end
+		end
 	end
 
-	def payments
+	def project
 		@user = User.find(params[:id])
-		@subscription_progression = 60
+		@subscription_progression = 42		
 		@subscription_application = @user.subscription_application[0]
+		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+		#Redirect
+		if @subscription_application.plan == nil || @subscription_application.plan == "" then
+			flash[:success] = "Please write an intended update frequency or plan."
+			@subscription_application.step = 1
+			@subscription_application.save
+			redirect_to setup_subscription_path(@user.id)
+		else
+			if @subscription_application.step != 2 then 
+				if @subscription_application.step == 1 then #To Goals
+					redirect_to goals_subscription_path(@user,@subscription_application)
+				else
+					if @subscription_application.step == 2 then #To Project
+						#redirect_to project_subscription_path(@user, @subscription_application)
+					else
+						if @subscription_application.step == 3 then #To Discussion
+							redirect_to discussion_subscription_path(@user, @subscription_application)
+						else
+							if @subscription_application.step == 4 then #To Payments
+								redirect_to payments_subscription_path(@user, @subscription_application)
+							else
+								if @subscription_application.step == 5 then #To Identification
+									redirect_to identification_subscription_path(@user, @subscription_application)
+								else
+									if @subscription_application.step == 6 then #To Apply
+										redirect_to apply_subscription_path(@user, @subscription_application)
+									else 
+										if @subscription_application.step == 7 then #To Review
+											redirect_to pending_subscription_path(@user, @subscription_application)
+										else
+										
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end			
+		end		
+	end
+
+	def discussion
+		@user = User.find(params[:id])
+		@subscription_progression = 56
+		@subscription_application = @user.subscription_application[0]
+		@discussion = @user.discussions.where(:published => true, :review_status => "Approved", :deleted => false).first
 		#Redirect
 		if @subscription_application.collectible == nil || @subscription_application.collectible == "" then
 			flash[:success] = "Please provide a collectible."
 			@subscription_application.step = 2
 			@subscription_application.save
-			redirect_to project_subscription_path(@user.id)
+			redirect_to setup_subscription_path(@user.id)
 		else
-			if @subscription_application.step != 4 then 
+			if @subscription_application.step != 3 then 
 				if @subscription_application.step == 1 then #To Goals
 					redirect_to goals_subscription_path(@user,@subscription_application)
 				else
 					if @subscription_application.step == 2 then #To Project
 						redirect_to project_subscription_path(@user, @subscription_application)
+					else
+						if @subscription_application.step == 3 then #To Discussion
+							#redirect_to discussion_subscription_path(@user, @subscription_application)
+						else
+							if @subscription_application.step == 4 then #To Payments
+								redirect_to payments_subscription_path(@user, @subscription_application)
+							else
+								if @subscription_application.step == 5 then #To Identification
+									redirect_to identification_subscription_path(@user, @subscription_application)
+								else
+									if @subscription_application.step == 6 then #To Apply
+										redirect_to apply_subscription_path(@user, @subscription_application)
+									else 
+										if @subscription_application.step == 7 then #To Review
+											redirect_to pending_subscription_path(@user, @subscription_application)
+										else
+										
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+
+	def payments
+		@user = User.find(params[:id])
+		@subscription_progression = 70
+		@subscription_application = @user.subscription_application[0]
+		#Redirect
+		if @subscription_application.step != 4 then 
+			if @subscription_application.step == 1 then #To Goals
+				redirect_to goals_subscription_path(@user,@subscription_application)
+			else
+				if @subscription_application.step == 2 then #To Project
+					redirect_to project_subscription_path(@user, @subscription_application)
+				else
+					if @subscription_application.step == 3 then #To Discussion
+						redirect_to discussion_subscription_path(@user, @subscription_application)
 					else
 						if @subscription_application.step == 4 then #To Payments
 							#redirect_to payments_subscription_path(@user, @subscription_application)
@@ -116,7 +225,8 @@ class SubscriptionApplicationsController < ApplicationController
 								else 
 									if @subscription_application.step == 7 then #To Review
 										redirect_to pending_subscription_path(@user, @subscription_application)
-									else	
+									else
+										
 									end
 								end
 							end
@@ -124,12 +234,12 @@ class SubscriptionApplicationsController < ApplicationController
 					end
 				end
 			end
-		end	
+		end
 	end
 
 	def identification
 		@user = User.find(params[:id])
-		@subscription_progression = 80
+		@subscription_progression = 84
 		@subscription_application = @user.subscription_application[0]		
 		#Redirect
 		if @subscription_application.step != 5 then 
@@ -139,18 +249,23 @@ class SubscriptionApplicationsController < ApplicationController
 				if @subscription_application.step == 2 then #To Project
 					redirect_to project_subscription_path(@user, @subscription_application)
 				else
-					if @subscription_application.step == 4 then #To Payments
-						redirect_to payments_subscription_path(@user, @subscription_application)
+					if @subscription_application.step == 3 then #To Discussion
+						redirect_to discussion_subscription_path(@user, @subscription_application)
 					else
-						if @subscription_application.step == 5 then #To Identification
-							#redirect_to identification_subscription_path(@user, @subscription_application)
+						if @subscription_application.step == 4 then #To Payments
+							redirect_to payments_subscription_path(@user, @subscription_application)
 						else
-							if @subscription_application.step == 6 then #To Apply
-								redirect_to apply_subscription_path(@user, @subscription_application)
-							else 
-								if @subscription_application.step == 7 then #To Review
-									redirect_to pending_subscription_path(@user, @subscription_application)
-								else
+							if @subscription_application.step == 5 then #To Identification
+								#redirect_to identification_subscription_path(@user, @subscription_application)
+							else
+								if @subscription_application.step == 6 then #To Apply
+									redirect_to apply_subscription_path(@user, @subscription_application)
+								else 
+									if @subscription_application.step == 7 then #To Review
+										redirect_to pending_subscription_path(@user, @subscription_application)
+									else
+										
+									end
 								end
 							end
 						end
@@ -200,6 +315,9 @@ class SubscriptionApplicationsController < ApplicationController
 		end
 	end
 
+	def pending
+		@subscription_progression = 100
+	end
 
 private
 
@@ -214,22 +332,28 @@ private
 
 	def application_redirect
 		if @subscription_application.step == 1 then #To Goals
-			redirect_to goals_subscription_path(@user.id)
+			redirect_to goals_subscription_path(@user,@subscription_application)
 		else
 			if @subscription_application.step == 2 then #To Project
 				redirect_to project_subscription_path(@user, @subscription_application)
 			else
-				if @subscription_application.step == 4 then #To Payments
-					redirect_to payments_subscription_path(@user, @subscription_application)
+				if @subscription_application.step == 3 then #To Discussion
+					redirect_to discussion_subscription_path(@user, @subscription_application)
 				else
-					if @subscription_application.step == 5 then #To Identification
-						redirect_to identification_subscription_path(@user, @subscription_application)
+					if @subscription_application.step == 4 then #To Payments
+						redirect_to payments_subscription_path(@user, @subscription_application)
 					else
-						if @subscription_application.step == 6 then #To Apply
-							redirect_to apply_subscription_path(@user, @subscription_application)
-						else 
-							if @subscription_application.step == 7 then #To Review
-								redirect_to pending_subscription_path(@user, @subscription_application)
+						if @subscription_application.step == 5 then #To Identification
+							redirect_to identification_subscription_path(@user, @subscription_application)
+						else
+							if @subscription_application.step == 6 then #To Apply
+								redirect_to apply_subscription_path(@user, @subscription_application)
+							else 
+								if @subscription_application.step == 7 then #To Review
+									redirect_to pending_subscription_path(@user, @subscription_application)
+								else
+									redirect_to setup_subscription_path(@user) #To To Subscribers
+								end
 							end
 						end
 					end

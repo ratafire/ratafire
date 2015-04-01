@@ -1,6 +1,6 @@
 <% if Rails.env.production? %>
 	<%= form_tag add_a_card_path(@user.id), class:"no_ajaxify",id:"addcardForm" do %>
-	<span id="customButton" class="btn btn-medium3 btn-medium-blue">Add a Card</span> 
+	<div id="customButton" class="btn btn-medium2 btn-medium-blue">Add a Card</div>
 
 	<script>
 		var handler = StripeCheckout.configure({

@@ -3,7 +3,7 @@ class UpdatesController < ApplicationController
 	require 'will_paginate/array'
 
 	before_filter :check_for_mobile
-  	before_filter :user_sign_up_complete 
+
 	before_filter :signed_in_user, 
 				only: [:subscribing_update, :followed_tags, :liked, :watched]
 
@@ -200,14 +200,5 @@ private
       unless signed_in?
         redirect_to new_user_session_path, notice:"Please sign in." unless signed_in?
       end
-    end   
-
-  def user_sign_up_complete
-  	if user_signed_in? then
-    	if current_user.need_username == true then
-     	 	@subscription_first = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id).first
-      		redirect_to subscription_thank_you_path(@subscription_first.id)
-    	end
-    end
-  end    
+    end    
 end

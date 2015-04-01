@@ -7,14 +7,14 @@
 
 		<% if project_edit_everyone(@project) %>
 			<div style="margin-top: -27px;">
-			<%= link_to "New Post", new_majorpost_path(@project.creator,@project), method: :post, class: "btn btn-medium btn-medium-blue btn-new-post no_ajaxify"%>
+			<%= link_to "COMPOSE", new_majorpost_path(@project.creator,@project), method: :post, class: "btn btn-medium btn-medium-white btn-new-post no_ajaxify"%>
 			</div>	
 			<div style="margin-top: 18px;"></div>
 		<% else %>
 			<div style="margin-top: -27px;"></div>
 		<% end %>
 
-		<ol class="sidebar-project-about sidebar-project-active"><%= link_to "Description", user_project_path(@project.creator,@project), class:"no_ajaxify" %></ol>
+		<ol class="sidebar-project-about sidebar-project-active"><%= link_to "About", user_project_path(@project.creator,@project), class:"no_ajaxify" %></ol>
 
 		<% if @project.users.count == 1 %>
 
@@ -39,8 +39,8 @@
 			<% end %>
 
 			<% if project_header_edit(@project) %>
-				<ol><%= link_to 'Edit Description',edit_user_project_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
-				<ol><%= link_to 'Settings',project_settings_path(@project.creator,@project), class:"no_ajaxify"  %></ol>	
+				<ol><%= link_to 'Settings',project_settings_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+				<ol><%= link_to 'Edit Project',edit_user_project_path(@project.creator,@project), class:"no_ajaxify"  %></ol>	
 			<% end %>
 
 	</ul>

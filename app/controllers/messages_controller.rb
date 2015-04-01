@@ -2,7 +2,6 @@ class MessagesController < ApplicationController
 
 	layout 'application'
 	before_filter :correct_user
-    before_filter :user_sign_up_complete     
 
 	def inbox
 		@user = User.find(params[:id])
@@ -173,12 +172,5 @@ private
             return @conversation.participants[0]
         end
     end
-
-    def user_sign_up_complete
-        if current_user.need_username == true then
-            @subscription_first = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id).first
-            redirect_to subscription_thank_you_path(@subscription_first.id)
-        end
-    end         
 
 end
