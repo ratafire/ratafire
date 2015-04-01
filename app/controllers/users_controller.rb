@@ -12,6 +12,7 @@ protect_from_forgery :except => [:create_profilephoto, :update]
   before_filter :correct_user,   only: [:edit, :settings, :goals, :photo]
   before_filter :admin_user,     only: :destroy
   before_filter :check_for_mobile
+  before_filter :user_sign_up_complete, except: [:update] 		  
 
   def no_sign_up
 	flash[:info] = 'Registrations are not open yet, try sign up for beta instead.'
@@ -71,9 +72,9 @@ protect_from_forgery :except => [:create_profilephoto, :update]
 	if @user.encrypted_password == nil then
 		respond_to do |format|
 			if @user.update_attributes(params[:user])
-				@user.tutorial.intro = false
+				@user.tutorial.intro = nil
 				@user.tutorial.save
-				format.html { redirect_to intro_tutorial_path(@user) }
+				format.html { redirect_to user_path(@user.id) }
 				sign_in(:user, @user)
 				Devise::Mailer.confirmation_instructions(@user).deliver
 				flash[:success] = "You have discovered Ratafire!"
@@ -328,18 +329,16 @@ protect_from_forgery :except => [:create_profilephoto, :update]
 		@subscription = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id, :subscribed_id => @user.id).first
 	end
 	#Add User tutorial if there is no user tutorial
-	if @user.tutorial == nil && @user.sign_in_count == 1 then
-		@tutorial = Tutorial.new
-		@tutorial.user_id = @user.id 
-		@tutorial.save
-	else
-		if @user.tutorial == nil && @user.sign_in_count != 1 then
-			@tutorial = Tutorial.new
-			@tutorial.user_id = @user.id 
-			@tutorial.profile_tutorial = 4
-			@tutorial.save          
-		end
-	end
 	@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
   end
+
+  def user_sign_up_complete
+  	if user_signed_in? then
+    	if current_user.need_username == true then
+     	 	@subscription_first = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id).first
+      		redirect_to subscription_thank_you_path(@subscription_first.id)
+    	end
+    end
+  end
+
 end

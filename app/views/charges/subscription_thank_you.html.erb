@@ -35,7 +35,7 @@
 							<%= render :partial => "users/social_media_partial", :locals => {:user => @subscribed} %>
 						</div>	 
 				
-				<% if @subscriber.encrypted_password == nil then %>
+				<% if @subscriber.need_username == true then %>
 					<h2 style="color:#999;margin-top:60px;">Please complete your account info in order to manage your subscription</h2>
 					<%= form_for(@subscriber, :validate => true, :html => { :class => 'no_ajaxify'}) do |f| %>
 						<%= f.hidden_field :uuid %>

@@ -74,18 +74,12 @@ class ChargesController < ApplicationController
 				:account_number => params[:account_number]
 			}
 		)		
-		#Save the recipient object
-		if recipient.verified == true then
-			@recipient = Recipient.prefill!(recipient,params[:id], params[:account_number], params[:ssn])	
-			#Push the application to next step
-			@subscription_application = SubscriptionApplication.find(params[:application_id])
-			@subscription_application.step = 7
-			@subscription_application.save
-			redirect_to pending_subscription_path(params[:id], params[:application_id])
-		else
-			flash[:error] = "Invalid Info"
-			redirect_to(:back)
-		end
+		@recipient = Recipient.prefill!(recipient,params[:id], params[:account_number], params[:ssn])	
+		#Push the application to next step
+		@subscription_application = SubscriptionApplication.find(params[:application_id])
+		@subscription_application.step = 7
+		@subscription_application.save
+		redirect_to pending_subscription_path(params[:id], params[:application_id])
 
 	rescue Stripe::InvalidRequestError => e
 			flash[:error] = e.message
