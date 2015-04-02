@@ -56,12 +56,6 @@ private
       "plain"
     when "mobile_sign_in"
       "plain"
-    when "mobile_about"
-    "plain"
-  when "about"
-    "plain"
-    when "faq"
-    "plain"
     else
       "application_clean"
     end
