@@ -404,12 +404,12 @@ private
     				if @days <= 30 then
     					@indays = 30-@days
     					flash[:success] = "Your previous subscription to "+@subscribed.fullname+" ended "+@days.to_s+" days ago. You may subscribe to "+ @subscribed.fullname+" again in "+@indays.to_s+" days."
-    					return true
+    					return false
+    					#return true if it is on. It is now disabled
    	 				end
     			end    	
-    		end
-    	#return false if enable 30 days. Now it is disabled		
-    	return true
+    		end	
+    	return false
     end	
 
     def subscription_status_initial?
