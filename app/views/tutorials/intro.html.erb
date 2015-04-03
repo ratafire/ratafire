@@ -2,7 +2,7 @@
 <!-- Sign In -->
 <div class="preloader white"><span class="loader"><span class="loader-inner"></span></span></div>
 	<div class="user-links">
-		<%= link_to 'Skip Tutorial',after_intro_tutorial_path(@user), class:"no_ajaxify" %>
+		<%= link_to 'Skip Tutorial',after_intro_tutorial_path(current_user), class:"no_ajaxify" %>
 	</div>		
 <div class="main">
   <section
@@ -482,7 +482,7 @@
 	<div class="section-content">
 	  <div class="container section-wrap">
 		<div class="text-center">
-		<%= link_to after_intro_tutorial_path(@user), class:"no_ajaxify", style:"border:0px;" do %>
+		<%= link_to after_intro_tutorial_path(current_user), class:"no_ajaxify", style:"border:0px;" do %>
 		  <div class="btn btn-default btn-download" data-appear-animation="zoomIn" data-appear-animation-delay="100">
 			<span class="clearfix font-selector color-grey">Start Using Ratafire</span>
 		  </div>

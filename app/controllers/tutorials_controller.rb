@@ -93,11 +93,12 @@ class TutorialsController < ApplicationController
 	end
 
 	def after_intro
-		@user = User.find(params[:id])
-		@tutorial = Tutorial.find_by_user_id(@user.id)
-		@tutorial.intro = 1
-		@tutorial.save
-		redirect_to(@user)
+		if user_signed_in? then
+			@tutorial = Tutorial.find_by_user_id(current_user.id)
+			@tutorial.intro = 1
+			@tutorial.save
+			redirect_to(current_user)
+		end
 	end
 
 	#After setting up subscription
