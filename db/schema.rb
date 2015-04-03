@@ -653,6 +653,13 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
 
   add_index "mailboxer_receipts", ["notification_id"], :name => "index_mailboxer_receipts_on_notification_id"
 
+  create_table "majorpost_suggestions", :force => true do |t|
+    t.string   "term"
+    t.integer  "popularity"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "majorposts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -931,10 +938,6 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
     t.string   "address_state"
     t.string   "address_country"
     t.string   "description"
-    t.string   "account_id"
-    t.string   "bank_name"
-    t.string   "fingerprint"
-    t.string   "account_status"
   end
 
   create_table "redactor_assets", :force => true do |t|
@@ -979,13 +982,13 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
     t.integer  "user_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.datetime "deadline"
     t.integer  "step"
     t.integer  "goals_subscribers"
     t.integer  "goals_monthly"
     t.integer  "goals_project"
     t.text     "collectible"
     t.integer  "project_id"
-    t.datetime "approved_at"
     t.datetime "completed_at"
     t.boolean  "completion"
     t.integer  "ssn"
@@ -1003,8 +1006,8 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
-    t.boolean  "accumulated",                                         :default => false
     t.decimal  "duration",             :precision => 32, :scale => 6
+    t.boolean  "accumulated",                                         :default => false
     t.boolean  "supporter_switch",                                    :default => false
     t.boolean  "past_support",                                        :default => false
     t.boolean  "duration_support",                                    :default => false
@@ -1115,9 +1118,6 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
     t.boolean  "next_transaction_status",                                :default => false
     t.integer  "counter",                                                :default => 0
     t.integer  "retry",                                                  :default => 0
-    t.decimal  "payment_fee",             :precision => 10, :scale => 2, :default => 0.0
-    t.integer  "billing_subscription_id"
-    t.integer  "billing_artist_id"
     t.string   "created"
     t.boolean  "livemode"
     t.boolean  "paid"
@@ -1135,6 +1135,9 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
     t.string   "klass"
     t.string   "stripe_id"
     t.string   "description"
+    t.decimal  "payment_fee",             :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "billing_subscription_id"
+    t.integer  "billing_artist_id"
     t.string   "method"
     t.string   "paypal_correlation_id"
     t.string   "billing_agreement_id"
@@ -1183,7 +1186,7 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "tagline",                                                   :default => "Sits down at the fire of Ratatoskr"
+    t.string   "tagline",                                                  :default => "Sits down at the fire of Ratatoskr"
     t.string   "fullname"
     t.string   "username"
     t.string   "email"
@@ -1206,9 +1209,9 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
     t.string   "profilephoto_content_type"
     t.integer  "profilephoto_file_size"
     t.datetime "profilephoto_updated_at"
-    t.integer  "goals_subscribers",                                         :default => 256
-    t.integer  "goals_monthly",                                             :default => 7730
-    t.integer  "goals_project",                                             :default => 5
+    t.integer  "goals_subscribers",                                        :default => 256
+    t.integer  "goals_monthly",                                            :default => 7730
+    t.integer  "goals_project",                                            :default => 5
     t.string   "encrypted_password"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -1224,15 +1227,15 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
     t.string   "unconfirmed_email"
     t.string   "provider"
     t.string   "uid"
-    t.decimal  "subscription_amount",         :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "subscription_amount",        :precision => 8, :scale => 2, :default => 0.0
     t.text     "why"
-    t.boolean  "subscription_status",                                       :default => false
+    t.boolean  "subscription_status",                                      :default => false
     t.text     "plan"
-    t.boolean  "subscription_switch",                                       :default => false
-    t.boolean  "amazon_authorized",                                         :default => false
+    t.boolean  "subscription_switch",                                      :default => false
+    t.boolean  "amazon_authorized",                                        :default => false
     t.string   "subscribed_permission"
     t.string   "subscriber_permission"
-    t.boolean  "disabled",                                                  :default => false
+    t.boolean  "disabled",                                                 :default => false
     t.datetime "deactivated_at"
     t.datetime "goals_updated_at"
     t.string   "invitation_token"
@@ -1242,22 +1245,19 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invitations_count",                                         :default => 0
-    t.decimal  "subscribing_amount",          :precision => 8, :scale => 2, :default => 0.0
-    t.integer  "supporter_slot",                                            :default => 5
-    t.boolean  "amount_display_switch",                                     :default => false
-    t.boolean  "accept_message",                                            :default => true
+    t.integer  "invitations_count",                                        :default => 0
+    t.decimal  "subscribing_amount",         :precision => 8, :scale => 2, :default => 0.0
+    t.integer  "supporter_slot",                                           :default => 5
+    t.boolean  "amount_display_switch",                                    :default => false
+    t.boolean  "accept_message",                                           :default => true
     t.string   "uuid"
     t.string   "location"
     t.string   "bio_html"
-    t.string   "direct_upload_url"
-    t.boolean  "processed",                                                 :default => false
-    t.string   "subscription_status_initial"
     t.string   "legalname"
     t.integer  "ssn"
-    t.boolean  "need_username",                                             :default => false
+    t.boolean  "need_username",                                            :default => false
     t.string   "after_subscription_url"
-    t.boolean  "signup_during_subscription",                                :default => false
+    t.boolean  "signup_during_subscription",                               :default => false
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
@@ -1290,7 +1290,6 @@ ActiveRecord::Schema.define(:version => 20150403165214) do
     t.text     "tags_temp"
     t.integer  "archive_id"
     t.string   "thumbnail"
-    t.string   "direct_upload_url",                               :null => false
     t.boolean  "processed",              :default => false,       :null => false
     t.integer  "user_id",                                         :null => false
     t.string   "output_url_mp4"

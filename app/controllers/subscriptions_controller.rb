@@ -413,7 +413,7 @@ private
 
     def subscription_status_initial?
     	#Check if the subscription is approved
-    	if 1 == 1 then
+    	if 1 == 2 then
     		flash[:success] = "We are updating our payment system. Please come back in a week!"
     		return true
     	end
