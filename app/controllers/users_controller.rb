@@ -76,7 +76,7 @@ protect_from_forgery :except => [:create_profilephoto, :update]
 				@user.tutorial.save
 				format.html { redirect_to user_path(@user.id) }
 				sign_in(:user, @user)
-				Devise::Mailer.confirmation_instructions(@user).deliver
+				@user.send_confirmation_instructions
 				flash[:success] = "You have discovered Ratafire!"
 			else
 				flash[:success] = "Please create account info!"

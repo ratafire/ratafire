@@ -5,8 +5,7 @@ class SubscriptionsController < ApplicationController
 	before_filter :not_subscribed,
 				  only: [:new,:amazon]
 	before_filter :subscription_permission,
-				  only: [:new, :create, :amazon]
-	before_filter :user_sign_up_complete	  
+				  only: [:new, :create, :amazon] 
 	before_filter :correct_user, only: [:settings, :transactions, :receiving_transactions,:transaction_details]
 
 
@@ -523,13 +522,5 @@ private
     end
   end	
 
-  def user_sign_up_complete
-  	if user_signed_in? then
-    	if current_user.need_username == true then
-     	 	@subscription_first = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id).first
-      		redirect_to subscription_thank_you_path(@subscription_first.id)
-    	end
-    end
-  end
 
 end
