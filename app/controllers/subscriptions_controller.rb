@@ -407,8 +407,9 @@ private
     					return true
    	 				end
     			end    	
-    		end	
-    	return false
+    		end
+    	#return false if enable 30 days. Now it is disabled		
+    	return true
     end	
 
     def subscription_status_initial?
