@@ -27,7 +27,7 @@ class SubscriptionMailer < ActionMailer::Base
   end
 
   #A Welcome Email for Subscribed - Subscription Only
-  def new_subscriber(transaction_id)
+  def new_subscriber(transaction_id,message_id)
     @transaction = Transaction.find_by_TransactionId(transaction_id)
     @subscription = Subscription.find_by_id(@transaction.subscription_id)
     @subscriber = User.find(@transaction.subscriber_id)
@@ -36,10 +36,11 @@ class SubscriptionMailer < ActionMailer::Base
     @subscriber_fullname = @subscriber.fullname
     @subscriber_username = @subscriber.username
     @receive_amount = @transaction.receive
+    @conversation_id = Mailboxer::Notification.find(message_id).conversation_id
     #@subscription_next_billing_date = @subscription.next_billing_date.strftime("%m/%d/%Y")
     @subscribed_username = @subscribed.username
     @transaction_uuid = @transaction.uuid
-    subject = "You have a New Subscriber: "+ @subscriber_fullname
+    subject = "You have a New Subscriber - "+ @subscriber_fullname
     mail to: @subscribed.email, subject: subject    
   end
 

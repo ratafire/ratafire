@@ -12,7 +12,7 @@
 			<div id="current-subscribers">
 
 					<!-- Pre established -->
-					<% if @subscription_application != nil && @user == current_user && @subscription_application.status == "Approved" && @subscription_application.completion == nil then %>
+					<% if @subscription_application != nil && @user == current_user then %>
 						<%= render 'find_subscribers/countdown' %>
 					<% end %>	
 					<!-- Main Content -->

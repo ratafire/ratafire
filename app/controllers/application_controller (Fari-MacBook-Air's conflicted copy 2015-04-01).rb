@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
 
-
-
   after_filter :store_location
 
 	layout :layout_by_resource
@@ -20,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   #Mobile Pages
   def check_for_mobile
-    prepare_for_mobile if mobile_device?
+    prepare_for_mobile #if mobile_device?
   end
 
   def prepare_for_mobile
@@ -68,8 +66,6 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
   end
-
-
 
 protected
 

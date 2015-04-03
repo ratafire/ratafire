@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
 SEND_FILE_METHOD = :default
 
-protect_from_forgery :except => [:create_profilephoto]
+protect_from_forgery :except => [:create_profilephoto, :update]
 
   layout 'application'
   before_filter :signed_in_user,
@@ -12,6 +12,7 @@ protect_from_forgery :except => [:create_profilephoto]
   before_filter :correct_user,   only: [:edit, :settings, :goals, :photo]
   before_filter :admin_user,     only: :destroy
   before_filter :check_for_mobile
+  before_filter :user_sign_up_complete, except: [:update] 		  
 
   def no_sign_up
 	flash[:info] = 'Registrations are not open yet, try sign up for beta instead.'
@@ -20,42 +21,11 @@ protect_from_forgery :except => [:create_profilephoto]
 
 
   def show
- 	#Find user by username
-	@user = User.find(params[:id])
+  	user_profile_page
+  end
 
-	active_user
-	if @user.website != nil then 
-	  unless @user.website[/\Ahttp:\/\//] || @user.website[/\Ahttps:\/\//]
-		@user_website = "http://#{@user.website}"
-	  else
-		@user_website = @user.website
-	  end
-	end  
-	@majorpost = @user.majorposts
-	@project = @majorpost.project
-	@comments = @user.comments
-	@activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @user, owner_type: "User").paginate(page: params[:activities], :per_page => 20)
-	#Check if the current user is a subscriber
-	if user_signed_in? then
-		#Redirect to Tutorial if Null
-		if current_user.tutorial.intro == nil then
-  			redirect_to intro_tutorial_path(@user)
-  		end
-		@subscription = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id, :subscribed_id => @user.id).first
-	end
-	#Add User tutorial if there is no user tutorial
-	if @user.tutorial == nil && @user.sign_in_count == 1 then
-		@tutorial = Tutorial.new
-		@tutorial.user_id = @user.id 
-		@tutorial.save
-	else
-		if @user.tutorial == nil && @user.sign_in_count != 1 then
-			@tutorial = Tutorial.new
-			@tutorial.user_id = @user.id 
-			@tutorial.profile_tutorial = 4
-			@tutorial.save			
-		end
-	end
+  def update_feed
+  	user_profile_page
   end
 
 	def new
@@ -78,7 +48,7 @@ protect_from_forgery :except => [:create_profilephoto]
 			render 'new'
 		end
 
-  #end of create	
+  #end of create    
   end
 
   def photo
@@ -95,66 +65,86 @@ protect_from_forgery :except => [:create_profilephoto]
   #end
 
   def update
-	  @user = User.find(params[:id])	
-  	if signed_in? && @user == current_user then
+	@user = User.find(params[:id])    
+	if @user == nil then 
+		@user = User.find_by_uuid(params[:user][:uuid])
+	end
+	if @user.encrypted_password == nil then
 		respond_to do |format|
-	  		if @user.update_attributes(params[:user])
-				format.json { respond_with_bip(@user) }
-		  		if params[:user][:profilelarge].blank?
-					format.html { redirect_to(@user) }
-					flash[:success] = "Ah, new info!"
-		  		else
-					format.html { render :action => "edit" }
-		  		end
-	  		else
-				format.json { respond_with_bip(@user) }
-				format.html { render :action => "edit" }
-	  		end
-	  	end
-	else
-		if @user.confirmed_at == nil then
 			if @user.update_attributes(params[:user])
-        		@user.skip_confirmation!
-        		@user.save
-        		sign_in(:user, @user)
-        		flash[:success] = "You have discovered Ratafire!"
-        		redirect_to(@user)				
+				@user.tutorial.intro = nil
+				@user.tutorial.save
+				format.html { redirect_to user_path(@user.id) }
+				sign_in(:user, @user)
+				Devise::Mailer.confirmation_instructions(@user).deliver
+				flash[:success] = "You have discovered Ratafire!"
 			else
-        		redirect_to(:back)
-        		flash[:success] = "Please enter the required information."				
+				flash[:success] = "Please create account info!"
+				sign_in(:user, @user)
+				format.html { redirect_to(:back) }
+			end
+		end
+	else
+		if signed_in? && @user == current_user then
+			respond_to do |format|
+				if @user.update_attributes(params[:user])
+					format.json { respond_with_bip(@user) }
+					if params[:user][:profilelarge].blank?
+						format.html { redirect_to(@user) }
+						flash[:success] = "Ah, new info!"
+					else
+						format.html { render :action => "edit" }
+					end
+				else
+					format.json { respond_with_bip(@user) }
+					format.html { render :action => "edit" }
+				end
+			end
+		else
+			if @user.confirmed_at == nil then
+				if @user.update_attributes(params[:user])
+					@user.skip_confirmation!
+					@user.save
+					sign_in(:user, @user)
+					flash[:success] = "You have discovered Ratafire!"
+					redirect_to(@user)              
+				else
+					redirect_to(:back)
+					flash[:success] = "Please enter the required information."              
+				end
 			end
 		end
 	end
   end
 
   def facebook_update
-	  @user = User.find_by_uuid(params[:uuid])	
-  	if signed_in? && @user == current_user then
+	  @user = User.find_by_uuid(params[:uuid])  
+	if signed_in? && @user == current_user then
 		respond_to do |format|
-	  		if @user.update_attributes(params[:user])
+			if @user.update_attributes(params[:user])
 				format.json { respond_with_bip(@user) }
-		  		if params[:user][:profilelarge].blank?
+				if params[:user][:profilelarge].blank?
 					format.html { redirect_to(:back) }
 					flash[:success] = "Ah, new info!"
-		  		else
+				else
 					format.html { render :action => "edit" }
-		  		end
-	  		else
+				end
+			else
 				format.json { respond_with_bip(@user) }
 				format.html { render :action => "edit" }
-	  		end
-	  	end
+			end
+		end
 	else
 		if @user.confirmed_at == nil then
 			if @user.update_attributes(params[:user])
-        		@user.skip_confirmation!
-        		@user.save
-        		sign_in(:user, @user)
-        		flash[:success] = "You have discovered Ratafire!"
-        		redirect_to(@user)				
+				@user.skip_confirmation!
+				@user.save
+				sign_in(:user, @user)
+				flash[:success] = "You have discovered Ratafire!"
+				redirect_to(@user)              
 			else
-        		redirect_to(:back)
-        		flash[:success] = "Please enter the required information."				
+				redirect_to(:back)
+				flash[:success] = "Please enter the required information."              
 			end
 		end
 	end
@@ -248,17 +238,28 @@ protect_from_forgery :except => [:create_profilephoto]
   end
 
   def facebook_signup
-  	@user = User.find_by_uuid(params[:uuid])
+	@user = User.find_by_uuid(params[:uuid])
   end
 
   #upload profile photo
   def create_profilephoto
-  	@user = User.find(params[:id])
-  	
-  	@user.direct_upload_url = params[:profilephoto][:direct_upload_url]
-  	@user.set_upload_attributes
-  	@user.queue_processing
-  	@profilephoto = @user.profilephoto
+	@user = User.find(params[:id])
+	
+	@user.direct_upload_url = params[:profilephoto][:direct_upload_url]
+	@user.set_upload_attributes
+	@user.queue_processing
+	@profilephoto = @user.profilephoto
+  end
+
+  #Upload profile photo in settings page
+  def create_profilephoto_settings
+	@user = User.find(params[:id])
+	
+	@user.direct_upload_url = params[:profilephoto][:direct_upload_url]
+	@user.set_upload_attributes
+	@user.queue_processing
+	@profilephoto = @user.profilephoto
+	redirect_to edit_user_path(@user.id)  	
   end
 
   private
@@ -302,4 +303,43 @@ protect_from_forgery :except => [:create_profilephoto]
 	rescue ActionController::RedirectBackError
 	  redirect_to root_path
   end
+
+  def user_profile_page
+	#Find user by username
+	@user = User.find(params[:id])
+
+	active_user
+	if @user.website != nil then 
+	  unless @user.website[/\Ahttp:\/\//] || @user.website[/\Ahttps:\/\//]
+		@user_website = "http://#{@user.website}"
+	  else
+		@user_website = @user.website
+	  end
+	end  
+	@majorpost = @user.majorposts
+	@project = @majorpost.project
+	@comments = @user.comments
+	@activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @user, owner_type: "User").paginate(page: params[:activities], :per_page => 20)
+	@subscription_application = @user.approved_subscription_application
+	#Check if the current user is a subscriber
+	if user_signed_in? then
+		#Redirect to Tutorial if Null
+		if current_user.tutorial.intro == nil then
+			redirect_to intro_tutorial_path(@user)
+		end
+		@subscription = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id, :subscribed_id => @user.id).first
+	end
+	#Add User tutorial if there is no user tutorial
+	@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
+  end
+
+  def user_sign_up_complete
+  	if user_signed_in? then
+    	if current_user.need_username == true then
+     	 	@subscription_first = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id).first
+      		redirect_to subscription_thank_you_path(@subscription_first.id)
+    	end
+    end
+  end
+
 end

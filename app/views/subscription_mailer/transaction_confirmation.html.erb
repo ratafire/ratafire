@@ -23,11 +23,11 @@
                         <table border="0"  cellspacing="0" width="100%" id="emailBody" class="profile-content2" style="width: 600px;border: 1px solid #cccccc;position: auto;z-index: 30;border-radius: 8px;padding: 20px 20px 40px 20px;-moz-border-radius: 0px 5px 5px 5px;-webkit-border-radius: 0px 5px 5px 5px;transition: box-shadow 1s;background-color: rgba(255,255,255,1);-webkit-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);-moz-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);">
                             <tr>
                                 <td align="center" valign="top">
-                                  		<p style="color: #666;">Your payment to <%= link_to @subscribed_fullname,"https://www.ratafire.com/#{@subscribed_username}",target:"_blank", style:"color:#2297ce;" %> is successful! The total amount is $<%= @transaction_amount %>.</p>
+                                  		<p style="color: #666;">Your payment for subscribing to <%= link_to @subscribed_fullname,"https://www.ratafire.com/#{@subscribed_username}",target:"_blank", style:"color:#2297ce;" %> is successful! The total amount is $<%= @subscription.amount %>.</p>
 
-                                        <p style="color: #666;">The next billing date is <%= @subscription_next_billing_date %>. To view transaction details, click the link below:</p>
+                                        <p style="color: #666;">Ratafire collects your subscription fee on the 7th of every month. </p>
 
-										<%= link_to "https://www.ratafire.com/#{@subscriber_username}/r/settings/transactions/#{@transaction_uuid}",style:"text-decoration:none;" do %><p class="btn2" style="color: #fff;background-position: top;background: #4cbaed;padding: 10px 40px 10px 40px;border-radius: 5px;">View Transaction Details</p><% end %>
+										<%= link_to "https://www.ratafire.com/#{@subscriber_username}/r/subscribing/update",style:"text-decoration:none;" do %><p class="btn2" style="color: #fff;background-position: top;background: #4cbaed;padding: 10px 40px 10px 40px;border-radius: 5px;">View Updates from Artists or Researchers you are Subscribing</p><% end %>
 
                                 </td>
                             </tr>

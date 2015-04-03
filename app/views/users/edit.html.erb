@@ -40,23 +40,20 @@
 									<li>
 
 										<!-- Cutter --><ol style="margin-top: 10px;"></ol>
-									<%= form_for(@user, :html => { :multipart => true, :class => 'no_ajaxify' },:validate => true) do |f| %>
-									<ol class="photo-input">
-										<%= f.file_field :profilephoto %>
+
+										<span class="btn btn-medium2 btn-medium-blue fileinput-button">Upload
+										<!-- fields for profilephoto -->
+											<%= s3_uploader_form callback_url: create_profilephoto_path(current_user.id),
+  												id: "s3_uploader_icon",
+												callback_param: "profilephoto[direct_upload_url]",
+												expiration: 24.hours.from_now.utc.iso8601,
+												max_file_size: 2048.megabytes,:remote => true do %>
+												<%= file_field_tag :file, multiple: false, class:"profile-choose" %>		
+											<% end %>
+										</span>
+										<%= link_to user_omniauth_authorize_path(:facebook),class:"no_ajaxify" do %><span class="btn btn-medium2 btn-medium-blue fileinput-button">Use Facebook Img</span><% end %>
 									</ol>
 
-										<ol style="color:#999999">
-										<!-- Cutter --><ol style="margin-top: 10px;"></ol>
-										#Beta: Large Profile Photo size: 128x171 <p> 
-										       Small Profile Photo size: 128x128 <p>
-										       Size limit: 1mb. Image croping comming soon.
-									</ol>
-									<!-- Cutter --><ol style="margin-top: 10px;"></ol>
-									<ol>
-										<%= f.submit "Upload", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-blue" %>
-									</ol>
-
-									<% end %>
 									</li>
 									<% end %>
 									<!-- Cutter --><ol style="margin-top: 70px;"></ol>

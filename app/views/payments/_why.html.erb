@@ -1,32 +1,29 @@
-<div class="user-why-edit">
-	<h4>To subscribers</h4>
-		<div class="user-why-passage">
-			<%= simple_format(@user.why)%>
-		</div>	
+<div class="user-why-edit" style="padding-bottom:0px;">
 	<h4>I am currently working on</h4>
-		<!-- display project-->
-		<div class="user-why-passage" style="padding: 15px 0 5px 20px;">
-			<%=  render "projects/project_one"%>
-		</div>
+</div>
+<%=  render "projects/project_portable"%>
+<div class="user-why-edit">
 
-	<% if @user.plan != nil %>	
 	<h4>If I reach my subscription amount goal</h4>
 	<div class="user-why-passage">
 		<div class="goals" style="width:100%;">
-			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription Amount</span> <%= render :text => @user.subscription_amount.to_s %>/<%= render :text => @user.goals_monthly%></ol>
+			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription Amount</span> <%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%> of $<%= render :text => @user.goals_monthly%></ol>
 			<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
 		</div>	
 	</div>	
-	<h4>My intended update frequency or plans will be</h4>
+	<h4>I will be able to continue this work collection</h4>
 		<div class="user-why-passage">
-			<%= simple_format(@user.plan)%>
+			<%= render 'subscriptions/faces'%>	
 		</div>	
-	<% end %>	
+
+
 	<!-- Subscription Button-->		
 	<% if subscriber_status then%>
-	<div style="margin: 15px -2px 0 0; text-align:right;">
-		<%= render 'users/subscribe_button'%>
-	</div>
+		<% if @user.subscribed_by?(current_user) == false && @user != current_user %>
+			<div style="margin: 15px -2px 0 580px;">
+				<%= render 'users/portable_subscribe_button'%>
+			</div>
+		<% end %>	
 	
 	<% else %>
 		<% if user_signed_in? %>

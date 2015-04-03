@@ -66,17 +66,17 @@ $(function () {
 </script>
 <!-- JS -->
 <%= javascript_include_tag "flipclock/flipclock.min.js" %>
-<div class="user-why-edit2">
-	<h4>Find your first 3 supporters in:</h4>
+<div class="user-why-edit">
+	<h4>Find your first 3 supporters in [<%= @user.sub_sus.count %>/3]</h4>
 </div>	
 <!-- Countdown start here -->
 <div id="countdown-wrapper">
 	<div id="countdown-clock"></div>
 </div>
-<div class="user-why-edit2">
+<div class="user-why-edit" style="border-bottom: 1px solid #dddddd;margin-bottom:50px;">
 	<div class="user-why-passage" style="padding: 15px 0 5px 20px;">
-		<p>You have found <%= @user.sub_sus.count %> of 3.</p>
-		<p>Start by <span class="fb-share-button" style="opacity: 100;"data-href="https://www.ratafire.com<%=why_path(@user)%>" data-layout="button_count"></span> <a href="https://twitter.com/share" class="twitter-share-button opacity-100"></a> or  <span class="tipsy-tipsy" title="Coming Soon!"><i class="fa fa-envelope"></i> email your friends.</span></p>
+        <!--
+		<p>Start by <span class="fb-share-button" style="opacity: 100;"data-href="https://www.ratafire.com<%=why_path(@user)%>" data-layout="button_count"></span> <a href="https://twitter.com/share" class="twitter-share-button opacity-100"></a> or  <span class="tipsy-tipsy" title="Coming Soon!"><i class="fa fa-envelope"></i> email your friends.</span></p> -->
 	</div>	
 </div>
 

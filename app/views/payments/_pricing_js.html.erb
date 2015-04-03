@@ -1,8 +1,7 @@
 <script>
 //Price Counter
-var amts=[2.49,9,14.99,24,49,99];
-$("#submit-amount").val(9);
-
+var amts=[5,10,15,25,50,100];
+$("#submit-amount").val(10);
 $("#price-slider-special").slider(
 {	
 	min:0,
@@ -37,7 +36,7 @@ $("#price-slider-special").slider(
 						$("#ratafire-fee-percent").html("5%, about ");
 						//Change of notice
 						$("#subscription-title").html("Support");
-						$("#priceof").html("You can still support");
+						$("#priceof").html("By choosing amount you will be a");
 						$("#supporter-number").show();
 						$("#difference").show();
 						$("#subscriber-features").hide();
@@ -158,7 +157,8 @@ $("#edit").click(function(){
 });
 
 //temporary submit button
-$("#next_step_checkout_amazon").click(function(){
+$("#paypalButton").click(function(){
+	$("#payment_method").val("PayPal");
 	$("#subscrption-form").submit();
 	});
 </script>

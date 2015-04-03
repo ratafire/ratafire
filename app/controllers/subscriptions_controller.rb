@@ -6,6 +6,7 @@ class SubscriptionsController < ApplicationController
 				  only: [:new,:amazon]
 	before_filter :subscription_permission,
 				  only: [:new, :create, :amazon]
+	before_filter :user_sign_up_complete	  
 	before_filter :correct_user, only: [:settings, :transactions, :receiving_transactions,:transaction_details]
 
 
@@ -79,6 +80,14 @@ class SubscriptionsController < ApplicationController
 		@user = User.find(params[:id])
 		@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 		@subscription_application = @user.approved_subscription_application
+		if @user.website != nil then 
+	  		unless @user.website[/\Ahttp:\/\//] || @user.website[/\Ahttps:\/\//]
+				@user_website = "http://#{@user.website}"
+	  		else
+				@user_website = @user.website
+	 		end
+		end
+		  		
 	end
 
 	def amazon
@@ -88,7 +97,7 @@ class SubscriptionsController < ApplicationController
 	def settings
 		@user = User.find(params[:id])
 		if @user.subscription_status_initial != "Approved" then
-			redirect_to setup_subscription_path(@user.id)
+			redirect_to goals_subscription_path(@user.id)
 		else
 			@project = @user.projects.where(:published => true, :complete => false, :abandoned => false).first
 		end
@@ -513,4 +522,14 @@ private
       return "$"+amount.to_s
     end
   end	
+
+  def user_sign_up_complete
+  	if user_signed_in? then
+    	if current_user.need_username == true then
+     	 	@subscription_first = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id).first
+      		redirect_to subscription_thank_you_path(@subscription_first.id)
+    	end
+    end
+  end
+
 end

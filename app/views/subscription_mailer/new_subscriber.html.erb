@@ -26,7 +26,7 @@
                                         <p style="color: #666;"><%= link_to @subscriber_fullname,"https://www.ratafire.com/#{@subscriber_username}",target:"_blank", style:"color:#2297ce;" %> subscribed to you.</p>
 
 
-										<%= link_to "https://www.ratafire.com/#{@subscribed_username}/r/settings/transactions/#{@transaction_uuid}",style:"text-decoration:none;" do %><p class="btn2" style="color: #fff;background-position: top;background: #4cbaed;padding: 10px 40px 10px 40px;border-radius: 5px;">Write a Short Message to Thank <%= @subscriber.first_name %></p><% end %>
+										<%= link_to "https://www.ratafire.com/messaging/#{@subscribed.id}/conversation/#{@conversation_id}",style:"text-decoration:none;" do %><p class="btn2" style="color: #fff;background-position: top;background: #4cbaed;padding: 10px 40px 10px 40px;border-radius: 5px;">Write a Short Message to thank <%= @subscriber.first_name %></p><% end %>
 
                                 </td>
                             </tr>

@@ -26,7 +26,7 @@
                                   	<p><%=	@subscription_application_status %></p>
                                     <p><%= @review_content %></p>
                                     <% if @subscription_application.status == "Approved" then %>
-                                        <p>You can view your subscription page via <a class="no_ajaxify" target="_blank" href="https://www.ratafire.com/<%= @user.username.to_s %>/r/r/subscription">this link</a>.</p>
+                                        <%= link_to "https://www.ratafire.com/#{@user.username}",style:"text-decoration:none;" do %><p class="btn2" style="color: #fff;background-position: top;background: #4cbaed;padding: 10px 40px 10px 40px;border-radius: 5px;">View your New Profile Page</p><% end %>
                                     <% else %>    
                                         <p>You can re-apply via <a class="no_ajaxify" target="_blank" href="https://www.ratafire.com/<%= @user.username.to_s %>/r/settings/subscription">this link</a>. Thank you! </p>
                                     <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150401001327) do
+ActiveRecord::Schema.define(:version => 20150403165214) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -968,6 +968,7 @@ ActiveRecord::Schema.define(:version => 20150401001327) do
     t.text     "message"
     t.string   "status"
     t.integer  "subscription_application_id"
+    t.boolean  "skip_countdown",              :default => false
   end
 
   create_table "subscription_applications", :force => true do |t|
