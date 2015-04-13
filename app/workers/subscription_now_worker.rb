@@ -79,6 +79,11 @@ class SubscriptionNowWorker
 			@billing_artist.next_amount += @transaction.receive
 			@billing_artist.save
 		end
+		#Unbomb the subscribed
+		@subscription_application = @subscribed.approved_subscription_application
+		if @subscription_application != nil then
+			Resque.enqueue(SubscriptionUnbombWorker,@subscribed.id)
+		end
 	end
 end		
 
