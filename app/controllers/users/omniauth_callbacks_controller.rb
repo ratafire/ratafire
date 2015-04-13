@@ -88,7 +88,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end		
 					sign_in(:user, @user)
-					redirect_to subscribe_path(params["subscribed_id"],params["subscription_type"])						
+					redirect_to subscribe_path(params["subscribed_id"],params["subscription_type"],params["amount"])						
 				else
 					if request.env['omniauth.auth'] != false then
 						#Try to login user
@@ -102,7 +102,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 							#Login user
 							sign_in(:user, @user)
 							#Redirect
-							redirect_to subscribe_path(params["subscribed_id"],params["subscription_type"])
+							redirect_to subscribe_path(params["subscribed_id"],params["subscription_type"],params["amount"])
 						else
 							flash[:error] = "Facebook authorization failed."
 							redirect_to(:back)
@@ -121,7 +121,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
-					redirect_to subscribe_path(params["subscribed_id"],params["subscription_type"])
+					redirect_to subscribe_path(params["subscribed_id"],params["subscription_type"],params["amount"])
 				else
 					flash[:success] = "Facebook authorization failed."
 					redirect_to(:back)

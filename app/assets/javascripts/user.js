@@ -92,14 +92,79 @@ $(function() {
           function (){
             $("#sidebar-give-9-button").addClass("btn-sidebar-give-active");
             $("#sidebar-give-2-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-5-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-15-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-25-button").removeClass("btn-sidebar-give-active");    
+            $("#sidebar-give-50-button").removeClass("btn-sidebar-give-active");  
+            $("#sidebar-give-100-button").removeClass("btn-sidebar-give-active");        
           }      
         );
       $("#sidebar-give-2-button").hover(
           function (){
-            $("#sidebar-give-2-button").addClass("btn-sidebar-give-active");
             $("#sidebar-give-9-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-2-button").addClass("btn-sidebar-give-active");
+            $("#sidebar-give-5-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-15-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-25-button").removeClass("btn-sidebar-give-active");    
+            $("#sidebar-give-50-button").removeClass("btn-sidebar-give-active");  
+            $("#sidebar-give-100-button").removeClass("btn-sidebar-give-active");  
           }      
-        );
+        );  
+      $("#sidebar-give-5-button").hover(
+          function (){
+            $("#sidebar-give-9-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-2-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-5-button").addClass("btn-sidebar-give-active");
+            $("#sidebar-give-15-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-25-button").removeClass("btn-sidebar-give-active");    
+            $("#sidebar-give-50-button").removeClass("btn-sidebar-give-active");  
+            $("#sidebar-give-100-button").removeClass("btn-sidebar-give-active");  
+          }      
+        );        
+      $("#sidebar-give-15-button").hover(
+          function (){
+            $("#sidebar-give-9-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-2-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-5-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-15-button").addClass("btn-sidebar-give-active");
+            $("#sidebar-give-25-button").removeClass("btn-sidebar-give-active");    
+            $("#sidebar-give-50-button").removeClass("btn-sidebar-give-active");  
+            $("#sidebar-give-100-button").removeClass("btn-sidebar-give-active");  
+          }      
+        );   
+      $("#sidebar-give-25-button").hover(
+          function (){
+            $("#sidebar-give-9-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-2-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-5-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-15-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-25-button").addClass("btn-sidebar-give-active");    
+            $("#sidebar-give-50-button").removeClass("btn-sidebar-give-active");  
+            $("#sidebar-give-100-button").removeClass("btn-sidebar-give-active");  
+          }      
+        );    
+      $("#sidebar-give-50-button").hover(
+          function (){
+            $("#sidebar-give-9-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-2-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-5-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-15-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-25-button").removeClass("btn-sidebar-give-active");    
+            $("#sidebar-give-50-button").addClass("btn-sidebar-give-active");  
+            $("#sidebar-give-100-button").removeClass("btn-sidebar-give-active");  
+          }      
+        );    
+      $("#sidebar-give-100-button").hover(
+          function (){
+            $("#sidebar-give-9-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-2-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-5-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-15-button").removeClass("btn-sidebar-give-active");
+            $("#sidebar-give-25-button").removeClass("btn-sidebar-give-active");    
+            $("#sidebar-give-50-button").removeClass("btn-sidebar-give-active");  
+            $("#sidebar-give-100-button").addClass("btn-sidebar-give-active");  
+          }      
+        );                                       
       $("#sidebar-profile-create-project").click(function (){
         $("#sidebar-profile-create-button-main")[0].click();
       });

@@ -35,6 +35,7 @@ class SubscriptionsController < ApplicationController
 
 	def new
 		@default = params[:default]
+		@amount = params[:amount]
 		@user = User.find(params[:id])
 		@current_user = current_user
 		@subscription = Subscription.new
@@ -199,6 +200,9 @@ class SubscriptionsController < ApplicationController
 			#Add to User's Subscription amount
 			@subscribed = User.find(@subscription.subscribed_id)
 			case @subscription.amount
+  			when ENV["PRICE_0"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_0_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_0"].to_f						
   			when ENV["PRICE_1"].to_f
   				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
   				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f
@@ -257,6 +261,9 @@ class SubscriptionsController < ApplicationController
 		end		
 		#Change User's subscription amount
 			case @subscription.amount
+  			when ENV["PRICE_0"].to_f
+  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_0_RECEIVE"].to_f
+  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_0"].to_f				
   			when ENV["PRICE_1"].to_f
   				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
   				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f

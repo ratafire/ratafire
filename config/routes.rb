@@ -238,7 +238,7 @@ Ratafire::Application.routes.draw do
 
 #---Payments---
 	match ':id/r/r/subscription/', to:'subscriptions#why', as: :why
-	match ':id/:default/r/payments/subscribe', to: 'subscriptions#new', as: :subscribe
+	match ':id/:default/:amount/r/payments/subscribe', to: 'subscriptions#new', as: :subscribe
 	match ':id/r/payments/checkout_amazon', to: 'subscriptions#amazon', as: :amazon
 	match ':id/r/payments/subscription/create', to: 'subscriptions#create',via: :post, as: :create_subscription
 

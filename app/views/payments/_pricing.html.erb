@@ -77,7 +77,7 @@
 <div id="payments-amazon-case">
 	<div class="checkout-holder">
 		<h2 style="color:#999;">Checkout your Subscription</h2>
-		<ol><span id="checkout">Subscribe to </span><%= @user.fullname %> with the monthly amount of <span class="price-size" id="jquery-total-value">$10.00</span> <span id="edit">Edit</span></ol>
+		<ol><span id="checkout">Subscribe to </span><%= @user.fullname %> with the monthly amount of <span class="price-size" id="jquery-total-value">$<%=@amount%>.00</span> <span id="edit">Edit</span></ol>
 		<h2 style="color:#999;">You will be subscribed to <%= @user.fullname %> since</h2>
 		<%=  render "projects/project_one_exp"%>
 		<div id="collectible-holder">
