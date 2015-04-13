@@ -171,8 +171,6 @@ class SubscriptionsController < ApplicationController
 		@subscription = Subscription.find_by_subscriber_id_and_subscribed_id(params[:subscriber_id],params[:id])
 		@user = User.find(@subscription.subscriber_id)
 		@subscriber = @user
-		#Cancel Amazon Payments Token
-		response = AmazonFlexPay.cancel_token(@subscription.amazon_recurring.tokenID)
 		@subscription.deleted_reason = 2
 		@subscription.deleted_at = Time.now
 		@subscription.next_transaction_queued = false
@@ -197,9 +195,7 @@ class SubscriptionsController < ApplicationController
 					activity.save
 				end
 			end
-		end	
-		#Remove Enqueued Transaction
-		Resque.remove_delayed(SubscriptionNowWorker, @subscription.uuid)		
+		end			
 			#Add to User's Subscription amount
 			@subscribed = User.find(@subscription.subscribed_id)
 			case @subscription.amount
@@ -233,8 +229,6 @@ class SubscriptionsController < ApplicationController
 		@user = User.find(@subscription.subscribed_id)
 		@subscribed = @user
 		@subscriber = User.find(@subscription.subscriber_id)
-		#Cancel Amazon Payments Token
-		response = AmazonFlexPay.cancel_token(@subscription.amazon_recurring.tokenID)
 		@subscription.deleted_reason = 1
 		@subscription.deleted = true
 		@subscription.deleted_at = Time.now
@@ -261,8 +255,6 @@ class SubscriptionsController < ApplicationController
 				end
 			end
 		end		
-		#Remove Enqueued Transaction
-		Resque.remove_delayed(SubscriptionNowWorker, @subscription.uuid)
 		#Change User's subscription amount
 			case @subscription.amount
   			when ENV["PRICE_1"].to_f

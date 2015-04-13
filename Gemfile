@@ -128,7 +128,7 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 #Paypal
 gem 'paypal-sdk-rest'
 gem 'paypal-sdk-merchant'
-gem 'paypal-express'
+gem 'paypal-express', :git => 'https://github.com/ratafire/paypal-express'
 
 #------------Rails Utilities------------
 gem 'rake', '10.2.2'

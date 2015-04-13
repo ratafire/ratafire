@@ -45,6 +45,7 @@ class SubscriptionNowWorker
 		@subscription.first_payment = true
 		@subscription.first_payment_created_at = Time.now
 		@subscription.counter = @subscription.counter+1
+		@subscription.subscription_record_id = @subscription_record.id
 		@subscription.save
 		#Billing Subscription
 		if @subscriber.billing_subscription == nil then
@@ -70,12 +71,12 @@ class SubscriptionNowWorker
 			@billing_artist = BillingArtist.new
 			@billing_artist.user_id = @subscribed.id
 			@billing_artist.next_billing_date = Time.now.beginning_of_month.next_month + 27.day
-			@billing_artist.next_amount = @subscription.amount
+			@billing_artist.next_amount = @transaction.receive
 			@billing_artist.save
 		else
 			#Update the old billing artist
 			@billing_artist = @subscribed.billing_artist
-			@billing_artist.next_amount += @subscription.amount
+			@billing_artist.next_amount += @transaction.receive
 			@billing_artist.save
 		end
 	end

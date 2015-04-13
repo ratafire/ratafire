@@ -55,6 +55,15 @@ GIT
       sass-rails
 
 GIT
+  remote: https://github.com/ratafire/paypal-express
+  revision: f36ce1286ba3e03752dcb12cb9788144be72909c
+  specs:
+    paypal-express (0.8.1)
+      activesupport (>= 2.3)
+      attr_required (>= 0.0.5)
+      rest-client
+
+GIT
   remote: https://github.com/stripe/stripe-ruby
   revision: 403e92fc8877d2dc1a5b9c17485dac8d3937989a
   specs:
@@ -307,10 +316,6 @@ GEM
       mime-types
     paperclip-ghostscript (0.1.0)
       paperclip
-    paypal-express (0.8.1)
-      activesupport (>= 2.3)
-      attr_required (>= 0.0.5)
-      rest-client
     paypal-sdk-core (0.3.1)
       multi_json (~> 1.0)
       xml-simple
@@ -495,7 +500,7 @@ DEPENDENCIES
   open_uri_redirections
   paperclip (= 3.5.4)
   paperclip-ghostscript
-  paypal-express
+  paypal-express!
   paypal-sdk-merchant
   paypal-sdk-rest
   public_activity!

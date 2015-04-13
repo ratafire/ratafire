@@ -8,12 +8,6 @@ class UnsubscribeWorker
 		if @user.subscriptions.count != 0 then
 			@user.subscriptions.each do |s|
 				@subscriber = User.find(s.subscriber_id)
-				#Cancel Amazon Payments Token
-				response = AmazonFlexPay.cancel_token(s.amazon_recurring.tokenID)
-				s.deleted_reason = reason_number
-				s.deleted = true
-				s.deleted_at = Time.now
-				s.save
 				#Mark Subscription Records as having pasts
 				subscription_record = SubscriptionRecord.find(s.subscription_record_id)
 				subscription_record.past = true
@@ -33,9 +27,7 @@ class UnsubscribeWorker
 							activity.save
 						end
 					end
-				end		
-				#Remove Enqueued Transaction
-				Resque.remove_delayed(SubscriptionNowWorker, subscription.uuid)						
+				end						
 			#Add to User's Subscription amount
 			case subscription.amount
   			when ENV["PRICE_1"].to_f

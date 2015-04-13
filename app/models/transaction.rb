@@ -24,13 +24,19 @@ class Transaction < ActiveRecord::Base
 		@transaction.description = response.description
 		@transaction.card_stripe_id = response.source.id
 		@transaction.save
+		@transaction.method = options[:transaction_method]
+		@transaction.fee = options[:fee].to_f
+		@transaction.receive = @transaction.total - @transaction.fee
 		@transaction
 	end
 
 	#This is the prefill for paypal transaction
 	def self.paypal!(response,options = {})
 		@transaction = Transaction.new
-		@transaction.total = response.amount
+		@transaction.total = response.amount.total
+		@transaction.fee = response.amount.fee
+		@transaction.receive = @transaction.total - @transaction.fee
+		@transaction.method = options[:transaction_method]
 		@transaction.supporter_switch = options[:supporter_switch]
 		@transaction.subscriber_id = options[:subscriber_id]
 		@transaction.subscribed_id = options[:subscribed_id]

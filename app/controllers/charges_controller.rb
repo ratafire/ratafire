@@ -308,7 +308,9 @@ private
 			:subscription_id => @subscription.id,
 			:subscriber_id => @subscriber.id,
 			:subscribed_id => @user.id,
-			:supporter_switch => @subscription.supporter_switch
+			:supporter_switch => @subscription.supporter_switch,
+			:fee => @subscription.amount.to_f*0.29+0.30,
+			:transaction_method => "Stripe"
 		)
 		subscription_post_payment
 		#Enqueue Post Processing
@@ -329,14 +331,15 @@ private
 			:subscription_id => @subscription.id,
 			:subscriber_id => @subscriber.id,
 			:subscribed_id => @user.id,
-			:supporter_switch => @subscription.supporter_switch
+			:supporter_switch => @subscription.supporter_switch,
+			:transaction_method => "PayPal"
 		)			
 			subscription_post_payment
+			Resque.enqueue(SubscriptionNowWorker,@subscription.id,transaction.id)
 		else
 			#Transaction failed
 			flash[:error] = "Invalid payment method."
 			redirect_to(:back)		
-			Resque.enqueue(SubscriptionNowWorker,@subscription.id,transaction.id)		
 		end
 	end
 

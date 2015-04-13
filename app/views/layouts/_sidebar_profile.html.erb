@@ -80,7 +80,7 @@
 			<% else %>
 					<!-- Supporting -->
 					<% if @user.supported_by?(current_user)%>
-						<%= link_to unsupport_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsupport "+@user.fullname+"? If unsupported, you cannot resubscribe to "+@user.fullname+" in one month." do %>
+						<%= link_to unsupport_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsupport "+@user.fullname+"?" do %>
 							<div style="margin-top: 10px;" class="btn btn-medium btn-medium-blue btn-change-text">
 								<span class="before">Supporting</span>
 								<span class="hover">Unsupport</span>
@@ -90,7 +90,7 @@
 						<!-- Subscribes you-->
 						<% if current_user.supported_by?(@user)%>
 							<!-- Subscribes you-->
-							<%= link_to remove_supporter_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from supporting you? If removed, "+@user.fullname+" cannot resubscribe to you in one month." do%>
+							<%= link_to remove_supporter_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from supporting you?" do%>
 								<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
 									<span class="before">Supporting You</span>
 									<span class="hover">Remove</span>

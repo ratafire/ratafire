@@ -18,7 +18,7 @@ class SubscriptionMailer < ActionMailer::Base
     #Specific items
     @subscribed_fullname = @subscribed.fullname
     @subscribed_username = @subscribed.username
-    #@transaction_amount = @transaction.total.to_s
+    @transaction_amount = @transaction.total.to_s
     #@subscription_next_billing_date = @subscription.next_billing_date.strftime("%m/%d/%Y")
     @subscriber_username = @subscriber.username
     @transaction_uuid = @transaction.uuid
