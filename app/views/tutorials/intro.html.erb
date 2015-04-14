@@ -323,7 +323,7 @@
 			  
 			  <h3 class="title color-lightblue font-selector">Watch Projects</h3>
 			  <div class="description" style="margin:20px;">Receive updates from projects.</div>
-			  <a href="https://www.ratafire.com/colinchromatic/6644863/r/watchers" target="_blank" class="btn btn-sm btn-info no_ajaxify">Try it Now</a>
+			  <a ≈ class="btn btn-sm btn-info no_ajaxify">Try it Now</a>
 			</div>
 		  </div>
 		  
@@ -373,12 +373,14 @@
 		  <div class="wrap-container">
 			<div class="column column-one">
 			  <div class="circle-wrap" data-appear-animation="zoomIn" data-appear-animation-delay="600">
-				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="75" data-title="A Discussion" width="150" height="150"></canvas>
+				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="75" data-title="Apply" width="150" height="150"></canvas>
 				<div class="description">
-				  <h3 class="title color-blue">Lead a Discussion</h3>
+				  <h3 class="title color-blue">Apply to Setup Subscription</h3>
 				  <div class="text">
-					<p>You then must start at least one discussion thread and curate it. Monthly subscription on Ratafire isn't only about your personal projects.</p>
-					<p>The discussions you participated count towards your contribution to this community. Read our <a><i class="fa fa-comments-o"></i> Community Guidelines </a> to learn more.</p>			
+					<p>Setting up subscription allows others to subscribe to you to support you to continue your research or art work collections.</p>
+					<% if @user.subscription_application[0] != nil && @user.subscription_application[0].step == 7 then %>
+						<p><a href="http://localhost:3000/<%=@user.id%>/r/goals/subscription" target="_blank" class:"btn btn-sm btn-info"> Click to apply </a></p>		
+					<% end %>	
 				  </div>
 				</div>
 			  </div>
@@ -386,26 +388,17 @@
 			
 			<div class="column column-two">
 			  <div class="circle-wrap" data-appear-animation="zoomIn" data-appear-animation-delay="400">
-				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="60" data-title="A Project" width="150" height="150"></canvas>
+				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="60" data-title="A Work Collection" width="150" height="150"></canvas>
 				<div class="description">
-				  <h3 class="title color-blue">An On-going Project</h3>
+				  <h3 class="title color-blue">A Work Collection</h3>
 				  <div class="text font-selector">
-					<p>You must create at least one on-going project and make the project digitally available. You can also collaborate with others on the same project.</p>
-					<p>You should update your projects frequently, and improve their quality relentlessly. Visit our <a href="https://www.facebook.com/ratafire" target="_blank" ><i class="fa fa-facebook-square"></i> Facebook Page</a> for our weekly featured projects.</p>
+					<p>You must create at least one work collection and make the collection digitally available. You can also collaborate with others.</p>
+					<p>You should update your work collections frequently, and improve their quality relentlessly. Visit our <a href="https://www.facebook.com/ratafire" target="_blank" ><i class="fa fa-facebook-square"></i> Facebook Page</a> for our weekly featured work collections.</p>
 				  </div>
 				</div>
 			  </div>
 			  
-			  <div class="circle-wrap" data-appear-animation="zoomIn" data-appear-animation-delay="500">
-				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="65" data-title="Application" width="150" height="150"></canvas>
-				<div class="description">
-				  <h3 class="title color-blue">Apply to Turn on Subscription</h3>
-				  <div class="text">
-					<p>You can then apply to turn on subscription. We will review your application and inform you of the result within 1 business day.</p>
-					<p>To apply, you will need to write your "To Subscribers" page and connect your account to Amazon Payments.</p>					
-				  </div>
-				</div>
-			  </div>
+
 			</div><!-- .column-two -->
 			
 			<div class="column column-three column-center">
@@ -426,29 +419,8 @@
 			  </div><!-- .main-circle -->
 			</div><!-- .column-three -->
 			
-			<div class="column column-four">
-			  <div class="circle-wrap" data-appear-animation="zoomIn" data-appear-animation-delay="700">
-				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="90" data-title="All or Nothing" width="150" height="150"></canvas>
-				<div class="description">
-				  <h3 class="title color-blue">All or Nothing</h3>
-				  <div class="text">
-					<p>If you sucessfully complete the 3 supporters in 15 days challenge, you can now start to receive monthly subscription fees via Ratafire.</p>
-					<p>You can also keep your first 3 supporters/subscribers should you succeed. However, if you fail, you will lose them. You can always apply again.</p>					
-				  </div>
-				</div>
-			  </div>
+
 			  
-			  <div class="circle-wrap" data-appear-animation="zoomIn" data-appear-animation-delay="800">
-				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="60" data-title="3 Supporters" width="150" height="150"></canvas>
-				<div class="description">
-				  <h3 class="title color-blue">Find your first Subscriber in 15 Days</h3>
-				  <div class="text">
-					<p>Once your application is approved, before you can receive monthly subscription fees normally, you must find your first subscriber in 15 days.</p>
-					<p>Tell your friends about your profile on Ratafire. Invite them to join your discussions, and they may become one of your subscribers!</p>					
-				  </div>
-				</div>
-			  </div>
-			</div><!-- .column-four -->
 			
 			<div class="column column-five">
 			  <div class="circle-wrap" data-appear-animation="zoomIn" data-appear-animation-delay="900">
@@ -456,7 +428,7 @@
 				<div class="description">
 				  <h3 class="title color-blue">In 15 Days</h3>
 				  <div class="text">
-					<p>You must find your first subscriber in 15 days. We believe that this time constraint can help you focus on finding subscribers and improving your projects.</p>
+					<p>You must find your first subscriber in 15 days. We believe that this time constraint can help you focus on finding subscribers and improving your work collections.</p>
 					<p>You can find a countdown timer on your subscribers page. Others can also see your progress in this challenge.</p>					
 				  </div>
 				</div>
