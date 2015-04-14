@@ -16,36 +16,6 @@
 			<%= render 'subscriptions/faces'%>	
 		</div>	
 
-
 	<!-- Subscription Button-->		
-	<% if subscriber_status then%>
-		<% if @user.subscribed_by?(current_user) == false && @user != current_user %>
-			<div style="margin: 15px -2px 0 580px;">
-				<%= render 'users/portable_subscribe_button'%>
-			</div>
-		<% end %>	
-	
-	<% else %>
-		<% if user_signed_in? %>
-						<div class="lightbox2-bordered" style="margin-top:20px;">
-							<div class="textbox-mini">
-								<h4 style="color:#2297ce;">In order to subscribe to other users, you must</h4>
-								<% unless current_user.profilephoto? then %>
-								<div class="user-why-passage">Have a profile photo ~ <%= link_to "Edit Profile", edit_user_path(current_user), class:"no_ajaxify"%></div>	
-								<% end %>
-								<% unless current_user.github != nil || current_user.facebook != nil then %>						
-								<div class="user-why-passage">Connect your Ratafire account to <%= link_to "GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %> or <%= link_to "Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %>.</div>
-								<% end %>
-							</div><!-- end.textbox-mini-->
-
-						</div><!-- end.lightbox2-bordered-->
-		<% else %>
-								<div class="lightbox2-bordered">
-							<div class="textbox-mini" style="text-align:right;color:#999;margin-top:20px;">
-									<%= link_to "Sign in", new_user_session_path , class: "no_ajaxify" %> to subscribe to <%= @user.fullname %>. Don't have an account? <%= link_to 'Sign up', beta_path, class:"no_ajaxify" %>.	
-										</div><!-- end.textbox-mini-->
-
-						</div><!-- end.lightbox2-bordered-->			
-		<% end %><!-- end.if user_signed_in?-->				
-	<% end %>					
+	<%= render 'users/portable_subscribe_button'%>				
 </div>
