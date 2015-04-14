@@ -209,7 +209,12 @@ protect_from_forgery :except => [:create_profilephoto, :update]
 	  vimeo = current_user.vimeo
 	  vimeo.destroy
 	  redirect_to(:back)
-	  flash[:success] = "Disconnected from Vimeo."      
+	  flash[:success] = "Disconnected from Vimeo."    
+	when "venmo"
+	  venmo = current_user.venmo
+	  venmo.destroy
+	  redirect_to(:back)
+	  flash[:success] = "Disconnected from Venmo."  
 	end
   end
   

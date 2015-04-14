@@ -15,6 +15,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'omniauth-deviantart'
+gem 'omniauth-venmo'
 gem 'omniauth-vimeo', :git => "git://github.com/lomography/omniauth-vimeo"
 gem 'open_uri_redirections' #To get Facebook image
 

@@ -28,6 +28,12 @@
 		<div class="lightbox2-bordered">
 			<div class="textbox-mini">
 				<h2>How I Pay</h2>
+				<!-- If the user does not have Venmo -->
+				<% if @user.venmo == nil then %>
+					<%= render 'subscriptions/add_venmo'%>
+				<% else %>
+					<%= render 'subscriptions/added_venmo'%>
+				<% end %>
 				<!-- If the user does not have a card -->
 				<% if @user.cards.first == nil then %>
 					<%= render 'subscriptions/add_a_card'%>

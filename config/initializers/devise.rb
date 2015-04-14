@@ -322,4 +322,11 @@ Devise.setup do |config|
   require "omniauth-vimeo"
   config.omniauth :vimeo, ENV['VIMEO_KEY'], ENV['VIMEO_SECRET']
 
+  #Venmo
+  require "omniauth-venmo"
+  if Rails.env.production?
+    config.omniauth :venmo, ENV['VENMO_CLIENT_ID'], ENV['VENMO_CLIENT_SECRET'], :scope => 'access_profile,make_payments', redirect_uri: :omniauth_callbacks 
+  else
+    config.omniauth :venmo, ENV['VENMO_SANDBOX_CLIENT_ID'], ENV['VENMO_SANDBOX_CLIENT_SECRET'], :scope => 'access_profile,make_payments', redirect_uri: :omniauth_callbacks     
+  end
 end

@@ -1,7 +1,7 @@
 <% if Rails.env.production? %>
 	<%= form_tag add_a_card_path(@user.id), class:"no_ajaxify",id:"addcardForm" do %>
 	<script src="https://checkout.stripe.com/checkout.js"></script>
-	<span id="customButton" class="btn btn-medium3 btn-medium-blue">Add a Card</span> 
+	<span id="customButton" class="btn btn-medium3 btn-medium-blue" style="margin-top:5px;">Add a Card</span> 
 	<script>
 		var handler = StripeCheckout.configure({
 				key: '<%= ENV["STRIPE_PUBLIC_KEY"] %>',
@@ -37,7 +37,7 @@
 <% else %>
 	<%= form_tag add_a_card_path(@user.id), class:"no_ajaxify",id:"addcardForm" do %>
 	<script src="https://checkout.stripe.com/checkout.js"></script>
-	<div id="customButton" class="btn btn-medium2 btn-medium-blue">Add a Card</div>
+	<div id="customButton" class="btn btn-medium2 btn-medium-blue" style="margin-top:5px;">Add a Card</div>
 	
 	<script>
 		var handler = StripeCheckout.configure({

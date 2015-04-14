@@ -179,4 +179,23 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		end
 	end
 
+	def venmo
+		@user = current_user
+		venmo = Venmo.find_for_venmo_oauth(request.env['omniauth.auth'], @user.id)
+		params = request.env["omniauth.params"]
+		if params["payment"] == "false" then
+			#This is to add Venmo without payment
+			params = request.env["omniauth.params"]
+			if venmo.persisted?
+				flash[:success] = "Connected to Venmo."
+				redirect_to payment_settings_path(current_user)	
+			else
+				flash[:success] = "Fail to connect to Venmo."
+				redirect_to payment_settings_path(current_user)		
+			end
+		else
+		end
+	end
+
+
 end
