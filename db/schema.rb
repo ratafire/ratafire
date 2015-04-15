@@ -653,6 +653,13 @@ ActiveRecord::Schema.define(:version => 20150414183336) do
 
   add_index "mailboxer_receipts", ["notification_id"], :name => "index_mailboxer_receipts_on_notification_id"
 
+  create_table "majorpost_suggestions", :force => true do |t|
+    t.string   "term"
+    t.integer  "popularity"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "majorposts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -979,13 +986,13 @@ ActiveRecord::Schema.define(:version => 20150414183336) do
     t.integer  "user_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.datetime "deadline"
     t.integer  "step"
     t.integer  "goals_subscribers"
     t.integer  "goals_monthly"
     t.integer  "goals_project"
     t.text     "collectible"
     t.integer  "project_id"
-    t.datetime "approved_at"
     t.datetime "completed_at"
     t.boolean  "completion"
     t.integer  "ssn"
@@ -1003,8 +1010,8 @@ ActiveRecord::Schema.define(:version => 20150414183336) do
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
-    t.boolean  "accumulated",                                         :default => false
     t.decimal  "duration",             :precision => 32, :scale => 6
+    t.boolean  "accumulated",                                         :default => false
     t.boolean  "supporter_switch",                                    :default => false
     t.boolean  "past_support",                                        :default => false
     t.boolean  "duration_support",                                    :default => false
@@ -1115,9 +1122,6 @@ ActiveRecord::Schema.define(:version => 20150414183336) do
     t.boolean  "next_transaction_status",                                :default => false
     t.integer  "counter",                                                :default => 0
     t.integer  "retry",                                                  :default => 0
-    t.decimal  "payment_fee",             :precision => 10, :scale => 2, :default => 0.0
-    t.integer  "billing_subscription_id"
-    t.integer  "billing_artist_id"
     t.string   "created"
     t.boolean  "livemode"
     t.boolean  "paid"
@@ -1135,11 +1139,13 @@ ActiveRecord::Schema.define(:version => 20150414183336) do
     t.string   "klass"
     t.string   "stripe_id"
     t.string   "description"
+    t.decimal  "payment_fee",             :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "billing_subscription_id"
+    t.integer  "billing_artist_id"
     t.string   "method"
     t.string   "paypal_correlation_id"
     t.string   "billing_agreement_id"
     t.string   "paypal_transaction_id"
-    t.decimal  "fee",                     :precision => 10, :scale => 2
   end
 
   create_table "tutorials", :force => true do |t|
@@ -1251,14 +1257,12 @@ ActiveRecord::Schema.define(:version => 20150414183336) do
     t.string   "uuid"
     t.string   "location"
     t.string   "bio_html"
-    t.string   "direct_upload_url"
-    t.boolean  "processed",                                                 :default => false
-    t.string   "subscription_status_initial"
     t.string   "legalname"
     t.integer  "ssn"
     t.boolean  "need_username",                                             :default => false
     t.string   "after_subscription_url"
     t.boolean  "signup_during_subscription",                                :default => false
+    t.string   "subscription_status_initial",                               :default => "0"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
@@ -1313,7 +1317,6 @@ ActiveRecord::Schema.define(:version => 20150414183336) do
     t.text     "tags_temp"
     t.integer  "archive_id"
     t.string   "thumbnail"
-    t.string   "direct_upload_url",                               :null => false
     t.boolean  "processed",              :default => false,       :null => false
     t.integer  "user_id",                                         :null => false
     t.string   "output_url_mp4"
