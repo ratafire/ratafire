@@ -1,18 +1,18 @@
     <div style="margin-top: 10px;" id="give-portable">
         <div class="btn-sidebar-profile-create" id="give-portable-slide-down">
-            <ol class="btn-sidebar-give-active btn-sidebar-profile-project" id="give-9-button">To Support</ol>
+            <ol class="btn-sidebar-give-active btn-sidebar-profile-project" id="give-9-button">$10 per month</ol>
             <% if current_user != nil && current_user.facebook != nil then %>
                 <%= link_to subscribe_path(@user,"false","10"), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="give-2-button">Other Amounts</ol><%end%>
                 </div>  
-                <%= link_to "Give $10/month", subscribe_path(@user,"true","10"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"give-9-original", style:"z-index:1000;"%>                 
+                <%= link_to "Give", subscribe_path(@user,"true","10"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"give-9-original", style:"z-index:1000;"%>                 
             <% else %>    
                 <%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "false", :amount => "10"), class:"no_ajaxify" do %><ol class="btn-sidebar-profile-discussion" id="give-2-button">Other Amounts</ol><% end %>
                 </div>  
-                <%= link_to "Give $10/month", user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount =>"10"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"give-9-original", style:"z-index:1000;"%>  
+                <%= link_to "Give", user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount =>"10"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"give-9-original", style:"z-index:1000;"%>  
             <% end %> 
     </div>  
 
-    <script>
+<script>
     //Sidebar Profile Give Button
     $("#give-portable").hover(
       function () {
@@ -40,4 +40,4 @@
     $("#sidebar-give-9-button").click(function(){
         $("#sidebar-give-9")[0].click();
     });   
-    </script>
+</script>

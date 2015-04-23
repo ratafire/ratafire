@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/bcardarella/client_side_validations.git
-  revision: 56bdafa7502e3aba899a9ce56784392e3d8b0566
+  revision: 4f4b3f61f4a4916a3d12fe95f8d1286c7d5609a1
   branch: 3-2-stable
   specs:
-    client_side_validations (3.2.6)
+    client_side_validations (3.2.7)
 
 GIT
   remote: git://github.com/jrgifford/delayed_paperclip.git
@@ -46,7 +46,7 @@ GIT
 
 GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
-  revision: b39229cf5bfad1e6b08c8520a345b68a44ec0972
+  revision: 938c28d3e9d9acc6f22d73bec7ee0766197aaa03
   specs:
     jquery-datatables-rails (3.2.0)
       actionpack (>= 3.1)
@@ -56,7 +56,7 @@ GIT
 
 GIT
   remote: https://github.com/ratafire/paypal-express
-  revision: f36ce1286ba3e03752dcb12cb9788144be72909c
+  revision: 56ae7a68a2ad1010bb4281533361a048ddab7d28
   specs:
     paypal-express (0.8.1)
       activesupport (>= 2.3)
@@ -65,11 +65,10 @@ GIT
 
 GIT
   remote: https://github.com/stripe/stripe-ruby
-  revision: 403e92fc8877d2dc1a5b9c17485dac8d3937989a
+  revision: 782a596c8f01060d22b44151e9dbd60a8ef138d6
   specs:
-    stripe (1.20.3)
+    stripe (1.21.0)
       json (~> 1.8.1)
-      mime-types (>= 1.25, < 3.0)
       rest-client (~> 1.4)
 
 PATH
@@ -165,10 +164,10 @@ GEM
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
-    coffee-script (2.3.0)
+    coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1)
+    coffee-script-source (1.9.1.1)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -179,14 +178,14 @@ GEM
       actionmailer (>= 3.2.6, < 5)
       devise (>= 3.2.0)
     diff-lcs (1.1.3)
-    domain_name (0.5.23)
+    domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     em-synchrony (1.0.3)
       eventmachine (>= 1.0.0.beta.1)
     erubis (2.7.0)
-    eventmachine (1.0.6)
-    excon (0.44.4)
-    execjs (2.4.0)
+    eventmachine (1.0.7)
+    excon (0.45.3)
+    execjs (2.5.2)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     figaro (1.1.0)
@@ -200,23 +199,24 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.29.0)
+    fog-core (1.30.0)
       builder
-      excon (~> 0.38)
+      excon (~> 0.45)
       formatador (~> 0.2)
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
-    fog-json (1.0.0)
+    fog-json (1.0.1)
+      fog-core (~> 1.0)
       multi_json (~> 1.0)
-    foreigner (1.7.2)
+    foreigner (1.7.4)
       activerecord (>= 3.0.0)
     formatador (0.2.5)
     friendly_id (4.0.9)
     gon (5.0.4)
       actionpack (>= 2.3.0)
       json
-    hashie (3.4.0)
+    hashie (3.4.1)
     hike (1.2.3)
     hiredis (0.5.1)
     httmultiparty (0.3.16)
@@ -259,7 +259,7 @@ GEM
       webrobots (>= 0.0.9, < 0.2)
     middleware (0.1.0)
     mime-types (1.25.1)
-    mimemagic (0.2.1)
+    mimemagic (0.3.0)
     mini_magick (3.7.0)
       subexec (~> 0.2.1)
     mini_portile (0.6.2)
@@ -324,7 +324,7 @@ GEM
       xml-simple
     paypal-sdk-merchant (1.116.0)
       paypal-sdk-core (~> 0.3.0)
-    paypal-sdk-rest (1.1.2)
+    paypal-sdk-rest (1.1.3)
       multi_json (~> 1.0)
       uuidtools (~> 2.1)
       xml-simple
@@ -359,9 +359,9 @@ GEM
     rake (10.2.2)
     rdoc (3.12.2)
       json (~> 1.4)
-    redcarpet (3.2.2)
+    redcarpet (3.2.3)
     redis (3.0.7)
-    redis-namespace (1.5.1)
+    redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     resque (1.25.2)
       mono_logger (~> 1.0)
@@ -376,7 +376,8 @@ GEM
       rufus-scheduler (~> 2.0.24)
     resque_mailer (2.2.6)
       actionmailer (>= 3.0)
-    rest-client (1.7.3)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     riddle (1.5.11)
@@ -406,10 +407,10 @@ GEM
     sendgrid (1.2.0)
       json
       json
-    sinatra (1.4.5)
+    sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
-      tilt (~> 1.3, >= 1.3.4)
+      tilt (>= 1.3, < 3)
     soundcloud (0.3.1)
       hashie
       httmultiparty (>= 0.3)
@@ -441,7 +442,7 @@ GEM
       json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.6)
+    unf_ext (0.0.7.1)
     uuidtools (2.1.5)
     vegas (0.1.11)
       rack (>= 1.0.0)
