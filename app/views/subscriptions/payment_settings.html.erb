@@ -29,7 +29,7 @@
 			<div class="textbox-mini">
 				<h2>How I Pay</h2>
 				<!-- If the user does not have Venmo -->
-				<% if @user.venmo == nil then %>
+				<% if @user.user_venmo == nil then %>
 					<%= render 'subscriptions/add_venmo'%>
 				<% else %>
 					<%= render 'subscriptions/added_venmo'%>

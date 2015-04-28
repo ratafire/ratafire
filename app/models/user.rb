@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
 	has_one :deviantart
 	has_one :vimeo
 	has_one :tutorial
-	has_one :venmo
+	has_one :user_venmo
 
 	#--- Payments ---
 	#Subscriptions

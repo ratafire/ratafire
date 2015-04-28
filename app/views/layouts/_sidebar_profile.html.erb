@@ -60,7 +60,7 @@
 	<% else %>		
 		<% if @user.subscribed_by?(current_user)%>
 			<!-- Subscribing-->
-			<%= link_to unsubscribe_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsubscribe from "+@user.fullname+"? If unsubscribed, you cannot resubscribe to "+@user.fullname+" in one month." do %>
+			<%= link_to unsubscribe_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsubscribe from "+@user.fullname+"?" do %>
 				<div style="margin-top: 10px;" class="btn btn-medium btn-medium-blue btn-change-text">
 					<span class="before">Subscribing</span>
 					<span class="hover">Unsubscribe</span>
@@ -70,7 +70,7 @@
 		<% else %>	
 			<% if current_user.subscribed_by?(@user)%>
 				<!-- Subscribes you-->
-				<%= link_to remove_subscriber_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from subscribing you? If removed, "+@user.fullname+" cannot resubscribe to you in one month." do%>
+				<%= link_to remove_subscriber_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from subscribing you?" do%>
 					<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
 						<span class="before">Subscribing You</span>
 						<span class="hover">Remove</span>

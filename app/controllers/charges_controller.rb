@@ -121,30 +121,37 @@ class ChargesController < ApplicationController
 		#Set basic info of the subscription
 		@user = User.find(params[:id])
 		@subscriber = User.find(@subscription.subscriber_id)
-		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id		
+		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id	
+		@subscription.save	
 		#Adda card
 		unless @user.subscribed_by?(@subscriber) || @subscriber.subscribed_by?(@user) then
 			if @subscription.method == "Card" then
 				stripe_add_card(@subscriber.id,params[:stripeToken])
 				#Subscribe
 			else
-				@subscription.save
-				create_request
-				port = Rails.env.production? ? "" : ":3000"
-				redirect_url = "#{request.scheme}://#{request.host}#{port}/"+@subscription.id.to_s+"/r/paypal/add_paypal_subscribe_success"
-				failure_url = "#{request.scheme}://#{request.host}#{port}/"+@user.username
-				payment_request = Paypal::Payment::Request.new(
-		  			:billing_type  => "MerchantInitiatedBilling",
-		  			# Or ":billing_type => :MerchantInitiatedBillingSingleAgreement"
-		  			# Read official document for details
-		  			:billing_agreement_description => "Pay Ratafire with PayPal"
-				)
-				response = @request.setup(
-	  				payment_request,
-	  				redirect_url,
-	  				failure_url
-				)
-				redirect_to response.redirect_uri			
+				if @subscription.method == "PayPal" then
+					@subscription.save
+					create_request
+					port = Rails.env.production? ? "" : ":3000"
+					redirect_url = "#{request.scheme}://#{request.host}#{port}/"+@subscription.id.to_s+"/r/paypal/add_paypal_subscribe_success"
+					failure_url = "#{request.scheme}://#{request.host}#{port}/"+@user.username
+					payment_request = Paypal::Payment::Request.new(
+			  			:billing_type  => "MerchantInitiatedBilling",
+			  			# Or ":billing_type => :MerchantInitiatedBillingSingleAgreement"
+			  			# Read official document for details
+			  			:billing_agreement_description => "Pay Ratafire with PayPal"
+					)
+					response = @request.setup(
+		  				payment_request,
+		  				redirect_url,
+		  				failure_url
+					)
+					redirect_to response.redirect_uri	
+				else
+					@subscription.save
+					redirect_to user_omniauth_authorize_path(:venmo, payment:"true",subscriber_id: @subscription.subscriber_id, subscribed_id: @subscription.subscribed_id, amount: @subscription.amount,method:"Venmo")
+					@subscription.destroy
+				end		
 			end
 		else
 			flash[:success] = "Subscription failed."
@@ -173,6 +180,38 @@ class ChargesController < ApplicationController
 			@subscription = Subscription.find(params[:subscription_id])
 			redirect_to user_path(@subscription.subscribed)
 		end		
+	end
+
+	#Add venmo subscribe
+	def add_venmo_subscribe
+		@subscription = Subscription.new()
+		@subscription.subscriber_id = params[:subscriber_id]
+		@subscription.subscribed_id = params[:subscribed_id]
+		@subscription.amount = params[:amount]
+		@subscription.method = "Venmo"
+		#See if it is a support
+		if @subscription.amount == ENV["PRICE_1"].to_f
+			@subscription.supporter_switch = true
+		end
+		#Set basic info of the subscription
+		@subscriber = User.find(@subscription.subscriber_id)
+		@subscription.project_id = @subscriber.projects.where(:published => true, :complete => false).first.id	
+		@subscription.save			
+		if current_user != nil then
+			#Find the user
+			@user = User.find(current_user.id)
+			#See if the user has a current venmo
+			if @user.user_venmo != nil then 
+				@user.user_venmo.refresh_token_if_expired
+				subscribe_for_user
+			else
+				@subscription = Subscription.find(params[:subscription_id])
+				redirect_to user_path(@subscription.subscribed)
+			end
+		else
+			@subscription = Subscription.find(params[:subscription_id])
+			redirect_to user_path(@subscription.subscribed)
+		end
 	end
 
 	#User already has a card
@@ -274,11 +313,14 @@ private
 			@subscription.activated_at = Time.now
 			if @subscription.save then
 				#Make first payment
-				if @subscriber.cards.first != nil || params[:method] == "Card" || @subscription.method == "Card" then
-					subscribe_through_stripe
-				else
-					if @subscriber.billing_agreement != nil || params[:method] == "PayPal"  || @subscription.method == "Card" then
+				if @subscriber.user_venmo != nil || params[:method] == "Venmo" || @subscription.method == "Venmo" then
+					subscribe_through_venmo
+					if @subscriber.billing_agreement != nil || params[:method] == "PayPal"  || @subscription.method == "Card" then	
 						subscribe_through_paypal
+					else
+						if @subscriber.cards.first != nil || params[:method] == "Card" || @subscription.method == "Card" then
+							subscribe_through_stripe
+						end
 					end
 				end
 			else
@@ -340,6 +382,32 @@ private
 			#Transaction failed
 			flash[:error] = "Invalid payment method."
 			redirect_to(:back)		
+		end
+	end
+
+	def subscribe_through_venmo
+		charge_amount = "-"+@subscription.amount.to_s
+		if Rails.env.production? then
+			response = Venmo.pay_by_user_id(@subscriber.user_venmo.uid, charge_amount, "Payment to Ratafire")
+		else
+			response = Venmo.pay_by_user_id("145434160922624933", "-0.10", "Payment to Ratafire")
+		end
+		response = JSON.parse(response)
+		if response["data"]["payment"]["status"] == "settled" then
+			transaction = Transaction.venmo!(
+				response,
+				:subscription_id => @subscription.id,
+				:subscriber_id => @subscriber.id,
+				:subscribed_id => @user.id,
+				:supporter_switch => @subscription.supporter_switch,
+				:transaction_method => "Venmo"				
+			)
+			subscription_post_payment
+			Resque.enqueue(SubscriptionNowWorker,@subscription.id,transaction.id)
+		else
+			#Transaction failed
+			flash[:error] = "Invalid payment method."
+			redirect_to(:back)	
 		end
 	end
 

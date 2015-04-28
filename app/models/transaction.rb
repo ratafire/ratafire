@@ -2,7 +2,7 @@ class Transaction < ActiveRecord::Base
 	# attr_accessible :title, :body
 	  belongs_to :subscription_records
 	before_validation :generate_uuid!, :on => :create
-	self.primary_key = 'uuid'
+	#self.primary_key = 'uuid'
 
 	#This is the prefill for the first transaction of a subscription
 	def self.prefill!(response,options = {})
@@ -52,6 +52,36 @@ class Transaction < ActiveRecord::Base
 		else
 			#failure
 		end	
+	end
+
+	#This is the prefill for venmo transaction
+	def self.venmo!(response,options = {})
+		@transaction = Transaction.new
+		@transaction.total = response["data"]["payment"]["amount"]
+		#See if there is a fee
+		if response["data"]["payment"]["fee"] == nil then
+			@transaction.receive = @transaction.total
+		else
+			@transaction.fee = response["data"]["payment"]["fee"]
+			@transaction.receive = @transaction.total - @transaction.fee
+		end
+		@transaction.method = options[:transaction_method]
+		@transaction.supporter_switch = options[:supporter_switch]
+		@transaction.subscriber_id = options[:subscriber_id]
+		@transaction.subscribed_id = options[:subscribed_id]
+		@transaction.subscription_id = options[:subscription_id]
+		@transaction.status = response["data"]["payment"]["status"]
+		@transaction.venmo_transaction_id = response["data"]["payment"]["id"]
+		@transaction.save
+		@subscriber = User.find(options[:subscriber_id])
+		if @subscriber != nil then
+			@transaction.venmo_username = @subscriber.user_venmo.username
+			@transaction.venmo_token = @subscriber.user_venmo.token
+			@transaction.save
+			@transaction		
+		else
+			#failure
+		end
 	end
 	
 	#After authenicating with Amazon, we get the rest of the details

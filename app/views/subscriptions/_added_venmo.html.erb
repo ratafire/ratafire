@@ -5,7 +5,7 @@
 				<thead>
 					<tr>
 						<th width="180">Venmo</th>
-						<th width="370"><%= @user.venmo.username %></th>
+						<th width="370"><%= @user.user_venmo.uid %></th>
 						<th><%= link_to disconnect_path(@user,:venmo), class:"no_ajaxify" do %><div class="btn btn-small btn-small-green">Delete</div><% end %></th>
 					</tr>
 				</thead>

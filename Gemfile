@@ -131,6 +131,9 @@ gem 'paypal-sdk-rest'
 gem 'paypal-sdk-merchant'
 gem 'paypal-express', :git => 'https://github.com/ratafire/paypal-express'
 
+#Venmo
+gem 'venmo', :git => 'https://github.com/ratafire/venmo.git'
+
 #------------Rails Utilities------------
 gem 'rake', '10.2.2'
 gem 'rails', '3.2.13'

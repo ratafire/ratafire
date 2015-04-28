@@ -11,14 +11,14 @@ class SubscriptionMailer < ActionMailer::Base
 
   #A Receipt Email for Subscribers
   def transaction_confirmation(transaction_id)
-    @transaction = Transaction.find_by_TransactionId(transaction_id)
+    @transaction = Transaction.find(transaction_id)
     @subscription = Subscription.find_by_id(@transaction.subscription_id)
     @subscriber = User.find(@transaction.subscriber_id)
     @subscribed = User.find(@transaction.subscribed_id)
     #Specific items
     @subscribed_fullname = @subscribed.fullname
     @subscribed_username = @subscribed.username
-    @transaction_amount = @transaction.total
+    @transaction_amount = @transaction.total.to_s
     #@subscription_next_billing_date = @subscription.next_billing_date.strftime("%m/%d/%Y")
     @subscriber_username = @subscriber.username
     @transaction_uuid = @transaction.uuid
@@ -28,7 +28,7 @@ class SubscriptionMailer < ActionMailer::Base
 
   #A Welcome Email for Subscribed - Subscription Only
   def new_subscriber(transaction_id,message_id)
-    @transaction = Transaction.find_by_TransactionId(transaction_id)
+    @transaction = Transaction.find(transaction_id)
     @subscription = Subscription.find_by_id(@transaction.subscription_id)
     @subscriber = User.find(@transaction.subscriber_id)
     @subscribed = User.find(@transaction.subscribed_id)   
@@ -46,7 +46,7 @@ class SubscriptionMailer < ActionMailer::Base
 
   #A Receipt Email for Subscribed - Subscription Only
   def transaction_confirmation_subscribed(transaction_id)
-    @transaction = Transaction.find_by_TransactionId(transaction_id)
+    @transaction = Transaction.find(transaction_id)
     @subscription = Subscription.find_by_id(@transaction.subscription_id)
     @subscriber = User.find(@transaction.subscriber_id)
     @subscribed = User.find(@transaction.subscribed_id)   
@@ -64,7 +64,7 @@ class SubscriptionMailer < ActionMailer::Base
   #Send an email to subscriber if transaction fails
   def failed_transaction_retry(transaction_id)
     @transaction = Transaction.find(transaction_id)
-    @subscription = Subscription.find_by_id(@transaction.subscription_id)
+    @subscription = Subscription.find(@transaction.subscription_id)
     @subscriber = User.find(@transaction.subscriber_id)
     @subscribed = User.find(@transaction.subscribed_id) 
     #Specific items    
@@ -81,7 +81,7 @@ class SubscriptionMailer < ActionMailer::Base
   #Send an email to subscriber if automatically unsubscribed
   def auto_unsubscribe(transaction_id)
     @transaction = Transaction.find(transaction_id)
-    @subscription = Subscription.find_by_id(@transaction.subscription_id)
+    @subscription = Subscription.find(@transaction.subscription_id)
     @subscriber = User.find(@transaction.subscriber_id)
     @subscribed = User.find(@transaction.subscribed_id) 
     #Specific items    
