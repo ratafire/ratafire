@@ -47,23 +47,41 @@ class MajorpostsController < ApplicationController
 					map_artwork
 				end
 				if @majorpost.published == true
-					#Set publish time when it is nil, which means it is the first time this majorpost goes public
-					unless @majorpost.published_at != nil then
-						@majorpost.published_at = Time.now
-						#Check Early Access
-						if @project.early_access == true then
-							@majorpost.early_access = true
-							Resque.enqueue_in(6.days,MajorpostEarlyAccessWorker,@majorpost.id)
-						end
+					if title_parser(@majorpost.title) == false then
+						@majorpost.published = false
 						@majorpost.save
-					end
-					#flag a project when it is over balanced its goal
-					if @project.majorposts.where(:published => true).count == @project.goal then
-						@project.flag = true
-						@project.save
-						format.html { redirect_to(user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Project completed?') }
+						format.html { redirect_to(edit_user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Please enter a title for this post.') }
 					else
-						format.html { redirect_to(user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Major post was successfully updated.') }
+						if @majorpost.content == nil || @majorpost.content == "" then
+							@majorpost.published = false
+							@majorpost.save
+							format.html { redirect_to(edit_user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Please enter the content of this post.') }
+						else
+							if @majorpost.tags.any? then
+								#Set publish time when it is nil, which means it is the first time this majorpost goes public
+								unless @majorpost.published_at != nil then
+									@majorpost.published_at = Time.now
+									#Check Early Access
+									if @project.early_access == true then
+										@majorpost.early_access = true
+										Resque.enqueue_in(6.days,MajorpostEarlyAccessWorker,@majorpost.id)
+									end
+									@majorpost.save
+								end
+								#flag a project when it is over balanced its goal
+								if @project.majorposts.where(:published => true).count == @project.goal then
+									@project.flag = true
+									@project.save
+									format.html { redirect_to(user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Project completed?') }
+								else
+									format.html { redirect_to(user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Major post was successfully updated.') }
+								end
+							else
+								@majorpost.published = false
+								@majorpost.save
+								format.html { redirect_to(edit_user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Please enter several tags for this post.') }
+							end
+						end
 					end
 				else
 					format.html { redirect_to(edit_user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Major post saved.') }
@@ -215,7 +233,11 @@ class MajorpostsController < ApplicationController
 		else
 			flash[:success] = "Majorpost deleted."
 		end				
-		redirect_to(:back)
+		if @project.majorposts.count == 0 then
+			redirect_to user_project_path(@project.creator,@project)
+		else
+			redirect_to(:back)
+		end
 	end
 
 
@@ -228,7 +250,7 @@ private
 
 	def majorpost_draft_title
 		time = DateTime.now.strftime("%H:%M:%S").to_s
-		title = "New Major Post " + time
+		title = "Click to enter a title " + time
 		return title	
 	end
 
@@ -294,6 +316,15 @@ private
 					@liked = false
 				end
 			end	
+	end
+
+	def title_parser(title)
+    	title_s = title.split(" ")
+    	if title_s[0] == "Click" && title_s[1] == "to" && title_s[2] == "enter" && title_s[3] == "a" && title_s[4] == "title" then
+    		return false
+    	else
+    		return true
+    	end		
 	end
 
 #Old Mapping methods after save

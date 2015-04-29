@@ -75,16 +75,25 @@ class VideosController < ApplicationController
         @project = @video.project
         @majorpost = @video.majorpost
         #it is either a majorpost video or a project video
-        if @video.majorpost_id == nil then
-           @project.video_id = nil
-           @project.save
-        else
-            @majorpost.video_id = nil
-            @majorpost.save
+        if @project != nil then
+          if @video.majorpost_id == nil then
+             @project.video_id = nil
+             @project.save
+          else
+              @majorpost.video_id = nil
+              @majorpost.save
+          end
         end
         @video.destroy
         flash[:success] = "Video deleted."
         redirect_to(:back)
+    end
+
+    def simple_destroy
+      @video = Video.find(params[:id])
+      @video.destroy
+      flash[:success] = "Video deleted."
+      redirect_to(:back)      
     end
 
   # if you're not using swfupload, code like this would be in your create and update methods

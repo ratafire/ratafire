@@ -1,0 +1,67 @@
+<% if user_signed_in?%>
+	<% if @user == current_user %>
+		<!-- Create New Button -->
+		<div style="margin-top: 10px;" id="sidebar-profile-create-button">
+			
+			<div class="btn-sidebar-profile-create" id="sidebar-profile-slide-down">
+				<%= link_to new_project_path(@user), class:"no_ajaxify" do %><ol class="btn-sidebar-profile-active btn-sidebar-profile-project" id="sidebar-profile-create-project">Work Collection</ol><% end %>
+				<%= link_to new_discussion_path(@user), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-profile-create-discussion">Discussion</ol><%end%>
+			</div>
+			<%= link_to "CREATE", new_project_path(@user), method: :post,class: "btn btn-medium btn-medium-blue no_ajaxify", id:"sidebar-profile-create-button-main", style:"z-index:1000;"%>
+		</div>		
+	<% else %>		
+		<% if @user.subscribed_by?(current_user)%>
+			<!-- Subscribing-->
+			<%= link_to unsubscribe_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsubscribe from "+@user.fullname+"?" do %>
+				<div style="margin-top: 10px;" class="btn btn-medium btn-medium-blue btn-change-text">
+					<span class="before">Subscribing</span>
+					<span class="hover">Unsubscribe</span>
+				</div>
+			<% end %><!-- end.link_to 
+			-->	
+		<% else %>	
+			<% if current_user.subscribed_by?(@user)%>
+				<!-- Subscribes you-->
+				<%= link_to remove_subscriber_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from subscribing you?" do%>
+					<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
+						<span class="before">Subscribing You</span>
+						<span class="hover">Remove</span>
+					</div>	
+				<% end %>
+
+			<% else %>
+					<!-- Supporting -->
+					<% if @user.supported_by?(current_user)%>
+						<%= link_to unsupport_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsupport "+@user.fullname+"?" do %>
+							<div style="margin-top: 10px;" class="btn btn-medium btn-medium-blue btn-change-text">
+								<span class="before">Supporting</span>
+								<span class="hover">Unsupport</span>
+							</div>
+						<% end %><!-- end.link_to -->						
+					<% else %>
+						<!-- Subscribes you-->
+						<% if current_user.supported_by?(@user)%>
+							<!-- Subscribes you-->
+							<%= link_to remove_supporter_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from supporting you?" do%>
+								<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
+									<span class="before">Supporting You</span>
+									<span class="hover">Remove</span>
+								</div>	
+							<% end %>
+						<% else %>
+							<!-- Subscribe Button -->
+							<% if @user.subscription_status_initial == "Approved"%>
+								<%= render 'users/subscribe_button'%>	
+							<% end %>									
+						<% end %>
+					<% end %>
+			<% end %><!-- end.current_user.subscribed_by?-->
+		<% end %><!-- end.if @user.subscribed_by?(current_user)-->	
+	<% end %><!-- end.if if @user == current_user-->
+				
+<% else %>
+	<!-- Subscribe Button -->
+	<% if @user.subscription_status_initial == "Approved"%>
+		<%= render 'users/subscribe_button'%>
+	<% end %>
+<% end %><!-- end.if user_signed_in?-->	

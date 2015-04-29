@@ -33,7 +33,7 @@
 
 			<div class="textbox-mini">
 				<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
-					<%= f.hidden_field :step, :value => 4, id:"step_id" %>
+					<%= f.hidden_field :step, :value => 3, id:"step_id" %>
 					
 						<div class="user-why-passage">
 							<!-- With a Project -->

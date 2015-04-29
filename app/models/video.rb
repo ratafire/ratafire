@@ -15,6 +15,7 @@ require 'aws/s3'
   belongs_to :majorpost
   belongs_to :project
   belongs_to :archive
+  belongs_to :user, class_name:"User"
 
   scope :finished, :conditions => { :encoded_state => "finished" }  
 

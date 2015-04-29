@@ -28,6 +28,23 @@
 
 				<p>This is the application of: <%= link_to @subscription_application.user.fullname, @subscription_application.user, class:"no_ajaxify", target:"_blank"%>.</p>
 
+				<h2>Video</h2>
+
+					<!-- Display Video if Success x-->
+					<div class="video-display" id="uploaded-video-display" style="margin-bottom:40px;margin-top:5px;width:701px;height:393px;">		
+						<div style="position:auto;z-index: 100;">
+							<%= videojs_rails sources: { webm: @subscription_application.user.video.output_url },height:"393", width:"701", poster:@subscription_application.user.video.thumbnail %>
+						</div>
+					</div>
+
+
+				<h2>Tagline</h2>
+
+					<p><%= @subscription_application.user.tagline %></p>
+
+				<h2>About</h2>
+
+					<p><%= @subscription_application.user.bio %></p>
 				
 				<h2>Goals</h2>
 
@@ -38,12 +55,12 @@
 					</div>	
 
 
-				<h2>Project</h2>
+				<h2>Work Collection</h2>
 
 					<% if @project != nil then %>
 						<p><%= link_to @project.title, user_project_path(@project.creator, @project), class:"no_ajaxify", target:"_blank"%></p>
 					<% else %>
-						<p>This user does not have an on-going project.</p>
+						<p>This user does not have an on-going work collection.</p>
 					<% end %>	
 
 				<h2>Discussion</h2>

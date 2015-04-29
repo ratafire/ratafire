@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
 	has_one :vimeo
 	has_one :tutorial
 	has_one :user_venmo
+	has_one :video,foreign_key: "subscribed_id", class_name: "Video"
 
 	#--- Payments ---
 	#Subscriptions

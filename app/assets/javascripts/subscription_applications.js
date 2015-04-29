@@ -14,9 +14,14 @@ $(document).ready(function() {
 		$("#step_id").val("2");
 		$("#subscription_application_form").submit();
 	});		
+	//Discussion
+	$("#subscription_application_video_back").click(function() {
+		$("#step_id").val("2");
+		$("#subscription_application_form").submit();
+	});		
 	//Payments
 	$("#subscription_application_payments_back").click(function() {
-		$("#step_id").val("2");
+		$("#step_id").val("3");
 		$("#subscription_application_form").submit();
 	});	
 	//Identification

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150428040119) do
+ActiveRecord::Schema.define(:version => 20150429041020) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -1322,6 +1322,7 @@ ActiveRecord::Schema.define(:version => 20150428040119) do
     t.integer  "user_id",                                         :null => false
     t.string   "output_url_mp4"
     t.boolean  "skip_everafter",         :default => false
+    t.integer  "subscribed_id"
   end
 
   add_index "videos", ["processed"], :name => "index_videos_on_processed"

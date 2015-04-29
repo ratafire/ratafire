@@ -135,6 +135,7 @@ Ratafire::Application.routes.draw do
 	match '/add_external_video', to: 'videos#add_external_video', via: :post, as: :add_external_video
 	match ":user_id/projects/:project_id/videos/:id", :to => "videos#destroy", via: :delete, as: :project_video_delete
 	match "/videos/notification/r/encode_notify", :to => "videos#encode_notify"
+	match 'video_upload/simple_destroy/yesterday_once_more/r/:id', :to => 'videos#simple_destroy', via: :delete, as: :video_simple_destroy
 
 #---Artwork---
 	match ':user_id/upload/artwork/:project_id/invoke_thy_aid_to_my_adventrous_song', :to => "artworks#create_project_artwork", via: :post, as: :create_project_artwork
@@ -238,6 +239,8 @@ Ratafire::Application.routes.draw do
 	match ':id/:subscription_application_id/identification/subscription', to: 'subscription_applications#identification', as: :identification_subscription
 	match ':id/:subscription_application_id/apply/subscription', to: 'subscription_applications#apply', as: :apply_subscription
 	match ':id/:subscription_application_id/pending/subscription', to: 'tutorials#subscription', as: :pending_subscription
+	match ':id/:subscription_application_id/video/subscription', to: 'subscription_applications#video', as: :video_subscription
+	match ':id/:subscription_application_id/subscription_video_upload/subscription', to: 'subscription_applications#subscription_video_upload', as: :subscription_video_upload
 
 #---Payments---
 	match ':id/r/r/subscription/', to:'subscriptions#why', as: :why

@@ -1,0 +1,24 @@
+	<!-- Personal Links -->
+	<div id="sidebar-personal" style="margin-top: -35px;">
+		
+		<!-- Personal Link -->
+		<% if @user.website.blank? %>
+			<!--<div class="btn btn-personallink tipsy-tipsy" title="Website">
+			</div>
+			<div id="Sidebar-personal-link">
+				...
+			</div>-->
+		<% else %>
+			<div>
+				<%= link_to '', @user_website, class:"btn btn-personallink tipsy-tipsy no_ajaxify", title:"Website", target: "_blank"%>
+			</div>
+			<div id="Sidebar-personal-link">
+				<%= link_to truncate(@user.website, :length => 18), @user_website,class:"no_ajaxify", target: "_blank" %>
+			</div>
+		<% end %>		
+
+		<!-- Social Media -->
+		<%= render 'layouts/sidebar_profile_social_media'%>
+
+
+	</div>

@@ -87,19 +87,51 @@ class ProjectsController < ApplicationController
 						@activity.draft = false
 					end
 					@activity.save
-				end								
+				end	
+				#published							
 				if @project.published == true
-					if @project.complete != true
-						if @project.majorposts.where(:published => true).count < @project.goal then
-							@project.flag = false
+					#push those stupid people back, if they want to not enter title or tagline!!!!
+					if title_parser(@project.title) == true then
+						if tagline_parser(@project.tagline) == true then
+							if @project.about == nil or @project.about == "" then 
+								@project.published = false
+								@project.save
+								format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please write a description for this work collection.') }								
+							else
+								if @project.icon == nil then 
+									@project.published = false
+									@project.save
+									format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please upload an icon for this work collection.') }								
+								else
+									if @project.tags.any? then
+										if @project.complete != true
+											if @project.majorposts.where(:published => true).count < @project.goal then
+												@project.flag = false
+												@project.save
+											end	
+											format.html { redirect_to(user_project_path(@project.creator,@project), :notice => 'Work collection was successfully updated.') }				
+										else
+											format.html { redirect_to(user_project_path(@project.creator,@project), :notice => 'Work collection is completed!') }
+										end
+									else
+										@project.published = false
+										@project.save
+										format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please add several tags for this work collection.') }											
+									end
+								end
+							end
+						else
+							@project.published = false
 							@project.save
-						end	
-							format.html { redirect_to(user_project_path(@project.creator,@project), :notice => 'Project was successfully updated.') }				
+							format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please enter a tagline for this work collection.') }							
+						end
 					else
-						format.html { redirect_to(user_project_path(@project.creator,@project), :notice => 'Project is completed!') }
+						@project.published = false
+						@project.save
+						format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please enter a title for this work collection.') }
 					end
 				else
-					format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Project saved.') }
+					format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Work collection saved.') }
 				end
 				#source code
 				if @project.source_code != nil && @project.source_code != "" then
@@ -114,7 +146,6 @@ class ProjectsController < ApplicationController
 					@project.goal = @project.majorposts.where(:published => true).count+1
 					@project.save
 				end
-
 			else
 				format.html { render :action => "edit" }
 				format.json { respond_with_bip(@project) }
@@ -371,6 +402,24 @@ private
 
     	def excerpt_generator
     		@project.excerpt = Sanitize.clean(@project.about)
+    	end
+
+    	def title_parser(title)
+    		title_s = title.split(" ")
+    		if title_s[0] == "Click" && title_s[1] == "to" && title_s[2] == "enter" && title_s[3] == "a" && title_s[4] == "title" then
+    			return false
+    		else
+    			return true
+    		end
+    	end
+
+    	def tagline_parser(tagline)
+    		tagline_s = tagline.split(" ")
+    		if tagline_s[1] == "pine" && tagline_s[2] == "nuts" && tagline_s[3] == "on" && tagline_s[4] == "the" then
+    			return false
+    		else
+    			return true
+    		end
     	end
 
 	#See if the user is signed in?

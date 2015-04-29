@@ -1,0 +1,30 @@
+					<!-- Video Upload-box -->
+					<div id="video-upload-box" style="width:701px;padding-bottom:20px;margin-bottom:40px;margin-top:5px;">
+						<div class="video-upload-words artwork-button fileinput-button" id="video-drop">
+							<span>Click to choose a video file</span>
+							<ul>Maximum size: 2GB. Recommanded resolution: 1080p.</ul>
+							<%= s3_uploader_form callback_url: subscription_video_upload_path(@user.id,@subscription_application),
+  								id: "s3_uploader_video",
+								callback_param: "video[direct_upload_url]",
+								expiration: 24.hours.from_now.utc.iso8601,
+								max_file_size: 2048.megabytes,:remote => true do %>
+								<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+							<% end %>
+						</div>
+					</div>	
+
+					<!-- Video Progress-box-->
+					<div id="video-progress-case"></div><!-- end. Video Progress-box-->
+						<script id="template-upload-video" type="text/x-tmpl">
+							<div id="video-progress-box" style="width:701px;margin-bottom:40px;margin-top:5px;">
+								<div class="video-progress" style="width:701px;">
+									<div id="progress-bar-artwork" class='bar-video' style="width: 0%">
+										<div class="video-progress-words">
+											<ul>Uploading video...</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</script>	
+								
+					<div id="videodata"></div>

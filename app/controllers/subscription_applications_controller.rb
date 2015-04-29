@@ -1,6 +1,7 @@
 class SubscriptionApplicationsController < ApplicationController
 
 	before_filter :correct_user
+	protect_from_forgery :except => [:subscription_video_upload]
 
 	def goals
 		@user = User.find(params[:id])
@@ -26,21 +27,25 @@ class SubscriptionApplicationsController < ApplicationController
 				if @subscription_application.step == 2 then #To Project
 					redirect_to project_subscription_path(@user, @subscription_application)
 				else
-					if @subscription_application.step == 4 then #To Payments
-						redirect_to payments_subscription_path(@user, @subscription_application)
+					if @subscription_application.step == 3 then
+						redirect_to video_subscription_path(@user,@subscription_application)
 					else
-						if @subscription_application.step == 5 then #To Identification
-							redirect_to identification_subscription_path(@user, @subscription_application)
+						if @subscription_application.step == 4 then #To Payments
+							redirect_to payments_subscription_path(@user, @subscription_application)
 						else
-							if @subscription_application.step == 6 then #To Apply
-								redirect_to apply_subscription_path(@user, @subscription_application)
-							else 
-								if @subscription_application.step == 7 then #To Review
-									redirect_to pending_subscription_path(@user, @subscription_application)
-								end	
+							if @subscription_application.step == 5 then #To Identification
+								redirect_to identification_subscription_path(@user, @subscription_application)
+							else
+								if @subscription_application.step == 6 then #To Apply
+									redirect_to apply_subscription_path(@user, @subscription_application)
+								else 
+									if @subscription_application.step == 7 then #To Review
+										redirect_to pending_subscription_path(@user, @subscription_application)
+									end	
+								end
 							end
 						end
-					end
+					end	
 				end
 			end
 		end
@@ -66,25 +71,72 @@ class SubscriptionApplicationsController < ApplicationController
 					if @subscription_application.step == 2 then #To Project
 						#redirect_to project_subscription_path(@user, @subscription_application)
 					else
-						if @subscription_application.step == 4 then #To Payments
-							redirect_to payments_subscription_path(@user, @subscription_application)
+						if @subscription_application.step == 3 then
+							redirect_to video_subscription_path(@user,@subscription_application)
 						else
-							if @subscription_application.step == 5 then #To Identification
-								redirect_to identification_subscription_path(@user, @subscription_application)
+							if @subscription_application.step == 4 then #To Payments
+								redirect_to payments_subscription_path(@user, @subscription_application)
 							else
-								if @subscription_application.step == 6 then #To Apply
-									redirect_to apply_subscription_path(@user, @subscription_application)
-								else 
-									if @subscription_application.step == 7 then #To Review
-										redirect_to pending_subscription_path(@user, @subscription_application)
-									else	
+								if @subscription_application.step == 5 then #To Identification
+									redirect_to identification_subscription_path(@user, @subscription_application)
+								else
+									if @subscription_application.step == 6 then #To Apply
+										redirect_to apply_subscription_path(@user, @subscription_application)
+									else 
+										if @subscription_application.step == 7 then #To Review
+											redirect_to pending_subscription_path(@user, @subscription_application)
+										end	
 									end
 								end
 							end
-						end
+						end	
 					end
 				end
 			end				
+	end
+
+	def video
+		@user = User.find(params[:id])
+		@subscription_progression = 40	
+		@subscription_application = @user.subscription_application[0]	
+		@video = @user.video	
+			if @subscription_application.step != 2 then 
+				if @subscription_application.step == 1 then #To Goals
+					redirect_to goals_subscription_path(@user,@subscription_application)
+				else
+					if @subscription_application.step == 2 then #To Project
+						redirect_to project_subscription_path(@user, @subscription_application)
+					else
+						if @subscription_application.step == 3 then
+							#redirect_to video_subscription_path(@user,@subscription_application)
+						else
+							if @subscription_application.step == 4 then #To Payments
+								redirect_to payments_subscription_path(@user, @subscription_application)
+							else
+								if @subscription_application.step == 5 then #To Identification
+									redirect_to identification_subscription_path(@user, @subscription_application)
+								else
+									if @subscription_application.step == 6 then #To Apply
+										redirect_to apply_subscription_path(@user, @subscription_application)
+									else 
+										if @subscription_application.step == 7 then #To Review
+											redirect_to pending_subscription_path(@user, @subscription_application)
+										end	
+									end
+								end
+							end
+						end	
+					end
+				end
+			end				
+	end
+
+	def subscription_video_upload
+        @video = Video.new(params[:video])
+        @video.user_id = params[:id]
+        @video.subscribed_id = params[:id]
+        @video.save	
+		#Redirect
 	end
 
 	def payments
@@ -105,22 +157,26 @@ class SubscriptionApplicationsController < ApplicationController
 					if @subscription_application.step == 2 then #To Project
 						redirect_to project_subscription_path(@user, @subscription_application)
 					else
-						if @subscription_application.step == 4 then #To Payments
-							#redirect_to payments_subscription_path(@user, @subscription_application)
-						else
-							if @subscription_application.step == 5 then #To Identification
-								redirect_to identification_subscription_path(@user, @subscription_application)
+						if @subscription_application.step == 3 then
+							redirect_to video_subscription_path(@user,@subscription_application)
+						else						
+							if @subscription_application.step == 4 then #To Payments
+								#redirect_to payments_subscription_path(@user, @subscription_application)
 							else
-								if @subscription_application.step == 6 then #To Apply
-									redirect_to apply_subscription_path(@user, @subscription_application)
-								else 
-									if @subscription_application.step == 7 then #To Review
-										redirect_to pending_subscription_path(@user, @subscription_application)
-									else	
+								if @subscription_application.step == 5 then #To Identification
+									redirect_to identification_subscription_path(@user, @subscription_application)
+								else
+									if @subscription_application.step == 6 then #To Apply
+										redirect_to apply_subscription_path(@user, @subscription_application)
+									else 
+										if @subscription_application.step == 7 then #To Review
+											redirect_to pending_subscription_path(@user, @subscription_application)
+										else	
+										end
 									end
 								end
 							end
-						end
+						end	
 					end
 				end
 			end
@@ -139,18 +195,22 @@ class SubscriptionApplicationsController < ApplicationController
 				if @subscription_application.step == 2 then #To Project
 					redirect_to project_subscription_path(@user, @subscription_application)
 				else
-					if @subscription_application.step == 4 then #To Payments
-						redirect_to payments_subscription_path(@user, @subscription_application)
-					else
-						if @subscription_application.step == 5 then #To Identification
-							#redirect_to identification_subscription_path(@user, @subscription_application)
+					if @subscription_application.step == 3 then
+						redirect_to video_subscription_path(@user,@subscription_application)
+					else						
+						if @subscription_application.step == 4 then #To Payments
+							redirect_to payments_subscription_path(@user, @subscription_application)
 						else
-							if @subscription_application.step == 6 then #To Apply
-								redirect_to apply_subscription_path(@user, @subscription_application)
-							else 
-								if @subscription_application.step == 7 then #To Review
-									redirect_to pending_subscription_path(@user, @subscription_application)
-								else
+							if @subscription_application.step == 5 then #To Identification
+								#redirect_to identification_subscription_path(@user, @subscription_application)
+							else
+								if @subscription_application.step == 6 then #To Apply
+									redirect_to apply_subscription_path(@user, @subscription_application)
+								else 
+									if @subscription_application.step == 7 then #To Review
+										redirect_to pending_subscription_path(@user, @subscription_application)
+									else
+									end
 								end
 							end
 						end
@@ -219,21 +279,25 @@ private
 			if @subscription_application.step == 2 then #To Project
 				redirect_to project_subscription_path(@user, @subscription_application)
 			else
-				if @subscription_application.step == 4 then #To Payments
-					redirect_to payments_subscription_path(@user, @subscription_application)
+				if @subscription_application.step == 3 then #To Discussion
+					redirect_to video_subscription_path(@user, @subscription_application)
 				else
-					if @subscription_application.step == 5 then #To Identification
-						redirect_to identification_subscription_path(@user, @subscription_application)
+					if @subscription_application.step == 4 then #To Payments
+						redirect_to payments_subscription_path(@user, @subscription_application)
 					else
-						if @subscription_application.step == 6 then #To Apply
-							redirect_to apply_subscription_path(@user, @subscription_application)
-						else 
-							if @subscription_application.step == 7 then #To Review
-								redirect_to pending_subscription_path(@user, @subscription_application)
+						if @subscription_application.step == 5 then #To Identification
+							redirect_to identification_subscription_path(@user, @subscription_application)
+						else
+							if @subscription_application.step == 6 then #To Apply
+								redirect_to apply_subscription_path(@user, @subscription_application)
+							else 
+								if @subscription_application.step == 7 then #To Review
+									redirect_to pending_subscription_path(@user, @subscription_application)
+								end
 							end
 						end
 					end
-				end
+				end	
 			end
 		end
 	end

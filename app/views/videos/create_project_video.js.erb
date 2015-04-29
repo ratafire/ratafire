@@ -1,5 +1,5 @@
 <% if @video.new_record? %>
 	alrt("Failed");
 <% else %>
-	$("#videodata").append("<%= j render(@video) %>");
+	$("#videodata").append("<%= j render(:partial => @video, :locals =>{:video => @video}) %>");
 <% end %>

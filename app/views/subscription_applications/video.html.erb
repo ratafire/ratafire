@@ -1,0 +1,65 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Setup Subscription") %>
+
+	<%= render 'shared/progress_bar_hover'%><!-- script -->
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Projects ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:second_header) do %>
+    	<%= render 'subscription_applications/header' %>
+	<% end %>	
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'subscription_applications/sidebar_application_video' %>
+	<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Main ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Main Content -->
+	<div class="main-content-project">		
+		<!-- Post Content -->
+		<div class="post-content">
+
+			<!-- About Title -->
+			<div class="post-about-bg">
+				<div class="textbox-mini">
+					<div class="post-about-title">
+						<li style="font-size: 1.4em;">Upload a Video about You</li>
+					</div>
+				</div>
+			</div>
+
+			<div class="textbox-mini">
+				<div class="user-why-passage">
+					<h4>Tell Your Story</h4>	
+					<ol style="margin:-10px 20px 10px 0;">In this video, you should introduce yourself, and explain why others should support you. </ol>
+
+					<!-- Video Upload-box -->
+					<% if @user.video == nil then %>
+						<%= render 'subscription_applications/subscription_application_video_upload'%>
+					<% else %>
+						<%= render 'subscription_applications/subscription_application_video'%>
+					<% end %>	
+
+					<div id="application-video-form-holder">
+						<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
+							<%= f.hidden_field :step, :value => 4, id:"step_id" %>
+							<!-- Back -->
+							<div style="margin: -20px 24px 20px 0; text-align:right;">
+								<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_video_back" >Back</div>
+								<!-- Next Step -->	
+								<% if @video then %>
+									<%= link_to video_simple_destroy_path(@video.id),method: :delete, class:"no_ajaxify" do %><div class="btn btn-small2 btn-small-blue no_ajaxify" id="subscription_application_video_back" >Delete Video</div><% end %>
+									<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+								<% else %>
+								<% end %>	
+							</div>		
+						<% end %>					
+					</div><!-- end#video form holder -->	
+				</div><!-- end .video-upload-box-->
+			</div><!-- end. textbox-mini-->
+		</div><!-- end:.post-content2-->
+		<%= render 'layouts/footer' %>
+	</div><!-- end of main-content -->	

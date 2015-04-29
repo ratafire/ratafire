@@ -1,0 +1,17 @@
+<% if @video.encoded_state == "finished" then %>
+		<!-- Display Video if Success x-->
+		<div class="video-display" id="uploaded-video-display" style="margin-bottom:40px;margin-top:5px;width:701px;height:393px;">		
+			<div style="position:auto;z-index: 100;">
+				<%= videojs_rails sources: { webm: @video.output_url }, height:"393", width:"701", poster:@video.thumbnail %>
+			</div>
+		</div>
+<% else %>
+	<!-- Video Success-Box-->
+	<div id="video-success-box" style="height:80px;width:701px;margin-bottom:40px;margin-top:5px;">
+		<div class="video-upload-words">
+			<span>Upload successful! Your Video is now encoding.</span>
+			<ul>It may take 10-25 minutes before it is ready. Refresh the page to preview it.</ul>
+			</div>
+		</div>
+	</div>		
+<% end %>

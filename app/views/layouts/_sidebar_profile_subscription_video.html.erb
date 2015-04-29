@@ -1,0 +1,45 @@
+<!-- Video Play Button -->
+<div class="sidebar-profile-video-play-button" id="sidebar-profile-video-play-button">
+</div>	
+
+<div class="sidebar-profile-video-play-close-button" id="sidebar-profile-video-play-close-button">
+</div>	
+
+<!-- Cover -->
+<div id="sidebar-video-cover-holder">
+
+	<div class="sidebar-video-cover-left" id="sidebar-video-cover-left">
+	</div>
+
+	<div class="sidebar-video-cover-right" id="sidebar-video-cover-right">
+		<div class="sidebar-video-player">
+			<%= videojs_rails sources: { webm: @user.video.output_url }, height:"445", width:"792", poster:@user.video.thumbnail,id:"user_video" %>
+		</div>	
+	</div>	
+</div><!-- end#sidebar-video-cover-holder-->	
+
+<!-- Javascript for video player -->
+<script>
+	var myPlayer = videojs("user_video");
+	//Button Hover
+    $("#sidebar-user-icon-holder").hover(
+      function () {
+        $('#sidebar-video-close-button').show();
+        $('#sidebar-video-cover-left').show();
+        $('#sidebar-video-cover-right').show();
+        $('#sidebar-profile-video-play-close-button').show();
+        $('#sidebar-profile-video-play-button').hide();
+    },
+        function () {    
+    }
+    );
+    //Button close
+    $("#sidebar-profile-video-play-close-button").click(
+      function () {
+        $('#sidebar-video-close-button').hide();
+        $('#sidebar-video-cover-left').hide();
+        $('#sidebar-video-cover-right').hide();
+        $('#sidebar-profile-video-play-close-button').hide();
+        $('#sidebar-profile-video-play-button').show();
+    });    
+</script>
