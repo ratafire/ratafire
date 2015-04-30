@@ -1,3 +1,18 @@
+<script>
+	$(document).ready(function() {
+
+		//Uploaded video click to play
+			$("#<%= @project.id%>video-small").click(
+				function () {
+					$("#<%= @project.id%>holder").hide();
+					$("#<%= @project.id%>video-expanded").show();
+					var myPlayer = videojs("#<%= @project.id%>video");
+					myPlayer.play();
+				});
+		
+	});
+</script>
+
 <div class="lightbox-project-portable">
 
 <div class="create-content-wrapper">	
@@ -46,22 +61,28 @@
 			<% if video_true_or_artwork_true(@project.id) %>
 				<!-- With Video but without artwork, without audio -->
 				<% if video_true_and_artwork_false(@project.id) %>
-					<div class="majorpost-video-one">
-						<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
-								<!-- Internal Thumbnail-->
-								<% if Video.find(@project.video_id).encoded_state == "finished" %>
-									<div class="majorpost-video-small-holder" style="background-image:url(<%= Video.find(@project.video_id).thumbnail.url(:thumb)%>);">
-								<% else %>
-									<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
-								<% end %>	
-								<div class="majorpost-video-small">
-								</div>
-							</div>	
-						<% end %>
-					</div><!-- end.majorpost-video-one -->	
-					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
-						<%= sanitize truncate(@project.excerpt, :length => 300) %>
-					</div>
+					<!-- Expanded Video -->
+					<div id="<%= @project.id%>video-expanded" style="display:none;">
+						<%= videojs_rails sources: { webm: @project.video.output_url }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
+					</div>	
+					<div id="<%= @project.id%>holder">					
+						<div class="majorpost-video-one">
+							
+									<!-- Internal Thumbnail-->
+									<% if Video.find(@project.video_id).encoded_state == "finished" %>
+										<div class="majorpost-video-small-holder" id="<%= @project.id%>video-small" style="background-image:url(<%= Video.find(@project.video_id).thumbnail.url(:thumb)%>);">
+									<% else %>
+										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
+									<% end %>	
+									<div class="majorpost-video-small">
+									</div>
+								</div>	
+							
+						</div><!-- end.majorpost-video-one -->	
+						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(@project.excerpt, :length => 300) %>
+						</div>
+					</div><!-- end#activity-holder-->	
 					<!-- Tags -->
 					<div id="majorpost-tags">
 						<% if @project.tags.any? %>
@@ -86,29 +107,35 @@
 					</div>
 				<% end %>	
 				<!-- With Artwork and with Video, without audio -->
-				<% if video_true_and_artwork_true(@project.id) %>				
-					<div class="majorpost-video-one">
-							<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
-									<!-- Internal Thumbnail-->
-									<% if Video.find(@project.video_id).encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" style="background-image:url(<%= Video.find(@project.video_id).thumbnail.url(:thumb)%>);">
-									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
-									<% end %>
-										<div class="majorpost-video-small">
+				<% if video_true_and_artwork_true(@project.id) %>	
+					<!-- Expanded Video -->
+					<div id="<%= @project.id%>video-expanded" style="display:none;">
+						<%= videojs_rails sources: { webm: @project.video.output_url }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
+					</div>	
+					<div id="<%= @project.id%>holder">								
+						<div class="majorpost-video-one">
+								
+										<!-- Internal Thumbnail-->
+										<% if Video.find(@project.video_id).encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= @project.id%>video-small" style="background-image:url(<%= Video.find(@project.video_id).thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+											<div class="majorpost-video-small">
+											</div>
 										</div>
-									</div>
-							<% end %>
-					</div>
-					<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
-						<div class="majorpost-postimages-one">
-							<img src="<%= @project.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+								
 						</div>
-						<div class="majorpost-thumbnail-bar2">Artwork</div>
-					<% end %>
-					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
-							<%= sanitize truncate(@project.excerpt, :length => 180) %>
-						</div>
+						<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= @project.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+							</div>
+							<div class="majorpost-thumbnail-bar2">Artwork</div>
+						<% end %>
+						<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+								<%= sanitize truncate(@project.excerpt, :length => 180) %>
+							</div>
+					</div><!-- end#activity-holder-->		
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if @project.tags.any? %>
@@ -138,31 +165,37 @@
 					</div>					
 				<% end %>	
 				<!-- With video, without artwork, with audio -->
-				<% if video_true_and_artwork_false_and_audio_true(@project.id) %>				
-					<div class="majorpost-video-one">
-							<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
+				<% if video_true_and_artwork_false_and_audio_true(@project.id) %>		
+					<!-- Expanded Video -->
+					<div id="<%= @project.id%>video-expanded" style="display:none;">
+						<%= videojs_rails sources: { webm: @project.video.output_url }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
+					</div>	
+					<div id="<%= @project.id%>holder">							
+						<div class="majorpost-video-one">
+								
+										<!-- Internal Thumbnail-->
+										<% if Video.find(@project.video_id).encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= @project.id%>video-small" style="background-image:url(<%= Video.find(@project.video_id).thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+											<div class="majorpost-video-small">
+											</div>
+										</div>
+								
+						</div>
+						<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
 									<!-- Internal Thumbnail-->
-									<% if Video.find(@project.video_id).encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" style="background-image:url(<%= Video.find(@project.video_id).thumbnail.url(:thumb)%>);">
-									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
-									<% end %>
+									<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= @project.audio.default_image%>.jpg);">
 										<div class="majorpost-video-small">
 										</div>
-									</div>
-							<% end %>
-					</div>
-					<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
-								<!-- Internal Thumbnail-->
-								<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= @project.audio.default_image%>.jpg);">
-									<div class="majorpost-video-small">
-									</div>
-								</div>	
-								<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>
-					<% end %>
-					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
-							<%= sanitize truncate(@project.excerpt, :length => 180) %>
-						</div>
+									</div>	
+									<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>
+						<% end %>
+						<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+								<%= sanitize truncate(@project.excerpt, :length => 180) %>
+							</div>
+					</div><!-- end#activity-holder-->		
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if @project.tags.any? %>
@@ -195,34 +228,40 @@
 					</div>					
 				<% end %>	
 				<!-- With video, with artwork, with audio -->
-				<% if video_true_and_artwork_true_and_audio_true(@project.id) %>				
-					<div class="majorpost-video-one">
-							<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
+				<% if video_true_and_artwork_true_and_audio_true(@project.id) %>	
+					<!-- Expanded Video -->
+					<div id="<%= @project.id%>video-expanded" style="display:none;">
+						<%= videojs_rails sources: { webm: @project.video.output_url }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
+					</div>	
+					<div id="<%= @project.id%>holder">								
+						<div class="majorpost-video-one">
+								<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
+										<!-- Internal Thumbnail-->
+										<% if Video.find(@project.video_id).encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= @project.id%>video-small" style="background-image:url(<%= Video.find(@project.video_id).thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+											<div class="majorpost-video-small">
+											</div>
+										</div>
+								<% end %>
+						</div>
+						<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= @project.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+							</div>
+							<div class="majorpost-thumbnail-bar2">Artwork</div>
+						<% end %>
+						<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
 									<!-- Internal Thumbnail-->
-									<% if Video.find(@project.video_id).encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" style="background-image:url(<%= Video.find(@project.video_id).thumbnail.url(:thumb)%>);">
-									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
-									<% end %>
+									<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= @project.audio.default_image%>.jpg);">
 										<div class="majorpost-video-small">
 										</div>
-									</div>
-							<% end %>
-					</div>
-					<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
-						<div class="majorpost-postimages-one">
-							<img src="<%= @project.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
-						</div>
-						<div class="majorpost-thumbnail-bar2">Artwork</div>
-					<% end %>
-					<%= link_to user_project_path(@project.creator,@project),class:"no_ajaxify" do %>
-								<!-- Internal Thumbnail-->
-								<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= @project.audio.default_image%>.jpg);">
-									<div class="majorpost-video-small">
-									</div>
-								</div>	
-								<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>
-					<% end %>
+									</div>	
+									<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>
+						<% end %>
+					</div><!-- end#activity-holder-->	
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if @project.tags.any? %>
