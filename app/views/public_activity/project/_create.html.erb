@@ -19,6 +19,16 @@
 		$('#<%= activity.id %>background').height(height);
 		$('#<%= activity.id %>background').width(height);
 		$('#<%= activity.id %>background-wrapper').css( { "margin-right" : height+10, "margin-top" : -height} );
+
+		//Uploaded video click to play
+			$("#<%= activity.id%>video-small").click(
+				function () {
+					$("#<%= activity.id%>holder").hide();
+					$("#<%= activity.id%>video-expanded").show();
+					var myPlayer = videojs("#<%= activity.id%>video");
+					myPlayer.play();
+				});
+		
 	});
 </script>
 
@@ -117,22 +127,31 @@
 			<% if video_true_or_artwork_true(activity.trackable.id) %>
 				<!-- With Video but without artwork, without audio -->
 				<% if video_true_and_artwork_false(activity.trackable.id) %>
-					<div class="majorpost-video-one">
-						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
-								<!-- Internal Thumbnail-->
-								<% if Video.find(activity.trackable.video_id).encoded_state == "finished" %>
-									<div class="majorpost-video-small-holder" style="background-image:url(<%= Video.find(activity.trackable.video_id).thumbnail.url(:thumb)%>);">
-								<% else %>
-									<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
-								<% end %>	
-								<div class="majorpost-video-small">
-								</div>
-							</div>	
-						<% end %>
-					</div><!-- end.majorpost-video-one -->	
-					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
-						<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
-					</div>
+					<!-- Expanded Video -->
+					<div id="<%= activity.id%>video-expanded" style="display:none;">
+						<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+					</div>	
+					<div id="<%= activity.id%>holder">
+						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
+							
+									<!-- Internal Thumbnail-->
+									<% if Video.find(activity.trackable.video_id).encoded_state == "finished" %>
+										<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= Video.find(activity.trackable.video_id).thumbnail.url(:thumb)%>);">
+											<div class="majorpost-video-small" >
+											</div>
+										</div>	
+									<% else %>
+										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
+											<div class="majorpost-video-small">
+											</div>
+										</div>											
+									<% end %>	
+							
+						</div><!-- end.majorpost-video-one -->	
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
+						</div>
+					</div><!-- end#activity-holder-->	
 					<!-- Tags -->
 					<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>
@@ -147,7 +166,7 @@
 						</div>
 						<div class="majorpost-thumbnail-bar">Artwork</div>
 					<% end %>	
-						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 						</div>
 					<!-- Tags-->
@@ -157,29 +176,35 @@
 					</div>
 				<% end %>	
 				<!-- With Artwork and with Video, without audio -->
-				<% if video_true_and_artwork_true(activity.trackable.id) %>				
-					<div class="majorpost-video-one">
-							<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
-									<!-- Internal Thumbnail-->
-									<% if Video.find(activity.trackable.video_id).encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" style="background-image:url(<%= Video.find(activity.trackable.video_id).thumbnail.url(:thumb)%>);">
-									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
-									<% end %>
-										<div class="majorpost-video-small">
+				<% if video_true_and_artwork_true(activity.trackable.id) %>	
+					<!-- Expanded Video -->
+					<div id="<%= activity.id%>video-expanded" style="display:none;">
+						<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+					</div>	
+					<div id="<%= activity.id%>holder">			
+						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
+								
+										<!-- Internal Thumbnail-->
+										<% if Video.find(activity.trackable.video_id).encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= Video.find(activity.trackable.video_id).thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+											<div class="majorpost-video-small">
+											</div>
 										</div>
-									</div>
-							<% end %>
-					</div>
-					<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
-						<div class="majorpost-postimages-one">
-							<img src="<%= activity.trackable.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+
 						</div>
-						<div class="majorpost-thumbnail-bar2">Artwork</div>
-					<% end %>
-					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
-							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+							</div>
+							<div class="majorpost-thumbnail-bar2">Artwork</div>
+						<% end %>
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+								<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
 						</div>
+					</div><!-- end. activity holder-->	
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>
@@ -188,7 +213,7 @@
 				<% end %>	
 				<!-- With Audio, wihtout video, without artwork -->	
 				<% if video_false_and_artwork_false_and_audio_true(activity.trackable.id) %>	
-					<div class="majorpost-video-one">
+					<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
 						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 								<!-- Internal Thumbnail-->
 								<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= activity.trackable.audio.default_image%>.jpg);">
@@ -199,7 +224,7 @@
 								<div class="majorpost-thumbnail-bar-audio">Audio Track</div>
 						<% end %>
 					</div><!-- end.majorpost-video-one -->	
-					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+					<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
 						<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 					</div>
 					<!-- Tags -->
@@ -209,31 +234,37 @@
 					</div>					
 				<% end %>	
 				<!-- With video, without artwork, with audio -->
-				<% if video_true_and_artwork_false_and_audio_true(activity.trackable.id) %>				
-					<div class="majorpost-video-one">
-							<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
+				<% if video_true_and_artwork_false_and_audio_true(activity.trackable.id) %>		
+					<!-- Expanded Video -->
+					<div id="<%= activity.id%>video-expanded" style="display:none;">
+						<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+					</div>	
+					<div id="<%= activity.id%>holder">						
+						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
+								
+										<!-- Internal Thumbnail-->
+										<% if Video.find(activity.trackable.video_id).encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= Video.find(activity.trackable.video_id).thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+											<div class="majorpost-video-small">
+											</div>
+										</div>
+								
+						</div>
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 									<!-- Internal Thumbnail-->
-									<% if Video.find(activity.trackable.video_id).encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" style="background-image:url(<%= Video.find(activity.trackable.video_id).thumbnail.url(:thumb)%>);">
-									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
-									<% end %>
+									<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= activity.trackable.audio.default_image%>.jpg);">
 										<div class="majorpost-video-small">
 										</div>
-									</div>
-							<% end %>
-					</div>
-					<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
-								<!-- Internal Thumbnail-->
-								<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= activity.trackable.audio.default_image%>.jpg);">
-									<div class="majorpost-video-small">
-									</div>
-								</div>	
-								<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>
-					<% end %>
-					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
-							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
-						</div>
+									</div>	
+									<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>
+						<% end %>
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+								<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
+							</div>
+					</div><!-- end #activity-holder-->		
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>
@@ -256,7 +287,7 @@
 								</div>	
 								<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>
 					<% end %>
-					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+					<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
 						</div>
 						<!-- Tags-->
@@ -266,34 +297,40 @@
 					</div>					
 				<% end %>	
 				<!-- With video, with artwork, with audio -->
-				<% if video_true_and_artwork_true_and_audio_true(activity.trackable.id) %>				
-					<div class="majorpost-video-one">
-							<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
+				<% if video_true_and_artwork_true_and_audio_true(activity.trackable.id) %>		
+					<!-- Expanded Video -->
+					<div id="<%= activity.id%>video-expanded" style="display:none;">
+						<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+					</div>	
+					<div id="<%= activity.id%>holder">								
+						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
+								
+										<!-- Internal Thumbnail-->
+										<% if Video.find(activity.trackable.video_id).encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= Video.find(activity.trackable.video_id).thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+											<div class="majorpost-video-small">
+											</div>
+										</div>
+								
+						</div>
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one">
+								<img src="<%= activity.trackable.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
+							</div>
+							<div class="majorpost-thumbnail-bar2">Artwork</div>
+						<% end %>
+						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 									<!-- Internal Thumbnail-->
-									<% if Video.find(activity.trackable.video_id).encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" style="background-image:url(<%= Video.find(activity.trackable.video_id).thumbnail.url(:thumb)%>);">
-									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
-									<% end %>
+									<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= activity.trackable.audio.default_image%>.jpg);">
 										<div class="majorpost-video-small">
 										</div>
-									</div>
-							<% end %>
-					</div>
-					<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
-						<div class="majorpost-postimages-one">
-							<img src="<%= activity.trackable.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
-						</div>
-						<div class="majorpost-thumbnail-bar2">Artwork</div>
-					<% end %>
-					<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
-								<!-- Internal Thumbnail-->
-								<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= activity.trackable.audio.default_image%>.jpg);">
-									<div class="majorpost-video-small">
-									</div>
-								</div>	
-								<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>
-					<% end %>
+									</div>	
+									<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>
+						<% end %>
+					</div><!-- end#activity-holder-->	
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>
@@ -302,7 +339,7 @@
 				<% end %>
 				<!-- With PDF -->
 				<% if pdf_true(activity.trackable.id) %>
-					<div class="majorpost-video-one">
+					<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
 						<%= link_to user_project_path(activity.trackable.creator,activity.trackable),class:"no_ajaxify" do %>
 								<!-- Internal Thumbnail-->
 								<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.pdf.pdf.url(:thumb)%>);background-size: 100%;">
@@ -312,7 +349,7 @@
 								<div class="majorpost-thumbnail-bar-audio">PDF file</div>
 						<% end %>
 					</div><!-- end.majorpost-video-one -->	
-					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+					<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
 						<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 					</div>
 					<!-- Tags -->
@@ -331,7 +368,7 @@
 								<img src="<%= activity.trackable.projectimages.first.thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>	
-						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 						</div>
 						<!-- Tags-->
@@ -352,7 +389,7 @@
 								<img src="<%= activity.trackable.projectimages[1].thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>	
-						<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
 						</div>
 						<!-- Tags-->

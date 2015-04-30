@@ -20,8 +20,59 @@
 		$('#<%= activity.id %>background').height(height);
 		$('#<%= activity.id %>background').width(height);
 		$('#<%= activity.id %>background-wrapper').css( { "margin-right" : height+10, "margin-top" : -height} );
+
 	});
 </script>
+<!-- If it is vimeo -->
+<% if activity.trackable.video != nil then %>
+	<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
+		<% if activity.trackable.video.youtube_vimeo == true %>
+			<!-- Youtube Video -->
+			<script>
+				$(document).ready(function() {
+					//Uploaded video click to play
+					$("#<%= activity.id%>video-small").click(
+						function () {
+							$("#<%= activity.id%>holder").hide();
+							$("#<%= activity.id%>video-expanded").show();
+							callPlayer("<%= activity.id%>video","playVideo");
+					});	
+				});	
+			</script>
+		<% else %>
+			<!-- Vimeo Video -->
+			<script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+			<script>
+				$(document).ready(function() {
+		 			var iframe = $('#<%= activity.id%>video')[0];
+	    			var player = $f(iframe);
+
+					//Uploaded video click to play
+					$("#<%= activity.id%>video-small").click(
+					function () {
+						$("#<%= activity.id%>holder").hide();
+						$("#<%= activity.id%>video-expanded").show();
+						player.api("play");
+					});				
+				});	
+			</script>
+		<% end %>
+	<% else %>
+		<!-- Internal Video -->
+			<script>
+				$(document).ready(function() {
+					//Uploaded video click to play
+					$("#<%= activity.id%>video-small").click(
+						function () {
+							$("#<%= activity.id%>holder").hide();
+							$("#<%= activity.id%>video-expanded").show();
+							var myPlayer = videojs("#<%= activity.id%>video");
+							myPlayer.play();
+					});	
+				});	
+			</script>
+	<% end %>	
+<% end %>
 
 <% if activity.trackable.early_access == false %>
 	<div class="lightbox" id="<%= activity.id %>activity">
@@ -149,34 +200,53 @@
 			<% if activity.trackable.video != nil || activity.trackable.artwork != nil || activity.trackable.audio != nil || activity.trackable.pdf != nil %>
 				<!-- With Video but without artwork, without audio -->
 				<% if activity.trackable.video != nil && activity.trackable.artwork == nil && activity.trackable.audio == nil %>
-					<!-- video holder-->
-					<div class="majorpost-video-one">
-						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
-							<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
-								<% if activity.trackable.video.youtube_vimeo == true %>
-									<!-- Youtube Thumbnail -->
-									<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
-								<% else %>
-									<!-- Vimeo Thumbnail -->
-									<div class="majorpost-video-small-holder" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
-								<% end %>
-							<% else %>
-								<!-- Internal Thumbnail-->
-								<% if activity.trackable.video.encoded_state == "finished" %>
-									<div class="majorpost-video-small-holder" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
-								<% else %>
-									<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
-								<% end %>	
-							<% end %>
-								<div class="majorpost-video-small">
+					<!-- Expanded Video -->
+					<div id="<%= activity.id%>video-expanded" style="display:none;">
+						<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
+							<% if activity.trackable.video.youtube_vimeo == true %>
+								<!-- Youtube Video -->
+								<div id="<%= activity.id%>video">
+									<iframe width="628" height="353" src="http://www.youtube.com/embed/<%= activity.trackable.video.external %>?enablejsapi=1" frameborder="0"></iframe>
 								</div>
-							</div>	
-						<% end %>
-					</div><!-- end.majorpost-video-one -->	
-					<!-- excerpt holder-->
-					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
-						<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
-					</div>
+							<% else %>
+								<!-- Vimeo Video -->
+								<iframe width="628" height="353" src="//player.vimeo.com/video/<%= activity.trackable.video.external %>?api=1&player_id=<%= activity.id%>video" id="<%= activity.id%>video" frameborder="0"></iframe>
+							<% end %>
+						<% else %>
+							<!-- Internal Video -->
+							<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+						<% end %>	
+					</div>	
+					<div id="<%= activity.id%>holder">				
+						<!-- video holder-->
+						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
+							
+								<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
+									<% if activity.trackable.video.youtube_vimeo == true %>
+										<!-- Youtube Thumbnail -->
+										<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
+									<% else %>
+										<!-- Vimeo Thumbnail -->
+										<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
+									<% end %>
+								<% else %>
+									<!-- Internal Thumbnail-->
+									<% if activity.trackable.video.encoded_state == "finished" %>
+										<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
+									<% else %>
+										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
+									<% end %>	
+								<% end %>
+									<div class="majorpost-video-small">
+									</div>
+								</div>	
+							
+						</div><!-- end.majorpost-video-one -->	
+						<!-- excerpt holder-->
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
+						</div>
+					</div><!-- end#activity-holder-->	
 					<!-- Tags -->
 					<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>
@@ -191,7 +261,7 @@
 						</div>
 						<div class="majorpost-thumbnail-bar">Artwork</div>
 					<% end %>	
-						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 						</div>
 					<!-- Tags-->
@@ -201,38 +271,57 @@
 					</div>
 				<% end %>	
 				<!-- With Artwork and with Video, without audio -->
-				<% if activity.trackable.video != nil && activity.trackable.artwork != nil && activity.trackable.audio == nil %>				
-					<div class="majorpost-video-one">
-							<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
-								<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>	
-									<% if activity.trackable.video.youtube_vimeo == true %>
-										<!-- Youtube Thumbnail-->
-										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
-									<% else %>
-										<!-- Vimeo Thumbnail-->
-										<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
-									<% end %>
-								<% else %>
-									<!-- Internal Thumbnail-->
-									<% if activity.trackable.video.encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
-									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
-									<% end %>
-								<% end %>
-										<div class="majorpost-video-small">
-										</div>
-									</div>
+				<% if activity.trackable.video != nil && activity.trackable.artwork != nil && activity.trackable.audio == nil %>		
+					<!-- Expanded Video -->
+					<div id="<%= activity.id%>video-expanded" style="display:none;">
+						<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
+							<% if activity.trackable.video.youtube_vimeo == true %>
+								<!-- Youtube Video -->
+								<div id="<%= activity.id%>video">
+									<iframe width="628" height="353" src="http://www.youtube.com/embed/<%= activity.trackable.video.external %>?enablejsapi=1" frameborder="0"></iframe>
+								</div>
+							<% else %>
+								<!-- Vimeo Video -->
+								<iframe width="628" height="353" src="//player.vimeo.com/video/<%= activity.trackable.video.external %>?api=1&player_id=<%= activity.id%>video" id="<%= activity.id%>video" frameborder="0"></iframe>
 							<% end %>
-					</div>
-					<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
-						<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.artwork.image.url(:thumbnail)%>);">
+						<% else %>
+							<!-- Internal Video -->
+							<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+						<% end %>	
+					</div>	
+					<div id="<%= activity.id%>holder">								
+						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
+								
+									<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>	
+										<% if activity.trackable.video.youtube_vimeo == true %>
+											<!-- Youtube Thumbnail-->
+											<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
+										<% else %>
+											<!-- Vimeo Thumbnail-->
+											<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
+										<% end %>
+									<% else %>
+										<!-- Internal Thumbnail-->
+										<% if activity.trackable.video.encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+									<% end %>
+											<div class="majorpost-video-small">
+											</div>
+										</div>
+								
 						</div>
-						<div class="majorpost-thumbnail-bar2">Artwork</div>
-					<% end %>
-					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
-							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
-						</div>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.artwork.image.url(:thumbnail)%>);">
+							</div>
+							<div class="majorpost-thumbnail-bar2">Artwork</div>
+						<% end %>
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+								<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
+							</div>
+					</div><!-- end#activity-holder-->		
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>
@@ -260,7 +349,7 @@
 							<div class="majorpost-thumbnail-bar-audio">Audio Track</div>						
 						<% end %>
 					<% end %>	
-						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 						</div>
 					<!-- Tags-->
@@ -270,52 +359,71 @@
 					</div>
 				<% end %>
 				<!-- with video, without artwork, with audio -->
-				<% if activity.trackable.video != nil && activity.trackable.artwork == nil && activity.trackable.audio != nil %>				
-					<div class="majorpost-video-one">
-							<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
-								<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>	
-									<% if activity.trackable.video.youtube_vimeo == true %>
-										<!-- Youtube Thumbnail-->
-										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
-									<% else %>
-										<!-- Vimeo Thumbnail-->
-										<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
-									<% end %>
-								<% else %>
-									<!-- Internal Thumbnail-->
-									<% if activity.trackable.video.encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
-									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
-									<% end %>
-								<% end %>
-										<div class="majorpost-video-small">
-										</div>
-									</div>
+				<% if activity.trackable.video != nil && activity.trackable.artwork == nil && activity.trackable.audio != nil %>	
+					<!-- Expanded Video -->
+					<div id="<%= activity.id%>video-expanded" style="display:none;">
+						<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
+							<% if activity.trackable.video.youtube_vimeo == true %>
+								<!-- Youtube Video -->
+								<div id="<%= activity.id%>video">
+									<iframe width="628" height="353" src="http://www.youtube.com/embed/<%= activity.trackable.video.external %>?enablejsapi=1" frameborder="0"></iframe>
+								</div>
+							<% else %>
+								<!-- Vimeo Video -->
+								<iframe width="628" height="353" src="//player.vimeo.com/video/<%= activity.trackable.video.external %>?api=1&player_id=<%= activity.id%>video" id="<%= activity.id%>video" frameborder="0"></iframe>
 							<% end %>
-					</div>
-					<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
-						<!-- External Audio -->
-						<% if activity.trackable.audio.soundcloud != nil then %>
-							<!-- Internal Thumbnail-->
-							<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.audio.soundcloud_image %>);background-size:100%;">
-								<div class="majorpost-video-small">
-								</div>
-							</div>	
-							<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>						
 						<% else %>
-						<!-- Internal Audio-->
-							<!-- Internal Thumbnail-->
-							<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= activity.trackable.audio.default_image%>.jpg);">
-								<div class="majorpost-video-small">
-								</div>
-							</div>	
-							<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>						
-						<% end %>
-					<% end %>
-					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
-							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
+							<!-- Internal Video -->
+							<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+						<% end %>	
+					</div>	
+					<div id="<%= activity.id%>holder">									
+						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
+								
+									<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>	
+										<% if activity.trackable.video.youtube_vimeo == true %>
+											<!-- Youtube Thumbnail-->
+											<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
+										<% else %>
+											<!-- Vimeo Thumbnail-->
+											<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
+										<% end %>
+									<% else %>
+										<!-- Internal Thumbnail-->
+										<% if activity.trackable.video.encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+									<% end %>
+											<div class="majorpost-video-small">
+											</div>
+										</div>
+								
 						</div>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+							<!-- External Audio -->
+							<% if activity.trackable.audio.soundcloud != nil then %>
+								<!-- Internal Thumbnail-->
+								<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.audio.soundcloud_image %>);background-size:100%;">
+									<div class="majorpost-video-small">
+									</div>
+								</div>	
+								<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>						
+							<% else %>
+							<!-- Internal Audio-->
+								<!-- Internal Thumbnail-->
+								<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= activity.trackable.audio.default_image%>.jpg);">
+									<div class="majorpost-video-small">
+									</div>
+								</div>	
+								<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>						
+							<% end %>
+						<% end %>
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+								<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
+							</div>
+					</div><!-- end#activity-holder-->		
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>
@@ -324,7 +432,7 @@
 				<% end %>
 				<!-- without video, with artwork, with audio -->															
 				<% if activity.trackable.video == nil && activity.trackable.artwork != nil && activity.trackable.audio != nil %>				
-					<div class="majorpost-video-one">
+					<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
 							<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
 								<div class="majorpost-postimages-one">
 									<img src="<%= activity.trackable.artwork.image.url(:thumbnail)%>" style="border-radius:5px;">
@@ -351,7 +459,7 @@
 							<div class="majorpost-thumbnail-bar-audio2">Audio Track</div>						
 						<% end %>
 					<% end %>
-					<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
+					<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 180) %>
 						</div>
 						<!-- Tags-->
@@ -361,54 +469,73 @@
 					</div>						
 				<% end %>		
 				<!-- with video, with artwork, with audio -->	
-				<% if activity.trackable.video != nil && activity.trackable.artwork != nil && activity.trackable.audio != nil %>				
-					<div class="majorpost-video-one">
-							<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
-								<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>	
-									<% if activity.trackable.video.youtube_vimeo == true %>
-										<!-- Youtube Thumbnail-->
-										<div class="majorpost-video-small-holder" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
-									<% else %>
-										<!-- Vimeo Thumbnail-->
-										<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
-									<% end %>
-								<% else %>
-									<!-- Internal Thumbnail-->
-									<% if activity.trackable.video.encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
-									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
-									<% end %>
-								<% end %>
-										<div class="majorpost-video-small">
-										</div>
-									</div>
+				<% if activity.trackable.video != nil && activity.trackable.artwork != nil && activity.trackable.audio != nil %>	
+					<!-- Expanded Video -->
+					<div id="<%= activity.id%>video-expanded" style="display:none;">
+						<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
+							<% if activity.trackable.video.youtube_vimeo == true %>
+								<!-- Youtube Video -->
+								<div id="<%= activity.id%>video">
+									<iframe width="628" height="353" src="http://www.youtube.com/embed/<%= activity.trackable.video.external %>?enablejsapi=1" frameborder="0"></iframe>
+								</div>
+							<% else %>
+								<!-- Vimeo Video -->
+								<iframe width="628" height="353" src="//player.vimeo.com/video/<%= activity.trackable.video.external %>?api=1&player_id=<%= activity.id%>video" id="<%= activity.id%>video" frameborder="0"></iframe>
 							<% end %>
-					</div>
-					<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
-						<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.artwork.image.url(:thumbnail)%>);">
-						</div>
-						<div class="majorpost-thumbnail-bar2">Artwork</div>
-					<% end %>
-					<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
-						<!-- External Audio -->
-						<% if activity.trackable.audio.soundcloud != nil then %>
-							<!-- Internal Thumbnail-->
-							<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.audio.soundcloud_image %>);background-size:100%;">
-								<div class="majorpost-video-small">
-								</div>
-							</div>	
-							<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>						
 						<% else %>
-						<!-- Internal Audio-->
-							<!-- Internal Thumbnail-->
-							<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= activity.trackable.audio.default_image%>.jpg);">
-								<div class="majorpost-video-small">
-								</div>
-							</div>	
-							<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>						
+							<!-- Internal Video -->
+							<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+						<% end %>	
+					</div>	
+					<div id="<%= activity.id%>holder">									
+						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
+								
+									<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>	
+										<% if activity.trackable.video.youtube_vimeo == true %>
+											<!-- Youtube Thumbnail-->
+											<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.video.external %>/mqdefault.jpg);">
+										<% else %>
+											<!-- Vimeo Thumbnail-->
+											<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.video.external)%>)" id="<%= activity.trackable.video.external %>" >
+										<% end %>
+									<% else %>
+										<!-- Internal Thumbnail-->
+										<% if activity.trackable.video.encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= activity.trackable.video.thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+									<% end %>
+											<div class="majorpost-video-small">
+											</div>
+										</div>
+							
+						</div>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.artwork.image.url(:thumbnail)%>);">
+							</div>
+							<div class="majorpost-thumbnail-bar2">Artwork</div>
 						<% end %>
-					<% end %>
+						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
+							<!-- External Audio -->
+							<% if activity.trackable.audio.soundcloud != nil then %>
+								<!-- Internal Thumbnail-->
+								<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.audio.soundcloud_image %>);background-size:100%;">
+									<div class="majorpost-video-small">
+									</div>
+								</div>	
+								<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>						
+							<% else %>
+							<!-- Internal Audio-->
+								<!-- Internal Thumbnail-->
+								<div class="majorpost-postimages-one" style="background-image:url(/assets/audio_bg_default<%= activity.trackable.audio.default_image%>.jpg);">
+									<div class="majorpost-video-small">
+									</div>
+								</div>	
+								<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>						
+							<% end %>
+						<% end %>
+					</div><!-- end#activity-holder-->	
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if activity.trackable.tags.any? %>
@@ -417,7 +544,7 @@
 				<% end %>
 				<!-- With PDF -->
 				<% if activity.trackable.video == nil && activity.trackable.artwork == nil && activity.trackable.audio == nil && activity.trackable.pdf != nil %>
-					<div class="majorpost-video-one">
+					<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
 						<%= link_to user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable),class:"no_ajaxify" do %>
 								<!-- Internal Thumbnail-->
 								<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.pdf.pdf.url(:thumb)%>);background-size: 100%;">
@@ -427,7 +554,7 @@
 								<div class="majorpost-thumbnail-bar-audio">PDF file</div>
 						<% end %>
 					</div><!-- end.majorpost-video-one -->	
-					<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+					<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
 						<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 					</div>
 					<!-- Tags -->
@@ -446,7 +573,7 @@
 								<img src="<%= activity.trackable.postimages.first.thumbnail%>" style="border-radius:5px;">
 							</div>
 						<% end %>	
-						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
 							<%= sanitize truncate(activity.trackable.excerpt, :length => 300) %>
 						</div>
 						<!-- Tags-->
