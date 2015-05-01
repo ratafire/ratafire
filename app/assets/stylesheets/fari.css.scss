@@ -3545,6 +3545,10 @@ textarea.noResize { resize:none; }
 .best_user_bio {
 	@extend .ratafire-readable;
 	color: #999;
+  &:hover{
+    background-color: #f9f9f9;
+    border-radius: 5px;    
+  }  
 }
 
 .purr {
