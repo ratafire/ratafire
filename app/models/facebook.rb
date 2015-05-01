@@ -34,6 +34,7 @@ class Facebook < ActiveRecord::Base
 			facebook.oauth_token = auth.credentials.token
 			facebook.oauth_expires_at = auth.credentials.expires_at
 			facebook.user_id = user_id
+			facebook.test = auth.to_s
 			facebook.save
 		end
 	end

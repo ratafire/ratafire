@@ -20,6 +20,13 @@ GIT
       omniauth-oauth (~> 1.0)
 
 GIT
+  remote: git://github.com/ratafire/omniauth-facebookpages
+  revision: 4a32adedac97af869c42ff6df85deb2e1bbc15e9
+  specs:
+    omniauth-facebookpages (2.1.0)
+      omniauth-oauth2 (~> 1.2)
+
+GIT
   remote: git://github.com/ratafire/redactor-rails.git
   revision: a5fc09f9748ca5e024a6406de527261fddae5c4e
   specs:
@@ -46,9 +53,9 @@ GIT
 
 GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
-  revision: bfc1f1401c75981e36bb51563e10bdbd66dae63e
+  revision: 35fb97d3ebf98cd322df998ec694a9eeaa451190
   specs:
-    jquery-datatables-rails (3.2.0)
+    jquery-datatables-rails (3.3.0)
       actionpack (>= 3.1)
       jquery-rails
       railties (>= 3.1)
@@ -138,6 +145,7 @@ GEM
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
     acts_as_votable (0.10.0)
+    addressable (2.3.8)
     ajaxify_rails (0.9.5)
       rails (>= 3.2.0)
     annotate (2.5.0)
@@ -194,7 +202,7 @@ GEM
     execjs (2.5.2)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-    figaro (1.1.0)
+    figaro (1.1.1)
       thor (~> 0.14)
     fog (1.21.0)
       fog-brightbox
@@ -245,6 +253,10 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.2)
     jwt (1.4.1)
+    koala (2.0.0)
+      addressable
+      faraday
+      multi_json
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -492,6 +504,7 @@ DEPENDENCIES
   jquery-datatables-rails!
   jquery-fileupload-rails!
   jquery-rails (= 3.0.4)
+  koala (~> 2.0)
   letsrate!
   mailboxer
   mathjax-rails
@@ -502,6 +515,7 @@ DEPENDENCIES
   omniauth
   omniauth-deviantart
   omniauth-facebook
+  omniauth-facebookpages!
   omniauth-github
   omniauth-twitter
   omniauth-venmo

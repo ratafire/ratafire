@@ -17,7 +17,9 @@ gem 'omniauth-github'
 gem 'omniauth-deviantart'
 gem 'omniauth-venmo'
 gem 'omniauth-vimeo', :git => "git://github.com/lomography/omniauth-vimeo"
+gem 'omniauth-facebookpages', :git => 'git://github.com/ratafire/omniauth-facebookpages'
 gem 'open_uri_redirections' #To get Facebook image
+gem "koala", "~> 2.0" #To get Facebook realtime update
 
 #------------Background Processes------------
 #redis 

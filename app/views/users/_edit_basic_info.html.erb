@@ -1,0 +1,96 @@
+						<!-- Basic Info -->
+						<div class="lightbox2-bordered">
+							
+							<%= form_for(@user,:validate => true,:html => {:class => "no_ajaxify"}) do |f| %>
+							
+
+							<!-- Basic Info-->
+							<div class="textbox-mini">
+							<h2>Basic Info </h2> 
+							</div>
+							
+							<!-- Name -->
+							<div class="lightbox3">
+								
+								<div class="inputlabel">
+									<li>Name</li>
+								</div>
+
+								<div class="input-placer">
+      								<%= f.text_field :fullname, class: "inputbox settingsinput" %>
+      								<ul>Enter your name. It will be displayed on your profile page.</ul>
+
+      							</div>
+
+      						</div>
+
+      						<!-- Tagline-->
+      						<div class="lightbox3">
+      						
+								<div class="inputlabel">
+									<li>Tagline</li>
+								</div>
+
+      							<div class="input-placer">
+      								<%= f.text_field :tagline, class: "inputbox settingsinput input-transition", type: "tagline"%>
+      								<ul>Enter your tagline. It will appear under your name. 42 characters or less.</ul>
+      							</div>
+
+      						</div>
+
+      						<!-- Website -->
+      						<div class="lightbox3">
+      						
+								<div class="inputlabel">
+									<li>Website</li>
+								</div>
+
+      							<div class="input-placer" id="bio-edit">
+      								<%= f.text_field :website, class: "inputbox settingsinput"%>
+      								<ul>Your website or blog.</ul>
+      							</div>
+
+      						</div>      
+
+      						<!-- Location -->
+      						<div class="lightbox3">
+      						
+								<div class="inputlabel">
+									<li>Location</li>
+								</div>
+
+      							<div class="input-placer" id="bio-edit">
+      								<%= f.text_field :location, class: "inputbox settingsinput"%>
+      								<ul>Enter city name.</ul>
+      							</div>
+
+      						</div>     
+
+      						<!-- Bio -->
+      						<div class="lightbox3">
+      						
+								<div class="inputlabel">
+									<li>Bio</li>
+								</div>
+
+      							<div class="input-placer">
+      								<%= f.text_area :bio, class: "inputbox settingsarea noResize"%>
+      								<ul>About yourself in 214 characters or less.</ul>
+      								<ul>#Beta: please enter plain text.</ul>
+      							</div>
+
+      						</div>    
+
+							<ol style="margin-top: 15px; padding-left: 168px;">
+							
+								<div>
+									<%= f.submit "Save Changes", class: "btn-submit2 btn-submit-medium btn btn-medium btn-medium-green" %>
+								</div>
+							</ol>
+
+						<% end %>      					
+
+      					<!-- end of lightbox2 -->
+						</div>
+						
+      						<!-- Cutter --><ol style="margin-top: 20px;"></ol>	

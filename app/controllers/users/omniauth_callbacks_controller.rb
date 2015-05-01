@@ -324,6 +324,31 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		end
 	end
 
+	def facebookpages
+		if current_user != nil then 
+			@user = current_user
+			facebook = @user.facebook
+			facebook.page_access_token = request.env['omniauth.auth'].credentials.token
+			facebook.save
+			if facebook.page_access_token != nil then 		
+				@user_graph = Koala::Facebook::API.new(facebook.page_access_token)
+				pages = @user_graph.get_connections('me', 'accounts')
+				if pages != nil then
+					pages.each do |page|
+						facebookpage = FacebookPage.create_facebook_page(page,@user.id,facebook.id)
+					end
+				end	
+				redirect_to edit_user_path(@user)
+			else
+				flash[:success] = "Facebook authorization failed."
+				redirect_to edit_user_path(@user)
+			end		
+		else
+			flash[:success] = "Facebook authorization failed."
+			redirect_to root_path
+		end			
+	end
+
 	def twitter
 		@user = current_user
 		twitter = Twitter.find_for_twitter_oauth(request.env['omniauth.auth'], @user.id)

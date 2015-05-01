@@ -14,262 +14,27 @@
 			<!-- Main Content -->
 			<div class="main-content">
 				<div class="standard-content" >
+
 						<div class="textbox">
 						
 							<h1>Profile</h1>
 							<h5>Edit your profile information.</h5>
 							<!-- Cutter --><ol style="margin-top: -20px;"></ol>
 
-						<!-- end of textbox-->
-						</div>
+						</div><!-- end of textbox-->
 
-						<!-- Edit Photo -->
-						<div class="lightbox2-bordered">
-							<div class="textbox-mini">
+						<!-- Profile Photo -->
+						<%= render 'users/edit_profile_photo'%>
 
-								<!-- Photo -->
-								<h2>Photo</h2>
-
-									<div id="image-placer">
-									<li><%= image_tag(@user.profilephoto.url(:medium), class: "tipsy-tipsy sidebar-profile-shade", title: "Large Profile Photo") %></li>
-									<li><%= image_tag(@user.profilephoto.url(:small), class: "image-wrap tipsy-tipsy sidebar-profile-shade", title: "Small Profile Photo") %></li>
-									<li>
-										<% if @user.profilephoto? %><%= link_to "x", photo_delete_path(@user), method: :delete, title:"Remove",class:"no_ajaxify btn-delete tipsy-tipsy" %><% end %>
-									</li>
-									<% unless @user.profilephoto? %>
-									<li>
-
-										<!-- Cutter --><ol style="margin-top: 10px;"></ol>
-
-										<span class="btn btn-medium2 btn-medium-blue fileinput-button">Upload
-										<!-- fields for profilephoto -->
-											<%= s3_uploader_form callback_url: create_profilephoto_path(current_user.id),
-  												id: "s3_uploader_icon",
-												callback_param: "profilephoto[direct_upload_url]",
-												expiration: 24.hours.from_now.utc.iso8601,
-												max_file_size: 2048.megabytes,:remote => true do %>
-												<%= file_field_tag :file, multiple: false, class:"profile-choose" %>		
-											<% end %>
-										</span>
-										<%= link_to user_omniauth_authorize_path(:facebook),class:"no_ajaxify" do %><span class="btn btn-medium2 btn-medium-blue fileinput-button">Use Facebook Img</span><% end %>
-									</ol>
-
-									</li>
-									<% end %>
-									<!-- Cutter --><ol style="margin-top: 70px;"></ol>
-									</div><!-- end#image-placer-->
-							</div><!-- end.textbox-mini-->
-						</div><!-- end.lightbox2-bordered-->
+						<!-- Facebook Sync -->
+						<%= render 'users/facebook_sync'%>
 							
-						<!-- Signup Form -->
-						<div class="lightbox2-bordered">
-							
-							<%= form_for(@user,:validate => true,:html => {:class => "no_ajaxify"}) do |f| %>
-							
+						<!-- Edit Basic Info -->
+						<%= render 'users/edit_basic_info'%>
 
-							<!-- Basic Info-->
-							<div class="textbox-mini">
-							<h2>Basic Info </h2> 
-							</div>
-							
-							<!-- Name -->
-							<div class="lightbox3">
-								
-								<div class="inputlabel">
-									<li>Name</li>
-								</div>
+						<!-- Edit Social Media -->				
+						<%= render 'users/edit_social_media'%>	
 
-								<div class="input-placer">
-      								<%= f.text_field :fullname, class: "inputbox settingsinput" %>
-      								<ul>Enter your name. It will be displayed on your profile page.</ul>
-
-      							</div>
-
-      						</div>
-
-      						<!-- Tagline-->
-      						<div class="lightbox3">
-      						
-								<div class="inputlabel">
-									<li>Tagline</li>
-								</div>
-
-      							<div class="input-placer">
-      								<%= f.text_field :tagline, class: "inputbox settingsinput input-transition", type: "tagline"%>
-      								<ul>Enter your tagline. It will appear under your name. 42 characters or less.</ul>
-      							</div>
-
-      						</div>
-
-      						<!-- Website -->
-      						<div class="lightbox3">
-      						
-								<div class="inputlabel">
-									<li>Website</li>
-								</div>
-
-      							<div class="input-placer" id="bio-edit">
-      								<%= f.text_field :website, class: "inputbox settingsinput"%>
-      								<ul>Your website or blog.</ul>
-      							</div>
-
-      						</div>      
-
-      						<!-- Location -->
-      						<div class="lightbox3">
-      						
-								<div class="inputlabel">
-									<li>Location</li>
-								</div>
-
-      							<div class="input-placer" id="bio-edit">
-      								<%= f.text_field :location, class: "inputbox settingsinput"%>
-      								<ul>Enter city name.</ul>
-      							</div>
-
-      						</div>     
-
-      						<!-- Bio -->
-      						<div class="lightbox3">
-      						
-								<div class="inputlabel">
-									<li>Bio</li>
-								</div>
-
-      							<div class="input-placer">
-      								<%= f.text_area :bio, class: "inputbox settingsarea noResize"%>
-      								<ul>About yourself in 214 characters or less.</ul>
-      								<ul>#Beta: please enter plain text.</ul>
-      							</div>
-
-      						</div>    
-
-							<ol style="margin-top: 15px; padding-left: 168px;">
-							
-								<div>
-									<%= f.submit "Save Changes", class: "btn-submit2 btn-submit-medium btn btn-medium btn-medium-green" %>
-								</div>
-							</ol>
-
-						<% end %>      					
-
-      					<!-- end of lightbox2 -->
-						</div>
-						
-      						<!-- Cutter --><ol style="margin-top: 20px;"></ol>	
-
-
-							<!-- Social Media -->
-							<div class="lightbox2-bordered"  id="social-media">
-								
-								<!-- Social Media -->
-								<div class="textbox-mini">
-									<h2>Social Media</h2>
-								</div>
-      							
-      							<!-- Facebook -->
-      							<div class="lightbox3">
-      						
-									<div class="inputlabel-social">
-										<%= image_tag("facebook.png", class:"tipsy-tipsy", title:"Facebook") %>
-									</div>
-
-
-      								<div class="input-placer socialmedia-placer">
-      									<% if @user.facebook == nil %>
-      									<ul><%= link_to "Click to connect your account to Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %></ul>
-      									<% else %>
-      									<ul><%= link_to "Disconnect your account from Facebook",disconnect_path(@user,:facebook),class:"no_ajaxify",style:"color:#999;" %></ul>
-      									<% end %>
-      									<span></span>
-      								</div>
-
-      							</div>
-
-      							<!-- Twitter -->
-      							<div class="lightbox3">
-      						
-									<div class="inputlabel-social">
-										<%= image_tag("twitter.png", class:"tipsy-tipsy", title:"Twitter") %>
-									</div>
-
-
-      								<div class="input-placer socialmedia-placer">
-      									<% if @user.twitter == nil %>
-      									<ul><%= link_to "Click to connect your account to Twitter",user_omniauth_authorize_path(:twitter),class:"no_ajaxify" %></ul>
-      									<% else %>
-      									<ul><%= link_to "Disconnect your account from Twitter",disconnect_path(@user,:twitter),class:"no_ajaxify",style:"color:#999;" %></ul>
-      									<% end %>
-      									<span></span>
-      								</div>
-
-      							</div>
-
-      							<!-- Github -->
-      							<div class="lightbox3">
-      						
-									<div class="inputlabel-social">
-										<%= image_tag("github.png", class:"tipsy-tipsy", title:"GitHub") %>
-									</div>
-
-
-      								<div class="input-placer socialmedia-placer">
-      									<% if @user.github == nil %>
-      									<ul><%= link_to "Click to connect your account to GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %></ul>
-      									<% else %>
-      									<ul><%= link_to "Disconnect your account from GitHub",disconnect_path(@user,:github),class:"no_ajaxify",style:"color:#999;" %></ul>
-      									<% end %>
-      									<span></span>
-      								</div>
-
-      							</div>
-
-      							<!-- Deviantart -->
-      							<div class="lightbox3">
-      						
-									<div class="inputlabel-social">
-										<%= image_tag("deviantart.png", class:"tipsy-tipsy", title:"Deviantart") %>
-									</div>
-
-
-      								<div class="input-placer">
-      									<% if @user.deviantart == nil %>
-       									<ul><%= link_to "Click to connect your account to DeviantArt",user_omniauth_authorize_path(:deviantart),class:"no_ajaxify" %></ul>
-       									<% else %>
-       									<ul><%= link_to "Disconnect your account from DeviantArt",disconnect_path(@user,:deviantart),class:"no_ajaxify",style:"color:#999;" %></ul>
-       									<% end %>
-      									<span></span>
-      								</div>
-
-
-      							</div>
-
-      							<!-- Vimeo -->
-      							<div class="lightbox3">
-      						
-									<div class="inputlabel-social">
-										<%= image_tag("vimeo.png", class:"tipsy-tipsy", title:"Vimeo") %>
-									</div>
-
-
-      								<div class="input-placer socialmedia-placer">
-      									<% if @user.vimeo == nil %>
-       									<ul><%= link_to "Click to connect your account to Vimeo",user_omniauth_authorize_path(:vimeo),class:"no_ajaxify" %></ul>
-      									<span></span>
-      									<% else %>
-      									<ul><%= link_to "Disconnect your account from Vimeo",disconnect_path(@user,:vimeo),class:"no_ajaxify",style:"color:#999;" %></ul>
-      									<% end %>
-      								</div>
-
-      							</div>      							
-
-
-      						<!-- end of lightbox 3-->
-							</div> 												
-							
-
-						<!-- Cutter --><ol style="margin-top: 70px;"></ol>
-						</div><!-- Footer -->
+				</div><!-- end.standard-content -->
 				<%= render 'layouts/footer' %>
-
 			</div><!-- end of main-content-->

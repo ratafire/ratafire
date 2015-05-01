@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150501063855) do
+ActiveRecord::Schema.define(:version => 20150501220346) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -448,6 +448,50 @@ ActiveRecord::Schema.define(:version => 20150501063855) do
     t.datetime "reviewed_at"
   end
 
+  create_table "facebook_pages", :force => true do |t|
+    t.string   "likes"
+    t.string   "website"
+    t.string   "username"
+    t.string   "name"
+    t.text     "mission"
+    t.string   "location"
+    t.boolean  "is_published"
+    t.boolean  "is_permanently_closed"
+    t.boolean  "is_community_page"
+    t.string   "hometown"
+    t.string   "global_brand_page_name"
+    t.string   "genre"
+    t.string   "general_manager"
+    t.text     "test"
+    t.string   "general_info"
+    t.string   "founded"
+    t.string   "email"
+    t.string   "directed_by"
+    t.string   "description"
+    t.string   "current_location"
+    t.string   "cover"
+    t.string   "contact_address"
+    t.string   "company_overview"
+    t.string   "category"
+    t.string   "booking_agent"
+    t.string   "bio"
+    t.string   "awards"
+    t.string   "attire"
+    t.string   "artists_we_like"
+    t.string   "app_id"
+    t.string   "affiliation"
+    t.string   "access_token"
+    t.text     "about"
+    t.string   "page_id"
+    t.integer  "facebook_id"
+    t.integer  "user_id"
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.string   "uid"
+  end
+
   create_table "facebooks", :force => true do |t|
     t.string   "uid"
     t.string   "name"
@@ -462,17 +506,18 @@ ActiveRecord::Schema.define(:version => 20150501063855) do
     t.integer  "user_id"
     t.string   "oauth_token"
     t.string   "oauth_expires_at"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "user_birthday"
     t.string   "email"
     t.string   "image"
-    t.string   "test",             :limit => 10000
+    t.string   "test",              :limit => 10000
     t.text     "bio"
     t.string   "location"
     t.string   "website"
     t.string   "school"
     t.string   "concentration"
+    t.string   "page_access_token"
   end
 
   create_table "friendly_id_slugs", :force => true do |t|

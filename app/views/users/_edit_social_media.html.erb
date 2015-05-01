@@ -1,0 +1,108 @@
+							<!-- Social Media -->
+							<div class="lightbox2-bordered"  id="social-media">
+								
+								<!-- Social Media -->
+								<div class="textbox-mini">
+									<h2>Social Media</h2>
+								</div>
+      							
+      							<!-- Facebook -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("facebook.png", class:"tipsy-tipsy", title:"Facebook") %>
+									</div>
+
+
+      								<div class="input-placer socialmedia-placer">
+      									<% if @user.facebook == nil %>
+      									<ul><%= link_to "Click to connect your account to Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %></ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from Facebook",disconnect_path(@user,:facebook),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<% end %>
+      									<span></span>
+      								</div>
+
+      							</div>
+
+      							<!-- Twitter -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("twitter.png", class:"tipsy-tipsy", title:"Twitter") %>
+									</div>
+
+
+      								<div class="input-placer socialmedia-placer">
+      									<% if @user.twitter == nil %>
+      									<ul><%= link_to "Click to connect your account to Twitter",user_omniauth_authorize_path(:twitter),class:"no_ajaxify" %></ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from Twitter",disconnect_path(@user,:twitter),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<% end %>
+      									<span></span>
+      								</div>
+
+      							</div>
+
+      							<!-- Github -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("github.png", class:"tipsy-tipsy", title:"GitHub") %>
+									</div>
+
+
+      								<div class="input-placer socialmedia-placer">
+      									<% if @user.github == nil %>
+      									<ul><%= link_to "Click to connect your account to GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %></ul>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from GitHub",disconnect_path(@user,:github),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<% end %>
+      									<span></span>
+      								</div>
+
+      							</div>
+
+      							<!-- Deviantart -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("deviantart.png", class:"tipsy-tipsy", title:"Deviantart") %>
+									</div>
+
+
+      								<div class="input-placer">
+      									<% if @user.deviantart == nil %>
+       									<ul><%= link_to "Click to connect your account to DeviantArt",user_omniauth_authorize_path(:deviantart),class:"no_ajaxify" %></ul>
+       									<% else %>
+       									<ul><%= link_to "Disconnect your account from DeviantArt",disconnect_path(@user,:deviantart),class:"no_ajaxify",style:"color:#999;" %></ul>
+       									<% end %>
+      									<span></span>
+      								</div>
+
+
+      							</div>
+
+      							<!-- Vimeo -->
+      							<div class="lightbox3">
+      						
+									<div class="inputlabel-social">
+										<%= image_tag("vimeo.png", class:"tipsy-tipsy", title:"Vimeo") %>
+									</div>
+
+
+      								<div class="input-placer socialmedia-placer">
+      									<% if @user.vimeo == nil %>
+       									<ul><%= link_to "Click to connect your account to Vimeo",user_omniauth_authorize_path(:vimeo),class:"no_ajaxify" %></ul>
+      									<span></span>
+      									<% else %>
+      									<ul><%= link_to "Disconnect your account from Vimeo",disconnect_path(@user,:vimeo),class:"no_ajaxify",style:"color:#999;" %></ul>
+      									<% end %>
+      								</div>
+
+      							</div>      							
+
+
+      						<!-- end of lightbox 3-->
+							</div> 			
+                                          <!-- Cutter --><ol style="margin-top: 70px;"></ol>					

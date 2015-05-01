@@ -1,0 +1,37 @@
+						<!-- Edit Photo -->
+						<div class="lightbox2-bordered">
+							<div class="textbox-mini">
+
+								<!-- Photo -->
+								<h2>Photo</h2>
+
+									<div id="image-placer">
+									<li><%= image_tag(@user.profilephoto.url(:medium), class: "tipsy-tipsy sidebar-profile-shade", title: "Large Profile Photo") %></li>
+									<li><%= image_tag(@user.profilephoto.url(:small), class: "image-wrap tipsy-tipsy sidebar-profile-shade", title: "Small Profile Photo") %></li>
+									<li>
+										<% if @user.profilephoto? %><%= link_to "x", photo_delete_path(@user), method: :delete, title:"Remove",class:"no_ajaxify btn-delete tipsy-tipsy" %><% end %>
+									</li>
+									<% unless @user.profilephoto? %>
+									<li>
+
+										<!-- Cutter --><ol style="margin-top: 10px;"></ol>
+
+										<span class="btn btn-medium2 btn-medium-blue fileinput-button">Upload
+										<!-- fields for profilephoto -->
+											<%= s3_uploader_form callback_url: create_profilephoto_path(current_user.id),
+  												id: "s3_uploader_icon",
+												callback_param: "profilephoto[direct_upload_url]",
+												expiration: 24.hours.from_now.utc.iso8601,
+												max_file_size: 2048.megabytes,:remote => true do %>
+												<%= file_field_tag :file, multiple: false, class:"profile-choose" %>		
+											<% end %>
+										</span>
+										<%= link_to user_omniauth_authorize_path(:facebook),class:"no_ajaxify" do %><span class="btn btn-medium2 btn-medium-blue fileinput-button">Use Facebook Img</span><% end %>
+									
+
+									</li>
+									<% end %>
+									<!-- Cutter --><ol style="margin-top: 70px;"></ol>
+									</div><!-- end#image-placer-->
+							</div><!-- end.textbox-mini-->
+						</div><!-- end.lightbox2-bordered-->

@@ -1,0 +1,27 @@
+<!-- Facebook Sync -->
+<div class="lightbox2-bordered">
+	<div class="textbox-mini">
+		<!-- Photo -->
+		<h2>Facebook Page Sync</h2>
+
+		<% if @user.facebook == nil then %>
+				<!-- With Facebook without pages -->
+				<div id="image-placer">
+					<ol style="margin-bottom:20px;color:#999;">You can sync your Facebook page's updates to Ratafire. Start by connecting to Facebook.</ol>
+					<%= link_to user_omniauth_authorize_path(:facebook),class:"no_ajaxify" do %><span class="btn btn-medium2 btn-medium-blue fileinput-button">Connect</span><% end %>
+				</div><!-- end#image-placer-->	
+		<% else %>
+			<% unless @user.facebook_pages.any? %>
+				<!-- With Facebook without pages -->
+				<div id="image-placer">
+					<ol style="margin-bottom:20px;color:#999;">You can sync your Facebook page's updates to Ratafire.</ol>
+					<%= link_to user_omniauth_authorize_path(:facebookpages),class:"no_ajaxify" do %><span class="btn btn-medium2 btn-medium-blue fileinput-button">Add Pages</span><% end %>
+				</div><!-- end#image-placer-->
+			<% else %>
+				<!-- with connected facebook pages -->
+				<%= render partial: "users/facebook_page", collection:  @user.facebook_pages, :as => :page %>		
+			<% end %>	
+		<% end %><!-- end if @user.facebook == nil -->
+
+	</div><!-- end.textbox-mini-->	
+</div><!-- end.lightbox2-bordered -->	
