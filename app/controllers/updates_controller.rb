@@ -139,8 +139,13 @@ class UpdatesController < ApplicationController
 		gon.activebutton = "staffpicks"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(:featured => true).paginate(page: params[:page], :per_page => 20)
 		if user_signed_in? then
+			#Redirect to Tutorial if Null
 			if current_user.tutorial.intro == nil then
-				redirect_to intro_tutorial_path(current_user)
+				if current_user.tutorial.facebook == nil then
+					redirect_to user_omniauth_authorize_path(:facebook, after_signup: "true")
+				else
+					redirect_to intro_tutorial_path(current_user)
+				end
 			end
 		end
 	end

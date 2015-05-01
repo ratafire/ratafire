@@ -350,6 +350,7 @@ class User < ActiveRecord::Base
 		tutorial = Tutorial.new
 		tutorial.user_id = self.id 
 		tutorial.save
+		
   end
 
   def process_uri(url)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150429041020) do
+ActiveRecord::Schema.define(:version => 20150501063855) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -462,11 +462,17 @@ ActiveRecord::Schema.define(:version => 20150429041020) do
     t.integer  "user_id"
     t.string   "oauth_token"
     t.string   "oauth_expires_at"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "user_birthday"
     t.string   "email"
     t.string   "image"
+    t.string   "test",             :limit => 10000
+    t.text     "bio"
+    t.string   "location"
+    t.string   "website"
+    t.string   "school"
+    t.string   "concentration"
   end
 
   create_table "friendly_id_slugs", :force => true do |t|
@@ -1154,6 +1160,7 @@ ActiveRecord::Schema.define(:version => 20150429041020) do
     t.integer  "profile_tutorial_prev"
     t.integer  "project_tutorial_prev"
     t.integer  "intro"
+    t.boolean  "facebook"
   end
 
   create_table "twitters", :force => true do |t|
@@ -1285,6 +1292,8 @@ ActiveRecord::Schema.define(:version => 20150429041020) do
     t.boolean  "need_username",                                             :default => false
     t.string   "after_subscription_url"
     t.boolean  "signup_during_subscription",                                :default => false
+    t.string   "school"
+    t.string   "concentration"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

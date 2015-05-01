@@ -24,10 +24,10 @@
 			<!-- when not signed in-->
 			<% if user_signed_in? %>
 			<!-- Settings Button -->
-			<div id="settingsbox" >
-					<div class="btn btn-settings settings-trigger no_ajaxify"></div>
+			<div id="settingsbox" class="settingsbox" >
+					<div class="btn btn-settings settings-trigger no_ajaxify" id="settings-trigger"></div>
 
-					<div id="settingsmenu">
+					<div id="settingsmenu" class="settingsbox">
 						<div class="settingsinner">
 							<ol>
 								<%= link_to 'Edit Profile', edit_user_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
@@ -62,6 +62,8 @@
 
 			<!-- User Name -->
 			<div id="namebox" >
+			<!-- User Face -->
+				
 			<!-- Message Notification -->
 			<% if current_user.receipts.inbox.not_trash.not_deleted.is_unread.count != 0 %>
 				<%= link_to messaging_inbox_path(current_user), class: 'no_ajaxify settings-btn-settings' do %>					
@@ -70,9 +72,16 @@
 				</div>
 				<% end %>
 			<% end %>
-
-				<%= link_to current_user.first_name, current_user, class:'no_ajaxify' %>
+			
+				<div style="float:right;">
+					<%= link_to current_user.first_name, current_user, class:'no_ajaxify' %>
+				</div>
+				<%= link_to current_user, class:'no_ajaxify' do %>
+					<div class="name-image" style="background-image:url(<%= current_user.profilephoto.url(:tiny)%>);">	
+					</div>
+				<% end %>
 			</div>	
+
 
 			<!-- when signed in-->
 			<% else %>

@@ -69,12 +69,12 @@
 
 							<!-- Basic Info-->
 							<div class="textbox-mini">
-							<h2>Basic Info</h2>
+							<h2>Basic Info </h2> 
 							</div>
-
+							
 							<!-- Name -->
 							<div class="lightbox3">
-
+								
 								<div class="inputlabel">
 									<li>Name</li>
 								</div>
@@ -177,7 +177,7 @@
 
       								<div class="input-placer socialmedia-placer">
       									<% if @user.facebook == nil %>
-      									<ul><%= link_to "Connect your account to Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %></ul>
+      									<ul><%= link_to "Click to connect your account to Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %></ul>
       									<% else %>
       									<ul><%= link_to "Disconnect your account from Facebook",disconnect_path(@user,:facebook),class:"no_ajaxify",style:"color:#999;" %></ul>
       									<% end %>
@@ -196,7 +196,7 @@
 
       								<div class="input-placer socialmedia-placer">
       									<% if @user.twitter == nil %>
-      									<ul><%= link_to "Connect your account to Twitter",user_omniauth_authorize_path(:twitter),class:"no_ajaxify" %></ul>
+      									<ul><%= link_to "Click to connect your account to Twitter",user_omniauth_authorize_path(:twitter),class:"no_ajaxify" %></ul>
       									<% else %>
       									<ul><%= link_to "Disconnect your account from Twitter",disconnect_path(@user,:twitter),class:"no_ajaxify",style:"color:#999;" %></ul>
       									<% end %>
@@ -215,7 +215,7 @@
 
       								<div class="input-placer socialmedia-placer">
       									<% if @user.github == nil %>
-      									<ul><%= link_to "Connect your account to GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %></ul>
+      									<ul><%= link_to "Click to connect your account to GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %></ul>
       									<% else %>
       									<ul><%= link_to "Disconnect your account from GitHub",disconnect_path(@user,:github),class:"no_ajaxify",style:"color:#999;" %></ul>
       									<% end %>
@@ -234,7 +234,7 @@
 
       								<div class="input-placer">
       									<% if @user.deviantart == nil %>
-       									<ul><%= link_to "Connect your account to DeviantArt",user_omniauth_authorize_path(:deviantart),class:"no_ajaxify" %></ul>
+       									<ul><%= link_to "Click to connect your account to DeviantArt",user_omniauth_authorize_path(:deviantart),class:"no_ajaxify" %></ul>
        									<% else %>
        									<ul><%= link_to "Disconnect your account from DeviantArt",disconnect_path(@user,:deviantart),class:"no_ajaxify",style:"color:#999;" %></ul>
        									<% end %>
@@ -254,7 +254,7 @@
 
       								<div class="input-placer socialmedia-placer">
       									<% if @user.vimeo == nil %>
-       									<ul><%= link_to "Connect your account to Vimeo",user_omniauth_authorize_path(:vimeo),class:"no_ajaxify" %></ul>
+       									<ul><%= link_to "Click to connect your account to Vimeo",user_omniauth_authorize_path(:vimeo),class:"no_ajaxify" %></ul>
       									<span></span>
       									<% else %>
       									<ul><%= link_to "Disconnect your account from Vimeo",disconnect_path(@user,:vimeo),class:"no_ajaxify",style:"color:#999;" %></ul>

@@ -4,6 +4,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 	def facebook
 		params = request.env["omniauth.params"]
 		if params["subscribed_id"] == nil then
+			#Facebook Signup
 			if current_user != nil
 				#When the user exist
 				@user = current_user
@@ -15,10 +16,55 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
-					redirect_to edit_user_path(@user)
+					#Add extra info
+					if @user.bio == nil || @user.bio == "" then
+						if facebook.bio != nil then 
+							@user.update_column(:bio,facebook.bio.truncate(210))
+						else
+							if facebook.school != nil then
+								if facebook.concentration != nil then
+									bio = facebook.concentration + ", "+facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								else
+									bio = facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								end
+							end
+						end
+					end
+					if @user.location == nil || @user.location == "" then
+						if facebook.locale != nil then
+							@user.update_column(:location,facebook.locale)
+						end
+					end
+					if @user.tagline == nil || @user.tagline == "" then
+						if facebook.concentration != nil then
+							@user.update_column(:tagline, facebook.concentration.truncate(42))
+						else
+							if facebook.school != nil then
+								@user.update_column(:tagline, facebook.school.truncate(42))
+							end
+						end
+					end
+					if @user.website == nil || @user.website == "" then
+						if facebook.website != nil then
+							@user.update_column(:website, facebook.website.truncate(100))
+						end
+					end			
+					if params["after_signup"] == nil then			
+						redirect_to edit_user_path(@user)
+					else
+						@user.tutorial.facebook = true
+						@user.tutorial.save
+						redirect_to user_path(@user)
+					end
 				else
 					flash[:success] = "Fail to connect to Facebook."
-					redirect_to edit_user_path(@user)
+					if params["after_signup"] == nil then			
+						redirect_to edit_user_path(@user)
+					else
+						redirect_to user_path(@user)
+					end
 				end
 			else
 				#When the user doesn't exist
@@ -34,9 +80,63 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						@user.update_column(:fullname,facebook.name)
 						@user.update_column(:email,facebook.email)
 						@user.update_column(:username,facebook_username_clearned)
+						#Add extra info
+						if facebook.bio != nil then 
+							@user.update_column(:bio,facebook.bio.truncate(210))
+						else
+							if facebook.school != nil then
+								if facebook.concentration != nil then
+									bio = facebook.concentration + ", "+facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								else
+									bio = facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								end
+							end
+						end
+						if facebook.locale != nil then
+							@user.update_column(:location,facebook.locale)
+						end
+						if facebook.concentration != nil then
+							@user.update_column(:tagline, facebook.concentration.truncate(42))
+						else
+							if facebook.school != nil then
+								@user.update_column(:tagline, facebook.school.truncate(42))
+							end
+						end
+						if facebook.website != nil then
+							@user.update_column(:website, facebook.website.truncate(100))
+						end						
 					else
 						@user.update_column(:fullname,facebook.name)
-						@user.update_column(:email,facebook.email)					
+						@user.update_column(:email,facebook.email)	
+						#Add extra info
+						if facebook.bio != nil then 
+							@user.update_column(:bio,facebook.bio.truncate(210))
+						else
+							if facebook.school != nil then
+								if facebook.concentration != nil then
+									bio = facebook.concentration + ", "+facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								else
+									bio = facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								end
+							end
+						end
+						if facebook.locale != nil then
+							@user.update_column(:location,facebook.locale)
+						end
+						if facebook.concentration != nil then
+							@user.update_column(:tagline, facebook.concentration.truncate(42))
+						else
+							if facebook.school != nil then
+								@user.update_column(:tagline, facebook.school.truncate(42))
+							end
+						end
+						if facebook.website != nil then
+							@user.update_column(:website, facebook.website.truncate(100))
+						end										
 					end				
 					redirect_to facebook_signup_path(@user.uuid)	
 					avatar_url = @user.process_uri(facebook.image)
@@ -63,10 +163,64 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 					if User.find_by_username(@facebook_username_clearned) == nil then
 						@user.update_column(:fullname,facebook.name)
 						@user.update_column(:email,facebook.email)
-						@user.update_column(:username,@facebook_username_clearned)					
+						@user.update_column(:username,@facebook_username_clearned)	
+						#Add extra info
+						if facebook.bio != nil then 
+							@user.update_column(:bio,facebook.bio.truncate(210))
+						else
+							if facebook.school != nil then
+								if facebook.concentration != nil then
+									bio = facebook.concentration + ", "+facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								else
+									bio = facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								end
+							end
+						end
+						if facebook.locale != nil then
+							@user.update_column(:location,facebook.locale)
+						end
+						if facebook.concentration != nil then
+							@user.update_column(:tagline, facebook.concentration.truncate(42))
+						else
+							if facebook.school != nil then
+								@user.update_column(:tagline, facebook.school.truncate(42))
+							end
+						end
+						if facebook.website != nil then
+							@user.update_column(:website, facebook.website.truncate(100))
+						end
 					else
 						@user.update_column(:fullname,facebook.name)
-						@user.update_column(:email,facebook.email)		
+						@user.update_column(:email,facebook.email)	
+						#Add extra info
+						if facebook.bio != nil then 
+							@user.update_column(:bio,facebook.bio.truncate(210))
+						else
+							if facebook.school != nil then
+								if facebook.concentration != nil then
+									bio = facebook.concentration + ", "+facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								else
+									bio = facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								end
+							end
+						end
+						if facebook.locale != nil then
+							@user.update_column(:location,facebook.locale)
+						end
+						if facebook.concentration != nil then
+							@user.update_column(:tagline, facebook.concentration.truncate(42))
+						else
+							if facebook.school != nil then
+								@user.update_column(:tagline, facebook.school.truncate(42))
+							end
+						end
+						if facebook.website != nil then
+							@user.update_column(:website, facebook.website.truncate(100))
+						end							
 						if @facebook_username_clearned != nil then
 							@user.username = loop do 
 								token = @facebook_username_clearned+SecureRandom.hex(4)
@@ -121,6 +275,46 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
+					#Add Facebook to profile photo if profile photo is nil
+					unless @user.profilephoto.exists? then
+						avatar_url = @user.process_uri(facebook.image)
+						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
+					end
+					#Add extra info
+					if @user.bio == nil || @user.bio == "" then
+						if facebook.bio != nil then 
+							@user.update_column(:bio,facebook.bio.truncate(210))
+						else
+							if facebook.school != nil then
+								if facebook.concentration != nil then
+									bio = facebook.concentration + ", "+facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								else
+									bio = facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								end
+							end
+						end
+					end
+					if @user.location == nil || @user.location == "" then
+						if facebook.locale != nil then
+							@user.update_column(:location,facebook.locale)
+						end
+					end
+					if @user.tagline == nil || @user.tagline == "" then
+						if facebook.concentration != nil then
+							@user.update_column(:tagline, facebook.concentration.truncate(42))
+						else
+							if facebook.school != nil then
+								@user.update_column(:tagline, facebook.school.truncate(42))
+							end
+						end
+					end
+					if @user.website == nil || @user.website == "" then
+						if facebook.website != nil then
+							@user.update_column(:website, facebook.website.truncate(100))
+						end
+					end							
 					redirect_to subscribe_path(params["subscribed_id"],params["subscription_type"],params["amount"])
 				else
 					flash[:success] = "Facebook authorization failed."
@@ -206,5 +400,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		end
 	end
 
+  	def failure
+  		if current_user != nil then
+  			current_user.tutorial.facebook = false
+  			current_user.tutorial.save
+  		end
+    	redirect_to root_path 
+  	end
 
 end

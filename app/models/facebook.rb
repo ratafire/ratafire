@@ -12,9 +12,19 @@ class Facebook < ActiveRecord::Base
 			facebook.link = auth.info.urls.Facebook
 			facebook.username = auth.extra.raw_info.username
 			facebook.gender = auth.extra.raw_info.gender
-			facebook.locale = auth.extra.raw_info.location
+			if auth.extra.raw_info.location != nil then
+				facebook.locale = auth.extra.raw_info.location.name
+			end
 			facebook.user_birthday = auth.extra.raw_info.user_birthday
 			facebook.email = auth.info.email
+			facebook.bio = auth.extra.raw_info.bio
+			if auth.extra.raw_info.education != nil then 
+				facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
+				facebook.school = auth.extra.raw_info.education[0].school.name
+			end
+			if auth.extra.raw_info.website != nil then
+				facebook.website = auth.extra.raw_info.website.split("\n")[0]
+			end			
 			facebook.oauth_token = auth.credentials.token
 			facebook.oauth_expires_at = auth.credentials.expires_at
 			facebook.user_id = user_id
@@ -34,9 +44,19 @@ class Facebook < ActiveRecord::Base
 				facebook.link = auth.info.urls.Facebook
 				facebook.username = auth.extra.raw_info.username
 				facebook.gender = auth.extra.raw_info.gender
-				facebook.locale = auth.extra.raw_info.location
+				if auth.extra.raw_info.location != nil then
+					facebook.locale = auth.extra.raw_info.location.name
+				end
 				facebook.user_birthday = auth.extra.raw_info.user_birthday
 				facebook.email = auth.info.email
+				facebook.bio = auth.extra.raw_info.bio
+				if auth.extra.raw_info.education != nil then 
+					facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
+					facebook.school = auth.extra.raw_info.education[0].school.name
+				end
+				if auth.extra.raw_info.website != nil then
+					facebook.website = auth.extra.raw_info.website.split("\n")[0]
+				end
 				facebook.oauth_token = auth.credentials.token
 				facebook.oauth_expires_at = auth.credentials.expires_at
 				facebook.user_id = user_id
