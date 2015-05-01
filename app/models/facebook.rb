@@ -19,8 +19,10 @@ class Facebook < ActiveRecord::Base
 			facebook.email = auth.info.email
 			facebook.bio = auth.extra.raw_info.bio
 			if auth.extra.raw_info.education != nil then 
-				facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
-				facebook.school = auth.extra.raw_info.education[0].school.name
+				if auth.extra.raw_info.education[0] != nil then
+					facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
+					facebook.school = auth.extra.raw_info.education[0].school.name
+				end
 			end
 			if auth.extra.raw_info.website != nil then
 				facebook.website = auth.extra.raw_info.website.split("\n")[0]
@@ -51,8 +53,10 @@ class Facebook < ActiveRecord::Base
 				facebook.email = auth.info.email
 				facebook.bio = auth.extra.raw_info.bio
 				if auth.extra.raw_info.education != nil then 
-					facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
-					facebook.school = auth.extra.raw_info.education[0].school.name
+					if auth.extra.raw_info.education[0] != nil then
+						facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
+						facebook.school = auth.extra.raw_info.education[0].school.name
+					end
 				end
 				if auth.extra.raw_info.website != nil then
 					facebook.website = auth.extra.raw_info.website.split("\n")[0]
