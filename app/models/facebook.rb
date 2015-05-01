@@ -23,7 +23,9 @@ class Facebook < ActiveRecord::Base
 					if auth.extra.raw_info.education[0].concentration != nil then
 						facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
 					end
-					facebook.school = auth.extra.raw_info.education[0].school.name
+					if auth.extra.raw_info.education[0].school != nil then 
+						facebook.school = auth.extra.raw_info.education[0].school.name
+					end
 				end
 			end
 			if auth.extra.raw_info.website != nil then
@@ -59,7 +61,9 @@ class Facebook < ActiveRecord::Base
 						if auth.extra.raw_info.education[0].concentration != nil then
 							facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
 						end
-						facebook.school = auth.extra.raw_info.education[0].school.name
+						if auth.extra.raw_info.education[0].school != nil then 
+							facebook.school = auth.extra.raw_info.education[0].school.name
+						end
 					end
 				end
 				if auth.extra.raw_info.website != nil then
