@@ -62,8 +62,8 @@
 				<!-- With Video but without artwork, without audio -->
 				<% if video_true_and_artwork_false(@project.id) %>
 					<!-- Expanded Video -->
-					<div id="<%= @project.id%>video-expanded" style="display:none;">
-						<%= videojs_rails sources: { webm: @project.video.output_url }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
+					<div id="<%= @project.id%>video-expanded" class="video-display-portable2" style="display:none;">
+						<%= videojs_rails sources: { webm: @project.video.output_url, mp4: @project.video.output_url_mp4 }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
 					</div>	
 					<div id="<%= @project.id%>holder">					
 						<div class="majorpost-video-one">
@@ -109,8 +109,8 @@
 				<!-- With Artwork and with Video, without audio -->
 				<% if video_true_and_artwork_true(@project.id) %>	
 					<!-- Expanded Video -->
-					<div id="<%= @project.id%>video-expanded" style="display:none;">
-						<%= videojs_rails sources: { webm: @project.video.output_url }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
+					<div id="<%= @project.id%>video-expanded" class="video-display-portable2" style="display:none;">
+						<%= videojs_rails sources: { webm: @project.video.output_url, mp4: @project.video.output_url_mp4 }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
 					</div>	
 					<div id="<%= @project.id%>holder">								
 						<div class="majorpost-video-one">
@@ -167,8 +167,8 @@
 				<!-- With video, without artwork, with audio -->
 				<% if video_true_and_artwork_false_and_audio_true(@project.id) %>		
 					<!-- Expanded Video -->
-					<div id="<%= @project.id%>video-expanded" style="display:none;">
-						<%= videojs_rails sources: { webm: @project.video.output_url }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
+					<div id="<%= @project.id%>video-expanded" class="video-display-portable2" style="display:none;">
+						<%= videojs_rails sources: { webm: @project.video.output_url, mp4: @project.video.output_url_mp4 }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
 					</div>	
 					<div id="<%= @project.id%>holder">							
 						<div class="majorpost-video-one">
@@ -230,8 +230,8 @@
 				<!-- With video, with artwork, with audio -->
 				<% if video_true_and_artwork_true_and_audio_true(@project.id) %>	
 					<!-- Expanded Video -->
-					<div id="<%= @project.id%>video-expanded" style="display:none;">
-						<%= videojs_rails sources: { webm: @project.video.output_url }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
+					<div id="<%= @project.id%>video-expanded" class="video-display-portable2" style="display:none;">
+						<%= videojs_rails sources: { webm: @project.video.output_url, mp4: @project.video.output_url_mp4 }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
 					</div>	
 					<div id="<%= @project.id%>holder">								
 						<div class="majorpost-video-one">

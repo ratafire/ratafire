@@ -68,7 +68,7 @@
 					<!-- Source Code-->	
 					<h2>Source Code</h2>
 						<div class="source-code-placer" style="margin-left:21px;">
-							<%= f.text_field :source_code, placeholder:"Enter project source code url if any", class:"completion-input inputbox",style:"width:695px; margin-left:0px;" %>
+							<%= f.text_field :source_code, placeholder:"Enter work collection source code url if any", class:"completion-input inputbox",style:"width:695px; margin-left:0px;" %>
 						</div>
 					
 					<!-- Early Access -->
@@ -81,7 +81,7 @@
 					<% end %>							
 
 						<div style="text-align:right;margin-right:17px;margin-top:40px;">
-							<%= link_to "Abandon Project",you_shall_not_pass_path(@project.creator,@project),class:"no_ajaxify btn btn-medium3 btn-medium-white",:method => :get,:confirm => "Are you sure to abandon this project? <p>Review the following changes: </p> <p>1. This project will be marked as abandoned.</p> <p>2. No one can edit this project unless you reopen it.</p>", style:"margin-right:5px;"%>
+							<%= link_to "Abandon",you_shall_not_pass_path(@project.creator,@project),class:"no_ajaxify btn btn-medium3 btn-medium-white",:method => :get,:confirm => "Are you sure to abandon this project? <p>Review the following changes: </p> <p>1. This project will be marked as abandoned.</p> <p>2. No one can edit this project unless you reopen it.</p>", style:"margin-right:5px;"%>
 							<%= f.submit "Save Changes", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green project-settings-save"%>
 						</div>
 
@@ -147,17 +147,17 @@
 					<div class="inspiration-bg">
 						<div class="textbox-mini">
 							<div class="post-about-title" type="blue">
-								<li style="font-size: 1.4em;">Project Completion</li>
+								<li style="font-size: 1.4em;">Work Collection Completion</li>
 							</div>
 						</div>
 					</div>
 					<div class='btn-completion'>
 						<div class="textbox-mini" style="padding-top:10px;">
 							<div class="btn-completion-bg">
-							You have traveled far! Once you click the button below, this project will be marked as completed, a copy of the project at its completion time will be archived permanently. You cannot edit project title, goal, and permanent link after a project's completion. Check everything twice before clicking the completion button!
+							You have traveled far! Once you click the button below, this work collection will be marked as completed, a copy of the work collection at its completion time will be archived permanently. You cannot edit work collection title, goal, and permanent link after a work collection's completion. Check everything twice before clicking the completion button!
 							</div>
 							<div  style="text-align:right;margin-right:17px;margin-top:40px;">
-								<%= link_to "Complete",you_completed_me_path(@project.creator,@project),class:"btn btn-medium btn-medium-blue no_ajaxify btn-completion-submit-special",:method => :get,:confirm => "Are you sure to complete this project? It cannot be undone. <p>Review the following changes to your project after its completion: </p> <p>1. This project will be marked as completed.</p> <p>2. A copy of the project at its completion time will be archived permanently.</p> <p>3. You cannot edit project title, goal, and permanent link.</p>"%>
+								<%= link_to "Complete",you_completed_me_path(@project.creator,@project),class:"btn btn-medium btn-medium-blue no_ajaxify btn-completion-submit-special",:method => :get,:confirm => "Are you sure to complete this work collection? It cannot be undone. <p>Review the following changes to your project after its completion: </p> <p>1. This work collection will be marked as completed.</p> <p>2. A copy of the work collection at its completion time will be archived permanently.</p> <p>3. You cannot edit work collection title, goal, and permanent link.</p>"%>
 							</div>
 
 

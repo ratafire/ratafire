@@ -201,7 +201,7 @@
 				<!-- With Video but without artwork, without audio -->
 				<% if activity.trackable.video != nil && activity.trackable.artwork == nil && activity.trackable.audio == nil %>
 					<!-- Expanded Video -->
-					<div id="<%= activity.id%>video-expanded" style="display:none;">
+					<div id="<%= activity.id%>video-expanded" class="video-display-portable" style="display:none;">
 						<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
 							<% if activity.trackable.video.youtube_vimeo == true %>
 								<!-- Youtube Video -->
@@ -214,7 +214,7 @@
 							<% end %>
 						<% else %>
 							<!-- Internal Video -->
-							<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+							<%= videojs_rails sources: { webm: activity.trackable.video.output_url, mp4: activity.trackable.video.output_url_mp4 }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
 						<% end %>	
 					</div>	
 					<div id="<%= activity.id%>holder">				
@@ -273,7 +273,7 @@
 				<!-- With Artwork and with Video, without audio -->
 				<% if activity.trackable.video != nil && activity.trackable.artwork != nil && activity.trackable.audio == nil %>		
 					<!-- Expanded Video -->
-					<div id="<%= activity.id%>video-expanded" style="display:none;">
+					<div id="<%= activity.id%>video-expanded" class="video-display-portable" style="display:none;">
 						<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
 							<% if activity.trackable.video.youtube_vimeo == true %>
 								<!-- Youtube Video -->
@@ -286,7 +286,7 @@
 							<% end %>
 						<% else %>
 							<!-- Internal Video -->
-							<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+							<%= videojs_rails sources: { webm: activity.trackable.video.output_url, mp4: activity.trackable.video.output_url_mp4 }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
 						<% end %>	
 					</div>	
 					<div id="<%= activity.id%>holder">								
@@ -361,7 +361,7 @@
 				<!-- with video, without artwork, with audio -->
 				<% if activity.trackable.video != nil && activity.trackable.artwork == nil && activity.trackable.audio != nil %>	
 					<!-- Expanded Video -->
-					<div id="<%= activity.id%>video-expanded" style="display:none;">
+					<div id="<%= activity.id%>video-expanded" class="video-display-portable" style="display:none;">
 						<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
 							<% if activity.trackable.video.youtube_vimeo == true %>
 								<!-- Youtube Video -->
@@ -374,7 +374,7 @@
 							<% end %>
 						<% else %>
 							<!-- Internal Video -->
-							<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+							<%= videojs_rails sources: { webm: activity.trackable.video.output_url, mp4: activity.trackable.video.output_url_mp4 }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
 						<% end %>	
 					</div>	
 					<div id="<%= activity.id%>holder">									
@@ -471,7 +471,7 @@
 				<!-- with video, with artwork, with audio -->	
 				<% if activity.trackable.video != nil && activity.trackable.artwork != nil && activity.trackable.audio != nil %>	
 					<!-- Expanded Video -->
-					<div id="<%= activity.id%>video-expanded" style="display:none;">
+					<div id="<%= activity.id%>video-expanded" class="video-display-portable" style="display:none;">
 						<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
 							<% if activity.trackable.video.youtube_vimeo == true %>
 								<!-- Youtube Video -->
@@ -484,7 +484,7 @@
 							<% end %>
 						<% else %>
 							<!-- Internal Video -->
-							<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+							<%= videojs_rails sources: { webm: activity.trackable.video.output_url, mp4: activity.trackable.video.output_url_mp4 }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
 						<% end %>	
 					</div>	
 					<div id="<%= activity.id%>holder">									

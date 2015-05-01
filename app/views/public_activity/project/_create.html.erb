@@ -128,8 +128,8 @@
 				<!-- With Video but without artwork, without audio -->
 				<% if video_true_and_artwork_false(activity.trackable.id) %>
 					<!-- Expanded Video -->
-					<div id="<%= activity.id%>video-expanded" style="display:none;">
-						<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+					<div id="<%= activity.id%>video-expanded" class="video-display-portable" style="display:none;">
+						<%= videojs_rails sources: { webm: activity.trackable.video.output_url, mp4: activity.trackable.video.output_url_mp4 }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
 					</div>	
 					<div id="<%= activity.id%>holder">
 						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
@@ -178,8 +178,8 @@
 				<!-- With Artwork and with Video, without audio -->
 				<% if video_true_and_artwork_true(activity.trackable.id) %>	
 					<!-- Expanded Video -->
-					<div id="<%= activity.id%>video-expanded" style="display:none;">
-						<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+					<div id="<%= activity.id%>video-expanded" class="video-display-portable" style="display:none;">
+						<%= videojs_rails sources: { webm: activity.trackable.video.output_url, mp4: activity.trackable.video.output_url_mp4 }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
 					</div>	
 					<div id="<%= activity.id%>holder">			
 						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
@@ -236,8 +236,8 @@
 				<!-- With video, without artwork, with audio -->
 				<% if video_true_and_artwork_false_and_audio_true(activity.trackable.id) %>		
 					<!-- Expanded Video -->
-					<div id="<%= activity.id%>video-expanded" style="display:none;">
-						<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+					<div id="<%= activity.id%>video-expanded" class="video-display-portable" style="display:none;">
+						<%= videojs_rails sources: { webm: activity.trackable.video.output_url, mp4: activity.trackable.video.output_url_mp4 }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
 					</div>	
 					<div id="<%= activity.id%>holder">						
 						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
@@ -299,8 +299,8 @@
 				<!-- With video, with artwork, with audio -->
 				<% if video_true_and_artwork_true_and_audio_true(activity.trackable.id) %>		
 					<!-- Expanded Video -->
-					<div id="<%= activity.id%>video-expanded" style="display:none;">
-						<%= videojs_rails sources: { webm: activity.trackable.video.output_url }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
+					<div id="<%= activity.id%>video-expanded" class="video-display-portable" style="display:none;">
+						<%= videojs_rails sources: { webm: activity.trackable.video.output_url, mp4: activity.trackable.video.output_url_mp4 }, height:"353", width:"628", poster:activity.trackable.video.thumbnail(:original),id:"#{activity.id}video" %>
 					</div>	
 					<div id="<%= activity.id%>holder">								
 						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
