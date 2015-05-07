@@ -42,7 +42,7 @@
 					<!-- Cutter --><ol style="margin-top: -5px;"></ol>
 
 					<!-- Tabs Nav -->
-					<% if @user.subscription_status_initial == "Approved" then %>
+					<% if user_subscription_check(@user) then %>
 						<%= render 'shared/tabs_nav_payments' %>
 
 					<!-- Content of Profile -->

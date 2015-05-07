@@ -50,7 +50,7 @@
 							<% end %>
 						<% else %>
 							<!-- Subscribe Button -->
-							<% if @user.subscription_status_initial == "Approved"%>
+							<% if user_subscription_check(@user) %>
 								<%= render 'users/subscribe_button'%>	
 							<% end %>									
 						<% end %>
@@ -61,7 +61,7 @@
 				
 <% else %>
 	<!-- Subscribe Button -->
-	<% if @user.subscription_status_initial == "Approved"%>
+	<% if user_subscription_check(@user) %>
 		<%= render 'users/subscribe_button'%>
 	<% end %>
 <% end %><!-- end.if user_signed_in?-->	

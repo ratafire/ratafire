@@ -1,0 +1,34 @@
+<div class="lightbox4" style="border: 0px solid #ddd;background-color:#f9f9f9; border-radius:5px;padding-bottom:20px;">
+<!-- Has Project -->
+<% if @project != nil %>	
+	<!-- project icon -->
+	<div class="project-show-icon">
+		<div class="project-icon-small">
+			<% if facebookpage.facebookprofile != nil then %>
+				<%= link_to facebookpage.link,target:"_blank", class:"no_ajaxify" do %>
+					<div class="user-icon-small-holder" style="background-image:url(<%= facebookpage.facebookprofile.url(:small64) %>);"></div>
+				<% end %>	
+			<% else %>
+				<%= link_to facebookpage.link,target:"_blank", class:"no_ajaxify" do  %>
+					<div class="user-icon-small-holder" style="background-image:url(<%= facebookpage.user.profilephoto.url(:small64) %>);"></div>
+				<% end %>	
+			<% end %>			
+		</div>	
+	</div><!-- end.project-show-icon-->
+	<div class="project-show-content-why">
+		<div class="project-show-title">
+			<!-- Cutter --><ol style="margin-top: 0px;"></ol>
+		<h2>
+					<%= link_to facebookpage.name, facebookpage.link,target:"_blank", class:"no_ajaxify" %></li>
+		</h2>
+		<ol style="margin-top: -14px;"></ol>
+		<ol style="margin-left:1px;"><%= sanitize truncate(facebookpage.about, :length => 100) %></ol>
+		<ol style="color:#999;margin-left:1px;">In <span class="realm-color"><%= facebookpage.category %></span>.</ol>					
+		</div><!-- end.project-show-title-->
+	</div><!-- end.project-show-content-->	
+<% else %>
+	<div  style="text-align:center;padding-top:40px;font-size:0.9em;">
+	<span>You do not have an synced Facebook Page. <%= link_to "Sync a Facebook Page", user_edit_path(facebookpage.user), method: :post,class: " no_ajaxify"%></span>
+	</div>
+<% end %>
+</div>	

@@ -1,0 +1,18 @@
+								<!-- Discussions -->
+								<div class="current-projects">
+
+									<!-- Indicator -->
+									<div class="textbox-mini">
+										<li style="font-size: 1.4em;">Discussions</li>
+										<li class="counter">[<%= @currentdiscussions.count %>]</li>
+									</div>
+									
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+									<!-- Content -->
+									<div id="current-projects">
+										<%= render 'users/current_discussions'%>
+									</div><!-- end of current-projects ajax-->
+
+
+								</div><!-- end.current-projects-->

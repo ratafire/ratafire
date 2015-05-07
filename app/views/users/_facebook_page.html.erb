@@ -4,9 +4,17 @@
 			<table class="display">
 				<thead>
 					<tr>
-						<th width="180"><%= page.name %></th>
-						<th width="370"><%= page.category %></th>
-						<th><div class="btn btn-small btn-small-green tipsy-tipsy" title="Coming Soon!">Sync</div></th>
+						<th width="100"><div class="user-icon-small-holder" style="background-image:url(<%= page.facebookprofile.url(:tiny) %>);margin-bottom:-15px;"></div></th>
+						<th width="300"><%= page.name %></th>
+						<th width="140"><%= page.category %></th>
+						<!-- synced -->
+						<% if page.sync == true then %>
+							<!-- unsynced -->
+							<th><%= link_to facebookpage_unsync_path(@user.id, page.page_id), class:"no_ajaxify" do %><div class="btn btn-small btn-small-white">Disconnect</div><% end %></th>							
+						<% else %>
+							<!-- unsynced -->
+							<th><%= link_to facebookpage_sync_path(@user.id, page.page_id), class:"no_ajaxify" do %><div class="btn btn-small btn-small-green">Sync</div><% end %></th>
+						<% end %>	
 					</tr>
 				</thead>
 				<tbody>

@@ -1,4 +1,4 @@
-<% if show_to_subscribers?(@project) %>
+<% if user_subscription_check(@project.creator) && @project.users.count == 1 then %>
 	<!-- To Subscribers Title -->
 	<div class="inspiration-bg">
 		<div class="textbox-mini">
@@ -25,40 +25,23 @@
 		<div>
 			<%= render 'subscriptions/faces'%>
 		</div>	
-	</div><!-- end .project-to-subscribers-holder-->
-	<!-- Subscription Button-->		
-<% if current_user != @project.creator && @project.users.count == 1 then %>	
-	<% if subscriber_status then %>
-		<% if @project.creator.subscribed_by?(current_user) %>
+		<% if user_signed_in? then %>
+			<% unless @project.creator == current_user %>
+				<% unless @project.creator.subscribed_by?(current_user) %>
+					<% unless current_user.subscribed_by?(@project.creator) %>
+						<div style="margin: 15px -2px 0 580px;">	
+							<%= render 'users/portable_subscribe_button_small', :user => @project.creator%>	
+						</div>	
+					<% end %>	
+				<% end %>	
+			<% end %>	
 		<% else %>
-			<div style="margin: 15px -2px 0 0; text-align:right;">
-				<%= link_to "Subscribe", subscribe_path(@project.creator,"false"), class:"btn btn-medium btn-medium-green no_ajaxify"%>
-			</div>
-		<% end %>	
-	<% else %>
-		<% if user_signed_in? %>
-						<div class="lightbox2-bordered">
-							<div class="textbox-mini">
-								<h4 style="color:#2297ce;">To subscribe to other users you must</h4>
-								<% unless current_user.profilephoto? then %>
-								<div class="user-why-passage">Have a profile photo ~ <%= link_to "Edit Profile", edit_user_path(current_user), class:"no_ajaxify"%></div>	
-								<% end %>
-								<% unless current_user.github != nil || current_user.facebook != nil then %>						
-								<div class="user-why-passage">Connect your Ratafire account to <%= link_to "GitHub",user_omniauth_authorize_path(:github),class:"no_ajaxify" %> or <%= link_to "Facebook",user_omniauth_authorize_path(:facebook),class:"no_ajaxify" %>.</div>
-								<% end %>
-							</div><!-- end.textbox-mini-->
-
-						</div><!-- end.lightbox2-bordered-->
-		<% else %>
-								<div class="lightbox2-bordered">
-							<div class="textbox-mini" style="text-align:right;color:#999;margin-top:20px;">
-									<%= link_to "Sign in", new_user_session_path , class: "no_ajaxify" %> to subscribe to <%= link_to @project.creator.fullname, @project.creator,class:"no_ajaxify" %>. Don't have an account? <%= link_to 'Sign up', beta_path, class:"no_ajaxify" %>.	
-										</div><!-- end.textbox-mini-->
-
-						</div><!-- end.lightbox2-bordered-->			
-		<% end %><!-- end.if user_signed_in?-->				
-	<% end %>	
-<% end %><!-- end.if current_user != @project.creator-->					
+			<div style="margin: 15px -2px 0 580px;">	
+				<%= render 'users/portable_subscribe_button_small', :user => @project.creator%>	
+			</div>			
+		<% end %><!-- end.if current_user != @project.creator-->				
+	</div><!-- end .project-to-subscribers-holder-->			
+			
 
 
 		</div><!-- end.textbox-mini-->

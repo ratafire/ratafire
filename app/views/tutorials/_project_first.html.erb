@@ -1,28 +1,2 @@
 		
 	<!-- Step 1 Teach the user to edit project title -->
-<% if @project.creator.tutorial.project_tutorial == nil then %>	
-	<div class="dialog2" id="project-tutorial-step1" style="display:none;">
-		<%= link_to project_tutorial_step1_path(@project.creator.tutorial.id), id:"project-tutorial-step1-link", class:"no_ajaxify", remote: true do %>Click to change the title of your work collection.<% end %>
-	</div>
-<% end %>
-
-	<!-- Step 2 Teach the user to edit project tagline -->
-<% if @project.creator.tutorial.project_tutorial == 1 then %>	
-	<div class="dialog2" id="project-tutorial-step2" style="display:block;"><%= link_to project_tutorial_step2_path(@project.creator.tutorial.id), id:"project-tutorial-step2-link", class:"no_ajaxify", remote: true do %>Click to change the tagline to something other than pine nuts.<% end %>
-<% else %>
-	<div class="dialog2" id="project-tutorial-step2"><%= link_to project_tutorial_step2_path(@project.creator.tutorial.id), id:"project-tutorial-step2-link", class:"no_ajaxify", remote: true do %>Click to change the tagline to something other than pine nuts.<% end %>
-<% end %>	
-	</div><!-- end.dialog2-->
-
-	<!-- Step 3 Add an icon -->
-<% if @project.creator.tutorial.project_tutorial == 2 then %>
-	<div class="fire"id="project-tutorial-step3" style="display:block;">
-<% else %>
-	<div class="fire" id="project-tutorial-step3">
-<% end %>
-	</div><!-- end.fire-->	
-<% unless @project.creator.tutorial.project_tutorial == 3 then %>	
-	<div class="dialog2" id="project-tutorial-dialog3">
-		<%= link_to project_tutorial_step3_path(@project.creator.tutorial.id), id:"project-tutorial-step3-link", class:"no_ajaxify", remote: true do %>Upload an icon for this collection.<% end %>
-	</div>
-<% end %>		

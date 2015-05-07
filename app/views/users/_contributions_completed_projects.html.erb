@@ -1,0 +1,19 @@
+								<!-- Completed Projects -->
+								<div class="completed-projects">
+
+									<!-- Indicator -->
+									<div class="textbox-mini">
+										<li style="font-size: 1.4em;">Completed Work Collection</li>
+										<li class="counter">[<%= @completedprojects.count %>]</li>
+									</div>
+									
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+									<!-- Content -->
+									<div id="completed-projects">
+										<%= render 'users/completed_projects'%>
+									</div><!-- end of completed-projects-ajax -->
+
+								</div><!--end.completed-projects -->
+
+								<!-- Cutter --><ol style="height: 80px;"></ol>

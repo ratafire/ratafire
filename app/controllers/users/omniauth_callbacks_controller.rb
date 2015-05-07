@@ -37,7 +37,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 							@user.update_column(:location,facebook.locale)
 						end
 					end
-					if @user.tagline == nil || @user.tagline == "" then
+					if @user.tagline == nil || @user.tagline == "" || @user.tagline == "Sits down at the fire of Ratatoskr" then
 						if facebook.concentration != nil then
 							@user.update_column(:tagline, facebook.concentration.truncate(42))
 						else
@@ -301,7 +301,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 							@user.update_column(:location,facebook.locale)
 						end
 					end
-					if @user.tagline == nil || @user.tagline == "" then
+					if @user.tagline == nil || @user.tagline == "" || @user.tagline == "Sits down at the fire of Ratatoskr" then
 						if facebook.concentration != nil then
 							@user.update_column(:tagline, facebook.concentration.truncate(42))
 						else
@@ -335,7 +335,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				pages = @user_graph.get_connections('me', 'accounts')
 				if pages != nil then
 					pages.each do |page|
-						facebookpage = FacebookPage.create_facebook_page(page,@user.id,facebook.id)
+						facebookpage = FacebookPage.find_by_page_id(page["id"])
+						if facebookpage == nil then
+							facebookpage = FacebookPage.create_facebook_page(page,@user.id,facebook.id)
+						else
+							facebookpage = FacebookPage.update_facebook_page(page,@user.id,facebook.id)
+						end
 					end
 				end	
 				redirect_to edit_user_path(@user)

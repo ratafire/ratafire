@@ -1,0 +1,37 @@
+		<!-- Without Sub-sus-->
+			<% unless user.subscribers.any? then %>
+				<div class="sub-sus-holder" style="margin-left:0px;">
+					Be the first to subscribe to <%= link_to user.fullname, user,class:"no_ajaxify" %>.
+				</div>					
+			<% else %>
+				<div class="project-subscribed-users-holder">
+					<!-- With Sub-sus -->
+					<!-- 1 Sub-sus -->
+					<div class="sub-sus-holder">
+						<% if user.subscribers.count == 1 then %>
+							<%= link_to user.sub_susers[0].fullname, user.sub_susers[0], class:"no_ajaxify"%> supports <%= link_to user.fullname, user, class:"no_ajaxify"%>.
+						<% else %>		
+							<!-- 2 Sub-sus -->
+							<% if user.subscribers.count == 2 then %>
+								<%= link_to user.sub_susers[0].fullname, user.sub_susers[0], class:"no_ajaxify"%> and <%= link_to user.sub_susers[1].fullname, user.sub_susers[1], class:"no_ajaxify"%> support <%= link_to user.fullname, user, class:"no_ajaxify"%>.
+							<% else %>
+								<!-- >2 Sub-sus -->
+								<%= link_to user.sub_susers[0].fullname, user.sub_susers[0], class:"no_ajaxify"%>, <%= link_to user.sub_susers[1].fullname, user.sub_susers[1], class:"no_ajaxify"%> and <%= link_to @subscribers_others, subscribers_path(user), class:"no_ajaxify"%> support <%= link_to user.fullname, user, class:"no_ajaxify"%>.
+							<% end %>
+						<% end %>
+					</div>	
+					
+					<%= render partial: "supports/project_current_subscribers", collection: user.subscribers, :as => :user %>
+
+					<!-- if User has subscribers-->
+					<% if user.subscribers then %>
+						<%= link_to subscribers_path(user), class:"subscription no_ajaxify" do %>
+							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
+						<% end %>	
+					<% else %>
+						<%= link_to supporters_path(user), class:"subscription no_ajaxify" do %>
+							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
+						<% end %>
+					<% end %>
+				</div><!-- end .project-subscribed-users-holder-->		
+				<% end %>	

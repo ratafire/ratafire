@@ -914,14 +914,11 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
   display: none;
   position: absolute;
   z-index: 8000;
-  background-color: #ffffff;
+  background-color: rgba(50,50,50,0.8); 
   width: 560px;
   border-radius: 5px;
   color: #444;
-  border: 1px solid #ddd;
-  border-bottom: 1px solid #ccc;
   margin: -5px 0 0 -5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.11);
   a{
     &:hover{
       text-decoration: none !important;
@@ -935,8 +932,7 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
     height: 20px;
     padding: 10px 0 10px 0;
     text-align: center;
-    background-color: #f9f9f9;
-    color: #ccc;  
+    color: #fff;  
     a{
       &:hover{
         text-decoration: none !important;
@@ -2246,7 +2242,7 @@ text-align: center;
 }
 
 .lightbox {
-	min-height: 120px;
+	min-height: 150px;
 	border-bottom: 1px solid #e2e2e2;
 	border-top: 1px solid transparent;
 	-webkit-transition: all .2s ease-in-out;
@@ -3587,11 +3583,13 @@ textarea.noResize { resize:none; }
 .video-display-portable{
   border: 1px solid #dddddd;
   width:628px;
+  height: 353px;
 }
 
 .video-display-portable2{
   border: 1px solid #dddddd;
   width:608px;
+  height: 342px;
 }
 
 
@@ -5909,6 +5907,10 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 			-webkit-box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 -moz-box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);	
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 	&:hover{
 		border: 1px solid #ccc;
 	}

@@ -1,0 +1,21 @@
+<div class="lightbox4" style="min-height:80px;">
+	<!-- Project Icon -->
+	<div class="project-show-icon">
+		<div class="project-icon-small">
+			<div class="user-icon-small-holder" style="background-image:url(<%= facebookpage.facebookprofile.url(:tiny)%>);"></div>
+		</div>
+	</div>	
+	<!-- Facebookpage content -->
+	<div class="project-show-content">
+		<!-- Title -->
+		<div class="project-show-title">
+			<!-- Cutter --><ol style="margin-top: -8px;"></ol>
+			<h2><%= link_to facebookpage.name, facebookpage.link, target:"_blank",class:"no_ajaxify" %></h2>
+		</div><!-- end.project-show-title-->
+
+		<ol style="margin-top: -26px;"></ol>
+		<span><%= truncate(facebookpage.about, :length => 100) %></span>
+		<ol style="color:#999;">Facebook page in <span class="realm-color"><%= facebookpage.category %></span></ol>
+
+	</div><!-- end.project-show-content-->	
+</div><!-- end .lightbox4-->

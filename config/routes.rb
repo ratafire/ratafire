@@ -435,6 +435,13 @@ Ratafire::Application.routes.draw do
 	match '/:id/:project_comment_id/upvote/r', to: 'project_comments#upvote', as: :upvote
 	match '/:id/:project_comment_id/downvote/r', to: 'project_comments#downvote', as: :downvote
 
+#---Facebook Update---
+	
+	#callback url
+	match '/facebook_update_callback_kingsman', to: 'facebook_updates#receive'
+	match '/:user_id/:page_id/r/facebook_sync', to: 'facebookpages#sync', as: :facebookpage_sync
+	match '/:user_id/:page_id/r/facebook_unsync', to: 'facebookpages#unsync', as: :facebookpage_unsync
+
 #------Resources------
 	resources :users, :path => '/' do
 		resources :projects, :except => :index do

@@ -38,14 +38,14 @@
 					<!-- Tabs Nav -->
 					
 					<!-- Tabs Nav -->
-					<% if @user.subscription_status_initial == "Approved" then %>
+					<% if user_subscription_check(@user) then %>
 						<%= render 'shared/tabs_contributions_three'%>
 					<% else %>
 						<%= render 'shared/tabs_contributions'%>
 					<% end %>	
 
 					<!-- Content of Projects -->
-					<div class="profile-content">
+					<div class="profile-content" style="min-height:320px;">
 							
 							<!-- Now/Past -->
 							<div class="now-past-holder">
@@ -59,65 +59,26 @@
 
 							<!-- Cutter --><ol style="margin-top: 38px;"></ol>
 							
-								<!-- Current Projects -->
-								<div class="current-projects">
+								<!-- Current Work Collections -->
+								<% if @currentprojects.count != 0 then %>
+									<%= render 'users/contributions_current_work_collections'%>
+								<% end %>	
 
-									<!-- Indicator -->
-									<div class="textbox-mini">
-										<li style="font-size: 1.4em;">Current Work Collections</li>
-										<li class="counter">[<%= @currentprojects.count %>]</li>
-									</div>
-									
-									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
-
-									<!-- Content -->
-									<div id="current-projects">
-										<%= render 'users/current_projects'%>
-									</div><!-- end of current-projects ajax-->
-
-
-								</div><!-- end.current-projects-->
-
+								<!-- Facebook Pages -->
+								<% if @syncedfacebookpages.count != 0 then %>
+									<%= render 'users/contirbutions_facebookpages'%>
+								<% end %>
 
 								<!-- Discussions -->
-								<div class="current-projects">
+								<% if @currentdiscussions != 0 then %>
+									<%= render 'users/contributions_discussions'%>
+								<% end %>	
 
-									<!-- Indicator -->
-									<div class="textbox-mini">
-										<li style="font-size: 1.4em;">Discussions</li>
-										<li class="counter">[<%= @currentdiscussions.count %>]</li>
-									</div>
-									
-									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
-
-									<!-- Content -->
-									<div id="current-projects">
-										<%= render 'users/current_discussions'%>
-									</div><!-- end of current-projects ajax-->
-
-
-								</div><!-- end.current-projects-->
-
-								<!-- Completed Projects -->
-								<div class="completed-projects">
-
-									<!-- Indicator -->
-									<div class="textbox-mini">
-										<li style="font-size: 1.4em;">Completed Work Collection</li>
-										<li class="counter">[<%= @completedprojects.count %>]</li>
-									</div>
-									
-									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
-
-									<!-- Content -->
-									<div id="completed-projects">
-										<%= render 'users/completed_projects'%>
-									</div><!-- end of completed-projects-ajax -->
-
-								</div><!--end.completed-projects -->
-
-								<!-- Cutter --><ol style="height: 80px;"></ol>
-							
+								<!-- Completed Porjects -->
+								<% if @completedprojects != 0 then %>
+									<%= render 'users/contributions_completed_projects'%>
+								<% end %>
+								
 					<!-- end of profile-content-->
 					</div>
 

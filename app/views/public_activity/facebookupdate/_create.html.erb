@@ -1,0 +1,178 @@
+<!-- If it is vimeo -->
+<% if activity.trackable.post_type == "video" then %>
+		<% if activity.trackable.caption == "youtube.com" %>
+			<!-- Youtube Video -->
+			<script>
+				$(document).ready(function() {
+					//Uploaded video click to play
+					$("#<%= activity.id%>video-small").click(
+						function () {
+							$("#<%= activity.id%>holder").hide();
+							$("#<%= activity.id%>video-expanded").show();
+							callPlayer("<%= activity.id%>video","playVideo");
+					});	
+				});	
+			</script>
+		<% else %>
+			<% if activity.trackable.caption == "vimeo.com"%>
+				<!-- Vimeo Video -->
+				<script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+				<script>
+					$(document).ready(function() {
+			 			var iframe = $('#<%= activity.id%>video')[0];
+		    			var player = $f(iframe);
+
+						//Uploaded video click to play
+						$("#<%= activity.id%>video-small").click(
+						function () {
+							$("#<%= activity.id%>holder").hide();
+							$("#<%= activity.id%>video-expanded").show();
+							player.api("play");
+						});				
+					});	
+				</script>
+			<% end %>	
+		<% end %>	
+<% end %>
+
+<div class="lightbox" id="<%= activity.id %>activity">
+	<!-- Content Wrapper-->
+	<div class="create-content-wrapper">
+		<div class="textbox3">
+
+			<!-- Facebook Page Profile Photo -->
+			<%= link_to activity.trackable.link,target:"_blank", class:"no_ajaxify" do %>
+				<% if activity.trackable.facebookpage.facebookprofile != nil then %>
+					<div class="majorpost-usericon" style="background-image:url(<%= activity.trackable.facebookpage.facebookprofile.url(:small64) %>);"></div>
+				<% else %>
+					<div class="majorpost-usericon" style="background-image:url(<%= activity.trackable.user.profilephoto.url(:small64) %>);"></div>
+				<% end %>	
+			<% end %>
+
+			<!-- user give button -->
+			<% if user_subscription_check(activity.trackable.user) %>
+				<% if user_signed_in? %>
+					<% unless activity.trackable.user == current_user %>
+						<% unless activity.trackable.user.subscribed_by?(current_user) %>
+							<% unless current_user.subscribed_by?(activity.trackable.user) %>
+								<div class="give-button-holder">
+									<%= render "shared/mini_sub", :subscribed_id => activity.trackable.user.id, :activity_id => activity.id  %>
+								</div>
+							<% end %>
+						<% end %>
+					<% end %>
+				<% else %>
+					<div class="give-button-holder">
+						<%= render "shared/mini_sub", :subscribed_id => activity.trackable.user.id, :activity_id => activity.id  %>
+					</div>				
+				<% end %>
+			<% end %>		
+
+			<!-- Facebook Page Name -->
+			<div class="majorpost-title">
+				<li><% if activity.trackable.name != nil then %> 
+						<%= link_to activity.trackable.name, activity.trackable.link,target:"_blank", class:"no_ajaxify" %>
+					<% else %>
+						<%= link_to activity.trackable.facebook_link,target:"_blank", class:"no_ajaxify" do %><%= activity.trackable.post_type.titleize %><% end %>
+					<% end %></li>
+					at <%= link_to activity.trackable.facebookpage.name, activity.trackable.facebookpage.link,target:"_blank", class:"no_ajaxify" %>
+				 in <span class="realm-color"><%= activity.trackable.from_category %>
+			</div>
+
+			<!-- Update Time -->
+			<div id="majorpost-time">
+				Posted <%= time_ago_in_words(activity.trackable.created_at) %> ago.
+			</div>
+
+			<!-- With Video -->
+			<div id="majorpost-excerpt">
+				<% if activity.trackable.post_type == "video" %>
+					
+					<!-- Expanded Video -->
+					<div id="<%= activity.id%>video-expanded" class="video-display-portable" style="display:none;">
+						<% if activity.trackable.caption == "youtube.com" %>
+							<!-- Youtube Video -->
+							<div id="<%= activity.id%>video">
+								<iframe width="628" height="353" src="https://www.youtube.com/embed/<%= activity.trackable.youtube_video %>?enablejsapi=1" frameborder="0"></iframe>
+							</div>
+						<% else %>
+							<% if activity.trackable.caption == "vimeo.com"%>
+							<!-- Vimeo Video -->
+								<iframe width="628" height="353" src="//player.vimeo.com/video/<%= activity.trackable.vimeo_video %>?api=1&player_id=<%= activity.id%>video" id="<%= activity.id%>video" frameborder="0"></iframe>
+							<% end %>
+						<% end %>
+					</div>	
+
+					<!-- video holder -->
+					<div id="<%= activity.id%>holder">
+						<div class="majorpost-video-one" id="<%= activity.id%>majorpost-video-one">
+							<% if activity.trackable.caption == "youtube.com" %>
+								<!-- Youtube Thumbnail -->
+								<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(http://img.youtube.com/vi/<%= activity.trackable.youtube_video %>/mqdefault.jpg);">
+									<div class="majorpost-video-small">
+									</div>
+								</div>
+							<% else %>
+								<% if activity.trackable.caption == "vimeo.com"%>
+									<!-- Vimeo Thumbnail -->
+									<div class="majorpost-video-small-holder" id="<%= activity.id%>video-small" style="background-image:url(<%= vimeo_thumbnail(activity.trackable.vimeo_video)%>)" id="<%= activity.trackable.vimeo_video %>" >
+										<div class="majorpost-video-small">
+										</div>
+									</div>
+								<% end %>
+							<% end %>
+						</div><!-- end.majorpost-video-one -->	
+						<!-- excerpt holder-->
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<% if activity.trackable.description != nil && activity.trackable.message != nil then %>
+								<%= sanitize truncate(activity.trackable.message+" "+activity.trackable.description, :length => 300) %>
+							<% else %>
+								<% if activity.trackable.description != nil && activity.trackable.message == nil then %>
+									<%= sanitize truncate(activity.trackable.description, :length => 300) %>
+								<% else %>
+									<%= sanitize truncate(activity.trackable.message, :length => 300) %>
+								<% end %>
+							<% end %>
+						</div>
+					</div><!-- end#video-holder-->
+
+				<% else %>
+					<!-- With Image -->
+					<% if activity.trackable.facebookimage? then %>
+						<!-- Image -->
+						<%= link_to activity.trackable.link,target:"_blank", class:"no_ajaxify" do %>
+							<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.facebookimage.url(:original)%>);">
+							</div>	
+						<% end %>
+						<!-- excerpt holder-->
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+							<% if activity.trackable.description != nil && activity.trackable.message != nil then %>
+								<%= sanitize truncate(activity.trackable.message+" "+activity.trackable.description, :length => 300) %>
+							<% else %>
+								<% if activity.trackable.description != nil && activity.trackable.message == nil then %>
+									<%= sanitize truncate(activity.trackable.description, :length => 300) %>
+								<% else %>
+									<%= sanitize truncate(activity.trackable.message, :length => 300) %>
+								<% end %>
+							<% end %>
+						</div>			
+					<% else %>		
+					<!-- Without Image -->
+						<div>
+							<% if activity.trackable.description != nil && activity.trackable.message != nil then %>
+								<%= sanitize truncate(activity.trackable.message+" "+activity.trackable.description, :length => 300) %>
+							<% else %>
+								<% if activity.trackable.description != nil && activity.trackable.message == nil then %>
+									<%= sanitize truncate(activity.trackable.description, :length => 300) %>
+								<% else %>
+									<%= sanitize truncate(activity.trackable.message, :length => 300) %>
+								<% end %>
+							<% end %>
+						</div>									
+					<% end %>
+				<% end %><!-- end.post_type =='video"-->
+			</div><!-- end#majorpost-excerpt-->	
+
+		</div><!-- end .textbox3-->	
+	</div><!-- end.create-content-wrapper-->
+</div><!-- end.lightbox-->

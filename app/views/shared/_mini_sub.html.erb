@@ -1,9 +1,9 @@
 <div class="give-mini-holder" id="give-mini-portable<%= activity_id %>">
 	<div class="give-mini-create" id="give-mini-portable-slide-down<%= activity_id %>">
-		<ol class="btn-sidebar-give-active" id="sidebar-give-9-button<%= activity_id %>">$10/m</ol>
+		<ol class="btn-sidebar-give-active" id="sidebar-give-9-button<%= activity_id %>">$2/m</ol>
 		<% if current_user != nil && current_user.facebook != nil then %>
-				<%= link_to subscribe_path(subscribed_id,"true","2"), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button<%= activity_id %>">$2/m</ol><%end%>
-				<%= link_to subscribe_path(subscribed_id,"true","5"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-5-button<%= activity_id %>">$5/m</ol><%end%>
+				<%= link_to subscribe_path(subscribed_id,"true","5"), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button<%= activity_id %>">$5/m</ol><%end%>
+				<%= link_to subscribe_path(subscribed_id,"true","10"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-5-button<%= activity_id %>">$10/m</ol><%end%>
 				<%= link_to subscribe_path(subscribed_id,"true","15"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-15-button<%= activity_id %>">$15/m</ol><%end%>				
 				<%= link_to subscribe_path(subscribed_id,"true","25"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-25-button<%= activity_id %>">$25/m</ol><%end%>
 				<%= link_to subscribe_path(subscribed_id,"true","50"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-50-button<%= activity_id %>">$50/m</ol><%end%>
@@ -15,14 +15,14 @@
 				</div>	
 			<% end %>
 		<% else %>
-				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount => "2"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button<%= activity_id %>">$2/m</ol><%end%>
-				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount => "5"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-5-button<%= activity_id %>">$5/m</ol><%end%>
+				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount => "5"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button<%= activity_id %>">$5/m</ol><%end%>
+				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount => "10"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-5-button<%= activity_id %>">$10/m</ol><%end%>
 				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount => "15"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-15-button<%= activity_id %>">$15/m</ol><%end%>				
 				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount => "25"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-25-button<%= activity_id %>">$25/m</ol><%end%>
 				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount => "50"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-50-button<%= activity_id %>">$50/m</ol><%end%>
 				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount => "100"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-100-button<%= activity_id %>">$100/m</ol><%end%>		
 			</div><!-- end.give-mini-create-->
-			<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount =>"10"), method: :post, class:"no_ajaxify",id:"sidebar-give-9#{activity_id}" do %>
+			<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount =>"2"), method: :post, class:"no_ajaxify",id:"sidebar-give-9#{activity_id}" do %>
 				<div class="btn btn-mini btn-mini-green">
 					Give
 				</div>

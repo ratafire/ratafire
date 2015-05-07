@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150501220346) do
+ActiveRecord::Schema.define(:version => 20150507043133) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -487,9 +487,85 @@ ActiveRecord::Schema.define(:version => 20150501220346) do
     t.integer  "user_id"
     t.datetime "deleted_at"
     t.boolean  "deleted"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.string   "uid"
+    t.string   "city"
+    t.string   "country"
+    t.string   "state"
+    t.string   "link"
+    t.string   "uuid"
+    t.string   "facebookprofile_file_name"
+    t.string   "facebookprofile_content_type"
+    t.integer  "facebookprofile_file_size"
+    t.datetime "facebookprofile_updated_at"
+    t.string   "facebookcover_file_name"
+    t.string   "facebookcover_content_type"
+    t.integer  "facebookcover_file_size"
+    t.datetime "facebookcover_updated_at"
+    t.boolean  "sync"
+  end
+
+  create_table "facebookpages", :force => true do |t|
+    t.string   "title"
+    t.string   "tagline"
+    t.integer  "user_id"
+    t.boolean  "complete"
+    t.text     "about"
+    t.integer  "creator_id"
+    t.string   "slug"
+    t.boolean  "published"
+    t.integer  "artwork_id"
+    t.text     "perlink"
+    t.string   "video_id"
+    t.integer  "icon_id"
+    t.integer  "goal"
+    t.string   "source_code"
+    t.string   "source_code_type"
+    t.string   "source_code_title"
+    t.text     "excerpt"
+    t.string   "edit_permission"
+    t.boolean  "flag"
+    t.datetime "completion_time"
+    t.string   "realm"
+    t.datetime "comented_at"
+    t.boolean  "abandoned",                    :default => false
+    t.datetime "deleted_at"
+    t.boolean  "deleted",                      :default => false
+    t.boolean  "featured",                     :default => false
+    t.string   "uuid"
+    t.boolean  "test"
+    t.datetime "published_at"
+    t.boolean  "early_access",                 :default => false
+    t.integer  "audio_id"
+    t.integer  "pdf_id"
+    t.boolean  "featured_home",                :default => false
+    t.string   "sub_realm"
+    t.text     "collectible"
+    t.string   "website"
+    t.string   "username"
+    t.string   "name"
+    t.text     "mission"
+    t.string   "location"
+    t.string   "category"
+    t.string   "access_token"
+    t.string   "page_id"
+    t.integer  "facebook_id"
+    t.string   "city"
+    t.string   "country"
+    t.string   "state"
+    t.string   "link"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.string   "facebookprofile_file_name"
+    t.string   "facebookprofile_content_type"
+    t.integer  "facebookprofile_file_size"
+    t.datetime "facebookprofile_updated_at"
+    t.string   "facebookcover_file_name"
+    t.string   "facebookcover_content_type"
+    t.integer  "facebookcover_file_size"
+    t.datetime "facebookcover_updated_at"
+    t.boolean  "sync"
   end
 
   create_table "facebooks", :force => true do |t|
@@ -518,6 +594,49 @@ ActiveRecord::Schema.define(:version => 20150501220346) do
     t.string   "school"
     t.string   "concentration"
     t.string   "page_access_token"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+  end
+
+  create_table "facebookupdates", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "facebook_id"
+    t.integer  "facebookpage_id"
+    t.string   "uid"
+    t.string   "from_category"
+    t.string   "from_name"
+    t.string   "from_id"
+    t.text     "message"
+    t.string   "story"
+    t.string   "picture"
+    t.string   "link"
+    t.string   "source"
+    t.string   "caption"
+    t.string   "video_description"
+    t.string   "post_type"
+    t.string   "facebook_link"
+    t.string   "event_name"
+    t.string   "object_id"
+    t.string   "status_type"
+    t.string   "uuid"
+    t.string   "page_id"
+    t.string   "youtube_video"
+    t.string   "vimeo_video"
+    t.string   "name"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.text     "description"
+    t.string   "facebookimage_file_name"
+    t.string   "facebookimage_content_type"
+    t.integer  "facebookimage_file_size"
+    t.datetime "facebookimage_updated_at"
+    t.boolean  "valid_update",               :default => true
   end
 
   create_table "friendly_id_slugs", :force => true do |t|

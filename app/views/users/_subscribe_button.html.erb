@@ -1,9 +1,9 @@
 	<div style="margin-top: 10px;" id="sidebar-give-button">
 		<div class="btn-sidebar-profile-create" id="sidebar-give-slide-down">
-			<ol class="btn-sidebar-give-active btn-sidebar-profile-project" id="sidebar-give-9-button">$10 per month</ol>
+			<ol class="btn-sidebar-give-active btn-sidebar-profile-project" id="sidebar-give-9-button">$2 per month</ol>
 			<% if current_user != nil && current_user.facebook != nil then %>
-				<%= link_to subscribe_path(@user,"true","2"), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button">$2 per month</ol><%end%>
-				<%= link_to subscribe_path(@user,"true","5"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-5-button">$5 per month</ol><%end%>
+				<%= link_to subscribe_path(@user,"true","5"), method: :post, class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button">$5 per month</ol><%end%>
+				<%= link_to subscribe_path(@user,"true","10"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-5-button">$10 per month</ol><%end%>
 				<%= link_to subscribe_path(@user,"true","15"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-15-button">$15 per month</ol><%end%>				
 				<%= link_to subscribe_path(@user,"true","25"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-25-button">$25 per month</ol><%end%>
 				<%= link_to subscribe_path(@user,"true","50"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-50-button">$50 per month</ol><%end%>
@@ -11,13 +11,13 @@
 				</div> 
 				<%= link_to "Give", subscribe_path(@user,"true","10"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"sidebar-give-9", style:"z-index:1000;"%>                
 			<% else %>    
-				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "2"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button">$2 per month</ol><%end%>
-				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "5"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-5-button">$5 per month</ol><%end%>
+				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "5"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-2-button">$5 per month</ol><%end%>
+				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "10"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-5-button">$10 per month</ol><%end%>
 				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "15"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-15-button">$15 per month</ol><%end%>				
 				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "25"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-25-button">$25 per month</ol><%end%>
 				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "50"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-50-button">$50 per month</ol><%end%>
 				<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "100"), class:"no_ajaxify", id:"new_discussion" do %><ol class="btn-sidebar-profile-discussion" id="sidebar-give-100-button">$100 per month</ol><%end%>
 				</div>	
-				<%= link_to "Give", user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "10"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"sidebar-give-9", style:"z-index:1000;"%>	
+				<%= link_to "Give", user_omniauth_authorize_path(:facebook, subscribed_id: @user.id, subscription_type: "true", :amount => "2"), method: :post,class: "btn btn-medium btn-medium-green no_ajaxify", id:"sidebar-give-9", style:"z-index:1000;"%>	
 			<% end %> 
 	</div><!-- end #sidebar-give-button-->	

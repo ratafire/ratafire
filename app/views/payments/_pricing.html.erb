@@ -78,12 +78,21 @@
 	<div class="checkout-holder">
 		<h2 style="color:#999;">Checkout your Subscription</h2>
 		<ol><span id="checkout">Subscribe to </span><%= @user.fullname %> with the monthly amount of <span class="price-size" id="jquery-total-value">$<%=@amount%>.00</span> <span id="edit">Edit Amount</span></ol>
-		<h2 style="color:#999;">You will be subscribed to <%= @user.fullname %> since</h2>
-		<%=  render "projects/project_one_exp"%>
-		<div id="collectible-holder">
-			<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
-			<%= render "projects/collectible_exp"%>
-		</div>	
+		<% if @project != nil then %>
+			<h2 style="color:#999;">You will be subscribed to <%= @user.fullname %> since</h2>
+			<%=  render "projects/project_one_exp"%>
+			<div id="collectible-holder">
+				<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
+				<%= render "projects/collectible_exp", :object => @project %>
+			</div>
+		<% else %>	
+			<h2 style="color:#999;">You will be subscribed to <%= @user.fullname %> for </h2>
+			<%=  render "facebookpages/facebookpage_one_exp", :facebookpage => @user.facebookpages.first %>
+			<div id="collectible-holder">
+				<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
+				<%= render "projects/collectible_exp", :object => @user.facebookpages.first %>
+			</div>			
+		<% end %>	
 	</div>
 	<!-- Next Step Button-->
 	<% if current_user.user_venmo == nil then %>

@@ -645,4 +645,24 @@ module ApplicationHelper
   	end	
 
 
+  	#User is ok to accept subscription
+  	def user_subscription_check(user)
+  		#User must has the initial approval
+  		if user.subscription_status_initial == "Approved" then
+  			#User must have an on going project
+  			if user.projects.where(:published => true, :complete => false, :abandoned => false).first != nil then
+  				return true
+  			else
+  				#user must have a synced facebook page
+  				if user.facebookpages.first != nil then
+  					return true
+  				else
+  					return false
+  				end
+  			end
+  		else
+  			return false
+  		end
+  	end
+
 end

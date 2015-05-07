@@ -78,8 +78,9 @@ class User < ActiveRecord::Base
 	has_many :inviteds
 	has_many :reviews
 
-	has_one :facebook
-	has_many :facebook_pages
+	has_one :facebook, :conditions => {:deleted_at => nil}
+	has_many :facebook_pages, :conditions => {  :deleted_at => nil }
+	has_many :facebookpages, :conditions => {  :deleted_at => nil , :sync => true }
 	has_one :twitter
 	has_one :github
 	has_one :deviantart
@@ -87,6 +88,7 @@ class User < ActiveRecord::Base
 	has_one :tutorial
 	has_one :user_venmo
 	has_one :video,foreign_key: "subscribed_id", class_name: "Video"
+	has_many :facebookupdates, :conditions => { :deleted_at => nil , :valid_update => true }
 
 	#--- Payments ---
 	#Subscriptions

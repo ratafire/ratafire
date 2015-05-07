@@ -1,0 +1,45 @@
+<div class="lightbox-project-portable">
+	<div class="create-content-wrapper">
+		<div class="textbox3">
+
+		<!-- Facebook page profile -->
+		<%= link_to facebookpage.link,target:"_blank", class:"no_ajaxify" do %>
+			<% if facebookpage.facebookprofile != nil then %>
+				<div class="majorpost-usericon" style="background-image:url(<%= facebookpage.facebookprofile.url(:medium) %>);background-size: cover;"></div>
+			<% else %>
+				<div class="majorpost-usericon" style="background-image:url(/assets/projecticon_pageview.jpg) %>);background-size: cover;"></div>
+			<% end %>
+		<% end %>	
+
+		<!-- Facebook Page Name -->
+		<div class="majorpost-title">
+		<li><%= link_to facebookpage.name, facebookpage.link,target:"_blank", class:"no_ajaxify" %></li> in <span class="realm-color"><%= facebookpage.category %></span>.
+		</div>	
+
+		<!-- Content -->
+		<div id="majorpost-excerpt">
+			<% if facebookpage.facebookcover != nil then %>
+				<!-- With Cover -->
+
+				<!-- Cover -->
+				<div class="majorpost-postimages-one">
+					<img src="<%= facebookpage.facebookcover.url(:thumbnail)%>" style="border-radius:5px;">
+				</div>
+				<div class="majorpost-thumbnail-bar">Cover Image</div>			
+
+				<!-- Excerpt -->
+				<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+					<%= sanitize truncate(facebookpage.excerpt, :length => 300) %>
+				</div>
+
+			<% else %>
+				<!-- Without Cover -->
+					<div>
+						<%= sanitize truncate(facebookpage.excerpt, :length => 200) %>
+					</div>				
+			<% end %><!-- facebookcover != nil -->
+		</div><!-- end#majorpost-excerpt-->	
+
+		</div><!-- end .textbox3-->	
+	</div><!-- end .create-content-wrapper-->
+</div><!-- end .lightbox-portject-portable-->

@@ -1,7 +1,15 @@
 <div class="user-why-edit" style="padding-bottom:0px;">
 	<h4>I am currently working on</h4>
 </div>
-<%=  render "projects/project_portable"%>
+<% if @project != nil then %>
+	<%=  render "projects/project_portable"%>
+<% else %>
+	<% if @user.facebookpages.first != nil  then %>
+		<%=  render "facebookpages/facebookpages_portable", :facebookpage => @user.facebookpages.first %>
+	<% else %>
+		Hello	
+	<% end %>	
+<% end %>	
 <div class="user-why-edit">
 
 	<h4>If I reach my subscription amount goal</h4>
@@ -13,7 +21,7 @@
 	</div>	
 	<h4>I will be able to continue this work collection</h4>
 		<div class="user-why-passage">
-			<%= render 'subscriptions/faces'%>	
+			<%= render 'subscriptions/faces_portable', :user => @user%>	
 		</div>	
 
 		<% if current_user == nil then %>

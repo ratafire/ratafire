@@ -63,7 +63,7 @@
 		<% end %>		
 
 		<!-- user give button -->
-		<% if activity.trackable.creator.subscription_status_initial == "Approved"%>
+		<% if user_subscription_check(activity.trackable.creator) %>
 			<% if user_signed_in? %>
 				<% unless activity.trackable.creator == current_user %>
 					<% unless activity.trackable.creator.subscribed_by?(current_user) %>

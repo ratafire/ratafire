@@ -1,0 +1,26 @@
+								<!-- Completed Projects -->
+								<div class="completed-projects">
+
+									<!-- Indicator -->
+									<div class="textbox-mini">
+										<li style="font-size: 1.4em;">Facebook Pages</li>
+										<li class="counter">[<%= @syncedfacebookpages.count %>]</li>
+									</div>
+									
+									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
+
+									<!-- Content -->
+									<div id="completed-projects">
+											<%= render @syncedfacebookpages %>
+									
+										<!-- Load More -->
+										<div id="Profile-page-load-more">
+											<div class="textbox-mini">
+												<%= will_paginate @syncedfacebookpages, :param_name => 'current_f', class:"rata_pagination" %>	
+											</div>
+										</div>	
+									</div><!-- end of completed-projects-ajax -->
+
+								</div><!--end.completed-projects -->
+
+								<!-- Cutter --><ol style="height: 20px;"></ol>

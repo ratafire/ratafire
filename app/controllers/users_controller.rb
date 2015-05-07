@@ -163,6 +163,7 @@ protect_from_forgery :except => [:create_profilephoto, :update]
 	@currentprojects = @user.projects.where(:complete => false,:abandoned => false ).paginate(page: params[:current_p], :per_page => 3)
 	@completedprojects = @user.projects.where(:complete => true).paginate(page: params[:complete_p], :per_page => 20)
 	@currentdiscussions = @user.discussions.where(:deleted => false).paginate(page: params[:current_d], :per_page => 3)
+	@syncedfacebookpages = @user.facebookpages.paginate(page: params[:current_f], :per_page => 10)
   end
 
   def projects_past
@@ -187,7 +188,9 @@ protect_from_forgery :except => [:create_profilephoto, :update]
 	case params[:provider]
 	when "facebook"
 	  facebook = current_user.facebook
-	  facebook.destroy
+	  facebook.deleted = true
+	  facebook.deleted_at = Time.now
+	  facebook.save
 	  redirect_to(:back)
 	  flash[:success] = "Disconnected from Facebook."
 	when "twitter"
