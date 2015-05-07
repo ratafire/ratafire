@@ -95,7 +95,7 @@
 		<% end %>	
 	</div>
 	<!-- Next Step Button-->
-	<% if current_user.user_venmo == nil then %>
+	
 		<% if current_user.cards.first == nil then %>
 			<% if current_user.billing_agreement == nil then %>
 				<%= render 'subscriptions/add_card_subscribe'%>
@@ -103,11 +103,15 @@
 				<%= render 'subscriptions/with_paypal_subscribe'%>
 			<% end %>
 		<% else %>
-			<%= render 'subscriptions/with_card_subscribe'%>
+			<% unless current_user.user_venmo != nil && @user.accept_venmo == true then %>
+				<%= render 'subscriptions/with_card_subscribe'%>
+			<% else %>
+				<%= render 'subscriptions/with_venmo_subscribe'%>
+			<% end %>
 		<% end %>
-	<% else %>
-		<%= render 'subscriptions/with_venmo_subscribe'%>
-	<% end %>
+
+		
+
 </div><!-- end#payments-amazon-case-->	
 <!-- Payments Form-->
 <%= render 'payments/pricing_js'%>

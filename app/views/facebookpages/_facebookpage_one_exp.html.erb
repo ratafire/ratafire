@@ -1,16 +1,16 @@
 <div class="lightbox4" style="border: 0px solid #ddd;background-color:#f9f9f9; border-radius:5px;padding-bottom:20px;">
 <!-- Has Project -->
-<% if @project != nil %>	
+<% if facebookpage != nil %>	
 	<!-- project icon -->
 	<div class="project-show-icon">
 		<div class="project-icon-small">
 			<% if facebookpage.facebookprofile != nil then %>
 				<%= link_to facebookpage.link,target:"_blank", class:"no_ajaxify" do %>
-					<div class="user-icon-small-holder" style="background-image:url(<%= facebookpage.facebookprofile.url(:small64) %>);"></div>
+					<div class="user-icon-small-holder" style="background-image:url(<%= facebookpage.facebookprofile.url(:tiny) %>);"></div>
 				<% end %>	
 			<% else %>
 				<%= link_to facebookpage.link,target:"_blank", class:"no_ajaxify" do  %>
-					<div class="user-icon-small-holder" style="background-image:url(<%= facebookpage.user.profilephoto.url(:small64) %>);"></div>
+					<div class="user-icon-small-holder" style="background-image:url(<%= facebookpage.user.profilephoto.url(:tiny) %>);"></div>
 				<% end %>	
 			<% end %>			
 		</div>	
@@ -28,7 +28,7 @@
 	</div><!-- end.project-show-content-->	
 <% else %>
 	<div  style="text-align:center;padding-top:40px;font-size:0.9em;">
-	<span>You do not have an synced Facebook Page. <%= link_to "Sync a Facebook Page", user_edit_path(facebookpage.user), method: :post,class: " no_ajaxify"%></span>
+	<span>You do not have an synced Facebook Page. <%= link_to "Sync a Facebook Page", edit_user_path(facebookpage.user), method: :post,class: " no_ajaxify"%></span>
 	</div>
 <% end %>
 </div>	

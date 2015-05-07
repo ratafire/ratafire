@@ -25,7 +25,7 @@ class UpdatesController < ApplicationController
 		@user = current_user
 		@subscribed = @user.subscribed
 		gon.activebutton = "subscription"
-		@activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @subscribed, owner_type: "User", trackable_type: ["Majorpost","Project","Comment"], :test => false).paginate(page: params[:subscribing], :per_page => 20)
+		@activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @subscribed, owner_type: "User", trackable_type: ["Majorpost","Project","Comment","Facebookupdate"], :test => false).paginate(page: params[:subscribing], :per_page => 20)
 	end
 
 	#Show projects and majorposts under a specific tag

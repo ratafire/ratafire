@@ -75,7 +75,7 @@
 								<% end %>	
 
 								<!-- Completed Porjects -->
-								<% if @completedprojects != 0 then %>
+								<% if @completedprojects.count != 0 then %>
 									<%= render 'users/contributions_completed_projects'%>
 								<% end %>
 								
