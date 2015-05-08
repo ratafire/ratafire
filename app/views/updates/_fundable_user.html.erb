@@ -6,9 +6,9 @@
 		<!-- Javascript for video player -->
 		<script>
 		$(document).ready(function() {
-			var myPlayer = videojs("user_video<%=user.id%>");
+			var myPlayer = videojs("user_video<%= user.id%>");
 			//Button Hover
-		    $("#fundable-video<%user.id%>").click(
+		    $("#fundable-video<%= user.id%>").click(
 		      function () {
 		        $('#fundable-video-cover<%= user.id%>').show();
 		        myPlayer.play();
