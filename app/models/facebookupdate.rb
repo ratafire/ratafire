@@ -4,8 +4,6 @@ class Facebookupdate < ActiveRecord::Base
 	belongs_to :facebookpage
 	require 'date'
 
-  	include PublicActivity::Model
-
   	# attr_accessible :title, :body
 	def self.create_facebookupdate(response, user_id, facebookpage_id, facebook_id,page_id)
 		where(uid: response["id"]).first_or_create do |update|

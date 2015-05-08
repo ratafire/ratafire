@@ -47,7 +47,9 @@ class VideosController < ApplicationController
 		@video.external = params[:external]
 		@video.project_id = params[:project_id]
 		@video.majorpost_id = params[:majorpost_id]
-		@majorpost = Majorpost.find(params[:majorpost_id])
+		if params[:majorpost_id] != nil then 
+			@majorpost = Majorpost.find(params[:majorpost_id])
+		end
 		@project = Project.find(params[:project_id])
 		external_video
 	  
@@ -63,7 +65,7 @@ class VideosController < ApplicationController
 		else
 			if @project != nil then
 			  	if @video.content_temp != nil && @video.content_temp != "" then
-					@project.content = @video.content_temp
+					@project.about = @video.content_temp
 				if @video.tags_temp != nil && @video.tags_temp != "" then
 				  	tags = @video.tags_temp.split(",")
 				  	@project.tag_list = tags
