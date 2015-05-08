@@ -1,26 +1,51 @@
-									<div class="goals">
+<% if @user.subscription_status_initial == "Approved" then %>
+	<div class="goals">
 
-										<ol id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Subscribers</span> <%= render :text => @user.subscribers.count %>/<%= render :text => @user.goals_subscribers%></ol>
+		<ol id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Subscribers</span> <%= render :text => @user.subscribers.count %>/<%= render :text => @user.goals_subscribers%></ol>
 
-										<ol><%= progress_bar(goals_count(@user.subscribers.count,@user.goals_subscribers), :color => 'blue', :rounded => true) %></ol>
+		<ol><%= progress_bar(goals_count(@user.subscribers.count,@user.goals_subscribers), :color => 'blue', :rounded => true) %></ol>
 
-										<!-- Cutter --><ul style="margin-top: 15px;"></ul>
+		<!-- Cutter --><ul style="margin-top: 15px;"></ul>
 
-										<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription</span> <%= render :text => goals_count(@user.subscription_amount.to_i, @user.goals_monthly) %>% of <%= render :text => @user.goals_monthly%></ol>
+		<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>"></span> <%= render :text => goals_count(@user.subscription_amount.to_i, @user.goals_monthly) %>% of $<%= render :text => @user.goals_monthly%> per month</ol>
 
-										<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
+		<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
 
-										<!-- Cutter --><ul style="margin-top: 15px;"></ul>
+		<!-- Cutter --><ul style="margin-top: 15px;"></ul>
 
-										<ol id="purple"> 
-											<span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Work Collection Completions</span>
-											<%= @user.projects.where(:complete => true ).count %>/<%= render :text => @user.goals_project%>
-										</ol>
+		<ol id="purple"> 
+			<span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Work Collection Completions</span>
+			<%= @user.projects.where(:complete => true ).count %>/<%= render :text => @user.goals_project%>
+		</ol>
 
-										<ol><%= progress_bar(goals_count(@user.projects.where(:complete => true ).count, @user.goals_project), :color => 'purple', :rounded => true) %></ol>
+		<ol><%= progress_bar(goals_count(@user.projects.where(:complete => true ).count, @user.goals_project), :color => 'purple', :rounded => true) %></ol>
 
-										<!-- Cutter --><ul style="margin-top: 20px;"></ul>
+		<!-- Cutter --><ul style="margin-top: 20px;"></ul>
 
+	</div><!-- end goals-->
+<% else %>
+	<div class="goals">
 
-										
-									</div><!-- end goals-->
+		<ol id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.watcheds.count, @user.goals_watching)%>">Watching</span> <%= render :text => @user.watcheds.count %>/<%= render :text => @user.goals_watching%></ol>
+
+		<ol><%= progress_bar(goals_count(@user.watcheds.count,@user.goals_watching), :color => 'blue', :rounded => true) %></ol>
+
+		<!-- Cutter --><ul style="margin-top: 15px;"></ul>
+
+		<ol id="silver"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.reviews.count, @user.goals_reviews)%>">Reviews Written</span> <%= render :text => @user.reviews.count %>/<%= render :text => @user.goals_reviews %></ol>
+
+		<ol><%= progress_bar(goals_count(@user.reviews.count, @user.goals_reviews), :color => 'silver', :rounded => true) %></ol>
+
+		<!-- Cutter --><ul style="margin-top: 15px;"></ul>
+
+		<ol id="purple"> 
+			<span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Work Collection Completions</span>
+			<%= @user.projects.where(:complete => true ).count %>/<%= render :text => @user.goals_project%>
+		</ol>
+
+		<ol><%= progress_bar(goals_count(@user.projects.where(:complete => true ).count, @user.goals_project), :color => 'purple', :rounded => true) %></ol>
+
+		<!-- Cutter --><ul style="margin-top: 20px;"></ul>
+
+	</div><!-- end goals-->
+<% end %>	

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150508042224) do
+ActiveRecord::Schema.define(:version => 20150508193245) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -1463,6 +1463,8 @@ ActiveRecord::Schema.define(:version => 20150508042224) do
     t.boolean  "accept_venmo"
     t.boolean  "homepage_fundable"
     t.boolean  "fundable_show"
+    t.integer  "goals_watching",                                            :default => 10
+    t.integer  "goals_reviews",                                             :default => 10
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

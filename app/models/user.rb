@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 	#Accessable to outside users, are you sure you want them to change name?
 	#Profilelarge is the large profilelarge, profielmedium is the medium profilelarge
 
-	attr_accessible :username, :email, :fullname, :password, :password_confirmation, :current_password, :remember_me, :tagline, :website, :bio, :facebook, :twitter, :github, :deviantart, :vimeo, :profilephoto,:profilephoto_delete, :goals_subscribers, :goals_monthly, :goals_project, :why, :plan, :goals_updated_at, :confirmed_at, :location, :need_username, :uuid
+	attr_accessible :username, :email, :fullname, :password, :password_confirmation, :current_password, :remember_me, :tagline, :website, :bio, :facebook, :twitter, :github, :deviantart, :vimeo, :profilephoto,:profilephoto_delete, :goals_subscribers, :goals_monthly, :goals_project, :why, :plan, :goals_updated_at, :confirmed_at, :location, :need_username, :uuid, :goals_watching, :goals_reviews
 	has_attached_file :profilephoto, :styles => { :medium => "128x171#", :small => "128x128#", :small64 => "64x64#", :tiny => "40x40#"}, :default_url => "/assets/usericon_:style.png",
 	      :url => ":class/:id/:style/:escaped_filename2",:hash_secret => "longSecretString",
 	      :path => ":class/:id/:style/:escaped_filename2",
@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
 	has_one :approved_subscription_application, class_name: "SubscriptionApplication", :conditions => { :status => "Approved", :completion => nil }
 
 	has_many :inviteds
-	has_many :reviews
+	has_many :reviews, :conditions => {:discussion_id => nil, :subscription_application_id => nil}
 
 	has_one :facebook, :conditions => {:deleted_at => nil}
 	has_many :facebook_pages, :conditions => {  :deleted_at => nil }
@@ -217,6 +217,8 @@ class User < ActiveRecord::Base
 	validates :goals_subscribers, numericality: {only_integer: true, greater_than_or_equal_to: 32}
 	validates :goals_monthly, numericality: {only_integer: true, greater_than_or_equal_to: 540}
 	validates :goals_project, numericality: {only_integer: true, greater_than_or_equal_to: 1}
+	validates :goals_watching, numericality: {only_integer: true, greater_than_or_equal_to: 5}
+	validates :goals_reviews, numericality: {only_integer: true, greater_than_or_equal_to: 5}
 
 	#subscription
 	validates_length_of :why, :minimum => 200, :message => "Too short", :allow_blank => true, :allow_nil => true

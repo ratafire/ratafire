@@ -124,7 +124,7 @@ module Css3ProgressBarsHelper
   end
 
   def bar_colors
-    %w(green orange pink blue purple green2 purple2 blue2 rating)
+    %w(green orange pink blue purple green2 purple2 blue2 rating silver orange2)
   end
 
   def bar_style percentage

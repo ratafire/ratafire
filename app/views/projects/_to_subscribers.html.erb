@@ -17,7 +17,7 @@
 					<% end %>
 				</span>
 		<div class="goals" style="width:100%;margin-top:15px;">
-			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%>">Monthly Subscription Amount</span> <%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%> of $<%= render :text => @project.creator.goals_monthly%></ol>
+			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%>"></span> <%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%> of $<%= render :text => @project.creator.goals_monthly%> per month</ol>
 			<ol><%= progress_bar(goals_count(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly), :color => 'green', :rounded => true) %></ol>
 		</div>					
 		<!-- Those who have subscribed to the user -->

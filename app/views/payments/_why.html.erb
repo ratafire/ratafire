@@ -15,7 +15,7 @@
 	<h4>If I reach my subscription amount goal</h4>
 	<div class="user-why-passage">
 		<div class="goals" style="width:100%;">
-			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription Amount</span> <%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%> of $<%= render :text => @user.goals_monthly%></ol>
+			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>"></span> <%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%> of $<%= render :text => @user.goals_monthly%> per month</ol>
 			<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
 		</div>	
 	</div>	

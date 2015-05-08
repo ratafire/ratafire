@@ -2422,7 +2422,7 @@ box-shadow: inset 0px 0px 34px 0px rgba(75,132,172,0.1);
 	position: auto;
 	z-index: 1;
 
-
+  font-family: "Open Sans";
 	/*-webkit-box-shadow: -1px 0px 0px 3px rgba(249,249,249,1);
 -moz-box-shadow: -1px 0px 0px 3px rgba(249,249,249,1);
 box-shadow: -1px 0px 0px 3px rgba(249,249,249,1);*/
@@ -3178,6 +3178,21 @@ input[type="user-inspirer"]{
 	-moz-box-shadow: inset 0px 0px 4px 1px rgba(247,247,247,0.6);
 	box-shadow: inset 0px 0px 4px 1px rgba(247,247,247,0.6);
 }
+
+input[type="user-external"]{
+    border-radius: 5px;
+    height: 38px;
+    width: 678px;
+    font-size: 1.1em;
+    border: 0px solid #e2e2e2;
+    padding: 0 10px 0 10px;
+    background-color: rgba(256,256,256,1);
+  /* Shadow */
+    -webkit-box-shadow: inset 0px 0px 4px 1px rgba(247,247,247,0.6);
+  -moz-box-shadow: inset 0px 0px 4px 1px rgba(247,247,247,0.6);
+  box-shadow: inset 0px 0px 4px 1px rgba(247,247,247,0.6);
+}
+
 
 input[type="user-inspirer"]:focus {
 
@@ -4649,6 +4664,22 @@ ul{
 	margin-right: 15px;
 }
 
+.goals #orange {
+  span{
+  color:rgba(204,147,34,1);
+  }
+  color:rgba(204,147,34,1);
+  margin-right: 15px;
+}
+
+.goals #silver {
+  span{
+  color:#999999;
+  }
+  color:#999999;
+  margin-right: 15px;
+}
+
 /*--- Edit Profile Page ---*/
 .inputlabel {
 	float: left;
@@ -4728,6 +4759,20 @@ ul{
 	span {
 		color:#57068c;
 	}
+}
+
+.goals-placer #orange {
+  span{
+  color:rgba(204,147,34,1);
+  }
+  color:rgba(204,147,34,1);
+}
+
+.goals-placer #silver {
+  span{
+  color:#999999;
+  }
+  color:#999999;
 }
 
 #image-placer {
