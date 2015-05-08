@@ -188,9 +188,7 @@ protect_from_forgery :except => [:create_profilephoto, :update]
 	case params[:provider]
 	when "facebook"
 	  facebook = current_user.facebook
-	  facebook.deleted = true
-	  facebook.deleted_at = Time.now
-	  facebook.save
+	  facebook.destroy
 	  redirect_to(:back)
 	  flash[:success] = "Disconnected from Facebook."
 	when "twitter"
