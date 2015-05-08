@@ -9,7 +9,7 @@ class StaticPagesController < ApplicationController
     @activities = PublicActivity::Activity.order("commented_at desc").where(:featured_home => true).paginate(page: params[:page], :per_page => 10)
   	@user = current_user
     @featured_user = User.find_by_username("colinchromatic")
-    @users = User.where(:subscription_status_initial => "Approved").paginate(page: params[:fundable], :per_page => 3)
+    @users = User.where(:subscription_status_initial => "Approved",:homepage_fundable => true).paginate(page: params[:fundable], :per_page => 1)
   	unless signed_in?
     else
       redirect_to featured_path
