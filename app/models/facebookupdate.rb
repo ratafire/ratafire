@@ -5,7 +5,6 @@ class Facebookupdate < ActiveRecord::Base
 	require 'date'
 
   	include PublicActivity::Model
-  	tracked except: [:update, :destroy]
 
   	# attr_accessible :title, :body
 	def self.create_facebookupdate(response, user_id, facebookpage_id, facebook_id,page_id)
@@ -73,12 +72,7 @@ class Facebookupdate < ActiveRecord::Base
 				update.update_column(:created_at,date)
 			end
 			#Make Activity
-			updateactivity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(update.id,'Facebookupdate')
-			if updateactivity != nil then 
-				updateactivity.owner_type = "User"
-				updateactivity.owner_id = update.user_id
-				updateactivity.save
-			end
+			updateactivity = update.create_activity action: 'create', params: {owner_type: 'User', owner_id: update.user_id}
 			#Check if this is a valid update
 			#Video but not youtube or vimeo
 			if update.post_type == "video" then
@@ -165,7 +159,9 @@ class Facebookupdate < ActiveRecord::Base
       		remove_duplicate_uids.each do |entry|
       			#This is to find the user
         		if (facebookpage = Facebookpage.find_by_page_id(entry['uid']).try(:facebookpage))
-          			Resque.enqueue(FacebookupdateWorker, facebookpage.page_id)
+        			if facebookpage.sync == true then 
+          				Resque.enqueue(FacebookupdateWorker, facebookpage.page_id)
+          			end
         		end
       		end
    	 	end

@@ -1,3 +1,4 @@
+
 class FacebookpagesController < ApplicationController
 
 	VERIFY_TOKEN = "mannersmakethman"

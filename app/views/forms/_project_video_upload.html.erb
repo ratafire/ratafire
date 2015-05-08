@@ -25,7 +25,7 @@
 
 
 				<div id="video-upload-case">
-					<div id="comment-input2" style="margin: 0px 0 8px 0;">
+					<div id="comment-input2" style="margin: 0px 0 8px 0;height:195px;">
 
 						<!-- Video Upload Title -->
 						<div class="majorpost-user-inspirer-tite">	
@@ -79,7 +79,6 @@
 									<%= form_tag add_external_video_path, id:"majorpost_video_upload_form",class:"no_ajaxify" do %>
 										<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 										<%= hidden_field_tag :project_id, @project.id %>
-										<%= hidden_field_tag :majorpost_id, @majorpost.id %>
 										<%= hidden_field_tag :user_id, current_user.id %>
 										<%= hidden_field_tag :content_temp, nil,id:"content_temp_video" %>
 										<%= hidden_field_tag :tags_temp,nil,id:"tags_temp_video" %>										
