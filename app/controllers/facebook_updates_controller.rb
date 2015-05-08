@@ -6,7 +6,7 @@ class FacebookUpdatesController < ApplicationController
       	case request.method
 
 	      	when "GET"
-	        	challenge = Koala::Facebook::RealtimeUpdates.meet_challenge(params,'SOME_TOKEN_HERE')
+	        	challenge = Koala::Facebook::RealtimeUpdates.meet_challenge(params,VERIFY_TOKEN)
 	        	if(challenge)
 	          		render :text => challenge
 	        	else
