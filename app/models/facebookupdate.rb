@@ -5,7 +5,7 @@ class Facebookupdate < ActiveRecord::Base
 	require 'date'
 
   	include PublicActivity::Model
-  	tracked except: [:update, :destroy], owner: ->(controller, model) { controller && controller.current_user }
+  	tracked except: [:update, :destroy]
 
   	# attr_accessible :title, :body
 	def self.create_facebookupdate(response, user_id, facebookpage_id, facebook_id,page_id)

@@ -69,7 +69,29 @@
 								
 								
 								<div id="videodata"></div>
+
+				  			<!-- External-Video-fields-->
+  							<div id="external-video-field">
+  								
+								<!-- Cutter --><ol style="margin-top:-1px;"></ol>
+								<!-- External-Video-input-->
+								<div class="majorpost-user-inspirer-holder">
+									<%= form_tag add_external_video_path, id:"majorpost_video_upload_form",class:"no_ajaxify" do %>
+										<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+										<%= hidden_field_tag :project_id, @project.id %>
+										<%= hidden_field_tag :majorpost_id, @majorpost.id %>
+										<%= hidden_field_tag :user_id, current_user.id %>
+										<%= hidden_field_tag :content_temp, nil,id:"content_temp_video" %>
+										<%= hidden_field_tag :tags_temp,nil,id:"tags_temp_video" %>										
+										<%= text_field_tag "external", nil,class:"user", type:"user-inspirer",style:"width:641px;", placeholder:"Enter youtube or vimeo link, leave it blank if you upload your video.", id:"external-video", onchange:"externalOnchange()" %>
+									<% end %>	
+								</div><!-- end of external video input-->
+							</div>
+
+							
 						</div><!-- end videoupload box holder-->
+						<div class="majorpost-external-inspirer-indicator">External</div>
+
 					</div><!-- end comment input-->
 				</div><!-- end:#video-upload-case -->
 			</div><!-- end of video-case -->
