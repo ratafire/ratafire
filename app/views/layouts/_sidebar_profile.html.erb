@@ -10,7 +10,9 @@
 		<% if @user.profilephoto.url(:medium) != "/assets/usericon_medium.png" %>
 			<!-- Subscription Video -->
 			<%if @user.video != nil then %>
-				<%= render 'layouts/sidebar_profile_subscription_video'%>
+				<% if @user.video.encoded_state == "finished" then %>
+					<%= render 'layouts/sidebar_profile_subscription_video'%>
+				<% end %>
 			<% end %>	
 
 			<%= image_tag(@user.profilephoto.url(:medium), class: "image-wrap-profile sidebar-profile-shade2", id:"sidebar-profile-image") %>
