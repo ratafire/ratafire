@@ -36,7 +36,21 @@
 					<%= render 'subscription_applications/account_info'%>	
 				<% else %>
 					<ol style="margin-bottom: 10px;margin-top:20px;">This is your bank account to receive payments:</ol>
-					<%= render 'subscriptions/how_I_get_paid'%>
+					<div class="user-why-passage" style="margin-right:25px;">
+						<%= render 'subscriptions/how_I_get_paid_portable'%>
+					</div>	
+					<!-- Without Venmo -->
+					<% if @user.accept_venmo == true then %>
+						<ol style="margin-bottom: 10px;margin-top:10px;">This is your Venmo account:</ol>
+						<div class="user-why-passage" style="margin-right:25px;">
+							<%= render 'subscriptions/added_venmo_portable', user: @user %>
+						</div>	
+					<% else %>
+						<ol style="margin-bottom: 10px;margin-top:10px;"><span style="color:#ccc;">(Optional)</span> You can also accept payments via Venmo:</ol>
+						<div class="user-why-passage">
+							<%= render 'subscription_applications/add_venmo', user: @user%>
+						</div>	
+					<% end %>
 					<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
 						<%= f.hidden_field :step, :value => 7, id:"step_id" %>
 						<!-- Back -->

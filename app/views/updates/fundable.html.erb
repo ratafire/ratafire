@@ -1,0 +1,39 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, "Fundable") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Additional Background Slot ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for(:additional_background) do %>
+		<%= render 'updates/title_background'%>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Right Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<!-- Main Content -->
+	<div class="main-content-update">
+
+		<!-- Title -->
+		<div class="update-title">
+			<h1>Fundable Individuals</h1>
+			<ul style="margin-top: -8px;">
+				<h5>Discover the best in art and research.</h5>
+			</ul>	
+		</div>
+
+		<%= render partial: 'updates/fundable_user', collection: @users, :as => :user %>
+
+		<!-- Pagination -->
+		<div id="profile-paginate">
+			<div class="textbox-mini">
+				<span><%= will_paginate @users, :param_name => 'fundable', class:"rata_pagination" %></span>	
+			</div>	
+		</div>	
+
+		<!-- Footer -->
+		<div style="width:930px;">
+			<%= render 'layouts/footer' %>
+		</div>
+
+	<div><!-- end .main-content-update-->	

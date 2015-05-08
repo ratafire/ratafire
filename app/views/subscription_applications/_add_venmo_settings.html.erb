@@ -1,0 +1,18 @@
+<div class="lightbox4" style="border: 0px solid #ddd; border-radius:5px;padding: 10px 0 27px 20px;min-height:180px;">
+	<!-- Add Work Collection -->
+		<div class="add-button-half-holder" style="border-radius:5px 0 0 5px;width: 398px;">
+			<div style="margin:58px 0 0 0;text-align:center;">
+				<h2>Ratafire is free to use,</h2>
+				<h2>regardless of your payment method.</h2>
+			</div>	
+		</div>	
+	<!-- Add Facebook Page-->
+	<%= link_to user_omniauth_authorize_path(:venmo, accept_venmo: "true"),class:"no_ajaxify" do %>
+		<div class="add-button-half-holder" style="border-radius:0 5px 5px 0;">
+			<div style="margin:0 auto;text-align:center;">
+				<%= image_tag("add_venmo.png")%>
+				<h2>Connect to Venmo</h2>
+			</div>
+		</div>	
+	<% end %>
+</div>	

@@ -40,6 +40,7 @@
 //= require pdfobject
 //= require mobile
 //= require jquery.slides.min
+//= require owl.carousel.min
 //= require_directory .
 //= require_directory ./redactor-rails
 

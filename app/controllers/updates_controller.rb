@@ -165,6 +165,10 @@ class UpdatesController < ApplicationController
 		@activities = PublicActivity::Activity.order("created_at desc").tagged_with(@user.id.to_s, :on => :watcher, :any => true, :test => false).paginate(page: params[:subscribing], :per_page => 20)
 	end
 
+	def fundable
+		@users = User.where(:subscription_status_initial => "Approved").paginate(page: params[:fundable], :per_page => 99)
+	end
+
 private
 	
 	#Check if the current user is following this tag

@@ -325,9 +325,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 	end
 
 	def facebookpages
+		params = request.env["omniauth.params"]
+		#With Facebook
 		if current_user != nil then 
 			@user = current_user
-			facebook = @user.facebook
+			if @user.facebook != nil then 
+				facebook = @user.facebook
+			else
+				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
+			end
 			facebook.page_access_token = request.env['omniauth.auth'].credentials.token
 			facebook.save
 			if facebook.page_access_token != nil then 		
@@ -343,15 +349,35 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						end
 					end
 				end	
-				redirect_to edit_user_path(@user)
+				if params["subscription_setup"] == "true" then
+					@subscription_application = @user.subscription_application[0]
+					if @subscription_application != nil then 
+						@subscription_application.update_column(:facebookpage_clicked, true)
+						redirect_to project_subscription_path(@user, @subscription_application)
+					else
+						redirect_to root_path
+					end
+				else
+					redirect_to edit_user_path(@user)
+				end
 			else
 				flash[:success] = "Facebook authorization failed."
-				redirect_to edit_user_path(@user)
+				if params["subscription_setup"] == "true" then
+					@subscription_application = @user.subscription_application[0]
+					if @subscription_application != nil then 
+						@subscription_application.update_column(:facebookpage_clicked, true)
+						redirect_to project_subscription_path(@user, @subscription_application)
+					else
+						redirect_to root_path
+					end
+				else
+					redirect_to edit_user_path(@user)
+				end
 			end		
 		else
 			flash[:success] = "Facebook authorization failed."
 			redirect_to root_path
-		end			
+		end		
 	end
 
 	def twitter
@@ -411,7 +437,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			#This is to add Venmo without payment
 			if venmo.persisted?
 				flash[:success] = "Connected to Venmo."
-				redirect_to payment_settings_path(current_user)	
+				#Add Venmo as a payment accept method
+				if params["accept_venmo"] == "true" then
+					@user.update_column(:accept_venmo,true)
+				end
+				if params["subscription_setup"] == "true" then
+					redirect_to payments_subscription_path(@user, @subscription_application)
+				else
+					redirect_to payment_settings_path(current_user)	
+				end
 			else
 				flash[:success] = "Fail to connect to Venmo."
 				redirect_to payment_settings_path(current_user)		

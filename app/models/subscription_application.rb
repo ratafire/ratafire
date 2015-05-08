@@ -1,5 +1,5 @@
 class SubscriptionApplication < ActiveRecord::Base
-  attr_accessible :why, :plan, :step, :user_id, :status, :goals_subscribers, :goals_monthly, :goals_project, :collectible, :project_id
+  attr_accessible :why, :plan, :step, :user_id, :status, :goals_subscribers, :goals_monthly, :goals_project, :collectible, :project_id, :facebookpage_id
   belongs_to :user
   has_one :review
 

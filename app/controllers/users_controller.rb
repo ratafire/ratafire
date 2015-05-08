@@ -216,6 +216,7 @@ protect_from_forgery :except => [:create_profilephoto, :update]
 	when "venmo"
 	  venmo = current_user.user_venmo
 	  venmo.destroy
+	  current_user.update_column(:accept_venmo,nil)
 	  redirect_to(:back)
 	  flash[:success] = "Disconnected from Venmo."  
 	end

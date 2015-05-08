@@ -1,0 +1,18 @@
+<!-- Add Work Collection -->
+<%= link_to new_project_path(user), method: :post,class: " no_ajaxify" do %>
+	<div class="add-button-half-holder" style="border-radius:5px 0 0 5px;">
+		<div style="margin:0 auto;text-align:center;">
+			<%= image_tag("add_work_collection.png")%>
+			<h2>Create Work Collection</h2>
+		</div>	
+	</div>	
+<% end %>	
+<!-- Add Facebook Page-->
+<%= link_to user_omniauth_authorize_path(:facebookpages, subscription_setup: "true"),class:"no_ajaxify" do %>
+	<div class="add-button-half-holder" style="border-radius:0 5px 5px 0;">
+		<div style="margin:0 auto;text-align:center;">
+			<%= image_tag("add_facebookpage.png")%>
+			<h2>Add Facebook Pages</h2>
+		</div>
+	</div>	
+<% end %>

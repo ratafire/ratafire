@@ -62,6 +62,11 @@
 					<h2>How I Get Paid</h2>
 					<%= render 'subscriptions/how_I_get_paid'%>
 				</div><!-- end.textbox-mini-->
+					<% if @user.accept_venmo == nil then %>
+						<%= render 'subscription_applications/add_venmo_settings', user: @user%>
+					<% else %>
+						<%= render 'subscriptions/added_venmo'%>
+					<% end %>
 			</div><!-- end.lightbox2-bordered-->		
 		<% end %>
 

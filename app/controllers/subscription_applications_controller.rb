@@ -97,9 +97,16 @@ class SubscriptionApplicationsController < ApplicationController
 
 	def video
 		@user = User.find(params[:id])
-		@subscription_progression = 40	
+		@subscription_progression = 60	
 		@subscription_application = @user.subscription_application[0]	
 		@video = @user.video	
+		#Redirect
+		if @subscription_application.collectible == nil || @subscription_application.collectible == "" then
+			flash[:success] = "Please provide a collectible."
+			@subscription_application.step = 2
+			@subscription_application.save
+			redirect_to project_subscription_path(@user.id)
+		else
 			if @subscription_application.step != 2 then 
 				if @subscription_application.step == 1 then #To Goals
 					redirect_to goals_subscription_path(@user,@subscription_application)
@@ -128,7 +135,8 @@ class SubscriptionApplicationsController < ApplicationController
 						end	
 					end
 				end
-			end				
+			end	
+		end			
 	end
 
 	def subscription_video_upload
@@ -141,7 +149,7 @@ class SubscriptionApplicationsController < ApplicationController
 
 	def payments
 		@user = User.find(params[:id])
-		@subscription_progression = 60
+		@subscription_progression = 80
 		@subscription_application = @user.subscription_application[0]
 		#Redirect
 		if @subscription_application.collectible == nil || @subscription_application.collectible == "" then

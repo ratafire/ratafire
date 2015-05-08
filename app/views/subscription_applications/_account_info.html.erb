@@ -42,11 +42,8 @@
 	<div style="margin: 15px 24px 20px 0; text-align:right;">
 		<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_payments_back" >Back</div>
 			<!-- Next Step -->	
-			<%= submit_tag "Apply", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+			<%= submit_tag "Enter", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
 	</div>    
 
 <% end %>
 
-<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
-	<%= f.hidden_field :step, :value => 5, id:"step_id" %>
-<% end %>

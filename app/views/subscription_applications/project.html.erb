@@ -26,7 +26,7 @@
 			<div class="post-about-bg">
 				<div class="textbox-mini">
 					<div class="post-about-title">
-						<li style="font-size: 1.4em;">Current Work Collection</li>
+						<li style="font-size: 1.4em;">A Current Work Collection or a Facebook Page</li>
 					</div>
 				</div>
 			</div>
@@ -45,15 +45,29 @@
 								<%= f.text_area :collectible, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters)." %>
 							<% else %>	
 							<!-- Without a Project -->
-								<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one on going project to setup subscription.</ol>
-								<%=  render "projects/project_one_application"%>
+								<% if @user.facebookpages.first != nil then %>
+								<!-- With a Facebook Page -->
+									<%= f.hidden_field :facebookpage_id, :value => @user.facebookpages.first.id %>
+									<ol style="margin-bottom: 10px;margin-top:20px;"><%=  render "facebookpages/facebookpage_one_application", facebookpage: @user.facebookpages.first %></ol>
+									<h4>Collectible</h4>
+									<ol style="margin:-10px 20px 10px 0;">Enter a collectible for subscribers who paid $10/m or more to you for this Facebook Page. </ol>
+									<%= f.text_area :collectible, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters)." %>
+								<% else %>
+									<% if @subscription_application.facebookpage_clicked == true then %>
+										<ol style="margin-bottom: 10px;margin-top:20px;">Sync at least one Facebook Page.</ol>
+										<%= render partial: "users/facebook_page", collection:  @user.facebook_pages, :as => :page %>
+									<% else %>
+										<ol style="margin-bottom: 10px;margin-top:20px;">You need to have at least one on going work collection or a synced facebook page to setup subscription.</ol>
+										<%= render 'subscription_applications/add_project_and_facebook', :user => @user %>
+									<% end %>
+								<% end %>	
 							<% end %>
 						</div>
 					<!-- Back -->
 					<div style="margin: 15px 24px 20px 0; text-align:right;">
 						<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_project_back" >Back</div>
 						<!-- Next Step -->	
-						<% if @project then %>
+						<% if @project || @user.facebookpages.first != nil then %>
 							<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
 						<% else %>
 						<% end %>	

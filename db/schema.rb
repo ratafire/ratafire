@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150507043133) do
+ActiveRecord::Schema.define(:version => 20150508042224) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -1147,8 +1147,8 @@ ActiveRecord::Schema.define(:version => 20150507043133) do
     t.text     "different"
     t.string   "status"
     t.integer  "user_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.integer  "step"
     t.integer  "goals_subscribers"
     t.integer  "goals_monthly"
@@ -1161,6 +1161,8 @@ ActiveRecord::Schema.define(:version => 20150507043133) do
     t.integer  "ssn"
     t.integer  "routing_number"
     t.integer  "account_number"
+    t.boolean  "facebookpage_clicked"
+    t.integer  "facebookpage_id"
   end
 
   create_table "subscription_records", :force => true do |t|
@@ -1458,6 +1460,9 @@ ActiveRecord::Schema.define(:version => 20150507043133) do
     t.boolean  "signup_during_subscription",                                :default => false
     t.string   "school"
     t.string   "concentration"
+    t.boolean  "accept_venmo"
+    t.boolean  "homepage_fundable"
+    t.boolean  "fundable_show"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

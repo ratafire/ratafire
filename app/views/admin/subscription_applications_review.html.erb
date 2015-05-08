@@ -63,6 +63,14 @@
 						<p>This user does not have an on-going work collection.</p>
 					<% end %>	
 
+				<h2>Facebook Page </h2>	
+
+					<% if @subscription_application.user.facebookpages != nil then %>
+						<p><%= link_to @subscription_application.user.facebookpages.first.name, @subscription_application.user.facebookpages.first.link, class:"no_ajaxify", target:"_blank"%></p>
+					<% else %>
+						<p>This user does not have a synced Facebook Page.</p>
+					<% end %>	
+
 				<h2>Discussion</h2>
 
 					<% if @discussion != nil then %>

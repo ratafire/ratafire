@@ -94,8 +94,22 @@ class AdminController < ApplicationController
 				@receiver.goals_project = @subscription_application.goals_project
 				@receiver.save
 				#Set project
-				@project = Project.find(@subscription_application.project_id)
-				@project.collectible = @subscription_application.collectible
+				if @subscription_application.project_id != nil then 
+					@project = Project.find(@subscription_application.project_id)
+					if @project != nil then 
+						@project.collectible = @subscription_application.collectible
+						@project.save
+					end
+				else
+					#Set Facebook Page
+					if @subscription_application.facebookpage_id != nil then 
+						@facebookpage = Facebookpage.find(@subscription_application.facebookpage_id)
+						if @facebookpage != nil then 
+							@facebookpage.collectible = @subscription_application.collectible
+							@facebookpage.save
+						end
+					end
+				end
 				#Send Message
 				@message_content = "<p>Your subscription setup is approved. </p><p>"+@review.content+"</p><p>You can view your subscription page via <a class='no_ajaxify' target='_blank' href=\"https://www.ratafire.com/"+@receiver.username.to_s+"\">this link</a>."
 				@message_title = "Your Subscription Setup is Approved"

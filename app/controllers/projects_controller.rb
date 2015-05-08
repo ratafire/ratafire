@@ -109,7 +109,12 @@ class ProjectsController < ApplicationController
 												@project.flag = false
 												@project.save
 											end	
-											format.html { redirect_to(user_project_path(@project.creator,@project), :notice => 'Work collection was successfully updated.') }				
+											#Redirect to Setup subscription if so
+											if @project.creator.subscription_application[0] != nil && @user.subscription_application[0].step != 7 then
+												format.html { redirect_to(goals_subscription_path(@project.creator)) }
+											else
+												format.html { redirect_to(user_project_path(@project.creator,@project), :notice => 'Work collection was successfully updated.') }				
+											end
 										else
 											format.html { redirect_to(user_project_path(@project.creator,@project), :notice => 'Work collection is completed!') }
 										end

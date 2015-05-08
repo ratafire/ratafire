@@ -87,6 +87,14 @@ $(document).ready(function() {
 			<div class="post-content-home-holder">
 				<div class="home-overlay2"></div>
 				<div class="center" style="margin: 0 auto;width:1089px;">
+
+					<!-- Homepage fundable -->
+					<div class="homepage-fundable-holder">
+						<%= render partial: 'updates/fundable_user', collection: @users, :as => :user %>
+						<%= render partial: 'static_pages/homepage_slide'%>	
+					</div>	
+
+					<!-- Homepage staffpicks-->
 					<%= render 'layouts/sidebar_home_staffpicks'%>
 
 		

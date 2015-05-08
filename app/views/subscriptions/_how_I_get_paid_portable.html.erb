@@ -1,0 +1,15 @@
+<!-- Has recipient -->
+<% if @user.recipient != nil then %>
+	<div class="lightbox4" style="border: 0px solid #ddd;background-color:#f9f9f9; border-radius:5px;padding-top:20px;padding-bottom:27px;min-height:10px;">
+		<table class="display">
+			<thead>
+				<tr>
+					<th width="180"><%= @user.recipient.bank_name %></th>
+					<th width="382">****<%= @user.recipient.last4 %></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>			
+<% end %>

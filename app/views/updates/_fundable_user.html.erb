@@ -1,0 +1,89 @@
+<div class="fundable-holder">
+
+
+	<!-- Video -->
+	<% if user.video != nil then %>
+		<!-- Javascript for video player -->
+		<script>
+		$(document).ready(function() {
+			var myPlayer = videojs("user_video<%=user.id%>");
+			//Button Hover
+		    $("#fundable-video<%user.id%>").click(
+		      function () {
+		        $('#fundable-video-cover<%= user.id%>').show();
+		        myPlayer.play();
+		    }
+		    );
+		    //Button play
+		    //Button close
+		    $("#sidebar-profile-video-play-close-button<%= user.id%>").click(
+		      function () {
+		        $('#fundable-video-cover<%= user.id%>').hide();
+		       	myPlayer.pause();
+		    });    
+		});    
+		</script>	
+
+		<!-- Video Play -->
+		<div id="fundable-video-cover-holder<%= user.id%>">
+			<div class="fundable-video-cover" id="fundable-video-cover<%= user.id%>" >
+				<div class="fundable-video-close-button" id="sidebar-profile-video-play-close-button<%= user.id%>">
+				</div>				
+				<%= videojs_rails sources: { webm: user.video.output_url }, height:"306", width:"544", poster:user.video.thumbnail,id:"user_video#{user.id}" %>
+			</div>	
+		</div>		
+
+		<!-- Video display-->
+		<div class="fundable-video" id="fundable-video<%user.id%>"style="background-image:url(<%= user.video.thumbnail.url(:original)%>);">
+			<div class="fundable-video-play">
+			</div>	
+		</div>	
+	<% end %>	
+
+	<!-- Profile -->
+	<div class="fundable-profile-holder">
+
+		<!-- User Icon-->
+		<div class="user-icon-holder" style="background-image:url(<%= user.profilephoto.url(:small64) %>);float:left;"></div>
+
+		<!-- User Name -->
+		<div class="fundable-user-nametab">
+			<% if user.fullname.length > 24 %>
+				<%= link_to user, class:"no_ajaxify" do %><h2><%= user.first_name %></h2><% end %>
+			<% else %>
+				<%= link_to user, class:"no_ajaxify" do %><h2><%= user.fullname %></h2><% end %>
+			<% end %>
+			<ul><%= truncate(user.tagline, length: 37) %></ul>
+		</div><!-- end.fundable-user-nametab-->
+
+		<!-- User Goals-->
+		<div class="goals" style="width:100%;margin-top:30px;">
+			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(user.subscription_amount.to_i, user.goals_monthly)%>"></span> <%= goals_percentage(user.subscription_amount.to_i, user.goals_monthly)%> of $<%= render :text => user.goals_monthly%> per month</ol>
+			<ol><%= progress_bar(goals_count(user.subscription_amount.to_i, user.goals_monthly), :color => 'green', :rounded => true) %></ol>
+		</div><!-- end.goals-->		
+
+		<!-- User Creation -->
+		<div class="fundable-content-tab">
+			<% if user.projects.where(:published => true, :complete => false, :abandoned => false).first != nil then %>
+				<ul><%= user.first_name %> is currently working on </ul>
+				<%= link_to user_project_path(user,user.projects.where(:published => true, :complete => false, :abandoned => false).first), class:"no_ajaxify" do %><span style="font-size:1.4em;"><%= truncate(user.projects.where(:published => true, :complete => false, :abandoned => false).first.title, length: 35) %></span><% end %>
+				<ul><%= truncate(user.projects.where(:published => true, :complete => false, :abandoned => false).first.tagline, length: 50) %></ul>
+			<% else %>
+				<% if user.facebookpages.first != nil then %>
+					<ul><%= user.first_name %> is currently working on </ul>
+					<%= link_to user.facebookpages.first.link, target:"_blank", class:"no_ajaxify" do %><span style="font-size:1.4em;"><%= truncate(user.facebookpages.first.name, length: 35) %></span><% end %>
+					<ul><%= truncate(user.facebookpages.first.about,length: 50) %></ul>
+				<% end %>
+			<% end %>
+		</div>	
+
+		<!-- Subscribe Button -->
+		<% if user_subscription_check(user) %>
+			<div style="text-align:right;margin:8px 0 0 0;">
+				<%= render "shared/mini_sub", :subscribed_id => user.id, :activity_id => user.id  %>
+			</div>	
+		<% end %>
+
+	</div><!-- end.fundable-profile-holder-->	
+
+</div><!-- end.fundable-holder-->	
