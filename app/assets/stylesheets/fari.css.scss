@@ -4261,7 +4261,7 @@ display: none;
 #bgvid { 
   position: fixed;
   right: 0;
-  top:20px;
+  bottom: 0;
   min-width: 100%;
   min-height: 100%;
   width: auto;
@@ -4276,7 +4276,7 @@ display: none;
 .home-overlay{
 	z-index: -10000;
 background:url(
-data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkgAAfKM3ACOVsgQnCBEAKwILIAmBBAGzKA+m5uSU6AAAAAElFTkSuQmCC
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAHElEQVQIW2OUn3lGkgEHYARJPkw3eY5NftBJAgBWqxmlvLfgTAAAAABJRU5ErkJggg==
    ) repeat;
 	position: fixed;
 	top: 0;
