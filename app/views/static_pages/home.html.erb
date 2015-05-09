@@ -18,6 +18,12 @@ $(document).ready(function() {
   		ga('send', 'event', 'button', 'click', 'Signup');
 	});
 
+	$(window).scroll(function() {
+  		var oVal;
+  		oVal = $(window).scrollTop() / 240;
+  		return $(".home-overlay-blur").css("opacity", oVal);
+	});
+
 });	
 
 </script>
@@ -37,14 +43,18 @@ $(document).ready(function() {
 
 		<!-- Home Page Beta Pic -->
 		<div class="Home-page-bg">
-			<%= image_tag("betabg_no_leaf.png") %>
 		</div>
 
+	<div class="home-overlay-blur"></div>
 	<div class="home-overlay"></div>	
-	<video autoplay id="bgvid" loop>
- 		 <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
-	<source src="//s3.amazonaws.com/Ratafire_production_videos/Sara_and_john_mute.mp4" type="video/mp4">
-	<source src="//s3.amazonaws.com/Ratafire_production_videos/Sara_and_john_mute.webm" type="video/webm">
+
+
+	<video autoplay id="bgvid" loop poster="/assets/park_pool.jpg">
+ 		 <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  
+ 		 <source src="//s3.amazonaws.com/Ratafire_production_videos/Sara_and_john_mute.webm" type="video/webm">-->
+ 		<source src="/videos/park_pool.mp4" type="video/mp4">
+		<source src="/videos/park_pool.webm" type="video/webm">
+	
 	</video>
 
 
@@ -59,7 +69,7 @@ $(document).ready(function() {
 					<!-- Home Page Comment -->
 					<div id="Home-page-comment">
 
-						<h2 style="color:#999;" >
+						<h2 style="color:#fff;" >
 							Cloud Patronage
 						</h2>
 
@@ -67,6 +77,9 @@ $(document).ready(function() {
 	
 
 				<div id="watch-intro" style="cursor:pointer;">
+					<div class="Home-page-ratatoskr">
+						<%= image_tag("betabg_no_leaf.png", height:150) %>
+					</div>	
 					<div id="Home-page-video"></div>
 						<div id="Home-page-video-title">
 							<ul>Watch our intro video</ul> 
@@ -76,7 +89,7 @@ $(document).ready(function() {
 
 				<%= link_to new_user_registration_path, class:"no_ajaxify" do %><div class="btn-home-join" style="margin-top:80px;"></div><% end %>
 
-				<div class="who-is-ratatoskr"><span><a class="darkgrey" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >What is Ratatoskr...?</a></span>
+				<div class="who-is-ratatoskr"><span><a class="darkgrey" style="color:#ddd;" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >What is Ratatoskr...?</a></span>
 			</div><!-- end.center-->
 		
 	</div><!-- end:.wrapper -->	
@@ -85,7 +98,7 @@ $(document).ready(function() {
 		<!-- Window 2 -->
 		<section class="window" id="window2" style="">
 			<div class="post-content-home-holder">
-				<div class="home-overlay2"></div>
+				
 				<div class="center" style="margin: 0 auto;width:1089px;">
 
 					<!-- Homepage fundable -->

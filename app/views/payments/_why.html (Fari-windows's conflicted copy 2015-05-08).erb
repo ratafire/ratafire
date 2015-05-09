@@ -1,0 +1,38 @@
+<div class="user-why-edit" style="padding-bottom:0px;">
+	<h4>I am currently working on</h4>
+</div>
+<%=  render "projects/project_portable"%>
+<div class="user-why-edit">
+
+	<h4>If I reach my subscription amount goal</h4>
+	<div class="user-why-passage">
+		<div class="goals" style="width:100%;">
+			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription Amount</span> <%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%> of $<%= render :text => @user.goals_monthly%></ol>
+			<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>
+		</div>	
+	</div>	
+	<h4>I will be able to continue this work collection</h4>
+		<div class="user-why-passage">
+			<%= render 'subscriptions/faces'%>	
+		</div>	
+
+		<% if current_user == nil then %>
+			<div style="margin: 15px -2px 0 580px;">
+				<%= render 'users/portable_subscribe_button'%>
+			</div>			
+		<% else %>
+			<% if current_user == @user then %>
+			<% else %>
+				<% if current_user.subscribed_by(@user) then %>
+				<% else %>
+					<% if @user.subscribed_by(current_user) then %>
+					<% else %>
+						<div style="margin: 15px -2px 0 580px;">
+							<%= render 'users/portable_subscribe_button'%>
+						</div>							
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+
+</div>

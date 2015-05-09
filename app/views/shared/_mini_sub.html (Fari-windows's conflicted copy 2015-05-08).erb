@@ -1,0 +1,13 @@
+<% if current_user != nil && current_user.facebook != nil then %>
+	<%= link_to subscribe_path(subscribed_id,"true","10"), class:"no_ajaxify" do %>
+		<div class="btn btn-mini btn-mini-green">
+			Give
+		</div>	
+	<% end %>
+<% else %>
+	<%= link_to user_omniauth_authorize_path(:facebook, subscribed_id: subscribed_id, subscription_type: "true", :amount =>"10"), method: :post, class:"no_ajaxify" do %>
+		<div class="btn btn-mini btn-mini-green">
+			Give
+		</div>
+	<% end %>
+<% end %>
