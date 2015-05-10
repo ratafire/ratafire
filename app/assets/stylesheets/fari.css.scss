@@ -4267,7 +4267,7 @@ display: none;
   width: auto;
   height: auto;
   z-index: -100000;
-  background-image:url(/assets/park_pool_blur.jpg);
+  background-image:url(/assets/park_pool.jpg);
   background-color: #ccc;
   background-size: cover;
   transition: 1s opacity;
@@ -4275,6 +4275,10 @@ display: none;
 
 .home-overlay{
 	z-index: -10000;
+
+   background:url(
+    data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIUlEQVQIW2NkYGCQZGBgeM4ABYxQGi4IEwCJgwWRBcCCAHczAx4qv3vfAAAAAElFTkSuQmCC
+   ) repeat;
 
 	position: fixed;
 	top: 0;
