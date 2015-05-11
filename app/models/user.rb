@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # :registerable is currently disabled
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:facebook, :twitter, :github, :deviantart, :vimeo, :venmo, :facebookpages]
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:facebook, :twitter, :github, :deviantart, :vimeo, :venmo, :facebookpages, :facebookposts]
 
 	#Accessable to outside users, are you sure you want them to change name?
 	#Profilelarge is the large profilelarge, profielmedium is the medium profilelarge

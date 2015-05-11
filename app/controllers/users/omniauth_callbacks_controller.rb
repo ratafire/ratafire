@@ -380,6 +380,104 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		end		
 	end
 
+	def facebookposts
+		params = request.env["omniauth.params"]
+		#With Facebook
+		if current_user != nil then 
+			@user = current_user
+			if @user.facebook != nil then 
+				facebook = @user.facebook
+			else
+				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
+			end
+			facebook.post_access_token = request.env['omniauth.auth'].credentials.token
+			facebook.save
+			if facebook.post_access_token != nil then 		
+				if params["object_type"] != nil then 
+					case params["object_type"]
+					when "work_collection"
+						project = Project.find(params["object_id"])
+						if project != nil then 
+							if params["post_to_both"] == "true" then
+								Resque.enqueue(FacebookPostWorker, @user.id,"work_collection",params["object_id"], :post_to_both => true)
+							else
+								Resque.enqueue(FacebookPostWorker, @user.id,"work_collection",params["object_id"])
+							end	
+							#Redirect to Setup subscription if so 
+							if @user.subscription_application[0] != nil && @user.subscription_application[0].step != 7 then
+								redirect_to goals_subscription_path(@user)
+							else
+								redirect_to user_project_path(project.creator,project)
+							end
+						else
+							redirect_to root_path
+						end
+					when "majorpost"
+						majorpost = Majorpost.find(params["object_id"])
+						if majorpost != nil then 
+							if params["post_to_both"] == "true" then
+								Resque.enqueue(FacebookPostWorker, @user.id,"majorpost",params["object_id"], :post_to_both => true)
+							else
+								Resque.enqueue(FacebookPostWorker, @user.id,"majorpost",params["object_id"])
+							end	
+							redirect_to user_project_majorpost_path(majorpost.project.creator,majorpost.project,majorpost)
+						else
+							redirect_to root_path
+						end					
+					when "discussion"
+						discussion = Discussion.find(params["object_id"])
+						if discussion != nil then 
+							if params["post_to_both"] == "true" then
+								Resque.enqueue(FacebookPostWorker, @user.id,"discussion",params["object_id"], :post_to_both => true)
+							else
+								Resque.enqueue(FacebookPostWorker, @user.id,"discussion",params["object_id"])
+							end	
+							redirect_to show_discussion_path(discussion)				
+						else
+							redirect_to root_path
+						end									
+					end
+				else
+					flash[:success] = "Allowed to post on Facebook."
+					redirect_to root_path
+				end
+			else
+				flash[:success] = "Facebook authorization failed."
+				if params["object_type"] != nil then 
+					case params["object_type"]
+					when "work_collection"
+						project = Project.find(params["object_id"])
+						if project != nil then 	
+							redirect_to user_project_path(project.creator,project)
+						else
+							redirect_to root_path
+						end
+					when "majorpost"
+						majorpost = Majorpost.find(params["object_id"])
+						if majorpost != nil then 
+							redirect_to user_project_majorpost_path(majorpost.project.creator,majorpost.project,majorpost)
+						else
+							redirect_to root_path
+						end					
+					when "discussion"
+						discussion = Discussion.find(params["object_id"])
+						if discussion != nil then 
+							redirect_to show_discussion_path(discussion)				
+						else
+							redirect_to root_path
+						end									
+					end
+				else
+					flash[:success] = "Facebook authorization failed."
+					redirect_to root_path
+				end
+			end		
+		else
+			flash[:success] = "Facebook authorization failed."
+			redirect_to root_path
+		end				
+	end
+
 	def twitter
 		@user = current_user
 		twitter = Twitter.find_for_twitter_oauth(request.env['omniauth.auth'], @user.id)

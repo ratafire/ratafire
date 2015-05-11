@@ -7,7 +7,7 @@ class Majorpost < ActiveRecord::Base
   include PublicActivity::Model
   tracked except: [:update, :destroy], owner: ->(controller, model) { controller && controller.current_user }
 
-  attr_accessible :content, :user_id, :project_id, :title, :tag_list, :m_u_inspirations_attributes, :m_p_inspirations_attributes, :m_m_inspirations_attributes, :m_e_inspirations_attributes, :video_attributes, :artwork_id, :published, :perlink, :video_id, :excerpt
+  attr_accessible :content, :user_id, :project_id, :title, :tag_list, :m_u_inspirations_attributes, :m_p_inspirations_attributes, :m_m_inspirations_attributes, :m_e_inspirations_attributes, :video_attributes, :artwork_id, :published, :perlink, :video_id, :excerpt, :post_to_facebook, :post_to_facebook_page
   belongs_to :user
   belongs_to :project
   has_many :comments, dependent: :destroy

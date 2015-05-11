@@ -3,7 +3,7 @@
 	<div class="inspiration-bg">
 		<div class="textbox-mini">
 			<div class="post-about-title">
-				<li style="font-size: 1.4em;">To Subscribers</li>
+				<li style="font-size: 1.4em;">Support <%= @project.creator.fullname %></li>
 			</div>
 		</div>
 	</div>
@@ -21,7 +21,7 @@
 			<ol><%= progress_bar(goals_count(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly), :color => 'green', :rounded => true) %></ol>
 		</div>					
 		<!-- Those who have subscribed to the user -->
-		<div style="margin-bottom:10px;">If the subscription amount goal is reached, <%= link_to @project.creator.fullname,@project.creator,class:"no_ajaxify" %> will be able to continue this work collection.</div>
+		<div style="margin-bottom:10px;font-family:'Open Sans';">If the subscription amount goal is reached, <%= link_to @project.creator.fullname,@project.creator,class:"no_ajaxify" %> will be able to continue this work collection.</div>
 		<div>
 			<%= render 'subscriptions/faces'%>
 		</div>	

@@ -12,7 +12,36 @@
 		<% if @project.published == false %>
 		<ol>Edit description → </ol> 
 		<% else %>
-		<ol>Edit description → </ol> 
+
+		<ol class="sidebar-project-about"><%= link_to "Description", user_project_path(@project.creator,@project), class:"no_ajaxify" %></ol>
+
+		<% if @project.users.count == 1 %>
+
+			<ol><%= link_to "Contributor", project_contributors_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+
+		<% else%>
+
+			<ol><%= link_to "Contributors", project_contributors_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+
+		<% end %>
+
+			<% unless @project.majorposts.count == 0 %>
+				<% if @project.majorposts.count > 1 %>
+					<ol><%= link_to "Major Posts", project_mplist_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+				<% else %>
+					<ol><%= link_to "Major Post", project_mplist_path(@project.creator,@project), class:"no_ajaxify"  %></ol>
+				<% end %>
+			<% end %>
+		
+			<% if @project.complete == true && @project.archives != nil %>
+				<ol ><%= link_to "Archive", project_archives_path(@project.creator, @project), class:"no_ajaxify"  %></ol>
+			<% end %>
+
+			<% if project_header_edit(@project) %>
+				<ol class="sidebar-project-active"><%= link_to 'Edit Description',edit_user_project_path(@project.creator,@project), class:"no_ajaxify "  %></ol>
+				<ol><%= link_to 'Settings',project_settings_path(@project.creator,@project), class:"no_ajaxify"  %></ol>	
+			<% end %>		
+
 		<% end %>
 	</ul>
 </div>

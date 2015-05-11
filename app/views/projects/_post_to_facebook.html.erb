@@ -1,0 +1,41 @@
+<div class="post-to-facebook-holder">
+
+	<!-- Post to Facebook Page -->
+	<% if user.facebook_pages.first != nil then %>
+		<% if user.facebook_pages.first.post_to_facebook_page == nil then %>
+			<!-- When not Active -->
+			<div style="margin-left:5px;" class="post-to-facebookpage-button project-social-recommand-inner" id="post-to-facebookpage-button">
+				<i class="fa fa-facebook-square"></i> Post to your Facebook Page - <%= truncate(user.facebook_pages.first.name, length: 26) %>
+			</div>	
+			<div style="margin-left:5px;display:none;" class="post-to-facebookpage-button project-social-recommand-inner post-to-facebook-active" id="post-to-facebookpage-button-active">
+				<i class="fa fa-facebook-square"></i> Post to your Facebook Page - <%= truncate(user.facebook_pages.first.name, length: 26) %>
+			</div>				
+		<% else %>
+			<!-- When Active -->
+			<div style="margin-left:5px;" class="post-to-facebookpage-button project-social-recommand-inner post-to-facebook-active" id="post-to-facebookpage-button-active">
+				<i class="fa fa-facebook-square"></i> Post to your Facebook Page - <%= truncate(user.facebook_pages.first.name, length: 26) %>
+			</div>		
+			<div style="margin-left:5px;display:none;" class="post-to-facebookpage-button project-social-recommand-inner" id="post-to-facebookpage-button">
+				<i class="fa fa-facebook-square"></i> Post to your Facebook Page - <%= truncate(user.facebook_pages.first.name, length: 26) %>
+			</div>						
+		<% end %>		
+	<% end %>	
+	<!-- When Not Active -->
+	<% if user.post_to_facebook == true then %>
+		<!-- Not Active-->
+		<div class="post-to-facebook-button project-social-recommand-inner post-to-facebook-active" id="post-to-facebook-button-active">
+			<i class="fa fa-facebook-square"></i> Post to your Facebook Timeline
+		</div>	
+		<div style="display:none;" class="post-to-facebook-button project-social-recommand-inner post-to-facebook-active" id="post-to-facebook-button">
+			<i class="fa fa-facebook-square"></i> Post to your Facebook Timeline
+		</div>		
+	<% else %>
+		<!-- When Active-->
+		<div class="post-to-facebook-button project-social-recommand-inner" id="post-to-facebook-button">
+			<i class="fa fa-facebook-square"></i> Post to your Facebook Timeline
+		</div>	
+		<div style="display:none;" class="post-to-facebook-button project-social-recommand-inner post-to-facebook-active" id="post-to-facebook-button-active">
+			<i class="fa fa-facebook-square"></i> Post to your Facebook Timeline
+		</div>							
+	<% end %>
+</div>	

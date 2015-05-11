@@ -26,74 +26,102 @@ class MajorpostsController < ApplicationController
 	def update
 		@majorpost = Majorpost.find(params[:id])
 		@project = @majorpost.project
-		respond_to do |format|
-			if @majorpost.update_attributes(params[:majorpost]) then 
-				image_parser
-				excerpt_generator
-				@majorpost.save
-				format.json { respond_with_bip(@majorpost) }
-				#activity tags
-				@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
-				if @activity != nil then
-					@activity.tag_list = @majorpost.tag_list
-					@activity.commented_at = @majorpost.commented_at
-					if @majorpost.published == true then
-						@activity.draft = false
-					end
-					@activity.save
-				end				
-				#artwork
-				if @majorpost.artwork_id != "" && @majorpost.artwork_id != nil then
-					map_artwork
+		if @majorpost.update_attributes(params[:majorpost]) then 
+			image_parser
+			excerpt_generator
+			@majorpost.save
+			#activity tags
+			@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
+			if @activity != nil then
+				@activity.tag_list = @majorpost.tag_list
+				@activity.commented_at = @majorpost.commented_at
+				if @majorpost.published == true then
+					@activity.draft = false
 				end
-				if @majorpost.published == true
-					if title_parser(@majorpost.title) == false then
+				@activity.save
+			end				
+			#artwork
+			if @majorpost.artwork_id != "" && @majorpost.artwork_id != nil then
+				map_artwork
+			end
+			if @majorpost.published == true
+				if title_parser(@majorpost.title) == false then
+					@majorpost.published = false
+					@majorpost.save
+					flash["success"] = 'Please enter a title for this post.'
+					redirect_to edit_user_project_majorpost_path(@project.creator,@project, @majorpost)
+				else
+					if @majorpost.content == nil || @majorpost.content == "" then
 						@majorpost.published = false
 						@majorpost.save
-						format.html { redirect_to(edit_user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Please enter a title for this post.') }
+						flash["success"] = 'Please enter the content of this post.'
+						redirect_to edit_user_project_majorpost_path(@project.creator,@project, @majorpost)
 					else
-						if @majorpost.content == nil || @majorpost.content == "" then
+						if @majorpost.tags.any? then
+							#Set publish time when it is nil, which means it is the first time this majorpost goes public
+							unless @majorpost.published_at != nil then
+								@majorpost.published_at = Time.now
+								#Check Early Access
+								if @project.early_access == true then
+									@majorpost.early_access = true
+									Resque.enqueue_in(6.days,MajorpostEarlyAccessWorker,@majorpost.id)
+								end
+								@majorpost.save
+							end
+							#flag a project when it is over balanced its goal
+							if @project.majorposts.where(:published => true).count == @project.goal then
+								@project.flag = true
+								@project.save
+								flash["success"] = 'Project completed?'
+								redirect_to user_project_majorpost_path(@project.creator,@project, @majorpost)
+							else
+								if @majorpost.post_to_facebook == true then
+									@majorpost.user.update_column(:post_to_facebook,true)
+									if @majorpost.post_to_facebook_page == true then
+										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,true)
+										#With Facebook, with Facebook Pag
+										redirect_to user_omniauth_authorize_path(:facebookposts, object_type: "majorpost", object_id: @majorpost.id, post_to_both: "true")
+									else
+										#Set user preference to not post to facebook page
+										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+										#With Facebook, without Facebook Pag
+										redirect_to user_omniauth_authorize_path(:facebookposts, object_type: "majorpost", object_id: @majorpost.id)
+									end
+								else
+									#Set user preference to not post to facebook
+									@majorpost.user.update_column(:post_to_facebook,nil)
+									if @majorpost.post_to_facebook_page == true then
+										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,true)
+										#Without Facebook, with Facebook Page
+										Resque.enqueue(FacebookPostWorker,@majorpost.user.id, "majorpost",@majorpost.id, :post_to_page => true)
+									else
+										#Set user preference to not post to faceboo
+										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+									end
+									#Redirect to Setup subscription if so
+									flash["success"] = 'Major post was successfully updated.'
+									redirect_to user_project_majorpost_path(@project.creator,@project, @majorpost)
+								end
+							end
+						else
 							@majorpost.published = false
 							@majorpost.save
-							format.html { redirect_to(edit_user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Please enter the content of this post.') }
-						else
-							if @majorpost.tags.any? then
-								#Set publish time when it is nil, which means it is the first time this majorpost goes public
-								unless @majorpost.published_at != nil then
-									@majorpost.published_at = Time.now
-									#Check Early Access
-									if @project.early_access == true then
-										@majorpost.early_access = true
-										Resque.enqueue_in(6.days,MajorpostEarlyAccessWorker,@majorpost.id)
-									end
-									@majorpost.save
-								end
-								#flag a project when it is over balanced its goal
-								if @project.majorposts.where(:published => true).count == @project.goal then
-									@project.flag = true
-									@project.save
-									format.html { redirect_to(user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Project completed?') }
-								else
-									format.html { redirect_to(user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Major post was successfully updated.') }
-								end
-							else
-								@majorpost.published = false
-								@majorpost.save
-								format.html { redirect_to(edit_user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Please enter several tags for this post.') }
-							end
+							flash["success"] = 'Please enter several tags for this post.'
+							redirect_to edit_user_project_majorpost_path(@project.creator,@project, @majorpost)
 						end
 					end
-				else
-					format.html { redirect_to(edit_user_project_majorpost_path(@project.creator,@project, @majorpost), :notice => 'Major post saved.') }
-				end	
+				end
 			else
-				format.html { render :action => "edit" }
-				format.json { respond_with_bip(@majorpost) }			
-			end
+				flash["success"] = 'Major post saved.'
+				redirect_to edit_user_project_majorpost_path(@project.creator,@project, @majorpost)
+			end	
+		else
+			redirect_to edit_user_project_majorpost_path(@project.creator,@project, @majorpost)
 		end
 	end
 
 	def edit
+		@user = current_user
 		@majorpost = Majorpost.find(params[:id])
 		@project = @majorpost.project
 		@artwork = Artwork.new(params[:artwork])

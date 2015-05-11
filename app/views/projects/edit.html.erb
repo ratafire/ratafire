@@ -57,7 +57,8 @@
 				<%= f.hidden_field :icon_id, id:"majorpost-icon-id" %>
 				<%= f.hidden_field :published, id:"project-published" %>
 				<%= f.hidden_field :edit_permission, id:"project-edit-permission" %>
-
+				<%= f.hidden_field :post_to_facebook, id:"post-to-facebook"%>
+				<%= f.hidden_field :post_to_facebook_page, id:"post-to-facebookpage"%>
 
 				<!-- Original Image Upload Placer, because the image form is not nested-->
 				<div id="original-placer"></div>
@@ -82,8 +83,15 @@
 							</div>
 						</div>
 					</div>
+
 					<!-- License -->
 					<%= render 'shared/license'%>
+
+					<!-- Post to Facebook -->
+					<% if @project.published == false %>
+						<%= render 'projects/post_to_facebook', user: @project.creator %>	
+					<% end %>
+
 				</div><!-- end:#case -->
 				
 				<!-- Submit before published -->
@@ -96,7 +104,7 @@
 				</div>
 				<% else %>
 				<!-- Submit after Published -->
-					<div style="margin: 15px -2px 0 0; text-align:right;">
+					<div style="margin: 15px -2px 0 0; text-align:right;">	
 					<span id="submit">
 						<%= f.submit "Edit Description", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green no_ajaxify" %>
 					</span>

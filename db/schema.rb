@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150508183255) do
+ActiveRecord::Schema.define(:version => 20150511071156) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -426,9 +426,9 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "perlink"
-    t.string   "edit_permission", :default => "free"
+    t.string   "edit_permission",       :default => "free"
     t.datetime "deleted_at"
-    t.boolean  "deleted",         :default => false
+    t.boolean  "deleted",               :default => false
     t.boolean  "featured"
     t.string   "uuid"
     t.boolean  "test"
@@ -436,16 +436,19 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.datetime "commented_at"
     t.boolean  "early_access"
     t.string   "topic"
-    t.integer  "level",           :default => 1
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.integer  "level",                 :default => 1
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.string   "realm"
     t.string   "sub_realm"
     t.integer  "creator_id"
-    t.boolean  "complete",        :default => false
+    t.boolean  "complete",              :default => false
     t.integer  "goal"
-    t.string   "review_status",   :default => "Pending"
+    t.string   "review_status",         :default => "Pending"
     t.datetime "reviewed_at"
+    t.boolean  "post_to_facebook"
+    t.boolean  "post_to_facebook_page"
+    t.string   "facebookupdate_id"
   end
 
   create_table "facebook_pages", :force => true do |t|
@@ -504,6 +507,7 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.integer  "facebookcover_file_size"
     t.datetime "facebookcover_updated_at"
     t.boolean  "sync"
+    t.boolean  "post_to_facebook_page"
   end
 
   create_table "facebookpages", :force => true do |t|
@@ -582,11 +586,12 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.integer  "user_id"
     t.string   "oauth_token"
     t.string   "oauth_expires_at"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "user_birthday"
     t.string   "email"
     t.string   "image"
+    t.string   "test",              :limit => 10000
     t.text     "bio"
     t.string   "location"
     t.string   "website"
@@ -595,6 +600,7 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.string   "page_access_token"
     t.boolean  "deleted"
     t.datetime "deleted_at"
+    t.string   "post_access_token"
   end
 
   create_table "facebookupdates", :force => true do |t|
@@ -822,13 +828,6 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
 
   add_index "mailboxer_receipts", ["notification_id"], :name => "index_mailboxer_receipts_on_notification_id"
 
-  create_table "majorpost_suggestions", :force => true do |t|
-    t.string   "term"
-    t.integer  "popularity"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "majorposts", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -842,20 +841,23 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.text     "perlink"
     t.integer  "video_id"
     t.text     "excerpt"
-    t.string   "edit_permission", :default => "free"
-    t.boolean  "archived",        :default => false
+    t.string   "edit_permission",       :default => "free"
+    t.boolean  "archived",              :default => false
     t.datetime "commented_at"
     t.datetime "deleted_at"
-    t.boolean  "deleted",         :default => false
+    t.boolean  "deleted",               :default => false
     t.boolean  "featured"
     t.string   "uuid"
-    t.boolean  "test",            :default => false
+    t.boolean  "test",                  :default => false
     t.datetime "published_at"
-    t.boolean  "early_access",    :default => false
+    t.boolean  "early_access",          :default => false
     t.integer  "audio_id"
     t.integer  "pdf_id"
     t.string   "realm"
     t.string   "sub_realm"
+    t.boolean  "post_to_facebook"
+    t.boolean  "post_to_facebook_page"
+    t.string   "facebookupdate_id"
   end
 
   create_table "messages", :force => true do |t|
@@ -1012,19 +1014,22 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.datetime "completion_time"
     t.string   "realm"
     t.datetime "commented_at"
-    t.boolean  "abandoned",         :default => false
+    t.boolean  "abandoned",             :default => false
     t.datetime "deleted_at"
-    t.boolean  "deleted",           :default => false
-    t.boolean  "featured",          :default => false
+    t.boolean  "deleted",               :default => false
+    t.boolean  "featured",              :default => false
     t.string   "uuid"
-    t.boolean  "test",              :default => false
+    t.boolean  "test",                  :default => false
     t.datetime "published_at"
-    t.boolean  "early_access",      :default => false
+    t.boolean  "early_access",          :default => false
     t.integer  "audio_id"
     t.integer  "pdf_id"
-    t.boolean  "featured_home",     :default => false
+    t.boolean  "featured_home",         :default => false
     t.string   "sub_realm"
     t.text     "collectible"
+    t.boolean  "post_to_facebook"
+    t.boolean  "post_to_facebook_page"
+    t.string   "facebookupdate_id"
   end
 
   create_table "quotes", :force => true do |t|
@@ -1155,13 +1160,13 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.integer  "user_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
-    t.datetime "deadline"
     t.integer  "step"
     t.integer  "goals_subscribers"
     t.integer  "goals_monthly"
     t.integer  "goals_project"
     t.text     "collectible"
     t.integer  "project_id"
+    t.datetime "approved_at"
     t.datetime "completed_at"
     t.boolean  "completion"
     t.integer  "ssn"
@@ -1181,8 +1186,8 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
     t.boolean  "past",                                                :default => false
-    t.decimal  "duration",             :precision => 32, :scale => 6
     t.boolean  "accumulated",                                         :default => false
+    t.decimal  "duration",             :precision => 32, :scale => 6
     t.boolean  "supporter_switch",                                    :default => false
     t.boolean  "past_support",                                        :default => false
     t.boolean  "duration_support",                                    :default => false
@@ -1293,6 +1298,9 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.boolean  "next_transaction_status",                                :default => false
     t.integer  "counter",                                                :default => 0
     t.integer  "retry",                                                  :default => 0
+    t.decimal  "payment_fee",             :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "billing_subscription_id"
+    t.integer  "billing_artist_id"
     t.string   "created"
     t.boolean  "livemode"
     t.boolean  "paid"
@@ -1310,13 +1318,11 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.string   "klass"
     t.string   "stripe_id"
     t.string   "description"
-    t.decimal  "payment_fee",             :precision => 10, :scale => 2, :default => 0.0
-    t.integer  "billing_subscription_id"
-    t.integer  "billing_artist_id"
     t.string   "method"
     t.string   "paypal_correlation_id"
     t.string   "billing_agreement_id"
     t.string   "paypal_transaction_id"
+    t.decimal  "fee",                     :precision => 10, :scale => 2
     t.string   "venmo_transaction_id"
     t.string   "venmo_username"
     t.string   "venmo_token"
@@ -1379,11 +1385,12 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.integer  "user_id"
     t.datetime "deleted_at"
     t.boolean  "deleted"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.string   "refresh_token"
     t.string   "expires_in"
     t.string   "phone"
+    t.string   "test",          :limit => 1024
   end
 
   create_table "users", :force => true do |t|
@@ -1454,18 +1461,22 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.string   "uuid"
     t.string   "location"
     t.string   "bio_html"
+    t.string   "direct_upload_url"
+    t.boolean  "processed",                                                 :default => false
+    t.string   "subscription_status_initial"
     t.string   "legalname"
     t.integer  "ssn"
     t.boolean  "need_username",                                             :default => false
     t.string   "after_subscription_url"
     t.boolean  "signup_during_subscription",                                :default => false
-    t.string   "subscription_status_initial",                               :default => "0"
     t.string   "school"
     t.string   "concentration"
+    t.boolean  "accept_venmo"
     t.boolean  "homepage_fundable"
     t.boolean  "fundable_show"
     t.integer  "goals_watching",                                            :default => 10
     t.integer  "goals_reviews",                                             :default => 10
+    t.boolean  "post_to_facebook"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
@@ -1498,6 +1509,7 @@ ActiveRecord::Schema.define(:version => 20150508183255) do
     t.text     "tags_temp"
     t.integer  "archive_id"
     t.string   "thumbnail"
+    t.string   "direct_upload_url",                               :null => false
     t.boolean  "processed",              :default => false,       :null => false
     t.integer  "user_id",                                         :null => false
     t.string   "output_url_mp4"

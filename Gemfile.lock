@@ -27,6 +27,13 @@ GIT
       omniauth-oauth2 (~> 1.2)
 
 GIT
+  remote: git://github.com/ratafire/omniauth-facebookposts
+  revision: 24fba6331ff2dbd3f13b0821a143398ac27987b8
+  specs:
+    omniauth-facebookposts (2.1.0)
+      omniauth-oauth2 (~> 1.2)
+
+GIT
   remote: git://github.com/ratafire/redactor-rails.git
   revision: a5fc09f9748ca5e024a6406de527261fddae5c4e
   specs:
@@ -516,6 +523,7 @@ DEPENDENCIES
   omniauth-deviantart
   omniauth-facebook
   omniauth-facebookpages!
+  omniauth-facebookposts!
   omniauth-github
   omniauth-twitter
   omniauth-venmo

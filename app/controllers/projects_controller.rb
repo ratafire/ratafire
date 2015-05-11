@@ -71,90 +71,113 @@ class ProjectsController < ApplicationController
 
 	def update
 		@project = Project.find(params[:id])
-		respond_to do |format|
-			if @project.update_attributes(params[:project]) then
-				image_parser
-				excerpt_generator
-				@project.save
-				format.json { respond_with_bip(@project) }
-				#activity tags and realms
-				@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@project.id,'Project')
-				if @activity != nil then
-					@activity.realm = @project.realm
-					@activity.tag_list = @project.tag_list
-					@activity.commented_at = @project.commented_at
-					if @project.published == true then
-						@activity.draft = false
-					end
-					@activity.save
-				end	
-				#published							
-				if @project.published == true
-					#push those stupid people back, if they want to not enter title or tagline!!!!
-					if title_parser(@project.title) == true then
-						if tagline_parser(@project.tagline) == true then
-							if @project.about == nil or @project.about == "" then 
-								@project.published = false
-								@project.save
-								format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please write a description for this work collection.') }								
-							else
-								if @project.icon == nil then 
-									@project.published = false
-									@project.save
-									format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please upload an icon for this work collection.') }								
-								else
-									if @project.tags.any? then
-										if @project.complete != true
-											if @project.majorposts.where(:published => true).count < @project.goal then
-												@project.flag = false
-												@project.save
-											end	
-											#Redirect to Setup subscription if so
-											if @project.creator.subscription_application[0] != nil && @user.subscription_application[0].step != 7 then
-												format.html { redirect_to(goals_subscription_path(@project.creator)) }
-											else
-												format.html { redirect_to(user_project_path(@project.creator,@project), :notice => 'Work collection was successfully updated.') }				
-											end
-										else
-											format.html { redirect_to(user_project_path(@project.creator,@project), :notice => 'Work collection is completed!') }
-										end
-									else
-										@project.published = false
-										@project.save
-										format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please add several tags for this work collection.') }											
-									end
-								end
-							end
-						else
+
+		if @project.update_attributes(params[:project]) then
+			image_parser
+			excerpt_generator
+			@project.save
+			#respond_to do |format|
+			#	respond_to.json { respond_with_bip(@project) }
+			#end
+			update_activity_tags_and_realms
+			#published							
+			if @project.published == true
+				#push those stupid people back, if they want to not enter title or tagline!!!!
+				if title_parser(@project.title) == true then
+					if tagline_parser(@project.tagline) == true then
+						if @project.about == nil or @project.about == "" then 
 							@project.published = false
 							@project.save
-							format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please enter a tagline for this work collection.') }							
+							flash["success"] = 'Please write a description for this work collection.'
+							redirect_to edit_user_project_path(@project.creator,@project)							
+						else
+							if @project.icon == nil then 
+								@project.published = false
+								@project.save
+								flash["success"] = 'Please upload an icon for this work collection.'
+								redirect_to edit_user_project_path(@project.creator,@project)					
+							else
+								if @project.tags.any? then
+									if @project.complete != true
+										if @project.majorposts.where(:published => true).count < @project.goal then
+											@project.flag = false
+											@project.save
+										end	
+										#Redirect to Connect to Facebook if User haven't connect to Facebook Update
+										if @project.post_to_facebook == true then
+											@project.creator.update_column(:post_to_facebook,true)
+											if @project.post_to_facebook_page == true then
+												@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,true)
+												#With Facebook, with Facebook Pag
+												redirect_to user_omniauth_authorize_path(:facebookposts, object_type: "work_collection", object_id: @project.id, post_to_both: "true")
+											else
+												#Set user preference to not post to facebook page
+												@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+												#With Facebook, without Facebook Pag
+												redirect_to user_omniauth_authorize_path(:facebookposts, object_type: "work_collection", object_id: @project.id)
+											end
+										else
+											#Set user preference to not post to facebook
+											@project.creator.update_column(:post_to_facebook,nil)
+											if @project.post_to_facebook_page == true then
+												@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,true)
+												#Without Facebook, with Facebook Page
+												Resque.enqueue(FacebookPostWorker,@project.creator.id, "work_collection",@project.id, :post_to_page => true)
+											else
+												#Set user preference to not post to faceboo
+												@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+											end
+											#Redirect to Setup subscription if so
+											if @project.creator.subscription_application[0] != nil && @user.subscription_application[0].step != 7 then
+												redirect_to goals_subscription_path(@project.creator)
+											else
+												flash["success"] = 'Work collection was successfully updated.'
+												redirect_to user_project_path(@project.creator,@project)
+											end				
+										end
+									else
+										flash["success"] = 'Work collection is completed!'
+										redirect_to user_project_path(@project.creator,@project)
+									end
+								else
+									@project.published = false
+									@project.save
+									flash["success"] = 'Please add several tags for this work collection.'
+									redirect_to edit_user_project_path(@project.creator,@project)										
+								end
+							end
 						end
 					else
 						@project.published = false
 						@project.save
-						format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Please enter a title for this work collection.') }
+						flash["success"] = 'Please enter a tagline for this work collection.'
+						redirect_to edit_user_project_path(@project.creator,@project)					
 					end
 				else
-					format.html { redirect_to(edit_user_project_path(@project.creator,@project), :notice => 'Work collection saved.') }
-				end
-				#source code
-				if @project.source_code != nil && @project.source_code != "" then
-					source_code_parser
+					@project.published = false
 					@project.save
-				else
-					@project.source_code_title = nil
-					@project.save
-				end
-				#goal
-				if @project.goal <= @project.majorposts.where(:published => true).count then
-					@project.goal = @project.majorposts.where(:published => true).count+1
-					@project.save
+					flash["success"] = 'Please enter a title for this work collection.'
+					redirect_to edit_user_project_path(@project.creator,@project)
 				end
 			else
-				format.html { render :action => "edit" }
-				format.json { respond_with_bip(@project) }
+				flash["success"] = 'Work collection saved.'
+				redirect_to edit_user_project_path(@project.creator,@project)
 			end
+			#source code
+			if @project.source_code != nil && @project.source_code != "" then
+				source_code_parser
+				@project.save
+			else
+				@project.source_code_title = nil
+				@project.save
+			end
+			#goal
+			if @project.goal <= @project.majorposts.where(:published => true).count then
+				@project.goal = @project.majorposts.where(:published => true).count+1
+				@project.save
+			end
+		else
+			redirect_to edit_user_project_path(@project.creator,@project)
 		end
 	end
 
@@ -348,6 +371,20 @@ class ProjectsController < ApplicationController
 	end
 
 private
+
+		def update_activity_tags_and_realms
+			#activity tags and realms
+			@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@project.id,'Project')
+			if @activity != nil then
+				@activity.realm = @project.realm
+				@activity.tag_list = @project.tag_list
+				@activity.commented_at = @project.commented_at
+				if @project.published == true then
+					@activity.draft = false
+				end
+				@activity.save
+			end	
+		end
 
 		def assigned_user
 			@current_user_id = current_user.id

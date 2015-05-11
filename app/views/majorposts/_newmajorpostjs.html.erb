@@ -1,3 +1,60 @@
+<!-- Preset some Value-->
+<% if @user.post_to_facebook == true then %>
+  <script>
+  $(document).ready(function() {
+    $('#post-to-facebook').val('t');
+  });
+  </script>
+<% end %>
+
+<% if @user.facebook_pages.first != nil then %>
+  <% if @user.facebook_pages.first.post_to_facebook_page == true then %>
+  <script>
+  $(document).ready(function() {
+    $('#post-to-facebookpage').val('t');
+  });
+  </script>  
+  <% end %>
+<% end %>
+
+<!-- Show Video When there is a video -->
+<% if @majorpost.video != nil then %>
+ <script>
+  $(document).ready(function() {
+    $('#video-case').show();
+    $('.redactor_btn_video2').addClass("redactor_act");
+  });
+ </script> 
+<% else %>
+  <% if @majorpost.artwork != nil then %>
+   <script>
+   $(document).ready(function() {
+      $('#image-case').toggle();
+      $('#original-placer').toggle();
+      $('.redactor_btn_image').addClass("redactor_act");
+    });
+   </script>   
+  <% else %>
+    <% if @majorpost.audio != nil then %>
+      <script>
+      $(document).ready(function() {
+        $('#audio-case').toggle(); 
+        $('.redactor_btn_audio').addClass("redactor_act");
+      });  
+     </script>      
+    <% else %>
+      <% if @majorpost.pdf != nil then %>
+        <script>
+        $(document).ready(function() {
+          $('#pdf-case').toggle(); 
+          $('.redactor_btn_pdf').addClass("redactor_act");
+        });    
+       </script> 
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
 <script type="text/javascript">
 //let validation work
 $(document).ready(function(){
@@ -29,6 +86,28 @@ $(document).ready(function(){
                   $("#project-published").val("t");
                   $("#project-form").submit();
               });
+
+               //Project Post to Facebook
+               $('#post-to-facebookpage-button').click(function(){
+                $('#post-to-facebookpage-button').hide();
+                $('#post-to-facebookpage-button-active').show();
+                $('#post-to-facebookpage').val('t');
+               });
+               $('#post-to-facebookpage-button-active').click(function(){
+                $('#post-to-facebookpage-button-active').hide();
+                $('#post-to-facebookpage-button').show();
+                $('#post-to-facebookpage').val('f');
+               });               
+               $('#post-to-facebook-button').click(function(){
+                $('#post-to-facebook-button').hide();
+                $('#post-to-facebook-button-active').show();
+                $('#post-to-facebook').val('t');
+               });
+               $('#post-to-facebook-button-active').click(function(){
+                $('#post-to-facebook-button-active').hide();
+                $('#post-to-facebook-button').show();
+                $('#post-to-facebook').val('f');
+               });                   
 
 });
 

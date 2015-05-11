@@ -66,7 +66,8 @@
 				<%= f.hidden_field :artwork_id, id:"majorpost-artwork-id" %>
 				<%= f.hidden_field :video_id, id:"project-video-id"%>
 				<%= f.hidden_field :published, id:"project-published" %>
-
+				<%= f.hidden_field :post_to_facebook, id:"post-to-facebook"%>
+				<%= f.hidden_field :post_to_facebook_page, id:"post-to-facebookpage"%>
 
 				<!-- Original Image Upload Placer, because the image form is not nested-->
 				<div id="original-placer"></div>
@@ -76,7 +77,7 @@
 
 				<!-- Content -->
 				<div class="majorpostarea">
-					<%= f.text_area :content, id:"redactor_majorpost" %>
+					<%= f.text_area :content, id:"redactor_majorpost", placeholder: "Enter a description for your work collection. Tools for media upload ⤴" %>
 				</div>
 
 				<!-- Tools -->
@@ -91,6 +92,12 @@
 							</div>
 						</div>
 					</div>
+
+					<!-- Post to Facebook -->
+					<% if @majorpost.published == false %>
+						<%= render 'projects/post_to_facebook', user: @user %>	
+					<% end %>
+
 				</div><!-- end:#case -->
 				
 				<!-- Submit before published -->

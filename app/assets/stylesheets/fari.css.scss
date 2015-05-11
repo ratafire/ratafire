@@ -3248,7 +3248,7 @@ input[type="source-code"]:focus {
 		
 		background-color: #fff;
 		width: 749px;
-		
+		min-height: 35px;
 		height:100%;
 
 
@@ -5113,7 +5113,7 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	transition: 1s;
 
 	&:hover {
-		background-color: #f3f3f3;
+		background-color: #f7f7f7;
 		-webkit-transition: 1s;
 		-moz-transition: 1s;
 		transition: 1s;
@@ -5710,6 +5710,7 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 /*---Project About Page ---*/
 
 .post-about-title {
+  font-family: "Open Sans";
 	color: #666666;
 	ul {
 		border-bottom: 1px solid #eeeeee;
@@ -8884,6 +8885,7 @@ li.rating_star.on {
 }
 
 .project-reviews-title{
+  font-family: "Open Sans";
   border-radius: 5px 5px 0 0;
   padding: 1px 0 1px 0;
   border-bottom: 1px solid #dddddd;
@@ -9126,4 +9128,15 @@ box-shadow: 0px 0px 0px 10px rgba(0,0,0,.1);
     font-size: 22px;
     line-height: 35px;
   }  
+}
+
+/*-- Post to Facebook --*/
+.post-to-facebook-holder{
+  margin: 10px 0 53px 0;
+  cursor: pointer;
+}
+
+.post-to-facebook-active{
+  color: #ffffff;
+  background-color: #3b5998 !important;
 }
