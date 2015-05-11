@@ -16,6 +16,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
+					#Change the uesr's full name to Facebook name.
+					if @user.fullname != facebook.name then
+						@user.update_attribute(:fullname,facebook.name)
+					end
 					#Add extra info
 					if @user.bio == nil || @user.bio == "" then
 						if facebook.bio != nil then 
@@ -275,6 +279,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
+					#Change the uesr's full name to Facebook name.
+					if @user.fullname != facebook.name then
+						@user.update_attribute(:fullname,facebook.name)
+					end					
 					#Add Facebook to profile photo if profile photo is nil
 					unless @user.profilephoto.exists? then
 						avatar_url = @user.process_uri(facebook.image)
