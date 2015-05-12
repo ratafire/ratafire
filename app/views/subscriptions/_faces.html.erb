@@ -7,7 +7,7 @@
 			You have <%= @mutualfriends.count %> mutual <% if @mutualfriends.count == 1 then %>friend<% else %>friends<% end %>.
 		</div>	
 		
-		<%= render partial: "supports/project_current_subscribers", collection: @mutualfriends.first(5), :as => :user %>
+		<%= render partial: "supports/project_current_subscribers", collection: @mutualfriends.where("profilephoto_file_name IS NOT NULL").first(5), :as => :user %>
 		<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
 		<!-- if User has subscribers-->
 	</div><!-- end .project-subscribed-users-holder-->	
@@ -21,7 +21,7 @@
 					<%= @project.creator.first_name %> has <% @project.creator.friends.count %> friends.
 				</div>	
 				
-				<%= render partial: "supports/project_current_subscribers", collection: @project.creator.friends.first(5), :as => :user %>
+				<%= render partial: "supports/project_current_subscribers", collection: @project.creator.friends.where("profilephoto_file_name IS NOT NULL").first(5), :as => :user %>
 				<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
 				<!-- if User has subscribers-->
 			</div><!-- end .project-subscribed-users-holder-->				
@@ -48,7 +48,7 @@
 				<% end %>
 			</div>	
 			
-			<%= render partial: "supports/project_current_subscribers", collection: @project.creator.subscribers.first(5), :as => :user %>
+			<%= render partial: "supports/project_current_subscribers", collection: @project.creator.subscribers.where("profilephoto_file_name IS NOT NULL").first(5), :as => :user %>
 
 			<%= link_to subscribers_path(@project.creator), class:"subscription no_ajaxify" do %>
 					<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
