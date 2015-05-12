@@ -3,12 +3,12 @@
 <% else %>
 	<div class="friends_holder">
 <% end %>
-	<% if @mutualfriends != nil && user != current_user then %>
-		<!-- Mutual Friends -->
-		<ol><span style="font-size: 1.4em;">Mutual Friends </span><span class="counter">[<%= @mutualfriends.count %>]</span></ol>
-		<%= render partial: "supports/project_current_subscribers", collection: @mutualfriends.where("profilephoto_file_name IS NOT NULL").first(11), :as => :user %>
-		<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);"></div>
-		<div class="friends_view_all"><span class="tipsy-tipsy" title="Coming soon!">View All</span></div>			
+	<% if check_mutual_friends(@mutualfriends, user) %>
+			<!-- Mutual Friends -->
+			<ol><span style="font-size: 1.4em;">Mutual Friends </span><span class="counter">[<%= @mutualfriends.count %>]</span></ol>
+			<%= render partial: "supports/project_current_subscribers", collection: @mutualfriends.where("profilephoto_file_name IS NOT NULL").first(11), :as => :user %>
+			<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);"></div>
+			<div class="friends_view_all"><span class="tipsy-tipsy" title="Coming soon!">View All</span></div>			
 	<% else %>
 		<!-- Friends -->
 		<ol><span style="font-size: 1.4em;">Friends </span><span class="counter">[<%= @user.friends.count %>]</span></ol>

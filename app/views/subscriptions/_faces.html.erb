@@ -1,5 +1,5 @@
 <!-- Without Sub-sus-->
-<% if @mutualfriends != nil then %>
+<% if check_mutual_friends(@mutualfriends, @project.creator) then %>
 	<div class="project-subscribed-users-holder">
 		<!-- With Sub-sus -->
 		<!-- 1 Sub-sus -->
