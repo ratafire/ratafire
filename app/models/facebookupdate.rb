@@ -75,6 +75,11 @@ class Facebookupdate < ActiveRecord::Base
 					end
 					#Make Activity
 					updateactivity = update.create_activity action: 'create', params: {owner_type: 'User', owner_id: update.user_id}
+					if updateactivity != nil then
+						updateactivity.owner_type = "User"
+						updateactivity.owner_id = update.user_id
+						updateactivity.save
+					end
 					#Check if this is a valid update
 					#Video but not youtube or vimeo
 					if update.post_type == "video" then
