@@ -144,8 +144,7 @@ class Facebookupdate < ActiveRecord::Base
 	      :url =>  "/:class/uploads/:id/:style/:escaped_filename2",
       #If s3
       :path => "/:class/uploads/:id/:style/:escaped_filename2",
-      :storage => :s3,
-      :s3_credentials => "#{Rails.root}/config/s3_profile.yml"
+      :storage => :s3
 	
 	Paperclip.interpolates :escaped_filename2 do |attachment, style|
 		attachment.instance.normalized_profile_file_name
