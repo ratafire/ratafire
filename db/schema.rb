@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150512063439) do
+ActiveRecord::Schema.define(:version => 20150512205055) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20150512063439) do
     t.boolean  "featured_home",  :default => false
     t.string   "sub_realm"
     t.string   "status"
+    t.boolean  "abandoned"
   end
 
   add_index "activities", ["owner_id", "owner_type"], :name => "index_activities_on_owner_id_and_owner_type"
