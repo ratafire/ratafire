@@ -26,6 +26,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 					if @user.fullname != facebook.name then
 						@user.update_attribute(:fullname,facebook.name)
 					end
+					#Verify the user if the user's Facebook is up
+					if @user.confirmed_at == nil then 
+						@user.update_attribute(:confirmed_at, Time.now)
+					end
 					#Add extra info
 					if @user.bio == nil || @user.bio == "" then
 						if facebook.bio != nil then 
@@ -96,6 +100,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						@user.update_column(:fullname,facebook.name)
 						@user.update_column(:email,facebook.email)
 						@user.update_column(:username,facebook_username_clearned)
+						#Verify the user if the user's Facebook is up
+						#Verify the user if the user's Facebook is up
+						if @user.confirmed_at == nil then 
+							@user.update_attribute(:confirmed_at, Time.now)
+						end				
 						#Add extra info
 						if facebook.bio != nil then 
 							@user.update_column(:bio,facebook.bio.truncate(210))
@@ -185,7 +194,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						end						
 						@user.update_column(:fullname,facebook.name)
 						@user.update_column(:email,facebook.email)
-						@user.update_column(:username,@facebook_username_clearned)	
+						@user.update_column(:username,@facebook_username_clearned)
+						#Verify the user if the user's Facebook is up
+						if @user.confirmed_at == nil then 
+							@user.update_attribute(:confirmed_at, Time.now)
+						end
 						#Add extra info
 						if facebook.bio != nil then 
 							@user.update_column(:bio,facebook.bio.truncate(210))
@@ -280,7 +293,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 							if @user.profilephoto.blank? || params["use_facebook_image"] == "true" then
 								avatar_url = @user.process_uri(facebook.image)
 								@user.update_attribute(:profilephoto, URI.parse(avatar_url))
-							end						
+							end				
+							#Verify the user if the user's Facebook is up
+							if @user.confirmed_at == nil then 
+								@user.update_attribute(:confirmed_at, Time.now)
+							end									
 							#Login user
 							sign_in(:user, @user)
 							#Redirect
@@ -318,6 +335,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
+					#Verify the user if the user's Facebook is up
+					if @user.confirmed_at == nil then 
+						@user.update_attribute(:confirmed_at, Time.now)
+					end					
 					#Add extra info
 					if @user.bio == nil || @user.bio == "" then
 						if facebook.bio != nil then 

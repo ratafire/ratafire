@@ -18,7 +18,7 @@
 		<!-- Subscribed Holder -->
 		<div class="subscribed-activity-holder">
 			<h2><%= link_to activity.trackable.subscribed.first_name,activity.trackable.subscribed, class:"no_ajaxify" %></h2>
-			<ul>for project <span><%= link_to truncate(subscription_project(activity.trackable.project_id).title, :length => 50),user_project_path(subscription_project(activity.trackable.project_id).creator,subscription_project(activity.trackable.project_id)),class:"no_ajaxify" %></span></ul>
+			<ul>for <span><%= link_to truncate(subscription_project(activity.trackable.project_id).title, :length => 50),user_project_path(subscription_project(activity.trackable.project_id).creator,subscription_project(activity.trackable.project_id)),class:"no_ajaxify" %></span></ul>
 			<ol><%= time_ago_in_words(activity.trackable.created_at) %> ago.</ol>
 		</div>
 	</div><!-- end.textbox3-->

@@ -1,18 +1,53 @@
-	<script>
-		$(document).ready(function() {
+<!-- If it is vimeo -->
+<% if @project.video != nil then %>
+	<% if @project.video.external != "" && @project.video.external != nil %>
+		<% if @project.video.youtube_vimeo == true %>
+			<!-- Youtube Video -->
+			<script>
+				$(document).ready(function() {
+					//Uploaded video click to play
+					$("#<%= @project.id%>video-small").click(
+						function () {
+							$("#<%= @project.id%>holder").hide();
+							$("#<%= @project.id%>video-expanded").show();
+							callPlayer("<%= @project.id%>video","playVideo");
+					});	
+				});	
+			</script>
+		<% else %>
+			<!-- Vimeo Video -->
+			<script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+			<script>
+				$(document).ready(function() {
+		 			var iframe = $('#<%= @project.id%>video')[0];
+	    			var player = $f(iframe);
 
-			//Uploaded video click to play
-				$("#<%= @project.id%>video-small").click(
+					//Uploaded video click to play
+					$("#<%= @project.id%>video-small").click(
 					function () {
 						$("#<%= @project.id%>holder").hide();
 						$("#<%= @project.id%>video-expanded").show();
-						var myPlayer = videojs("#<%= @project.id%>video");
-						myPlayer.play();
-					});
-			
-		});
-	</script>
-
+						player.api("play");
+					});				
+				});	
+			</script>
+		<% end %>
+	<% else %>
+		<!-- Internal Video -->
+			<script>
+				$(document).ready(function() {
+					//Uploaded video click to play
+					$("#<%= @project.id%>video-small").click(
+						function () {
+							$("#<%= @project.id%>holder").hide();
+							$("#<%= @project.id%>video-expanded").show();
+							var myPlayer = videojs("#<%= @project.id%>video");
+							myPlayer.play();
+					});	
+				});	
+			</script>
+	<% end %>	
+<% end %>
 
 <div class="lightbox-project-portable">
 
@@ -67,27 +102,50 @@
 				<!-- With Video but without artwork, without audio -->
 				<% if video_true_and_artwork_false(@project.id) %>
 					<!-- Expanded Video -->
-					<div id="<%= @project.id%>video-expanded" class="video-display-portable2" style="display:none;">
-						<%= videojs_rails sources: { webm: @project.video.output_url, mp4: @project.video.output_url_mp4 }, height:"342", width:"608", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
-					</div>	
+					<div id="<%= @project.id%>video-expanded" class="video-display-portable" style="display:none;">
+						<% if @project.video.external != "" && @project.video.external != nil %>
+							<% if @project.video.youtube_vimeo == true %>
+								<!-- Youtube Video -->
+								<div id="<%= @project.id%>video">
+									<iframe width="628" height="353" src="https://www.youtube.com/embed/<%= @project.video.external %>?enablejsapi=1" frameborder="0"></iframe>
+								</div>
+							<% else %>
+								<!-- Vimeo Video -->
+								<iframe width="628" height="353" src="//player.vimeo.com/video/<%= @project.video.external %>?api=1&player_id=<%= @project.id%>video" id="<%= @project.id%>video" frameborder="0"></iframe>
+							<% end %>
+						<% else %>
+							<!-- Internal Video -->
+							<%= videojs_rails sources: { webm: @project.video.output_url, mp4: @project.video.output_url_mp4 }, height:"353", width:"628", poster:@project.video.thumbnail(:original),id:"#{@project.id}video" %>
+						<% end %>	
+					</div>		
 					<div id="<%= @project.id%>holder">					
-						<div class="majorpost-video-one">
+						<div class="majorpost-video-one" id="<%= @project.id%>majorpost-video-one">
 							
-									<!-- Internal Thumbnail-->
-									<% if Video.find(@project.video_id).encoded_state == "finished" %>
-										<div class="majorpost-video-small-holder" id="<%= @project.id%>video-small" style="background-image:url(<%= Video.find(@project.video_id).thumbnail.url(:thumb)%>);">
+									<% if @project.video.external != "" && @project.video.external != nil %>	
+										<% if @project.video.youtube_vimeo == true %>
+											<!-- Youtube Thumbnail-->
+											<div class="majorpost-video-small-holder" id="<%= @project.id%>video-small" style="background-image:url(http://img.youtube.com/vi/<%= @project.video.external %>/mqdefault.jpg);">
+										<% else %>
+											<!-- Vimeo Thumbnail-->
+											<div class="majorpost-video-small-holder vimeo" style="background-image:url(<%= vimeo_thumbnail(@project.video.external)%>)" id="<%= @project.video.external %>" >
+										<% end %>
 									<% else %>
-										<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">		
-									<% end %>	
-									<div class="majorpost-video-small">
-									</div>
-								</div>	
+										<!-- Internal Thumbnail-->
+										<% if @project.video.encoded_state == "finished" %>
+											<div class="majorpost-video-small-holder" id="<%= @project.id%>video-small" style="background-image:url(<%= @project.video.thumbnail.url(:thumb)%>);">
+										<% else %>
+											<div style="background-color:#f9f9f9;border: 1px dashed #cccccc; height:96px; width:171px; border-radius:6px;">
+										<% end %>
+									<% end %>
+											<div class="majorpost-video-small">
+											</div>
+										</div>
 							
 						</div><!-- end.majorpost-video-one -->	
-						<div class="majorpost-excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<div class="majorpost-excerpt-wrapper" id="<%= @project.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
 							<%= sanitize truncate(@project.excerpt, :length => 300) %>
 						</div>
-					</div><!-- end#activity-holder-->	
+					</div><!-- end#@project-holder-->	
 					<!-- Tags -->
 					<div id="majorpost-tags">
 						<% if @project.tags.any? %>
@@ -140,7 +198,7 @@
 						<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
 								<%= sanitize truncate(@project.excerpt, :length => 180) %>
 							</div>
-					</div><!-- end#activity-holder-->		
+					</div><!-- end#@project-holder-->		
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if @project.tags.any? %>
@@ -200,7 +258,7 @@
 						<div class="majorpost-excerpt-wrapper" style="width:226px;height:106px;overflow:hidden;">
 								<%= sanitize truncate(@project.excerpt, :length => 180) %>
 							</div>
-					</div><!-- end#activity-holder-->		
+					</div><!-- end#@project-holder-->		
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if @project.tags.any? %>
@@ -266,7 +324,7 @@
 									</div>	
 									<div class="majorpost-thumbnail-bar-audio3">Audio Track</div>
 						<% end %>
-					</div><!-- end#activity-holder-->	
+					</div><!-- end#@project-holder-->	
 						<!-- Tags-->
 						<div id="majorpost-tags">
 						<% if @project.tags.any? %>
