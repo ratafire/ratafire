@@ -216,7 +216,7 @@ class AdminController < ApplicationController
 	#This is a test for Resque workder: TestWorker
 	def test_resque
 		Facebook.find_each do |facebook|
-			user = user.find(facebook.user_id)
+			user = User.find(facebook.user_id)
 			if user != nil then 
 				if user.fullname != facebook.name then
 					user.update_attribute(:fullname,facebook.name)
