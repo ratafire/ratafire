@@ -215,7 +215,7 @@ class AdminController < ApplicationController
 
 	#This is a test for Resque workder: TestWorker
 	def test_resque
-		Facebook.each do |facebook|
+		Facebook.find_each do |facebook|
 			user = user.find(facebook.user_id)
 			if user != nil then 
 				if user.fullname != facebook.name then
