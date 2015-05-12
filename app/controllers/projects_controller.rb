@@ -63,6 +63,8 @@ class ProjectsController < ApplicationController
 			else
 				@liked = false
 			end
+			#Mutual friends
+			@mutualfriends = @project.creator.friends & current_user.friends
 		end	
 		#Subscribers
 		@subscribers = @project.creator.sub_susers.paginate(page: params[:sub_sus], :per_page => 11)

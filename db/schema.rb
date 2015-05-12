@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150511071156) do
+ActiveRecord::Schema.define(:version => 20150512001019) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -654,6 +654,18 @@ ActiveRecord::Schema.define(:version => 20150511071156) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "user_facebook_uid"
+    t.string   "friend_facebook_uid"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "friendship_init"
+  end
 
   create_table "githubs", :force => true do |t|
     t.datetime "created_at",   :null => false

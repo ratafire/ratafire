@@ -174,6 +174,12 @@ class User < ActiveRecord::Base
   	#has_many :liked_activities, foreign_key: "user_id", class_name: "LikedActivity", dependent: :destroy
   	#has_many :activities, through: :liked_activities, source: :liked_activities
 
+  	#--- Friendship ---
+  	has_many :friendships, :conditions => {:deleted_at => nil}
+	has_many :friends, :through => :friendships
+	has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id", :conditions => {:deleted_at => nil}
+	has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+
 #--- Validations ---
 
 	#username

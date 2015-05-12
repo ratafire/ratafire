@@ -79,4 +79,37 @@ class Facebook < ActiveRecord::Base
 		end	 
 	end
 
+	def self.update_friendship(user,facebook)
+		#connect to graph api
+		begin
+			@graph = Koala::Facebook::API.new(facebook.oauth_token)
+			if @graph != nil then
+				friends = @graph.get_connection("me","friends")
+				if friends.any? then
+					friends.each do |friend|
+						friend_facebook = Facebook.find_by_uid(friend["id"])
+						if friend_facebook != nil then 
+							friendship = Friendship.where(user_id: user.id, friend_id: friend_facebook.user_id).first_or_create(
+								:user_id => user.id,
+								:friend_id => friend_facebook.user_id, 
+								:user_facebook_uid => friend_facebook.uid,
+								:friend_facebook_uid => friend["id"],
+								:friendship_init => user.id
+							)
+							#inverse friendship
+							inverse_friendship = Friendship.where(friend_id: user.id, user_id: friend_facebook.user_id).first_or_create(
+								:user_id => friend_facebook.user_id, 
+								:friend_id => user.id,
+								:user_facebook_uid => friend["id"],
+								:friend_facebook_uid => friend_facebook.uid
+								)					
+						end
+					end
+				end
+			end
+		rescue Koala::Facebook::APIError => exc	
+			logger.error("Can't add facebook friends.")
+		end		
+	end
+
 end

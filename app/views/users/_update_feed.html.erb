@@ -1,5 +1,5 @@
-							<!-- Cutter --><ol style="margin-top: -15px;"></ol>
 							
+								<!-- Cutter --><ol style="margin-top: -15px;"></ol>
 								<!-- Activities -->
 								<div>
 
@@ -13,13 +13,22 @@
 									</div>
 									<!-- Cutter --><ol style="margin-top: -2px;"></ol>
 
+							
+
 									<!-- Content -->
-									<div id="recent-majorposts">
+									
+								<div id="recent-majorposts">
+
+							<!-- User Friends -->
+							
+
 										<% if @activities.any? %>
+											<%= render 'users/friends', user: @user, :activities => true %>
 											<%= render_activities(@activities) %>
 										<% else %>
+											<%= render 'users/friends', user: @user, :activities => false %>
 											<div class="lightbox" style="text-align: center;border:0;margin-bottom:-130px;">
-												<h5><%= @user.fullname %> does't have activities.</h5>
+												
 											</div>
 										<% end %>
 									<!-- Pagination -->

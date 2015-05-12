@@ -5102,7 +5102,7 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 }
 
 .project-to-subscribers-holder{
-	background-color:#f9f9f9;
+	background-color:#fcfcfc;
 	border-radius:5px;
 	padding:5px 10px 20px 20px;
 	margin-top: 15px;	
@@ -5113,7 +5113,7 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	transition: 1s;
 
 	&:hover {
-		background-color: #f7f7f7;
+		background-color: #f9f9f9;
 		-webkit-transition: 1s;
 		-moz-transition: 1s;
 		transition: 1s;
@@ -7757,14 +7757,14 @@ box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 /*--- Supporters ---*/
 .supporter-image{
 	float: left;
-	border: 1px solid #ddd;
-	border-bottom: 1px solid #333;
+
 	border-radius: 6px;
 	margin: 0 0 5px 5px;
 	height: 40px;
 	width: 40px;
 	&:hover{
-		border: 1px solid #ccc;
+		height: 41px;
+    width: 41px;
 	}	
 }
 
@@ -9139,4 +9139,29 @@ box-shadow: 0px 0px 0px 10px rgba(0,0,0,.1);
 .post-to-facebook-active{
   color: #ffffff;
   background-color: #3b5998 !important;
+}
+
+
+/*-- Profile Page Friends --*/
+.friends_holder{
+  height: 105px;
+
+  padding: 20px 40px 0 40px; 
+  font-family: "Open Sans";
+  color: #999;
+  ol{
+    margin-bottom: 7px;
+  }
+
+.friends_view_all{
+  float: right;
+  margin:10px 5px 0 0 !important;
+  a{
+    color: #999999;
+    &:hover{
+      text-decoration: none;
+      color: #666;
+    }
+  }
+}
 }

@@ -6,12 +6,12 @@
 .bar_mortice {
   border-radius: 2px;
   height: 5px;
- border: 1px solid #a0a0a0;
+ border: 1px solid transparent;
   background: #ffffff;
   -webkit-box-shadow: inset 0px 1px 2px 0px #f1f1f1;
   -moz-box-shadow: inset 0px 1px 2px 0px #f1f1f1;
   box-shadow: inset 0px 1px 2px 0px #f1f1f1;
-  border-bottom: 1px solid #d0d0d0;
+  border-bottom: 1px solid transparent;
 
   
 }
@@ -94,7 +94,6 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 }
 .green_mortice {
   background: #f9f9f9;
-  border-color: #ccc;
 
 }
 
@@ -129,7 +128,6 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 }
 .purple_mortice {
   background: #f9f9f9;
-  border-color: #ccc;
 
 }
 
@@ -164,7 +162,7 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 }
 .blue_mortice {
   background: #f9f9f9;
-  border-color: #ccc;
+  
 
 }
 
@@ -408,7 +406,6 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 }
 .silver_mortice {
   background: #f9f9f9;
-  border-color: #ccc;
 
 }
 

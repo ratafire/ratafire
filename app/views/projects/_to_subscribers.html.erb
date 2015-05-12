@@ -3,7 +3,7 @@
 	<div class="inspiration-bg">
 		<div class="textbox-mini">
 			<div class="post-about-title">
-				<li style="font-size: 1.4em;">Support <%= @project.creator.fullname %></li>
+				<li style="font-size: 1.4em;">Support the Creator of this Work Collection</li>
 			</div>
 		</div>
 	</div>
@@ -16,8 +16,9 @@
 						<div class="user-icon-holder" style="background-image:url(<%= @project.creator.profilephoto.url(:small64) %>);"></div>
 					<% end %>
 				</span>
-		<div class="goals" style="width:100%;margin-top:15px;">
-			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%>"></span> <%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%> of $<%= render :text => @project.creator.goals_monthly%> per month</ol>
+				<span style="font-size:1.4em;float:left;margin-top:11px;"><%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify", style:"color:#888;"%></span>
+		<div class="goals" style="width:100%;margin-top:15px;font-family:'Open Sans';">
+			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%>"></span> <%= goals_percentage(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly)%> of <span style="background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$<%= render :text => @project.creator.goals_monthly%></span> per month</ol>
 			<ol><%= progress_bar(goals_count(@project.creator.subscription_amount.to_i, @project.creator.goals_monthly), :color => 'green', :rounded => true) %></ol>
 		</div>					
 		<!-- Those who have subscribed to the user -->

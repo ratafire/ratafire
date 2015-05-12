@@ -14,7 +14,10 @@
 					<!-- Pre established -->
 					<% if @subscription_application != nil && @user == current_user then %>
 						<%= render 'find_subscribers/countdown' %>
+
 					<% end %>	
 					<!-- Main Content -->
+
 					<%= render "payments/why" %>
+					<%= render 'users/friends', user: @user, :activities => false %>
 			</div><!-- end:.current-subscribers-->

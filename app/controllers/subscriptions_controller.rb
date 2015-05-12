@@ -87,7 +87,9 @@ class SubscriptionsController < ApplicationController
 				@user_website = @user.website
 	 		end
 		end
-		  		
+		if current_user != nil then 
+			@mutualfriends = @user.friends & current_user.friends
+		end
 	end
 
 	def amazon

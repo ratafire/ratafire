@@ -11,8 +11,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
 				if facebook.persisted?
 					flash[:success] = "Connected to Facebook."
+					#Update the user's friend list.
+					if params["find_friends"] == "true" then
+						Facebook.update_friendship(@user,@user.facebook)
+					else
+						Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
+					end
 					#Add Facebook to profile photo if profile photo is nil
-					unless @user.profilephoto.exists? then
+					if @user.profilephoto.blank? || params["use_facebook_image"] == "true" then
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
@@ -81,6 +87,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						facebook_username_clearned = facebook.username.gsub!('.', '_')
 					end
 					if User.find_by_username(facebook_username_clearned) == nil then
+						#Update the user's friend list.
+						if params["find_friends"] == "true" then
+							Facebook.update_friendship(@user,@user.facebook)
+						else
+							Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
+						end					
 						@user.update_column(:fullname,facebook.name)
 						@user.update_column(:email,facebook.email)
 						@user.update_column(:username,facebook_username_clearned)
@@ -165,6 +177,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						@facebook_username_clearned = facebook.username.gsub!('.', '_')
 					end
 					if User.find_by_username(@facebook_username_clearned) == nil then
+						#Update the user's friend list.
+						if params["find_friends"] == "true" then
+							Facebook.update_friendship(@user,@user.facebook)
+						else
+							Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
+						end						
 						@user.update_column(:fullname,facebook.name)
 						@user.update_column(:email,facebook.email)
 						@user.update_column(:username,@facebook_username_clearned)	
@@ -241,7 +259,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 							@user.save	
 						end								
 					end
-					unless @user.profilephoto.exists? then
+					if @user.profilephoto.blank? || params["use_facebook_image"] == "true" then
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end		
@@ -253,7 +271,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						@user = User.find_by_email(request.env['omniauth.auth'].info.email)
 						facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
 						if facebook.persisted? then
-							unless @user.profilephoto.exists? then
+							#Update the user's friend list.
+							if params["find_friends"] == "true" then
+								Facebook.update_friendship(@user,@user.facebook)
+							else
+								Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
+							end								
+							if @user.profilephoto.blank? || params["use_facebook_image"] == "true" then
 								avatar_url = @user.process_uri(facebook.image)
 								@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 							end						
@@ -274,8 +298,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				@user = current_user
 				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
 				if facebook.persisted?
+					#Update the user's friend list.
+					if params["find_friends"] == "true" then
+						Facebook.update_friendship(@user,@user.facebook)
+					else
+						Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
+					end	
 					#Add Facebook to profile photo if profile photo is nil
-					unless @user.profilephoto.exists? then
+					if @user.profilephoto.blank? || params["use_facebook_image"] == "true" then
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
@@ -284,7 +314,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						@user.update_attribute(:fullname,facebook.name)
 					end					
 					#Add Facebook to profile photo if profile photo is nil
-					unless @user.profilephoto.exists? then
+					if @user.profilephoto.blank? || params["use_facebook_image"] == "true" then
 						avatar_url = @user.process_uri(facebook.image)
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end

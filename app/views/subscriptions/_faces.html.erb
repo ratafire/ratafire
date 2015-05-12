@@ -1,40 +1,60 @@
-		<!-- Without Sub-sus-->
-			<% unless @project.creator.subscribers.any? then %>
-				<div class="sub-sus-holder" style="margin-left:0px;">
-					Be the first to subscribe to <%= link_to @project.creator.fullname, @project.creator,class:"no_ajaxify" %>.
-				</div>					
-			<% else %>
-				<div class="project-subscribed-users-holder">
-					<!-- With Sub-sus -->
-					<!-- 1 Sub-sus -->
-					<div class="sub-sus-holder">
-						<% if @project.creator.subscribers.count == 1 then %>
-							<%= link_to @project.creator.sub_susers[0].fullname, @project.creator.sub_susers[0], class:"no_ajaxify"%> supports <%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify"%>.
-						<% else %>		
-							<!-- 2 Sub-sus -->
-							<% if @project.creator.subscribers.count == 2 then %>
-								<%= link_to @project.creator.sub_susers[0].fullname, @project.creator.sub_susers[0], class:"no_ajaxify"%> and <%= link_to @project.creator.sub_susers[1].fullname, @project.creator.sub_susers[1], class:"no_ajaxify"%> support <%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify"%>.
-							<% else %>
-								<!-- >2 Sub-sus -->
-								<%= link_to @project.creator.sub_susers[0].fullname, @project.creator.sub_susers[0], class:"no_ajaxify"%>, <%= link_to @project.creator.sub_susers[1].fullname, @project.creator.sub_susers[1], class:"no_ajaxify"%> and <%= link_to @subscribers_others, subscribers_path(@project.creator), class:"no_ajaxify"%> support <%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify"%>.
-							<% end %>
-						<% end %>
-					</div>	
-					
-					<%= render partial: "supports/project_current_subscribers", collection: @project.creator.subscribers, :as => :user %>
-
-					<!-- if User has subscribers-->
-					<% if @project.creator.subscribers then %>
-						<%= link_to subscribers_path(@project.creator), class:"subscription no_ajaxify" do %>
-							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
-						<% end %>	
+<!-- Without Sub-sus-->
+<% if @mutualfriends != nil then %>
+	<div class="project-subscribed-users-holder">
+		<!-- With Sub-sus -->
+		<!-- 1 Sub-sus -->
+		<div class="sub-sus-holder">
+			You have <%= @mutualfriends.count %> mutual <% if @mutualfriends.count == 1 then %>friend<% else %>friends<% end %>.
+		</div>	
+		
+		<%= render partial: "supports/project_current_subscribers", collection: @mutualfriends.first(5), :as => :user %>
+		<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
+		<!-- if User has subscribers-->
+	</div><!-- end .project-subscribed-users-holder-->	
+<% else %>
+	<% unless @project.creator.subscribers.any? then %>
+		<% if @project.creator.any? then %>
+			<div class="project-subscribed-users-holder">
+				<!-- With Sub-sus -->
+				<!-- 1 Sub-sus -->
+				<div class="sub-sus-holder">
+					<%= @project.creator.first_name %> has <% @project.creator.friends.count %> friends.
+				</div>	
+				
+				<%= render partial: "supports/project_current_subscribers", collection: @project.creator.friends.first(5), :as => :user %>
+				<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
+				<!-- if User has subscribers-->
+			</div><!-- end .project-subscribed-users-holder-->				
+		<% else %>
+			<div class="sub-sus-holder" style="margin-left:0px;">
+				Be the first to subscribe to <%= link_to @project.creator.fullname, @project.creator,class:"no_ajaxify" %>.
+			</div>				
+		<% end %>	
+	<% else %>
+		<div class="project-subscribed-users-holder">
+			<!-- With Sub-sus -->
+			<!-- 1 Sub-sus -->
+			<div class="sub-sus-holder">
+				<% if @project.creator.subscribers.count == 1 then %>
+					<%= link_to @project.creator.sub_susers[0].fullname, @project.creator.sub_susers[0], class:"no_ajaxify"%> supports <%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify"%>.
+				<% else %>		
+					<!-- 2 Sub-sus -->
+					<% if @project.creator.subscribers.count == 2 then %>
+						<%= link_to @project.creator.sub_susers[0].fullname, @project.creator.sub_susers[0], class:"no_ajaxify"%> and <%= link_to @project.creator.sub_susers[1].fullname, @project.creator.sub_susers[1], class:"no_ajaxify"%> support <%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify"%>.
 					<% else %>
-						<%= link_to supporters_path(@project.creator), class:"subscription no_ajaxify" do %>
-							<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
-						<% end %>
+						<!-- >2 Sub-sus -->
+						<%= link_to @project.creator.sub_susers[0].fullname, @project.creator.sub_susers[0], class:"no_ajaxify"%>, <%= link_to @project.creator.sub_susers[1].fullname, @project.creator.sub_susers[1], class:"no_ajaxify"%> and <%= link_to @subscribers_others, subscribers_path(@project.creator), class:"no_ajaxify"%> support <%= link_to @project.creator.fullname, @project.creator, class:"no_ajaxify"%>.
 					<% end %>
-				</div><!-- end .project-subscribed-users-holder-->		
-			<% end %>		
+				<% end %>
+			</div>	
+			
+			<%= render partial: "supports/project_current_subscribers", collection: @project.creator.subscribers, :as => :user %>
 
+			<%= link_to subscribers_path(@project.creator), class:"subscription no_ajaxify" do %>
+					<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
+			<% end %>
+		</div><!-- end .project-subscribed-users-holder-->		
+	<% end %>		
+<% end %>
 		
 		

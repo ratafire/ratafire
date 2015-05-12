@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
 SEND_FILE_METHOD = :default
 
-protect_from_forgery :except => [:create_profilephoto, :update]
+protect_from_forgery :except => [:create_profilephoto,:create_profilephoto_settings, :update]
 
   layout 'application'
   before_filter :signed_in_user,
@@ -266,7 +266,7 @@ protect_from_forgery :except => [:create_profilephoto, :update]
 	@user.set_upload_attributes
 	@user.queue_processing
 	@profilephoto = @user.profilephoto
-	redirect_to edit_user_path(@user.id)  	
+	render :action => "edit"
   end
 
   private
@@ -314,7 +314,10 @@ protect_from_forgery :except => [:create_profilephoto, :update]
   def user_profile_page
 	#Find user by username
 	@user = User.find(params[:id])
-
+	#Friendship
+	if current_user != nil then 
+		@mutualfriends = @user.friends & current_user.friends
+	end
 	active_user
 	if @user.website != nil then 
 	  unless @user.website[/\Ahttp:\/\//] || @user.website[/\Ahttps:\/\//]
