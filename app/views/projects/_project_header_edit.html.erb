@@ -80,11 +80,11 @@
 							<% if @project.complete == true %>	
 								<%= @project.title %>
 							<% else %>				
-								<%= best_in_place [@project.creator, @project], :title, :path => project_update_path(@project.creator,@project), :classes =>"best_project_title_edit"%><span class="btn btn-edit" id="best_title-edit" style="margin:-2px 0 0 2px;"></span>
+								<%= best_in_place [@project.creator, @project], :title, :path => project_update_title_and_tagline_path(@project.creator,@project), :classes =>"best_project_title_edit"%><span class="btn btn-edit" id="best_title-edit" style="margin:-2px 0 0 2px;"></span>
 							<% end %>
 						</h1>
 						<ul id="best_tagline_holder">
-							<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= best_in_place [@project.creator, @project], :tagline, :path => project_update_path(@project.creator,@project),:classes =>"best_project_tagline_edit" %> <span class="btn btn-edit" id="best_tagline-edit" style="margin:-2px 0 0 0;"></span></h5>
+							<h5><%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><%= project_realm(@project.realm)%><% end %> :: <%= best_in_place [@project.creator, @project], :tagline, :path => project_update_title_and_tagline_path(@project.creator,@project),:classes =>"best_project_tagline_edit" %> <span class="btn btn-edit" id="best_tagline-edit" style="margin:-2px 0 0 0;"></span></h5>
 						</ul>
 
 						<!-- Tutorial -->

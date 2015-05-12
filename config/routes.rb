@@ -52,6 +52,7 @@ Ratafire::Application.routes.draw do
 	match ':user_id/:id/archive/videos', to: 'archives#videos', as: :project_archive_videos
 	match ':user_id/:id/archive/artwork', to: 'archives#artwork', as: :project_archive_artwork
 	match ':user_id/projects/:id/realm', to: 'projects#realm',as: :project_realms
+	match ':user_id/projects/:id/update_title_and_tagline', to: 'projects#update_title_and_tagline', as: :project_update_title_and_tagline
 
 	match ':user_id/:id', to: 'projects#show', as: :user_project
 	match ':user_id/r/project/newproject', to: 'projects#create', via: :post, as: :new_project

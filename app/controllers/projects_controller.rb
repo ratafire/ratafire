@@ -71,6 +71,17 @@ class ProjectsController < ApplicationController
 		@subscribers_others = (@subscribers.count-2).to_s + " others"
 	end
 
+	def update_title_and_tagline
+		@project = Project.find(params[:id])
+		respond_to do |format|
+			if @project.update_attributes(params[:project]) then
+				format.json { respond_with_bip(@project) }
+			else
+				format.json { respond_with_bip(@project) }
+			end
+		end
+	end
+
 	def update
 		@project = Project.find(params[:id])
 
@@ -315,7 +326,7 @@ class ProjectsController < ApplicationController
 		@abandon_log = AbandonLog.new
 		@abandon_log.project_id = @project.id
 		@abandon_log.save
-		redirect_to(:back)
+		redirect_to user_path(@project.creator)
 	end
 
 	def reopen
