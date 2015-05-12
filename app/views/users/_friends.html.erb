@@ -3,7 +3,7 @@
 <% else %>
 	<div class="friends_holder">
 <% end %>
-	<% if @mutualfriends.count > 0 && user != current_user then %>
+	<% if @mutualfriends != nil && user != current_user then %>
 		<!-- Mutual Friends -->
 		<ol><span style="font-size: 1.4em;">Mutual Friends </span><span class="counter">[<%= @mutualfriends.count %>]</span></ol>
 		<%= render partial: "supports/project_current_subscribers", collection: @mutualfriends.where("profilephoto_file_name IS NOT NULL").first(11), :as => :user %>
