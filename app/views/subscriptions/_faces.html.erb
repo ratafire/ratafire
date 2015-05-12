@@ -48,7 +48,7 @@
 				<% end %>
 			</div>	
 			
-			<%= render partial: "supports/project_current_subscribers", collection: @project.creator.subscribers, :as => :user %>
+			<%= render partial: "supports/project_current_subscribers", collection: @project.creator.subscribers.first(5), :as => :user %>
 
 			<%= link_to subscribers_path(@project.creator), class:"subscription no_ajaxify" do %>
 					<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
