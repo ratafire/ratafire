@@ -12,7 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				if facebook.persisted?
 					flash[:success] = "Connected to Facebook."
 					#Update the user's friend list.
-					if params["find_friends"] == "true" then
+					if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
 						Facebook.update_friendship(@user,@user.facebook)
 					else
 						Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
@@ -88,7 +88,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 					end
 					if User.find_by_username(facebook_username_clearned) == nil then
 						#Update the user's friend list.
-						if params["find_friends"] == "true" then
+						if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
 							Facebook.update_friendship(@user,@user.facebook)
 						else
 							Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
@@ -178,7 +178,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 					end
 					if User.find_by_username(@facebook_username_clearned) == nil then
 						#Update the user's friend list.
-						if params["find_friends"] == "true" then
+						if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
 							Facebook.update_friendship(@user,@user.facebook)
 						else
 							Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
@@ -272,7 +272,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
 						if facebook.persisted? then
 							#Update the user's friend list.
-							if params["find_friends"] == "true" then
+							if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
 								Facebook.update_friendship(@user,@user.facebook)
 							else
 								Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
@@ -299,7 +299,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
 				if facebook.persisted?
 					#Update the user's friend list.
-					if params["find_friends"] == "true" then
+					if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
 						Facebook.update_friendship(@user,@user.facebook)
 					else
 						Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)

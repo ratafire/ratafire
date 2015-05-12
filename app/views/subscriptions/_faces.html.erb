@@ -18,7 +18,7 @@
 				<!-- With Sub-sus -->
 				<!-- 1 Sub-sus -->
 				<div class="sub-sus-holder">
-					<%= @project.creator.first_name %> has <% @project.creator.friends.count %> friends.
+					<%= @project.creator.first_name %> has <%= @project.creator.friends.count %> friends.
 				</div>	
 				
 				<%= render partial: "supports/project_current_subscribers", collection: @project.creator.friends.where("profilephoto_file_name IS NOT NULL").first(5), :as => :user %>
