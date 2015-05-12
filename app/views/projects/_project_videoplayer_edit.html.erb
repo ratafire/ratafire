@@ -32,7 +32,7 @@ $('#uploaded-video-display').hover(function() {
 	<div id="embedded-video-display" style="width:900px;">
 	<div class="video-display">	
 		<% if @video.youtube_vimeo == true %>
-			<iframe width="790" height="444.375" src="http://www.youtube.com/embed/<%= @video.external %>" frameborder="0" style="margin-top:-20px;"></iframe>
+			<iframe width="790" height="444.375" src="https://www.youtube.com/embed/<%= @video.external %>" frameborder="0" style="margin-top:-20px;"></iframe>
 		<% else %>
 			<iframe width="790" height="444.375" src="//player.vimeo.com/video/<%= @video.external %>" frameborder="0" style="margin-top:-20px;"></iframe>
 		<% end %>

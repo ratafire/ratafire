@@ -109,12 +109,16 @@ class ProjectsController < ApplicationController
 										if @project.post_to_facebook == true then
 											@project.creator.update_column(:post_to_facebook,true)
 											if @project.post_to_facebook_page == true then
-												@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,true)
+												if @project.creator.facebook_pages.first != nil then 
+													@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,true)
+												end
 												#With Facebook, with Facebook Pag
 												redirect_to user_omniauth_authorize_path(:facebookposts, object_type: "work_collection", object_id: @project.id, post_to_both: "true")
 											else
 												#Set user preference to not post to facebook page
-												@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+												if @project.creator.facebook_pages.first != nil then 
+													@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+												end
 												#With Facebook, without Facebook Pag
 												redirect_to user_omniauth_authorize_path(:facebookposts, object_type: "work_collection", object_id: @project.id)
 											end
@@ -122,12 +126,16 @@ class ProjectsController < ApplicationController
 											#Set user preference to not post to facebook
 											@project.creator.update_column(:post_to_facebook,nil)
 											if @project.post_to_facebook_page == true then
-												@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,true)
+												if @project.creator.facebook_pages.first != nil then 
+													@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,true)
+												end
 												#Without Facebook, with Facebook Page
 												Resque.enqueue(FacebookPostWorker,@project.creator.id, "work_collection",@project.id, :post_to_page => true)
 											else
 												#Set user preference to not post to faceboo
-												@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+												if @project.creator.facebook_pages.first != nil then 
+													@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+												end
 											end
 											#Redirect to Setup subscription if so
 											if @project.creator.subscription_application[0] != nil && @user.subscription_application[0].step != 7 then

@@ -78,7 +78,7 @@ class MajorpostsController < ApplicationController
 								if @majorpost.post_to_facebook == true then
 									@majorpost.user.update_column(:post_to_facebook,true)
 									if @majorpost.post_to_facebook_page == true then
-										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,true)
+										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,true) if @majorpost.user.facebook_pages.first != nil
 										#With Facebook, with Facebook Pag
 										redirect_to user_omniauth_authorize_path(:facebookposts, object_type: "majorpost", object_id: @majorpost.id, post_to_both: "true")
 									else
@@ -91,7 +91,7 @@ class MajorpostsController < ApplicationController
 									#Set user preference to not post to facebook
 									@majorpost.user.update_column(:post_to_facebook,nil)
 									if @majorpost.post_to_facebook_page == true then
-										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,true)
+										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,true) if @majorpost.user.facebook_pages.first != nil
 										#Without Facebook, with Facebook Page
 										Resque.enqueue(FacebookPostWorker,@majorpost.user.id, "majorpost",@majorpost.id, :post_to_page => true)
 									else
