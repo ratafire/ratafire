@@ -665,4 +665,17 @@ module ApplicationHelper
   		end
   	end
 
+  	#Chect mutual friends
+  	def check_mutual_friends(mutualfriends, user)
+  		if mutualfriends != nil && user != nil then
+  			if mutualfriends.count > 0 && user != current_user then
+  				return true
+  			else
+  				return false
+  			end
+  		else
+  			return false
+  		end
+  	end
+
 end

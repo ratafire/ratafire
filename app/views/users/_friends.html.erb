@@ -11,8 +11,8 @@
 			<div class="friends_view_all"><span class="tipsy-tipsy" title="Coming soon!">View All</span></div>			
 	<% else %>
 		<!-- Friends -->
-		<ol><span style="font-size: 1.4em;">Friends </span><span class="counter">[<%= @user.friends.count %>]</span></ol>
-		<%= render partial: "supports/project_current_subscribers", collection: @user.friends.where("profilephoto_file_name IS NOT NULL").first(11), :as => :user %>
+		<ol><span style="font-size: 1.4em;">Friends </span><span class="counter">[<%= user.friends.count %>]</span></ol>
+		<%= render partial: "supports/project_current_subscribers", collection: user.friends.where("profilephoto_file_name IS NOT NULL").first(11), :as => :user %>
 		<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);"></div>
 		<% if user == current_user then %>
 			<div class="friends_view_all"><span class="tipsy-tipsy" title="Facebook"><%= link_to "Find Friends", user_omniauth_authorize_path(:facebook, :find_friends => "true", :after_signup => "true"),class:"no_ajaxify" %></span></div>
