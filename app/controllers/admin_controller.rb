@@ -215,7 +215,22 @@ class AdminController < ApplicationController
 
 	#This is a test for Resque workder: TestWorker
 	def test_resque
-		Resque.enqueue(TestWorker)
+		Facebook.each do |facebook|
+			user = user.find(facebook.user_id)
+			if user != nil then 
+				if user.fullname != facebook.name then
+					user.update_attribute(:fullname,facebook.name)
+				end
+				@graph = Koala::Facebook::API.new(facebook.oauth_token)
+				if @graph != nil then 
+					picture = @graph.get_picture("me", type: "large")
+					if picture != nil then
+						user.update_attribute(:profilephoto, URI.parse(avatar_url))
+					end
+				end
+			end
+		end
+		redirect_to(:back)
 	end
 
 	#This is for adding tests
