@@ -15,7 +15,7 @@ class SubscriptionNowWorker
 			if @subscription.counter == 0 then 
 				message_content = "Hi "+@subscribed.first_name+", I am now subscribing to you. Keep up the great work!"
 				message_title = @subscriber.fullname + " subscribed to you for $"+@subscription.amount.to_s+"/m"
-				receipt = @subscriber.send_message(@subscribed, message_content, message_title)				
+				#receipt = @subscriber.send_message(@subscribed, message_content, message_title)				
 				#SubscriptionMailer.new_subscriber(@transaction.id,receipt.notification_id).deliver
 			else
 				#SubscriptionMailer.transaction_confirmation_subscribed(@transaction.id).deliver
