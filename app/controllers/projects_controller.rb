@@ -149,7 +149,7 @@ class ProjectsController < ApplicationController
 												end
 											end
 											#Redirect to Setup subscription if so
-											if @project.creator.subscription_application[0] != nil && @user.subscription_application[0].step != 7 then
+											if @project.creator.subscription_application[0] != nil && @project.creator.subscription_application[0].step != 7 then
 												redirect_to goals_subscription_path(@project.creator)
 											else
 												flash["success"] = 'Work collection was successfully updated.'
