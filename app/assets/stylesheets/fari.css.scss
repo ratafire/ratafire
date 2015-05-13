@@ -401,7 +401,7 @@ a {
 	color: #2297ce;
 	/* also 4183c4 */
 	text-decoration: none;
-	&:hover {text-decoration: underline; }
+	&:hover {color: #43aee0; }
 }
 
 .no_decoration {
@@ -7248,16 +7248,16 @@ border-radius: 5px;
 .subscribed-icon-holder {
 	float: left;
 	margin: 0 0 0 20px;
-					border: 1px solid #666;
+					//border: 1px solid #666;
 	border-bottom: 1px solid #333;
 	border-radius: 6px;
-		height: 62px;
-	width: 62px;
+		height: 64px;
+	width: 64px;
 	-webkit-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 -moz-box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 box-shadow: 0px 0px 0px 3px rgba(0,0,0,.02);
 	&:hover{
-		border: 1px solid #ccc;
+
 	}
 }
 
