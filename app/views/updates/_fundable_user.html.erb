@@ -78,10 +78,24 @@
 		</div>	
 
 		<!-- Subscribe Button -->
-		<% if user_subscription_check(user) %>
-			<div style="text-align:right;margin:8px 0 0 0;">
-				<%= render "shared/mini_sub", :subscribed_id => user.id, :activity_id => user.id  %>
-			</div>	
+		<% if current_user != nil then %>
+			<% if current_user.subscribed_by?(user) %>		
+			<% else %>
+				<% if user.subscribed_by?(current_user) %>
+				<% else %>
+					<% if user_subscription_check(user) %>
+						<div style="text-align:right;margin:8px 0 0 0;">
+							<%= render "shared/mini_sub", :subscribed_id => user.id, :activity_id => user.id  %>
+						</div>	
+					<% end %>					
+				<% end %>
+			<% end %>
+		<% else %>
+			<% if user_subscription_check(user) %>
+				<div style="text-align:right;margin:8px 0 0 0;">
+					<%= render "shared/mini_sub", :subscribed_id => user.id, :activity_id => user.id  %>
+				</div>	
+			<% end %>
 		<% end %>
 
 	</div><!-- end.fundable-profile-holder-->	

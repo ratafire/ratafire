@@ -175,12 +175,7 @@ class ChargesController < ApplicationController
 			#Create a new billing agreement
 			@billing_agreement = BillingAgreement.prefill!(:user_id => @user.id, :billing_agreement_id => response.billing_agreement.identifier)
 			@subscription = Subscription.find(params[:subscription_id])
-			@subscribed = User.find(@subscription.subscribed.id)
-			@subscriber = User.find(@subscription.subscriber.id)
-			@subscription.activated = true
-			@subscription.activated_at = Time.now
-			@subscription.save
-			subscribe_through_paypal
+			subscribe_for_user
 		else
 			@subscription = Subscription.find(params[:subscription_id])
 			redirect_to user_path(@subscription.subscribed)
@@ -320,7 +315,8 @@ private
 				#Make first payment
 				if @subscriber.user_venmo != nil || params[:method] == "Venmo" || @subscription.method == "Venmo" then
 					subscribe_through_venmo
-					if @subscriber.billing_agreement != nil || params[:method] == "PayPal"  || @subscription.method == "Card" then	
+				else
+					if @subscriber.billing_agreement != nil || params[:method] == "PayPal"  || @subscription.method == "PayPal" then	
 						subscribe_through_paypal
 					else
 						if @subscriber.cards.first != nil || params[:method] == "Card" || @subscription.method == "Card" then

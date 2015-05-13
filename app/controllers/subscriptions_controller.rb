@@ -242,14 +242,16 @@ class SubscriptionsController < ApplicationController
 		@subscription.save
 		#Mark Subscription Records as having pasts
 		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
-		@subscription_record.past = true
-		if @subscription_record.duration == nil then
-			@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
-		else
-			duration = @subscription.deleted_at - @subscription.created_at
-			@subscription_record.duration = @subscription_record.duration + duration
-		end				
-		@subscription_record.save
+		if @subscription_record != nil then 
+			@subscription_record.past = true
+			if @subscription_record.duration == nil then
+				@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
+			else
+				duration = @subscription.deleted_at - @subscription.created_at
+				@subscription_record.duration = @subscription_record.duration + duration
+			end				
+			@subscription_record.save
+		end
 		#destroy activities as well if accumulated total is 0
 		valid_subscription = ((@subscription.deleted_at - @subscription.created_at)/1.day).to_i
 		if @subscription.accumulated_total == nil || @subscription.accumulated_total == 0 || valid_subscription < 30 then
