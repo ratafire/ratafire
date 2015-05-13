@@ -9,16 +9,16 @@ class SubscriptionNowWorker
 		@transaction = Transaction.find_by_id(transaction_id)
 		#Send messages to the subscribed
 		#Mailing the sucess confirmation email to the subscriber
-		SubscriptionMailer.transaction_confirmation(@transaction.id).deliver
+		#SubscriptionMailer.transaction_confirmation(@transaction.id).deliver
 		#Mailing the sucess confirmation email to the subscribed
 		if @transaction.supporter_switch == false then 
 			if @subscription.counter == 0 then 
 				message_content = "Hi "+@subscribed.first_name+", I am now subscribing to you. Keep up the great work!"
 				message_title = @subscriber.fullname + " subscribed to you for $"+@subscription.amount.to_s+"/m"
 				receipt = @subscriber.send_message(@subscribed, message_content, message_title)				
-				SubscriptionMailer.new_subscriber(@transaction.id,receipt.notification_id).deliver
+				#SubscriptionMailer.new_subscriber(@transaction.id,receipt.notification_id).deliver
 			else
-				SubscriptionMailer.transaction_confirmation_subscribed(@transaction.id).deliver
+				#SubscriptionMailer.transaction_confirmation_subscribed(@transaction.id).deliver
 			end
 		end	
 		#Subscription Record
