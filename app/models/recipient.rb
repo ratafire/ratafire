@@ -24,4 +24,5 @@ class Recipient < ActiveRecord::Base
   	@recipient.country = recipient.active_account.country
   	@recipient.save
   end
+  
 end
