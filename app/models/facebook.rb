@@ -1,8 +1,12 @@
 class Facebook < ActiveRecord::Base
 	# attr_accessible :title, :body
 	belongs_to :user
+	has_many :facebookpages, :conditions => {:deleted_at => nil}
+	has_many :facebook_pages, :conditions => {:deleted_at => nil}
+	has_many :facebookupdates, :conditions => { :deleted_at => nil , :valid_update => true }
 
 	def self.find_for_facebook_oauth(auth, user_id)
+		facebook_created = false
 		where(auth.slice(:uid)).first_or_create do |facebook|
 			facebook.uid = auth.uid
 			facebook.name = auth.info.name
@@ -19,12 +23,12 @@ class Facebook < ActiveRecord::Base
 			facebook.email = auth.info.email
 			facebook.bio = auth.extra.raw_info.bio
 			if auth.extra.raw_info.education != nil then 
-				if auth.extra.raw_info.education[0] != nil then
-					if auth.extra.raw_info.education[0].concentration != nil then
-						facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
+				if auth.extra.raw_info.education.last != nil then
+					if auth.extra.raw_info.education.last.concentration != nil then
+						facebook.concentration = auth.extra.raw_info.education.last.concentration[0].name
 					end
-					if auth.extra.raw_info.education[0].school != nil then 
-						facebook.school = auth.extra.raw_info.education[0].school.name
+					if auth.extra.raw_info.education.last.school != nil then 
+						facebook.school = auth.extra.raw_info.education.last.school.name
 					end
 				end
 			end
@@ -32,9 +36,60 @@ class Facebook < ActiveRecord::Base
 				facebook.website = auth.extra.raw_info.website.split("\n")[0]
 			end			
 			facebook.oauth_token = auth.credentials.token
-			facebook.oauth_expires_at = auth.credentials.expires_at
+			facebook.oauth_expires_at = auth.credentials.expires_at ? auth.credentials.expires_at : nil
 			facebook.user_id = user_id
 			facebook.save
+			facebook_created = true
+		end
+		#With Facebook
+		if facebook_created == false then
+			facebook = Facebook.find_by_uid(auth.uid)
+			if facebook != nil then
+				facebook.uid = auth.uid
+				facebook.name = auth.info.name
+				facebook.image = auth.info.image
+				facebook.first_name = auth.info.first_name
+				facebook.last_name = auth.info.last_name
+				facebook.link = auth.info.urls.Facebook
+				facebook.username = auth.extra.raw_info.username
+				facebook.gender = auth.extra.raw_info.gender
+				if auth.extra.raw_info.location != nil then
+					facebook.locale = auth.extra.raw_info.location.name
+				end
+				facebook.user_birthday = auth.extra.raw_info.user_birthday
+				facebook.email = auth.info.email
+				facebook.bio = auth.extra.raw_info.bio
+				if auth.extra.raw_info.education != nil then 
+					if auth.extra.raw_info.education.last != nil then
+						if auth.extra.raw_info.education.last.concentration != nil then
+							facebook.concentration = auth.extra.raw_info.education.last.concentration[0].name
+						end
+						if auth.extra.raw_info.education.last.school != nil then 
+							facebook.school = auth.extra.raw_info.education.last.school.name
+						end
+					end
+				end
+				if auth.extra.raw_info.website != nil then
+					facebook.website = auth.extra.raw_info.website.split("\n")[0]
+				end			
+				facebook.oauth_token = auth.credentials.token
+				facebook.oauth_expires_at = auth.credentials.expires_at ? auth.credentials.expires_at : nil
+				facebook.user_id = user_id
+				#If the user has facebook page_access_token
+				facebook.page_access_token = auth.credentials.token if facebook.page_access_token != nil
+				facebook.post_access_token = auth.credentials.token if facebook.post_access_token != nil
+				if facebook.facebook_pages.any? then
+					facebook.facebook_pages.each do |page|
+						page.update_column(:access_token, auth.credentials.token)
+					end
+				end
+				if facebook.facebookpages.any? then
+					facebook.facebookpages.each do |page|
+						page.update_column(:access_token, auth.credentials.token)
+					end
+				end
+				facebook.save				
+			end
 		end
 	end
 
@@ -57,12 +112,12 @@ class Facebook < ActiveRecord::Base
 				facebook.email = auth.info.email
 				facebook.bio = auth.extra.raw_info.bio
 				if auth.extra.raw_info.education != nil then 
-					if auth.extra.raw_info.education[0] != nil then
-						if auth.extra.raw_info.education[0].concentration != nil then
-							facebook.concentration = auth.extra.raw_info.education[0].concentration[0].name
+					if auth.extra.raw_info.education.last != nil then
+						if auth.extra.raw_info.education.last.concentration != nil then
+							facebook.concentration = auth.extra.raw_info.education.last.concentration[0].name
 						end
-						if auth.extra.raw_info.education[0].school != nil then 
-							facebook.school = auth.extra.raw_info.education[0].school.name
+						if auth.extra.raw_info.education.last.school != nil then 
+							facebook.school = auth.extra.raw_info.education.last.school.name
 						end
 					end
 				end
@@ -70,7 +125,7 @@ class Facebook < ActiveRecord::Base
 					facebook.website = auth.extra.raw_info.website.split("\n")[0]
 				end
 				facebook.oauth_token = auth.credentials.token
-				facebook.oauth_expires_at = auth.credentials.expires_at
+				facebook.oauth_expires_at = auth.credentials.expires_at ? auth.credentials.expires_at : nil
 				facebook.user_id = user_id
 				facebook.save
 			end

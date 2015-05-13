@@ -1,6 +1,7 @@
 class FacebookPage < ActiveRecord::Base
 	# attr_accessible :title, :body
 	belongs_to :user
+	belongs_to :facebook
  	before_validation :generate_uuid!, :on => :create	
 
 	def self.create_facebook_page(page,user_id,facebook_id)

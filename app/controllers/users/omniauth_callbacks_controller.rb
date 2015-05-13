@@ -388,13 +388,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		#With Facebook
 		if current_user != nil then 
 			@user = current_user
-			if @user.facebook != nil then 
-				facebook = @user.facebook
-			else
-				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
-			end
-			facebook.page_access_token = request.env['omniauth.auth'].credentials.token
-			facebook.save
+			facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
+			facebook = @user.facebook
+			facebook.update_column(:page_access_token,request.env['omniauth.auth'].credentials.token)
 			if facebook.page_access_token != nil then 		
 				@user_graph = Koala::Facebook::API.new(facebook.page_access_token)
 				pages = @user_graph.get_connections('me', 'accounts')

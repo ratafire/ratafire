@@ -2,6 +2,7 @@ class Facebookupdate < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :facebookpage
+	belongs_to :facebook
 	require 'date'
 	include PublicActivity::Model
 	

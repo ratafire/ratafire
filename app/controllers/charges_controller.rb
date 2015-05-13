@@ -175,7 +175,12 @@ class ChargesController < ApplicationController
 			#Create a new billing agreement
 			@billing_agreement = BillingAgreement.prefill!(:user_id => @user.id, :billing_agreement_id => response.billing_agreement.identifier)
 			@subscription = Subscription.find(params[:subscription_id])
-			subscribe_for_user
+			@subscribed = User.find(@subscription.subscribed.id)
+			@subscriber = User.find(@subscription.subscriber.id)
+			@subscription.activated = true
+			@subscription.activated_at = Time.now
+			@subscription.save
+			subscribe_through_paypal
 		else
 			@subscription = Subscription.find(params[:subscription_id])
 			redirect_to user_path(@subscription.subscribed)

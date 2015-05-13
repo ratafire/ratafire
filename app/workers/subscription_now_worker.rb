@@ -8,13 +8,12 @@ class SubscriptionNowWorker
 		@subscriber = User.find(@subscription.subscriber_id)
 		@transaction = Transaction.find_by_id(transaction_id)
 		#Send messages to the subscribed
-		@project = Project.find(@subscription.project_id)
 		#Mailing the sucess confirmation email to the subscriber
 		SubscriptionMailer.transaction_confirmation(@transaction.id).deliver
 		#Mailing the sucess confirmation email to the subscribed
 		if @transaction.supporter_switch == false then 
 			if @subscription.counter == 0 then 
-				message_content = "Hi "+@subscribed.first_name+", I am now subscribing to you for your work collection: "+@project.title+". Keep up the great work!"
+				message_content = "Hi "+@subscribed.first_name+", I am now subscribing to you. Keep up the great work!"
 				message_title = @subscriber.fullname + " subscribed to you for $"+@subscription.amount.to_s+"/m"
 				receipt = @subscriber.send_message(@subscribed, message_content, message_title)				
 				SubscriptionMailer.new_subscriber(@transaction.id,receipt.notification_id).deliver
