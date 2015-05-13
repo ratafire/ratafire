@@ -9,7 +9,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				#When the user exist
 				@user = current_user
 				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
-				if facebook = @user.facebook then
+				facebook = @user.facebook
+				if facebook != nil then
 					flash[:success] = "Connected to Facebook."
 					#Update the user's friend list.
 					if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
@@ -283,7 +284,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						#Try to login user
 						@user = User.find_by_email(request.env['omniauth.auth'].info.email)
 						facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
-						if facebook = @user.facebook then
+						facebook = @user.facebook
+						if facebook != nil then
 							#Update the user's friend list.
 							if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
 								Facebook.update_friendship(@user,@user.facebook)
@@ -314,7 +316,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			else
 				@user = current_user
 				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
-				if facebook = @user.facebook then
+				facebook = @user.facebook
+				if facebook != nil then
 					#Update the user's friend list.
 					if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
 						Facebook.update_friendship(@user,@user.facebook)
@@ -440,11 +443,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		#With Facebook
 		if current_user != nil then 
 			@user = current_user
-			if @user.facebook != nil then 
-				facebook = @user.facebook
-			else
-				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
-			end
+			facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
+			facebook = @user.facebook
 			facebook.post_access_token = request.env['omniauth.auth'].credentials.token
 			facebook.save
 			if facebook.post_access_token != nil then 		
