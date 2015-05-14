@@ -6,7 +6,7 @@
 			We have <%= @mutualfriends.count %> mutual <% if @mutualfriends.count == 1 then %>friend<% else %>friends<% end %>.
 		</div>	
 		
-		<%= render partial: "supports/project_current_subscribers", collection: @mutualfriends.where("profilephoto_file_name IS NOT NULL").first(5), :as => :user %>
+		<%= render partial: "supports/project_current_subscribers", collection: @mutualfriends.first(5), :as => :user %>
 		<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
 		<!-- if User has subscribers-->
 	</div><!-- end .project-subscribed-users-holder-->	
