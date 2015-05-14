@@ -21,11 +21,48 @@
 						<span style="background-color:rgba(0,0,0,0.2);padding:2px 7px 2px 7px;border-radius:5px;">Challenges</span>
 					</h2>
 					<div style="color:rgba(256,256,256,0.3);"> <div class="loader2"></div> Coming Soon</div>
-				</div>	
 
+					<!-- Initialize Slide -->
+					<script>
+						$(document).ready(function(){
+							var owl = $('.owl-carousel');
+							owl.owlCarousel({
+							    items:1,
+							    loop:true,
+							    margin:10,
+							    autoplay:true,
+							    lazyLoad: true,
+							    autoplayTimeout:3000,
+							    autoWidth:true,
+							    autoHeight:true,
+							    autoplayHoverPause:true
+							});
+						});
+					</script>
 
-		</div>	
+					<!-- Set up your HTML -->
+					<div class="owl-carousel" style="width:641px;margin:20px 0 0 225px;height:40px;">
+					  	<div style="width:641px;" class="slide-inner-white-words">
+					  		Solve the unsolvable
+					  	</div>
+					  	<div style="width:641px;" class="slide-inner-white-words">
+					  		Claim challenges
+					  	</div>
+					  	<div style="width:641px;" class="slide-inner-white-words">
+					  		Setup commissions
+					  	</div>  	
+					  	<div style="width:641px;" class="slide-inner-white-words">
+					  		Ask groundbreaking questions
+					  	</div>    	
+					</div>
+
+				</div><!-- end .home-page-comment-->	
+
+		</div><!-- end.center-->
+
 	</div><!-- end.wrapper-main-->	
 
-
+	<div style="padding: 0px 20px 18px 0; bottom:0;right:0;position:fixed;">
+      <%= render 'layouts/footer' %>
+</div>		
 </html>

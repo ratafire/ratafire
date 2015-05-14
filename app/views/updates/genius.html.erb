@@ -21,12 +21,47 @@
 						<span style="background-color:rgba(0,0,0,0.05);padding:2px 7px 2px 7px;border-radius:5px;">Genius Store</span>
 					</h2>
 					<div style="color:rgba(256,256,256,0.6);"> <div class="loader2"></div> <span style="background-color:rgba(0,0,0,0.05);padding:2px 7px 2px 7px;border-radius:5px;">Coming Soon</span></div>
-				</div>	
+
+					<!-- Initialize Slide -->
+					<script>
+						$(document).ready(function(){
+							var owl = $('.owl-carousel');
+							owl.owlCarousel({
+							    items:1,
+							    loop:true,
+							    margin:10,
+							    autoplay:true,
+							    lazyLoad: true,
+							    autoplayTimeout:3000,
+							    autoWidth:true,
+							    autoHeight:true,
+							    autoplayHoverPause:true
+							});
+						});
+					</script>
+
+					<!-- Set up your HTML -->
+					<div class="owl-carousel" style="width:641px;margin:20px 0 0 225px;height:40px;">
+					  	<div style="width:641px;" class="slide-inner-white-words">
+					  		<span style="background-color:rgba(0,0,0,0.05);padding:2px 7px 2px 7px;border-radius:5px;color:rgba(256,256,256,0.6);">Genius level of creation</span>
+					  	</div>
+					  	<div style="width:641px;" class="slide-inner-white-words">
+					  		<span style="background-color:rgba(0,0,0,0.05);padding:2px 7px 2px 7px;border-radius:5px;color:rgba(256,256,256,0.6);">One of a kind</span>
+					  	</div>
+					  	<div style="width:641px;" class="slide-inner-white-words">
+					  		<span style="background-color:rgba(0,0,0,0.05);padding:2px 7px 2px 7px;border-radius:5px;color:rgba(256,256,256,0.6);">Selected by Ratafire</span>
+					  	</div>  			  	
+					</div>
+
+				</div><!-- end. Home-page-comment-->	
 
 
-		</div>	
+		</div><!-- end .center-->	
 	</div><!-- end.wrapper-main-->	
 
 
+	<div style="padding: 0px 20px 18px 0; bottom:0;right:0;position:fixed;">
+      <%= render 'layouts/footer' %>
+</div>		
 </html>
 
