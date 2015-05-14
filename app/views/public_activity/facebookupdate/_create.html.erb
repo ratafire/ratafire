@@ -141,7 +141,10 @@
 					<% if activity.trackable.facebookimage? then %>
 						<!-- Image -->
 						<%= link_to activity.trackable.link,target:"_blank", class:"no_ajaxify" do %>
-							<div class="majorpost-postimages-one" style="background-image:url(<%= activity.trackable.facebookimage.url(:original)%>);">
+							
+							<div class="majorpost-postimages-one">
+								<div class="majorpost-postimages-one-overlay"></div>
+								<div class="majorpost-postimage-one-blur" style="background-image:url(<%= activity.trackable.facebookimage.url(:original)%>);"></div>
 							</div>	
 						<% end %>
 						<!-- excerpt holder-->
