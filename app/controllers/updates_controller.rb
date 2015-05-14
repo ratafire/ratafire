@@ -173,6 +173,9 @@ class UpdatesController < ApplicationController
 	def genius
 	end
 
+	def challenges
+	end
+
 private
 	
 	#Check if the current user is following this tag

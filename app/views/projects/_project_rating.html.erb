@@ -23,7 +23,7 @@
 						<ul><%= link_to "View Review",user_project_project_comment_path(@project.creator, @project, @current_user_project_comment),class:"btn btn-medium2 btn-medium-green no_ajaxify" %></ul>							
 					<% end %>	
 				<% else %>
-					<ul>Sign in to review this project <i class="fa fa-angle-down"></i></ul>
+					<ul>Sign in to review this work collection <i class="fa fa-angle-down"></i></ul>
 					<ul><%= link_to "Sign in",new_user_session_path,class:"btn btn-medium2 btn-medium-green no_ajaxify" %></ul>
 					<ul>Don't have an account? <%= link_to 'Sign up', new_user_registration_path, class:"no_ajaxify" %></ul>
 				<% end %>
