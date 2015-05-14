@@ -80,9 +80,9 @@
 								<!-- Reviews Written -->
 								<div class="goals-placer">
 								<ul id="silver"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Reviews Written</span></ul><span></span>
-									<ul id="silver"><%= @user.reviews.count %> <span>/</span> </ul>
+									<ul id="silver"><%= @user.project_comments.count %> <span>/</span> </ul>
 									<ul><%= f.text_field :goals_reviews, class: "inputbox goals-input" %></ul> <span></span>
-								<ol><%= progress_bar(goals_count(@user.reviews.count, @user.goals_reviews), :color => 'silver', :rounded => true) %></ol>
+								<ol><%= progress_bar(goals_count(@user.project_comments.count, @user.goals_reviews), :color => 'silver', :rounded => true) %></ol>
 								<span>default: 10, minimum: 5</span>
 								</div>		
 
@@ -151,9 +151,9 @@
 								<!-- Project Completion -->
 								<div class="goals-placer">
 								<ul id="silver"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.projects.where(:complete => true ).count, @user.goals_project)%>">Reviews Written</span>  </ul>
-									<ul id="silver"><%= @user.reviews.count %> <span>/</span> </ul>
+									<ul id="silver"><%= @user.project_comments.count %> <span>/</span> </ul>
 									<ul id="silver"><%= render :text => @user.goals_project%></ul> 
-								<ol><%= progress_bar(goals_count(@user.reviews.count, @user.goals_reviews), :color => 'silver', :rounded => true) %></ol>
+								<ol><%= progress_bar(goals_count(@user.project_comments.count, @user.goals_reviews), :color => 'silver', :rounded => true) %></ol>
 								<span>default: 5, minimum: 1</span>
 								</div>								
 

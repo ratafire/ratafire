@@ -1,6 +1,10 @@
 <body class="one-page" style="min-width:100%;">
 <!-- Sign In -->
-<div class="preloader white"><span class="loader"><span class="loader-inner"></span></span></div>
+<div class="preloader white" style="background: url(/assets/backgrounds/starmap.jpg) no-repeat center center fixed; 
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	   -o-background-size: cover;
+	  background-size: cover;"><div class="loader2" style="position:absolute;left:50%;top:50%;margin:-30px 0 0 -30px;"></div></div>
 	<div class="user-links">
 		<%= link_to 'Skip Tutorial',after_intro_tutorial_path(current_user), class:"no_ajaxify" %>
 	</div>		
@@ -32,7 +36,6 @@
   <section
 	class="section call-action-section"
 	data-background-color="#cccccc"
-	data-shadow="rgba(0,0,0,0.02)"
 	data-nav-color="rgba(0,0,0,0.5)"
 	data-nav-color-text="rgba(255,255,255,0.8)"
 	data-color="#666666"
@@ -60,99 +63,71 @@
 	  </div>
 	</div><!-- .section-content -->
   </section><!-- .section -->
-  
-  <!-- Profile -->
-    <section
-	class="section promo-4-section vertical-bottom"
-	data-background-image="/assets/backgrounds/starcloud.jpg"	
-	data-nav-color="#ffffff"
-	data-nav-color-text="#6bbfe7"
-	data-color="#768088"
-	data-title-color="#fffffff"
-	data-title="Profile"
-	data-anchor="profile">
-	<div class="section-content not-scroll">
-	  <div class="container section-wrap top-padding">
-		<div class="promo-box text-center inverse">
-		  <div class="features-text">
-			<h1 class="section-title font-selector">Complete your Profile</h1>
-		  </div><!-- .features-text -->
-		  
-		  <div class="promo-feature">
-			<div class="image">
-			  <img src="/assets/saraprofile.png" class="replace-2x" style="margin-left:40px;" width="643" height="696" alt="">
-				
-			  <div class="bullet left bullet-1" style="left:90px;top:160px;" data-appear-animation="fadeInLeft" data-appear-animation-delay="400">
-				<div class="number">2</div>
-				<div class="line" style="width:70px;">
-				  <div class="bullet-content">
-					<a href="#" class="close">
-					  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
-						<path fill="#fff7cc" d="M23.3,23.3c-0.6,0.6-1.5,0.6-2.1,0L0.7,2.8c-0.6-0.6-0.6-1.5,0-2.1c0.6-0.6,1.5-0.6,2.1,0
-						l20.5,20.5C23.9,21.8,23.9,22.7,23.3,23.3L23.3,23.3z M23.3,2.8L2.8,23.3c-0.6,0.6-1.5,0.6-2.1,0c-0.6-0.6-0.6-1.5,0-2.1L21.2,0.7
-						c0.6-0.6,1.5-0.6,2.1,0C23.9,1.3,23.9,2.2,23.3,2.8L23.3,2.8z"></path>
-					  </svg>
-					</a>
-					<h5 class="title color-white">Profile Photo</h5>
-					<p>Upload a real photo</p>
-				  </div>
-				</div>
-			  </div><!-- .bullet -->
+
+  <section
+	class="section"
+	data-background="transparent"
+	data-background-image="/assets/backgrounds/milky_way.jpg"
+	data-nav-color="rgba(255,255,255,0.4)"
+	data-nav-color-text="rgba(0,0,0,0.5)"
+	data-color="#ffffff"
+	data-title-color="rgba(256,256,256,0.8)"
+	data-title="Explore"
+	data-anchor="explore">
+	<div class="section-content">
+	  <div class="container section-wrap">
+		<h1 class="section-title font-selector text-center" data-appear-animation="fadeInDown" data-appear-animation-delay="700">Explore Ratafire</h1>
+		
+		<div class="row carousel carousel-white bottom-navigation" data-options='{"itemsCustom": [[0, 1],[768, 2],[992, 3]], "navigation": true}'>
+		  <div class="col-sm-6 col-md-4">
+			<div class="grid-post bg-white" data-appear-animation="zoomIn" data-appear-animation-delay="100">
+			  <div class="image">
+				<img src="/assets/gridbox_1.png" class="replace-2x" alt="" width="350" height="350">
+			  </div>
 			  
-			  <div class="bullet left bullet-2" style="left:180px;top:265px;" data-appear-animation="fadeInLeft" data-appear-animation-delay="600">
-				<div class="number">4</div>
-				<div class="line" style="width:160px;">
-				  <div class="bullet-content">
-					<a href="#" class="close">
-					  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
-						<path fill="#fff7cc" d="M23.3,23.3c-0.6,0.6-1.5,0.6-2.1,0L0.7,2.8c-0.6-0.6-0.6-1.5,0-2.1c0.6-0.6,1.5-0.6,2.1,0
-						l20.5,20.5C23.9,21.8,23.9,22.7,23.3,23.3L23.3,23.3z M23.3,2.8L2.8,23.3c-0.6,0.6-1.5,0.6-2.1,0c-0.6-0.6-0.6-1.5,0-2.1L21.2,0.7
-						c0.6-0.6,1.5-0.6,2.1,0C23.9,1.3,23.9,2.2,23.3,2.8L23.3,2.8z"></path>
-					  </svg>
-					</a>
-					<h5 class="title color-white">About You</h5>
-					<p>Edit your short bio</p>
-				  </div>
-				</div>
-			  </div><!-- .bullet -->
-			  
-			  <div class="bullet bullet-3" style="left:260px;top:135px;" data-appear-animation="fadeInLeft" data-appear-animation-delay="800">
-				<div class="number">1</div>
-				<div class="line" style="width:440px;">
-				  <div class="bullet-content">
-					<a href="#" class="close">
-					  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
-						<path fill="#fff7cc" d="M23.3,23.3c-0.6,0.6-1.5,0.6-2.1,0L0.7,2.8c-0.6-0.6-0.6-1.5,0-2.1c0.6-0.6,1.5-0.6,2.1,0
-						l20.5,20.5C23.9,21.8,23.9,22.7,23.3,23.3L23.3,23.3z M23.3,2.8L2.8,23.3c-0.6,0.6-1.5,0.6-2.1,0c-0.6-0.6-0.6-1.5,0-2.1L21.2,0.7
-						c0.6-0.6,1.5-0.6,2.1,0C23.9,1.3,23.9,2.2,23.3,2.8L23.3,2.8z"></path>
-					  </svg>
-					</a>
-					<h5 class="title color-white">Tagline</h5>
-					<p>Use your tagline to show your profession</p>
-				  </div>
-				</div>
-			  </div><!-- .bullet -->
-			  
-			  <div class="bullet bullet-4" style="left:530px;top:250px;" data-appear-animation="fadeInLeft" data-appear-animation-delay="1200">
-				<div class="number">3</div>
-				<div class="line" style="width:175px;">
-				  <div class="bullet-content">
-					<a href="#" class="close">
-					  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
-						<path fill="#fff7cc" d="M23.3,23.3c-0.6,0.6-1.5,0.6-2.1,0L0.7,2.8c-0.6-0.6-0.6-1.5,0-2.1c0.6-0.6,1.5-0.6,2.1,0
-						l20.5,20.5C23.9,21.8,23.9,22.7,23.3,23.3L23.3,23.3z M23.3,2.8L2.8,23.3c-0.6,0.6-1.5,0.6-2.1,0c-0.6-0.6-0.6-1.5,0-2.1L21.2,0.7
-						c0.6-0.6,1.5-0.6,2.1,0C23.9,1.3,23.9,2.2,23.3,2.8L23.3,2.8z"></path>
-					  </svg>
-					</a>
-					<h5 class="title color-white">Goals</h5>
-					<p>Set your goals</p>
-				  </div>
-				</div>
-			  </div><!-- .bullet -->
-			  
+			  <h3 class="title font-selector color-lightblue">Follow Tags</h3>
+			  <div class="description" style="margin:20px;">Follow tags you interested in.</div>
+			  <a href="https://www.ratafire.com/tags/-/-/classical%20music" target="_blank" class="btn btn-sm btn-info">Try it Now</a>
 			</div>
-		  </div><!-- .promo-feature -->
-		</div><!-- .promo-box -->
+		  </div>
+		  
+		  <div class="col-sm-6 col-md-4">
+			<div class="grid-post bg-white" data-appear-animation="zoomIn" data-appear-animation-delay="200">
+			  <div class="image">
+				<img src="/assets/gridbox_2.png" class="replace-2x" alt="" width="350" height="220">
+			  </div>
+			  
+			  <h3 class="title color-lightblue font-selector">Watch Work Collections</h3>
+			  <div class="description" style="margin:20px;">Receive updates from work collections.</div>
+			  <a ≈ class="btn btn-sm btn-info no_ajaxify">Try it Now</a>
+			</div>
+		  </div>
+		  
+		  <div class="col-sm-6 col-md-4">
+			<div class="grid-post bg-white" data-appear-animation="zoomIn" data-appear-animation-delay="300">
+			  <div class="image">
+				<img src="/assets/gridbox_3.jpg" class="replace-2x" alt="" width="350" height="250">
+			  </div>
+			  
+			  <h3 class="title color-lightblue font-selector">Setup Subscription</h3>
+			  <div class="description" style="margin:20px;">Allow monthly payment for your work collections.</div>
+			  <a href="http://localhost:3000/<%= current_user.username %>/r/settings/payment" class="btn btn-sm btn-info">Try it Now</a>
+			</div>
+		  </div>
+
+		  <div class="col-sm-6 col-md-4">
+			<div class="grid-post bg-white" data-appear-animation="zoomIn" data-appear-animation-delay="300">
+			  <div class="image">
+				<img src="/assets/gridbox_null.jpg" class="replace-2x" alt="" width="350" height="250">
+			  </div>
+			  
+			  <h3 class="title color-lightblue font-selector">Solve Challenges</h3>
+			  <div class="description" style="margin:20px;">Work for the next breakthrough.</div>
+			  <a href="#explore" class="btn btn-sm btn-info">Coming Soon</a>
+			</div>
+		  </div>
+
+		</div>
 	  </div>
 	</div><!-- .section-content -->
   </section><!-- .section -->
@@ -161,8 +136,8 @@
 <section
 	class="section"
 	data-background="#ffffff"	
-	data-nav-color="rgba(255,255,255,0.4)"
-	data-nav-color-text="rgba(0,0,0,0.5)"
+	data-nav-color="rgba(0,0,0,0.5)"
+	data-nav-color-text="rgba(255,255,255,0.8)"
 	data-title-color="#666666"
 	data-color="#2297ce"
 	data-title="FAQ"
@@ -176,7 +151,7 @@
 			<div class="panel-heading">
 			  <h4 class="panel-title">
 				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-				  Can non-subscribers see all projects?
+				  Can non-subscribers view work collections?
 				</a>
 				
 				<a class="collapse-btn" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"></a>
@@ -288,158 +263,6 @@
 	</div>
   </section><!-- .section -->
 
-  <section
-	class="section"
-	data-background="transparent"
-	data-background-image="/assets/backgrounds/starsong.jpg"
-	data-nav-color="#ffffff"
-	data-nav-color-text="#000000"
-	data-color="#ffffff"
-	data-title-color="#666666"
-	data-title="Explore"
-	data-anchor="explore">
-	<div class="section-content">
-	  <div class="container section-wrap">
-		<h1 class="section-title font-selector text-center" data-appear-animation="fadeInDown" data-appear-animation-delay="700">Explore Ratafire</h1>
-		
-		<div class="row carousel carousel-white bottom-navigation" data-options='{"itemsCustom": [[0, 1],[768, 2],[992, 3]], "navigation": true}'>
-		  <div class="col-sm-6 col-md-4">
-			<div class="grid-post bg-white" data-appear-animation="zoomIn" data-appear-animation-delay="100">
-			  <div class="image">
-				<img src="/assets/gridbox_1.png" class="replace-2x" alt="" width="350" height="350">
-			  </div>
-			  
-			  <h3 class="title font-selector color-lightblue">Follow Tags</h3>
-			  <div class="description" style="margin:20px;">Follow tags you interested in.</div>
-			  <a href="https://www.ratafire.com/tags/-/-/classical%20music" target="_blank" class="btn btn-sm btn-info">Try it Now</a>
-			</div>
-		  </div>
-		  
-		  <div class="col-sm-6 col-md-4">
-			<div class="grid-post bg-white" data-appear-animation="zoomIn" data-appear-animation-delay="200">
-			  <div class="image">
-				<img src="/assets/gridbox_2.png" class="replace-2x" alt="" width="350" height="220">
-			  </div>
-			  
-			  <h3 class="title color-lightblue font-selector">Watch Projects</h3>
-			  <div class="description" style="margin:20px;">Receive updates from projects.</div>
-			  <a ≈ class="btn btn-sm btn-info no_ajaxify">Try it Now</a>
-			</div>
-		  </div>
-		  
-		  <div class="col-sm-6 col-md-4">
-			<div class="grid-post bg-white" data-appear-animation="zoomIn" data-appear-animation-delay="300">
-			  <div class="image">
-				<img src="/assets/gridbox_null.jpg" class="replace-2x" alt="" width="350" height="250">
-			  </div>
-			  
-			  <h3 class="title color-lightblue font-selector">Join Discussions</h3>
-			  <div class="description" style="margin:20px;">Join top discussions of your field.</div>
-			  <a href="#explore" class="btn btn-sm btn-info">Coming Soon</a>
-			</div>
-		  </div>
-
-		  <div class="col-sm-6 col-md-4">
-			<div class="grid-post bg-white" data-appear-animation="zoomIn" data-appear-animation-delay="300">
-			  <div class="image">
-				<img src="/assets/gridbox_null.jpg" class="replace-2x" alt="" width="350" height="250">
-			  </div>
-			  
-			  <h3 class="title color-lightblue font-selector">Solve Challenges</h3>
-			  <div class="description" style="margin:20px;">Work for the next breakthrough.</div>
-			  <a href="#explore" class="btn btn-sm btn-info">Coming Soon</a>
-			</div>
-		  </div>
-
-		</div>
-	  </div>
-	</div><!-- .section-content -->
-  </section><!-- .section -->
-
-  <section
-	class="section align-without-title services-section"
-	data-background-image="/assets/backgrounds/sky.jpg"
-	data-shadow="rgba(0,0,0,0.03)"
-	data-nav-color="rgba(255,255,255,0.4)"
-	data-nav-color-text="rgba(0,0,0,0.5)"
-	data-title-color="#ffffff"
-	data-title="subscription"
-	data-anchor="subscription">
-	<div class="section-content ">
-	  <div class="container section-wrap">
-		<h1 class="section-title text-center font-selector" data-appear-animation="fadeInDown" data-appear-animation-delay="900">Start Receiving Monthly Subscription</h1>
-		  
-		<div class="services-wrap inverse no-appear">
-		  <div class="wrap-container">
-			<div class="column column-one">
-			  <div class="circle-wrap" data-appear-animation="zoomIn" data-appear-animation-delay="600">
-				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="75" data-title="Apply" width="150" height="150"></canvas>
-				<div class="description">
-				  <h3 class="title color-blue">Apply to Setup Subscription</h3>
-				  <div class="text">
-					<p>Setting up subscription allows others to subscribe to you to support you to continue your research or art work collections.</p>
-					<% if @user.subscription_application[0] != nil && @user.subscription_application[0].step == 7 then %>
-						<p><a href="http://localhost:3000/<%=@user.id%>/r/goals/subscription" target="_blank" class:"btn btn-sm btn-info"> Click to apply </a></p>		
-					<% end %>	
-				  </div>
-				</div>
-			  </div>
-			</div><!-- .column-one -->
-			
-			<div class="column column-two">
-			  <div class="circle-wrap" data-appear-animation="zoomIn" data-appear-animation-delay="400">
-				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="60" data-title="A Work Collection" width="150" height="150"></canvas>
-				<div class="description">
-				  <h3 class="title color-blue">A Work Collection</h3>
-				  <div class="text font-selector">
-					<p>You must create at least one work collection and make the collection digitally available. You can also collaborate with others.</p>
-					<p>You should update your work collections frequently, and improve their quality relentlessly. Visit our <a href="https://www.facebook.com/ratafire" target="_blank" ><i class="fa fa-facebook-square"></i> Facebook Page</a> for our weekly featured work collections.</p>
-				  </div>
-				</div>
-			  </div>
-			  
-
-			</div><!-- .column-two -->
-			
-			<div class="column column-three column-center">
-			  <div class="circle-wrap main-circle" data-appear-animation="zoomIn" data-appear-animation-delay="100">
-				<div class="circle-content">
-				  <h3 class="title color-grey">Click on each requirement to reveal its details</h3>
-				</div>
-				
-				<div class="opened-content">
-				  <a href="#" class="close">
-					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
-					  <path fill="inherit" d="M23.3,23.3c-0.6,0.6-1.5,0.6-2.1,0L0.7,2.8c-0.6-0.6-0.6-1.5,0-2.1c0.6-0.6,1.5-0.6,2.1,0
-					  l20.5,20.5C23.9,21.8,23.9,22.7,23.3,23.3L23.3,23.3z M23.3,2.8L2.8,23.3c-0.6,0.6-1.5,0.6-2.1,0c-0.6-0.6-0.6-1.5,0-2.1L21.2,0.7
-					  c0.6-0.6,1.5-0.6,2.1,0C23.9,1.3,23.9,2.2,23.3,2.8L23.3,2.8z"/>
-					</svg>
-				  </a>
-				</div><!-- .opened-content -->
-			  </div><!-- .main-circle -->
-			</div><!-- .column-three -->
-			
-
-			  
-			
-			<div class="column column-five">
-			  <div class="circle-wrap" data-appear-animation="zoomIn" data-appear-animation-delay="900">
-				<canvas class="circle-skill" data-color="#f2f2f2" data-percent="80" data-title="In 15 Days" width="150" height="150"></canvas>
-				<div class="description">
-				  <h3 class="title color-blue">In 15 Days</h3>
-				  <div class="text">
-					<p>You must find your first subscriber in 15 days. We believe that this time constraint can help you focus on finding subscribers and improving your work collections.</p>
-					<p>You can find a countdown timer on your subscribers page. Others can also see your progress in this challenge.</p>					
-				  </div>
-				</div>
-			  </div>
-			</div><!-- .column-five -->
-		  </div><!-- .wrap-container -->
-		</div><!-- .services-wrap -->
-	  </div>
-	</div><!-- .section-content -->
-  </section><!-- .section -->
-  
   <!-- Start -->
   <section
 	class="section centered-without-title"

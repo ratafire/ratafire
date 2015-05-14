@@ -270,6 +270,7 @@ Ratafire::Application.routes.draw do
 	match '/humanity', to: 'updates#humanity', as: :humanity
 	match '/engineering', to: 'updates#engineering', as: :engineering
 	match '/fundable', to: 'updates#fundable', as: :fundable
+	match '/genius', to: 'updates#genius', as: :genius
 
 	match '/r/realms/veryseriously/more/:realm', to: 'updates#realm_selector', as: :realm_selector
 

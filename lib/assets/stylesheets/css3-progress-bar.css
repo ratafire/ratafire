@@ -321,9 +321,7 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 /* Rating */
 
 .rating {
-  border: 1px solid #fab23f;
-  border-top-color: #fab23f;
-  border-bottom-color: #fab23f;
+
 
 background: rgba(250,197,73,1);
 background: -moz-linear-gradient(top, rgba(250,197,73,1) 0%, rgba(250,178,63,1) 100%);
@@ -343,7 +341,7 @@ height: 16px !important;
 
 
   background: #f9f9f9;
-  border-color: #ccc;
+
   height: 16px !important;
 }
 

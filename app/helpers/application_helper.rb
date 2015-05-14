@@ -65,15 +65,15 @@ module ApplicationHelper
 				result = open("http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles="+query).read.to_s.split("\"extract\":\"")[1]
 				sentence = Sanitize.clean(result.split(".")[0]+"...").strip.gsub("\\n", "-").gsub(/\([^()]*\)/, "")
 				if sentence =~ /This is a redirect from a title with another method of capitalisation/ || result.length < 200 then
-					sentence = "Projects and major posts in " + title + "."
+					sentence = "Work collections and posts in " + title + "."
 				end	
 			end
 			if sentence =~ /may refer to/ then
-				sentence = "Projects and major posts in " + title + "."
+				sentence = "Work collections and major posts in " + title + "."
 			end
 			return sentence
 		else
-			sentence = "Projects and major posts in " + title + "."
+			sentence = "Work collections major posts in " + title + "."
 			return sentence
 		end	
 	end

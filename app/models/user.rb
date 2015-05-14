@@ -71,12 +71,13 @@ class User < ActiveRecord::Base
 	has_many :majorposts, :conditions => { :deleted_at => nil }
 	has_many :archives
 
+	has_many :project_comments, :conditions => {:deleted_at => nil}
 	has_many :comments, :conditions => { :deleted_at => nil }
 	has_many :subscription_application, :conditions => { :status => nil }
 	has_one :approved_subscription_application, class_name: "SubscriptionApplication", :conditions => { :status => "Approved", :completion => nil }
 
 	has_many :inviteds
-	has_many :reviews, :conditions => {:discussion_id => nil, :subscription_application_id => nil}
+	has_many :reviews, :conditions => {:deleted_at => nil}
 
 	has_one :facebook, :conditions => {:deleted_at => nil}
 	has_many :facebook_pages, :conditions => {  :deleted_at => nil }

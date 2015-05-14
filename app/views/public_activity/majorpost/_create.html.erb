@@ -135,13 +135,13 @@
 	<!-- published -->
 	<% if activity.trackable.published == true %>
 		<div class="majorpost-title">
-		<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at project 
+		<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at 
 			<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
 		</div>
 	<% else %>
 	<!-- not published -->
 		<div class="majorpost-title">
-		<li><%= link_to activity.trackable.title, edit_user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> <span>(Draft)</span> at project 
+		<li><%= link_to activity.trackable.title, edit_user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> <span>(Draft)</span> at 
 			<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
 		</div>		
 	<% end %>
@@ -152,7 +152,7 @@
 		<% if activity.trackable.early_access == false %>
 			<!-- When Early Access is Off -->
 			<div class="majorpost-title">
-				<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at project 
+				<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at 
 				<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
 			</div>
 		<% else %>
@@ -160,12 +160,12 @@
 			<% if early_access?(activity.trackable.id)%>
 				<!-- For People Who Have Early Access -->
 				<div class="majorpost-title">
-					<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at project 
+					<li><%= link_to activity.trackable.title, user_project_majorpost_path(activity.trackable.project.creator,activity.trackable.project, activity.trackable), class:"no_ajaxify" %></li> at 
 					<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
 				</div>				
 			<% else %>	
 				<div class="majorpost-title">
-					<li style="color:#2297ce;"><%= activity.trackable.title %></li> at project 
+					<li style="color:#2297ce;"><%= activity.trackable.title %></li> at 
 						<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
 				</div>	
 			<% end %>
@@ -173,7 +173,7 @@
 	<% else %>
 	<!-- not published -->
 		<div class="majorpost-title">
-		<li><%= activity.trackable.title %></li> <span>(Draft)</span> at project 
+		<li><%= activity.trackable.title %></li> <span>(Draft)</span> at 
 			<%= link_to activity.trackable.project.title, user_project_path(activity.trackable.project.creator, activity.trackable.project), class:"no_ajaxify" %>
 		</div>	
 	<% end %>

@@ -144,6 +144,7 @@ class UpdatesController < ApplicationController
 				if current_user.tutorial.facebook == nil then
 					redirect_to user_omniauth_authorize_path(:facebook, after_signup: "true")
 				else
+					current_user.tutorial.update_column(:intro, true)
 					redirect_to intro_tutorial_path(current_user)
 				end
 			end
@@ -167,6 +168,9 @@ class UpdatesController < ApplicationController
 
 	def fundable
 		@users = User.where(:subscription_status_initial => "Approved").paginate(page: params[:fundable], :per_page => 99)
+	end
+
+	def genius
 	end
 
 private

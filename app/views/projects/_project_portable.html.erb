@@ -86,7 +86,7 @@
 		<!-- Title -->
 <!-- Project Title for Project User -->
 		<div class="majorpost-title">
-		<li><%= link_to @project.title, user_project_path(@project.creator,@project), class:"no_ajaxify" %></li> posted <%= time_ago_in_words(@project.created_at) %> ago<% if @project.realm != nil then %> in <%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(@project.realm)%></span><% end %> <% else %>.<% end %>
+		<li><%= link_to @project.title, user_project_path(@project.creator,@project), class:"no_ajaxify" %></li> posted<% if @project.realm != nil then %> in <%= link_to realm_selector_path(@project.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(@project.realm)%></span><% end %> <% else %>.<% end %>
 		</div>	
 
 		<div id="majorpost-comments">
