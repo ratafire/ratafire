@@ -50,8 +50,8 @@ private
 
 	def subscribe_to_facebook_update
 		if Rails.env.production? then
-			updates = Koala::Facebook::RealtimeUpdates.new(:app_id => ENV['FACEBOOK_KEY'], :secret => ENV['FACEBOOK_SECRET'])
-			response = updates.subscribe("user","feed","https://www.ratafire.com/facebook_update_callback_kingsman", VERIFY_TOKEN)
+			#updates = Koala::Facebook::RealtimeUpdates.new(:app_id => ENV['FACEBOOK_KEY'], :secret => ENV['FACEBOOK_SECRET'])
+			#response = updates.subscribe("user","feed","https://www.ratafire.com/facebook_update_callback_kingsman", VERIFY_TOKEN)
 			Resque.enqueue(FacebookupdateAllWorker, params[:page_id])	
 			#Insert verification
 			flash[:message] = "Facebook page synced."

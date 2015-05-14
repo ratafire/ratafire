@@ -1,0 +1,2 @@
+ScheduledFacebookupdateWorker:
+  cron: "*/30 * * * *"

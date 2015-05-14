@@ -31,7 +31,7 @@ gem 'em-synchrony', '1.0.3'
 
 #resque
 gem 'resque', '1.25.2',:require => "resque/server" #for background tasks, important
-gem 'resque-scheduler','2.5.5', :require => "resque_scheduler/server" #important.
+gem 'resque-scheduler','2.5.5', :require => "resque_scheduler/server" #important '2.5.5'.
 gem 'resque_mailer','2.2.6'
 
 #------------Content------------
