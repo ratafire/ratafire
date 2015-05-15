@@ -526,6 +526,7 @@ class AdminController < ApplicationController
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.featured = true
+						@activity.test = false
 						@activity.save
 					end
 					flash[:success] = "Featured."
@@ -538,6 +539,7 @@ class AdminController < ApplicationController
 					if @activity != nil then
 						@activity.featured = true
 						@activity.featured_home = true
+						@activity.test = false
 						@activity.save
 					end				
 					flash[:success] = "Added to Homepage."
