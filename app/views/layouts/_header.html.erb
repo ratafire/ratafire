@@ -35,6 +35,11 @@
 						</div>	
 						<div class="settingsinner_mid">
 							<ol>
+								<%= link_to 'Sync Facebook Pages', edit_facebook_sync_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
+							</ol>
+						</div>							
+						<div class="settingsinner_mid">
+							<ol>
 								<%= link_to 'Messages', messaging_inbox_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
 							</ol>
 						</div>	

@@ -120,6 +120,7 @@ Ratafire::Application.routes.draw do
 	match ':id/r/settings/profile', to: 'users#edit', as: :edit_user
 	match ':id/r/settings/profile#bio-edit', to: 'users#edit', as: :edit_bio
 	match ':id/r/settings/profile#social-media', to: 'users#edit', as: :edit_socialmedia
+	match ':id/r/settings/profile#facebook-sync', to: 'users#edit', as: :edit_facebook_sync
 	match ':id/r/settings/subscription', to: 'subscriptions#settings', as: :subscription_settings
 	match ':id/r/settings/transactions', to: 'subscriptions#transactions', as: :subscription_transactions
 	match ':id/r/settings/profilephoto/delete', to: 'users#profile_photo_delete', via: :delete, as: :photo_delete
