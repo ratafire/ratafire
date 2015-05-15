@@ -571,6 +571,7 @@ class AdminController < ApplicationController
 					if @activity != nil then
 						@activity.featured = false
 						@activity.featured_home = false
+						@activity.test = true
 						@activity.save
 					end	
 					flash[:success] = "Unfeatured."
