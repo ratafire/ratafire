@@ -66,7 +66,7 @@ class Facebookupdate < ActiveRecord::Base
 					end
 					#Create display
 					if response["description"] != nil && response["message"] != nil then
-						update.html_display = response["message"] + response["description"]
+						update.html_display = response["message"] + " "+response["description"]
 						update.html_display = Rinku.auto_link(update.html_display, :all, 'target="_blank"')
 					else
 						if response["description"] != nil && response["message"] == nil then

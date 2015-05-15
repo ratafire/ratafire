@@ -56,38 +56,40 @@
 			<% end %>	
 
 			<!-- Admin Actions -->
-			<% if current_user.admin == true %>
-				<div style="float:right;display:none;font-size:1.2em;color:#cccccc;" id="<%= activity.id %>admin">
-					<% if activity.test == true then  %>
-						<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "untest"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"List" do %><i class="fa fa-eye"></i><% end %>
-					<% end %>
-					<% if activity.test == false then %>
-						<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "test"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unist" do %><i class="fa fa-eye-slash"></i><% end %>
-					<% end %>
-					<% if activity.featured == false then %>
-						<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "featured"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Feature" do %><i class="fa fa-heart-o"></i><% end %>
-					<% end %>
-					<% if activity.featured_home == false then %>
-						<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname =>"featuredhome"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Homepage" do %><i class="fa fa-heart"></i><% end %>
-					<% end %>
-					<% if activity.featured == true then %>
-						<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id, :actionname =>"unfeature"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unfeature" do %><i class="fa fa-ban"></i><% end %>
-					<% end %>
-					<% if activity.trackable.realm == nil then %>
-						<div style="position:absolute;margin-top:30px;">
-							<%= link_to "1", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "1"), class:"no_ajaxify tipsy-tipsy", title:"Art", style:"color:#ccc;"%>
-							<%= link_to "2", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "2"), class:"no_ajaxify tipsy-tipsy", title:"Music", style:"color:#ccc;"%>
-							<%= link_to "3", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "3"), class:"no_ajaxify tipsy-tipsy", title:"Games", style:"color:#ccc;"%>
-							<%= link_to "4", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "4"), class:"no_ajaxify tipsy-tipsy", title:"Writing", style:"color:#ccc;"%>
-							<%= link_to "5", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "5"), class:"no_ajaxify tipsy-tipsy", title:"Videos", style:"color:#ccc;"%>
-							<%= link_to "6", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "6"), class:"no_ajaxify tipsy-tipsy", title:"Math", style:"color:#ccc;"%>
-							<%= link_to "7", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "7"), class:"no_ajaxify tipsy-tipsy", title:"Science", style:"color:#ccc;"%>
-							<%= link_to "8", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "8"), class:"no_ajaxify tipsy-tipsy", title:"Humanity", style:"color:#ccc;"%>
-							<%= link_to "9", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "9"), class:"no_ajaxify tipsy-tipsy", title:"Engineering", style:"color:#ccc;"%>
-						</div>
-					<% end %>	
-				</div>
-			<% end %>
+			<% if current_user != nil then %>
+				<% if current_user.admin == true %>
+					<div style="float:right;display:none;font-size:1.2em;color:#cccccc;" id="<%= activity.id %>admin">
+						<% if activity.trackable.test == true then  %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "untest"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"List" do %><i class="fa fa-eye"></i><% end %>
+						<% end %>
+						<% if activity.trackable.test == false then %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "test"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unist" do %><i class="fa fa-eye-slash"></i><% end %>
+						<% end %>
+						<% if activity.featured == false then %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "featured"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Feature" do %><i class="fa fa-heart-o"></i><% end %>
+						<% end %>
+						<% if activity.featured_home == false then %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname =>"featuredhome"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Homepage" do %><i class="fa fa-heart"></i><% end %>
+						<% end %>
+						<% if activity.featured == true then %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id, :actionname =>"unfeature"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unfeature" do %><i class="fa fa-ban"></i><% end %>
+						<% end %>
+						<% if activity.trackable.realm == nil then %>
+							<div style="position:absolute;margin-top:30px;">
+								<%= link_to "1", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "1"), class:"no_ajaxify tipsy-tipsy", title:"Art", style:"color:#ccc;"%>
+								<%= link_to "2", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "2"), class:"no_ajaxify tipsy-tipsy", title:"Music", style:"color:#ccc;"%>
+								<%= link_to "3", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "3"), class:"no_ajaxify tipsy-tipsy", title:"Games", style:"color:#ccc;"%>
+								<%= link_to "4", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "4"), class:"no_ajaxify tipsy-tipsy", title:"Writing", style:"color:#ccc;"%>
+								<%= link_to "5", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "5"), class:"no_ajaxify tipsy-tipsy", title:"Videos", style:"color:#ccc;"%>
+								<%= link_to "6", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "6"), class:"no_ajaxify tipsy-tipsy", title:"Math", style:"color:#ccc;"%>
+								<%= link_to "7", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "7"), class:"no_ajaxify tipsy-tipsy", title:"Science", style:"color:#ccc;"%>
+								<%= link_to "8", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "8"), class:"no_ajaxify tipsy-tipsy", title:"Humanity", style:"color:#ccc;"%>
+								<%= link_to "9", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "9"), class:"no_ajaxify tipsy-tipsy", title:"Engineering", style:"color:#ccc;"%>
+							</div>
+						<% end %>	
+					</div>
+				<% end %>
+			<% end %>	
 
 			<!-- Facebook Page Profile Photo -->
 			<%= link_to activity.trackable.link,target:"_blank", class:"no_ajaxify" do %>
@@ -125,7 +127,7 @@
 						<%= link_to activity.trackable.facebook_link,target:"_blank", class:"no_ajaxify" do %><%= activity.trackable.post_type.titleize %><% end %>
 					<% end %></li>
 					at <%= link_to activity.trackable.facebookpage.name, activity.trackable.facebookpage.link,target:"_blank", class:"no_ajaxify" %>
-				 in <% if activity.trackable.realm == nil then %><span class="realm-color"><%= activity.trackable.from_category %></span><% else %><%= link_to realm_selector_path(activity.trackable.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(activity.trackable.realm)%></span><% end %><% end %>
+				 in <% if activity.trackable.realm == nil then %><span class="realm-color"><%= activity.trackable.from_category %></span><% else %><%= link_to realm_selector_path(activity.trackable.realm),class:"no_ajaxify" do %><span class="realm-color"><%= project_realm(activity.trackable.realm)%></span><% end %><% end %> by <%= link_to activity.trackable.user.fullname, activity.trackable.user,class:"no_ajaxify" %>
 			</div>
 
 			<!-- Update Time -->
