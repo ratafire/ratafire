@@ -75,8 +75,11 @@ class Facebookupdate < ActiveRecord::Base
 						update.update_column(:created_at,date)
 					end
 					#Make Activity
-					updateactivity = update.create_activity :create
+					updateactivity = PublicActivity::Activity.new
 					if updateactivity != nil then
+						updateactivity.trackable_id = update.id
+						updateactivity.trackable_type = "Facebookupdate"
+						updateactivity.key = "facebookupdate.create"
 						updateactivity.created_at = DateTime.parse(response["created_time"])
 						updateactivity.owner_type = "User"
 						updateactivity.owner_id = update.user_id
