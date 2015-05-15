@@ -39,7 +39,18 @@
 									<%= link_to 'Facebook Sync', edit_facebook_sync_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
 								</ol>
 							</div>		
-						<% end %>										
+						<% end %>			
+						<% if current_user.subscription_status_initial != nil %>			
+							<% if @user.subscription_application[0] != nil then %>
+								<% if @user.subscription_application[0].step != 7 %>
+									<div class="settingsinner_mid">
+										<ol>
+											<%= link_to 'Subscription Setup', goals_subscription_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
+										</ol>
+									</div>		
+								<% end %>							
+							<% end %>
+						<% end %>					
 						<div class="settingsinner_mid">
 							<ol>
 								<%= link_to 'Messages', messaging_inbox_path(current_user), class: 'no_ajaxify settings-btn-settings'%>

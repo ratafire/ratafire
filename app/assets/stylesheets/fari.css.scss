@@ -2112,6 +2112,12 @@ border-bottom:1px solid #f5f5f5 !important;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.11);
 	margin-top: -67px;
 	padding-top: 15px;
+  h1{
+    font-family: "Open Sans";
+  }
+  h2{
+    font-family: "Open Sans";
+  }
 }
 
 .radius {/* rounded corners for everything */
@@ -9267,13 +9273,6 @@ box-shadow: 0px 0px 0px 10px rgba(0,0,0,.1);
 
 .friends_view_all{
   float: right;
-  margin:10px 5px 0 0 !important;
-  a{
-    color: #999999;
-    &:hover{
-      text-decoration: none;
-      color: #666;
-    }
-  }
+
 }
 }

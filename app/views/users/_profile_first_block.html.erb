@@ -21,7 +21,7 @@
 												<% if @user == current_user %>
 													<%= best_in_place @user, :bio, :classes =>"best_user_bio", :type => "textarea" %> <span class="btn btn-edit" id="best_user_bio-edit" style="display:none;"></span>
 												<% else %>
-													<div class="best_user_bio"><%= @user.bio_html %></div> 
+													<div class="best_user_bio"><%= sanitize @user.bio %></div> 
 												<% end %>
 											</ul>
 

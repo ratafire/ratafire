@@ -416,7 +416,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						redirect_to root_path
 					end
 				else
-					redirect_to edit_user_path(@user)
+					redirect_to edit_facebook_sync_path(@user)
 				end
 			else
 				flash[:success] = "Facebook authorization failed."
@@ -429,7 +429,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						redirect_to root_path
 					end
 				else
-					redirect_to edit_user_path(@user)
+					redirect_to edit_facebook_sync_path(@user)
 				end
 			end		
 		else
