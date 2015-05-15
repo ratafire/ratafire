@@ -142,13 +142,12 @@
 						<!-- Image -->
 						<%= link_to activity.trackable.link,target:"_blank", class:"no_ajaxify" do %>
 							
-							<div class="majorpost-postimages-one">
-								<div class="majorpost-postimages-one-overlay"></div>
-								<div class="majorpost-postimage-one-blur" style="background-image:url(<%= activity.trackable.facebookimage.url(:original)%>);"></div>
+							<div class="majorpost-postimages-square" style="background-image:url(<%= activity.trackable.facebookimage.url(:original)%>);">
+								
 							</div>	
 						<% end %>
 						<!-- excerpt holder-->
-						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
+						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:478px;height:106px;overflow:hidden;">
 							<% if activity.trackable.description != nil && activity.trackable.message != nil then %>
 								<%= sanitize truncate(activity.trackable.message+" "+activity.trackable.description, :length => 300) %>
 							<% else %>

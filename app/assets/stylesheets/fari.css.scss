@@ -5994,7 +5994,7 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
 .majorpost-postimages-one-overlay{
   position: absolute;
   background-color: #000;
-    width: 171px;
+    width: 96px;
   height: 96px;
   border-radius: 6px;
   z-index: 2;
@@ -6003,6 +6003,32 @@ box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
    ) repeat;
 
 }
+
+.majorpost-postimages-square{
+   filter: blur(5px);
+  display: inline-block;
+  width: 96px;
+  height: 96px;
+        border: 1px solid #666;
+  border-bottom: 1px solid #333;
+  border-radius: 6px;
+      -webkit-box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
+-moz-box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);
+box-shadow: 0px 4px 21px -9px rgba(204,204,204,1);  
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  &:hover{
+    border: 1px solid #ccc;
+  }
+  a{
+    &:hover{
+      text-decoration: none;
+    }
+  } 
+}
+
 
 .majorpost-thumbnail-bar {
 	background-image: url(/assets/artwork_bg.png);
