@@ -345,6 +345,10 @@ Ratafire::Application.routes.draw do
 	match '/admin_user', to: 'admin#users', as: :admin_users
 	match '/content_admin_user', to: 'admin#content_users', as: :admin_content_users
 
+	#Admin Action
+	match '/admin_action/:type/:id/:actionname/you-shall-not-pass/seriously/',to: "admin#admin_actions", as: :admin_actions
+	match '/admin_action/:type/:id/:realmname/i-will-add-realm/seriously/',to: "admin#add_admin_realm", as: :admin_add_realm
+
 #---Tests--- 
 	match '/test_resque', to: 'admin#test_resque', as: :test_resque 
 

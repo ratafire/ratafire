@@ -91,6 +91,7 @@ class Facebookupdate < ActiveRecord::Base
 						updateactivity.key = "facebookupdate.create"
 						updateactivity.created_at = DateTime.parse(response["created_time"])
 						updateactivity.owner_type = "User"
+						updateactivity.test = true
 						updateactivity.owner_id = update.user_id
 						updateactivity.save
 					end

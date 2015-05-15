@@ -12,6 +12,7 @@ class MajorpostsController < ApplicationController
 		@majorpost.published = false
 		@majorpost.project = @project
 		@majorpost.commented_at = Time.now
+		@majorpost.realm = @project.realm
 		if @majorpost.save then
 		redirect_to edit_user_project_majorpost_path(@project.creator, @project, @majorpost)
 		else
@@ -34,6 +35,7 @@ class MajorpostsController < ApplicationController
 			@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
 			if @activity != nil then
 				@activity.tag_list = @majorpost.tag_list
+				@activity.realm = @majorpost.realm
 				@activity.commented_at = @majorpost.commented_at
 				if @majorpost.published == true then
 					@activity.draft = false

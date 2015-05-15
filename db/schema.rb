@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150515055442) do
+ActiveRecord::Schema.define(:version => 20150515080537) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -453,6 +453,8 @@ ActiveRecord::Schema.define(:version => 20150515055442) do
     t.boolean  "post_to_facebook_page"
     t.string   "facebookupdate_id"
     t.boolean  "abandoned"
+    t.boolean  "featured_home",         :default => false
+    t.boolean  "listed"
   end
 
   create_table "facebook_pages", :force => true do |t|
@@ -651,6 +653,8 @@ ActiveRecord::Schema.define(:version => 20150515055442) do
     t.string   "sub_realm"
     t.boolean  "featured",                   :default => false
     t.boolean  "featured_home",              :default => false
+    t.boolean  "listed"
+    t.boolean  "test",                       :default => true
   end
 
   create_table "friendly_id_slugs", :force => true do |t|
@@ -880,6 +884,8 @@ ActiveRecord::Schema.define(:version => 20150515055442) do
     t.boolean  "post_to_facebook_page"
     t.string   "facebookupdate_id"
     t.boolean  "abandoned"
+    t.boolean  "featured_home",         :default => false
+    t.boolean  "listed"
   end
 
   create_table "messages", :force => true do |t|
@@ -1052,6 +1058,7 @@ ActiveRecord::Schema.define(:version => 20150515055442) do
     t.boolean  "post_to_facebook"
     t.boolean  "post_to_facebook_page"
     t.string   "facebookupdate_id"
+    t.boolean  "listed"
   end
 
   create_table "quotes", :force => true do |t|

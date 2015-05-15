@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
 
 
   def home
-    @activities = PublicActivity::Activity.order("commented_at desc").where(:featured_home => true).paginate(page: params[:page], :per_page => 10)
+    @activities = PublicActivity::Activity.order("commented_at desc").where(:featured_home => true).paginate(page: params[:page], :per_page => 20)
   	@user = current_user
     @featured_user = User.find_by_username("colinchromatic")
     @users = User.where(:subscription_status_initial => "Approved",:homepage_fundable => true).paginate(page: params[:fundable], :per_page => 1)
