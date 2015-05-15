@@ -319,12 +319,6 @@ class User < ActiveRecord::Base
 		return email
 	end
 
-	#Auto Html
-  	auto_html_for :bio do
-    	html_escape
-    	link :target => "_blank", :rel => "nofollow"
-  	end	
-
   def direct_upload_url=(escaped_url)
     write_attribute(:direct_upload_url, (CGI.unescape(escaped_url) rescue nil))
   end

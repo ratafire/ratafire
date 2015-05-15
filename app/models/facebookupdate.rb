@@ -5,6 +5,7 @@ class Facebookupdate < ActiveRecord::Base
 	belongs_to :facebook
 	require 'date'
 	include PublicActivity::Model
+	require 'rinku'
 	
   	# attr_accessible :title, :body
 	def self.create_facebookupdate(response, user_id, facebookpage_id, facebook_id,page_id)
@@ -43,16 +44,11 @@ class Facebookupdate < ActiveRecord::Base
 					if response["type"] == "video" then
 						#If the post has youtube video
 						if response["caption"] == "youtube.com" then
-							video_regexp = [ /^(?:https?:\/\/)?(?:www\.)?youtube\.com(?:\/v\/|\/watch\?v=)([A-Za-z0-9_-]{11})/, 
-		                   /^(?:https?:\/\/)?(?:www\.)?youtu\.be\/([A-Za-z0-9_-]{11})/,
-		                   /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/user\/[^\/]+\/?#(?:[^\/]+\/){1,4}([A-Za-z0-9_-]{11})/
-		                   ]
-		                   video_regexp.each do |v|
-		                   		match = v.match(response["source"])
-		                   		if match != nil then
-		                   			update.youtube_video = match[1]
-		                   		end
-		                   end
+							video_regexp = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})\W/
+		                   	match = video_regexp.match(response["source"])
+		                   	if match != nil then
+		                   		update.youtube_video = match[1]
+		                   	end
 						else
 							#If the post has vimeo video
 							if response["caption"] == "vimeo.com" then
@@ -65,6 +61,19 @@ class Facebookupdate < ActiveRecord::Base
 										update.vimeo_video = response["source"].split("/")[4]
 									end
 								end
+							end
+						end
+					end
+					#Create display
+					if response["description"] != nil && response["message"] != nil then
+						update.html_display = response["message"] + response["description"]
+						update.html_display = Rinku.auto_link(update.html_display, :all, 'target="_blank"')
+					else
+						if response["description"] != nil && response["message"] == nil then
+							update.html_display = Rinku.auto_link(response["description"], :all, 'target="_blank"')
+						else
+							if response["message"] != nil then
+								update.html_display = Rinku.auto_link(response["message"], :all, 'target="_blank"')
 							end
 						end
 					end

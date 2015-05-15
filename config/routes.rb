@@ -446,6 +446,7 @@ Ratafire::Application.routes.draw do
 	match '/facebook_update_callback_kingsman', to: 'facebook_updates#receive'
 	match '/:user_id/:page_id/r/facebook_sync', to: 'facebookpages#sync', as: :facebookpage_sync
 	match '/:user_id/:page_id/r/facebook_unsync', to: 'facebookpages#unsync', as: :facebookpage_unsync
+	match ':id/facebook_update/manners_maketh_men/delete', to: 'facebookupdates#delete', as: :facebookupdate_delete
 
 #------Resources------
 	resources :users, :path => '/' do

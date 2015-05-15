@@ -35,10 +35,23 @@
 		<% end %>	
 <% end %>
 
+<script>
+	$(document).ready(function() {
+	$('#<%= activity.id %>activity').hover(function() {
+  		$("#<%= activity.id %>delete").toggle();
+	});
+	});
+</script>
+
 <div class="lightbox" id="<%= activity.id %>activity">
 	<!-- Content Wrapper-->
 	<div class="create-content-wrapper">
 		<div class="textbox3">
+			<% if current_user != nil then %>
+				<% if activity.owner_id == current_user.id || current_user.admin == true %>
+					<div style="float:right;display:none;font-size:1.2em;color:#cccccc;" id="<%= activity.id %>delete" title="Comments"><%= link_to facebookupdate_delete_path(activity.trackable.id), class:"no_ajaxify", style:"color:#ccc;",:method => :get,:confirm => "Are you sure to hide this update?" do %><i class="fa fa-trash-o"></i><% end %></div>	
+				<% end %>
+			<% end %>	
 
 			<!-- Facebook Page Profile Photo -->
 			<%= link_to activity.trackable.link,target:"_blank", class:"no_ajaxify" do %>
@@ -124,15 +137,7 @@
 						</div><!-- end.majorpost-video-one -->	
 						<!-- excerpt holder-->
 						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:403px;height:106px;overflow:hidden;">
-							<% if activity.trackable.description != nil && activity.trackable.message != nil then %>
-								<%= sanitize truncate(activity.trackable.message+" "+activity.trackable.description, :length => 300) %>
-							<% else %>
-								<% if activity.trackable.description != nil && activity.trackable.message == nil then %>
-									<%= sanitize truncate(activity.trackable.description, :length => 300) %>
-								<% else %>
-									<%= sanitize truncate(activity.trackable.message, :length => 300) %>
-								<% end %>
-							<% end %>
+							<%= activity.trackable.html_display.truncate(300).html_safe %>
 						</div>
 					</div><!-- end#video-holder-->
 
@@ -148,28 +153,12 @@
 						<% end %>
 						<!-- excerpt holder-->
 						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:478px;height:106px;overflow:hidden;">
-							<% if activity.trackable.description != nil && activity.trackable.message != nil then %>
-								<%= sanitize truncate(activity.trackable.message+" "+activity.trackable.description, :length => 300) %>
-							<% else %>
-								<% if activity.trackable.description != nil && activity.trackable.message == nil then %>
-									<%= sanitize truncate(activity.trackable.description, :length => 300) %>
-								<% else %>
-									<%= sanitize truncate(activity.trackable.message, :length => 300) %>
-								<% end %>
-							<% end %>
+							<%= activity.trackable.html_display.truncate(300).html_safe %>
 						</div>			
 					<% else %>		
 					<!-- Without Image -->
 						<div>
-							<% if activity.trackable.description != nil && activity.trackable.message != nil then %>
-								<%= sanitize truncate(activity.trackable.message+" "+activity.trackable.description, :length => 300) %>
-							<% else %>
-								<% if activity.trackable.description != nil && activity.trackable.message == nil then %>
-									<%= sanitize truncate(activity.trackable.description, :length => 300) %>
-								<% else %>
-									<%= sanitize truncate(activity.trackable.message, :length => 300) %>
-								<% end %>
-							<% end %>
+							<%= activity.trackable.html_display.truncate(300).html_safe %>
 						</div>									
 					<% end %>
 				<% end %><!-- end.post_type =='video"-->

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   include Devise::Controllers::Helpers
 
+
 SEND_FILE_METHOD = :default
 
 protect_from_forgery :except => [:create_profilephoto,:create_profilephoto_settings, :update]

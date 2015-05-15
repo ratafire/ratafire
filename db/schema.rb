@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150512205055) do
+ActiveRecord::Schema.define(:version => 20150515055442) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20150512205055) do
     t.string   "sub_realm"
     t.string   "status"
     t.boolean  "abandoned"
+    t.boolean  "listed"
+    t.boolean  "reviewed"
   end
 
   add_index "activities", ["owner_id", "owner_type"], :name => "index_activities_on_owner_id_and_owner_type"
@@ -632,8 +634,8 @@ ActiveRecord::Schema.define(:version => 20150512205055) do
     t.string   "youtube_video"
     t.string   "vimeo_video"
     t.string   "name"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
@@ -644,6 +646,11 @@ ActiveRecord::Schema.define(:version => 20150512205055) do
     t.integer  "facebookimage_file_size"
     t.datetime "facebookimage_updated_at"
     t.boolean  "valid_update",               :default => true
+    t.text     "html_display"
+    t.string   "realm"
+    t.string   "sub_realm"
+    t.boolean  "featured",                   :default => false
+    t.boolean  "featured_home",              :default => false
   end
 
   create_table "friendly_id_slugs", :force => true do |t|

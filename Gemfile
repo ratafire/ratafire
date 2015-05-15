@@ -89,8 +89,8 @@ gem "browser"
 #SoundCloud ID
 gem "soundcloud"
 
-#Auto Html
-gem "auto_html"
+#link to rinku
+gem "rinku"
 
 #Rating
 gem 'letsrate', :path => "vendor/gems/ratyrate"

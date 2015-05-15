@@ -148,10 +148,7 @@ class VideosController < ApplicationController
 	def external_video
 		#youtube
 		#@majorpost = Majorpost.find(@video.majorpost_id)
-		@video_regexp = [ /^(?:https?:\/\/)?(?:www\.)?youtube\.com(?:\/v\/|\/watch\?v=)([A-Za-z0-9_-]{11})/, 
-				   /^(?:https?:\/\/)?(?:www\.)?youtu\.be\/([A-Za-z0-9_-]{11})/,
-				   /^(?:https?:\/\/)?(?:www\.)?youtube\.com\/user\/[^\/]+\/?#(?:[^\/]+\/){1,4}([A-Za-z0-9_-]{11})/
-				   ]
+		@video_regexp = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})\W/
 		#vimeo
 		if @video.external =~ /^(http|https):\/\/(?:.*?)\.?vimeo\.com\/(watch\?[^#]*v=(\w+)|(\d+))/ then
 			@video.youtube_vimeo = false
@@ -201,6 +198,7 @@ class VideosController < ApplicationController
 	end 
 
 	def youtube_video_id(source_url)
-	  @video_regexp.each { |m| return m.match(source_url)[1] unless m.nil? }
+	  match_result = @video_regexp.match(source_url) unless @video_regexp.nil?
+	  return match_result[1]
 	end  
 end
