@@ -75,7 +75,7 @@ class Facebookupdate < ActiveRecord::Base
 						update.update_column(:created_at,date)
 					end
 					#Make Activity
-					updateactivity = update.create_activity action: 'create', params: {owner_type: 'User', owner_id: update.user_id}
+					updateactivity = update.create_activity :create
 					if updateactivity != nil then
 						updateactivity.created_at = DateTime.parse(response["created_time"])
 						updateactivity.owner_type = "User"
