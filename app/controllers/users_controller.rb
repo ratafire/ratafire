@@ -58,6 +58,7 @@ protect_from_forgery :except => [:create_profilephoto,:create_profilephoto_setti
   def edit
 	@user = User.find(params[:id])
 	gon.user_id = @user.id
+	@edit = true
   end
 
   #def settings
