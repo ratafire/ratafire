@@ -90,6 +90,7 @@ class Facebookupdate < ActiveRecord::Base
 						updateactivity.trackable_type = "Facebookupdate"
 						updateactivity.key = "facebookupdate.create"
 						updateactivity.created_at = DateTime.parse(response["created_time"])
+						updateactivity.commented_at = DateTime.parse(response["created_time"])
 						updateactivity.owner_type = "User"
 						updateactivity.test = true
 						updateactivity.owner_id = update.user_id

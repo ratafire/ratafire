@@ -597,82 +597,109 @@ class AdminController < ApplicationController
 		if @object != nil then
 			case params[:realmname]
 				when "1"
+					@object.update_column(:test, false)
 					@object.update_column(:realm, "art")
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.realm = @object.realm
+						@activity.test = false
+						@activity.draft = false						
 						@activity.save
 					end
 					flash[:success] = "Added to Art."
 					redirect_to(:back)
 				when "2"
+					@object.update_column(:test, false)
 					@object.update_column(:realm, "music")
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.realm = @object.realm
+						@activity.test = false
+						@activity.draft = false
 						@activity.save
 					end
 					flash[:success] = "Added to Music."
 					redirect_to(:back)
 				when "3"
+					@object.update_column(:test, false)
 					@object.update_column(:realm, "games")
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.realm = @object.realm
+						@activity.test = false
+						@activity.draft = false
 						@activity.save
 					end
 					flash[:success] = "Added to Games."
 					redirect_to(:back)
 				when "4"
+					@object.update_column(:test, false)
 					@object.update_column(:realm, "writing")
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.realm = @object.realm
+						@activity.test = false
+						@activity.draft = false
 						@activity.save
 					end
 					flash[:success] = "Added to Writing."
 					redirect_to(:back)
 				when "5"
+					@object.update_column(:test, false)
 					@object.update_column(:realm, "videos")
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.realm = @object.realm
+						@activity.test = false
+						@activity.draft = false
 						@activity.save
 					end
 					flash[:success] = "Added to Videos."
 					redirect_to(:back)	
 				when "6"
+					@object.update_column(:test, false)
 					@object.update_column(:realm, "math")
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.realm = @object.realm
+						@activity.test = false
+						@activity.draft = false
 						@activity.save
 					end
 					flash[:success] = "Added to Math."
 					redirect_to(:back)		
 				when "7"
+					@object.update_column(:test, false)
 					@object.update_column(:realm, "science")
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.realm = @object.realm
+						@activity.test = false
+						@activity.draft = false
 						@activity.save
 					end
 					flash[:success] = "Added to Science."
 					redirect_to(:back)		
 				when "8"
+					@object.update_column(:test, false)
 					@object.update_column(:realm, "humanity")
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.realm = @object.realm
+						@activity.test = false
+						@activity.draft = false
 						@activity.save
 					end
 					flash[:success] = "Added to Humanity."
 					redirect_to(:back)		
 				when "9"
+					@object.update_column(:test, false)
 					@object.update_column(:realm, "engineering")
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.realm = @object.realm
+						@activity.test = false
+						@activity.draft = false
 						@activity.save
 					end
 					flash[:success] = "Added to Engineering."
