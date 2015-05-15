@@ -106,6 +106,19 @@ class TutorialsController < ApplicationController
 		@user = User.find(params[:id])
 	end
 
+	#delete add facebook pages
+	def add_facebook_pages
+		@tutorial = Tutorial.find(params[:id])
+		@tutorial.update_column(:facebook_page, true)
+		@tutorial.save
+	end
+
+	def setup_subscription
+		@tutorial = Tutorial.find(params[:id])
+		@tutorial.update_column(:setup_subscription, true)
+		@tutorial.save
+	end
+
 private
 
   	def resolve_layout

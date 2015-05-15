@@ -1,8 +1,21 @@
+<script>
+//Google Analytics Event Tracking
+$(document).ready(function() {
+
+	$("#facebook_pages_tutorial").click(function() {
+		$("#signupshow-holder-small").hide();
+	});
+
+});	
+
+</script>
 <div class="signupshow-holder-small" style="opacity:1;" id="signupshow-holder-small">
 	<div class="signupshow-wrapper">
 		<!--<div class="btn-arrow-up" id="signup-show"></div>-->
 		<div class="signupshow-title" style="font-size:1.2em;width:800px;">Getting started? <%= link_to "Sync Facebook Fan Pages", user_omniauth_authorize_path(:facebookpages), class:"no_ajaxify"%> you own to import your creations and get a head start.
+		<span style="float:right;font-size:0.5em;"><%= link_to add_facebook_pages_tutorial_path(current_user.tutorial), style:"padding:1px 3px 1px 3px;border-radius:8px;",remote: true,id:"facebook_pages_tutorial", class:"no_ajaxify" do %><i class="fa fa-times"></i><% end %></span>
 		</div>	
+
 	</div>	
 </div>	
 	

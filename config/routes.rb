@@ -396,6 +396,9 @@ Ratafire::Application.routes.draw do
 	match '/user/user_intro/tutorial/new_world/:id/', to: "tutorials#intro", as: :intro_tutorial
 	match '/:id/user/user_intro/new/tutorial/start_using', to: "tutorials#after_intro", as: :after_intro_tutorial
 
+	#Messages
+	match ':id/user_message/tutorial/facebook_page', to: "tutorials#add_facebook_pages", as: :add_facebook_pages_tutorial
+
 #---Help---
 	match '/help', to: 'helps#show', as: :help
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150515080537) do
+ActiveRecord::Schema.define(:version => 20150515212525) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -1367,6 +1367,8 @@ ActiveRecord::Schema.define(:version => 20150515080537) do
     t.integer  "project_tutorial_prev"
     t.integer  "intro"
     t.boolean  "facebook"
+    t.boolean  "facebook_page"
+    t.boolean  "setup_subscription"
   end
 
   create_table "twitters", :force => true do |t|
