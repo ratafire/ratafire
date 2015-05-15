@@ -545,16 +545,16 @@ class AdminController < ApplicationController
 					flash[:success] = "Added to Homepage."
 					redirect_to(:back)	
 				when "test"
-					@object.update_column(:test, false)
+					@object.update_column(:test, true)
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
-						@activity.test = false
+						@activity.test = true
 						@activity.save
 					end		
 					flash[:success] = "Unlisted."
 					redirect_to(:back)	
 				when "untest"
-					@object.update_column(:test, true)
+					@object.update_column(:test, false)
 					@object.update_column(:featured_home, false)
 					@object.update_column(:test, false)							
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
@@ -566,7 +566,7 @@ class AdminController < ApplicationController
 					redirect_to(:back)	
 				when "unfeature"
 					@object.update_column(:featured_home, false)
-					@object.update_column(:test, false)					
+					@object.update_column(:test, true)					
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.featured = false
