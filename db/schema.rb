@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150515212525) do
+ActiveRecord::Schema.define(:version => 20150516214909) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -1251,6 +1251,7 @@ ActiveRecord::Schema.define(:version => 20150515212525) do
     t.boolean  "next_transaction_queued",                                 :default => false
     t.integer  "retry",                                                   :default => 0
     t.string   "method"
+    t.integer  "facebook_page_id"
   end
 
   create_table "tag_relationships", :force => true do |t|

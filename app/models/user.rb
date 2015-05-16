@@ -270,7 +270,15 @@ class User < ActiveRecord::Base
   #Used to find subscription
   def subscription_project_find(subscriber_id, subscribed_id)
   	subscription = Subscription.find_by_subscriber_id_and_subscribed_id(subscriber_id,subscribed_id)
-  	return Project.find(subscription.project_id)
+  	if Project.find(subscription.project_id) != nil then 
+  		return Project.find(subscription.project_id).title
+  	else
+  		if subscription.facebook_page_id != nil then 
+  			Facebookpage.find(subscription.facebook_page_id).name
+  		else
+  			return Facebookpage.find(subscription.facebook_page_id).name
+  		end
+  	end
   end
 
   def soft_delete

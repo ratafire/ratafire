@@ -121,20 +121,22 @@ class ChargesController < ApplicationController
 		#Set basic info of the subscription
 		@user = User.find(params[:id])
 		@subscriber = User.find(@subscription.subscriber_id)
-		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id	
+		if @user.projects.where(:published => true, :complete => false).first.id != nil then 
+			@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id
+		else
+			@subscription.facebook_page_id = @user.facebookpages.where(:sync => true).first.id
+		end	
 		@subscription.save	
 		#Adda card
 		unless @user.subscribed_by?(@subscriber) || @subscriber.subscribed_by?(@user) then
 			if @subscription.method == "Card" then
-				stripe_add_card(@subscriber.id,params[:stripeToken])
-				#Subscribe
+				stripe_add_card(@subscriber.id,params[:stripeToken],@subscription.id)
 			else
 				if @subscription.method == "PayPal" then
-					@subscription.save
 					create_request
 					port = Rails.env.production? ? "" : ":3000"
 					redirect_url = "#{request.scheme}://#{request.host}#{port}/"+@subscription.id.to_s+"/r/paypal/add_paypal_subscribe_success"
-					failure_url = "#{request.scheme}://#{request.host}#{port}/"+@user.username
+					failure_url = "#{request.scheme}://#{request.host}#{port}/"+@subscription.id.to_s+"/r/paypal/add_paypal_subscribe_failed"
 					payment_request = Paypal::Payment::Request.new(
 			  			:billing_type  => "MerchantInitiatedBilling",
 			  			# Or ":billing_type => :MerchantInitiatedBillingSingleAgreement"
@@ -148,13 +150,17 @@ class ChargesController < ApplicationController
 					)
 					redirect_to response.redirect_uri	
 				else
-					@subscription.save
-					redirect_to user_omniauth_authorize_path(:venmo, payment:"true",subscriber_id: @subscription.subscriber_id, subscribed_id: @subscription.subscribed_id, amount: @subscription.amount,method:"Venmo")
-					@subscription.destroy
+					if @subscription.method == "Venmo" then 
+						#change this to venmo
+						redirect_to user_omniauth_authorize_path(:venmo, payment:"true",subscriber_id: @subscription.subscriber_id, subscribed_id: @subscription.subscribed_id, amount: @subscription.amount,method:"Venmo")
+						@subscription.destroy
+					end
 				end		
 			end
 		else
 			flash[:success] = "Subscription failed."
+			#destroy subscription
+			@subscription.destroy
 			redirect_to subscribers_path(@user.id)				
 		end
 	end
@@ -177,9 +183,25 @@ class ChargesController < ApplicationController
 			@subscription = Subscription.find(params[:subscription_id])
 			subscribe_for_user
 		else
+			flash[:success] = "Subscription through PayPal failed."
 			@subscription = Subscription.find(params[:subscription_id])
 			redirect_to user_path(@subscription.subscribed)
+			@subscription.destroy
 		end		
+	end
+
+	#Add paypal subscribe cancel
+	def add_paypal_subscribe_failed
+		@subscription = Subscription.find(params[:subscription_id])
+		@subscribed = User.find(@subscription.subscribed_id)
+		@subscription.destroy
+		if @subscribed != nil then 
+			flash[:success] = "Subscription through PayPal canceled."
+			redirect_to user_path(@subscribed)
+		else
+			flash[:success] = "Subscription through PayPal canceled."
+			redirect_to root_path
+		end
 	end
 
 	#Add venmo subscribe
@@ -239,7 +261,7 @@ class ChargesController < ApplicationController
 
 private
 
-	def stripe_add_card(user_id,stripeToken)
+	def stripe_add_card(user_id,stripeToken,subscription_id)
 		@customer = Customer.find_by_user_id(user_id)
 		if @customer != nil then
 			#use the old customer
@@ -252,6 +274,8 @@ private
 				@card = Card.prefill!(customer, user_id, @customer.id)
 				subscribe_for_user
 			else
+				@subscription = Subscription.find(subscription_id)
+				@subscription.destroy
 				flash[:error] = "Fail to add a new card."
 				redirect_to(:back)
 			end
@@ -360,6 +384,7 @@ private
 		Resque.enqueue(SubscriptionNowWorker,@subscription.id,transaction.id)
 		else
 			#Transaction failed
+			@subscription.destroy
 			flash[:error] = "Invalid payment method."
 			redirect_to(:back)			
 		end
@@ -381,6 +406,7 @@ private
 			Resque.enqueue(SubscriptionNowWorker,@subscription.id,transaction.id)
 		else
 			#Transaction failed
+			@subscription.destroy
 			flash[:error] = "Invalid payment method."
 			redirect_to(:back)		
 		end

@@ -176,18 +176,19 @@ class SubscriptionsController < ApplicationController
 		@subscriber = @user
 		@subscription.deleted_reason = 2
 		@subscription.deleted_at = Time.now
-		@subscription.next_transaction_queued = false
 		@subscription.save	
 		#Mark Subscription Records as having pasts
 		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
-		@subscription_record.past = true
-		if @subscription_record.duration == nil then
-			@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
-		else
-			duration = @subscription.deleted_at - @subscription.created_at
-			@subscription_record.duration = @subscription_record.duration + duration
+		if @subscription_record != nil then 
+			@subscription_record.past = true
+			if @subscription_record.duration == nil then
+				@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
+			else
+				duration = @subscription.deleted_at - @subscription.created_at
+				@subscription_record.duration = @subscription_record.duration + duration
+			end
+			@subscription_record.save	
 		end
-		@subscription_record.save		
 		#destroy activities as well if accumulated total is 0
 		valid_subscription = ((@subscription.deleted_at - @subscription.created_at)/1.day).to_i
 		if @subscription.accumulated_total == nil || @subscription.accumulated_total == 0 || valid_subscription < 30 then
@@ -199,33 +200,23 @@ class SubscriptionsController < ApplicationController
 				end
 			end
 		end			
-			#Add to User's Subscription amount
-			@subscribed = User.find(@subscription.subscribed_id)
-			case @subscription.amount
-  			when ENV["PRICE_0"].to_f
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_0_RECEIVE"].to_f
-  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_0"].to_f						
-  			when ENV["PRICE_1"].to_f
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
-  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f
-  			when ENV["PRICE_2"].to_f
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_2_RECEIVE"].to_f
-  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_2"].to_f
-  			when ENV["PRICE_3"].to_f
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_3_RECEIVE"].to_f
-  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_3"].to_f
-  			when ENV["PRICE_4"].to_f
- 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_4_RECEIVE"].to_f
- 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_4"].to_f
-  			when ENV["PRICE_5"].to_f
- 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_5_RECEIVE"].to_f
- 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_5"].to_f
- 	 		when ENV["PRICE_6"].to_f
-	  			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_6_RECEIVE"].to_f
-	  			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_6"].to_f
- 	 		end	
- 	 		@subscribed.save
- 	 		@subscriber.save		
+		#Add to User's Subscription amount
+		@subscribed = User.find(@subscription.subscribed_id)
+		@subscribed.subscription_amount = @subscribed.subscription_amount - @subscription.amount
+		@subscriber.subscribing_amount = @subscriber.subscribing_amount - @subscription.amount	
+ 		@subscribed.save
+ 		@subscriber.save  				
+		@billing_subscription = BillingSubscription.find_by_user_id(@subscriber.id)
+		if @billing_subscription != nil then
+			@billing_subscription.next_amount = @billing_subscription.next_amount - @subscription.amount
+			@billing_subscription.save
+		end	
+		@billing_artist =  BillingArtist.find_by_user_id(@subscribed.id)	
+		if @billing_artist != nil then
+			@billing_artist.next_amount = @billing_artist.next_amount - @subscription.amount
+			@billing_artist.save
+		end
+		
 		flash[:success] = "You removed "+@user.fullname+"!"
 		redirect_to(:back)
 	end
@@ -238,7 +229,6 @@ class SubscriptionsController < ApplicationController
 		@subscription.deleted_reason = 1
 		@subscription.deleted = true
 		@subscription.deleted_at = Time.now
-		@subscription.next_transaction_queued = false
 		@subscription.save
 		#Mark Subscription Records as having pasts
 		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
@@ -264,31 +254,22 @@ class SubscriptionsController < ApplicationController
 			end
 		end		
 		#Change User's subscription amount
-			case @subscription.amount
-  			when ENV["PRICE_0"].to_f
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_0_RECEIVE"].to_f
-  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_0"].to_f				
-  			when ENV["PRICE_1"].to_f
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
-  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_1"].to_f
-  			when ENV["PRICE_2"].to_f
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_2_RECEIVE"].to_f
-  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_2"].to_f
-  			when ENV["PRICE_3"].to_f
-  				@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_3_RECEIVE"].to_f
-  				@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_3"].to_f
-  			when ENV["PRICE_4"].to_f
- 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_4_RECEIVE"].to_f
- 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_4"].to_f
-  			when ENV["PRICE_5"].to_f
- 	 			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_5_RECEIVE"].to_f
- 	 			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_5"].to_f
- 	 		when ENV["PRICE_6"].to_f
-	  			@subscribed.subscription_amount = @subscribed.subscription_amount - ENV["PRICE_6_RECEIVE"].to_f
-	  			@subscriber.subscribing_amount = @subscriber.subscribing_amount - ENV["PRICE_6"].to_f
- 	 		end	
- 	 		@subscribed.save
- 	 		@subscriber.save	
+		#Add to User's Subscription amount
+		@subscribed = User.find(@subscription.subscribed_id)
+		@subscribed.subscription_amount = @subscribed.subscription_amount - @subscription.amount
+		@subscriber.subscribing_amount = @subscriber.subscribing_amount - @subscription.amount	
+ 		@subscribed.save
+ 		@subscriber.save  				
+		@billing_subscription = BillingSubscription.find_by_user_id(@subscriber.id)
+		if @billing_subscription != nil then
+			@billing_subscription.next_amount = @billing_subscription.next_amount - @subscription.amount
+			@billing_subscription.save
+		end	
+		@billing_artist =  BillingArtist.find_by_user_id(@subscribed.id)	
+		if @billing_artist != nil then
+			@billing_artist.next_amount = @billing_artist.next_amount - @subscription.amount
+			@billing_artist.save
+		end
 		flash[:success] = "You unsubscribed from "+@user.fullname+"!"
 		redirect_to(:back)
 	end

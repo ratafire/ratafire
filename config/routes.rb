@@ -210,6 +210,7 @@ Ratafire::Application.routes.draw do
 	match '/paypal_agreement_cancel', to: 'payments#billing_agreement_cancel'
 	match '/:id/r/paypal/remove_billing_agreement', to: 'payments#remove_billing_agreement', as: :remove_billing_agreement
 	match '/:subscription_id/r/paypal/add_paypal_subscribe_success', to: 'charges#add_paypal_subscribe'
+	match '/:subscription_id/r/paypal/add_paypal_subscribe_failed', to: 'charges#add_paypal_subscribe_failed'
 
 	#Venmo
 	match '/venmo_after_auth/r/r/:subscriber_id/:subscribed_id/:amount/', to: 'charges#add_venmo_subscribe', as: :add_venmo_subscribe

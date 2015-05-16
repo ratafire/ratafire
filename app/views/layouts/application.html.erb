@@ -42,7 +42,7 @@
 
 			<!-- Ask User to Add Facebook Pages -->
 			<% if user_signed_in? then %>
-				<% unless current_user.tutorial.facebook_page == true%>
+				<% unless current_user.tutorial.facebook_page == true %>
 					<% unless current_user.projects.any? %>
 						<% unless current_user.facebook_pages.any? %>
 							<%= render 'layouts/add_facebook_pages'%>
@@ -53,7 +53,13 @@
 				<% if current_user.facebook_pages.any? || current_user.projects.where(:published => true).any? %>
 					<% if current_user.subscription_status_initial == nil %>
 						<% if current_user.subscription_application[0] == nil %>
-							<%= render 'layouts/setup_subscription'%>	
+							<% unless current_user.facebook_pages.any? %>
+								<% unless current_user.tutorial.facebook_page == true %>
+									<%= render 'layouts/add_facebook_pages'%>
+								<% end %>
+							<% else %>	
+								<%= render 'layouts/setup_subscription'%>
+							<%end%>
 						<% end %>
 					<% end %>
 				<% end %>
