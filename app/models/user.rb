@@ -271,12 +271,12 @@ class User < ActiveRecord::Base
   def subscription_project_find(subscriber_id, subscribed_id)
   	subscription = Subscription.find_by_subscriber_id_and_subscribed_id(subscriber_id,subscribed_id)
   	if Project.find(subscription.project_id) != nil then 
-  		return Project.find(subscription.project_id).title
+  		return Project.find(subscription.project_id)
   	else
   		if subscription.facebook_page_id != nil then 
-  			Facebookpage.find(subscription.facebook_page_id).name
+  			Facebookpage.find(subscription.facebook_page_id)
   		else
-  			return Facebookpage.find(subscription.facebook_page_id).name
+  			return Facebookpage.find(subscription.facebook_page_id)
   		end
   	end
   end

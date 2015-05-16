@@ -433,6 +433,7 @@ private
 			Resque.enqueue(SubscriptionNowWorker,@subscription.id,transaction.id)
 		else
 			#Transaction failed
+			@subscription.destroy
 			flash[:error] = "Invalid payment method."
 			redirect_to(:back)	
 		end
