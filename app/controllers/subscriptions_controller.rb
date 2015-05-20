@@ -209,6 +209,9 @@ class SubscriptionsController < ApplicationController
 		@billing_subscription = BillingSubscription.find_by_user_id(@subscriber.id)
 		if @billing_subscription != nil then
 			@billing_subscription.next_amount = @billing_subscription.next_amount - @subscription.amount
+			unless @subscriber.subscriptions.any? then
+				@billing_subscription.activated = false
+			end
 			@billing_subscription.save
 		end	
 		@billing_artist =  BillingArtist.find_by_user_id(@subscribed.id)	
@@ -263,6 +266,9 @@ class SubscriptionsController < ApplicationController
 		@billing_subscription = BillingSubscription.find_by_user_id(@subscriber.id)
 		if @billing_subscription != nil then
 			@billing_subscription.next_amount = @billing_subscription.next_amount - @subscription.amount
+			unless @subscriber.subscriptions.any? then
+				@billing_subscription.activated = false
+			end
 			@billing_subscription.save
 		end	
 		@billing_artist =  BillingArtist.find_by_user_id(@subscribed.id)	

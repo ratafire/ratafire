@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150516214909) do
+ActiveRecord::Schema.define(:version => 20150520043140) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -898,6 +898,17 @@ ActiveRecord::Schema.define(:version => 20150516214909) do
     t.integer  "conversation_id"
   end
 
+  create_table "orders", :force => true do |t|
+    t.integer  "user_id"
+    t.decimal  "amount",        :precision => 10, :scale => 2, :default => 0.0
+    t.boolean  "transacted"
+    t.datetime "transacted_at"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
+  end
+
   create_table "p_e_inspirations", :force => true do |t|
     t.integer  "inspired_id"
     t.datetime "created_at"
@@ -1145,6 +1156,7 @@ ActiveRecord::Schema.define(:version => 20150516214909) do
     t.string   "bank_name"
     t.string   "fingerprint"
     t.string   "account_status"
+    t.integer  "transfer_id"
   end
 
   create_table "redactor_assets", :force => true do |t|
@@ -1356,6 +1368,43 @@ ActiveRecord::Schema.define(:version => 20150516214909) do
     t.string   "venmo_transaction_id"
     t.string   "venmo_username"
     t.string   "venmo_token"
+    t.integer  "transfer_id"
+  end
+
+  create_table "transfers", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "subscription_id"
+    t.integer  "subscription_record_id"
+    t.integer  "billing_artist_id"
+    t.integer  "recipient_id"
+    t.datetime "transfered_at"
+    t.string   "status"
+    t.integer  "retry",                                                        :default => 0
+    t.text     "statusmessage"
+    t.string   "uuid"
+    t.string   "error"
+    t.boolean  "transfered"
+    t.string   "paypal_correlation_id"
+    t.string   "billing_agreement_id"
+    t.string   "paypal_transaction_id"
+    t.string   "venmo_transaction_id"
+    t.string   "venmo_username"
+    t.string   "venmo_token"
+    t.string   "stripe_id"
+    t.string   "method"
+    t.string   "stripe_transfer_id"
+    t.string   "stripe_destination_id"
+    t.text     "test"
+    t.string   "stripe_recipient_id"
+    t.string   "stripe_balance_transaction_id"
+    t.datetime "created_at",                                                                    :null => false
+    t.datetime "updated_at",                                                                    :null => false
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.decimal  "fee",                           :precision => 10, :scale => 0, :default => 0
+    t.decimal  "receive",                       :precision => 10, :scale => 0, :default => 0
+    t.decimal  "amount",                        :precision => 10, :scale => 0, :default => 0
+    t.decimal  "ordered_amount",                :precision => 10, :scale => 2, :default => 0.0
   end
 
   create_table "tutorials", :force => true do |t|
@@ -1509,6 +1558,7 @@ ActiveRecord::Schema.define(:version => 20150516214909) do
     t.integer  "goals_watching",                                            :default => 10
     t.integer  "goals_reviews",                                             :default => 10
     t.boolean  "post_to_facebook"
+    t.boolean  "subscription_inactive"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

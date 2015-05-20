@@ -134,6 +134,10 @@ class User < ActiveRecord::Base
 	has_many :reverse_sub_sus, foreign_key: "subscriber_id", class_name: "Subscription", dependent: :destroy, :conditions => {:deleted_at => nil, :activated => true}
 	has_many :sub_sused, through: :reverse_sub_sus, source: :subscribed, :conditions => {:subscriptions =>{:deleted_at => nil, :activated => true}}
 	
+	#Transfers
+	has_one :transfer, :conditions => { :deleted_at => nil , :transfered => nil }
+	has_one :order, :conditions => { :deleted_at => nil, :transacted => nil }
+
 	#--- Blacklist ---
 	has_many :blacklist_records, foreign_key: "blacklister_id", class_name: "Blacklist", dependent: :destroy
 	has_many :blacklisted, through: :blacklist_records, source: :blacklisted

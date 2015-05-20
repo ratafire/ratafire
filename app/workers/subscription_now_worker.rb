@@ -78,6 +78,30 @@ class SubscriptionNowWorker
 			@billing_artist.next_amount += @transaction.receive
 			@billing_artist.save
 		end
+		#Create or find a transfer
+		if @subscribed.transfer != nil then
+			@transfer = @subscribed.transfer
+			@transfer.user_id = @subscribed.id
+			@transfer.billing_artist_id = @billing_artist.id
+			@transfer.recipient_id = @subscribed.recipient.id
+			@transfer.method = "Stripe"
+			@transfer.amount = @transfer.amount + @subscription.amount
+			@transfer.stripe_recipient_id = @subscribed.recipient.recipient_id
+			@transfer.save
+			@transaction.transfer_id = @transfer.id 
+			@transaction.save
+		else
+			@transfer = Transfer.new
+			@transfer.user_id = @subscribed.id
+			@transfer.billing_artist_id = @billing_artist.id
+			@transfer.recipient_id = @subscribed.recipient.id
+			@transfer.method = "Stripe"
+			@transfer.amount = @transfer.amount + @subscription.amount
+			@transfer.stripe_recipient_id = @subscribed.recipient.recipient_id
+			@transfer.save
+			@transaction.transfer_id = @transfer.id 
+			@transaction.save				
+		end		
 		#Unbomb the subscribed
 		@subscription_application = @subscribed.approved_subscription_application
 		if @subscription_application != nil then

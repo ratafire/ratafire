@@ -148,6 +148,10 @@ class ProjectsController < ApplicationController
 													@project.creator.facebook_pages.first.update_column(:post_to_facebook_page,nil)
 												end
 											end
+											#update published at
+											if @project.published_at == nil then 
+												@project.update_column(:published_at, Time.now)
+											end
 											#Redirect to Setup subscription if so
 											if @project.creator.subscription_application[0] != nil && @project.creator.subscription_application[0].step != 7 then
 												redirect_to goals_subscription_path(@project.creator)
