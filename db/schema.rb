@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150520043140) do
+ActiveRecord::Schema.define(:version => 20150526231416) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -907,6 +907,7 @@ ActiveRecord::Schema.define(:version => 20150520043140) do
     t.datetime "deleted_at"
     t.datetime "created_at",                                                    :null => false
     t.datetime "updated_at",                                                    :null => false
+    t.integer  "count",                                        :default => 0
   end
 
   create_table "p_e_inspirations", :force => true do |t|
@@ -956,6 +957,39 @@ ActiveRecord::Schema.define(:version => 20150520043140) do
   create_table "payments", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "paypal_accounts", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "name"
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "location"
+    t.string   "phone"
+    t.string   "token"
+    t.string   "refresh_token"
+    t.string   "expires_at"
+    t.boolean  "expires"
+    t.string   "account_creation_date"
+    t.string   "account_type"
+    t.string   "user_identity"
+    t.string   "country"
+    t.string   "locality"
+    t.string   "postal_code"
+    t.string   "region"
+    t.string   "street_address"
+    t.string   "language"
+    t.string   "locale"
+    t.boolean  "verified_account"
+    t.string   "zoneinfo"
+    t.string   "age_range"
+    t.string   "birthday"
+    t.integer  "retry"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "pdfs", :force => true do |t|
@@ -1233,6 +1267,7 @@ ActiveRecord::Schema.define(:version => 20150520043140) do
     t.boolean  "past_support",                                        :default => false
     t.boolean  "duration_support",                                    :default => false
     t.integer  "counter",                                             :default => 0
+    t.decimal  "accumulated_fee",      :precision => 10, :scale => 2, :default => 0.0
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -1264,6 +1299,8 @@ ActiveRecord::Schema.define(:version => 20150520043140) do
     t.integer  "retry",                                                   :default => 0
     t.string   "method"
     t.integer  "facebook_page_id"
+    t.integer  "order_id"
+    t.decimal  "accumulated_fee",          :precision => 10, :scale => 2, :default => 0.0
   end
 
   create_table "tag_relationships", :force => true do |t|
@@ -1405,6 +1442,10 @@ ActiveRecord::Schema.define(:version => 20150520043140) do
     t.decimal  "receive",                       :precision => 10, :scale => 0, :default => 0
     t.decimal  "amount",                        :precision => 10, :scale => 0, :default => 0
     t.decimal  "ordered_amount",                :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "collected_amount",              :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "collected_fee",                 :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "collected_receive",             :precision => 10, :scale => 2, :default => 0.0
+    t.boolean  "on_hold"
   end
 
   create_table "tutorials", :force => true do |t|
@@ -1520,7 +1561,6 @@ ActiveRecord::Schema.define(:version => 20150520043140) do
     t.text     "why"
     t.boolean  "subscription_status",                                       :default => false
     t.text     "plan"
-    t.boolean  "subscription_switch",                                       :default => false
     t.boolean  "amazon_authorized",                                         :default => false
     t.string   "subscribed_permission"
     t.string   "subscriber_permission"
@@ -1559,6 +1599,8 @@ ActiveRecord::Schema.define(:version => 20150520043140) do
     t.integer  "goals_reviews",                                             :default => 10
     t.boolean  "post_to_facebook"
     t.boolean  "subscription_inactive"
+    t.string   "default_billing_method"
+    t.boolean  "subscription_switch",                                       :default => true
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

@@ -363,12 +363,19 @@ private
 	end
 
 	def subscribe_through_stripe
-		response = Stripe::Charge.create(
-			:amount => @subscription.amount.to_i*100,
-			:currency => "usd",
-			:customer => @subscriber.customer.customer_id,
-			:description => "Subscription fee to <%= @user.fullname %> on Ratafire."
-		)
+		begin
+			response = Stripe::Charge.create(
+				:amount => @subscription.amount.to_i*100,
+				:currency => "usd",
+				:customer => @subscriber.customer.customer_id,
+				:description => "Subscription fee to <%= @user.fullname %> on Ratafire."
+			)
+		rescue
+			#Transaction failed
+			@subscription.destroy
+			flash[:error] = "Invalid payment method."
+			redirect_to(:back)	
+		end
 		if response.captured == true then
 			transaction = Transaction.prefill!(
 			response,
@@ -391,8 +398,15 @@ private
 	end
 
 	def subscribe_through_paypal
-		create_request
-		response = @request.charge! @subscriber.billing_agreement.billing_agreement_id, @subscription.amount.to_i
+		begin
+			create_request
+			response = @request.charge! @subscriber.billing_agreement.billing_agreement_id, @subscription.amount.to_i
+		rescue
+			#Transaction failed
+			@subscription.destroy
+			flash[:error] = "Invalid payment method."
+			redirect_to(:back)				
+		end
 		if response.ack == "Success" then
 			transaction = Transaction.paypal!(
 			response,

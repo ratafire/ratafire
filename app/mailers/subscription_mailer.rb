@@ -95,5 +95,53 @@ class SubscriptionMailer < ActionMailer::Base
     mail to: @subscribed.email, subject: subject      
   end
 
+  #Send an email to subscriber if the payment failed
+  def fail_to_process_payment(order_id,failed_method)
+    @order = Order.find(order_id)
+    if @order != nil then
+      @subscriber = User.find(@order.user_id)
+      if @subscriber != nil then
+        @amount = @order.amount.to_s
+        case failed_method
+          when "PayPal"
+            @failure_message = "Sorry, we can't process your payment through PayPal."
+          when "Card"
+            @failure_message = "Sorry, we can't process your payment through the card you entered."
+          when "no"
+            @failure_message = "Sorry, we can't process your payment because you don't have a payment method."
+          when "both"
+            @failure_message = "Sorry, we can't process your payment through PayPal or the card you entered."
+        end
+        @due_time = Time.now + 5.days
+        subject = "Payment Failure"
+        mail to: @subscriber.email, subject: subject
+      end
+    end
+  end
+
+  #Send an email to subscribed who has not updated last month
+  def fail_to_update(user_id)
+    @user = User.find(user_id)
+    @last_month = Time.now - 1.month
+    subject = "No Update in " + @last_month.strftime("%B")
+    mail to: @user.email, subject: subject
+  end
+
+  #Send a final email to subscriber if the payment fails again
+  def final_fail_to_process_payment(order_id)
+    @order = Order.find(order_id)
+    @subscriber = User.find(@order.user_id)
+    subject = "Payment Failure"
+    mail to: @subscriber.email, subject: subject
+  end
+
+  #Send en email the subscriber if the payment is successful
+  def successful_order(order_id)
+    @order = Order.find(order_id)
+    @amount = @order.amount.to_s
+    @subscriber = User.find(@order.user_id)
+    subject = "Payment Successful"
+    mail to: @subscriber.email, subject: subject
+  end
 
 end

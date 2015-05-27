@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # :registerable is currently disabled
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:facebook, :twitter, :github, :deviantart, :vimeo, :venmo, :facebookpages, :facebookposts]
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:facebook, :twitter, :github, :deviantart, :vimeo, :venmo, :facebookpages, :facebookposts, :paypal]
 
 	#Accessable to outside users, are you sure you want them to change name?
 	#Profilelarge is the large profilelarge, profielmedium is the medium profilelarge
@@ -90,6 +90,7 @@ class User < ActiveRecord::Base
 	has_one :user_venmo
 	has_one :video,foreign_key: "subscribed_id", class_name: "Video"
 	has_many :facebookupdates, :conditions => { :deleted_at => nil , :valid_update => true }
+	has_one :paypal_account, :conditions => {:deleted_at => nil}
 
 	#--- Payments ---
 	#Subscriptions
@@ -135,7 +136,8 @@ class User < ActiveRecord::Base
 	has_many :sub_sused, through: :reverse_sub_sus, source: :subscribed, :conditions => {:subscriptions =>{:deleted_at => nil, :activated => true}}
 	
 	#Transfers
-	has_one :transfer, :conditions => { :deleted_at => nil , :transfered => nil }
+	has_one :transfer, :conditions => { :deleted_at => nil , :transfered => nil, :on_holed => nil }
+	has_one :hold_transfer, class_name: "Transfer", foreign_key: "user_id", :conditions => { :deleted_at => nil , :transfered => nil, :on_holed => true }
 	has_one :order, :conditions => { :deleted_at => nil, :transacted => nil }
 
 	#--- Blacklist ---

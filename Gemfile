@@ -11,6 +11,7 @@ gem 'devise_invitable', '1.3.4' #not in use, rails cannot start because of from 
 
 #Social Media
 gem 'omniauth'
+gem 'omniauth-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-github'
@@ -19,6 +20,7 @@ gem 'omniauth-venmo'
 gem 'omniauth-vimeo', :git => "git://github.com/lomography/omniauth-vimeo"
 gem 'omniauth-facebookpages', :git => 'git://github.com/ratafire/omniauth-facebookpages'
 gem 'omniauth-facebookposts', :git => 'git://github.com/ratafire/omniauth-facebookposts'
+gem 'omniauth-paypal', :git => "git://github.com/ratafire/omniauth-paypal"
 gem 'open_uri_redirections' #To get Facebook image
 gem "koala", "~> 2.0" #To get Facebook realtime update
 

@@ -205,7 +205,8 @@ class SubscriptionsController < ApplicationController
 		@subscribed.subscription_amount = @subscribed.subscription_amount - @subscription.amount
 		@subscriber.subscribing_amount = @subscriber.subscribing_amount - @subscription.amount	
  		@subscribed.save
- 		@subscriber.save  				
+ 		@subscriber.save  	
+ 		#clear billing subscription			
 		@billing_subscription = BillingSubscription.find_by_user_id(@subscriber.id)
 		if @billing_subscription != nil then
 			@billing_subscription.next_amount = @billing_subscription.next_amount - @subscription.amount
@@ -219,7 +220,6 @@ class SubscriptionsController < ApplicationController
 			@billing_artist.next_amount = @billing_artist.next_amount - @subscription.amount
 			@billing_artist.save
 		end
-		
 		flash[:success] = "You removed "+@user.fullname+"!"
 		redirect_to(:back)
 	end

@@ -1,0 +1,17 @@
+<% if @user.paypal_account != nil then %>
+	<div class="lightbox4" style="border: 0px solid #ddd;background-color:#f9f9f9; border-radius:5px;padding-top:20px;padding-bottom:27px;min-height:10px;">
+		<table class="display">
+			<thead>
+				<tr>
+					<th width="180"><%= @user.paypal_account.email %></th>
+					<th width="382"><%= @user.paypal_account.country %></th>
+					<th><div class="btn btn-small2 btn-small-white tipsy-tipsy" title="Coming Soon!">Edit</div></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>		
+<% else %>
+	<div style="margin-top:5px;"><%= link_to 'Add PayPal',user_omniauth_authorize_path(:paypal), class:"no_ajaxify btn btn-medium3 btn-medium-blue"%></div>
+<% end %>

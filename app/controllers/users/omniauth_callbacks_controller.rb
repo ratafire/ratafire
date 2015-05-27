@@ -617,6 +617,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		end
 	end
 
+	def paypal
+		@user = current_user
+		paypal = PaypalAccount.find_for_paypal_oauth(request.env['omniauth.auth'], @user.id)
+		params = request.env["omniauth.params"]
+		if paypal.persisted? then
+			flash[:success] = "Connected to PayPal."
+			redirect_to payment_settings_path(current_user)	
+		end
+	end
+
   	def failure
   		if current_user != nil then
   			current_user.tutorial.facebook = false

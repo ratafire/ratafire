@@ -34,6 +34,13 @@ GIT
       omniauth-oauth2 (~> 1.2)
 
 GIT
+  remote: git://github.com/ratafire/omniauth-paypal
+  revision: e54dbc833b0c9ae3be60a61a1a9c8e0dd8cc1cb0
+  specs:
+    omniauth-paypal (1.3)
+      omniauth-oauth2 (= 1.3.0)
+
+GIT
   remote: git://github.com/ratafire/redactor-rails.git
   revision: a5fc09f9748ca5e024a6406de527261fddae5c4e
   specs:
@@ -520,6 +527,8 @@ DEPENDENCIES
   omniauth-facebookpages!
   omniauth-facebookposts!
   omniauth-github
+  omniauth-oauth2
+  omniauth-paypal!
   omniauth-twitter
   omniauth-venmo
   omniauth-vimeo!

@@ -333,4 +333,13 @@ Devise.setup do |config|
   else
     config.omniauth :venmo, ENV['VENMO_SANDBOX_CLIENT_ID'], ENV['VENMO_SANDBOX_CLIENT_SECRET'], :scope => 'access_profile,make_payments', redirect_uri: :omniauth_callbacks     
   end
+
+  #PayPal
+  require "omniauth-paypal"
+  if Rails.env.production?
+    config.omniauth :paypal, ENV['PAYPAL_CLIENT_ID'], ENV['PAYPAL_CLIENT_SECRET'], scope: "openid profile email", redirect_uri: :omniauth_callbacks 
+  else
+    config.omniauth :paypal, ENV['PAYPAL_SANDBOX_CLIENT_ID'], ENV['PAYPAL_SANDBOX_CLIENT_SECRET'], sandbox: true, scope: "openid profile email", redirect_uri: :omniauth_callbacks 
+  end
+
 end

@@ -1,4 +1,5 @@
 class SubscriptionNowWorker
+
 	@queue = :subscription_now_queue
 
 	def self.perform(subscription_id,transaction_id)
@@ -11,16 +12,14 @@ class SubscriptionNowWorker
 		#Mailing the sucess confirmation email to the subscriber
 		SubscriptionMailer.transaction_confirmation(@transaction.id).deliver
 		#Mailing the sucess confirmation email to the subscribed
-		if @transaction.supporter_switch == false then 
-			if @subscription.counter == 0 then 
-				message_content = "Hi "+@subscribed.first_name+", I am now subscribing to you. Keep up the great work!"
-				message_title = @subscriber.fullname + " subscribed to you for $"+@subscription.amount.to_s+"/m"
-				receipt = @subscriber.send_message(@subscribed, message_content, message_title)				
-				SubscriptionMailer.new_subscriber(@transaction.id,receipt.notification_id).deliver
-			else
-				SubscriptionMailer.transaction_confirmation_subscribed(@transaction.id).deliver
-			end
-		end	
+		if @subscription.counter == 0 then 
+			message_content = "Hi "+@subscribed.first_name+", I am now subscribing to you. Keep up the great work!"
+			message_title = @subscriber.fullname + " subscribed to you for $"+@subscription.amount.to_s+"/m"
+			receipt = @subscriber.send_message(@subscribed, message_content, message_title)				
+			SubscriptionMailer.new_subscriber(@transaction.id,receipt.notification_id).deliver
+		else
+			SubscriptionMailer.transaction_confirmation_subscribed(@transaction.id).deliver
+		end
 		#Subscription Record
 		@subscription_record = SubscriptionRecord.find_by_subscriber_id_and_subscribed_id(@subscription.subscriber_id,@subscription.subscribed_id)
 		if @subscription_record == nil then
@@ -30,17 +29,23 @@ class SubscriptionNowWorker
 			@subscription_record.subscribed_id = @subscription.subscribed_id
 			@subscription_record.supporter_switch = @subscription.supporter_switch
 			@subscription_record.accumulated_total = @transaction.total
+			@subscription_record.accumulated_receive = @transaction.receive
+			@subscription_record.accumulated_fee = @transaction.fee
 			@subscription_record.counter = @subscription_record.counter+1
 			@subscription_record.save
 		else
 			#Update the subscription record
 			@subscription_record.accumulated_total += @transaction.total
+			@subscription_record.accumulated_receive += @transaction.receive
+			@subscription_record.accumulated_fee += @transaction.fee			
 			@subscription_record.supporter_switch = @subscription.supporter_switch
 			@subscription_record.counter = @subscription_record.counter+1
 			@subscription_record.save
 		end		
 		#Subscription 
 		@subscription.accumulated_total += @transaction.total
+		@subscription.accumulated_receive += @transaction.receive
+		@subscription.accumulated_fee += @transaction.fee		
 		@subscription.first_payment = true
 		@subscription.first_payment_created_at = Time.now
 		@subscription.counter = @subscription.counter+1
@@ -52,6 +57,8 @@ class SubscriptionNowWorker
 			@billing_subscription = BillingSubscription.new
 			@billing_subscription.user_id = @subscriber.id
 			@billing_subscription.accumulated_total = @transaction.total
+			@billing_subscription.accumulated_payment_fee += @transaction.fee
+			@billing_subscription.accumulated_receive += @transaction.receive			
 			@billing_subscription.next_billing_date = Time.now.beginning_of_month.next_month + 6.day
 			@billing_subscription.next_amount = @subscription.amount
 			@billing_subscription.activated = true
@@ -61,6 +68,8 @@ class SubscriptionNowWorker
 			#Update the old billing subscription
 			@billing_subscription = @subscriber.billing_subscription
 			@billing_subscription.accumulated_total += @transaction.total
+			@billing_subscription.accumulated_payment_fee += @transaction.fee
+			@billing_subscription.accumulated_receive += @transaction.receive
 			@billing_subscription.next_amount += @subscription.amount
 			@billing_subscription.save
 		end
