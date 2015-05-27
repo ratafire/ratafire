@@ -7,6 +7,7 @@ class PaypalAccount < ActiveRecord::Base
 		where(auth.slice(:uid)).first_or_create do |paypal|
 			paypal.uid = auth.uid
 			paypal.name = auth.info.name
+			paypal.email = auth.info.email
 			paypal.first_name = auth.info.first_name
 			paypal.last_name = auth.info.last_name
 			paypal.location = auth.info.location
@@ -34,12 +35,14 @@ class PaypalAccount < ActiveRecord::Base
 			paypal.user_id = user_id
 			paypal.save
 			paypal_created = true
+			paypal
 		end
 		if paypal_created == false then
 			paypal = PaypalAccount.find_by_uid(auth.uid)
 			if paypal != nil then
 				paypal.uid = auth.uid
 				paypal.name = auth.info.name
+				paypal.email = auth.info.email
 				paypal.first_name = auth.info.first_name
 				paypal.last_name = auth.info.last_name
 				paypal.location = auth.info.location
@@ -66,7 +69,7 @@ class PaypalAccount < ActiveRecord::Base
 				paypal.birthday = auth.extra.birthday
 				paypal.user_id = user_id
 				paypal.save
-				paypal_created = true				
+				paypal			
 			end
 		end
 	end

@@ -67,7 +67,7 @@ GIT
 
 GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
-  revision: 35fb97d3ebf98cd322df998ec694a9eeaa451190
+  revision: 24c0513a93cbd749da252dc85bf26e5ef46f5a5f
   specs:
     jquery-datatables-rails (3.3.0)
       actionpack (>= 3.1)
@@ -86,7 +86,7 @@ GIT
 
 GIT
   remote: https://github.com/ratafire/venmo.git
-  revision: 8d29f4022ebb9d2fefc90c0230580fe49f202107
+  revision: fc2949ad57d31c981973de3f2936a60a7051e360
   specs:
     venmo (0.4.0)
 
@@ -250,7 +250,7 @@ GEM
       multipart-post
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    httparty (0.13.4)
+    httparty (0.13.5)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.1)
@@ -351,7 +351,7 @@ GEM
       xml-simple
     paypal-sdk-merchant (1.116.0)
       paypal-sdk-core (~> 0.3.0)
-    paypal-sdk-rest (1.2.0)
+    paypal-sdk-rest (1.2.1)
       multi_json (~> 1.0)
       uuidtools (~> 2.1)
       xml-simple
@@ -407,7 +407,7 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     riddle (1.5.11)
-    rinku (1.5.1)
+    rinku (1.7.3)
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
@@ -425,7 +425,7 @@ GEM
       tzinfo (>= 0.3.22)
     sanitize (2.1.0)
       nokogiri (>= 1.4.4)
-    sass (3.4.13)
+    sass (3.4.14)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)

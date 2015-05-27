@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150526231416) do
+ActiveRecord::Schema.define(:version => 20150527182409) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -988,8 +988,10 @@ ActiveRecord::Schema.define(:version => 20150526231416) do
     t.string   "age_range"
     t.string   "birthday"
     t.integer  "retry"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "test",                  :limit => 10000
+    t.string   "uid"
   end
 
   create_table "pdfs", :force => true do |t|

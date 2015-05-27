@@ -4,8 +4,8 @@
 			<thead>
 				<tr>
 					<th width="180"><%= @user.paypal_account.email %></th>
-					<th width="382"><%= @user.paypal_account.country %></th>
-					<th><div class="btn btn-small2 btn-small-white tipsy-tipsy" title="Coming Soon!">Edit</div></th>
+					<th width="382"><%= @user.paypal_account.zoneinfo %></th>
+					<th><%= link_to 'Refresh',user_omniauth_authorize_path(:paypal), class:"no_ajaxify btn btn-small2 btn-small-blue"%></th>
 				</tr>
 			</thead>
 			<tbody>
