@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150527182409) do
+ActiveRecord::Schema.define(:version => 20150528010814) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -888,6 +888,26 @@ ActiveRecord::Schema.define(:version => 20150527182409) do
     t.boolean  "listed"
   end
 
+  create_table "masspay_batches", :force => true do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.boolean  "transfered"
+    t.datetime "transfered_at"
+    t.text     "complete_response"
+    t.text     "error_short_message"
+    t.text     "error_long_message"
+    t.string   "error_code"
+    t.string   "ack"
+    t.string   "correlation_id"
+    t.boolean  "error"
+    t.decimal  "amount",              :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "fee",                 :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "receive",             :precision => 10, :scale => 2, :default => 0.0
+    t.boolean  "on_hold"
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
+  end
+
   create_table "messages", :force => true do |t|
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
@@ -1448,6 +1468,7 @@ ActiveRecord::Schema.define(:version => 20150527182409) do
     t.decimal  "collected_fee",                 :precision => 10, :scale => 2, :default => 0.0
     t.decimal  "collected_receive",             :precision => 10, :scale => 2, :default => 0.0
     t.boolean  "on_hold"
+    t.integer  "masspay_batch_id"
   end
 
   create_table "tutorials", :force => true do |t|
