@@ -1,0 +1,16 @@
+<!-- Add Work Collection -->
+	<div class="add-button-half-holder" style="border-radius:5px 0 0 5px;">
+		<div style="margin:58px 0 0 0;text-align:center;">
+			<h2>Add a PayPal account</h2>
+			<h2>to receive payments.</h2>
+		</div>	
+	</div>	
+<!-- Add Facebook Page-->
+<%= link_to user_omniauth_authorize_path(:paypal, subscription_setup: "true"),class:"no_ajaxify" do %>
+	<div class="add-button-half-holder" style="border-radius:0 5px 5px 0;">
+		<div style="margin:0 auto;text-align:center;">
+			<%= image_tag("add_paypal.png")%>
+			<h2>Connect to PayPal</h2>
+		</div>
+	</div>	
+<% end %>

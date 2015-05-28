@@ -26,18 +26,22 @@
 			<div class="post-about-bg">
 				<div class="textbox-mini">
 					<div class="post-about-title">
-						<li style="font-size: 1.4em;">How You Get Paid</li>
+						<li style="font-size: 1.4em;">How I Get Paid</li>
 					</div>
 				</div>
 			</div>
 
 			<div class="textbox-mini">
-				<% if @user.recipient == nil then %>
-					<%= render 'subscription_applications/account_info'%>	
+				<% if @user.paypal_account == nil then %>
+					<div class="lightbox3" style="height:230px;">
+						<div class="user-why-passage" style="margin-top:20px;">
+							<%= render 'subscription_applications/add_paypal'%>	
+						</div>
+					</div>	
 				<% else %>
-					<ol style="margin-bottom: 10px;margin-top:20px;">This is your bank account to receive payments:</ol>
+					<ol style="margin-bottom: 10px;margin-top:20px;">This is your PayPal account to receive payments:</ol>
 					<div class="user-why-passage" style="margin-right:25px;">
-						<%= render 'subscriptions/how_I_get_paid_portable'%>
+						<%= render 'subscriptions/get_paid_by_paypal_portable'%>
 					</div>	
 					<!-- Without Venmo -->
 					<% if @user.accept_venmo == true then %>

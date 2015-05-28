@@ -595,6 +595,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 					@user.update_column(:accept_venmo,true)
 				end
 				if params["subscription_setup"] == "true" then
+					@subscription_application = @user.subscription_application[0]
 					redirect_to payments_subscription_path(@user, @subscription_application)
 				else
 					redirect_to payment_settings_path(current_user)	
@@ -621,9 +622,23 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		@user = current_user
 		paypal = PaypalAccount.find_for_paypal_oauth(request.env['omniauth.auth'], @user.id)
 		params = request.env["omniauth.params"]
-		if paypal.persisted? then
+		paypal = @user.paypal_account
+		if paypal != nil then
 			flash[:success] = "Connected to PayPal."
-			redirect_to payment_settings_path(current_user)	
+			if params["subscription_setup"] == "true" then
+				@subscription_application = @user.subscription_application[0]
+				redirect_to payments_subscription_path(@user, @subscription_application)
+			else
+				redirect_to payment_settings_path(current_user)	
+			end
+		else
+			flash[:success] = "Fail to connected to PayPal."
+			if params["subscription_setup"] == "true" then
+				@subscription_application = @user.subscription_application[0]
+				redirect_to payments_subscription_path(@user, @subscription_application)
+			else
+				redirect_to payment_settings_path(current_user)		
+			end		
 		end
 	end
 
