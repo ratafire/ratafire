@@ -3,6 +3,7 @@ class Transfer < ActiveRecord::Base
 	belongs_to :user
 	default_scope order: 'transfers.created_at DESC'
 	before_validation :generate_uuid!, :on => :create
+	belongs_to :masspay_batch
 
 private
 

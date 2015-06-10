@@ -383,7 +383,7 @@ private
 			:subscriber_id => @subscriber.id,
 			:subscribed_id => @user.id,
 			:supporter_switch => @subscription.supporter_switch,
-			:fee => @subscription.amount.to_f*0.29+0.30,
+			:fee => @subscription.amount.to_f*0.029+0.30,
 			:transaction_method => "Stripe"
 		)
 		subscription_post_payment

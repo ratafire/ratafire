@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150528010814) do
+ActiveRecord::Schema.define(:version => 20150610064110) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -903,9 +903,32 @@ ActiveRecord::Schema.define(:version => 20150528010814) do
     t.decimal  "amount",              :precision => 10, :scale => 2, :default => 0.0
     t.decimal  "fee",                 :precision => 10, :scale => 2, :default => 0.0
     t.decimal  "receive",             :precision => 10, :scale => 2, :default => 0.0
-    t.boolean  "on_hold"
     t.datetime "created_at",                                                          :null => false
     t.datetime "updated_at",                                                          :null => false
+    t.integer  "on_hold",                                            :default => 0
+  end
+
+  create_table "masspay_errors", :force => true do |t|
+    t.string   "error_code"
+    t.text     "error_long_message"
+    t.string   "error_short_message"
+    t.boolean  "corrected"
+    t.datetime "corrected_at"
+    t.boolean  "deteled"
+    t.datetime "deleted_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "masspay_batch_id"
+  end
+
+  create_table "masspay_logs", :force => true do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.decimal  "amount",         :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "count",                                         :default => 0
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
+    t.string   "correlation_id"
   end
 
   create_table "messages", :force => true do |t|
@@ -1469,6 +1492,9 @@ ActiveRecord::Schema.define(:version => 20150528010814) do
     t.decimal  "collected_receive",             :precision => 10, :scale => 2, :default => 0.0
     t.boolean  "on_hold"
     t.integer  "masspay_batch_id"
+    t.boolean  "queued"
+    t.boolean  "completed"
+    t.datetime "completed_at"
   end
 
   create_table "tutorials", :force => true do |t|

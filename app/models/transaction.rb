@@ -8,6 +8,8 @@ class Transaction < ActiveRecord::Base
 	def self.prefill!(response,options = {})
 		@transaction = Transaction.new
 		@transaction.total = response.amount.to_f/100
+		@transaction.fee = options[:fee]
+		@transaction.receive = response.amount.to_f/100 - options[:fee]
 		@transaction.supporter_switch = options[:supporter_switch]
 		@transaction.subscriber_id = options[:subscriber_id]
 		@transaction.subscribed_id = options[:subscribed_id]

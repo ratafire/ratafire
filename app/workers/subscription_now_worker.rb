@@ -29,6 +29,7 @@ class SubscriptionNowWorker
 			@subscription_record.subscribed_id = @subscription.subscribed_id
 			@subscription_record.supporter_switch = @subscription.supporter_switch
 			@subscription_record.accumulated_total = @transaction.total
+			@subscription_record.past = false
 			@subscription_record.accumulated_receive = @transaction.receive
 			@subscription_record.accumulated_fee = @transaction.fee
 			@subscription_record.counter = @subscription_record.counter+1
@@ -92,10 +93,10 @@ class SubscriptionNowWorker
 			@transfer = @subscribed.transfer
 			@transfer.user_id = @subscribed.id
 			@transfer.billing_artist_id = @billing_artist.id
-			@transfer.recipient_id = @subscribed.recipient.id
-			@transfer.method = "Stripe"
-			@transfer.amount = @transfer.amount + @subscription.amount
-			@transfer.stripe_recipient_id = @subscribed.recipient.recipient_id
+			@transfer.method = "PayPal"
+			@transfer.collected_amount += @subscription.amount
+			@transfer.collected_fee += @transaction.fee
+			@transfer.collected_receive += @transaction.receive
 			@transfer.save
 			@transaction.transfer_id = @transfer.id 
 			@transaction.save
@@ -103,10 +104,10 @@ class SubscriptionNowWorker
 			@transfer = Transfer.new
 			@transfer.user_id = @subscribed.id
 			@transfer.billing_artist_id = @billing_artist.id
-			@transfer.recipient_id = @subscribed.recipient.id
-			@transfer.method = "Stripe"
-			@transfer.amount = @transfer.amount + @subscription.amount
-			@transfer.stripe_recipient_id = @subscribed.recipient.recipient_id
+			@transfer.method = "PayPal"
+			@transfer.collected_amount += @subscription.amount
+			@transfer.collected_fee += @transaction.fee
+			@transfer.collected_receive += @transaction.receive
 			@transfer.save
 			@transaction.transfer_id = @transfer.id 
 			@transaction.save				
