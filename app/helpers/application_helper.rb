@@ -49,6 +49,11 @@ module ApplicationHelper
 		return Project.find(project_id)
 	end
 
+	#Find facebookpage for project
+	def subscription_facebook_page(facebook_page_id)
+		return FacebookPage.find(facebook_page_id)
+	end	
+
 	#Get Wikipedia first sentence
 	def wikipedia(title)
 		if title.split(" ")[1] != nil then
