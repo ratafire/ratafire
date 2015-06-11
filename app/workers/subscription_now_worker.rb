@@ -72,6 +72,8 @@ class SubscriptionNowWorker
 			@billing_subscription.accumulated_payment_fee += @transaction.fee
 			@billing_subscription.accumulated_receive += @transaction.receive
 			@billing_subscription.next_amount += @subscription.amount
+			@billing_subscription.activated = true
+			@billing_subscription.activated_at = Time.now			
 			@billing_subscription.save
 		end
 		#Billing Artist

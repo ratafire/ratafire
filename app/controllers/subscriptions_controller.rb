@@ -61,7 +61,7 @@ class SubscriptionsController < ApplicationController
 				@subscription.save
 				port = Rails.env.production? ? "" : ":3000"
 				callback_url = "#{request.scheme}://#{request.host}#{port}/r/subscriptions/amazon_payments/subscribe/post_subscribe"
-				payment_reason = "Monthly subscription to "+@user.fullname+" to support "+@user.fullname+"'s projects."
+				payment_reason = "Monthly subscription to "+@user.fullname+" to support "+@user.fullname+"'s work collections."
 				#Create a recurring pipeline with Amazon
 				redirect_to AmazonFlexPay.recurring_pipeline(@amazon_recurring.uuid, callback_url,
 					:transaction_amount => @amazon_recurring.transactionAmount,
@@ -276,7 +276,7 @@ class SubscriptionsController < ApplicationController
 			@billing_artist.next_amount = @billing_artist.next_amount - @subscription.amount
 			@billing_artist.save
 		end
-		flash[:success] = "You unsubscribed from "+@user.fullname+"!"
+		flash[:success] = "You are no longer a patron of "+@user.fullname+"!"
 		redirect_to(:back)
 	end
 
@@ -414,7 +414,7 @@ private
     def subscription_permission_opened?
     	#Check if the subscribed has opened subscription
     	if @subscribed.subscription_switch != true || @subscribed.amazon_authorized != true then
-    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+" did not setup subscription."
+    		flash[:success] = "You cannot be a patron of "+@subscribed.fullname+", because "+@subscribed.fullname+" did not setup this feature."
     		return true
     	end
     	return false
@@ -423,7 +423,7 @@ private
     def subscription_permission_note?
 		#Check if the subscribed does not have a subscription note
     	if @subscribed.why == nil || @subscribed.why == "" || @subscribed.plan == nil || @subscribed.plan == "" then
-    		flash[:success] = "You cannot subscribe to "+@subscribed.fullname+", because "+@subscribed.fullname+" doesn't have a message to subscribers or an intended update plan."
+    		flash[:success] = "You cannot be a patron of "+@subscribed.fullname+", because "+@subscribed.fullname+" doesn't have a message to subscribers or an intended update plan."
     		return true
     	end
     	return false
