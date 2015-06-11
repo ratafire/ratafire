@@ -25,7 +25,11 @@ Ratafire::Application.routes.draw do
 	mount RedactorRails::Engine => '/redactor_rails'
 
 #---Resque---     
-	mount Resque::Server, :at => "/resque"	
+
+
+  authenticate :user, lambda {|u| u.admin == true } do
+    mount Resque::Server, :at => "/resque"
+  end
 
 #---Message---     
 

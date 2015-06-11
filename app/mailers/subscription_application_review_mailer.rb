@@ -20,14 +20,14 @@ class SubscriptionApplicationReviewMailer < ActionMailer::Base
   #A Receipt Email for Failed 3 Supporters Task
   def fail_supporters(id)
     @user = User.find(id)
-    subject = "Your Patronage Setup is Deactivated"
+    subject = "Your patronage setup is deactivated"
     mail to: @user.email, subject: subject
   end
 
   #A Receipt Email for Successful 3 Supporters Task
   def success_supporters(id)
     @user = User.find(id)
-    subject = "You have found your first Patron!"
+    subject = "You have found your first patron!"
     mail to: @user.email, subject: subject    
   end
 

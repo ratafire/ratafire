@@ -4,19 +4,28 @@ class UnsubscribeWorker
 
 	def self.perform(user_id, reason_number)
 		@subscriber = User.find(user_id)
-		if @subscriber.subscriptionsubscription.count != 0 then
-			@subscriber.subscriptionsubscription.each do |subscription|
+		if @subscriber.reverse_subscriptions.count != 0 then
+			@subscriber.reverse_subscriptions.each do |subscription|
 				@subscribed = User.find(subscription.subscribed_id)
+				#Unsubscribe
+				subscription.deleted_reason = 3
+				subscription.deleted = true
+				subscription.deleted_at = Time.now
+				subscription.save				
 				#Mark Subscription Records as having pasts
-				subscription_record = SubscriptionRecord.find(subscription.subscription_record_id)
-				subscription_record.past = true
-				if subscription_record.duration == nil then
-					subscription_record.duration = subscription.deleted_at - subscription.created_at
-				else
-					duration = subscription.deleted_at - subscription.created_at
-					subscription_record.duration = subscription_record.duration + duration
-				end				
-				subscription_record.save
+				if subscription.subscription_record_id != nil then
+					subscription_record = SubscriptionRecord.find(subscription.subscription_record_id)
+					if subscription_record != nil && subscription != nil then
+						subscription_record.past = true
+						if subscription_record.duration == nil then
+							subscription_record.duration = subscription.deleted_at - subscription.created_at
+						else
+							duration = subscription.deleted_at - subscription.created_at
+							subscription_record.duration = subscription_record.duration + duration
+						end				
+						subscription_record.save
+					end
+				end
 				valid_subscription = ((subscription.deleted_at - subscription.created_at)/1.day).to_i
 				if subscription.accumulated_total == nil || subscription.accumulated_total == 0 || valid_subscription < 30 then
 					PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(subscription.id,'Subscription').each do |activity|
