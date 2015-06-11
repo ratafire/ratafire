@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150610064110) do
+ActiveRecord::Schema.define(:version => 20150611205011) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -496,8 +496,8 @@ ActiveRecord::Schema.define(:version => 20150610064110) do
     t.integer  "user_id"
     t.datetime "deleted_at"
     t.boolean  "deleted"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.string   "uid"
     t.string   "city"
     t.string   "country"
@@ -514,6 +514,7 @@ ActiveRecord::Schema.define(:version => 20150610064110) do
     t.datetime "facebookcover_updated_at"
     t.boolean  "sync"
     t.boolean  "post_to_facebook_page"
+    t.boolean  "project_facebook",             :default => true
   end
 
   create_table "facebookpages", :force => true do |t|
@@ -576,6 +577,7 @@ ActiveRecord::Schema.define(:version => 20150610064110) do
     t.integer  "facebookcover_file_size"
     t.datetime "facebookcover_updated_at"
     t.boolean  "sync"
+    t.boolean  "project_facebook",             :default => true
   end
 
   create_table "facebooks", :force => true do |t|
@@ -1149,6 +1151,7 @@ ActiveRecord::Schema.define(:version => 20150610064110) do
     t.boolean  "post_to_facebook_page"
     t.string   "facebookupdate_id"
     t.boolean  "listed"
+    t.boolean  "project_facebook"
   end
 
   create_table "quotes", :force => true do |t|

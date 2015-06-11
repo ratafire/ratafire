@@ -42,7 +42,7 @@ $(document).ready(function() {
 		<div class="subscription-user-bio"><%= user.bio %></div>
 		<!-- Subscription Data-->
 		<div class="subscription-data">
-			<% if user.subscription_project_find(user.id,@user.id).title != nil then %>
+			<% if user.subscription_project_find(user.id,@user.id).project_facebook == nil then %>
 				<span class="sub-color tipsy-tipsy" style="margin-right:3px;"title="Patron of <%= @user.fullname %> since <%= user.subscription_project_find(user.id,@user.id).title %>">
 					<%= link_to user_project_path(user.subscription_project_find(user.id,@user.id).creator,user.subscription_project_find(user.id,@user.id)),class:"no_ajaxify" do %>
 						Since <%= truncate(user.subscription_project_find(user.id,@user.id).title, :length => 80) %>

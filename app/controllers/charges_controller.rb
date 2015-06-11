@@ -119,9 +119,9 @@ class ChargesController < ApplicationController
 			@subscription.supporter_switch = true
 		end
 		#Set basic info of the subscription
-		@user = User.find(params[:id])
+		@user = User.find(@subscription.subscribed_id)
 		@subscriber = User.find(@subscription.subscriber_id)
-		if @user.projects.where(:published => true, :complete => false).first.id != nil then 
+		if @user.projects.where(:published => true, :complete => false, :abandoned => false).first.id != nil then 
 			@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id
 		else
 			@subscription.facebook_page_id = @user.facebookpages.where(:sync => true).first.id
@@ -216,8 +216,13 @@ class ChargesController < ApplicationController
 			@subscription.supporter_switch = true
 		end
 		#Set basic info of the subscription
+		@user = User.find(params[:id])
 		@subscriber = User.find(@subscription.subscriber_id)
-		@subscription.project_id = @subscriber.projects.where(:published => true, :complete => false).first.id	
+		if @user.projects.where(:published => true, :complete => false, :abandoned => false).first.id != nil then 
+			@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id
+		else
+			@subscription.facebook_page_id = @user.facebookpages.where(:sync => true).first.id
+		end		
 		@subscription.save			
 		if current_user != nil then
 			#Find the user
@@ -244,9 +249,18 @@ class ChargesController < ApplicationController
 			@subscription.supporter_switch = true
 		end
 		#Set basic info of the subscription
-		@user = User.find(params[:id])
 		@subscriber = User.find(@subscription.subscriber_id)
-		@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id		
+		@user = User.find(@subscription.subscribed_id)
+		@subscribed = @user
+		if @subscribed then 
+			if @subscribed.projects.where(:published => true, :complete => false, :abandoned => false).first != nil then 
+				@subscription.project_id = @subscribed.projects.where(:published => true, :complete => false).first.id
+			else
+				@subscription.facebook_page_id = @subscribed.facebook_pages.where(:sync => true).first.id
+			end
+		else
+			@subscription.facebook_page_id = @subscribed.facebook_pages.where(:sync => true).first.id
+		end	
 		#Create subscription
 		subscribe_for_user
 	end
