@@ -13,7 +13,7 @@
 	</div><!-- end .project-subscribed-users-holder-->	
 <% else %>
 	<% unless @project.creator.subscribers.any? then %>
-		<% if @project.creator.any? then %>
+		<% if @project.creator.friends.any? then %>
 			<div class="project-subscribed-users-holder">
 				<!-- With Sub-sus -->
 				<!-- 1 Sub-sus -->

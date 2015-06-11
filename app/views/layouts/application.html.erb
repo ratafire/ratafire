@@ -45,7 +45,9 @@
 				<% unless current_user.tutorial.facebook_page == true %>
 					<% unless current_user.projects.any? %>
 						<% unless current_user.facebook_pages.any? %>
-							<%= render 'layouts/add_facebook_pages'%>
+							<% unless current_user.encrypted_password == nil %>
+								<%= render 'layouts/add_facebook_pages'%>
+							<% end %>
 						<% end %>
 					<% end %>
 				<% end %>	

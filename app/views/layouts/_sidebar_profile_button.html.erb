@@ -14,8 +14,8 @@
 			<!-- Subscribing-->
 			<%= link_to unsubscribe_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsubscribe from "+@user.fullname+"?" do %>
 				<div style="margin-top: 10px;" class="btn btn-medium btn-medium-blue btn-change-text">
-					<span class="before">Subscribing</span>
-					<span class="hover">Unsubscribe</span>
+					<span class="before">Patron of</span>
+					<span class="hover">Cancel</span>
 				</div>
 			<% end %><!-- end.link_to 
 			-->	
@@ -24,7 +24,7 @@
 				<!-- Subscribes you-->
 				<%= link_to remove_subscriber_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from subscribing you?" do%>
 					<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
-						<span class="before">Subscribing You</span>
+						<span class="before">Your Patron</span>
 						<span class="hover">Remove</span>
 					</div>	
 				<% end %>
@@ -34,8 +34,8 @@
 					<% if @user.supported_by?(current_user)%>
 						<%= link_to unsupport_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to unsupport "+@user.fullname+"?" do %>
 							<div style="margin-top: 10px;" class="btn btn-medium btn-medium-blue btn-change-text">
-								<span class="before">Supporting</span>
-								<span class="hover">Unsupport</span>
+								<span class="before">Patron of</span>
+								<span class="hover">Cancel</span>
 							</div>
 						<% end %><!-- end.link_to -->						
 					<% else %>
@@ -44,7 +44,7 @@
 							<!-- Subscribes you-->
 							<%= link_to remove_supporter_path(current_user.id,@user.id), method: :delete,class:"no_ajaxify",:confirm => "Are you sure to stop "+@user.fullname+" from supporting you?" do%>
 								<div style="margin-top: 10px;" class="btn btn-medium btn-medium-green btn-change-text">
-									<span class="before">Supporting You</span>
+									<span class="before">Your Patron</span>
 									<span class="hover">Remove</span>
 								</div>	
 							<% end %>

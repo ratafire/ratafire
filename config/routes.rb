@@ -175,12 +175,12 @@ Ratafire::Application.routes.draw do
 	match ':user_id/projects/:project_id/inviteds/:id', to: 'inviteds#destroy', via: :delete, as: :heimdall_close 
 
 #---Subscriptions---
-	match ':id/r/subscriptions/subscribers', to: 'subscriptions#subscribers', as: :subscribers  
-	match ':id/r/subscriptions/subscribing', to: 'subscriptions#subscribing', as: :subscribing
+	match ':id/r/cloud_patronage/patrons', to: 'subscriptions#subscribers', as: :subscribers  
+	match ':id/r/cloud_patronage/patron_of', to: 'subscriptions#subscribing', as: :subscribing
 	match ':id/r/subscriptions/remove/:subscriber_id', to: 'subscriptions#destroy', via: :delete, as: :remove_subscriber
 	match ':id/r/subscriptions/unsubscribe/:subscribed_id', to: 'subscriptions#unsub', via: :delete, as: :unsubscribe
-	match ':id/r/subscriptions/subscribers_past', to: 'subscriptions#subscribers_past', as: :subscribers_past
-	match ':id/r/subscriptions/subscribing_past', to: 'subscriptions#subscribing_past', as: :subscribing_past
+	match ':id/r/cloud_patronage/past_patrons', to: 'subscriptions#subscribers_past', as: :subscribers_past
+	match ':id/r/cloud_patronage/past_patron_of', to: 'subscriptions#subscribing_past', as: :subscribing_past
 
 	match ':id/r/subscriptions/subscription_on', to: 'subscriptions#turnon', as: :subscription_turnon
 	match ':id/r/subscriptions/subscription_off', to: 'subscriptions#turnoff', as: :subscription_turnoff

@@ -52,16 +52,17 @@
 		<div class="price-is-like-item" style="display:none;"id="supporter-number"><span id="user-support">Supporter</span></div>
 		<!-- Supporter -->
 		<div class="supporter-difference" id="difference">
-			<ul><%= link_to "What are the differences between subscribers and supporters?", "#{request.scheme}://#{request.host}/faq#faq-2347915", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
+			<ul><%= link_to "Review Ratafire's Payment Policy", pricing_path, class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>			
+			<ul><%= link_to "What features will I receive as a patron?", "#{request.scheme}://#{request.host}/faq#faq-3863418", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
 		</div>
 		<!-- Subscribers -->
 		<div class="supporter-difference" id="subscriber-features" style="display:block;">
 			<ul><%= link_to "Review Ratafire's Payment Policy", pricing_path, class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>			
-			<ul><%= link_to "What features will I receive as a subscriber?", "#{request.scheme}://#{request.host}/faq#faq-3863418", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
+			<ul><%= link_to "What features will I receive as a patron?", "#{request.scheme}://#{request.host}/faq#faq-3863418", class:"no_ajaxify", target:"_blank", style:"color:#999;"%></ul>
 		</div>	
 	</div><!-- end:.price-is-like-box-->
 	<div class="slide-to-select">
-		<span><span id="selector">Subscription Amount Selector</span> <span style="font-size:.5em;">↴</span></span>
+		<span><span id="selector">Monthly Amount Selector</span> <span style="font-size:.5em;">↴</span></span>
 	</div>	
 	<div class="price-slider">
 		<div id="price-slider-special"><div class="price-slider-inner"></div></div>
@@ -76,10 +77,10 @@
 <!-- Payments Amazon Case-->
 <div id="payments-amazon-case">
 	<div class="checkout-holder">
-		<h2 style="color:#999;">Checkout your Subscription</h2>
+		<h2 style="color:#999;">Checkout</h2>
 		<ol><span id="checkout">Subscribe to </span><%= @user.fullname %> with the monthly amount of <span class="price-size" id="jquery-total-value">$<%=@amount%>.00</span> <span id="edit">Edit Amount</span></ol>
 		<% if @project != nil then %>
-				<h2 style="color:#999;">You will be subscribed to <%= @user.fullname %> since</h2>
+				<h2 style="color:#999;">You will be a patron of <%= @user.fullname %> since</h2>
 				<%=  render "projects/project_one_exp"%>
 			<% if @project.collectible != nil then %>	
 				<div id="collectible-holder">

@@ -63,7 +63,7 @@
 					<%= render 'subscriptions/get_paid_by_paypal'%>
 				</div><!-- end.textbox-mini-->
 					<% if @user.accept_venmo == nil then %>
-						<%= render 'subscription_applications/add_venmo_settings', user: @user%>
+						<% if 2== 3%><%= render 'subscription_applications/add_venmo_settings', user: @user%><% end %>
 					<% else %>
 						<%= render 'subscriptions/added_venmo'%>
 					<% end %>

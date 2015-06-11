@@ -25,7 +25,7 @@
                                 <td align="center" valign="top">
                                   		<p style="color: #666;"><%= @failure_message %> Therefore, your payment of <%= Time.now.strftime("%B") %>, <%= Time.now.strftime("%Y") %> with the total amount of $<%= @amount %> is not collected.</p>
 
-                                        <p style="color: #666;">If you still want to continue your subscription, please update your payment methods before <%= (Time.now+5.days).strftime("%B %d, %Y") %>.</p>
+                                        <p style="color: #666;">If you still want to continue to be a patron of others on Ratafire, please update your payment methods before <%= (Time.now+5.days).strftime("%B %d, %Y") %>.</p>
 
 										<%= link_to "https://www.ratafire.com/#{@subscriber.username}/r/settings/payment",style:"text-decoration:none;" do %><p class="btn2" style="color: #fff;background-position: top;background: #4cbaed;padding: 10px 40px 10px 40px;border-radius: 5px;">Update Payment Method</p><% end %>
 

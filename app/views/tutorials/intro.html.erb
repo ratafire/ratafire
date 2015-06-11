@@ -109,7 +109,7 @@
 				<img src="/assets/gridbox_3.jpg" class="replace-2x" alt="" width="350" height="250">
 			  </div>
 			  
-			  <h3 class="title color-lightblue font-selector">Setup Subscription</h3>
+			  <h3 class="title color-lightblue font-selector">Accept Patrons</h3>
 			  <div class="description" style="margin:20px;">Allow monthly payment for your work collections.</div>
 			  <a href="http://localhost:3000/<%= current_user.username %>/r/settings/payment" class="btn btn-sm btn-info">Try it Now</a>
 			</div>
@@ -151,7 +151,7 @@
 			<div class="panel-heading">
 			  <h4 class="panel-title">
 				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-				  Can non-subscribers view work collections?
+				  Can non-patrons view work collections?
 				</a>
 				
 				<a class="collapse-btn" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"></a>
@@ -159,7 +159,7 @@
 			</div>
 			<div id="collapseOne" class="panel-collapse collapse">
 			  <div class="panel-body">
-				Yes. Subscription does not grant the subscribers exclusive access to content, but subscribers will see your updates on their main feed.
+				Yes. Being a patron does not grant the patrons exclusive access to content, but patrons will see your updates on their main feed.
 			  </div>
 			</div>
 		  </div>
@@ -176,9 +176,9 @@
 			</div>
 			<div id="collapseTwo" class="panel-collapse collapse">
 			  <div class="panel-body">
-				<p>We believe that both creative or research works should be more open, and we think that the creators and researchers should be recognized and rewarded. Also, a more open environment can improve the quality of the work. We also believe that it is better for the public to see how the creators and researchers use the subscriptions they gain from Ratafire.</p>
+				<p>We believe that both creative or research works should be more open, and we think that the creators and researchers should be recognized and rewarded. Also, a more open environment can improve the quality of the work. We also believe that it is better for the public to see how the creators and researchers use the patronage payments they gain from Ratafire.</p>
 
-				<p>Therefore, when you use Ratafire to share your projects, you are required to license the content you choose to post, except for software components, if any, under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+				<p>Therefore, when you use Ratafire to share your work collections, you are required to license the content you choose to post, except for software components, if any, under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
 
 				<p>This means others can view and adapt your content, with your name properly attributed, but cannot use your content for commercial reasons without your permission.</p>
 			  </div>
@@ -208,7 +208,7 @@
 			<div class="panel-heading">
 			  <h4 class="panel-title">
 				<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-				  Can I make my content fully open?
+				  Is Ratafire Cloud Patronage free to use?
 				</a>
 				
 				<a class="collapse-btn" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"></a>
@@ -216,7 +216,11 @@
 			</div>
 			<div id="collapseFour" class="panel-collapse collapse">
 			  <div class="panel-body">
-				Yes. On top of the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International License</a>, you can add any additional licensing model you wish for the content you post.
+				<p>Yes.</p>
+
+				<p>Ratafire does not take transaction fees. Currently there are two payment methods on Ratafire, Stripe and PayPal. Stripe takes a 2.9%+$0.30 transaction fee and PayPal's fees varies because Ratafire is partnered with PayPal. Ratafire also groups the payments and transfers to minimize payment transaction fees. In the future, we seek to implement zero transaction fee payment methods such as Venmo to truly eliminate payment transaction fees.</p>
+
+				<p>Using Ratafire as your personal patronage system is easier and as "free" as to implement a PayPal donation button on your website.</p>
 			  </div>
 			</div>
 		  </div>
@@ -244,7 +248,7 @@
 			<div class="panel-heading">
 			  <h4 class="panel-title">
 				<a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
-				  What features do subscribers receive?
+				  What features do patrons receive?
 				</a>
 				
 				<a class="collapse-btn" data-toggle="collapse" data-parent="#accordion" href="#collapseSix"></a>
@@ -252,9 +256,9 @@
 			</div>
 			<div id="collapseSix" class="panel-collapse collapse">
 			  <div class="panel-body">
-				<p>If you subscribe to a user, you will show up in the user’s Subscribers list, with the subscription length and amount. This list is public so your subscription is not anonymous.In your Home tab, you will see the updates from users you subscribe to, including the notifications of their new drafts. In this way, you will witness the creative process.</p>
+				<p>If you are a patron of a user, you will show up in the user’s Patrons list, with the patronage length and amount. This list is public so your patronage is not anonymous. In your Home tab, you will see the updates from users you are a patron of, including the notifications of their new drafts. In this way, you will witness the creative process.</p>
 
-				<p>By subscribing, you can gain early access to major posts in projects that have the early access feature turned on. The maximum early access is 6 days. As a subscriber, you will be able to send private messages to whom you subscribe to, provided that they allow messaging.</p>
+				<p>By becoming a patron, you can gain early access to major posts in work collections that have the early access feature turned on. The maximum early access is 6 days. As a patron, you will be able to send private messages to whom you subscribe to, provided that they allow messaging. Moreover, you may be eligible for patron only collectibles.</p>
 			  </div>
 			</div>
 		  </div>

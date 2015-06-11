@@ -111,8 +111,8 @@ class AdminController < ApplicationController
 					end
 				end
 				#Send Message
-				@message_content = "<p>Your subscription setup is approved. </p><p>"+@review.content+"</p><p>You can view your subscription page via <a class='no_ajaxify' target='_blank' href=\"https://www.ratafire.com/"+@receiver.username.to_s+"\">this link</a>."
-				@message_title = "Your Subscription Setup is Approved"
+				@message_content = "<p>Your application is approved. </p><p>"+@review.content+"</p><p>You can view your quest board via <a class='no_ajaxify' target='_blank' href=\"https://www.ratafire.com/"+@receiver.username.to_s+"\">this link</a>. "
+				@message_title = "You can now accept patrons"
 				#Set the time bomb
 				@subscription_application.approved_at = Time.now
 				@subscription_application.completed_at = Time.now + 15.days
@@ -125,8 +125,8 @@ class AdminController < ApplicationController
 				end
 			else
 				#Send Message
-				@message_title = "Your Discussion Setup is Disapproved"
-				@message_content ="<p>Your discussion is disapproved.</p><p>"+@review.content+"</p><p>You can re-apply via <a class=\"no_ajaxify\" target=\"_blank\" href=\"https://www.ratafire.com/"+@receiver.username.to_s+"/r/settings/payment\">this link</a>. Thank you."
+				@message_title = "Your Application is Disapproved"
+				@message_content ="<p>Your application is disapproved.</p><p>"+@review.content+"</p><p>You can re-apply via <a class=\"no_ajaxify\" target=\"_blank\" href=\"https://www.ratafire.com/"+@receiver.username.to_s+"/r/settings/payment\">this link</a>. Thank you."
 			end
 			receipt = current_user.send_message(@receiver, @message_content, @message_title)
 			#Send Email

@@ -43,7 +43,7 @@
 
 								<!-- Subscribers -->
 								<div class="goals-placer">
-								<ul id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Subscribers</span>  </ul><span> </span>
+								<ul id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Patrons</span>  </ul><span> </span>
 									<ul id="blue"><%= render :text => @user.subscribers.count %> <span>/</span> </ul>
 									<ul><%= f.text_field :goals_subscribers, class: "inputbox goals-input" %></ul> <span></span>
 								<ol><%= progress_bar(goals_count(@user.subscribers.count,@user.goals_subscribers), :color => 'blue', :rounded => true) %></ol>
@@ -52,7 +52,7 @@
 
 								<!-- Monthly Subscription Amount -->
 								<div class="goals-placer">
-								<ul id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Subscription</span>  </ul><span> </span>
+								<ul id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>">Monthly Patronage Amount</span>  </ul><span> </span>
 									<ul id="green"><%= render :text => @user.subscription_amount.to_s %> <span>/</span> </ul>
 									<ul><%= f.text_field :goals_monthly, class: "inputbox goals-input" %></ul> <span></span>
 								<ol><%= progress_bar(goals_count(@user.subscription_amount.to_i, @user.goals_monthly), :color => 'green', :rounded => true) %></ol>

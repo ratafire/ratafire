@@ -339,6 +339,9 @@ protect_from_forgery :except => [:create_profilephoto,:create_profilephoto_setti
 		if current_user.tutorial.intro == nil then
 			if current_user.tutorial.facebook == nil then
 				redirect_to user_omniauth_authorize_path(:facebook, after_signup: "true")
+			else
+				current_user.tutorial.update_column(:intro, true)
+				redirect_to intro_tutorial_path(current_user)				
 			end
 		end
 		@subscription = Subscription.where(:deleted => false, :activated => true, :subscriber_id => current_user.id, :subscribed_id => @user.id).first

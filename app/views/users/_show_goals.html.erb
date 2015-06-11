@@ -1,7 +1,7 @@
 <% if @user.subscription_status_initial == "Approved" then %>
 	<div class="goals">
 
-		<ol id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Subscribers</span> <%= render :text => @user.subscribers.count %>/<%= render :text => @user.goals_subscribers%></ol>
+		<ol id="blue"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscribers.count, @user.goals_subscribers)%>">Patrons</span> <%= render :text => @user.subscribers.count %>/<%= render :text => @user.goals_subscribers%></ol>
 
 		<ol><%= progress_bar(goals_count(@user.subscribers.count,@user.goals_subscribers), :color => 'blue', :rounded => true) %></ol>
 

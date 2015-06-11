@@ -16,7 +16,7 @@
 		<!-- User Bio-->	
 		<div class="subscription-user-bio"><%= user.bio %></div>
 		<!-- Subscription Data-->
-		<div class="subscription-data"><span class="sub-color tipsy-tipsy" title="Subscribers / Goal"><%= render :text => user.subscribers.count %> / <%= render :text => user.goals_subscribers%></span> <span class="sub-color tipsy-tipsy" title="Monthly Subscription Amount / Goal"><%= render :text => user.subscription_amount.to_s %> / <%= render :text => user.goals_monthly%></span> <span class="sub-color tipsy-tipsy" title="Project Completion / Goal"><%= user.projects.where(:complete => true ).count %> / <%= render :text => user.goals_project%></span></div>
+		<div class="subscription-data"><span class="sub-color tipsy-tipsy" title="Patrons / Goal"><%= render :text => user.subscribers.count %> / <%= render :text => user.goals_subscribers%></span> <span class="sub-color tipsy-tipsy" title="Monthly Amount / Goal"><%= render :text => user.subscription_amount.to_s %> / <%= render :text => user.goals_monthly%></span> <span class="sub-color tipsy-tipsy" title="Work Collection Completions / Goal"><%= user.projects.where(:complete => true ).count %> / <%= render :text => user.goals_project%></span></div>
 	</div>	
 
 

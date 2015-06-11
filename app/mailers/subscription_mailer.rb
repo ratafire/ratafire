@@ -40,7 +40,7 @@ class SubscriptionMailer < ActionMailer::Base
 		#@subscription_next_billing_date = @subscription.next_billing_date.strftime("%m/%d/%Y")
 		@subscribed_username = @subscribed.username
 		@transaction_uuid = @transaction.uuid
-		subject = "You have a New Subscriber - "+ @subscriber_fullname
+		subject = "You have a new patron - "+ @subscriber_fullname
 		mail to: @subscribed.email, subject: subject    
 	end
 
@@ -171,7 +171,7 @@ class SubscriptionMailer < ActionMailer::Base
 	#Send an email to the subscribed the transfer is initiated
 	def transfered(transfer_id)
   		@transfer = Transfer.find(transfer_id)
-		subject = "Subscription Fee Deposited"
+		subject = "Payments Deposited"
 		mail to: @transfer.user.email, subject: subject
   	end
 

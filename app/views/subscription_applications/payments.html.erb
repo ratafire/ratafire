@@ -39,7 +39,7 @@
 						</div>
 					</div>	
 				<% else %>
-					<ol style="margin-bottom: 10px;margin-top:20px;">This is your PayPal account to receive payments:</ol>
+					<ol style="margin-bottom: 10px;margin-top:20px;">We will deposit payments to you to this PayPal account:</ol>
 					<div class="user-why-passage" style="margin-right:25px;">
 						<%= render 'subscriptions/get_paid_by_paypal_portable'%>
 					</div>	
@@ -50,10 +50,12 @@
 							<%= render 'subscriptions/added_venmo_portable', user: @user %>
 						</div>	
 					<% else %>
-						<ol style="margin-bottom: 10px;margin-top:10px;"><span style="color:#ccc;">(Optional)</span> You can also accept payments via Venmo:</ol>
-						<div class="user-why-passage">
-							<%= render 'subscription_applications/add_venmo', user: @user%>
-						</div>	
+						<% if 1 == 2 %>
+							<ol style="margin-bottom: 10px;margin-top:10px;"><span style="color:#ccc;">(Optional)</span> You can also accept payments via Venmo:</ol>
+							<div class="user-why-passage">
+								<%= render 'subscription_applications/add_venmo', user: @user%>
+							</div>	
+						<% end %>
 					<% end %>
 					<%= form_for(@subscription_application,:validate => true,:url => update_subscription_application_path(@user,@subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
 						<%= f.hidden_field :step, :value => 7, id:"step_id" %>

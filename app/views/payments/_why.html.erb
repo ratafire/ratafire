@@ -12,7 +12,7 @@
 <% end %>	
 <div class="user-why-edit">
 
-	<h4>If I reach my subscription amount goal</h4>
+	<h4>If I reach my goal</h4>
 	<div class="user-why-passage">
 		<div class="goals" style="width:100%;font-family:'Open Sans';">
 			<ol id="green"><span class="tipsy-tipsy" title="<%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%>"></span> <%= goals_percentage(@user.subscription_amount.to_i, @user.goals_monthly)%> of <span style="background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 0 5px 0 5px;">$<%= render :text => @user.goals_monthly%></span> per month</ol>

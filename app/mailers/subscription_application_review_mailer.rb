@@ -8,9 +8,9 @@ class SubscriptionApplicationReviewMailer < ActionMailer::Base
     @user = @subscription_application.user
   	@review = Review.find(review_id)
   	if @subscription_application.status == "Approved" then
-  		@subscription_application_status = "Your subscription setup is approved. Congratulations!!"
+  		@subscription_application_status = "You can now accept patrons. Congratulations!"
   	else
-  		@subscription_application_status = "Your subscription setup is disapproved."
+  		@subscription_application_status = "Your application is disapproved."
   	end
   	@review_content = @review.content
     subject = message_title
@@ -20,14 +20,14 @@ class SubscriptionApplicationReviewMailer < ActionMailer::Base
   #A Receipt Email for Failed 3 Supporters Task
   def fail_supporters(id)
     @user = User.find(id)
-    subject = "Your Subscription Setup is Deactivated"
+    subject = "Your Patronage Setup is Deactivated"
     mail to: @user.email, subject: subject
   end
 
   #A Receipt Email for Successful 3 Supporters Task
   def success_supporters(id)
     @user = User.find(id)
-    subject = "You have found your first Subscriber!"
+    subject = "You have found your first Patron!"
     mail to: @user.email, subject: subject    
   end
 

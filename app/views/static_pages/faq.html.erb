@@ -19,11 +19,17 @@
 
 <h2>What is Ratafire’s licensing policy and why this license?</h2>
 
-	<p style="padding-left: 30px;">We believe that both creative or research works should be more open, and we think that the creators and researchers should be recognized and rewarded. Also, a more open environment can improve the quality of the work. We also believe that it is better for the public to see how the creators and researchers use the subscriptions they gain from Ratafire.</p>
+	<p style="padding-left: 30px;">We believe that both creative or research works should be more open, and we think that the creators and researchers should be recognized and rewarded. Also, a more open environment can improve the quality of the work. We also believe that it is better for the public to see how the creators and researchers use the patronage payments they gain from Ratafire.</p>
 
-	<p style="padding-left: 30px;">Therefore, when you use Ratafire to share your projects, you are required to license the content you choose to post, except for software components, if any, under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+	<p style="padding-left: 30px;">Therefore, when you use Ratafire to share your work collections, you are required to license the content you choose to post, except for software components, if any, under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
 
 	<p id="faq-7472456" style="padding-left: 30px;">This means others can view and adapt your content, with your name properly attributed, but cannot use your content for commercial reasons without your permission.</p>
+
+<h2>Is Ratafire cloud patronage free to use?</h2>	
+
+	<p style="padding-left: 30px;">Ratafire does not take transaction fees. Currently there are two payment methods on Ratafire, Stripe and PayPal. Stripe takes a 2.9%+$0.30 transaction fee and PayPal's fees varies because Ratafire is partnered with PayPal. Ratafire also groups the payments and transfers to minimize payment transaction fees. In the future, we seek to implement zero transaction fee payment methods such as Venmo to truly eliminate payment transaction fees.</p>
+
+	<p style="padding-left: 30px;">Using Ratafire as your personal patronage system is easier and as "free" as to implement a PayPal donation button on your website.</p>
 
 <h2>Can I still sell my works after I post them on Ratafire?</h2>
 
@@ -33,55 +39,39 @@
 
 	<p id="faq-5911545" style="padding-left: 30px;">Yes. On top of the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International License</a>, you can add any additional licensing model you wish for the content you post.</p>
 
-<h2>Why have monthly subscription fees instead of one-time pledges?</h2>
+<h2>Why have monthly patronage payments instead of one-time pledges?</h2>
 	
-	<p id="faq-3863418" style="padding-left: 30px;">We believe that creators or researchers should be able to work on projects for the long term. Allowing ideas to mature over the long term can make a difference in the quality of the work.</p>
+	<p id="faq-3863418" style="padding-left: 30px;">We believe that creators or researchers should be able to work on work collections for the long term. Allowing ideas to mature over the long term can make a difference in the quality of the work.</p>
 
-<h2>What features do subscribers receive?</h2>
+<h2>What features do patrons receive?</h2>
 
-	<p style="padding-left: 30px;">If you subscribe to a user, you will show up in the user’s Subscribers list, with the subscription length and amount. This list is public so your subscription is not anonymous.</p>
+	<p style="padding-left: 30px;">If you are a patron of a user, you will show up in the user’s patrons list, with the patronage length and amount. This list is public so your patronage is not anonymous.</p>
 
-	<p style="padding-left: 30px;">In your <% if user_signed_in? %><%= link_to "Home", interesting_homepage_path(current_user), class:"no_ajaxify"%><% else %>Home<% end %> tab, you will see the updates from users you subscribe to, including the notifications of their new drafts. In this way, you will witness the creative process.</p>
+	<p style="padding-left: 30px;">In your <% if user_signed_in? %><%= link_to "Home", interesting_homepage_path(current_user), class:"no_ajaxify"%><% else %>Home<% end %> tab, you will see the updates from users you are a patron of, including the notifications of their new drafts. In this way, you will witness the creative process.</p>
 
-	<p style="padding-left: 30px;">By subscribing, you can gain early access to major posts in projects that have the early access feature turned on. The maximum early access is 6 days.</p>
+	<p style="padding-left: 30px;">By becoming a patron of other users, you can gain early access to major posts in work collections that have the early access feature turned on. The maximum early access is 6 days.</p>
 
-	<p style="padding-left: 30px;">As a subscriber, you will be able to send private messages to whom you subscribe to, provided that they allow messaging.</p>
+	<p style="padding-left: 30px;">As a patron, you will be able to send private messages to whom you are a patron of, provided that they allow messaging.</p>
 
-	<p id="faq-1287738" style="padding-left: 30px;">It is a benevolent act to support someone’s work on their creative or research project. We encourage you not only to subscribe, but also to subscribe to the best creators or researchers. By doing so, you \also take part in selecting the projects that get funded to completion.</p>
+	<p id="faq-1287738" style="padding-left: 30px;">It is a benevolent act to support someone’s work on their creative or research work collection. We encourage you not only to subscribe, but also to subscribe to the best creators or researchers. By doing so, you also take part in selecting the work collections that get funded to completion.</p>
 
 <h2>Why does Ratafire have price limits?</h2>
 
-	<p style="padding-left: 30px;">We have six prices for subscriptions. Read our <%= link_to "Pricing", pricing_path, class:"no_ajaxify"%> page for details. The rationale behind it is that the lowest price cannot be too low, because art or research takes a great deal of time and effort. </p>
+	<p style="padding-left: 30px;">We have seven prices for subscriptions. Read our <%= link_to "Pricing", pricing_path, class:"no_ajaxify"%> page for details. The rationale behind it is that the lowest price cannot be too low, because art or research takes a great deal of time and effort. </p>
 
 	<p id="faq-2347915" style="padding-left: 30px;">Our second concern is the highest price should not be too high, as it may lead to one creator or researcher being dependent on one subscriber, which can give the subscriber too much potential power over the content of the work.</p>
 
-<h2>What are the differences between supporters and subscribers?</h2>
-
-	<p id="faq-2348935" style="padding-left: 30px;">The supporter function is for you to try out Ratafire. Supporters will show up in the supporters tab instead of the subscriber tab. Supporters will not get an update stream of the user they support. To use the main subscription function, after you have used all your supporter trials, select subscription.</p>
-
-<h2>How do I get more supporter slots?</h2>
-
-	<p id="faq-7350619" style="padding-left: 30px;">You initially have 5 supporter slots, with which you can use to support 5 users. If you use up your supporter slots, the number of users you subscribe to will determine the supporter slots you have. For example, if you subscribe to one user, you will have additional 5 supporter slots to spend after the monthly billing has taken place, which means you can then support 5 more users. </p>	
-
-<h2>Why can’t I limit previews of my content if someone is subscribing to me?</h2>
+<h2>Why can’t I limit previews of my content if someone is my patron?</h2>
 
 	<p id="faq-7510653" style="padding-left: 30px;">First it violates our <%= link_to "Terms of Use", terms_path, class:"no_ajaxify"%>, but more importantly, since your subscribers subscribed to you with monthly subscription fees, you should maintain your update frequency for the purpose of transparency.</p>
 
-<h2>Why do I have to wait for 30 days before subscribing to the same user again?</h2>
+<h2>Can non-patrons see all work collections?</h2>
 
-	<p id="faq-2310305" style="padding-left: 30px;">This policy is designed for anti-spam purposes. Think carefully before you subscribe.</p>
-
-<h2>Why can’t I subscribe to someone who has met his or her subscription goal?</h2>
-
-	<p id="faq-8186171" style="padding-left: 30px;"><b></b>Creators or researchers have the responsibility to set a funding goal for their project. If they decide more funds are needed, they can increase their goal.</p>
-
-<h2>Can non-subscribers see all projects?</h2>
-
-	<p id="faq-3757353" style="padding-left: 30px;">Yes. Subscription does not grant the subscribers exclusive access to content, but subscribers will see your updates on their main feed.</p>
+	<p id="faq-3757353" style="padding-left: 30px;">Yes. Being a patron does not grant the patrons exclusive access to content, but patrons will see your updates on their main feed.</p>
 
 <h2>Can people living outside of the US subscribe or receive subscriptions on Ratafire?</h2>
 
-	<p id="faq-3757352" style="padding-left: 30px;">Currently, anyone can subscribe to users on Ratafire, but only people living in the United States can receive monthly subscription amounts.</p>	
+	<p id="faq-3757352" style="padding-left: 30px;">Yes.</p>	
 
 <h2>I want to work at Ratafire! What should I do?</h2>
 
