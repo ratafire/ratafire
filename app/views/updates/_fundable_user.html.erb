@@ -29,7 +29,7 @@
 			<div class="fundable-video-cover" id="fundable-video-cover<%= user.id%>" >
 				<div class="fundable-video-close-button" id="sidebar-profile-video-play-close-button<%= user.id%>">
 				</div>				
-				<%= videojs_rails sources: { webm: user.video.output_url }, height:"306", width:"544", poster:user.video.thumbnail,id:"user_video#{user.id}" %>
+				<%= videojs_rails sources: { webm: user.video.output_url, mp4: user.video.output_url_mp4 }, height:"306", width:"544", poster:user.video.thumbnail,id:"user_video#{user.id}" %>
 			</div>	
 		</div>		
 

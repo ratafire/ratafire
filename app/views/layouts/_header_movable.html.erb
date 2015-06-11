@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<header class="navbar" style="position:absolute;">
+<header class="navbar" >
 
 
 
@@ -14,11 +14,19 @@
 
 			<!-- Searchbox -->
 			<div class="searchbox-holder-top">
-				<%= form_tag search_path, method: :get, :class => 'no_ajaxify' do %>
-					<div class="searchbox-holder">
-						<%= text_field_tag :search, params[:search], class:"inputbox searchbox", type:"searchbox", placeholder:"Search..."%>
-						<%= submit_tag "", name: nil, class:"btn btn-search", style:"width: 13px !important; position:absolute;"%>
-					</div>
+				<% if browser.tablet? %>
+					<%= form_tag search_path, method: :get, :class => 'no_ajaxify' do %>
+						<div class="searchbox-holder">
+							<%= text_field_tag :search, params[:search], class:"inputbox searchbox", type:"searchbox", placeholder:"Search..."%>
+						</div>
+					<% end %>				
+				<% else %>
+					<%= form_tag search_path, method: :get, :class => 'no_ajaxify' do %>
+						<div class="searchbox-holder">
+							<%= text_field_tag :search, params[:search], class:"inputbox searchbox", type:"searchbox", placeholder:"Search..."%>
+							<%= submit_tag "", name: nil, class:"btn btn-search", style:"width: 13px !important; position:absolute;"%>
+						</div>
+					<% end %>
 				<% end %>
 			</div>	
 

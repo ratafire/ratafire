@@ -34,11 +34,7 @@ $(document).ready(function() {
 	<% content_for :additional_background do %>
 
 		<!-- Window 1 -->
-
-		<section class="window" id="window1">
-
-
-
+	<section class="window" id="window1" >
 	<div class="wrapper-main">		
 
 		<!-- Home Page Beta Pic -->
@@ -90,15 +86,19 @@ $(document).ready(function() {
 
 				<%= link_to new_user_registration_path, class:"no_ajaxify" do %><div class="btn-home-join" style="margin-top:80px;"></div><% end %>
 
-				<div class="who-is-ratatoskr"><span style="background-color:rgba(0,0,0,0.2);padding:2px 7px 2px 7px;border-radius:5px;"><a class="darkgrey" style="color:#ddd;" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >What is Ratatoskr...?</a></span>
+				<div class="who-is-ratatoskr"><span style="background-color:rgba(0,0,0,0.2);padding:2px 7px 2px 7px;border-radius:5px;"><a class="darkgrey" style="color:#ddd;" href="http://en.wikipedia.org/wiki/Ratatoskr" target="_blank" >What is Ratatoskr...?</a></span></div>
 			</div><!-- end.center-->
-		
+
 	</div><!-- end:.wrapper -->	
 	</section><!-- end.first window -->
 
 		<!-- Window 2 -->
-		<section class="window" id="window2" style="">
-			<div class="post-content-home-holder">
+		<section class="window" id="window2" >
+			<% if browser.tablet? %>
+				<div class="post-content-home-holder-tablet">
+			<% else %>
+				<div class="post-content-home-holder">
+			<% end %>
 				
 				<div class="center" style="margin: 0 auto;width:1089px;">
 
