@@ -121,10 +121,10 @@ class ChargesController < ApplicationController
 		#Set basic info of the subscription
 		@user = User.find(@subscription.subscribed_id)
 		@subscriber = User.find(@subscription.subscriber_id)
-		if @user.projects.where(:published => true, :complete => false, :abandoned => false).first.id != nil then 
+		if @user.projects.where(:published => true, :complete => false, :abandoned => false).first != nil then 
 			@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id
 		else
-			@subscription.facebook_page_id = @user.facebookpages.where(:sync => true).first.id
+			@subscription.facebook_page_id = @user.facebook_pages.where(:sync => true).first.id
 		end	
 		@subscription.save	
 		#Adda card
@@ -218,10 +218,10 @@ class ChargesController < ApplicationController
 		#Set basic info of the subscription
 		@user = User.find(params[:id])
 		@subscriber = User.find(@subscription.subscriber_id)
-		if @user.projects.where(:published => true, :complete => false, :abandoned => false).first.id != nil then 
+		if @user.projects.where(:published => true, :complete => false, :abandoned => false).first != nil then 
 			@subscription.project_id = @user.projects.where(:published => true, :complete => false).first.id
 		else
-			@subscription.facebook_page_id = @user.facebookpages.where(:sync => true).first.id
+			@subscription.facebook_page_id = @user.facebook_pages.where(:sync => true).first.id
 		end		
 		@subscription.save			
 		if current_user != nil then
