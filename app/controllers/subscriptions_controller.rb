@@ -191,7 +191,7 @@ class SubscriptionsController < ApplicationController
 		end
 		#destroy activities as well if accumulated total is 0
 		valid_subscription = ((@subscription.deleted_at - @subscription.created_at)/1.day).to_i
-		if @subscription.accumulated_total == nil || @subscription.accumulated_total == 0 || valid_subscription < 30 then
+		if valid_subscription < 30 then
 			PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|
 				if activity != nil then 
 					activity.deleted = true
@@ -247,7 +247,7 @@ class SubscriptionsController < ApplicationController
 		end
 		#destroy activities as well if accumulated total is 0
 		valid_subscription = ((@subscription.deleted_at - @subscription.created_at)/1.day).to_i
-		if @subscription.accumulated_total == nil || @subscription.accumulated_total == 0 || valid_subscription < 30 then
+		if valid_subscription < 30 then
 			PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(@subscription.id,'Subscription').each do |activity|
 				if activity != nil then 
 					activity.deleted = true

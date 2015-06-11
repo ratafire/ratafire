@@ -5,3 +5,5 @@
 require File.expand_path('../config/application', __FILE__)
 
 Ratafire::Application.load_tasks
+
+require 'turnout/rake_tasks'
