@@ -7,7 +7,9 @@
   		<%= csrf_meta_tags %>
   		<%= javascript_include_tag "application" %>
   		<%= render 'layouts/shim' %>
-  		<%= render 'layouts/header_movable' %>
+  		<% unless browser.tablet?%>
+  			<%= render 'layouts/header_movable' %>
+  		<% end %>
 	</head>
 
 	<div id="additional-background">
