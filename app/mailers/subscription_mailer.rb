@@ -162,6 +162,8 @@ class SubscriptionMailer < ActionMailer::Base
 	  		@message = "The amount needed for this month's PayPal MassPay is: $"+transfer_amount+", you are still $"+still_needed_amount+" short."
 	  	when 6 #Debug messages
 	  		@message = "This month's MassPay is performed, the total amount is $"+options[:transfered_amount].to_s+"."
+	  	when 7 #Some batches not batched
+	  		@message = "There is a MassPay batch didn't go through, its id is "+options[:masspay_batch_id].to_s+"."
 		end 
 		admin_email = ENV["ADMIN_EMAIL"]
 		subject = "Transfer Admin Information"

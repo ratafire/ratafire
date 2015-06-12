@@ -1,0 +1,162 @@
+<%= stylesheet_link_tag  "tabcontent/tabcontent" %>
+<%= javascript_include_tag "tabcontent/tabcontent.js" %>
+	<div style="width: 100%;">
+		<ul class="tabs">
+			<li><a href="#view1">Select a Field</a></li>
+			<li id="selection-li2"><a href="#view2" id="selection2">A New Field</a></li>
+			<li id="selection-li3"><a href="#view3" id="selection3">Classical</a></li>
+			<li id="selection-li4"><a href="#view4" id="selection4">Rock</a></li>
+			<li id="selection-li5"><a href="#view5" id="selection5">Electronic</a></li>
+			<li id="selection-li6"><a href="#view6" id="selection6">Folk</a></li>
+			<li id="selection-li7"><a href="#view7" id="selection7">Country</a></li>
+			<li id="selection-li8"><a href="#view8" id="selection8">Pop</a></li>
+			<li id="selection-li9"><a href="#view9" id="selection9">Dance</a></li>
+			<li id="selection-li10"><a href="#view10" id="selection10">World</a></li>
+			<li id="selection-li11"><a href="#view11" id="selection11">Other</a></li>
+		</ul>
+		<div class="tabcontents">
+			<div id="view1">
+				<b>Select a Field</b>
+				<p>Please select a field for your discussion...</p>
+			</div>
+			<div id="view2">
+				<b>A New Field</b>
+				<p>The future is here...</P>            
+			</div>
+			<div id="view3">
+				<b>Classical</b>
+				<p><%= wikipedia("Classical Music")%></p>
+			</div>
+			<div id="view4">
+				<b>Rock</b>
+				<p><%= wikipedia("Rock Music")%></p>
+			</div>			
+			<div id="view5">
+				<b>Electronic</b>
+				<p><%= wikipedia("Electronic Music")%></p>				
+			</div>	
+			<div id="view6">
+				<b>Folk</b>
+				<p><%= wikipedia("Folk art")%></p>				
+			</div>		
+			<div id="view7">
+				<b>Country</b>
+				<p><%= wikipedia("Country music")%></p>				
+			</div>		
+			<div id="view8">
+				<b>Pop</b>
+				<p><%= wikipedia("Pop music")%></p>				
+			</div>			
+			<div id="view9">
+				<b>Dance</b>
+				<p><%= wikipedia("Dance music")%></p>				
+			</div>		
+			<div id="view10">
+				<b>World</b>
+				<p><%= wikipedia("World music")%></p>				
+			</div>	
+			<div id="view11">
+				<b>Other</b>
+				<p>Other fields...</p>			
+			</div>																				
+		</div>
+	</div>
+
+
+	<!-- The tab that is selected -->
+	<% case @discussion.sub_realm %>
+	<% when "A New Field"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li2").addClass("selected");
+			});
+		</script>	
+	<% when "Classical"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li3").addClass("selected");
+			});
+		</script>		
+	<% when "Rock"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li4").addClass("selected");
+			});
+		</script>		
+	<% when "Electronic"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li5").addClass("selected");
+			});
+		</script>		
+	<% when "Folk"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li6").addClass("selected");
+			});
+		</script>		
+	<% when "Country"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li7").addClass("selected");
+			});
+		</script>		
+	<% when "Pop"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li8").addClass("selected");
+			});
+		</script>		
+	<% when "Dance" %>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li9").addClass("selected");
+			});
+		</script>		
+	<% when "World"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li10").addClass("selected");
+			});
+		</script>		
+	<% when "Other"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li11").addClass("selected");
+			});
+		</script>		
+	<% end %>
+
+	<script>
+	//Controls the feeding of the tabs
+		$("#selection2").click(function(){
+			$("#discussion-subrealm").val("A New Field");
+		});
+		$("#selection3").click(function(){
+			$("#discussion-subrealm").val("Classical");
+		});
+		$("#selection4").click(function(){
+			$("#discussion-subrealm").val("Rock");
+		});
+		$("#selection5").click(function(){
+			$("#discussion-subrealm").val("Electronic");
+		});
+		$("#selection6").click(function(){
+			$("#discussion-subrealm").val("Folk");
+		});
+		$("#selection7").click(function(){
+			$("#discussion-subrealm").val("Country");
+		});
+		$("#selection8").click(function(){
+			$("#discussion-subrealm").val("Pop");
+		});
+		$("#selection9").click(function(){
+			$("#discussion-subrealm").val("Dance");
+		});
+		$("#selection10").click(function(){
+			$("#discussion-subrealm").val("World");
+		});
+		$("#selection11").click(function(){
+			$("#discussion-subrealm").val("Other");
+		});																							
+	</script>

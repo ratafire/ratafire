@@ -36,7 +36,7 @@ class Discussion < ActiveRecord::Base
 			@discussion.uuid = SecureRandom.random_number(8388608).to_s
 		end while Discussion.find_by_uuid(@discussion.uuid).present?
 		@discussion.creator_id = options[:user_id]
-		@discussion.title = "Enter a Title for this Discussion"
+		@discussion.title = "Click to enter a title for this discussion"
 		@discussion.perlink = @discussion.uuid.to_s
 		@discussion.edit_permission = "free"
 		@discussion.assigned_discussions.each do |as|

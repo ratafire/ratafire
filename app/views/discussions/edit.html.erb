@@ -22,6 +22,7 @@
 
 	<% content_for(:second_header) do %>
     	<%= render 'discussions/discussion_header_edit' %>
+
 	<% end %>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
@@ -33,13 +34,14 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 	<!-- Main Content -->
 	<div class="main-content-project">
+
 		<!-- Post Content -->
 		<div class="post-content2">
 
 			<!-- Project Form-->
 			<%= nested_form_for [@discussion], :url => discussion_update_path(@discussion),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f| %>
 				<%= f.hidden_field :published, id:"project-published" %>
-
+				<%= f.hidden_field :sub_realm, id:"discussion-subrealm"%>
 				<!-- Original Image Upload Placer, because the image form is not nested-->
 				<div id="original-placer"></div>
 

@@ -1,0 +1,91 @@
+﻿/* Tab Content - menucool.com */
+ul.tabs
+{
+    padding: 7px 0;
+    margin:0;
+    font-size: 0;
+    list-style-type: none;
+    text-align: left; /*set to left, center, or right to align the tabs as desired*/
+    padding-left:10px; /* Offset of the first tab */
+}
+        
+ul.tabs li
+{
+    display: inline;
+    margin: 0;/*no distance between tabs*/
+    background: White;
+    margin-left: -1px;
+}
+        
+ul.tabs li a
+{
+    font: normal 11px "Open Sans Regular";
+    text-decoration: none;
+    position: relative;
+    padding: 8px 9px;
+    color: #000;
+    outline:none;
+    background: #f9f9f9;
+    border:1px solid #CCC;
+    border-right:0;
+}
+
+/*Note: IE8 and earlier doesn't support li:last-child. You have to add another class to the last tab (LI) and specify its border-right as below.*/
+ul.tabs li:last-child a
+{
+    border-right:1px solid #CCC;
+    border-radius: 0 5px 0 0;
+}
+
+ul.tabs li:first-child a
+{
+
+    border-radius: 5px 0 0 0;
+}
+
+ul.tabs li.selected li:first-child  a:hover
+{
+ border:1px solid #CCC;
+    text-decoration: none;
+     padding: 8px 9px;
+      border-bottom: 1px solid #FFF;
+      border-radius: 0;
+    border-radius: 5px 0 0 0;
+}
+
+  
+        
+ul.tabs li a:hover
+{padding: 13px 13px;
+    color: #ffffff;
+    background-color: rgba(34,151,206,0.85);
+  border: 1px solid #1e87b8;
+  border-bottom: 1px solid #104760;  
+  border-radius: 5px;
+  z-index: 100;  
+}
+
+        
+ul.tabs li.selected a, ul.tabs li.selected a:hover
+{
+    top: 0px;
+    font-weight:normal;
+    background: #FFF;
+    border-bottom: 1px solid #FFF;
+    color: #000;
+}
+        
+        
+ul.tabs li.selected a:hover
+
+{    border:1px solid #CCC;
+    text-decoration: none;
+     padding: 8px 9px;
+      border-bottom: 1px solid #FFF;
+      border-radius: 0;
+}
+
+div.tabcontents
+{   margin-top: -6px;
+    border-top: 1px solid #CCC; padding: 30px 10px;
+}

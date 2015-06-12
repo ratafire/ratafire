@@ -24,6 +24,17 @@ class MajorpostsController < ApplicationController
 		end
 	end
 
+	def update_title_and_tagline
+		@majorpost = Majorpost.find(params[:id])
+		respond_to do |format|
+			if @majorpost.update_attributes(params[:majorpost]) then
+				format.json { respond_with_bip(@majorpost) }
+			else
+				format.json { respond_with_bip(@majorpost) }
+			end
+		end
+	end
+
 	def update
 		@majorpost = Majorpost.find(params[:id])
 		@project = @majorpost.project
@@ -84,8 +95,10 @@ class MajorpostsController < ApplicationController
 										#With Facebook, with Facebook Pag
 										redirect_to user_omniauth_authorize_path(:facebookposts, object_type: "majorpost", object_id: @majorpost.id, post_to_both: "true")
 									else
-										#Set user preference to not post to facebook page
-										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+										if @majorpost.user.facebook_pages.first != nil then
+											#Set user preference to not post to facebook page
+											@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+										end
 										#With Facebook, without Facebook Pag
 										redirect_to user_omniauth_authorize_path(:facebookposts, object_type: "majorpost", object_id: @majorpost.id)
 									end
@@ -98,7 +111,9 @@ class MajorpostsController < ApplicationController
 										Resque.enqueue(FacebookPostWorker,@majorpost.user.id, "majorpost",@majorpost.id, :post_to_page => true)
 									else
 										#Set user preference to not post to faceboo
-										@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+										if @majorpost.user.facebook_pages.first != nil then
+											@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,nil)
+										end
 									end
 									#Redirect to Setup subscription if so
 									flash["success"] = 'Major post was successfully updated.'

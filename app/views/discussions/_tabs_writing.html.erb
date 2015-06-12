@@ -1,0 +1,176 @@
+<%= stylesheet_link_tag  "tabcontent/tabcontent" %>
+<%= javascript_include_tag "tabcontent/tabcontent.js" %>
+	<div style="width: 100%;">
+		<ul class="tabs">
+			<li><a href="#view1">Select a Field</a></li>
+			<li id="selection-li2"><a href="#view2" id="selection2">A New Field</a></li>
+			<li id="selection-li3"><a href="#view3" id="selection3">Review</a></li>
+			<li id="selection-li4"><a href="#view4" id="selection4">Poetry</a></li>
+			<li id="selection-li5"><a href="#view5" id="selection5">Fantasy</a></li>
+			<li id="selection-li6"><a href="#view6" id="selection6">Science Fiction</a></li>
+			<li id="selection-li7"><a href="#view7" id="selection7">Romance</a></li>
+			<li id="selection-li8"><a href="#view8" id="selection8">Young Adult</a></li>
+			<li id="selection-li9"><a href="#view9" id="selection9">Non-fiction</a></li>
+			<li id="selection-li10"><a href="#view10" id="selection10">Theater</a></li>
+			<li id="selection-li11"><a href="#view11" id="selection11">Fiction</a></li>
+			<li id="selection-li12"><a href="#view12" id="selection12">Other</a></li>
+		</ul>
+		<div class="tabcontents">
+			<div id="view1">
+				<b>Select a Field</b>
+				<p>Please select a field for your discussion...</p>
+			</div>
+			<div id="view2">
+				<b>A New Field</b>
+				<p>The future is here...</P>            
+			</div>
+			<div id="view3">
+				<b>Review</b>
+				<p>A written review...</p>
+			</div>
+			<div id="view4">
+				<b>Poetry</b>
+				<p>Poetry is a form of literature that uses aesthetic and rhythmic qualities of language such as phonaesthetics, sound symbolism, and metre to evoke meanings in addition to, or in place of, the prosaic ostensible meaning</p>
+			</div>			
+			<div id="view5">
+				<b>Fantasy</b>
+				<p><%= wikipedia("Fantasy")%></p>				
+			</div>	
+			<div id="view6">
+				<b>Science Fiction</b>
+				<p><%= wikipedia("Science Fiction")%></p>				
+			</div>		
+			<div id="view7">
+				<b>Romance</b>
+				<p><%= wikipedia("Romance novel")%></p>				
+			</div>		
+			<div id="view8">
+				<b>Young Adult</b>
+				<p><%= wikipedia("Young-adult fiction")%></p>				
+			</div>			
+			<div id="view9">
+				<b>Non-fiction</b>
+				<p><%= wikipedia("Non-fiction")%></p>				
+			</div>		
+			<div id="view10">
+				<b>Theater</b>
+				<p><%= wikipedia("Theatre")%></p>				
+			</div>	
+			<div id="view11">
+				<b>Fiction</b>
+				<p><%= wikipedia("Fiction")%></p>				
+			</div>	
+			<div id="view12">
+				<b>Other</b>
+				<p>Other fields...</p>			
+			</div>																				
+		</div>
+	</div>
+
+
+	<!-- The tab that is selected -->
+	<% case @discussion.sub_realm %>
+	<% when "A New Field"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li2").addClass("selected");
+			});
+		</script>	
+	<% when "Review"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li3").addClass("selected");
+			});
+		</script>		
+	<% when "Poetry"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li4").addClass("selected");
+			});
+		</script>		
+	<% when "Fantasy"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li5").addClass("selected");
+			});
+		</script>		
+	<% when "Science Fiction"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li6").addClass("selected");
+			});
+		</script>		
+	<% when "Romance"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li7").addClass("selected");
+			});
+		</script>		
+	<% when "Young Adult"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li8").addClass("selected");
+			});
+		</script>		
+	<% when "Non-fiction" %>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li9").addClass("selected");
+			});
+		</script>		
+	<% when "Theater"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li10").addClass("selected");
+			});
+		</script>		
+	<% when "Fiction"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li11").addClass("selected");
+			});
+		</script>		
+	<% when "Other"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li12").addClass("selected");
+			});
+		</script>	
+	<% end %>
+
+	<script>
+	//Controls the feeding of the tabs
+		$("#selection2").click(function(){
+			$("#discussion-subrealm").val("A New Field");
+		});
+		$("#selection3").click(function(){
+			$("#discussion-subrealm").val("Review");
+		});
+		$("#selection4").click(function(){
+			$("#discussion-subrealm").val("Poetry");
+		});
+		$("#selection5").click(function(){
+			$("#discussion-subrealm").val("Fantasy");
+		});
+		$("#selection6").click(function(){
+			$("#discussion-subrealm").val("Science Fiction");
+		});
+		$("#selection7").click(function(){
+			$("#discussion-subrealm").val("Romance");
+		});
+		$("#selection8").click(function(){
+			$("#discussion-subrealm").val("Young Adult");
+		});
+		$("#selection9").click(function(){
+			$("#discussion-subrealm").val("Non-fiction");
+		});
+		$("#selection10").click(function(){
+			$("#discussion-subrealm").val("Theater");
+		});
+		$("#selection11").click(function(){
+			$("#discussion-subrealm").val("Fiction");
+		});		
+		$("#selection12").click(function(){
+			$("#discussion-subrealm").val("Other");
+		});																									
+	</script>

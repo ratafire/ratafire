@@ -45,7 +45,7 @@
 					<li></li>
 				</div>
 				<div class="majorpost-title-input-holder input_majorpost">
-					<ul><%= best_in_place [@project.creator, @project, @majorpost], :title, :path => majorpost_update_path(@project.creator,@project, @majorpost), :classes =>"best_title2" %> <span class="btn btn-edit" id="best_title-edit" style="display:none;"></ul>
+					<ul><%= best_in_place [@project.creator, @project, @majorpost], :title, :path =>majorpost_update_title_and_tagline_path(@project.creator,@majorpost), :classes =>"best_title2" %> <span class="btn btn-edit" id="best_title-edit" style="display:none;"></ul>
 				</div>
 			</div>
 

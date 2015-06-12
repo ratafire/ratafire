@@ -62,16 +62,23 @@ module ApplicationHelper
 			query = title
 		end	
 		query = query.downcase.capitalize
-		result = open("http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles="+query).read.to_s.split("\"extract\":\"")[1]
+		result = open("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles="+query).read.to_s.split("\"extract\":\"")[1]
 		if result != nil && result.length > 200 then
 			sentence = Sanitize.clean(result.split(".")[0]+"...").strip.gsub("\\n", "-").gsub(/\([^()]*\)/, "")
 			if sentence =~ /This is a redirect from a title with another method of capitalisation/ || result.length < 200 then
 				query = title.titleize.gsub(/\s/, "%20")
-				result = open("http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles="+query).read.to_s.split("\"extract\":\"")[1]
-				sentence = Sanitize.clean(result.split(".")[0]+"...").strip.gsub("\\n", "-").gsub(/\([^()]*\)/, "")
-				if sentence =~ /This is a redirect from a title with another method of capitalisation/ || result.length < 200 then
-					sentence = "Work collections and posts in " + title + "."
-				end	
+				result = open("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles="+query).read.to_s.split("\"extract\":\"")[1]
+				if result != nil then
+					sentence = Sanitize.clean(result.split(".")[0]+"...").strip.gsub("\\n", "-").gsub(/\([^()]*\)/, "")
+					if sentence =~ /This is a redirect from a title with another method of capitalisation/ || result.length < 200 then
+						sentence = "Work collections and posts in " + title + "."
+					end	
+				else
+					if sentence =~ /may refer to/ then
+						sentence = "Work collections and major posts in " + title + "."
+					end
+					return sentence
+				end
 			end
 			if sentence =~ /may refer to/ then
 				sentence = "Work collections and major posts in " + title + "."

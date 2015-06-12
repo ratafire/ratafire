@@ -1,0 +1,190 @@
+<%= stylesheet_link_tag  "tabcontent/tabcontent" %>
+<%= javascript_include_tag "tabcontent/tabcontent.js" %>
+	<div style="width: 100%;">
+		<ul class="tabs">
+			<li><a href="#view1">Select a Field</a></li>
+			<li id="selection-li2"><a href="#view2" id="selection2">A New Field</a></li>
+			<li id="selection-li3"><a href="#view3" id="selection3">Architecture</a></li>
+			<li id="selection-li4"><a href="#view4" id="selection4">3D Models</a></li>
+			<li id="selection-li5"><a href="#view5" id="selection5">Drawing</a></li>
+			<li id="selection-li6"><a href="#view6" id="selection6">Fine Arts</a></li>
+			<li id="selection-li7"><a href="#view7" id="selection7">Graphic Design</a></li>
+			<li id="selection-li8"><a href="#view8" id="selection8">Jewelry Design</a></li>
+			<li id="selection-li9"><a href="#view9" id="selection9">Illustration</a></li>
+			<li id="selection-li10"><a href="#view10" id="selection10">Painting</a></li>
+			<li id="selection-li11"><a href="#view11" id="selection11">Photography</a></li>
+			<li id="selection-li12"><a href="#view12" id="selection12">Sculpting</a></li>
+			<li id="selection-li13"><a href="#view13" id="selection13">Other</a></li>
+		</ul>
+		<div class="tabcontents">
+			<div id="view1">
+				<b>Select a Field</b>
+				<p>Please select a field for your discussion...</p>
+			</div>
+			<div id="view2">
+				<b>A New Field</b>
+				<p>The future is here...</P>            
+			</div>
+			<div id="view3">
+				<b>Architecture</b>
+				<p><%= wikipedia("Architecture")%></p>
+			</div>
+			<div id="view4">
+				<b>3D Models</b>
+				<p><%= Sanitize.clean(open("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=3D%20modeling").read.to_s.split("\"extract\":\"")[1].split(".")[0]+"...").strip.gsub("\\n", "-").gsub(/\([^()]*\)/, "")%></p>
+			</div>			
+			<div id="view5">
+				<b>Drawing</b>
+				<p><%= wikipedia("Drawing")%></p>				
+			</div>	
+			<div id="view6">
+				<b>Fine Arts</b>
+				<p><%= wikipedia("Fine art")%></p>				
+			</div>		
+			<div id="view7">
+				<b>Graphic Design</b>
+				<p><%= wikipedia("Graphic Design")%></p>				
+			</div>		
+			<div id="view8">
+				<b>Jewelry Design</b>
+				<p><%= wikipedia("Jewelry Design")%></p>				
+			</div>			
+			<div id="view9">
+				<b>Illustration</b>
+				<p><%= wikipedia("Illustration")%></p>				
+			</div>		
+			<div id="view10">
+				<b>Painting</b>
+				<p><%= wikipedia("Painting")%></p>				
+			</div>	
+			<div id="view11">
+				<b>Photography</b>
+				<p><%= wikipedia("Photography")%></p>				
+			</div>	
+			<div id="view12">
+				<b>Sculpting</b>
+				<p><%= wikipedia("Sculpture")%></p>				
+			</div>	
+			<div id="view13">
+				<b>Other</b>
+				<p>Other fields...</p>				
+			</div>																				
+		</div>
+	</div>
+
+
+	<!-- The tab that is selected -->
+	<% case @discussion.sub_realm %>
+	<% when "A New Field"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li2").addClass("selected");
+			});
+		</script>	
+	<% when "Architecture"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li3").addClass("selected");
+			});
+		</script>		
+	<% when "3D Models"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li4").addClass("selected");
+			});
+		</script>		
+	<% when "Drawing"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li5").addClass("selected");
+			});
+		</script>		
+	<% when "Fine Arts"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li6").addClass("selected");
+			});
+		</script>		
+	<% when "Graphic Design"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li7").addClass("selected");
+			});
+		</script>		
+	<% when "Jewelry Design"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li8").addClass("selected");
+			});
+		</script>		
+	<% when "Illustration" %>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li9").addClass("selected");
+			});
+		</script>		
+	<% when "Painting"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li10").addClass("selected");
+			});
+		</script>		
+	<% when "Photography"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li11").addClass("selected");
+			});
+		</script>		
+	<% when "Sculpting"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li12").addClass("selected");
+			});
+		</script>	
+	<% when "Other"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li13").addClass("selected");
+			});
+		</script>	
+	<% end %>
+
+	<script>
+	//Controls the feeding of the tabs
+		$("#selection2").click(function(){
+			$("#discussion-subrealm").val("A New Field");
+		});
+		$("#selection3").click(function(){
+			$("#discussion-subrealm").val("Architecture");
+		});
+		$("#selection4").click(function(){
+			$("#discussion-subrealm").val("3D Models");
+		});
+		$("#selection5").click(function(){
+			$("#discussion-subrealm").val("Drawing");
+		});
+		$("#selection6").click(function(){
+			$("#discussion-subrealm").val("Fine Arts");
+		});
+		$("#selection7").click(function(){
+			$("#discussion-subrealm").val("Graphic Design");
+		});
+		$("#selection8").click(function(){
+			$("#discussion-subrealm").val("Jewelry Design");
+		});
+		$("#selection9").click(function(){
+			$("#discussion-subrealm").val("Illustration");
+		});
+		$("#selection10").click(function(){
+			$("#discussion-subrealm").val("Painting");
+		});
+		$("#selection11").click(function(){
+			$("#discussion-subrealm").val("Photography");
+		});		
+		$("#selection12").click(function(){
+			$("#discussion-subrealm").val("Sculpting");
+		});		
+		$("#selection13").click(function(){
+			$("#discussion-subrealm").val("Other");
+		});																								
+	</script>

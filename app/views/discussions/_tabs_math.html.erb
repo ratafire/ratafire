@@ -1,0 +1,176 @@
+<%= stylesheet_link_tag  "tabcontent/tabcontent" %>
+<%= javascript_include_tag "tabcontent/tabcontent.js" %>
+	<div style="width: 100%;">
+		<ul class="tabs">
+			<li><a href="#view1">Select a Field</a></li>
+			<li id="selection-li2"><a href="#view2" id="selection2">A New Field</a></li>
+			<li id="selection-li3"><a href="#view3" id="selection3">Geometry</a></li>
+			<li id="selection-li4"><a href="#view4" id="selection4">Algebra</a></li>
+			<li id="selection-li5"><a href="#view5" id="selection5">Analysis</a></li>
+			<li id="selection-li6"><a href="#view6" id="selection6">Logic</a></li>
+			<li id="selection-li7"><a href="#view7" id="selection7">Number Theory</a></li>
+			<li id="selection-li8"><a href="#view8" id="selection8">Statistics</a></li>
+			<li id="selection-li9"><a href="#view9" id="selection9">Topology</a></li>
+			<li id="selection-li10"><a href="#view10" id="selection10">Dynamic System</a></li>
+			<li id="selection-li11"><a href="#view11" id="selection11">Computation Theories</a></li>
+			<li id="selection-li12"><a href="#view12" id="selection12">Other</a></li>
+		</ul>
+		<div class="tabcontents">
+			<div id="view1">
+				<b>Select a Field</b>
+				<p>Please select a field for your discussion...</p>
+			</div>
+			<div id="view2">
+				<b>A New Field</b>
+				<p>The future is here...</P>            
+			</div>
+			<div id="view3">
+				<b>Geometry</b>
+				<p><%= wikipedia("Geometry")%></p>
+			</div>
+			<div id="view4">
+				<b>Algebra</b>
+				<p><%= wikipedia("Algebra")%></p>
+			</div>			
+			<div id="view5">
+				<b>Analysis</b>
+				<p><%= wikipedia("Mathematical analysis")%></p>				
+			</div>	
+			<div id="view6">
+				<b>Logic</b>
+				<p><%= wikipedia("Logic")%></p>				
+			</div>		
+			<div id="view7">
+				<b>Number Theory</b>
+				<p><%= wikipedia("Number Theory")%></p>				
+			</div>		
+			<div id="view8">
+				<b>Statistics</b>
+				<p><%= wikipedia("Statistics")%></p>				
+			</div>			
+			<div id="view9">
+				<b>Topology</b>
+				<p><%= wikipedia("Topology")%></p>				
+			</div>		
+			<div id="view10">
+				<b>Dynamic System</b>
+				<p><%= wikipedia("Dynamical system")%></p>				
+			</div>	
+			<div id="view11">
+				<b>Computation Theories</b>
+				<p><%= wikipedia("Theory of computation")%></p>				
+			</div>				
+			<div id="view12">
+				<b>Other</b>
+				<p>Other fields...</p>						
+			</div>																				
+		</div>
+	</div>
+
+
+	<!-- The tab that is selected -->
+	<% case @discussion.sub_realm %>
+	<% when "A New Field"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li2").addClass("selected");
+			});
+		</script>	
+	<% when "Geometry"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li3").addClass("selected");
+			});
+		</script>		
+	<% when "Algebra"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li4").addClass("selected");
+			});
+		</script>		
+	<% when "Analysis"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li5").addClass("selected");
+			});
+		</script>		
+	<% when "Logic"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li6").addClass("selected");
+			});
+		</script>		
+	<% when "Number Theory"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li7").addClass("selected");
+			});
+		</script>		
+	<% when "Statistics"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li8").addClass("selected");
+			});
+		</script>		
+	<% when "Topology" %>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li9").addClass("selected");
+			});
+		</script>		
+	<% when "Dynamic System"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li10").addClass("selected");
+			});
+		</script>		
+	<% when "Computation Theories"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li11").addClass("selected");
+			});
+		</script>	
+	<% when "Other"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li11").addClass("selected");
+			});
+		</script>				
+	<% end %>
+
+	<script>
+	//Controls the feeding of the tabs
+		$("#selection2").click(function(){
+			$("#discussion-subrealm").val("A New Field");
+		});
+		$("#selection3").click(function(){
+			$("#discussion-subrealm").val("Geometry");
+		});
+		$("#selection4").click(function(){
+			$("#discussion-subrealm").val("Algebra");
+		});
+		$("#selection5").click(function(){
+			$("#discussion-subrealm").val("Analysis");
+		});
+		$("#selection6").click(function(){
+			$("#discussion-subrealm").val("Logic");
+		});
+		$("#selection7").click(function(){
+			$("#discussion-subrealm").val("Number Theory");
+		});
+		$("#selection8").click(function(){
+			$("#discussion-subrealm").val("Statistics");
+		});
+		$("#selection9").click(function(){
+			$("#discussion-subrealm").val("Topology");
+		});
+		$("#selection10").click(function(){
+			$("#discussion-subrealm").val("Dynamic System");
+		});
+		$("#selection11").click(function(){
+			$("#discussion-subrealm").val("Computation Theories");
+		});		
+		$("#selection12").click(function(){
+			$("#discussion-subrealm").val("Other");
+		});																									
+	</script>

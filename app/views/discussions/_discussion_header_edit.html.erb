@@ -21,7 +21,6 @@
 		<div class="project-icon-holder" style="background-image:url(<%= @discussion.creator.profilephoto.url(:small) %>);">
 	</div>
 
-
 	<div id="project-title">
 		<!-- Project Name -->
 		<h1 >
@@ -34,16 +33,37 @@
 			<% if @discussion.complete == true %>	
 				<%= @discussion.title %>
 			<% else %>				
-				<%= best_in_place [@discussion], :title, :path => discussion_update_path(@discussion), :classes =>"best_title" %><span class="btn btn-edit" id="best_title-edit" style="display:none;"></span>
+				<%= best_in_place [@discussion], :title, :path => discussions_update_title_and_tagline_path(@discussion), :classes =>"best_project_title_edit" %><span class="btn btn-edit" id="best_title-edit"></span>
 			<% end %>
 		</h1>
 		<ul id="best_tagline_holder">
-			<h5><%= project_realm(@discussion.realm)%> ::  <%= @discussion.sub_realm %><span class="btn btn-edit" id="best_tagline-edit" style="margin:-2px 0 0 0; display:none;"></span></h5>
+			<h5><%= project_realm(@discussion.realm)%> <%= @discussion.sub_realm %><span class="btn btn-edit" id="best_tagline-edit" style="margin:-2px 0 0 0; display:none;"></span></h5>
 		</ul>
 	</div><!-- end #project-title-->
 
 	<div id="project-goals">
-		<%= goals_percentage(@discussion.thread_count, @discussion.goal)%><%= progress_bar(goals_count(@discussion.thread_count,@discussion.goal), :color => 'pink', :rounded => true) %>
+		<!-- Field Tabs -->
+		<% case @discussion.realm %>
+		<% when "art"%>
+			<%= render "discussions/tabs_art"%>
+		<% when "music"%>
+			<%= render "discussions/tabs_music"%>
+		<% when "games"%>
+			<%= render "discussions/tabs_games"%>
+		<% when "writing"%>
+			<%= render "discussions/tabs_writing"%>
+		<% when "videos"%>
+			<%= render "discussions/tabs_videos"%>
+		<% when "math"%>
+			<%= render "discussions/tabs_math"%>
+		<% when "science"%>
+			<%= render "discussions/tabs_science"%>
+		<% when "humanity"%>
+			<%= render "discussions/tabs_humanity"%>
+		<% when "engineering"%>
+			<%= render "discussions/tabs_engineering"%>
+		<% end %>
+			
 	</div>
 
 </div><!-- end .project-header-wrapper-->

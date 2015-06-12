@@ -1,0 +1,190 @@
+<%= stylesheet_link_tag  "tabcontent/tabcontent" %>
+<%= javascript_include_tag "tabcontent/tabcontent.js" %>
+	<div style="width: 100%;">
+		<ul class="tabs">
+			<li><a href="#view1">Select a Field</a></li>
+			<li id="selection-li2"><a href="#view2" id="selection2">A New Field</a></li>
+			<li id="selection-li3"><a href="#view3" id="selection3">Anthropology</a></li>
+			<li id="selection-li4"><a href="#view4" id="selection4">Art History</a></li>
+			<li id="selection-li5"><a href="#view5" id="selection5">Classics</a></li>
+			<li id="selection-li6"><a href="#view6" id="selection6">History</a></li>
+			<li id="selection-li7"><a href="#view7" id="selection7">Literature</a></li>
+			<li id="selection-li8"><a href="#view8" id="selection8">Philosophy</a></li>
+			<li id="selection-li9"><a href="#view9" id="selection9">Politics</a></li>
+			<li id="selection-li10"><a href="#view10" id="selection10">Psychology</a></li>
+			<li id="selection-li11"><a href="#view11" id="selection11">Religion</a></li>
+			<li id="selection-li12"><a href="#view12" id="selection12">Sociology</a></li>
+			<li id="selection-li13"><a href="#view13" id="selection13">Other</a></li>
+		</ul>
+		<div class="tabcontents">
+			<div id="view1">
+				<b>Select a Field</b>
+				<p>Please select a field for your discussion...</p>
+			</div>
+			<div id="view2">
+				<b>A New Field</b>
+				<p>The future is here...</P>            
+			</div>
+			<div id="view3">
+				<b>Anthropology</b>
+				<p>Anthropology is the study of humans. Its main subdivisions are cultural anthropology, which describes the workings of societies around the world, and biological anthropology, which concerns long-term development of the human organism...</p>
+			</div>
+			<div id="view4">
+				<b>Art History</b>
+				<p><%= wikipedia("Art History")%></p>
+			</div>			
+			<div id="view5">
+				<b>Classics</b>
+				<p><%= wikipedia("Classics")%></p>				
+			</div>	
+			<div id="view6">
+				<b>History</b>
+				<p><%= wikipedia("History")%></p>				
+			</div>		
+			<div id="view7">
+				<b>Literature</b>
+				<p><%= wikipedia("Literature")%></p>				
+			</div>		
+			<div id="view8">
+				<b>Philosophy</b>
+				<p><%= wikipedia("Philosophy")%></p>				
+			</div>			
+			<div id="view9">
+				<b>Politics</b>
+				<p><%= wikipedia("Politics")%></p>				
+			</div>		
+			<div id="view10">
+				<b>Psychology</b>
+				<p><%= wikipedia("Psychology")%></p>				
+			</div>	
+			<div id="view11">
+				<b>Religion</b>
+				<p><%= wikipedia("Religion")%></p>				
+			</div>	
+			<div id="view12">
+				<b>Sociology</b>
+				<p><%= wikipedia("Sculpture")%></p>				
+			</div>	
+			<div id="view13">
+				<b>Other</b>
+				<p>Other fields...</p>				
+			</div>																				
+		</div>
+	</div>
+
+
+	<!-- The tab that is selected -->
+	<% case @discussion.sub_realm %>
+	<% when "A New Field"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li2").addClass("selected");
+			});
+		</script>	
+	<% when "Anthropology"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li3").addClass("selected");
+			});
+		</script>		
+	<% when "Art History"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li4").addClass("selected");
+			});
+		</script>		
+	<% when "Classics"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li5").addClass("selected");
+			});
+		</script>		
+	<% when "History"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li6").addClass("selected");
+			});
+		</script>		
+	<% when "Literature"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li7").addClass("selected");
+			});
+		</script>		
+	<% when "Philosophy"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li8").addClass("selected");
+			});
+		</script>		
+	<% when "Politics" %>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li9").addClass("selected");
+			});
+		</script>		
+	<% when "Psychology"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li10").addClass("selected");
+			});
+		</script>		
+	<% when "Religion"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li11").addClass("selected");
+			});
+		</script>		
+	<% when "Sociology"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li12").addClass("selected");
+			});
+		</script>	
+	<% when "Other"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li13").addClass("selected");
+			});
+		</script>	
+	<% end %>
+
+	<script>
+	//Controls the feeding of the tabs
+		$("#selection2").click(function(){
+			$("#discussion-subrealm").val("A New Field");
+		});
+		$("#selection3").click(function(){
+			$("#discussion-subrealm").val("Anthropology");
+		});
+		$("#selection4").click(function(){
+			$("#discussion-subrealm").val("Art History");
+		});
+		$("#selection5").click(function(){
+			$("#discussion-subrealm").val("Classics");
+		});
+		$("#selection6").click(function(){
+			$("#discussion-subrealm").val("History");
+		});
+		$("#selection7").click(function(){
+			$("#discussion-subrealm").val("Literature");
+		});
+		$("#selection8").click(function(){
+			$("#discussion-subrealm").val("Philosophy");
+		});
+		$("#selection9").click(function(){
+			$("#discussion-subrealm").val("Politics");
+		});
+		$("#selection10").click(function(){
+			$("#discussion-subrealm").val("Psychology");
+		});
+		$("#selection11").click(function(){
+			$("#discussion-subrealm").val("Religion");
+		});		
+		$("#selection12").click(function(){
+			$("#discussion-subrealm").val("Sociology");
+		});		
+		$("#selection13").click(function(){
+			$("#discussion-subrealm").val("Other");
+		});																								
+	</script>

@@ -95,7 +95,7 @@ Ratafire::Application.routes.draw do
 	match ':user_id/projects/:project_id/majorposts/:id', to: 'majorposts#destroy', via: :delete, as: :majorpost_delete
 	match ':user_id/:id/r/newmajorpost', to: 'majorposts#create',via: :post, as: :new_majorpost
 	match ':user_id/projects/:project_id/majorposts/:id', to: 'majorposts#update', via: :put, as: :majorpost_update
-
+	match ':user_id/majorpost/:id/update_title_and_tagline', to: 'majorposts#update_title_and_tagline', as: :majorpost_update_title_and_tagline
 	match ':user_id/projects/:project_id/majorposts/:id', to: 'majorposts#destroy', via: :delete, as: :throw_majorpost_draft
 
 	#Inspirations
@@ -327,6 +327,7 @@ Ratafire::Application.routes.draw do
 	match '/discussion_admin', to: "admin#discussion", as: :admin_discussion
 	match '/discussion/review/r/:id', to: "admin#discussion_review", as: :admin_discussion_review
 	match '/discussion/review/update/:id', to: "admin#discussion_review_update", as: :admin_discussion_review_update
+	match '/discussion/:id/update_title_and_tagline/update', to: 'discussions#update_title_and_tagline', as: :discussions_update_title_and_tagline
 
 	match '/:id/r/ratafire/welcome-new-friend/beta_approve', to: 'beta_users#approve',as: :beta_approve
 	match '/:id/r/ratafire/welcome-new-friend/beta_ignore', to: 'beta_users#ignore', as: :beta_ignore

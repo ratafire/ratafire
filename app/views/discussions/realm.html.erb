@@ -512,8 +512,7 @@
 	//Enter
 	$(".enter").click(function(){
 		var realm = this.id;	
-		showConfirmDialog2(realm);
-		return false;
+		$("#project-form").submit();
 	});			
 
 		showConfirmDialog2 = function(realm) {

@@ -1,0 +1,148 @@
+<%= stylesheet_link_tag  "tabcontent/tabcontent" %>
+<%= javascript_include_tag "tabcontent/tabcontent.js" %>
+	<div style="width: 100%;">
+		<ul class="tabs">
+			<li><a href="#view1">Select a Field</a></li>
+			<li id="selection-li2"><a href="#view2" id="selection2">A New Field</a></li>
+			<li id="selection-li3"><a href="#view3" id="selection3">Biology</a></li>
+			<li id="selection-li4"><a href="#view4" id="selection4">Biochemistry</a></li>
+			<li id="selection-li5"><a href="#view5" id="selection5">Chemistry</a></li>
+			<li id="selection-li6"><a href="#view6" id="selection6">Computer Science</a></li>
+			<li id="selection-li7"><a href="#view7" id="selection7">Economics</a></li>
+			<li id="selection-li8"><a href="#view8" id="selection8">Neuroscience</a></li>
+			<li id="selection-li9"><a href="#view9" id="selection9">Physics</a></li>
+			<li id="selection-li10"><a href="#view10" id="selection10">Other</a></li>
+		</ul>
+		<div class="tabcontents">
+			<div id="view1">
+				<b>Select a Field</b>
+				<p>Please select a field for your discussion...</p>
+			</div>
+			<div id="view2">
+				<b>A New Field</b>
+				<p>The future is here...</P>            
+			</div>
+			<div id="view3">
+				<b>Biology</b>
+				<p><%= wikipedia("Biology")%></p>
+			</div>
+			<div id="view4">
+				<b>Biochemistry</b>
+				<p><%= wikipedia("Biochemistry")%></p>
+			</div>			
+			<div id="view5">
+				<b>Chemistry</b>
+				<p><%= wikipedia("Chemistry")%></p>				
+			</div>	
+			<div id="view6">
+				<b>Computer Science</b>
+				<p><%= wikipedia("Computer Science")%></p>				
+			</div>		
+			<div id="view7">
+				<b>Economics</b>
+				<p>Economics is the social science that seeks to describe the factors which determine the production, distribution and consumption of goods and services...</p>				
+			</div>		
+			<div id="view8">
+				<b>Neuroscience</b>
+				<p><%= wikipedia("Neuroscience")%></p>				
+			</div>			
+			<div id="view9">
+				<b>Physics</b>
+				<p>Physics is the natural science that involves the study of matter and its motion through space and time, along with related concepts such as energy and force...</p>				
+			</div>		
+			<div id="view10">
+				<b>Other</b>
+				<p>Other fields...</p>		
+			</div>																			
+		</div>
+	</div>
+
+
+	<!-- The tab that is selected -->
+	<% case @discussion.sub_realm %>
+	<% when "A New Field"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li2").addClass("selected");
+			});
+		</script>	
+	<% when "Biology"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li3").addClass("selected");
+			});
+		</script>		
+	<% when "Biochemistry"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li4").addClass("selected");
+			});
+		</script>		
+	<% when "Chemistry"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li5").addClass("selected");
+			});
+		</script>		
+	<% when "Computer Science"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li6").addClass("selected");
+			});
+		</script>		
+	<% when "Economics"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li7").addClass("selected");
+			});
+		</script>		
+	<% when "Neuroscience"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li8").addClass("selected");
+			});
+		</script>		
+	<% when "Physics" %>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li9").addClass("selected");
+			});
+		</script>		
+	<% when "Other"%>
+		<script>
+			$(document).ready(function(){
+				$("#selection-li10").addClass("selected");
+			});
+		</script>		
+	<% end %>
+
+	<script>
+	//Controls the feeding of the tabs
+		$("#selection2").click(function(){
+			$("#discussion-subrealm").val("A New Field");
+		});
+		$("#selection3").click(function(){
+			$("#discussion-subrealm").val("Biology");
+		});
+		$("#selection4").click(function(){
+			$("#discussion-subrealm").val("Biochemistry");
+		});
+		$("#selection5").click(function(){
+			$("#discussion-subrealm").val("Chemistry");
+		});
+		$("#selection6").click(function(){
+			$("#discussion-subrealm").val("Computer Science");
+		});
+		$("#selection7").click(function(){
+			$("#discussion-subrealm").val("Economics");
+		});
+		$("#selection8").click(function(){
+			$("#discussion-subrealm").val("Neuroscience");
+		});
+		$("#selection9").click(function(){
+			$("#discussion-subrealm").val("Physics");
+		});
+		$("#selection10").click(function(){
+			$("#discussion-subrealm").val("Other");
+		});																						
+	</script>
