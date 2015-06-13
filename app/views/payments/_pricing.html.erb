@@ -78,7 +78,7 @@
 <div id="payments-amazon-case">
 	<div class="checkout-holder">
 		<h2 style="color:#999;">Checkout</h2>
-		<ol><span id="checkout">Become a Patron </span><%= @user.fullname %> with the monthly amount of <span class="price-size" id="jquery-total-value">$<%=@amount%>.00</span> <span id="edit">Edit Amount</span></ol>
+		<ol><span id="checkout">Become a Patron </span><%= @user.fullname %> with the amount of <span class="price-size" id="jquery-total-value">$<%=@amount%>.00</span> per month <span id="edit">Edit Amount</span></ol>
 		<% if @project != nil then %>
 				<h2 style="color:#999;">You will be a patron of <%= @user.fullname %> since</h2>
 				<%=  render "projects/project_one_exp"%>
