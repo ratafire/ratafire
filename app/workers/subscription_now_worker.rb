@@ -14,7 +14,7 @@ class SubscriptionNowWorker
 		#Mailing the sucess confirmation email to the subscribed
 		if @subscription.counter == 0 then 
 			message_content = "Hi "+@subscribed.first_name+", I am now a patron of you. Keep up the great work!"
-			message_title = @subscriber.fullname + " become a patron of you with $"+@subscription.amount.to_s+"/m"
+			message_title = @subscriber.fullname + " becomes a patron of you with $"+@subscription.amount.to_s+"per month"
 			receipt = @subscriber.send_message(@subscribed, message_content, message_title)				
 			SubscriptionMailer.new_subscriber(@transaction.id,receipt.notification_id).deliver
 		else
