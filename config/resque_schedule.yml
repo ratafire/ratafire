@@ -7,10 +7,8 @@ ScheduledBillingWorker:
 ScheduledRebillingWorker:
   cron: "10 0 11 * *"
 ScheduledTransferAmountWorker:
-  cron: "10 0 13 * *"
-ScheduledTransferAmountWorker:
-  cron: "10 0 17 * *"  
-ScheduledTransferAmountWorker:
-  cron: "10 0 19 * *"    
+  cron: "10 0 19 * *"
+ScheduledMasspayBatchWorker:
+  cron: "10 0 18 * *"
 ScheduledMasspayWorker:
-  cron: "10 0 20 * *"
+  cron: "10 0 25 * *"

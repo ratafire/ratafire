@@ -37,15 +37,25 @@ class Order < ActiveRecord::Base
 				@fee = transaction.fee / @order.count if @order.count != 0
 				@subscriber.reverse_subscriptions.each do |subscription| 
 					subscribed = User.find(subscription.subscribed_id)
-					if subscribed != nil && subscribed.transfer != nil then
+					if subscribed != nil then
 						#If the subscribed has order this month
 						if subscribed.transfer.ordered_amount != 0 then
 							#Transfer
 							transfer = subscribed.transfer
-							transfer.collected_receive += ( subscription.amount - @fee)
-							transfer.collected_amount += subscription.amount
-							transfer.collected_fee += @fee
-							transfer.save
+							if transfer == nil then 
+								transfer = Transfer.new
+								transfer.user_id = subscribed.id
+								transfer.method = "PayPal"
+								transfer.collected_receive += ( subscription.amount - @fee)
+								transfer.collected_amount += subscription.amount
+								transfer.collected_fee += @fee
+								transfer.save
+							else
+								transfer.collected_receive += ( subscription.amount - @fee)
+								transfer.collected_amount += subscription.amount
+								transfer.collected_fee += @fee
+								transfer.save
+							end
 							#Subscription Record
 							subscription_record = SubscriptionRecord.find(subscription.subscription_record_id)
 							if subscription_record == nil then
@@ -739,15 +749,25 @@ class Order < ActiveRecord::Base
 				@fee = transaction.fee / @order.count if @order.count != 0
 				@subscriber.reverse_subscriptions.each do |subscription| 
 					subscribed = User.find(subscription.subscribed_id)
-					if subscribed != nil && subscribed.transfer != nil then
+					if subscribed != nil then
 						#If the subscribed has order this month
 						if subscribed.transfer.ordered_amount != 0 then
 							#Transfer
 							transfer = subscribed.transfer
-							transfer.collected_receive += ( subscription.amount - @fee)
-							transfer.collected_amount += subscription.amount
-							transfer.collected_fee += @fee
-							transfer.save
+							if transfer == nil then 
+								transfer = Transfer.new
+								transfer.user_id = subscribed.id
+								transfer.method = "PayPal"
+								transfer.collected_receive += ( subscription.amount - @fee)
+								transfer.collected_amount += subscription.amount
+								transfer.collected_fee += @fee
+								transfer.save
+							else
+								transfer.collected_receive += ( subscription.amount - @fee)
+								transfer.collected_amount += subscription.amount
+								transfer.collected_fee += @fee
+								transfer.save
+							end
 							#Subscription Record
 							subscription_record = SubscriptionRecord.find(subscription.subscription_record_id)
 							if subscription_record == nil then

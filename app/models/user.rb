@@ -137,7 +137,7 @@ class User < ActiveRecord::Base
 	has_many :sub_sused, through: :reverse_sub_sus, source: :subscribed, :conditions => {:subscriptions =>{:deleted_at => nil, :activated => true}}
 	
 	#Transfers
-	has_one :transfer, :conditions => { :deleted_at => nil , :transfered => nil, :on_hold => nil }
+	has_one :transfer, :conditions => { :deleted_at => nil , :transfered => nil, :on_hold => nil, :masspay_batch_id => nil }
 	has_one :hold_transfer, class_name: "Transfer", foreign_key: "user_id", :conditions => { :deleted_at => nil , :transfered => nil, :on_hold => true }
 	has_one :order, :conditions => { :deleted_at => nil, :transacted => nil }
 

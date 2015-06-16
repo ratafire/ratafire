@@ -21,7 +21,7 @@
 					<%= user.first_name %> has <%= user.friends.count %> friends.
 				</div>	
 				
-				<%= render partial: "supports/project_current_subscribers", collection: user.friends.where("profilephoto_file_name IS NOT NULL").first(5), :as => :user %>
+				<%= render partial: "supports/project_current_subscribers", collection: user.friends.where("profilephoto_file_name IS NOT NULL").first(11), :as => :user %>
 				<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
 				<!-- if User has subscribers-->
 			</div><!-- end .project-subscribed-users-holder-->			

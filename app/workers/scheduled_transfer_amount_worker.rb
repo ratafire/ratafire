@@ -3,9 +3,9 @@ class ScheduledTransferAmountWorker
 	@queue = :scheduled_transfer_amount_queue
 
 	def self.perform
-		if Transfer.where(transfered: nil, on_hold: nil).any? then
+		if Transfer.where(transfered: nil).where("masspay_batch_id IS NOT NULL").any? then
 			@amount = 0
-			Transfer.where(transfered: nil, on_hold: nil).all.each do |transfer|
+			Transfer.where(transfered: nil).where("masspay_batch_id IS NOT NULL").all.each do |transfer|
 				@amount += transfer.collected_receive
 				#Tell the admin about the amount
 			end

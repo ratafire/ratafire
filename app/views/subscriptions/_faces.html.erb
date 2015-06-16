@@ -12,7 +12,7 @@
 		<!-- if User has subscribers-->
 	</div><!-- end .project-subscribed-users-holder-->	
 <% else %>
-	<% unless @project.creator.subscribers.any? then %>
+	<% unless @project.creator.subscribers.any? && @project.creator.subscribers.count > @project.creator.friends.count then %>
 		<% if @project.creator.friends.any? then %>
 			<div class="project-subscribed-users-holder">
 				<!-- With Sub-sus -->
@@ -21,7 +21,7 @@
 					<%= @project.creator.first_name %> has <%= @project.creator.friends.count %> friends.
 				</div>	
 				
-				<%= render partial: "supports/project_current_subscribers", collection: @project.creator.friends.where("profilephoto_file_name IS NOT NULL").first(5), :as => :user %>
+				<%= render partial: "supports/project_current_subscribers", collection: @project.creator.friends.where("profilephoto_file_name IS NOT NULL").first(11), :as => :user %>
 				<div class="supporter-image" style="background-image:url(/assets/more_subscribers.png);border: transparent;"></div>
 				<!-- if User has subscribers-->
 			</div><!-- end .project-subscribed-users-holder-->				
