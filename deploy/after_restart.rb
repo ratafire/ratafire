@@ -1,1 +1,1 @@
-run "cd /data/#{config.app}/current && ey_bundler_binstubs/rake ts:configure RAILS_ENV=#{config.framework_env} && ey_bundler_binstubs/rake ts:start"
+run "cd /data/#{config.app}/current && ey_bundler_binstubs/rake ts:configure RAILS_ENV=#{config.framework_env} && monit restart sphinx_ratafire_9312"
