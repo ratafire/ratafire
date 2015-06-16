@@ -249,6 +249,9 @@ Ratafire::Application.routes.draw do
 	match ':id/:subscription_application_id/video/subscription', to: 'subscription_applications#video', as: :video_subscription
 	match ':id/:subscription_application_id/subscription_video_upload/subscription', to: 'subscription_applications#subscription_video_upload', as: :subscription_video_upload
 
+	#Video
+	match ':id/r/add_patron_video/add', to: 'patron_videos#upload_patron_video', as: :upload_patron_video
+
 #---Payments---
 	match ':id/r/r/subscription/', to:'subscriptions#why', as: :why
 	match ':id/:default/:amount/r/payments/subscribe', to: 'subscriptions#new', as: :subscribe
@@ -322,6 +325,7 @@ Ratafire::Application.routes.draw do
 	match '/test_projects_admin', to: 'admin#test_projects', as: :admin_test_projects
 	match '/test_majorposts_admin', to: 'admin#test_majorposts', as: :admin_test_majorposts  
 	match '/pending_discussions_admin', to: 'admin#pending_discussions', as: :admin_pending_discussions
+	match '/patron_video_admin', to: 'admin#patron_video', as: :admin_patron_video
 
 	#Discussion
 	match '/discussion_admin', to: "admin#discussion", as: :admin_discussion
@@ -350,6 +354,12 @@ Ratafire::Application.routes.draw do
 
 	match '/admin_user', to: 'admin#users', as: :admin_users
 	match '/content_admin_user', to: 'admin#content_users', as: :admin_content_users
+
+	#Patron Videos
+
+	match '/patron_videos/review/r/:id', to: 'patron_videos#patron_videos_review', as: :admin_patron_videos_review
+	match '/patron_videos/review/update/:id', to: 'patron_videos#patron_videos_update', as: :admin_patron_videos_update
+	match '/patron_videos/display/in/theworld', to: 'patron_videos#pending_patron_videos', as: :admin_pending_patron_videos
 
 	#Admin Action
 	match '/admin_action/:type/:id/:actionname/you-shall-not-pass/seriously/',to: "admin#admin_actions", as: :admin_actions

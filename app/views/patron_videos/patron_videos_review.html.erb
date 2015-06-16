@@ -1,0 +1,69 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- Page Title -->
+<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+<% content_for(:side_bar) do %>
+<%= render 'layouts/sidebar_admin' %>
+<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
+
+			<h1>Patron Videos</h1>
+			<h5>Use this page to manage patron video updates.</h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+			<!-- end of textbox-->
+		</div>							
+
+		<!-- Add Tests -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+				<h2>User</h2>
+
+				<!-- Test Projects -->
+				<p><%= link_to @patron_video.user.fullname, @patron_video.user, class:"no_ajaxify", target:"_blank"%><p>																
+				<h2>Current Video</h2>
+
+				<%= videojs_rails sources: { webm: @patron_video.user.video.output_url , mp4: @patron_video.user.video.output_url_mp4}, height:"422", width:"751", poster:@patron_video.user.video.thumbnail,id:"user_video" %>
+
+				<h2>Update Video</h2>
+
+				<%= videojs_rails sources: { webm: @patron_video.video.output_url , mp4: @patron_video.video.output_url_mp4}, height:"422", width:"751", poster:@patron_video.video.thumbnail,id:"user_video" %>
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->												
+
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+				<!-- Test Projects -->
+				<%= form_for [@patron_video], :url => admin_patron_videos_update_path(@patron_video), :validate => true, :html => {:class => 'no_ajaxify'} do |f| %>
+					<%= f.hidden_field :admin_id, value: current_user.id %>
+					<%= f.select :status, [["Approve", "Approved"], ["Disapprove", "Disapproved"]] %>
+					<%= f.select :deleted, [["Do not delete", nil], ["Delete", true]] %>
+					<ol style="margin-top: 10px;"></ol>
+					<%= f.text_area :review, style:"width:94.5%;",class: "subscription-plan-input noResize" , placeholder: "Enter your review." %>
+					<ol style="margin: 10px -2px 0 0; text-align:right;">
+						<div id="submit">
+							<%= f.submit "Review", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+						</div>
+					</ol>
+				<% end %>																
+
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->												
+
+
+
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+
+</div><!-- end of main-content-->

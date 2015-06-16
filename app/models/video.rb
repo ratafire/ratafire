@@ -16,6 +16,7 @@ require 'aws/s3'
   belongs_to :project
   belongs_to :archive
   belongs_to :user, class_name:"User"
+  belongs_to :patron_video
 
   scope :finished, :conditions => { :encoded_state => "finished" }  
 

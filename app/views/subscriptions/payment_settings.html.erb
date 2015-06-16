@@ -3,9 +3,6 @@
 	<!-- Page Title -->
 	<% provide(:title, @user.fullname) %>
 
-	<!-- Javascript for on and off button -->
-	<%= render 'subscriptions/on_off_js' %>
-
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
 
 	<% content_for(:side_bar) do %>
@@ -51,6 +48,7 @@
 				<%= render 'subscriptions/hint_to_setup'%>
 			<% end %>	
 		<% else %>
+			<!-- Payment Method -->
 			<div class="lightbox2-bordered">
 				<div class="textbox-mini">
 					<h2>How I Get Paid</h2>
@@ -61,7 +59,9 @@
 					<% else %>
 						<%= render 'subscriptions/added_venmo'%>
 					<% end %>
-			</div><!-- end.lightbox2-bordered-->		
+			</div><!-- end.lightbox2-bordered-->
+			<!-- Introduction Video -->		
+			<%= render 'subscriptions/update_introduction_video'%>
 		<% end %>
 
 	<!-- Cutter --><ol style="margin-top: 70px;"></ol>

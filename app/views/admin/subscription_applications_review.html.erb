@@ -33,7 +33,7 @@
 					<!-- Display Video if Success x-->
 					<div class="video-display" id="uploaded-video-display" style="margin-bottom:40px;margin-top:5px;width:701px;height:393px;">		
 						<div style="position:auto;z-index: 100;">
-							<%= videojs_rails sources: { webm: @subscription_application.user.video.output_url },height:"393", width:"701", poster:@subscription_application.user.video.thumbnail %>
+							<%= videojs_rails sources: { webm: @subscription_application.user.video.output_url , mp4:@subscription_application.user.video.output_url_mp4},height:"393", width:"701", poster:@subscription_application.user.video.thumbnail %>
 						</div>
 					</div>
 

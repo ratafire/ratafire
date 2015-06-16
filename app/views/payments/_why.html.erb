@@ -6,8 +6,6 @@
 <% else %>
 	<% if @user.facebookpages.first != nil  then %>
 		<%=  render "facebookpages/facebookpages_portable", :facebookpage => @user.facebookpages.first %>
-	<% else %>
-		Hello	
 	<% end %>	
 <% end %>	
 <div class="user-why-edit">

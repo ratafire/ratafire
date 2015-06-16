@@ -24,7 +24,7 @@
 					<% end %>	
 				<% else %>
 					<ul>Sign in to review this work collection <i class="fa fa-angle-down"></i></ul>
-					<ul><%= link_to "Sign in",new_user_session_path,class:"btn btn-medium2 btn-medium-green no_ajaxify" %></ul>
+					<ul><%= link_to "Sign in",user_omniauth_authorize_path(:facebook, sign_in: "true"),class:"btn btn-medium2 btn-medium-green no_ajaxify" %></ul>
 					<ul>Don't have an account? <%= link_to 'Sign up', new_user_registration_path, class:"no_ajaxify" %></ul>
 				<% end %>
 			</div>			

@@ -13,7 +13,7 @@
 
 	<div class="sidebar-video-cover-right" id="sidebar-video-cover-right">
 		<div class="sidebar-video-player">
-			<%= videojs_rails sources: { webm: @user.video.output_url }, height:"445", width:"792", poster:@user.video.thumbnail,id:"user_video" %>
+			<%= videojs_rails sources: { webm: @user.video.output_url, mp4: @user.video.output_url_mp4 }, height:"445", width:"792", poster:@user.video.thumbnail,id:"user_video" %>
 		</div>	
 	</div>	
 </div><!-- end#sidebar-video-cover-holder-->	

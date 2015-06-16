@@ -5,173 +5,198 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		params = request.env["omniauth.params"]
 		if params["subscribed_id"] == nil then
 			#Facebook Signup
-			if current_user != nil
-				#When the user exist
-				@user = current_user
-				facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
-				facebook = @user.facebook
-				if facebook != nil then
-					flash[:success] = "Connected to Facebook."
-					#Update the user's friend list.
-					if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
-						Facebook.update_friendship(@user,@user.facebook)
-					else
-						Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
-					end
-					#Add Facebook to profile photo if profile photo is nil
-					if @user.profilephoto.blank? || params["use_facebook_image"] == "true" then
-						avatar_url = @user.process_uri(facebook.image)
-						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
-					end
-					#Change the uesr's full name to Facebook name.
-					if @user.fullname != facebook.name then
-						@user.update_attribute(:fullname,facebook.name)
-					end
-					#Verify the user if the user's Facebook is up
-					if @user.confirmed_at == nil then 
-						@user.update_attribute(:confirmed_at, Time.now)
-					end
-					#Add extra info
-					if @user.bio == nil || @user.bio == "" then
-						if facebook.bio != nil then 
-							@user.update_column(:bio,facebook.bio.truncate(210))
-						else
-							if facebook.school != nil then
-								if facebook.concentration != nil then
-									bio = facebook.concentration + ", "+facebook.school
-									@user.update_column(:bio,bio.truncate(210))
-								else
-									bio = facebook.school
-									@user.update_column(:bio,bio.truncate(210))
-								end
-							end
-						end
-					end
-					if @user.location == nil || @user.location == "" then
-						if facebook.locale != nil then
-							@user.update_column(:location,facebook.locale)
-						end
-					end
-					if @user.tagline == nil || @user.tagline == "" || @user.tagline == "Sits down at the fire of Ratatoskr" then
-						if facebook.concentration != nil then
-							@user.update_column(:tagline, facebook.concentration.truncate(42))
-						else
-							if facebook.school != nil then
-								@user.update_column(:tagline, facebook.school.truncate(42))
-							end
-						end
-					end
-					if @user.website == nil || @user.website == "" then
-						if facebook.website != nil then
-							@user.update_column(:website, facebook.website.truncate(100))
-						end
-					end			
-					if params["after_signup"] == nil then			
-						redirect_to edit_user_path(@user)
-					else
-						@user.tutorial.facebook = true
-						@user.tutorial.save
-						redirect_to user_path(@user)
-					end
+			if params["sign_in"] == "true" then
+				#User Facebook to sign_in
+				if current_user != nil
+					redirect_to featured_path
 				else
-					flash[:success] = "Fail to connect to Facebook."
-					if params["after_signup"] == nil then			
-						redirect_to edit_user_path(@user)
+					#When user is no signed_in
+					facebook = Facebook.find_by_uid(request.env['omniauth.auth'].uid)
+					@user = facebook.user
+					if @user != nil then
+						sign_in(:user, @user)
+						redirect_to(:back)
 					else
-						redirect_to user_path(@user)
+						new_user_session_path
 					end
-				end
+				end				
 			else
-				#When the user doesn't exist
-				@user = User.new
-				@user.uuid = SecureRandom.hex(16)
-				@user.save(:validate => false)
-				facebook = Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id) 
-				if facebook != false then
-					if facebook.username != nil then
-						facebook_username_clearned = facebook.username.gsub!('.', '_')
-					end
-					if User.find_by_username(facebook_username_clearned) == nil then
+				if current_user != nil
+					#When the user exist
+					@user = current_user
+					facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
+					facebook = @user.facebook
+					if facebook != nil then
+						flash[:success] = "Connected to Facebook."
 						#Update the user's friend list.
 						if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
 							Facebook.update_friendship(@user,@user.facebook)
 						else
 							Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
-						end					
-						@user.update_column(:fullname,facebook.name)
-						@user.update_column(:email,facebook.email)
-						@user.update_column(:username,facebook_username_clearned)
-						#Verify the user if the user's Facebook is up
+						end
+						#Add Facebook to profile photo if profile photo is nil
+						if @user.profilephoto.blank? || params["use_facebook_image"] == "true" then
+							avatar_url = @user.process_uri(facebook.image)
+							@user.update_attribute(:profilephoto, URI.parse(avatar_url))
+						end
+						#Change the uesr's full name to Facebook name.
+						if @user.fullname != facebook.name then
+							@user.update_attribute(:fullname,facebook.name)
+						end
 						#Verify the user if the user's Facebook is up
 						if @user.confirmed_at == nil then 
 							@user.update_attribute(:confirmed_at, Time.now)
-						end				
+						end
 						#Add extra info
-						if facebook.bio != nil then 
-							@user.update_column(:bio,facebook.bio.truncate(210))
-						else
-							if facebook.school != nil then
-								if facebook.concentration != nil then
-									bio = facebook.concentration + ", "+facebook.school
-									@user.update_column(:bio,bio.truncate(210))
-								else
-									bio = facebook.school
-									@user.update_column(:bio,bio.truncate(210))
+						if @user.bio == nil || @user.bio == "" then
+							if facebook.bio != nil then 
+								@user.update_column(:bio,facebook.bio.truncate(210))
+							else
+								if facebook.school != nil then
+									if facebook.concentration != nil then
+										bio = facebook.concentration + ", "+facebook.school
+										@user.update_column(:bio,bio.truncate(210))
+									else
+										bio = facebook.school
+										@user.update_column(:bio,bio.truncate(210))
+									end
 								end
 							end
 						end
-						if facebook.locale != nil then
-							@user.update_column(:location,facebook.locale)
-						end
-						if facebook.concentration != nil then
-							@user.update_column(:tagline, facebook.concentration.truncate(42))
-						else
-							if facebook.school != nil then
-								@user.update_column(:tagline, facebook.school.truncate(42))
+						if @user.location == nil || @user.location == "" then
+							if facebook.locale != nil then
+								@user.update_column(:location,facebook.locale)
 							end
 						end
-						if facebook.website != nil then
-							@user.update_column(:website, facebook.website.truncate(100))
-						end						
+						if @user.tagline == nil || @user.tagline == "" || @user.tagline == "Sits down at the fire of Ratatoskr" then
+							if facebook.concentration != nil then
+								@user.update_column(:tagline, facebook.concentration.truncate(42))
+							else
+								if facebook.school != nil then
+									@user.update_column(:tagline, facebook.school.truncate(42))
+								end
+							end
+						end
+						if @user.website == nil || @user.website == "" then
+							if facebook.website != nil then
+								@user.update_column(:website, facebook.website.truncate(100))
+							end
+						end			
+						if params["after_signup"] == nil then			
+							redirect_to edit_user_path(@user)
+						else
+							@user.tutorial.facebook = true
+							@user.tutorial.save
+							redirect_to user_path(@user)
+						end
 					else
-						@user.update_column(:fullname,facebook.name)
-						@user.update_column(:email,facebook.email)	
-						#Add extra info
-						if facebook.bio != nil then 
-							@user.update_column(:bio,facebook.bio.truncate(210))
+						flash[:success] = "Fail to connect to Facebook."
+						if params["after_signup"] == nil then			
+							redirect_to edit_user_path(@user)
 						else
-							if facebook.school != nil then
-								if facebook.concentration != nil then
-									bio = facebook.concentration + ", "+facebook.school
-									@user.update_column(:bio,bio.truncate(210))
-								else
-									bio = facebook.school
-									@user.update_column(:bio,bio.truncate(210))
+							redirect_to user_path(@user)
+						end
+					end
+				else
+					#When the user doesn't exist
+					@user = User.new
+					@user.uuid = SecureRandom.hex(16)
+					@user.save(:validate => false)
+					facebook = Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id) 
+					if facebook != false then
+						if facebook.username != nil then
+							facebook_username_clearned = facebook.username.gsub!('.', '_')
+						end
+						if User.find_by_username(facebook_username_clearned) == nil then
+							#Update the user's friend list.
+							if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
+								Facebook.update_friendship(@user,@user.facebook)
+							else
+								Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
+							end					
+							@user.update_column(:fullname,facebook.name)
+							@user.update_column(:email,facebook.email)
+							@user.update_column(:username,facebook_username_clearned)
+							#Verify the user if the user's Facebook is up
+							#Verify the user if the user's Facebook is up
+							if @user.confirmed_at == nil then 
+								@user.update_attribute(:confirmed_at, Time.now)
+							end				
+							#Add extra info
+							if facebook.bio != nil then 
+								@user.update_column(:bio,facebook.bio.truncate(210))
+							else
+								if facebook.school != nil then
+									if facebook.concentration != nil then
+										bio = facebook.concentration + ", "+facebook.school
+										@user.update_column(:bio,bio.truncate(210))
+									else
+										bio = facebook.school
+										@user.update_column(:bio,bio.truncate(210))
+									end
 								end
 							end
-						end
-						if facebook.locale != nil then
-							@user.update_column(:location,facebook.locale)
-						end
-						if facebook.concentration != nil then
-							@user.update_column(:tagline, facebook.concentration.truncate(42))
-						else
-							if facebook.school != nil then
-								@user.update_column(:tagline, facebook.school.truncate(42))
+							if facebook.locale != nil then
+								@user.update_column(:location,facebook.locale)
 							end
-						end
-						if facebook.website != nil then
-							@user.update_column(:website, facebook.website.truncate(100))
-						end										
-					end				
-					redirect_to facebook_signup_path(@user.uuid)	
-					avatar_url = @user.process_uri(facebook.image)
-					@user.update_attribute(:profilephoto, URI.parse(avatar_url))		
-					Resque.enqueue_at(10.minutes.from_now, AbortedFacebookSignupWorker, @user.id)	
-				else
-					redirect_to new_user_registration_path
-					flash[:success] = "User exists."
-				end	
+							if facebook.concentration != nil then
+								@user.update_column(:tagline, facebook.concentration.truncate(42))
+							else
+								if facebook.school != nil then
+									@user.update_column(:tagline, facebook.school.truncate(42))
+								end
+							end
+							if facebook.website != nil then
+								@user.update_column(:website, facebook.website.truncate(100))
+							end						
+						else
+							@user.update_column(:fullname,facebook.name)
+							@user.update_column(:email,facebook.email)	
+							#Add extra info
+							if facebook.bio != nil then 
+								@user.update_column(:bio,facebook.bio.truncate(210))
+							else
+								if facebook.school != nil then
+									if facebook.concentration != nil then
+										bio = facebook.concentration + ", "+facebook.school
+										@user.update_column(:bio,bio.truncate(210))
+									else
+										bio = facebook.school
+										@user.update_column(:bio,bio.truncate(210))
+									end
+								end
+							end
+							if facebook.locale != nil then
+								@user.update_column(:location,facebook.locale)
+							end
+							if facebook.concentration != nil then
+								@user.update_column(:tagline, facebook.concentration.truncate(42))
+							else
+								if facebook.school != nil then
+									@user.update_column(:tagline, facebook.school.truncate(42))
+								end
+							end
+							if facebook.website != nil then
+								@user.update_column(:website, facebook.website.truncate(100))
+							end										
+						end				
+						redirect_to facebook_signup_path(@user.uuid)	
+						avatar_url = @user.process_uri(facebook.image)
+						@user.update_attribute(:profilephoto, URI.parse(avatar_url))		
+						Resque.enqueue_at(10.minutes.from_now, AbortedFacebookSignupWorker, @user.id)	
+					else
+						#When user is no signed_in
+						facebook = Facebook.find_by_uid(request.env['omniauth.auth'].uid)
+						@user = facebook.user
+						if @user != nil then
+							sign_in(:user, @user)
+							redirect_to featured_path
+						else
+							redirect_to new_user_registration_path
+							flash[:success] = "User exists."
+						end							
+					end	
+				end
 			end
 		else
 			if current_user == nil
@@ -285,7 +310,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						@user = User.find_by_email(request.env['omniauth.auth'].info.email)
 						facebook = Facebook.find_for_facebook_oauth(request.env['omniauth.auth'], @user.id)
 						facebook = @user.facebook
-						if facebook != nil then
+						if facebook != nil && @user != nil then
 							#Update the user's friend list.
 							if params["find_friends"] == "true" && @user != nil && @user.facebook != nil then
 								Facebook.update_friendship(@user,@user.facebook)
@@ -382,7 +407,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 					flash[:success] = "Facebook authorization failed."
 					redirect_to(:back)
 				end			
-			end			
+			end		
 		end
 	end
 

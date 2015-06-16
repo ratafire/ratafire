@@ -1,10 +1,16 @@
 ScheduledFacebookupdateWorker:
   cron: "*/30 * * * *"
+ScheduledUsernameGeneratorWorker:
+  cron: "30 5 * * *"
 ScheduledBillingWorker:
   cron: "10 0 7 * *"
 ScheduledRebillingWorker:
   cron: "10 0 11 * *"
 ScheduledTransferAmountWorker:
   cron: "10 0 13 * *"
+ScheduledTransferAmountWorker:
+  cron: "10 0 17 * *"  
+ScheduledTransferAmountWorker:
+  cron: "10 0 19 * *"    
 ScheduledMasspayWorker:
-  cron: "10 0 27 * *"
+  cron: "10 0 20 * *"

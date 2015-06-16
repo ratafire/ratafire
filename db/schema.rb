@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150611205011) do
+ActiveRecord::Schema.define(:version => 20150616024820) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -999,6 +999,18 @@ ActiveRecord::Schema.define(:version => 20150611205011) do
   add_index "p_u_inspirations", ["inspirer_id", "inspired_id"], :name => "index_p_u_inspirations_on_inspirer_id_and_inspired_id", :unique => true
   add_index "p_u_inspirations", ["inspirer_id"], :name => "index_p_u_inspirations_on_inspirer_id"
 
+  create_table "patron_videos", :force => true do |t|
+    t.boolean  "deleted"
+    t.boolean  "deleted_at"
+    t.integer  "user_id"
+    t.integer  "video_id"
+    t.text     "review"
+    t.integer  "admin_id"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.string   "status",     :default => "Pending"
+  end
+
   create_table "payments", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -1691,6 +1703,7 @@ ActiveRecord::Schema.define(:version => 20150611205011) do
     t.string   "output_url_mp4"
     t.boolean  "skip_everafter",         :default => false
     t.integer  "subscribed_id"
+    t.integer  "patron_video_id"
   end
 
   add_index "videos", ["processed"], :name => "index_videos_on_processed"

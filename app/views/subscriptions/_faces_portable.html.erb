@@ -12,8 +12,8 @@
 	</div><!-- end .project-subscribed-users-holder-->	
 <% else %>
 	<!-- Without Sub-sus-->
-	<% unless user.subscribers.any? then %>
-		<% if user.friends.count > 5 then %>
+	<% unless user.subscribers.any? && user.subscribers.count > user.friends.count then %>
+		<% if user.friends.count > 1 then %>
 			<div class="project-subscribed-users-holder">
 				<!-- With Sub-sus -->
 				<!-- 1 Sub-sus -->

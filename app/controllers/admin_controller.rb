@@ -65,6 +65,9 @@ class AdminController < ApplicationController
 	def subscription
 	end
 
+	def patron_video
+	end
+
 	def subscription_applications_review
 		@subscription_application = SubscriptionApplication.find(params[:id])
 		@project = @subscription_application.user.projects.where(:published => true, :complete => false, :abandoned => false).first
@@ -212,6 +215,8 @@ class AdminController < ApplicationController
     		format.json { render json: PendingSubscriptionApplicationsDatatable.new(view_context) }
   		end				
 	end
+
+
 
 	#This is a test for Resque workder: TestWorker
 	def test_resque

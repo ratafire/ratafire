@@ -1,0 +1,54 @@
+<div class="lightbox2-bordered">
+	<div class="textbox-mini">
+		<h2>Introduction video</h2>
+
+		<div id="current-patron-video-holder">
+			<%= videojs_rails sources: { webm: @user.video.output_url }, height:"422", width:"751", poster:@user.video.thumbnail,id:"user_video" %>
+			<% if @user.patron_video != nil then %>
+				<h5>Your new introduction video is under review.</h5>
+			<% else %>
+				<h5>In this video, you should introduce yourself, and explain why others should support you. </h5>
+				<div id="upload-new-introduction-video-button" class="btn btn-medium3 btn-medium-blue">Update Video</div>
+			<% end %>	
+		</div>
+
+		<div id="upload-new-introduction-video" style="display:none;">
+			<!-- Video Upload-box -->
+			<div id="video-upload-box" style="width:747px;padding-bottom:20px;margin-bottom:40px;margin-top:5px;">
+				<div class="video-upload-words artwork-button fileinput-button" id="video-drop">
+					<span>Click to choose a video file</span>
+					<ul>Maximum size: 2GB. Recommanded resolution: 1080p.</ul>
+					<%= s3_uploader_form callback_url: upload_patron_video_path(@user.id),
+							id: "s3_uploader_video",
+						callback_param: "video[direct_upload_url]",
+						expiration: 24.hours.from_now.utc.iso8601,
+						max_file_size: 2048.megabytes,:remote => true do %>
+						<%= file_field_tag :file, multiple: false, class:"artwork-choose" %>		
+					<% end %>
+				</div>
+			</div>	
+
+			<!-- Video Progress-box-->
+			<div id="video-progress-case"></div><!-- end. Video Progress-box-->
+				<script id="template-upload-video" type="text/x-tmpl">
+					<div id="video-progress-box" style="width:747px;margin-bottom:40px;margin-top:5px;">
+						<div class="video-progress" style="width:747px;">
+							<div id="progress-bar-artwork" class='bar-video' style="width: 0%">
+								<div class="video-progress-words">
+									<ul>Uploading video...</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</script>	
+						
+			<div id="videodata"></div>
+		</div>
+	</div><!-- end.textbox-mini-->
+</div><!-- end.lightbox2-bordered-->	
+<script>
+	$("#upload-new-introduction-video-button").click(function() {
+		$("#current-patron-video-holder").hide();
+		$("#upload-new-introduction-video").show();
+	});
+</script>
