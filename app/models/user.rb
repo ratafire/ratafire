@@ -95,11 +95,11 @@ class User < ActiveRecord::Base
 
 	#--- Payments ---
 	#Subscriptions
-	has_many :subscriptions, foreign_key: "subscribed_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true, :supporter_switch => false }
-	has_many :subscribers, through: :subscriptions, source: :subscriber, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter_switch => false}}
+	has_many :subscriptions, foreign_key: "subscribed_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true }
+	has_many :subscribers, through: :subscriptions, source: :subscriber, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true}}
 
-	has_many :reverse_subscriptions, foreign_key: "subscriber_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true, :supporter_switch => false }
-	has_many :subscribed, through: :reverse_subscriptions, source: :subscribed, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true, :supporter_switch => false}}
+	has_many :reverse_subscriptions, foreign_key: "subscriber_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true }
+	has_many :subscribed, through: :reverse_subscriptions, source: :subscribed, :conditions => {:subscriptions => {:deleted_at => nil, :activated => true}}
 
 	#Supporters
 	has_many :supports, foreign_key: "subscribed_id", class_name: "Subscription", dependent: :destroy, :conditions => {:deleted_at => nil, :activated => true, :supporter_switch => true}

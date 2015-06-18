@@ -117,7 +117,10 @@ class SubscriptionNowWorker
 		#Unbomb the subscribed
 		@subscription_application = @subscribed.approved_subscription_application
 		if @subscription_application != nil then
-			Resque.enqueue(SubscriptionUnbombWorker,@subscribed.id)
+			SubscriptionApplicationReviewMailer.success_supporters(@subscribed.id).deliver	
+			subscription_application = @subscribed.approved_subscription_application
+			subscription_application.completion = true
+			subscription_application.save
 		end
 	end
 end		
