@@ -18,10 +18,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 							sign_in(:user, @user)
 							redirect_to(:back)
 						else
-							new_user_session_path
+							redirect_to new_user_session_path
 						end
 					else
-						new_user_session_path
+						redirect_to new_user_session_path
 					end
 				end				
 			else
