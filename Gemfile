@@ -26,14 +26,15 @@ gem "koala", "~> 2.0" #To get Facebook realtime update
 
 #------------Background Processes------------
 #redis 
-gem 'redis', '3.0.7' #important
+#gem 'redis', '3.0.7' #important
+gem 'redis', '3.2.1'
 gem 'hiredis', '0.5.1'
 gem 'em-synchrony', '1.0.3'
 #gem 'redis-rails' this gem will cause deployment issue
 
 #resque
 gem 'resque', '1.25.2',:require => "resque/server" #for background tasks, important
-gem 'resque-scheduler','2.5.5', :require => "resque_scheduler/server" #important '2.5.5'.
+gem 'resque-scheduler', :require => "resque_scheduler/server", :git => "git://github.com/ratafire/resque-scheduler" #important '2.5.5'.
 gem 'resque_mailer','2.2.6'
 
 #------------Content------------
