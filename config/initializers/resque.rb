@@ -21,7 +21,6 @@ Resque.redis.namespace = "resque:SchedulerExample"
 #Resque::Scheduler.dynamic = true
 
 Dir["#{Rails.root}/app/workers/*.rb"].each { |file| require file }
-Resque.after_fork = Proc.new { ActiveRecord::Base.establish_connection }
 
 # The schedule doesn't need to be stored in a YAML, it just needs to
 # be a hash.  YAML is usually the easiest.
