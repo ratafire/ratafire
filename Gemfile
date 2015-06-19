@@ -34,7 +34,7 @@ gem 'em-synchrony', '1.0.3'
 
 #resque
 gem 'resque', '1.25.2',:require => "resque/server" #for background tasks, important
-gem 'resque-scheduler', :require => "resque_scheduler/server", :git => "git://github.com/ratafire/resque-scheduler" #important '2.5.5'.
+gem 'resque-scheduler', :git => "git://github.com/ratafire/resque-scheduler" #important '2.5.5'.
 gem 'resque_mailer','2.2.6'
 
 #------------Content------------
