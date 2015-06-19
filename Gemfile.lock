@@ -86,7 +86,7 @@ GIT
 
 GIT
   remote: https://github.com/ratafire/paypal-express
-  revision: 56ae7a68a2ad1010bb4281533361a048ddab7d28
+  revision: 4393cdd6d2a47b7022e25fc935225919f9a5e039
   specs:
     paypal-express (0.8.1)
       activesupport (>= 2.3)
