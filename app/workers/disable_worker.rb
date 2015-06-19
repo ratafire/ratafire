@@ -6,102 +6,112 @@ class DisableWorker
 
 		#User as subscribed begin -------
 		if @user.subscriptions.count != 0 then
-			@user.subscriptions.each do |s|
-				#Cancel Amazon Payments Token
-				response = AmazonFlexPay.cancel_token(s.amazon_recurring.tokenID)
-				s.deleted_reason = reason_number
-				s.deleted = true
-				s.deleted_at = Time.now
-				s.save
+			@user.subscriptions.each do |subscription|
+				@subscribed = User.find(subscription.subscribed_id)
+				#Unsubscribe
+				subscription.deleted_reason = 3
+				subscription.deleted = true
+				subscription.deleted_at = Time.now
+				subscription.save				
 				#Mark Subscription Records as having pasts
-				subscription_record = SubscriptionRecord.find(s.subscription_record_id)
-				subscription_record.past = true
-				if subscription_record.duration == nil then
-					subscription_record.duration = s.deleted_at - s.created_at
-				else
-					duration = s.deleted_at - s.created_at
-					subscription_record.duration = subscription_record.duration + duration
-				end				
-				subscription_record.save
-				#destroy activities as well if accumulated total is 0
-				valid_subscription = ((s.deleted_at - s.created_at)/1.day).to_i
-				if s.accumulated_total == nil || s.accumulated_total == 0 || valid_subscription < 30 then
-					PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(s.id,'Subscription').each do |activity|
+				if subscription.subscription_record_id != nil then
+					subscription_record = SubscriptionRecord.find(subscription.subscription_record_id)
+					if subscription_record != nil && subscription != nil then
+						subscription_record.past = true
+						if subscription_record.duration == nil then
+							subscription_record.duration = subscription.deleted_at - subscription.created_at
+						else
+							duration = subscription.deleted_at - subscription.created_at
+							subscription_record.duration = subscription_record.duration + duration
+						end				
+						subscription_record.save
+					end
+				end
+				valid_subscription = ((subscription.deleted_at - subscription.created_at)/1.day).to_i
+				if valid_subscription < 30 then
+					PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(subscription.id,'Subscription').each do |activity|
 						if activity != nil then 
 							activity.deleted = true
 							activity.deleted_at = Time.now
 							activity.save
 						end
 					end
-				end
-				#Remove Enqueued Transaction
-				Resque.remove_delayed(SubscriptionNowWorker, s.uuid)						
-			#Add to User's Subscription amount
-			case subscription.amount
-  			when ENV["PRICE_1"].to_f
-  				@user.subscription_amount = @user.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
-  			when ENV["PRICE_2"].to_f
-  				@user.subscription_amount = @user.subscription_amount - ENV["PRICE_2_RECEIVE"].to_f
-  			when ENV["PRICE_3"].to_f
-  				@user.subscription_amount = @user.subscription_amount - ENV["PRICE_3_RECEIVE"].to_f
-  			when ENV["PRICE_4"].to_f
- 	 			@user.subscription_amount = @user.subscription_amount - ENV["PRICE_4_RECEIVE"].to_f
-  			when ENV["PRICE_5"].to_f
- 	 			@user.subscription_amount = @user.subscription_amount - ENV["PRICE_5_RECEIVE"].to_f
- 	 		when ENV["PRICE_6"].to_f
-	  			@user.subscription_amount = @user.subscription_amount - ENV["PRICE_6_RECEIVE"].to_f
- 	 		end	
- 	 		@user.save							
-			end
+				end						
+				#Add to User's Subscription amount
+				@subscribed.subscription_amount = @subscribed.subscription_amount - subscription.amount
+				@subscriber.subscribing_amount = @subscriber.subscribing_amount - subscription.amount	
+	 	 		@subscribed.save
+	 	 		@subscriber.save		
+	 	 		#clear billing subscription
+				@billing_subscription = BillingSubscription.find_by_user_id(@subscriber.id)
+				if @billing_subscription != nil then
+					@billing_subscription.next_amount = @billing_subscription.next_amount - subscription.amount
+					unless @subscriber.subscriptions.any? then
+						@billing_subscription.activated = false
+					end
+					@billing_subscription.save
+				end	
+				@billing_artist =  BillingArtist.find_by_user_id(@subscribed.id)	
+				if @billing_artist != nil then
+					@billing_artist.next_amount = @billing_artist.next_amount - subscription.amount
+					@billing_artist.save
+				end						
+			end #end subscription each do
 		end		
 		#User as subscribed end ------
 
 		#User as subscriber begin -----
 		if @user.reverse_subscriptions.count != 0 then
-			@user.reverse_subscriptions.each do |s|
-				#Cancel Amazon Payments Token
-				response = AmazonFlexPay.cancel_token(s.amazon_recurring.tokenID)
-				s.deleted_reason = reason_number
-				s.deleted = true
-				s.deleted_at = Time.now
-				s.save
+			@user.reverse_subscriptions.each do |subscription|
+				@subscribed = User.find(subscription.subscribed_id)
+				#Unsubscribe
+				subscription.deleted_reason = 3
+				subscription.deleted = true
+				subscription.deleted_at = Time.now
+				subscription.save				
 				#Mark Subscription Records as having pasts
-				subscription_record = SubscriptionRecord.find(s.subscription_record_id)
-				subscription_record.past = true
-				if subscription_record.duration == nil then
-					subscription_record.duration = s.deleted_at - s.created_at
-				else
-					duration = s.deleted_at - s.created_at
-					subscription_record.duration = subscription_record.duration + duration
-				end				
-				subscription_record.save
-				#destroy activities as well if accumulated total is 0
-				if s.accumulated_total == nil || s.accumulated_total == 0 then
-					PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(s.id,'Subscription').each do |activity|
+				if subscription.subscription_record_id != nil then
+					subscription_record = SubscriptionRecord.find(subscription.subscription_record_id)
+					if subscription_record != nil && subscription != nil then
+						subscription_record.past = true
+						if subscription_record.duration == nil then
+							subscription_record.duration = subscription.deleted_at - subscription.created_at
+						else
+							duration = subscription.deleted_at - subscription.created_at
+							subscription_record.duration = subscription_record.duration + duration
+						end				
+						subscription_record.save
+					end
+				end
+				valid_subscription = ((subscription.deleted_at - subscription.created_at)/1.day).to_i
+				if valid_subscription < 30 then
+					PublicActivity::Activity.find_all_by_trackable_id_and_trackable_type(subscription.id,'Subscription').each do |activity|
 						if activity != nil then 
 							activity.deleted = true
 							activity.deleted_at = Time.now
 							activity.save
 						end
 					end
-				end
+				end						
 				#Add to User's Subscription amount
-				subscribed = User.find(s.subscribed_id)
-				case subscription.amount
- 	 			when ENV["PRICE_1"].to_f
- 	 				subscribed.subscription_amount = subscribed.subscription_amount - ENV["PRICE_1_RECEIVE"].to_f
- 	 			when ENV["PRICE_2"].to_f
- 	 				subscribed.subscription_amount = subscribed.subscription_amount - ENV["PRICE_2_RECEIVE"].to_f
- 	 			when ENV["PRICE_3"].to_f
-  					subscribed.subscription_amount = subscribed.subscription_amount - ENV["PRICE_3_RECEIVE"].to_f
- 	 			when ENV["PRICE_4"].to_f
- 		 			subscribed.subscription_amount = subscribed.subscription_amount - ENV["PRICE_4_RECEIVE"].to_f
-  				when ENV["PRICE_5"].to_f
- 		 			subscribed.subscription_amount = subscribed.subscription_amount - ENV["PRICE_5_RECEIVE"].to_f
- 		 		when ENV["PRICE_6"].to_f
-		  			subscribed.subscription_amount = subscribed.subscription_amount - ENV["PRICE_6_RECEIVE"].to_f
- 		 		end	
- 	 			subscribed.save					
+				@subscribed.subscription_amount = @subscribed.subscription_amount - subscription.amount
+				@subscriber.subscribing_amount = @subscriber.subscribing_amount - subscription.amount	
+	 	 		@subscribed.save
+	 	 		@subscriber.save		
+	 	 		#clear billing subscription
+				@billing_subscription = BillingSubscription.find_by_user_id(@subscriber.id)
+				if @billing_subscription != nil then
+					@billing_subscription.next_amount = @billing_subscription.next_amount - subscription.amount
+					unless @subscriber.subscriptions.any? then
+						@billing_subscription.activated = false
+					end
+					@billing_subscription.save
+				end	
+				@billing_artist =  BillingArtist.find_by_user_id(@subscribed.id)	
+				if @billing_artist != nil then
+					@billing_artist.next_amount = @billing_artist.next_amount - subscription.amount
+					@billing_artist.save
+				end		
 			end
 		end				
 		#User as subscriber end -----

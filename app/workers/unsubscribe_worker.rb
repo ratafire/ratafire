@@ -55,7 +55,7 @@ class UnsubscribeWorker
 					@billing_artist.next_amount = @billing_artist.next_amount - subscription.amount
 					@billing_artist.save
 				end
-			end
+			end #end @subscriber.reverse_subscriptions.each do |subscription|
 		end				
 	end
 

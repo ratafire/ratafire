@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150616024820) do
+ActiveRecord::Schema.define(:version => 20150619012119) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -1665,6 +1665,7 @@ ActiveRecord::Schema.define(:version => 20150616024820) do
     t.boolean  "subscription_inactive"
     t.string   "default_billing_method"
     t.boolean  "subscription_switch",                                       :default => true
+    t.boolean  "masked"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
