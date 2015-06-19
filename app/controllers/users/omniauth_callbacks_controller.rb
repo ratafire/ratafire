@@ -12,10 +12,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				else
 					#When user is no signed_in
 					facebook = Facebook.find_by_uid(request.env['omniauth.auth'].uid)
-					@user = facebook.user
-					if @user != nil then
-						sign_in(:user, @user)
-						redirect_to(:back)
+					if facebook != nil then 
+						@user = facebook.user
+						if @user != nil then
+							sign_in(:user, @user)
+							redirect_to(:back)
+						else
+							new_user_session_path
+						end
 					else
 						new_user_session_path
 					end
