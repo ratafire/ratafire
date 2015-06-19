@@ -15,6 +15,30 @@ class MasspayBatch < ActiveRecord::Base
 					if transfer == nil then
 						break
 					else
+						#Create the actual transfer amount
+						if transfer.user.paypal_account.locale == "en_US" then
+							if (transfer.collected_receive/1.02)*0.02 >= 1 then
+								transfer_amount = transfer.collected_receive - 1
+								transfer.update_column(:transfer_amount, transfer_amount)
+								transfer.update_column(:transfer_fee, 1)
+							else
+								transfer_amount = transfer.collected_receive/1.02
+								transfer_fee = (transfer.collected_receive/1.02)*0.02
+								transfer.update_column(:transfer_amount, transfer_amount)
+								transfer.update_column(:transfer_fee, transfer_fee)									
+							end
+						else
+							if (transfer.collected_receive/1.02)*0.02 >= 20 then
+								transfer_amount = transfer.collected_receive - 20
+								transfer.update_column(:transfer_amount, transfer_amount)
+								transfer.update_column(:transfer_fee, 20)									
+							else
+								transfer_amount = transfer.collected_receive/1.02
+								transfer_fee = (transfer.collected_receive/1.02)*0.02
+								transfer.update_column(:transfer_amount, transfer_amount)
+								transfer.update_column(:transfer_fee, transfer_fee)										
+							end
+						end						
 						transfer.update_column(:masspay_batch_id,masspay_batch.id)
 						#Check the amount of the transfer to determine how many does it count in the count
 						count += (transfer.collected_receive/ENV["PAYPAL_MASSPAY_TRANSACTION_LIMIT"].to_f).to_i+1
@@ -37,9 +61,9 @@ class MasspayBatch < ActiveRecord::Base
 				batched_amount = 0
 				if masspay_batch.transfers.any? then
 					masspay_batch.transfers.all.each do |transfer|
-						if transfer.collected_receive > ENV["PAYPAL_MASSPAY_TRANSACTION_LIMIT"].to_f then
+						if transfer.transfer_amount > ENV["PAYPAL_MASSPAY_TRANSACTION_LIMIT"].to_f then
 							#Transfer amount is larger than 10000 so we need to batch it several times
-							batch_remain = transfer.collected_receive
+							batch_remain = transfer.transfer_amount
 							while batch_remain > 0 do
 								if (batch_remain/ENV["PAYPAL_MASSPAY_TRANSACTION_LIMIT"].to_f).to_i > 0 then
 									batched_list << {
@@ -66,12 +90,12 @@ class MasspayBatch < ActiveRecord::Base
 								:ReceiverEmail => transfer.user.paypal_account.email,
 								:Amount => {
 									:currencyID => "USD",
-									:value => transfer.collected_receive.to_s
+									:value => transfer.transfer_amount.to_s
 								}
 							}
 						end
 						transfer.update_column(:queued, true)
-						batched_amount += transfer.collected_receive
+						batched_amount += transfer.collected_receive	
 					end
 				end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150619012119) do
+ActiveRecord::Schema.define(:version => 20150619175222) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -1510,6 +1510,8 @@ ActiveRecord::Schema.define(:version => 20150619012119) do
     t.boolean  "queued"
     t.boolean  "completed"
     t.datetime "completed_at"
+    t.decimal  "transfer_amount",               :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "transfer_fee",                  :precision => 10, :scale => 2, :default => 0.0
   end
 
   create_table "tutorials", :force => true do |t|

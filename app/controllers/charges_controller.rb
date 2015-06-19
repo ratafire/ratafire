@@ -472,13 +472,15 @@ private
 			@request = Paypal::Express::Request.new(
   				:username   => ENV["PAYPAL_SANDBOX_USERNAME"],
   				:password   => ENV["PAYPAL_SANDBOX_PASSWORD"],
-  				:signature  => ENV["PAYPAL_SANDBOX_SIGNATURE"]
+  				:signature  => ENV["PAYPAL_SANDBOX_SIGNATURE"],
+  				:logo => "https://www.ratafire.com/assets/paypal_ratafire.png"
 			)	
 		else
 			@request = Paypal::Express::Request.new(
   				:username   => ENV["PAYPAL_USERNAME"],
   				:password   => ENV["PAYPAL_PASSWORD"],
-  				:signature  => ENV["PAYPAL_SIGNATURE"]
+  				:signature  => ENV["PAYPAL_SIGNATURE"],
+  				:logo => "https://www.ratafire.com/assets/paypal_ratafire.png"
 			)				
 		end	
 	end	
