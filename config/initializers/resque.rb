@@ -1,4 +1,4 @@
-require 'resque_scheduler'
+require 'resque-scheduler'
 # Resque tasks
 
 #Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
