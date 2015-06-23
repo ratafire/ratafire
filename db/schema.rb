@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150619175222) do
+ActiveRecord::Schema.define(:version => 20150622215406) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -955,6 +955,48 @@ ActiveRecord::Schema.define(:version => 20150619175222) do
     t.integer  "count",                                        :default => 0
   end
 
+  create_table "organization_subscriptions", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "subscriber_id"
+    t.decimal  "amount",                 :precision => 10, :scale => 2, :default => 0.0
+    t.datetime "deleted_at"
+    t.decimal  "accumulated_receive",    :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "accumulated_total",      :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "subscription_record_id"
+    t.datetime "activated_at"
+    t.boolean  "activated",                                             :default => false
+    t.boolean  "deleted"
+    t.string   "uuid"
+    t.integer  "counter"
+    t.string   "method"
+    t.decimal  "accumulated_fee",        :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "deleted_reason"
+    t.datetime "created_at",                                                               :null => false
+    t.datetime "updated_at",                                                               :null => false
+  end
+
+  create_table "organizations", :force => true do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "uuid"
+    t.string   "website"
+    t.integer  "leader_id"
+    t.text     "about"
+    t.string   "subscription_status_initial"
+    t.datetime "goals_updated_at"
+    t.decimal  "subscription_amount",         :precision => 8, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                                 :null => false
+    t.datetime "updated_at",                                                                 :null => false
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
+    t.string   "background_file_name"
+    t.string   "background_content_type"
+    t.integer  "background_file_size"
+    t.datetime "background_updated_at"
+  end
+
   create_table "p_e_inspirations", :force => true do |t|
     t.integer  "inspired_id"
     t.datetime "created_at"
@@ -1006,9 +1048,10 @@ ActiveRecord::Schema.define(:version => 20150619175222) do
     t.integer  "video_id"
     t.text     "review"
     t.integer  "admin_id"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.string   "status",     :default => "Pending"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "status",          :default => "Pending"
+    t.integer  "organization_id"
   end
 
   create_table "payments", :force => true do |t|
@@ -1667,7 +1710,8 @@ ActiveRecord::Schema.define(:version => 20150619175222) do
     t.boolean  "subscription_inactive"
     t.string   "default_billing_method"
     t.boolean  "subscription_switch",                                       :default => true
-    t.boolean  "masked"
+    t.integer  "organization_id"
+    t.integer  "organization_leader_id"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"
@@ -1707,6 +1751,7 @@ ActiveRecord::Schema.define(:version => 20150619175222) do
     t.boolean  "skip_everafter",         :default => false
     t.integer  "subscribed_id"
     t.integer  "patron_video_id"
+    t.integer  "organization_id"
   end
 
   add_index "videos", ["processed"], :name => "index_videos_on_processed"

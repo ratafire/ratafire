@@ -26,6 +26,7 @@
 *= require owl.carousel
 *= require loader
 *= require mobile
+*= require application
 *= require_directory .
 
  */

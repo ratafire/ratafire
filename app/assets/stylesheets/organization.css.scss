@@ -1,0 +1,44 @@
+.organization-background{
+	width: 100%;
+	height: 400px;
+	position: absolute;
+    top:0px;
+	background: url(/assets/backgrounds/space.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;	    	
+}
+
+.organization-background-blur{
+	width: 100%;
+	height: 400px;
+	position: absolute;
+    top:0px;
+	background: url(/assets/space_blur.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;	  
+    opacity: 0;
+}
+
+.organization-logo{
+	background: url(/assets/ratafire_organization_logo.png);
+	height: 128px;
+	width: 128px;
+	position: absolute;
+	margin-top: 292px;
+	margin-left: 480px;
+	border-radius: 80px;
+	border: 10px solid #fff;
+}
+
+.organization-content{
+	margin-top: 480px;
+	margin-left: 149px;
+	z-index: 10000;
+	position: auto;
+	width:790px;
+	background-color: #fff;	
+}

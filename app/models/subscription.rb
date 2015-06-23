@@ -14,6 +14,8 @@ class Subscription < ActiveRecord::Base
 	belongs_to :supporter, class_name: "User"
 	belongs_to :supported, class_name: "User"
 
+	belongs_to :subscribed_organization, class_name: "Organization"
+
 	has_one :amazon_recurring
 
   #Reasons a subscription stopped

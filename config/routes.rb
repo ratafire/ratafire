@@ -471,6 +471,10 @@ Ratafire::Application.routes.draw do
 	match '/:user_id/:page_id/r/facebook_unsync', to: 'facebookpages#unsync', as: :facebookpage_unsync
 	match ':id/facebook_update/manners_maketh_men/delete', to: 'facebookupdates#delete', as: :facebookupdate_delete
 
+#---Organizations---	
+
+	match '/organizations', to: 'organizations#intro', as: :organizations_intro
+
 #------Resources------
 	resources :users, :path => '/' do
 		resources :projects, :except => :index do
