@@ -1,0 +1,6 @@
+<% if @video.new_record? %>
+	alrt("Failed");
+<% else %>
+	$(".organization_application_video_back").hide();
+	$("#videodata").append("<%= j render(@video) %>");
+<% end %>

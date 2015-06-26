@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
 	has_one :user_venmo
 	has_one :video,foreign_key: "subscribed_id", class_name: "Video"
 	has_many :facebookupdates, :conditions => { :deleted_at => nil , :valid_update => true }
-	has_one :paypal_account, :conditions => {:deleted_at => nil}
+	has_one :paypal_account, :conditions => {:deleted_at => nil, :organization_id => nil, :organization_application_id => nil }
 	has_one :patron_video, :conditions => {:deleted_at => nil, :status => "Pending"}
 
 	#--- Payments ---
@@ -150,6 +150,11 @@ class User < ActiveRecord::Base
 
 	#Amazon
 	has_one :amazon_recipient
+
+	#--- Organization ---
+
+	has_one :organization_application, :conditions => {:deleted => nil, :status => nil }	
+	has_one :leading_organization, foreign_key: "leader_id", class_name: "Subscription", :conditions => {:deleted => nil}
 	
 	#--- Inspiration ---
 	#majorpost_user_inspirations

@@ -1,0 +1,46 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Organizations") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<% content_for :additional_background do %>
+	<div class="organization-background">
+	</div>	
+	<div class="organization-background-blur">
+	</div>	
+<% end %>
+<div class="wrapper-main">					
+	<%= render 'organization_applications/organization_icon_upload'%>
+	<div class="organization-content">
+		<div class="organization-post-content" style="margin-top:0px;">
+
+		<h2><%= @organization_application.name %></h2>	
+		<p><%= @organization_application.location %></p>
+
+		<h2>Tell Your Story</h2>
+		<p>In this video, you should introduce yourself, and explain why others should support you.</p>
+
+		<% if @organization_application.video == nil then %>
+			<%= render 'organization_applications/video_upload'%>
+		<% else %>
+			<%= render 'organization_applications/video'%>
+		<% end %>
+
+		<%= form_for [@organization_application], :validate => true, :url => organization_applications_update_path(current_user.id, @organization_application), :html => {:class => 'no_ajaxify', :id => "organization_application_form"} do |f| %>
+			<%= f.hidden_field :step, :value => 3, :id => "step_id" %>
+				<div style="text-align:right;">
+					<div class="btn btn-small2 btn-small-white no_ajaxify organization_application_video_back" id="organization_application_video_back" >Back</div>
+					<% if @video then %>
+						<%= link_to video_simple_destroy_path(@video.id),method: :delete, class:"no_ajaxify" do %><div class="btn btn-small2 btn-small-blue no_ajaxify" id="subscription_application_video_back" >Delete Video</div><% end %>
+						<%= f.submit "Next", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green" %>
+					<% else %>
+					<% end %>		
+				</div>	
+		<% end %>
+
+		</div><!-- end.post-content-c-->	
+	</div><!-- end.organization-content-->
+						<div style="padding: 40px 20px 18px 0;">
+						<%= render 'layouts/footer' %>
+						</div>	
+</div><!-- end .wrapper-main-->	

@@ -1,0 +1,3 @@
+<!-- Add Work Collection -->
+<div><%= image_tag("add_paypal.png")%></div>
+<%= link_to user_omniauth_authorize_path(:paypal, organization_application: "true"),class:"no_ajaxify" do %><div class="btn btn-medium btn-medium-blue">Add PayPal</div><% end %>

@@ -1,6 +1,8 @@
-class PaypalAccount < ActiveRecord::Base
+class OrganizationPaypalAccount < ActiveRecord::Base
 	# attr_accessible :title, :body
 	belongs_to :user
+	belongs_to :organization_application
+	belongs_to :organization
 
 	def self.find_for_paypal_oauth(auth, user_id)
 		paypal_created = false
@@ -33,6 +35,8 @@ class PaypalAccount < ActiveRecord::Base
 			paypal.age_range = auth.extra.age_range
 			paypal.birthday = auth.extra.birthday
 			paypal.user_id = user_id
+			user = User.find(user_id)
+			paypal.organization_application_id = user.organization_application.id
 			paypal.save
 			paypal_created = true
 			paypal
@@ -67,7 +71,9 @@ class PaypalAccount < ActiveRecord::Base
 				paypal.zoneinfo = auth.extra.zoneinfo
 				paypal.age_range = auth.extra.age_range
 				paypal.birthday = auth.extra.birthday
-				paypal.user_id = user_id	
+				paypal.user_id = user_id
+				user = User.find(user_id)		
+				paypal.organization_application_id = user.organization_application.id
 				paypal.save
 				paypal			
 			end

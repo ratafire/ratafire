@@ -17,29 +17,53 @@
 			</div>
 		</div>		
 	<% else %>
-		<!-- Video Success-Box-->
-		<div id="video-success-box" style="height:80px;width:701px;margin-bottom:40px;margin-top:5px;">
-			<div class="video-upload-words">
-				<span>Upload successful! Your video is now encoding.</span>
-				<ul>It may take 10-25 minutes before it is ready. Refresh the page to preview it.</ul>
+		<% if video.organization_application_id != nil then %>
+			<!-- Video success-box for organization application -->
+			<div id="video-success-box" style="height:80px;width:784px;margin-bottom:40px;margin-top:5px;">
+				<div class="video-upload-words">
+					<span>Upload successful! Your video is now encoding.</span>
 				</div>
-			</div>
-		</div>		
-						<div id="application-video-form-holder-2">
-							<%= form_for(video.user.subscription_application,:validate => true,:url => update_subscription_application_path(video.user,video.user.subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
-								<%= f.hidden_field :step, :value => 4, id:"step_id" %>
-								<!-- Back -->
-								<div style="margin: -20px 24px 20px 0; text-align:right;">
-									<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_video_back" >Back</div>
-									<!-- Next Step -->	
-									<% if @video then %>
-										<%= link_to video_simple_destroy_path(video.id),method: :delete, class:"no_ajaxify" do %><div class="btn btn-small2 btn-small-blue no_ajaxify" id="subscription_application_video_back" >Delete Video</div><% end %>
-										<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
-									<% else %>
-									<% end %>	
-								</div>		
-							<% end %>					
-						</div><!-- end#video form holder -->	
+			</div>		
+			<div id="application-video-form-holder-2">
+				<%= form_for(video.user.organization_application,:validate => true,:url => organization_applications_update_path(video.user, video.user.organization_application),:html => {:class => "no_ajaxify", :id => "organization_application_form"}) do |f| %>
+					<%= f.hidden_field :step, :value => 3, id:"step_id" %>
+					<!-- Back -->
+					<div style="margin: 0px 0px 20px 0; text-align:right;">
+						<div class="btn btn-small2 btn-small-white no_ajaxify" id="organization_application_video_back" >Back</div>
+						<!-- Next Step -->	
+						<% if @video then %>
+							<%= link_to video_simple_destroy_path(video.id),method: :delete, class:"no_ajaxify" do %><div class="btn btn-small2 btn-small-blue no_ajaxify" id="subscription_application_video_back" >Delete Video</div><% end %>
+							<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+						<% else %>
+						<% end %>	
+					</div>		
+				<% end %>					
+			</div><!-- end#video form holder -->				
+		<% else %>
+			<!-- Video Success-Box for subscription application -->
+			<div id="video-success-box" style="height:80px;width:701px;margin-bottom:40px;margin-top:5px;">
+				<div class="video-upload-words">
+					<span>Upload successful! Your video is now encoding.</span>
+					<ul>It may take 10-25 minutes before it is ready. Refresh the page to preview it.</ul>
+					</div>
+				</div>
+			</div>		
+			<div id="application-video-form-holder-2">
+				<%= form_for(video.user.subscription_application,:validate => true,:url => update_subscription_application_path(video.user,video.user.subscription_application),:html => {:class => "no_ajaxify", :id => "subscription_application_form"}) do |f| %>
+					<%= f.hidden_field :step, :value => 4, id:"step_id" %>
+					<!-- Back -->
+					<div style="margin: -20px 24px 20px 0; text-align:right;">
+						<div class="btn btn-small2 btn-small-white no_ajaxify" id="subscription_application_video_back" >Back</div>
+						<!-- Next Step -->	
+						<% if @video then %>
+							<%= link_to video_simple_destroy_path(video.id),method: :delete, class:"no_ajaxify" do %><div class="btn btn-small2 btn-small-blue no_ajaxify" id="subscription_application_video_back" >Delete Video</div><% end %>
+							<%= f.submit "Next Step", class: "btn-submit btn-submit-small btn btn-small btn-small-green no_ajaxify" %>
+						<% else %>
+						<% end %>	
+					</div>		
+				<% end %>					
+			</div><!-- end#video form holder -->	
+		<% end %>					
 	<% end %>
 <% end %>
 <script>

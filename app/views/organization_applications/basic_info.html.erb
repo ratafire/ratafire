@@ -1,0 +1,40 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Organizations") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Javascript ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<% content_for :additional_background do %>
+	<div class="organization-background">
+	</div>	
+	<div class="organization-background-blur">
+	</div>	
+<% end %>
+<div class="wrapper-main">					
+	<%= render 'organization_applications/organization_icon_upload'%>
+	<div class="organization-content">
+		<div class="organization-post-content" style="margin-top:0px;">
+
+		<%= form_for [@organization_application], :validate => true, :url => organization_applications_update_path(current_user.id, @organization_application), :html => {:class => 'no_ajaxify'} do |f| %>
+			<%= f.hidden_field :step, :value => 2 %>
+
+			<h2>Organization Basic Info</h2>
+				<p><%= f.text_field :name, placeholder:"Enter Name",class:"discussion-thread-title inputbox" %></p>
+				<p><%= f.text_field :location, placeholder:"Enter Location",class:"discussion-thread-title inputbox" %></p>
+				<p><%= f.text_area :about, placeholder:"Enter Organization Description",class:"discussion-thread-title inputbox", style:"height:256px;padding-top:20px;" %></p>
+			<h2>Funding Goal</h2>	
+				<p>Please enter a monthly funding goal <span style="color:#ccc;">(minimum: 540, default: 7730)</span> <%= f.text_field :goal_subscription_amount, class: "inputbox goals-input" %></p>
+			<h2>Organization Icon</h2>
+				<p><%= f.file_field :icon %></p>	
+				<p><span style="color:#ccc;">Size: 128*128px</span></p>
+				<div style="text-align:right;margin-top:40px;">
+					<%= f.submit "Next", class: "btn-submit btn-submit-small btn btn-small2 btn-small-green", style:"float:right;" %>
+					<%= link_to cancel_organization_application_path(current_user.id, @organization_application), class:"no_ajaxify" do %><div class="btn btn-small2 btn-small-white no_ajaxify" style="float:right;margin-right:3px;">Cancel</div><% end %>
+				</div>	
+		<% end %>
+
+		</div><!-- end.post-content-c-->	
+	</div><!-- end.organization-content-->
+						<div style="padding: 40px 20px 18px 0;">
+						<%= render 'layouts/footer' %>
+						</div>	
+</div><!-- end .wrapper-main-->	

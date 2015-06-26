@@ -18,6 +18,9 @@ require 'aws/s3'
   belongs_to :user, class_name:"User"
   belongs_to :patron_video
 
+  belongs_to :organization_application
+  belongs_to :organization
+
   scope :finished, :conditions => { :encoded_state => "finished" }  
 
   has_attached_file :video,

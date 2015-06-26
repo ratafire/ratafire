@@ -649,16 +649,31 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 	def paypal
 		@user = current_user
-		paypal = PaypalAccount.find_for_paypal_oauth(request.env['omniauth.auth'], @user.id)
 		params = request.env["omniauth.params"]
-		paypal = @user.paypal_account
+		if params["subscription_setup"] == "true" then
+			paypal = PaypalAccount.find_for_paypal_oauth(request.env['omniauth.auth'], @user.id)
+			paypal = @user.paypal_account
+		else
+			if params["organization_application"] == "true" then
+				paypal = OrganizationPaypalAccount.find_for_paypal_oauth(request.env['omniauth.auth'], @user.id)
+				paypal = @user.organization_application.organization_paypal_account
+			else
+				paypal = PaypalAccount.find_for_paypal_oauth(request.env['omniauth.auth'], @user.id)
+				paypal = @user.paypal_account
+			end
+		end
 		if paypal != nil then
 			flash[:success] = "Connected to PayPal."
 			if params["subscription_setup"] == "true" then
 				@subscription_application = @user.subscription_application[0]
 				redirect_to payments_subscription_path(@user, @subscription_application)
 			else
-				redirect_to payment_settings_path(current_user)	
+				if params["organization_application"] == "true" then
+					@organization_application = @user.organization_application
+					redirect_to payments_organization_application_path(@user,@organization_application)
+				else
+					redirect_to payment_settings_path(current_user)	
+				end
 			end
 		else
 			flash[:success] = "Fail to connected to PayPal."
@@ -666,7 +681,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				@subscription_application = @user.subscription_application[0]
 				redirect_to payments_subscription_path(@user, @subscription_application)
 			else
-				redirect_to payment_settings_path(current_user)		
+				if params["organization_application"] == "true" then
+					@organization_application = @user.organization_application
+					redirect_to payments_organization_application_path(@user,@organization_application)
+				else
+					redirect_to payment_settings_path(current_user)	
+				end
 			end		
 		end
 	end

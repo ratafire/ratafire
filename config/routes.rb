@@ -474,6 +474,14 @@ Ratafire::Application.routes.draw do
 #---Organizations---	
 
 	match '/organizations', to: 'organizations#intro', as: :organizations_intro
+	match '/organization_application/r/basic_info/:id/', to: 'organization_applications#basic_info', as: :basic_info_organization_application
+	match '/organization_application/r/video/:id/:organization_application_id', to: 'organization_applications#video', as: :video_organization_application
+	match '/organization_application/r/payments/:id/:organization_application_id', to: 'organization_applications#payments', as: :payments_organization_application
+	match '/organization_application/r/updates/:id/:organization_application_id', to: 'organization_applications#updates', :via => [:put,:post], as: :organization_applications_update
+	match '/organization_application/r/video_upload/:id/:organization_application_id', to: 'organization_applications#organization_video_upload', as: :organization_application_video_upload
+	match '/organization_application/r/cancel_organization_application/:id/:organization_application_id', to: "organization_applications#cancel", as: :cancel_organization_application
+
+	match '/organization_application/r/pending/:id/', to: 'tutorials#pending_organization_application', as: :pending_organization_application
 
 #------Resources------
 	resources :users, :path => '/' do

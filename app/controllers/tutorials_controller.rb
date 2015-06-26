@@ -119,11 +119,15 @@ class TutorialsController < ApplicationController
 		@tutorial.save
 	end
 
+	def pending_organization_application
+		@user = User.find(params[:id])
+	end
+
 private
 
   	def resolve_layout
    		case action_name
-    	when "intro","subscription"
+    	when "intro","subscription","pending_organization_application"
       		"blank"
     	else
       		"application"

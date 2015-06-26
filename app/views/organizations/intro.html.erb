@@ -26,16 +26,21 @@ $(document).ready(function() {
 	<div class="organization-logo">
 	</div>			
 	<div class="organization-content">
-		<div class="post-content-c" style="margin-top:0px;">
+		<div class="organization-post-content" style="margin-top:0px;">
 			<h2>Ratafire Organizations</h2>
 			<p>You can create an organization, invite your friends, and allow patrons to support the organization on Ratafire.</p>
 			<h2>Requirements</h2>
 			<p>Please read before you proceed.</p>
 			<p>Ratafire is a community focus on friendship between real people. Therefore, setting up individual funding is recommended above organization funding.</p>
-			<p>Currently, Ratafire only accept organizations that requires an inevitable regular formation to make art or do research continuously, such as an orchestra.</p>
+			<p>Currently, Ratafire only accepts organizations that requires an inevitable regular formation to make art or do research continuously, such as an orchestra.</p>
 			<p>If you have a group project, please start a work collection and invite your friends to join the work collection instead of starting an organization.</p>
 			<p>Email <a href="mailto:jobs@ratafire.com">support@ratafire.com</a> to inquire if your organization meets the regular formation requirement.
-			After your organization setup is approve, the organization has to have at least 5 members before it can collect fundings from patrons.  </p>
+			After your organization setup is approve, the organization has to have at least 5 members and one update before it can collect fundings from patrons.  </p>
+			<% if current_user != nil  %>
+				<div style="text-align:right;margin-right:17px;margin-top:40px;">
+					<%= link_to basic_info_organization_application_path(current_user), class:"no_ajaxify" do %><div class="btn btn-medium btn-medium-blue">Apply</div><% end %>
+				</div>	
+			<% end %>
 		</div><!-- end.post-content-c-->	
 	</div><!-- end.organization-content-->
 						<div style="padding: 40px 20px 18px 0;">

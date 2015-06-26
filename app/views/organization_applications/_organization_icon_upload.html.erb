@@ -1,0 +1,12 @@
+<% if @organization_application != nil then %>
+	<% if @organization_application.icon != nil then %>
+		<div class="organization-logo" style="background-image: url(<%= @organization_application.icon.url(:pageview) %>);">
+		</div>		
+	<% else %>
+		<div class="organization-logo">
+		</div>	
+	<% end %>
+<% else %>
+	<div class="organization-logo">
+	</div>	
+<% end %>	

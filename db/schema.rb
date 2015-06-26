@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150622215406) do
+ActiveRecord::Schema.define(:version => 20150625003835) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -704,8 +704,8 @@ ActiveRecord::Schema.define(:version => 20150622215406) do
   end
 
   create_table "icons", :force => true do |t|
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -714,10 +714,12 @@ ActiveRecord::Schema.define(:version => 20150622215406) do
     t.text     "content_temp"
     t.text     "tags_temp"
     t.integer  "archive_id"
-    t.string   "direct_upload_url",                     :null => false
-    t.boolean  "processed",          :default => false, :null => false
-    t.integer  "user_id",                               :null => false
-    t.boolean  "skip_everafter",     :default => false
+    t.string   "direct_upload_url",                              :null => false
+    t.boolean  "processed",                   :default => false, :null => false
+    t.integer  "user_id",                                        :null => false
+    t.boolean  "skip_everafter",              :default => false
+    t.integer  "organization_id"
+    t.integer  "organization_application_id"
   end
 
   add_index "icons", ["processed"], :name => "index_icons_on_processed"
@@ -955,6 +957,61 @@ ActiveRecord::Schema.define(:version => 20150622215406) do
     t.integer  "count",                                        :default => 0
   end
 
+  create_table "organization_applications", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.text     "collectible"
+    t.text     "about"
+    t.string   "location"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
+    t.string   "status"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "step",                     :default => 1
+    t.integer  "goal_subscription_amount", :default => 7730
+  end
+
+  create_table "organization_paypal_accounts", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "name"
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "location"
+    t.string   "phone"
+    t.string   "token"
+    t.string   "refresh_token"
+    t.string   "expires_at"
+    t.boolean  "expires"
+    t.string   "account_creation_date"
+    t.string   "account_type"
+    t.string   "user_identity"
+    t.string   "country"
+    t.string   "locality"
+    t.string   "postal_code"
+    t.string   "region"
+    t.string   "street_address"
+    t.string   "language"
+    t.string   "locale"
+    t.boolean  "verified_account"
+    t.string   "zoneinfo"
+    t.string   "age_range"
+    t.string   "birthday"
+    t.integer  "retry"
+    t.string   "uid"
+    t.integer  "organization_id"
+    t.integer  "organization_application_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
   create_table "organization_subscriptions", :force => true do |t|
     t.integer  "organization_id"
     t.integer  "subscriber_id"
@@ -985,8 +1042,8 @@ ActiveRecord::Schema.define(:version => 20150622215406) do
     t.string   "subscription_status_initial"
     t.datetime "goals_updated_at"
     t.decimal  "subscription_amount",         :precision => 8, :scale => 2, :default => 0.0
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
+    t.datetime "created_at",                                                                  :null => false
+    t.datetime "updated_at",                                                                  :null => false
     t.string   "icon_file_name"
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
@@ -995,6 +1052,10 @@ ActiveRecord::Schema.define(:version => 20150622215406) do
     t.string   "background_content_type"
     t.integer  "background_file_size"
     t.datetime "background_updated_at"
+    t.text     "collectible"
+    t.string   "location"
+    t.string   "perlink"
+    t.integer  "goal_subscription_amount",                                  :default => 7730
   end
 
   create_table "p_e_inspirations", :force => true do |t|
@@ -1088,10 +1149,12 @@ ActiveRecord::Schema.define(:version => 20150622215406) do
     t.string   "age_range"
     t.string   "birthday"
     t.integer  "retry"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.string   "test",                  :limit => 10000
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.string   "test",                        :limit => 10000
     t.string   "uid"
+    t.integer  "organization_id"
+    t.integer  "organization_application_id"
   end
 
   create_table "pdfs", :force => true do |t|
@@ -1736,7 +1799,7 @@ ActiveRecord::Schema.define(:version => 20150622215406) do
     t.integer  "video_file_size"
     t.datetime "video_updated_at"
     t.string   "job_id"
-    t.string   "encoded_state",          :default => "unencoded"
+    t.string   "encoded_state",               :default => "unencoded"
     t.string   "output_url"
     t.integer  "duration_in_ms"
     t.string   "aspect_ratio"
@@ -1744,14 +1807,15 @@ ActiveRecord::Schema.define(:version => 20150622215406) do
     t.text     "tags_temp"
     t.integer  "archive_id"
     t.string   "thumbnail"
-    t.string   "direct_upload_url",                               :null => false
-    t.boolean  "processed",              :default => false,       :null => false
-    t.integer  "user_id",                                         :null => false
+    t.string   "direct_upload_url",                                    :null => false
+    t.boolean  "processed",                   :default => false,       :null => false
+    t.integer  "user_id",                                              :null => false
     t.string   "output_url_mp4"
-    t.boolean  "skip_everafter",         :default => false
+    t.boolean  "skip_everafter",              :default => false
     t.integer  "subscribed_id"
     t.integer  "patron_video_id"
     t.integer  "organization_id"
+    t.integer  "organization_application_id"
   end
 
   add_index "videos", ["processed"], :name => "index_videos_on_processed"
