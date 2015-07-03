@@ -357,6 +357,9 @@ class AdminController < ApplicationController
 		redirect_to(:back)
 	end	
 
+	def organization
+	end
+
 	#This handles the deletion of content
 	def delete_content
 		url = params[:url]

@@ -38,13 +38,25 @@ class MasspayBatch < ActiveRecord::Base
 								transfer.update_column(:transfer_amount, transfer_amount)
 								transfer.update_column(:transfer_fee, transfer_fee)										
 							end
-						end						
-						transfer.update_column(:masspay_batch_id,masspay_batch.id)
-						#Check the amount of the transfer to determine how many does it count in the count
-						count += (transfer.collected_receive/ENV["PAYPAL_MASSPAY_TRANSACTION_LIMIT"].to_f).to_i+1
-						if count > ENV["PAYPAL_MASSPAY_BATCH_LIMIT"].to_i then
-							transfer.update_column(:masspay_batch_id,nil)
-						end
+						end	
+						if transfer.transfer_amount <= 0 then
+							if transfer.on_hold == nil then
+								transfer.on_hold = 1
+								transfer.error = "Transfer amount <= 0"
+								transfer.save
+							else
+								transfer.on_hold += 1
+								transfer.error = "Transfer amount <= 0"
+								transfer.save
+							end
+						else
+							transfer.update_column(:masspay_batch_id,masspay_batch.id)
+							#Check the amount of the transfer to determine how many does it count in the count
+							count += (transfer.collected_receive/ENV["PAYPAL_MASSPAY_TRANSACTION_LIMIT"].to_f).to_i+1
+							if count > ENV["PAYPAL_MASSPAY_BATCH_LIMIT"].to_i then
+								transfer.update_column(:masspay_batch_id,nil)
+							end							
+						end					
 					end
 				end
 			end
