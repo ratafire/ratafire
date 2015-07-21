@@ -1,3 +1,4 @@
+
 # Add application configuration variables here, as shown below.
 #
 # PUSHER_APP_ID: "2954"
@@ -98,4 +99,6 @@ VENMO_SANDBOX_CLIENT_SECRET: ScALSwuVVWYXyBeMtgN7FyRKZk6ALHpy
 
 VENMO_ACCESS_TOKEN: 984879bee38c1abcd7fa59f4293a0ab6b304a600b89a497f23bd050191997820
 
-ADMIN_EMAIL: fariliang@gmail.com
+ADMIN_EMAIL: fariliang@ratafire.com
+
+SECRET_VIDEO: chatoyant

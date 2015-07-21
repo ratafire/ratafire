@@ -93,6 +93,8 @@ class User < ActiveRecord::Base
 	has_one :paypal_account, :conditions => {:deleted_at => nil, :organization_id => nil, :organization_application_id => nil }
 	has_one :patron_video, :conditions => {:deleted_at => nil, :status => "Pending"}
 
+	has_many :secrets, :conditions => {:deleted_at => nil}
+
 	#--- Payments ---
 	#Subscriptions
 	has_many :subscriptions, foreign_key: "subscribed_id", class_name: "Subscription", dependent: :destroy, :conditions => { :deleted_at => nil, :activated => true }

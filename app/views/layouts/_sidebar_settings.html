@@ -6,8 +6,15 @@
 	<ul>
 		<ol><%= link_to "Profile", edit_user_path(current_user) %></ol>
 		<ol><%= link_to "Goals", goals_path(current_user) %></ol>
+		<% if current_user.subscription_status_initial == nil then %>
+			<% if current_user.subscription_application[0] != nil && current_user.subscription_application[0].step == 7 then %>
+			<% else %>
+				<%= link_to "Become a Creator", goals_subscription_path(current_user), class:"no_ajaxify"%>
+			<% end %>	
+		<% end %>				
 		<ol><%= link_to "Payment Settings", payment_settings_path(current_user), class:"no_ajaxify"%></ol>
 		<ol><%= link_to "Organization", organizations_intro_path, class:"no_ajaxify"%></ol>
+		<ol><%= link_to "Secrets", secrets_path, class:"no_ajaxify"%></ol>
 		<ol><%= link_to "Account Settings", edit_user_registration_path(current_user), class:"no_ajaxify" %></ol>
 	</ul>
 </div>

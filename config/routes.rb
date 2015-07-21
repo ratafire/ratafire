@@ -483,6 +483,11 @@ Ratafire::Application.routes.draw do
 
 	match '/organization_application/r/pending/:id/', to: 'tutorials#pending_organization_application', as: :pending_organization_application
 
+#---Secrets---
+
+	match '/secrets', to: 'secrets#show', as: :secrets
+	match '/:user_id/r/secrets/enter-a-secret', to: 'secrets#enter_secret', as: :enter_secret
+
 #------Resources------
 	resources :users, :path => '/' do
 		resources :projects, :except => :index do
