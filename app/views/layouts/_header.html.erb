@@ -48,12 +48,12 @@
 								</ol>
 							</div>		
 						<% end %>			
-						<% if current_user.subscription_status_initial != nil %>			
+						<% if current_user.subscription_status_initial == nil %>			
 							<% if current_user.subscription_application[0] != nil then %>
 								<% if current_user.subscription_application[0].step != 7 %>
 									<div class="settingsinner_mid">
 										<ol>
-											<%= link_to 'Subscription Setup', goals_subscription_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
+											<i class="fa fa-caret-right" style="color:#ddd;margin-left:-1px;"></i><%= link_to 'Accept Patrons', goals_subscription_path(current_user), class: 'no_ajaxify settings-btn-settings'%>
 										</ol>
 									</div>		
 								<% end %>							
