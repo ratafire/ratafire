@@ -84,13 +84,15 @@
 						</div>
 					</div>
 
-					<!-- License -->
-					<%= render 'shared/license'%>
-
 					<!-- Post to Facebook -->
 					<% if @project.published == false %>
 						<%= render 'projects/post_to_facebook', user: @project.creator %>	
 					<% end %>
+
+					<!-- License -->
+					<div class="selectpicker" style="text-align:right;margin-top:8px;">
+					  <%= f.select(:license, [['Standard Ratafire License', 'Standard Ratafire License'], ['Creative Commons - Non-Commercial', 'Creative Commons - Attribution NonCommercial License'],['Creative Commons - Attribution License','Creative Commons - Attribution License'],['MIT License','MIT License'],['GNU General Public License','GNU General Public License']], {}, {class: "selectpicker"}) %>
+					</div>
 
 				</div><!-- end:#case -->
 				

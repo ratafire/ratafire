@@ -41,6 +41,8 @@
 //= require mobile
 //= require jquery.slides.min
 //= require owl.carousel.min
+//= require bootstrap-select/bootstrap-select
+//= require bootstrap-select/bootstrap-dropdown
 //= require_directory .
 //= require_directory ./redactor-rails
 

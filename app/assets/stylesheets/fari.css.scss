@@ -303,6 +303,7 @@ h2.title { vertical-align: middle; display: table-cell; letter-spacing: -2px; }
 }
 /* END Extrabold Italic */
 
+
 html {
 	overflow-y: scroll;
 	font-family: Arial, sans-serif;
@@ -369,6 +370,11 @@ footer {
     color: #999999;
 	
 }
+
+/* Bootstrap Select */
+
+
+/* Bootstrap Select End */
 
 
 .center {
@@ -6856,9 +6862,9 @@ a{
 
 /*-- License --*/
 .license-case {
-	margin: 15px 0 0 140px;
+	margin: 15px 25px 0 140px;
 	text-align: right;
-	color: #999;
+	color: #cccccc;
 }
 
 /*-- Subscription --*/

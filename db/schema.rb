@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150721012601) do
+ActiveRecord::Schema.define(:version => 20150724180518) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -890,6 +890,7 @@ ActiveRecord::Schema.define(:version => 20150721012601) do
     t.boolean  "abandoned"
     t.boolean  "featured_home",         :default => false
     t.boolean  "listed"
+    t.string   "license"
   end
 
   create_table "masspay_batches", :force => true do |t|
@@ -1270,6 +1271,7 @@ ActiveRecord::Schema.define(:version => 20150721012601) do
     t.string   "facebookupdate_id"
     t.boolean  "listed"
     t.boolean  "project_facebook"
+    t.string   "license"
   end
 
   create_table "quotes", :force => true do |t|
