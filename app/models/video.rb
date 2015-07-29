@@ -29,7 +29,7 @@ require 'aws/s3'
   	:storage => :s3 # this is redundant if you are using S3 for all your storage requirements
 
   validates_attachment :video, 
-    :content_type => { :content_type => ["video/avi","video/mp4","video/mov","video/mpeg4","video/wmv","video/flv","video/3gpp", "video/webm"]},
+    :content_type => { :content_type => ["video/avi","video/mp4","video/mov","video/mpeg4","video/wmv","video/flv","video/3gpp", "video/webm", "video/quicktime"]},
     :size => { :in => 0..2097152.kilobytes}  
 
   #validates_attachment_presence :video

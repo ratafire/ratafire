@@ -181,18 +181,18 @@
 
 				<% else %>
 					<!-- With Image -->
-					<% if activity.trackable.facebookimage? then %>
-						<!-- Image -->
-						<%= link_to activity.trackable.link,target:"_blank", class:"no_ajaxify" do %>
-							
-							<div class="majorpost-postimages-square" style="background-image:url(<%= activity.trackable.facebookimage.url(:original)%>);">
+					<% if activity.trackable.facebookimage? && activity.trackable.facebookimage_content_type != "image/gif" then %>
+							<!-- Image -->
+							<%= link_to activity.trackable.link,target:"_blank", class:"no_ajaxify" do %>
 								
-							</div>	
-						<% end %>
-						<!-- excerpt holder-->
-						<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:550px;height:70px;overflow:hidden;">
-							<%= activity.trackable.html_display.truncate(230).html_safe %>
-						</div>			
+								<div class="majorpost-postimages-square" style="background-image:url(<%= activity.trackable.facebookimage.url(:original)%>);">
+									
+								</div>	
+							<% end %>
+							<!-- excerpt holder-->
+							<div class="majorpost-excerpt-wrapper" id="<%= activity.id%>excerpt-wrapper" style="width:550px;height:70px;overflow:hidden;">
+								<%= activity.trackable.html_display.truncate(230).html_safe %>
+							</div>			
 					<% else %>		
 					<!-- Without Image -->
 						<div>
