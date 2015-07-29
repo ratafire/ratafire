@@ -63,7 +63,7 @@
 							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "untest"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"List" do %><i class="fa fa-eye"></i><% end %>
 						<% end %>
 						<% if activity.trackable.test == false then %>
-							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "test"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unist" do %><i class="fa fa-eye-slash"></i><% end %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "test"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unlist" do %><i class="fa fa-eye-slash"></i><% end %>
 						<% end %>
 						<% if activity.featured == false then %>
 							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "featured"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Feature" do %><i class="fa fa-heart-o"></i><% end %>

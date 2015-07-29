@@ -1,6 +1,50 @@
+<script>
+	$(document).ready(function() {
+	$('#<%= activity.id %>activity').hover(function() {
+  		$("#<%= activity.id %>admin").toggle();
+	});
+	});
+</script>
+
 <div class="create-content-wrapper" >
 
 	<div class="lightbox" style="min-height:100px;" id="<%= activity.id %>activity">
+
+			<!-- Admin Actions -->
+			<% if current_user != nil then %>
+				<% if current_user.admin == true %>
+					<div style="float:right;display:none;font-size:1.2em;color:#cccccc;" id="<%= activity.id %>admin">
+						<% if activity.trackable.test == true then  %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "untest"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"List" do %><i class="fa fa-eye"></i><% end %>
+						<% end %>
+						<% if activity.trackable.test == false then %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "test"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unlist" do %><i class="fa fa-eye-slash"></i><% end %>
+						<% end %>
+						<% if activity.featured == false then %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname => "featured"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Feature" do %><i class="fa fa-heart-o"></i><% end %>
+						<% end %>
+						<% if activity.featured_home == false then %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id,:actionname =>"featuredhome"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Homepage" do %><i class="fa fa-heart"></i><% end %>
+						<% end %>
+						<% if activity.featured == true then %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id, :actionname =>"unfeature"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unfeature" do %><i class="fa fa-ban"></i><% end %>
+						<% end %>
+						<% if activity.trackable.realm == nil then %>
+							<div style="position:absolute;margin-top:30px;">
+								<%= link_to "1", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "1"), class:"no_ajaxify tipsy-tipsy", title:"Art", style:"color:#ccc;"%>
+								<%= link_to "2", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "2"), class:"no_ajaxify tipsy-tipsy", title:"Music", style:"color:#ccc;"%>
+								<%= link_to "3", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "3"), class:"no_ajaxify tipsy-tipsy", title:"Games", style:"color:#ccc;"%>
+								<%= link_to "4", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "4"), class:"no_ajaxify tipsy-tipsy", title:"Writing", style:"color:#ccc;"%>
+								<%= link_to "5", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "5"), class:"no_ajaxify tipsy-tipsy", title:"Videos", style:"color:#ccc;"%>
+								<%= link_to "6", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "6"), class:"no_ajaxify tipsy-tipsy", title:"Math", style:"color:#ccc;"%>
+								<%= link_to "7", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "7"), class:"no_ajaxify tipsy-tipsy", title:"Science", style:"color:#ccc;"%>
+								<%= link_to "8", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "8"), class:"no_ajaxify tipsy-tipsy", title:"Humanity", style:"color:#ccc;"%>
+								<%= link_to "9", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "9"), class:"no_ajaxify tipsy-tipsy", title:"Engineering", style:"color:#ccc;"%>
+							</div>
+						<% end %>	
+					</div>
+				<% end %>
+			<% end %>			
 
 			<div id="majorpost-comments" class="tipsy-tipsy" title="Threads" style="margin:20px 45px 0 0;">
 				<%= activity.trackable.discussion_threads.count %>

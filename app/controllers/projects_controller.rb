@@ -101,12 +101,22 @@ class ProjectsController < ApplicationController
 						if @project.about == nil or @project.about == "" then 
 							@project.published = false
 							@project.save
+							@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@project.id,'Project')
+							if @activity != nil then
+								@activity.draft = nil
+								@activity.save
+							end							
 							flash["success"] = 'Please write a description for this work collection.'
 							redirect_to edit_user_project_path(@project.creator,@project)							
 						else
 							if @project.icon == nil then 
 								@project.published = false
 								@project.save
+								@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@project.id,'Project')
+								if @activity != nil then
+									@activity.draft = nil
+									@activity.save
+								end	
 								flash["success"] = 'Please upload an icon for this work collection.'
 								redirect_to edit_user_project_path(@project.creator,@project)					
 							else
@@ -116,6 +126,12 @@ class ProjectsController < ApplicationController
 											@project.flag = false
 											@project.save
 										end	
+										#Set activity
+										@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@project.id,'Project')
+										if @activity != nil then
+											@activity.draft = false
+											@activity.save
+										end												
 										#Redirect to Connect to Facebook if User haven't connect to Facebook Update
 										if @project.post_to_facebook == true then
 											@project.creator.update_column(:post_to_facebook,true)
@@ -151,13 +167,13 @@ class ProjectsController < ApplicationController
 											#update published at
 											if @project.published_at == nil then 
 												@project.update_column(:published_at, Time.now)
-											end
+											end										
 											#Redirect to Setup subscription if so
 											if @project.creator.subscription_application[0] != nil && @project.creator.subscription_application[0].step != 7 then
 												redirect_to goals_subscription_path(@project.creator)
 											else
 												flash["success"] = 'Work collection was successfully updated.'
-												redirect_to user_project_path(@project.creator,@project)
+												redirect_to user_project_path(@project.creator,@project)												
 											end				
 										end
 									else
@@ -167,6 +183,11 @@ class ProjectsController < ApplicationController
 								else
 									@project.published = false
 									@project.save
+									@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@project.id,'Project')
+									if @activity != nil then
+										@activity.draft = nil
+										@activity.save
+									end										
 									flash["success"] = 'Please add several tags for this work collection.'
 									redirect_to edit_user_project_path(@project.creator,@project)										
 								end
@@ -175,12 +196,22 @@ class ProjectsController < ApplicationController
 					else
 						@project.published = false
 						@project.save
+						@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@project.id,'Project')
+						if @activity != nil then
+							@activity.draft = nil
+							@activity.save
+						end							
 						flash["success"] = 'Please enter a tagline for this work collection.'
 						redirect_to edit_user_project_path(@project.creator,@project)					
 					end
 				else
 					@project.published = false
 					@project.save
+					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@project.id,'Project')
+					if @activity != nil then
+						@activity.draft = nil
+						@activity.save
+					end						
 					flash["success"] = 'Please enter a title for this work collection.'
 					redirect_to edit_user_project_path(@project.creator,@project)
 				end

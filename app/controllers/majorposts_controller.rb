@@ -61,12 +61,22 @@ class MajorpostsController < ApplicationController
 				if title_parser(@majorpost.title) == false then
 					@majorpost.published = false
 					@majorpost.save
+					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
+					if @activity != nil then
+						@activity.draft = nil
+						@activity.save
+					end					
 					flash["success"] = 'Please enter a title for this post.'
 					redirect_to edit_user_project_majorpost_path(@project.creator,@project, @majorpost)
 				else
 					if @majorpost.content == nil || @majorpost.content == "" then
 						@majorpost.published = false
 						@majorpost.save
+						@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
+						if @activity != nil then
+							@activity.draft = nil
+							@activity.save
+						end								
 						flash["success"] = 'Please enter the content of this post.'
 						redirect_to edit_user_project_majorpost_path(@project.creator,@project, @majorpost)
 					else
@@ -88,6 +98,11 @@ class MajorpostsController < ApplicationController
 								flash["success"] = 'Project completed?'
 								redirect_to user_project_majorpost_path(@project.creator,@project, @majorpost)
 							else
+								@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
+								if @activity != nil then
+									@activity.draft = false
+									@activity.save
+								end										
 								if @majorpost.post_to_facebook == true then
 									@majorpost.user.update_column(:post_to_facebook,true)
 									if @majorpost.post_to_facebook_page == true then
@@ -115,7 +130,7 @@ class MajorpostsController < ApplicationController
 											@majorpost.user.facebook_pages.first.update_column(:post_to_facebook_page,nil)
 										end
 									end
-									#Redirect to Setup subscription if so
+									#Redirect to Setup subscription if so									
 									flash["success"] = 'Major post was successfully updated.'
 									redirect_to user_project_majorpost_path(@project.creator,@project, @majorpost)
 								end
@@ -123,6 +138,11 @@ class MajorpostsController < ApplicationController
 						else
 							@majorpost.published = false
 							@majorpost.save
+							@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
+							if @activity != nil then
+								@activity.draft = nil
+								@activity.save
+							end									
 							flash["success"] = 'Please enter several tags for this post.'
 							redirect_to edit_user_project_majorpost_path(@project.creator,@project, @majorpost)
 						end
