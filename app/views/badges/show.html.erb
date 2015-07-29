@@ -1,0 +1,62 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, @user.fullname) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_settings' %>
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+<script>
+$(document).ready(function(){
+	$('#badge-48').click(function() {
+		$("#badge").val('<a href="https://www.ratafire.com/<%= @user.username %>"><img src="https://www.ratafire.com/assets/badges/badge-48.png" alt="Ratafire" /></a>');
+	});
+	$('#badge-32').click(function() {
+		$("#badge").val('<a href="https://www.ratafire.com/<%= @user.username %>"><img src="https://www.ratafire.com/assets/badges/badge-32.png" alt="Ratafire" /></a>');
+	});
+	$('#badge-24').click(function() {
+		$("#badge").val('<a href="https://www.ratafire.com/<%= @user.username %>"><img src="https://www.ratafire.com/assets/badges/badge-24.png" alt="Ratafire" /></a>');
+	});
+	$('#badge-16').click(function() {
+		$("#badge").val('<a href="https://www.ratafire.com/<%= @user.username %>"><img src="https://www.ratafire.com/assets/badges/badge-16.png" alt="Ratafire" /></a>');
+	});
+	$('#badge-give-medium').click(function() {
+		$("#badge").val('<a href="https://www.ratafire.com/<%= @user.username %>"><img src="https://www.ratafire.com/assets/badges/badge-give-medium.png" alt="Ratafire" /></a>');
+	});
+});
+</script>
+
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
+			<h1>Badges</h1>
+			<h5>We created some badges you can use to link to and promote your Ratafire profile.</h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+		</div><!-- end of textbox-->
+
+		<!-- Edit Photo -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">		
+				<h5>Click a badge to generate code.</h5>
+				<span style="margin-left:12px;cursor:pointer;" id="badge-48"><%= image_tag("badges/badge-48.png")%></span><span style="margin-left:12px;cursor:pointer;" id="badge-32"><%= image_tag("badges/badge-32.png")%></span><span style="margin-left:12px;cursor:pointer;" id="badge-24"><%= image_tag("badges/badge-24.png")%></span><span style="margin-left:12px;cursor:pointer;" id="badge-16"><%= image_tag("badges/badge-16.png")%></span><span style="margin-left:12px;cursor:pointer;" id="badge-give-medium"><%= image_tag("badges/badge-give-medium.png")%></span>
+				<%= form_tag do %>
+					 <%= text_area_tag 'badge',nil, class:"inputbox settingsarea noResize", id:"badge", style:"margin-top:15px;height:50px;"%>
+				<% end %>
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->
+
+		<!-- Edit Photo -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">		
+				<h5>Want to create your own badges? <%= link_to "Download Ratafire LogoKit",badges_download_path(current_user), class:"no_ajaxify"%>.</h5>
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->										
+
+	</div><!-- end.standard-content -->
+	<%= render 'layouts/footer' %>
+</div><!-- end of main-content-->						

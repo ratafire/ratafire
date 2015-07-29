@@ -127,6 +127,8 @@ Ratafire::Application.routes.draw do
 	match ':id/r/settings/profile#facebook-sync', to: 'users#edit', as: :edit_facebook_sync
 	match ':id/r/settings/subscription', to: 'subscriptions#settings', as: :subscription_settings
 	match ':id/r/settings/transactions', to: 'subscriptions#transactions', as: :subscription_transactions
+	match ':id/r/settings/badges', to: 'badges#show', as: :badges
+	match ':id/r/settings/badges/download', to: 'badges#download', as: :badges_download
 	match ':id/r/settings/profilephoto/delete', to: 'users#profile_photo_delete', via: :delete, as: :photo_delete
 	match ':id/r/users/disable/user', to: 'users#disable', via: :post, as: :disable_user
 

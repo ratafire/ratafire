@@ -136,6 +136,7 @@ class UpdatesController < ApplicationController
 	end			
 
 	def featured
+		@users = User.where(:subscription_status_initial => "Approved",:homepage_fundable => true).paginate(page: params[:fundable], :per_page => 1)
 		gon.activebutton = "staffpicks"
 		@activities = PublicActivity::Activity.order("commented_at desc").where(:featured => true).paginate(page: params[:page], :per_page => 20)
 		if user_signed_in? then

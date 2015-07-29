@@ -14,6 +14,7 @@
 		<% end %>				
 		<ol><%= link_to "Payment Settings", payment_settings_path(current_user), class:"no_ajaxify"%></ol>
 		<ol><%= link_to "Organization", organizations_intro_path, class:"no_ajaxify"%></ol>
+		<ol><%= link_to "Badges", badges_path(current_user), class:"no_ajaxify"%></ol>
 		<ol><%= link_to "Secrets", secrets_path, class:"no_ajaxify"%></ol>
 		<ol><%= link_to "Account Settings", edit_user_registration_path(current_user), class:"no_ajaxify" %></ol>
 	</ul>
