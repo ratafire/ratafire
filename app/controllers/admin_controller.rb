@@ -69,7 +69,7 @@ class AdminController < ApplicationController
 	end
 
 	def facebookupdate
-		@activities = PublicActivity::Activity.where(trackable_type: ["Facebookupdate"], :test => true).paginate(page: params[:page], :per_page => 20)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Facebookupdate"], :test => true).paginate(page: params[:page], :per_page => 20)
 	end
 
 	def homepage_featured
