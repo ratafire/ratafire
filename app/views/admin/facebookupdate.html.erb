@@ -1,0 +1,51 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- Page Title -->
+<% provide(:title, "Admin") %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+<% content_for(:side_bar) do %>
+<%= render 'layouts/sidebar_admin' %>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!-- Main Content -->
+<div class="main-content">
+	<div class="standard-content" >
+		<div class="textbox">
+
+			<h1>Facebook Updates</h1>
+			<h5>I know one thing, and that is that I know nothing.</h5>
+			<!-- Cutter --><ol style="margin-top: -20px;"></ol>
+
+		</div><!-- end of textbox-->						
+
+		<!-- Feature Things -->
+		<div class="lightbox2-bordered">
+			<div class="textbox-mini">
+
+			<!-- Activities -->
+			<% if @activities.any? %>
+				<%= render_activities(@activities) %>
+			<% else %>
+				<div class="blank-update-box" style="height:428px;">
+					<h5>There are no updates in all updates.</h5>
+				</div>						
+			<% end %>
+
+			<!-- Pagination -->
+			<div id="profile-paginate">
+				<div class="textbox-mini">
+					<span><%= will_paginate @activities, :param_name => 'page', class:"rata_pagination" %></span>	
+				</div>	
+			</div>	
+			
+			</div><!-- end.textbox-mini-->
+		</div><!-- end.lightbox2-bordered-->														
+
+
+	</div><!-- Footer -->
+	<%= render 'layouts/footer' %>
+
+</div><!-- end of main-content-->

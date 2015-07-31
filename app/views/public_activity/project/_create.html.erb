@@ -41,7 +41,6 @@
 			</script>
 		<% else %>
 			<!-- Vimeo Video -->
-			<script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
 			<script>
 				$(document).ready(function() {
 		 			var iframe = $('#<%= activity.id%>video')[0];
@@ -109,6 +108,9 @@
 						<% if activity.featured == true then %>
 							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id, :actionname =>"unfeature"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unfeature" do %><i class="fa fa-ban"></i><% end %>
 						<% end %>
+						<% if activity.featured_home == true then %>
+							<%= link_to admin_actions_path(activity.trackable_type,activity.trackable.id, :actionname =>"unfeaturehome"), class:"no_ajaxify tipsy-tipsy", style:"color:#ccc;",title:"Unfeature Home" do %><i class="fa fa-thumbs-o-down"></i><% end %>
+						<% end %>							
 						<% if activity.trackable.realm == nil then %>
 							<div style="position:absolute;margin-top:30px;">
 								<%= link_to "1", admin_add_realm_path(activity.trackable_type,activity.trackable.id, "1"), class:"no_ajaxify tipsy-tipsy", title:"Art", style:"color:#ccc;"%>

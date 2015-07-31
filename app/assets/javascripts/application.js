@@ -43,6 +43,7 @@
 //= require owl.carousel.min
 //= require bootstrap-select/bootstrap-select
 //= require bootstrap-select/bootstrap-dropdown
+//= require froogaloop2.min
 //= require_directory .
 //= require_directory ./redactor-rails
 

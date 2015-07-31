@@ -1,0 +1,38 @@
+<!-- Initialize Slide -->
+<script>
+	$(document).ready(function(){
+		var owl = $('.owl-carousel');
+		owl.owlCarousel({
+		    items:1,
+		    loop:true,
+		    margin:10,
+		    autoplay:true,
+		    lazyLoad: true,
+		    autoplayTimeout:6000,
+		    autoWidth:true,
+		    autoHeight:true,
+		    autoplayHoverPause:true
+		});
+	});
+</script>
+<!-- Set up your HTML -->
+<div class="owl-carousel" style="width:641px;margin-left:340px;position:absolute;background-color:#cccccc;;">
+  	<div style="width:641px;">
+      <%= link_to "https://medium.com/ratafire-insights/how-common-is-it-for-artists-to-have-large-time-gaps-in-their-creative-output-9c7f84fe9621", target:"_blank", class:"no_ajaxify" do %>
+  		  <div class="slide-inner" style="background-image:url(/assets/slidebg/how-common-is-it-for-artists-to-have-large-time-gaps-in-their-creative-output.jpg);">
+  		  </div>	
+      <% end %>
+  	</div>
+  	<div style="width:641px;">
+      <%= link_to "https://medium.com/ratafire-insights/the-end-of-the-starving-artist-9207b541d051", target:"_blank", class:"no_ajaxify" do %>
+  		  <div class="slide-inner" style="background-image:url(/assets/slidebg/The-end-of-the-starving-artist.jpg);">
+  		  </div>	
+      <% end %>
+  	</div>
+  	<div style="width:641px;">
+      <%= link_to "https://medium.com/ratafire-insights/are-there-any-artists-supported-by-patronage-in-the-21st-century-4c40c182b837", target:"_blank", class:"no_ajaxify" do %>
+  		  <div class="slide-inner" style="background-image:url(/assets/slidebg/Are-there-any-artists-supported-by-patronage-in-the-21st-century.jpg);">
+  		  </div>	
+      <% end %>  
+  	</div>  	
+</div>

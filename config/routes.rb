@@ -327,6 +327,8 @@ Ratafire::Application.routes.draw do
 	match '/test_projects_admin', to: 'admin#test_projects', as: :admin_test_projects
 	match '/test_majorposts_admin', to: 'admin#test_majorposts', as: :admin_test_majorposts  
 	match '/pending_discussions_admin', to: 'admin#pending_discussions', as: :admin_pending_discussions
+	match '/facebookupdate_admin', to: 'admin#facebookupdate', as: :admin_facebookupdate
+	match '/homepage_featured_admin', to: 'admin#homepage_featured', as: :admin_homepage_featured
 	match '/patron_video_admin', to: 'admin#patron_video', as: :admin_patron_video
 
 	#Discussion

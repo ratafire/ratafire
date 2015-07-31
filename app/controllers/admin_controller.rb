@@ -68,6 +68,14 @@ class AdminController < ApplicationController
 	def patron_video
 	end
 
+	def facebookupdate
+		@activities = PublicActivity::Activity.where(trackable_type: ["Facebookupdate"], :test => true).paginate(page: params[:page], :per_page => 20)
+	end
+
+	def homepage_featured
+		@activities = PublicActivity::Activity.order("commented_at desc").where(:featured_home => true).paginate(page: params[:page], :per_page => 20)
+	end
+
 	def subscription_applications_review
 		@subscription_application = SubscriptionApplication.find(params[:id])
 		@project = @subscription_application.user.projects.where(:published => true, :complete => false, :abandoned => false).first
@@ -581,12 +589,20 @@ class AdminController < ApplicationController
 					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
 					if @activity != nil then
 						@activity.featured = false
-						@activity.featured_home = false
-						@activity.test = true
 						@activity.save
 					end	
 					flash[:success] = "Unfeatured."
-					redirect_to(:back)														
+					redirect_to(:back)
+				when "unfeaturehome"
+					@object.update_column(:featured_home, false)
+					@object.update_column(:test, true)					
+					@activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@object.id,params[:type])
+					if @activity != nil then
+						@activity.featured_home = false
+						@activity.save
+					end	
+					flash[:success] = "Unfeatured from homepage"
+					redirect_to(:back)													
 			end
 		end
 	end
