@@ -9,7 +9,7 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 	<% content_for :head do %>
-		<%= tag :meta, property: "og:description", content: "Welcome to Ratafire Beta! It is an honor to have you as one of our first users. We created Ratafire because we believe that creators or researchers should be able to work on what they love on a long term with less worries about expenses. We also believe that creative or research works should be more open and independent." %>
+		<%= tag :meta, property: "og:description", content: "We help artists and researchers afford the time for creative freedom. Ratafire is a free to use on-going fundraising site. Your best alternative to Kickstarter." %>
 		<%= tag :meta, property: "og:type", content: "website" %>
 	<% end %><!-- end.content_for :head do -->	
 
@@ -17,44 +17,47 @@
 <div class="static-content">
 	<h1>Guidelines</h1>
 <p>
-	Last modified: April 9, 2014
+	Last modified: August 16, 2015
 </p>
 
-<p>
-	Welcome to Ratafire Beta! It is an honor to have you as one of our first users. We created Ratafire because we believe that creators or researchers should be able to work on what they love over the long term. We also believe that creative arts and research should be more open and independent. 
-</p>
-<p>
-	Read these guidelines before posting or subscribing. We have made them simple, but if you are interested in a longer read, see our <%= link_to "Terms of Use", terms_path, class:"no_ajaxify"%>. If you want to see answers to specific questions, read our <%= link_to "FAQ", faq_path, class:"no_ajaxify"%>. If you want to know about the ideas behind Ratafire, read <%= link_to "the Design of Ratafire", "https://www.ratafire.com/fariliang/the-design-of-ratafire", class:"no_ajaxify" %>.
-</p>
+<h2>Why we created Ratafire?</h2>
+
+	<p style="padding-left: 30px;">We help artists and researchers afford the time for creative freedom.</p>
+
+	<p style="padding-left: 30px;">Let us break it down:</p>
+
+		<p style="padding-left: 60px;"><i>Help artists and researchers</i>: we serve artists and researchers and their fans.</p>
+
+		<p style="padding-left: 60px;"><i>Afford the time</i>: many art creation processes and researches can now be conducted on computers instead of on capital centric studios and labs, therefore, we want to make it easy for artists and researchers to have time to work on these artists creations and researches.</p>
+
+		<p style="padding-left: 60px;"><i>Creative freedom</i>: we enable funding for the creative process instead of the outcome, which enhances creative freedom.</p>
+
+<h2>Why we’re different than existing solutions?</h2>
+
+	<p style="padding-left: 30px;">We are making crowdfunding free and social.</p>
+
+	<p style="padding-left: 30px;">We are making crowdfunding friendly to individual artists and researchers again. We are not optimized towards startups crowdfunding.</p>
+
+	<p style="padding-left: 30px;"><i>How we are different from Kickstarter</i>: on-going fund-raising, free to use, social.</p>
+
+	<p style="padding-left: 30px;"><i>How we are different from Patreon</i>: free to use, Facebook fan page enabled, not focus on YouTube.</p>
+
+<h2>The problem we are solving</h2>
+
+	<p style="padding-left: 30px;">Artists and researchers need time to focus on the projects they are doing.</p>
+
+	<p style="padding-left: 30px;">There has to be a way to support online content.</p>
+
+	<p style="padding-left: 30px;">Crowdfunding is becoming focus on startups instead of individual creators.</p>
+
+	<p style="padding-left: 30px;">The current academic funding system is not efficient.</p>
 
 <h2>What is Ratafire?</h2>
 
-	<p style="padding-left: 30px;">Ratafire is a site for you to share, collaborate and fund open creative or research works. You can post and collaborate on your work collections under an open license. Help bring work collections you love to reality by becoming a patron to work collection creators with monthly subscription fees.</p>
+	<p style="padding-left: 30px;">Ratafire is a free to use on-going fundraising site.</p>
 
-		<ul style="padding-left: 60px;"><%= link_to "Which license and why this license?", "#{request.scheme}://#{request.host}/faq#faq-131641", class:"no_ajaxify", style:"color:#bbb;"%></ul>
-		<ul style="padding-left: 60px;"><%= link_to "Why have monthly patronage payments instead of one-time pledges?", "#{request.scheme}://#{request.host}/faq#faq-5911545", class:"no_ajaxify", style:"color:#bbb;"%></ul>
-		<ul style="padding-left: 60px;"><%= link_to "What features do patrons recieve?", "#{request.scheme}://#{request.host}/faq#faq-3863418", class:"no_ajaxify", style:"color:#bbb;"%></ul>
+<h2>Interesting Blog Post</h2>
 
-<h2>General</h2>
-
-	<p style="padding-left: 30px;">You can only have one Ratafire account to represent yourself. Currently we do not accept organizations or companies. However, we encourage you to collaborate on work collections with other users.</p>
-
-<h2>Work Collections</h2>
-
-	<p style="padding-left: 30px;">The work collections you post on Ratafire must be in the following nine realms: <%= link_to "Art", art_path, class:"no_ajaxify"%>, <%= link_to "Music", music_path, class:"no_ajaxify"%>, <%= link_to "Games", games_path, class:"no_ajaxify"%>, <%= link_to "Writing", writing_path, class:"no_ajaxify"%>, <%= link_to "Films & Videos", videos_path, class:"no_ajaxify"%>, <%= link_to "Math", math_path, class:"no_ajaxify"%>, <%= link_to "Research: Science", science_path, class:"no_ajaxify"%>, <%= link_to "Research: Humanity", humanity_path, class:"no_ajaxify"%>, <%= link_to "Engineering", engineering_path, class:"no_ajaxify"%>.</p>
-
-	<p style="padding-left: 30px;">You should make the full content of your work collection publically available if you are accepting subscribers.</p>
-
-		<p style="padding-left: 60px;"><%= link_to "Why can’t I limit previews of my content if someone is my patron?", "#{request.scheme}://#{request.host}/faq#faq-5493741", class:"no_ajaxify", style:"color:#bbb;"%></p>
-
-<h2>Cloud Patronage</h2>
-
-	<p style="padding-left: 30px;">When you become a patron of a user, you subscribe for the purpose of supporting the user to complete his or her work collection.</p>
-
-	<p style="padding-left: 30px;">Your patronage does not grant you the right to exclusive content. However, you will be among the first to receive the updates.</p>
-
-	<p style="padding-left: 30px;">Patronage on Ratafire are not anonymous and are available to the public to provide recognition to the patrons and the creators or researchers, and for the purpose of maintaining transparency.</p>
-
-		<ul style="padding-left: 60px;"><%= link_to "Is Ratafire cloud patronage free to use?", "#{request.scheme}://#{request.host}/faq-7472456", class:"no_ajaxify", style:"color:#bbb;"%></ul>
+		<ul style="padding-left: 30px;"><%= link_to "The End of the Starving Artist", "https://medium.com/ratafire-insights/the-end-of-the-starving-artist-9207b541d051#1c52", class:"no_ajaxify"%></ul>
 </div>
 <%= render 'layouts/footer' %>	

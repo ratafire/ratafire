@@ -6,76 +6,47 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Second Header for Helps ~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
-<div class="help-content">
+<div class="static-content">
+	<h1>About</h1>
 
-	<!-- Content -->
-	<!-- Help Header -->
-	<div class="help-header">
-		<%= link_to "About",about_path %>
-		<hr class="style-two">
-	</div>	 
+<h2>Why we created Ratafire?</h2>
 
-			
-		<div class="help-content-holder">	
-			<h1>About Ratafire</h1>
-			<p>Sometimes, artists or researchers need extra support and collaboration to make sure their projects can reach their full potential. </p>
+	<p style="padding-left: 30px;">We help artists and researchers afford the time for creative freedom.</p>
 
-			<div class="help-show-image" style="background-image:url(/assets/help_image_24.jpg);height:1019px;">
-			</div>
+	<p style="padding-left: 30px;">Let us break it down:</p>
 
-			<p>Creators and developers who are working on art, music, research or coding projects, for example, post about their projects on the site and define their current project and goals. Once a project has begun, the creator can invite subscribers to their project with a range of monthly support fees. While everyone can see the content, subscribers will get early access, and updates posted by the creator will appear on a subscriber's main feed. This allows the creator to receive ongoing support while subscribers can watch the progress of the projects they've selected.</p>
+		<p style="padding-left: 60px;"><i>Help artists and researchers</i>: we serve artists and researchers and their fans.</p>
 
-			<div class="help-show-image" id="refund" style="background-image:url(/assets/help_image_21.jpg);height:290px;">
-			</div>				
+		<p style="padding-left: 60px;"><i>Afford the time</i>: many art creation processes and researches can now be conducted on computers instead of on capital centric studios and labs, therefore, we want to make it easy for artists and researchers to have time to work on these artists creations and researches.</p>
 
-			<p>The idea behind Ratafire is to build an open community of people who understand how the best and most innovative work can grow in an open environment where ideas can be shared and developed to their full potential.</p>
+		<p style="padding-left: 60px;"><i>Creative freedom</i>: we enable funding for the creative process instead of the outcome, which enhances creative freedom.</p>
 
-			<%= link_to new_user_registration_path, class:"no_ajaxify" do %>
-			<div class="btn-large">
-				Sign Up
-			</div>
-			<% end %>
-		</div>
+<h2>Why we’re different than existing solutions?</h2>
 
+	<p style="padding-left: 30px;">We are making crowdfunding free and social.</p>
 
-	<!-- Help Header -->
-	<div class="help-header">
-		<%= link_to "Explore",help_path %>
-		<hr class="style-two">
-	</div>	 
+	<p style="padding-left: 30px;">We are making crowdfunding friendly to individual artists and researchers again. We are not optimized towards startups crowdfunding.</p>
 
-	<!-- Help Title -->
-	<h1>Getting Started</h1>
+	<p style="padding-left: 30px;"><i>How we are different from Kickstarter</i>: on-going fund-raising, free to use, social.</p>
 
-	<!-- Three Boxes-->
-	<div class="help-center">
+	<p style="padding-left: 30px;"><i>How we are different from Patreon</i>: free to use, Facebook fan page enabled, not focus on YouTube.</p>
 
-		<%= link_to how_do_I_start_a_project_path do %>
-			<div class="help-image-holder-large" style="background-image:url(/assets/help-image-holder-large1.jpg);">
-				<div class="bottom-text-large">
-					Start a Project
-				</div>	
-			</div>
-		<% end %>		
+<h2>The problem we are solving</h2>
 
-		<%= link_to how_do_I_setup_subscription_path do %>
-			<div class="help-image-holder-large" style="background-image:url(/assets/help-image-holder-large2.jpg);">	
-				<div class="bottom-text-large">
-					Setup Subscription
-				</div>	
-			</div>
-		<% end %>
+	<p style="padding-left: 30px;">Artists and researchers need time to focus on the projects they are doing.</p>
 
-		<%= link_to look_around_path do %>
-			<div class="help-image-holder-large" style="background-image:url(/assets/help-image-holder-large3.jpg);">	
-				<div class="bottom-text-large">
-					Look Around
-				</div>	
-			</div>
-		<% end %>
-			
-	</div><!-- end.help-center-->
+	<p style="padding-left: 30px;">There has to be a way to support online content.</p>
 
-</div><!-- end.help-content-->
-				<!-- Footer -->
-				<%= render 'layouts/footer' %>	
+	<p style="padding-left: 30px;">Crowdfunding is becoming focus on startups instead of individual creators.</p>
+
+	<p style="padding-left: 30px;">The current academic funding system is not efficient.</p>
+
+<h2>What is Ratafire?</h2>
+
+	<p style="padding-left: 30px;">Ratafire is a free to use on-going fundraising site.</p>
+
+<h2>Interesting Blog Post</h2>
+
+		<ul style="padding-left: 30px;"><%= link_to "The End of the Starving Artist", "https://medium.com/ratafire-insights/the-end-of-the-starving-artist-9207b541d051#1c52", class:"no_ajaxify"%></ul>
+</div>
+<%= render 'layouts/footer' %>	
