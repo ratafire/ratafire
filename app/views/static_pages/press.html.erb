@@ -1,0 +1,49 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<!-- Page Title -->
+	<% provide(:title, "Ratafire") %>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Facebook Open Graph ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<% content_for :head do %>
+		<%= tag :meta, property: "og:type", content: "website" %>
+		<%= tag :meta, property: "og:title", content: "Ratafire" %>
+		<%= tag :meta, property: "og:description", content: "We help artists and researchers afford the time for creative freedom. Ratafire the first free to use on-going fundraising site. We are making crowdfunding free and social." %>
+		<%= tag :meta, property: "og:image", content: "http://www.ratafire.com/assets/logoicon_medium_flat.png" %>
+		<a style="display:none;"href="https://plus.google.com/108376636120204861351" rel="publisher">Google+</a>
+
+		<meta name="title" content="Ratafire" />
+		<meta name="description" content="We help artists and researchers afford the time for creative freedom. Ratafire the first free to use on-going fundraising site. We are making crowdfunding free and social." />
+		<link rel="image_src" href="http://www.ratafire.com/assets/logoicon_medium_flat.png" />
+	<% end %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+<div class="static-content">
+
+	<h1>Press</h1>
+<p>
+
+<p style="padding-left: 30px;">This is the press page for Ratafire. Ratafire is growing, and this page will always be up-to-date.</p>
+
+<p style="padding-left: 30px;">If you have written an article about us, feel free to let us know.</p>
+	
+
+<h2>Brand Kit and Contact</h2>
+
+<p style="padding-left: 30px;">Download <%= link_to "RatafireBrandKit.zip", "https://www.ratafire.com/downloads/RatafireBrandKit.zip", class:"no_ajaxify"%></p>
+
+<p style="padding-left: 30px;">Contact <b>press@ratafire.com</b> for press inquiries</p>
+
+<h2>As Seen on Blogs</h2>
+
+<h2 style="text-align:center;color:#ccc;font-family:'Open Sans';">MENTIONS</h2>
+
+<p style="padding-left: 30px;font-size:1.3em;color:#999;font-family:'Open Sans';"><i>“A Patreon-like platform called Ratafire is now available with a focus on both creative and research-based projects. I hope to be sharing more soon about this interesting mix of art and science.”</i>-<%= link_to "Crowdfunding for Musicians", "http://crowdfundingformusicians.com/2015/08/music-crowdfunding-news-new-platforms-de-la-soul-ovations-contest-eric-ries/", class:"no_ajaxify", target:"_blank", style:"font-weight:bold;color:#999;font-family:'Open Sans Regular';"%></p>
+
+<h2 style="text-align:center;color:#ccc;font-family:'Open Sans';">Reviews</h2>
+
+<p style="padding-left: 30px;font-size:1.3em;color:#999;font-family:'Open Sans';"><i>“Imagine that you can work on that piece of music you’ve been trying to for years. You couldn’t dedicate the time to it because you had bills to pay. Ratafire enables you to showcase your dream to the world and accept monthly pledges from patrons.”</i>-<%= link_to "Debugga", "http://debug.ga/sensible-crowdfunding-for-performing-artists/", class:"no_ajaxify", target:"_blank", style:"font-weight:bold;color:#999;font-family:'Open Sans Regular';"%></p>
+
+</div>
+
+
+<%= render 'layouts/footer' %>	

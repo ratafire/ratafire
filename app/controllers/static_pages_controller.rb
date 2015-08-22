@@ -41,6 +41,9 @@ class StaticPagesController < ApplicationController
   def pricing
   end
 
+  def press
+  end
+
   def mobile_sign_in
     if signed_in?
       redirect_to featured_path

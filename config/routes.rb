@@ -46,6 +46,7 @@ Ratafire::Application.routes.draw do
 	match '/contact', to: 'static_pages#contact'
 	match '/discovered', to: 'static_pages#discovered', as: :discovered_path
 	match'/mobile_about', to: 'static_pages#mobile_about', as: :mobile_about
+	match '/press', to: 'static_pages#press', as: :press
 
 #---Projects Matches---
 	match ':user_id/:id/about', to: 'projects#about', as: :project_about
