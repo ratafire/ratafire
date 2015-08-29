@@ -133,4 +133,18 @@
     $('#majorpost_video_upload_form').submit();
 
     }
+
+  //External audio
+   function externalAudioOnchange()
+
+  {
+    var content_temp = $('#redactor_majorpost').val(),
+        tags_temp = $('#tags').val();
+   $('#content_temp_audio').val(content_temp
+    );
+   $('#tags_temp_audio').val(tags_temp
+    );
+    $('#majorpost_audio_upload_form').submit();
+
+    }        
 </script>

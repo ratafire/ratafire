@@ -94,6 +94,7 @@ class User < ActiveRecord::Base
 	has_one :patron_video, :conditions => {:deleted_at => nil, :status => "Pending"}
 
 	has_many :secrets, :conditions => {:deleted_at => nil}
+	has_many :collectibles
 
 	#--- Payments ---
 	#Subscriptions

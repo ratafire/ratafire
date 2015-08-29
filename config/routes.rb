@@ -45,7 +45,7 @@ Ratafire::Application.routes.draw do
 	match '/about', to: 'static_pages#about'
 	match '/contact', to: 'static_pages#contact'
 	match '/discovered', to: 'static_pages#discovered', as: :discovered_path
-	match'/mobile_about', to: 'static_pages#mobile_about', as: :mobile_about
+	match '/mobile_about', to: 'static_pages#mobile_about', as: :mobile_about
 	match '/press', to: 'static_pages#press', as: :press
 
 #---Projects Matches---
@@ -132,6 +132,9 @@ Ratafire::Application.routes.draw do
 	match ':id/r/settings/badges/download', to: 'badges#download', as: :badges_download
 	match ':id/r/settings/profilephoto/delete', to: 'users#profile_photo_delete', via: :delete, as: :photo_delete
 	match ':id/r/users/disable/user', to: 'users#disable', via: :post, as: :disable_user
+
+	match ':id/r/settings/collectibles', to: 'collectibles#manage_collectibles', as: :manage_collectibles
+	match ':id/r/:facebookpage_id/collectibles', to: 'collectibles#update_facebookpage_collectibles', as: :update_facebookpage_collectibles
 
 	match ':id/upload/profile/photo', to: 'users#create_profilephoto', via: :post, as: :create_profilephoto
 	match ':id/upload/profile/photosettings', to: 'users#create_profilephoto_settings', via: :post, as: :create_profilephoto_settings
@@ -475,6 +478,9 @@ Ratafire::Application.routes.draw do
 	match '/:user_id/:page_id/r/facebook_sync', to: 'facebookpages#sync', as: :facebookpage_sync
 	match '/:user_id/:page_id/r/facebook_unsync', to: 'facebookpages#unsync', as: :facebookpage_unsync
 	match ':id/facebook_update/manners_maketh_men/delete', to: 'facebookupdates#delete', as: :facebookupdate_delete
+
+	match '/:user_id/:page_id/r/facebook_mask', to: 'facebookpages#mask', as: :facebookpage_mask
+	match '/:user_id/:page_id/r/facebook_unmask', to: 'facebookpages#unmask', as: :facebookpage_unmask
 
 #---Organizations---	
 

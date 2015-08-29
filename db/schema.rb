@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150724180518) do
+ActiveRecord::Schema.define(:version => 20150829033913) do
 
   create_table "abandon_logs", :force => true do |t|
     t.datetime "reopen"
@@ -318,6 +318,18 @@ ActiveRecord::Schema.define(:version => 20150724180518) do
     t.string   "uuid"
   end
 
+  create_table "collectibles", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "facebookpage_id"
+    t.integer  "level"
+    t.text     "content"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "commentimages", :force => true do |t|
     t.integer  "comment_id"
     t.text     "url"
@@ -578,6 +590,12 @@ ActiveRecord::Schema.define(:version => 20150724180518) do
     t.datetime "facebookcover_updated_at"
     t.boolean  "sync"
     t.boolean  "project_facebook",             :default => true
+    t.text     "collectible_20"
+    t.text     "collectible_50"
+    t.text     "collectible_100"
+    t.boolean  "masked"
+    t.string   "memorized_fullname"
+    t.integer  "facebook_page_id"
   end
 
   create_table "facebooks", :force => true do |t|
@@ -1272,6 +1290,9 @@ ActiveRecord::Schema.define(:version => 20150724180518) do
     t.boolean  "listed"
     t.boolean  "project_facebook"
     t.string   "license"
+    t.text     "collectible_20"
+    t.text     "collectible_50"
+    t.text     "collectible_100"
   end
 
   create_table "quotes", :force => true do |t|
@@ -1433,6 +1454,9 @@ ActiveRecord::Schema.define(:version => 20150724180518) do
     t.integer  "account_number"
     t.boolean  "facebookpage_clicked"
     t.integer  "facebookpage_id"
+    t.text     "collectible_20"
+    t.text     "collectible_50"
+    t.text     "collectible_100"
   end
 
   create_table "subscription_records", :force => true do |t|
@@ -1793,6 +1817,8 @@ ActiveRecord::Schema.define(:version => 20150724180518) do
     t.boolean  "subscription_switch",                                       :default => true
     t.integer  "organization_id"
     t.integer  "organization_leader_id"
+    t.boolean  "masked"
+    t.string   "memorized_fullname"
   end
 
   add_index "users", ["deactivated_at"], :name => "index_users_on_deactivated_at"

@@ -40,18 +40,28 @@
 							<% if @project then %>
 								<%= f.hidden_field :project_id, :value => @project.id %>
 								<ol style="margin-bottom: 10px;margin-top:20px;"><%=  render "projects/project_one_application"%></ol>
-								<h4>Work Collection Collectible</h4>
-								<ol style="margin:-10px 20px 10px 0;">Enter a collectible for patrons who paid $10/m or more to you since this work collection. </ol>
-								<%= f.text_area :collectible, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters)." %>
+								<h4>Work Collection Collectibles</h4>
+								<ol style="margin:-10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$10</span> Enter a collectible for patrons who paid $10 or more to you since this work collection (required). </ol>
+								<%= f.text_area :collectible, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make the work collection collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters)." %>
+								<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$20</span> A collectible for patrons who paid $20 or more (optional). </ol>
+								<%= f.text_area :collectible_20, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"10 - 500 characters" %>
+								<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$50</span> A collectible for patrons who paid $50 or more (optional). </ol>
+								<%= f.text_area :collectible_50, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a file showing your creation steps, a video lesson (10 - 500 characters)." %>						<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$100</span> A collectible for patrons who paid $100 or more (optional). </ol>
+								<%= f.text_area :collectible_100, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a private lesson (10 - 500 characters)." %>	
 							<% else %>	
 							<!-- Without a Project -->
 								<% if @user.facebookpages.first != nil then %>
 								<!-- With a Facebook Page -->
 									<%= f.hidden_field :facebookpage_id, :value => @user.facebookpages.first.id %>
 									<ol style="margin-bottom: 10px;margin-top:20px;"><%=  render "facebookpages/facebookpage_one_application", facebookpage: @user.facebookpages.first %></ol>
-									<h4>Collectible</h4>
-									<ol style="margin:-10px 20px 10px 0;">Enter a collectible for patrons who paid $10/m or more to you for this Facebook Page. </ol>
+									<h4>Collectibles</h4>
+									<ol style="margin:-10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$10</span> Enter a collectible for patrons who paid $10/m or more to you for this Facebook Page. </ol>
 									<%= f.text_area :collectible, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters)." %>
+									<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$20</span> A collectible for patrons who paid $20 or more (optional). </ol>
+									<%= f.text_area :collectible_20, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"10 - 500 characters" %>
+									<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$50</span> A collectible for patrons who paid $50 or more (optional). </ol>
+									<%= f.text_area :collectible_50, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a file showing your creation steps, a video lesson (10 - 500 characters)." %>						<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$100</span> A collectible for patrons who paid $100 or more (optional). </ol>
+									<%= f.text_area :collectible_100, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a private lesson (10 - 500 characters)." %>										
 								<% else %>
 									<% if @subscription_application.facebookpage_clicked == true then %>
 										<ol style="margin-bottom: 10px;margin-top:20px;">Sync at least one Facebook Page.</ol>

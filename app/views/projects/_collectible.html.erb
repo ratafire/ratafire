@@ -3,7 +3,7 @@
 	<div class="inspiration-bg">
 		<div class="textbox-mini">
 			<div class="post-about-title">
-				<li style="font-size: 1.4em;">Collectible for Patrons</li>
+				<li style="font-size: 1.4em;">Collectibles for Patrons</li>
 			</div>
 		</div>
 	</div>
@@ -11,9 +11,24 @@
 	<!-- To Collectible Content -->
 	<div class="lightbox2 post-content-c" style="margin-top:0px;">
 		<div class="textbox-mini">
-			<div class="project-to-subscribers-holder" style="padding-bottom:5px;">
-				<%= simple_format(@project.collectible) %>
+			<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #f9f9f9;">
+				<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$10</span> <div style="margin-top:-5px;"><%= simple_format(@project.collectible) %></div>
 			</div><!-- end.project-to-subscribers-holder-->	
+			<% if @project.collectible_20 != nil then %>
+				<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #f6f6f6;margin-top:15px;">
+					<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$20</span> <div style="margin-top:-5px;"><%= simple_format(@project.collectible_20) %></div>
+				</div><!-- end.project-to-subscribers-holder-->			
+			<% end %>	
+			<% if @project.collectible_50 != nil then %>
+				<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #f3f3f3;margin-top:15px;">
+					<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$50</span> <div style="margin-top:-5px;"><%= simple_format(@project.collectible_50) %></div>
+				</div><!-- end.project-to-subscribers-holder-->		
+			<% end %>	
+			<% if @project.collectible_100 != nil then %>
+				<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #eeeeee;margin-top:15px;">
+					<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$100</span> <div style="margin-top:-5px;"><%= simple_format(@project.collectible_100) %></div>
+				</div><!-- end.project-to-subscribers-holder-->			
+			<% end %>						
 		</div><!-- end.project-to-subscribers-holder-->
 	</div><!-- end .project-to-subscribers-holder-->							
 <% end %>

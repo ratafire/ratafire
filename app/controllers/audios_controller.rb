@@ -71,18 +71,35 @@ def add_external_audio
       @audio.soundcloud = params[:external]
       @audio.project_id = params[:project_id]
       @audio.majorpost_id = params[:majorpost_id]
-      @majorpost = Majorpost.find(params[:majorpost_id])
+	  if params[:majorpost_id] != nil then 
+		 @majorpost = Majorpost.find(params[:majorpost_id])
+	  end      
+	  @project = Project.find(params[:project_id])
       external_audio
       
 
-      if @audio.content_temp != nil && @audio.content_temp != "" then
-        @majorpost.content = @audio.content_temp
-        if @audio.tags_temp != nil && @audio.tags_temp != "" then
-          tags = @audio.tags_temp.split(",")
-          @majorpost.tag_list = tags
-        end
-        @majorpost.save
-      end
+	  	if @majorpost != nil then 
+		  	if @audio.content_temp != nil && @audio.content_temp != "" then
+				@majorpost.content = @video.content_temp
+			if @audio.tags_temp != nil && @audio.tags_temp != "" then
+			  	tags = @audio.tags_temp.split(",")
+			  	@majorpost.tag_list = tags
+			end
+				@majorpost.save
+		  	end
+		else
+			if @project != nil then
+			  	if @audio.content_temp != nil && @audio.content_temp != "" then
+					@project.about = @audio.content_temp
+				if @audio.tags_temp != nil && @audio.tags_temp != "" then
+				  	tags = @audio.tags_temp.split(",")
+				  	@project.tag_list = tags
+				end
+					@project.save
+			  	end
+			end
+		end
+
 
         #Clean up the temp
         @audio.content_temp = nil
@@ -121,13 +138,31 @@ def external_audio
 		@audio.soundcloud = track.id
 		@audio.soundcloud_image = track.artwork_url.gsub("large.jpg","t500x500.jpg")
 		@audio.save
-		@majorpost.audio_id = @audio.id
+		if @majorpost != nil then 
+			@majorpost.audio_id = @audio.id
+		else
+			if @project != nil then 
+				@project.audio_id = @audio.id
+			end
+		end
 		flash[:success] = "SoundCloud audio added."
 	else
 		flash[:success] = "Failed to add external audio."
-		@majorpost.audio_id = nil
+		if @majorpost != nil then 
+			@majorpost.video_id = nil
+		else
+			if @project != nil then 
+				@project.video_id = nil
+			end
+		end
 		@audio.destroy
 	end	
-	@majorpost.save
+		if @majorpost != nil then 
+			@majorpost.save
+		else
+			if @project != nil then 
+				@project.save
+			end
+		end	
 end
 end

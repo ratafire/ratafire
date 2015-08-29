@@ -16,13 +16,21 @@
 		</script>
 
 		<div id="has-audio-case">
-			<%= render "forms/has_audio"%>	
+			<% if @project.audio.soundcloud == nil then %>
+				<%= render "forms/has_audio"%>
+			<% else %>
+				<!-- artwork delete button-->
+				<div class="btn-edit-right18" id="delete-video">
+					<%= link_to 'x',audio_delete_path(@project.creator,@project,@audio),method: :delete,class:"btn-delete no_ajaxify tipsy-tipsy", title:"Delete", :confirm => "Are you sure to delete this track?" %>
+				</div>			
+				<%= render 'majorposts/soundcloud_holder'%>
+			<% end %>	
 		</div><!-- end:#has-video-case -->	
 
 	<% end %><!-- end. if @project.audio_id != ""-->
 
 	<div id="audio-upload-case">
-		<div id="comment-input2" style="margin: 0px 0 8px 0;">
+		<div id="comment-input2" style="margin: 0px 0 8px 0;height:195px;">
 			<!-- Audio Upload Title -->
 			<div class="majorpost-user-inspirer-tite">	
 				<li>Project Audio</li>
@@ -65,6 +73,26 @@
 								
 								
 				<div id="audiodata"></div>
+
+	  			<!-- External-Video-fields-->
+					<div id="external-video-field">
+						
+					<!-- Cutter --><ol style="margin-top:-1px;"></ol>
+					<!-- External-Video-input-->
+					<div class="majorpost-user-inspirer-holder">
+						<div class="btn btn-mini btn-mini-green" style="position:absolute;margin:3px 0 0 597px;">Embed</div>
+						<%= form_tag add_external_audio_path, id:"majorpost_audio_upload_form",class:"no_ajaxify" do %>
+							<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+							<%= hidden_field_tag :project_id, @project.id %>
+							<%= hidden_field_tag :user_id, current_user.id %>
+							<%= hidden_field_tag :content_temp, nil,id:"content_temp_video" %>
+							<%= hidden_field_tag :tags_temp,nil,id:"tags_temp_video" %>										
+							<%= text_field_tag "external", nil,class:"user", type:"user-external",style:"width:570px;", placeholder:"Enter SoundCloud link, leave it blank if you upload your track.", id:"external-audio", onchange:"externalAudioOnchange()" %>
+						<% end %>	
+						
+					</div><!-- end of external video input-->
+				</div>
+
 			</div><!-- end videoupload box holder-->				
 		</div><!-- end#comment-input2-->	
 	</div><!-- end#audio-upload-case-->	

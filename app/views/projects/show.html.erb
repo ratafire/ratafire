@@ -89,6 +89,15 @@
 	<div class="main-content-project">
 					<!-- Video and Artwork-->
 					<%= render 'projects/video_artwork'%>
+
+					<!-- Audio -->
+					<% if @audio != nil then %>
+						<% if @audio.soundcloud == nil then %>
+						<% else %>
+							<%= render 'majorposts/soundcloud_holder'%>
+						<% end %>
+					<% end %>
+
 					<!-- About View -->
 					<%= render 'projects/about_view'%>
 					<!-- Cutter --><ol style="margin-top: 15px;"></ol>

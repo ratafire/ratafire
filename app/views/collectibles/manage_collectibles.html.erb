@@ -1,0 +1,80 @@
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+	<!-- Page Title -->
+	<% provide(:title, current_user.fullname) %>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->	
+
+	<% content_for(:side_bar) do %>
+    	<%= render 'layouts/sidebar_settings' %>
+	<% end %>
+		
+<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<div class="standard-content" >
+						<div class="textbox">
+						
+							<h1>Manage My Collectibles</h1>
+							<h5>Collectibles are memorable gifts you provide to your patrons.</h5>
+							<!-- Cutter --><ol style="margin-top: 20px;"></ol>
+
+							<!-- Project -->
+							<% if @projects.count >= 1 then %>
+								<% @projects.each do |p| %>
+								<div class="lightbox2-bordered">
+									<h2>Collectibles for <%= p.title %></h2>
+									<%=  render "projects/project_portable_many", :project => p %>
+									<%= form_for [p.creator, p], :url => project_update_path(p.creator,p),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f|%>
+										
+										<div class="source-code-placer" style="margin-left:21px;">
+											<ol style="margin:20px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$10</span> Enter a collectible for patrons who paid $10 or more to you since this work collection (required). </ol>
+											<%= f.text_area :collectible, placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters).", class: "subscription-plan-input noResize", style:"width:91%; margin-left:0px;" %>
+											<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$20</span> A collectible for patrons who paid $20 or more (optional). </ol>
+											<%= f.text_area :collectible_20, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"10 - 500 characters" %>
+											<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$50</span> A collectible for patrons who paid $50 or more (optional). </ol>
+											<%= f.text_area :collectible_50, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a file showing your creation steps, a video lesson (10 - 500 characters)." %>						<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$100</span> A collectible for patrons who paid $100 or more (optional). </ol>
+											<%= f.text_area :collectible_100, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a private lesson (10 - 500 characters)." %>				
+											<div style="text-align:right;margin-right:25px;margin-top:15px;">
+												<%= f.submit "Save Changes", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green project-settings-save"%>	
+											</div>
+										</div>										
+									<% end %>
+								</div>		
+								<% end %>
+							<% end %>
+
+							<!-- Facebookpages-->
+							<% if @facebookpages.count >= 1 then %>
+								<% @facebookpages.each do |facebookpage| %>
+								<div class="lightbox2-bordered" style="margin-top:40px;">
+									<h2>Collectibles for <%= facebookpage.name %></h2>
+									<%=  render "facebookpages/facebookpages_portable_many", :facebookpage => facebookpage %>
+									<%= form_for [facebookpage], :url => update_facebookpage_collectibles_path(current_user.id, facebookpage.id),:validate => true, :html => {:class => 'no_ajaxify',:id => "project-form" } do |f|%>
+										
+										<div class="source-code-placer" style="margin-left:21px;">
+											<ol style="margin:20px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$10</span> Enter a collectible for patrons who paid $10 or more to you since this work collection (required). </ol>
+											<%= f.text_area :collectible, placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters).", class: "subscription-plan-input noResize", style:"width:91%; margin-left:0px;" %>
+											<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$20</span> A collectible for patrons who paid $20 or more (optional). </ol>
+											<%= f.text_area :collectible_20, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"10 - 500 characters" %>
+											<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$50</span> A collectible for patrons who paid $50 or more (optional). </ol>
+											<%= f.text_area :collectible_50, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a file showing your creation steps, a video lesson (10 - 500 characters)." %>						<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$100</span> A collectible for patrons who paid $100 or more (optional). </ol>
+											<%= f.text_area :collectible_100, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a private lesson (10 - 500 characters)." %>				
+											<div style="text-align:right;margin-right:25px;margin-top:15px;">
+												<%= f.submit "Save Changes", class: "btn-submit btn-submit-medium btn btn-medium btn-medium-green project-settings-save"%>	
+											</div>
+										</div>										
+									<% end %>								
+								</div>
+								<% end %>
+							<% end %>
+						<!-- end of textbox-->
+						</div>
+
+
+						<!-- Cutter --><ol style="margin-top: 70px;"></ol>
+						</div><!-- Footer -->
+				<%= render 'layouts/footer' %>
+
+			</div><!-- end of main-content-->

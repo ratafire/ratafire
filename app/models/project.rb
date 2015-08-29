@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :perlink, :use => :slugged
 
-  attr_accessible :tagline, :title, :user_id,:perlink, :about,:published,:complete, :tag_list, :p_u_inspirations_attributes, :p_m_inspirations_attributes, :p_p_inspirations_attributes, :p_e_inspirations_attributes, :artwork_id, :video_id, :icon_id, :goal, :source_code, :edit_permission, :realm, :collectible, :post_to_facebook, :post_to_facebook_page, :license
+  attr_accessible :tagline, :title, :user_id,:perlink, :about,:published,:complete, :tag_list, :p_u_inspirations_attributes, :p_m_inspirations_attributes, :p_p_inspirations_attributes, :p_e_inspirations_attributes, :artwork_id, :video_id, :icon_id, :goal, :source_code, :edit_permission, :realm, :collectible, :post_to_facebook, :post_to_facebook_page, :license, :collectible_20, :collectible_50, :collectible_100
   default_scope order: 'projects.created_at DESC'
   default_scope where(:deleted => false)
 
@@ -38,6 +38,7 @@ class Project < ActiveRecord::Base
   has_one :audio, dependent: :destroy
   has_one :pdf, dependent: :destroy
   has_many :archives
+  has_many :collectibles
 
   #--- Inspiration ---
   #majorpost_project_inspirations

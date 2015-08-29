@@ -109,7 +109,24 @@ class AdminController < ApplicationController
 					@project = Project.find(@subscription_application.project_id)
 					if @project != nil then 
 						@project.collectible = @subscription_application.collectible
+						@project.collectible_20 = @subscription_application.collectible_20
+						@project.collectible_50 = @subscription_application.collectible_50
+						@project.collectible_100 = @subscription_application.collectible_100
 						@project.save
+						#Create $10 Collectible
+						collectible = Collectible.prefill!(:user_id => @receiver.id, :project_id => @project.id, :level => 10, :content => @subscription_application.collectible)
+						#Create $20 Collectible
+						if @subscription_application.collectible_20 != nil then
+							collectible_20 = Collectible.prefill!(:user_id => @receiver.id, :project_id => @project.id, :level => 20, :content => @subscription_application.collectible_20)
+						end
+						#Create $50 Collectible
+						if @subscription_application.collectible_50 != nil then
+							collectible_50 = Collectible.prefill!(:user_id => @receiver.id, :project_id => @project.id, :level => 20, :content => @subscription_application.collectible_50)
+						end
+						#Create $100 Collectible
+						if @subscription_application.collectible_50 != nil then
+							collectible_100 = Collectible.prefill!(:user_id => @receiver.id, :project_id => @project.id, :level => 20, :content => @subscription_application.collectible_100)
+						end						
 					end
 				else
 					#Set Facebook Page
@@ -117,7 +134,24 @@ class AdminController < ApplicationController
 						@facebookpage = Facebookpage.find(@subscription_application.facebookpage_id)
 						if @facebookpage != nil then 
 							@facebookpage.collectible = @subscription_application.collectible
+							@facebookpage.collectible_20 = @subscription_application.collectible_20
+							@facebookpage.collectible_50 = @subscription_application.collectible_50
+							@facebookpage.collectible_100 = @subscription_application.collectible_100
 							@facebookpage.save
+							#Create $10 Collectible
+							collectible = Collectible.prefill!(:user_id => @receiver.id, :facebookpage_id => @facebookpage.id, :level => 10, :content => @subscription_application.collectible)
+							#Create $20 Collectible
+							if @subscription_application.collectible_20 != nil then
+								collectible_20 = Collectible.prefill!(:user_id => @receiver.id, :facebookpage_id => @facebookpage.id, :level => 20, :content => @subscription_application.collectible_20)
+							end
+							#Create $50 Collectible
+							if @subscription_application.collectible_50 != nil then
+								collectible_50 = Collectible.prefill!(:user_id => @receiver.id, :facebookpage_id => @facebookpage.id, :level => 20, :content => @subscription_application.collectible_50)
+							end
+							#Create $100 Collectible
+							if @subscription_application.collectible_50 != nil then
+								collectible_100 = Collectible.prefill!(:user_id => @receiver.id, :facebookpage_id => @facebookpage.id, :level => 20, :content => @subscription_application.collectible_100)
+							end									
 						end
 					end
 				end

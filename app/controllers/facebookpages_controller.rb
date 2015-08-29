@@ -7,6 +7,11 @@ class FacebookpagesController < ApplicationController
 		@facebookpage = Facebookpage.find_by_page_id(params[:page_id])
 		if @facebookpage == nil then
 			@facebookpage = Facebookpage.create_facebookpage(params[:page_id],params[:user_id])
+			@facebook_page = FacebookPage.find_by_page_id(@facebookpage.page_id)
+			if @facebook_page != nil then
+				@facebookpage.facebook_page_id = @facebook_page.id
+				@facebookpage.save
+			end
 			if @facebookpage != nil  then
 				#subscribe to facebook update
 				subscribe_to_facebook_update
@@ -21,6 +26,11 @@ class FacebookpagesController < ApplicationController
 			end
 		else
 			@facebookpage = Facebookpage.update_facebookpage(params[:page_id],params[:user_id])
+			@facebook_page = FacebookPage.find_by_page_id(@facebookpage.page_id)
+			if @facebook_page != nil then
+				@facebookpage.facebook_page_id = @facebook_page.id
+				@facebookpage.save
+			end			
 			if @facebookpage != nil then
 				#subscribe to facebook update
 				subscribe_to_facebook_update
@@ -43,6 +53,34 @@ class FacebookpagesController < ApplicationController
 		@facebook_page.update_column(:sync,false)
 		flash[:message] = "Facebook page unsynced."
 		redirect_to(:back)
+	end
+
+	def mask
+		@facebookpage = Facebookpage.find_by_page_id(params[:page_id])
+		@user = User.find(params[:user_id])
+		@facebookpage.masked = true
+		@facebookpage.memorized_fullname = @user.fullname
+		@facebookpage.save
+		@user.memorized_fullname = @user.fullname
+		@user.fullname = @facebookpage.name
+		@user.masked = true
+		@user.save		
+		flash[:message] = "You are now using your Facebook fan page's name as displayed name."
+		redirect_to(:back)		
+	end
+
+	def unmask
+		@facebookpage = Facebookpage.find_by_page_id(params[:page_id])
+		@user = User.find(params[:user_id])
+		@user.memorized_fullname = nil
+		@user.fullname = @facebookpage.memorized_fullname
+		@user.masked = nil
+		@user.save
+		@facebookpage.masked = nil
+		@facebookpage.memorized_fullname = nil
+		@facebookpage.save				
+		flash[:message] = "You are now using your full name as your display name."
+		redirect_to(:back)			
 	end
 
 private

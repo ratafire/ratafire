@@ -6,7 +6,17 @@
 					<tr>
 						<th width="100"><div class="user-icon-small-holder" style="background-image:url(<%= page.facebookprofile.url(:tiny) %>);margin-bottom:-15px;margin-top:-3px;"></div></th>
 						<th width="300"><%= page.name %></th>
-						<th width="137"><%= page.category %></th>
+						<th width="137">
+							<% if page.sync == true && page.facebookpage != nil then %>
+								<% if page.facebookpage.masked == nil then %>
+									<%= link_to facebookpage_mask_path(@user.id, page.page_id), class:"no_ajaxify" do %><div class="btn btn-small btn-small-green tipsy-tipsy-se" title="You can use your Facebook fan page's name as your display name.">Use Name</div><% end %>
+								<% else %>
+									<%= link_to facebookpage_unmask_path(@user.id, page.page_id), class:"no_ajaxify" do %><div class="btn btn-small btn-small-green tipsy-tipsy-se" title="You can use your Facebook fan page's name as your display name.">Unuse Name</div><% end %>
+								<% end %>
+							<% else %>
+								<div class="btn btn-small btn-small-white tipsy-tipsy-se" title="Sync this Facebook fan page first before using its name as display name.">Use Name</div>	
+							<% end %>
+						</th>	
 						<!-- synced -->
 						<% if page.sync == true then %>
 							<!-- unsynced -->

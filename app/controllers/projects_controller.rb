@@ -28,6 +28,9 @@ class ProjectsController < ApplicationController
 		#Audio
 		if @project.audio_id != "" && @project.audio_id != nil then
 			@audio = Audio.find(@project.audio_id)
+			if @audio.soundcloud != nil then 
+				@audio_embed = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/"+@audio.soundcloud+"&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"
+			end					
 		end		
 		#PDF
 		if @project.pdf_id != "" && @project.pdf_id != nil then
@@ -84,7 +87,19 @@ class ProjectsController < ApplicationController
 
 	def update
 		@project = Project.find(params[:id])
-
+		#Set project collectibles
+		if params[:project][:collectible] != @project.collectible then
+			collectible = Collectible.prefill!(:user_id => @project.creator.id, :project_id => @project.id, :level => 10, :content => params[:project][:collectible])
+		end
+		if params[:project][:collectible_20] != @project.collectible_20 then
+			collectible = Collectible.prefill!(:user_id => @project.creator.id, :project_id => @project.id, :level => 20, :content => params[:project][:collectible_20])
+		end		
+		if params[:project][:collectible_50] != @project.collectible_50 then
+			collectible = Collectible.prefill!(:user_id => @project.creator.id, :project_id => @project.id, :level => 50, :content => params[:project][:collectible_50])
+		end			
+		if params[:project][:collectible_100] != @project.collectible_100 then
+			collectible = Collectible.prefill!(:user_id => @project.creator.id, :project_id => @project.id, :level => 100, :content => params[:project][:collectible_100])
+		end							
 		if @project.update_attributes(params[:project]) then
 			image_parser
 			excerpt_generator
@@ -259,6 +274,9 @@ class ProjectsController < ApplicationController
 			#Audio
 			if @project.audio_id != "" && @project.audio_id != nil then
 				@audio = Audio.find(@project.audio_id)
+				if @audio.soundcloud != nil then 
+					@audio_embed = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/"+@audio.soundcloud+"&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"
+				end		
 			end
 			#PDF
 			if @project.pdf_id != "" && @project.pdf_id != nil then

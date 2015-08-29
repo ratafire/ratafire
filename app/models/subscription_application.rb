@@ -1,5 +1,5 @@
 class SubscriptionApplication < ActiveRecord::Base
-  attr_accessible :why, :plan, :step, :user_id, :status, :goals_subscribers, :goals_monthly, :goals_project, :collectible, :project_id, :facebookpage_id
+  attr_accessible :why, :plan, :step, :user_id, :status, :goals_subscribers, :goals_monthly, :goals_project, :collectible, :project_id, :facebookpage_id, :collectible_20, :collectible_50, :collectible_100
   belongs_to :user
   has_one :review
 
@@ -12,4 +12,10 @@ class SubscriptionApplication < ActiveRecord::Base
   validates_length_of :plan, :maximum => 500, :message => "Too long", :allow_blank => true, :allow_nil => true
   validates_length_of :collectible, :minimum => 20, :message => "Too short", :allow_blank => true, :allow_nil => true
   validates_length_of :collectible, :maximum => 500, :message => "Too long", :allow_blank => true, :allow_nil => true 
+  validates_length_of :collectible_20, :minimum => 20, :message => "Too short", :allow_blank => true, :allow_nil => true
+  validates_length_of :collectible_20, :maximum => 500, :message => "Too long", :allow_blank => true, :allow_nil => true   
+  validates_length_of :collectible_50, :minimum => 20, :message => "Too short", :allow_blank => true, :allow_nil => true
+  validates_length_of :collectible_50, :maximum => 500, :message => "Too long", :allow_blank => true, :allow_nil => true   
+  validates_length_of :collectible_100, :minimum => 20, :message => "Too short", :allow_blank => true, :allow_nil => true
+  validates_length_of :collectible_100, :maximum => 500, :message => "Too long", :allow_blank => true, :allow_nil => true       
 end

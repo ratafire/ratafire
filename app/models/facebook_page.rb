@@ -3,6 +3,7 @@ class FacebookPage < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :facebook
  	before_validation :generate_uuid!, :on => :create	
+ 	has_one :facebookpage
 
 	def self.create_facebook_page(page,user_id,facebook_id)
 		where(page_id:page["id"]).first_or_create do |facebookpage|

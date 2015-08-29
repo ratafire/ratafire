@@ -50,7 +50,7 @@
 		<!-- User Name -->
 		<div class="fundable-user-nametab">
 			<% if user.fullname.length > 24 %>
-				<%= link_to user, class:"no_ajaxify" do %><h2><%= user.first_name %></h2><% end %>
+				<%= link_to user, class:"no_ajaxify" do %><h2><%= truncate(user.fullname,length: 24) %></h2><% end %>
 			<% else %>
 				<%= link_to user, class:"no_ajaxify" do %><h2><%= user.fullname %></h2><% end %>
 			<% end %>

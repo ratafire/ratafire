@@ -4,6 +4,52 @@
 	$(document).ready(function(){
 		$("#payments-case").hide();
 		$("#payments-amazon-case").show();
+		var price = <%=@amount%>;
+				switch(price){
+					case <%= ENV["PRICE_0_RECEIVE"]%>:
+						$("#collectible-holder").hide();
+						$("#collectible-holder-20").hide();
+						$("#collectible-holder-50").hide();
+						$("#collectible-holder-100").hide();
+						break;
+					case <%= ENV["PRICE_1_RECEIVE"]%>:
+						$("#collectible-holder").hide();
+						$("#collectible-holder-20").hide();
+						$("#collectible-holder-50").hide();
+						$("#collectible-holder-100").hide();						
+						break;								
+					case <%= ENV["PRICE_2_RECEIVE"]%>:
+						$("#collectible-holder").show();
+						$("#collectible-holder-20").hide();
+						$("#collectible-holder-50").hide();
+						$("#collectible-holder-100").hide();						
+						break;	
+					case <%= ENV["PRICE_3_RECEIVE"]%>:
+						$("#collectible-holder").show();
+						$("#collectible-holder-20").hide();
+						$("#collectible-holder-50").hide();
+						$("#collectible-holder-100").hide();						
+						break;
+					case <%= ENV["PRICE_4_RECEIVE"]%>:
+						$("#collectible-holder").hide();
+						$("#collectible-holder-20").show();
+						$("#collectible-holder-50").hide();
+						$("#collectible-holder-100").hide();						
+						break;
+					case <%= ENV["PRICE_5_RECEIVE"]%>:
+						$("#collectible-holder").hide();
+						$("#collectible-holder-20").hide();
+						$("#collectible-holder-50").show();
+						$("#collectible-holder-100").hide();						
+						break;
+					case <%= ENV["PRICE_6_RECEIVE"]%>:
+						$("#collectible-holder").hide();
+						$("#collectible-holder-20").hide();
+						$("#collectible-holder-50").hide();
+						$("#collectible-holder-100").show();						
+						break;										
+				}			
+
 	});	
 	</script>
 <% end %>	
@@ -87,15 +133,39 @@
 					<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
 					<%= render "projects/collectible_exp", :object => @project %>
 				</div>
+				<div id="collectible-holder-20" style="display:none;">
+					<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
+					<%= render "projects/collectible_exp_20", :object => @project %>
+				</div>		
+				<div id="collectible-holder-50" style="display:none;">
+					<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
+					<%= render "projects/collectible_exp_50", :object => @project %>
+				</div>		
+				<div id="collectible-holder-100" style="display:none;">
+					<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
+					<%= render "projects/collectible_exp_100", :object => @project %>
+				</div>					
 			<% end %>
 		<% else %>	
-			<h2 style="color:#999;">You will be subscribed to <%= @user.fullname %> for </h2>
+			<h2 style="color:#999;">You will be a patron of <%= @user.fullname %> for </h2>
 			<%=  render "facebookpages/facebookpage_one_exp", :facebookpage => @user.facebookpages.first %>
 			<% if @user.facebookpages.first.collectible != nil then %>
 				<div id="collectible-holder">
 					<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
 					<%= render "projects/collectible_exp", :object => @user.facebookpages.first %>
 				</div>	
+				<div id="collectible-holder-20" style="display:none;">
+					<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
+					<%= render "projects/collectible_exp_20", :object => @user.facebookpages.first %>
+				</div>		
+				<div id="collectible-holder-50" style="display:none;">
+					<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
+					<%= render "projects/collectible_exp_50", :object => @user.facebookpages.first %>
+				</div>		
+				<div id="collectible-holder-100" style="display:none;">
+					<h2 style="color:#999;">You are eligible for the following and future collectibles</h2>
+					<%= render "projects/collectible_exp_100", :object => @user.facebookpages.first %>
+				</div>												
 			<% end %>		
 		<% end %>	
 	</div>

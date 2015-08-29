@@ -1,9 +1,10 @@
 class Facebookpage < ActiveRecord::Base
-	# attr_accessible :title, :body
+	attr_accessible :collectible, :collectible_20, :collectible_50, :collectible_100
 
 	belongs_to :user
 	belongs_to :facebook
  	before_validation :generate_uuid!, :on => :create
+ 	belongs_to :facebook_page
  	has_many :facebookupdates, :conditions => {  :deleted_at => nil ,:valid_update => true }
  	default_scope order: 'facebookpages.created_at DESC'
 

@@ -73,10 +73,15 @@
 					
 					<!-- Early Access -->
 					<% if @project.creator.subscription_status_initial == "Approved"%>
-						<h2>Collectible</h2>
+						<h2>Collectibles</h2>
 						<div class="source-code-placer" style="margin-left:21px;">
-							<ol style="margin:20px 20px 10px 0;">Provide a collectible for patrons who paid $9/m or more to you since this work collection.</ol>
-							<%= f.text_area :collectible, placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters).", class: "subscription-plan-input noResize", style:"width:670px; margin-left:0px;" %>	
+							<ol style="margin:20px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$10</span> Enter a collectible for patrons who paid $10 or more to you since this work collection (required). </ol>
+							<%= f.text_area :collectible, placeholder:"We suggest you make the project collectible a memorable item, for example, a hand written thank-you note, a signed CD, an extra short story, education materials, or a small signed print. A special hand written thank-you note goes a long way (10 - 500 characters).", class: "subscription-plan-input noResize", style:"width:670px; margin-left:0px;" %>
+							<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$20</span> A collectible for patrons who paid $20 or more (optional). </ol>
+							<%= f.text_area :collectible_20, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"10 - 500 characters" %>
+							<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$50</span> A collectible for patrons who paid $50 or more (optional). </ol>
+							<%= f.text_area :collectible_50, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a file showing your creation steps, a video lesson (10 - 500 characters)." %>						<ol style="margin:10px 20px 10px 0;"><span style="color:#2297ce;font-size:1.5em;">$100</span> A collectible for patrons who paid $100 or more (optional). </ol>
+							<%= f.text_area :collectible_100, class: "subscription-plan-input noResize", style:"width:91%;",placeholder:"We suggest you make this collectible educaational materials. For example, a private lesson (10 - 500 characters)." %>									
 						</div>			
 					<% end %>							
 

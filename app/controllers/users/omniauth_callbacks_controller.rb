@@ -44,7 +44,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 							@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 						end
 						#Change the uesr's full name to Facebook name.
-						if @user.fullname != facebook.name then
+						if @user.fullname != facebook.name && @user.masked == nil then
 							@user.update_attribute(:fullname,facebook.name)
 						end
 						#Verify the user if the user's Facebook is up
@@ -117,7 +117,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 								Facebook.update_friendship(@user,@user.facebook)
 							else
 								Resque.enqueue(FacebookfriendsWorker, @user.id,@user.facebook.id)
-							end					
+							end				
 							@user.update_column(:fullname,facebook.name)
 							@user.update_column(:email,facebook.email)
 							@user.update_column(:username,facebook_username_clearned)
@@ -359,7 +359,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 						@user.update_attribute(:profilephoto, URI.parse(avatar_url))
 					end
 					#Change the uesr's full name to Facebook name.
-					if @user.fullname != facebook.name then
+					if @user.fullname != facebook.name && @user.masked == nil then
 						@user.update_attribute(:fullname,facebook.name)
 					end					
 					#Add Facebook to profile photo if profile photo is nil

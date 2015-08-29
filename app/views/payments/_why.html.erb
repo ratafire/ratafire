@@ -22,6 +22,56 @@
 			<%= render 'subscriptions/faces_portable', :user => @user %>	
 		</div>	
 
+		<% if @project != nil then %>
+			<% if @project.collectible != nil then %>
+			<h4>Collectibles for Patrons</h4>
+			<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #f9f9f9;margin-right:4px;margin-left:20px;">
+				<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$10</span> <div style="margin-top:-15px;"><%= simple_format(@project.collectible) %></div>
+			</div><!-- end.project-to-subscribers-holder-->	
+			<% end %>
+			<% if @project.collectible_20 != nil then %>
+				<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #f6f6f6;margin-right:4px;margin-left:20px;margin-top:15px;">
+					<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$20</span> <div style="margin-top:-15px;"><%= simple_format(@project.collectible_20) %></div>
+				</div><!-- end.project-to-subscribers-holder-->			
+			<% end %>	
+			<% if @project.collectible_50 != nil then %>
+				<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #f3f3f3;margin-right:4px;margin-left:20px;margin-top:15px;">
+					<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$50</span> <div style="margin-top:-15px;"><%= simple_format(@project.collectible_50) %></div>
+				</div><!-- end.project-to-subscribers-holder-->		
+			<% end %>	
+			<% if @project.collectible_100 != nil then %>
+				<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #eeeeee;margin-right:4px;margin-left:20px;margin-top:15px;">
+					<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$100</span> <div style="margin-top:-15px;"><%= simple_format(@project.collectible_100) %></div>
+				</div><!-- end.project-to-subscribers-holder-->			
+			<% end %>						
+
+		<% else %>
+			<% if @user.facebookpages.first != nil  then %>
+				<% if @user.facebookpages.first.collectible != nil then %>
+				<h4>Collectibles for Patrons</h4>
+				<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #f9f9f9;margin-right:4px;margin-left:20px;">
+					<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$10</span> <div style="margin-top:-15px;"><%= simple_format(@user.facebookpages.first.collectible) %></div>
+				</div><!-- end.project-to-subscribers-holder-->	
+				<% end %>
+				<% if @user.facebookpages.first.collectible_20 != nil then %>
+					<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #f6f6f6;margin-right:4px;margin-left:20px;margin-top:15px;">
+						<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$20</span> <div style="margin-top:-15px;"><%= simple_format(@user.facebookpages.first.collectible_20) %></div>
+					</div><!-- end.project-to-subscribers-holder-->			
+				<% end %>	
+				<% if @user.facebookpages.first.collectible_50 != nil then %>
+					<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #f3f3f3;margin-right:4px;margin-left:20px;margin-top:15px;">
+						<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$50</span> <div style="margin-top:-15px;"><%= simple_format(@user.facebookpages.first.collectible_50) %></div>
+					</div><!-- end.project-to-subscribers-holder-->		
+				<% end %>	
+				<% if @user.facebookpages.first.collectible_100 != nil then %>
+					<div class="project-to-subscribers-holder" style="padding:15px 15px 5px 20px;background-color: #eeeeee;margin-right:4px;margin-left:20px;margin-top:15px;">
+						<span style="font-family:'Open Sans';background-color:#72aa35;color:#ffffff;border-radius:5px;padding: 1px 5px 1px 5px;">$100</span> <div style="margin-top:-15px;"><%= simple_format(@user.facebookpages.first.collectible_100) %></div>
+					</div><!-- end.project-to-subscribers-holder-->			
+				<% end %>				
+
+			<% end %>	
+		<% end %>	
+
 		<% if current_user == nil then %>
 			<div style="margin: 15px -2px 0 580px;">
 				<%= render 'users/portable_subscribe_button'%>
