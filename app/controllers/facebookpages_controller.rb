@@ -26,6 +26,7 @@ class FacebookpagesController < ApplicationController
 			end
 		else
 			@facebookpage = Facebookpage.update_facebookpage(params[:page_id],params[:user_id])
+			@facebookpage = Facebookpage.find_by_page_id(params[:page_id])
 			@facebook_page = FacebookPage.find_by_page_id(params[:page_id])
 			if @facebook_page != nil then
 				@facebookpage.facebook_page_id = @facebook_page.id
