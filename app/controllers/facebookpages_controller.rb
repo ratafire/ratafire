@@ -7,7 +7,7 @@ class FacebookpagesController < ApplicationController
 		@facebookpage = Facebookpage.find_by_page_id(params[:page_id])
 		if @facebookpage == nil then
 			@facebookpage = Facebookpage.create_facebookpage(params[:page_id],params[:user_id])
-			@facebook_page = FacebookPage.find_by_page_id(@facebookpage.page_id)
+			@facebook_page = FacebookPage.find_by_page_id(params[:page_id])
 			if @facebook_page != nil then
 				@facebookpage.facebook_page_id = @facebook_page.id
 				@facebookpage.save
@@ -26,7 +26,7 @@ class FacebookpagesController < ApplicationController
 			end
 		else
 			@facebookpage = Facebookpage.update_facebookpage(params[:page_id],params[:user_id])
-			@facebook_page = FacebookPage.find_by_page_id(@facebookpage.page_id)
+			@facebook_page = FacebookPage.find_by_page_id(params[:page_id])
 			if @facebook_page != nil then
 				@facebookpage.facebook_page_id = @facebook_page.id
 				@facebookpage.save
