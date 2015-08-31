@@ -18,12 +18,14 @@
 <!-- Set up your HTML -->
 <div class="owl-carousel" style="width:316px;margin-left:664px;position:absolute;background-color:#ccc;">
   	<div style="width:316px;">
-  		<div class="slide-inner-small" style="background-image:url(/assets/slide_small/Colin_Huggins.jpg);">
-  			<div class="slide-inner-holder-small">
-  				<ul>Colin Huggins</ul>
-          <ul style="font-style: italic;color:#dddddd;line-height: 25px;margin-top:-5px;font-size: 33px;">Pianist</ul>
-  			</div>	
-  		</div>	
+      <%= link_to "https://www.ratafire.com/colinchromatic", class:"no_ajaxify" do %>
+    		<div class="slide-inner-small" style="background-image:url(/assets/slide_small/Colin_Huggins.jpg);">
+    			<div class="slide-inner-holder-small">
+    				<ul>Colin Huggins</ul>
+            <ul style="font-style: italic;color:#dddddd;line-height: 25px;margin-top:-5px;font-size: 33px;">Pianist</ul>
+    			</div>	
+    		</div>	
+      <% end %>
   	</div>
   	<div style="width:316px;">
       <%= link_to "https://www.ratafire.com/PyramiddheadArt", class:"no_ajaxify" do %>
