@@ -11,6 +11,7 @@ class StaticPagesController < ApplicationController
     @featured_user = User.find_by_username("colinchromatic")
     @users = User.where(:subscription_status_initial => "Approved",:homepage_fundable_weight => 1)
     @users_2 = User.where(:subscription_status_initial => "Approved",:homepage_fundable => true, :homepage_fundable_weight => 2).order("homepage_fundable_weight desc").paginate(page: params[:fundable], :per_page => 2)
+    unless signed_in?
     else
       redirect_to featured_path
     end
