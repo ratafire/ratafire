@@ -111,7 +111,7 @@ $(document).ready(function() {
 
 					<!-- Homepage fundable -->
 					<div class="homepage-fundable-holder">
-						<%= render partial: 'updates/fundable_user', :user => @users %>
+						<%= render partial: 'updates/fundable_user', collection: @users, :as => :user %>
 						<%= render partial: 'static_pages/homepage_slide'%>	
 					</div>	
 
