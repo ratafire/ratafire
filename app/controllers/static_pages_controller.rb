@@ -9,7 +9,7 @@ class StaticPagesController < ApplicationController
     @activities = PublicActivity::Activity.order("commented_at desc").where(:featured_home => true).paginate(page: params[:page], :per_page => 20)
   	@user = current_user
     @featured_user = User.find_by_username("colinchromatic")
-    @users = User.where(:subscription_status_initial => "Approved",:homepage_fundable => true).order("homepage_fundable_weight desc").paginate(page: params[:fundable], :per_page => 1)[2]
+    @users = User.where(:subscription_status_initial => "Approved",:homepage_fundable => true).order("homepage_fundable_weight asc").paginate(page: params[:fundable], :per_page => 1)
     @users_2 = User.where(:subscription_status_initial => "Approved",:homepage_fundable => true).order("homepage_fundable_weight desc").paginate(page: params[:fundable], :per_page => 2)
   	unless signed_in?
     else
