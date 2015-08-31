@@ -115,6 +115,12 @@ $(document).ready(function() {
 						<%= render partial: 'static_pages/homepage_slide'%>	
 					</div>	
 
+					<!-- Homepage fundable -->
+					<div class="homepage-fundable-holder">
+						<%= render partial: 'updates/fundable_user', collection: @users_2, :as => :user %>
+						<%= render partial: 'static_pages/homepage_slide_small'%>	
+					</div>	
+
 					<!-- Homepage staffpicks-->
 					<%= render 'layouts/sidebar_home_staffpicks'%>
 

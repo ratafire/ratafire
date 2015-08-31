@@ -9269,6 +9269,39 @@ box-shadow: 0px 0px 0px 10px rgba(0,0,0,.1);
   text-align: center;
 }
 
+.slide-inner-small{
+  height: 399px;
+  width:316px;
+  border-radius: 5px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;   
+
+  span{
+    border-radius: 5px;
+  }
+}
+
+.slide-inner-holder-small{
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  width: 316px;
+  height: 100px;
+  margin-top: 299px;
+  border-radius: 0 0 5px 5px;
+  -webkit-box-shadow: 0px 0px 0px 10px rgba(0,0,0,.1);
+-moz-box-shadow: 0px 0px 0px 10px rgba(0,0,0,.1);
+box-shadow: 0px 0px 0px 10px rgba(0,0,0,.1);  
+  ul{
+    font-family: "Open Sans";
+    color: rgba(255,255,255,0.95);
+    padding: 10px 40px 0 40px;
+    font-size: 22px;
+    line-height: 35px;
+  }  
+}
+
 /*-- Post to Facebook --*/
 .post-to-facebook-holder{
   margin: 10px 0 53px 0;

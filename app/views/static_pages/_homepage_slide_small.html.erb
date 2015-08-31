@@ -1,0 +1,68 @@
+<!-- Initialize Slide -->
+<script>
+	$(document).ready(function(){
+		var owl = $('.owl-carousel');
+		owl.owlCarousel({
+		    items:1,
+		    loop:true,
+		    margin:10,
+		    autoplay:true,
+		    lazyLoad: true,
+		    autoplayTimeout:6000,
+		    autoWidth:true,
+		    autoHeight:true,
+		    autoplayHoverPause:true
+		});
+	});
+</script>
+<!-- Set up your HTML -->
+<div class="owl-carousel" style="width:316px;margin-left:664px;position:absolute;background-color:#ccc;">
+  	<div style="width:316px;">
+  		<div class="slide-inner-small" style="background-image:url(/assets/slide_small/Colin_Huggins.jpg);">
+  			<div class="slide-inner-holder-small">
+  				<ul>Colin Huggins</ul>
+          <ul style="font-style: italic;color:#dddddd;line-height: 25px;margin-top:-5px;font-size: 33px;">Pianist</ul>
+  			</div>	
+  		</div>	
+  	</div>
+  	<div style="width:316px;">
+      <%= link_to "https://www.ratafire.com/PyramiddheadArt", class:"no_ajaxify" do %>
+    		<div class="slide-inner-small" style="background-image:url(/assets/slide_small/Ryan_Nieves.jpg);">
+    			<div class="slide-inner-holder-small">
+    				<ul>Ryan Nieves</ul>
+            <ul style="font-style: italic;color:#dddddd;line-height: 25px;margin-top:-5px;font-size: 33px;">Concept Artist</ul>
+    			</div>	
+    		</div>
+      <% end %>
+  	</div>
+  	<div style="width:316px;">
+      <%= link_to "https://www.ratafire.com/chrismalukai", class:"no_ajaxify" do %>
+    		<div class="slide-inner-small" style="background-image:url(/assets/slide_small/Chris_Malukai.jpg);">
+    			<div class="slide-inner-holder-small">
+    				<ul>Chris Malukaï</ul>
+            <ul style="font-style: italic;color:#dddddd;line-height: 25px;margin-top:-5px;font-size: 33px;">CG Artist</ul>
+    			</div>	
+    		</div>	
+      <% end %>  
+  	</div>  	
+    <div style="width:316px;">
+      <%= link_to "https://www.ratafire.com/fariliang", class:"no_ajaxify" do %>
+        <div class="slide-inner-small" style="background-image:url(/assets/slide_small/Fari_Liang.jpg);">
+          <div class="slide-inner-holder-small">
+            <ul>Fari Liang</ul>
+            <ul style="font-style: italic;color:#dddddd;line-height: 25px;margin-top:-5px;font-size: 33px;">Developer</ul>
+          </div>  
+        </div>  
+      <% end %>
+    </div>      
+    <div style="width:316px;">
+      <%= link_to "https://www.ratafire.com/fundable", class:"no_ajaxify" do %>
+        <div class="slide-inner-small" style="background-image:url(/assets/slide_small/more_fundable.png);">
+          <div class="slide-inner-holder-small">
+            <ul>View More Fundable</ul>
+            <ul style="font-style: italic;color:#dddddd;line-height: 25px;margin-top:-5px;font-size: 33px;">Individuals</ul>
+          </div>  
+        </div>  
+      <% end %>  
+    </div>         
+</div>

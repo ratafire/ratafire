@@ -79,9 +79,8 @@
 
 			<!-- Functional Buttons -->
 			<div class="functional-buttons">
+				<%= link_to "Fundable", fundable_path, class:"no_ajaxify home"%>				
 				<%= link_to "Explore", featured_path, class:"no_ajaxify home"%>
-				<%= link_to "Fundable", fundable_path, class:"no_ajaxify home"%>
-				<%= link_to "Challenges", challenges_path, class:"no_ajaxify home"%>
 				<%= link_to "Blog", "https://medium.com/ratafire-insights", class:"no_ajaxify home", target:"_blank"%>
 				<%= link_to "My Ratafire",interesting_homepage_path(current_user), class:"no_ajaxify home"%>
 				<%if current_user.admin? %><%= link_to "Admin",admin_path, class:"no_ajaxify home"%><% end %>				
@@ -116,9 +115,8 @@
 				<!-- Functional Buttons -->
 				<div class="functional-buttons">
 					<%= link_to "Home", root_path, class:"no_ajaxify home"%>
-					<%= link_to "Explore", featured_path, class:"no_ajaxify home"%>
 					<%= link_to "Fundable", fundable_path, class:"no_ajaxify home"%>
-					<%= link_to "Challenges", challenges_path, class:"no_ajaxify home"%>
+					<%= link_to "Explore", featured_path, class:"no_ajaxify home"%>
 					<%= link_to "Blog", "https://medium.com/ratafire-insights", class:"no_ajaxify home", target:"_blank"%>
 				</div>				
 
