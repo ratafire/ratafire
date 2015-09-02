@@ -2,6 +2,8 @@ class FacebookupdateAllWorker
 
 	@queue = :facebookupdate_all_queue
 
+	include PublicActivity::Model
+
 	def self.perform(page_id)
 		#Connect to Facebook graph
 		facebookpage = Facebookpage.find_by_page_id(page_id)
