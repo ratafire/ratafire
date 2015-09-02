@@ -5,6 +5,7 @@ class Facebookupdate < ActiveRecord::Base
 	belongs_to :facebook
 	require 'date'
 	include PublicActivity::Model
+	include PublicActivity::Activity
 	require 'rinku'
 	
   	# attr_accessible :title, :body
