@@ -234,7 +234,9 @@ class SubscriptionsController < ApplicationController
 		@subscription.deleted_at = Time.now
 		@subscription.save
 		#Mark Subscription Records as having pasts
-		@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
+		if @subscription.subscription_record_id != nil then 
+			@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
+		end
 		if @subscription_record != nil then 
 			@subscription_record.past = true
 			if @subscription_record.duration == nil then

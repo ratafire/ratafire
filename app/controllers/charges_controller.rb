@@ -13,7 +13,7 @@ class ChargesController < ApplicationController
 			customer = Stripe::Customer.retrieve(@customer.customer_id)
 			#create a token for the card
 			token = params[:stripeToken]
-			r = customer.sources.create(:card => token)
+			r = customer.sources.create(:source => token)
 			#if successful
 			if r.id != nil then
 				card = Card.prefill!(customer, params[:id], @customer.id)
@@ -282,7 +282,7 @@ private
 			customer = Stripe::Customer.retrieve(@customer.customer_id)
 			#create a token for the card
 			token = stripeToken
-			r = customer.sources.create(:card => token)
+			r = customer.sources.create(:source => token)
 			#if successful
 			if r.id != nil && customer != nil then
 				@card = Card.prefill!(customer, user_id, @customer.id)
@@ -418,7 +418,7 @@ private
 		rescue
 			#Transaction failed
 			@subscription.destroy
-			flash[:error] = "Invalid payment method."
+			flash[:error] = "Invalid payment method."	
 			redirect_to(:back)				
 		end
 		if response.ack == "Success" then
@@ -436,7 +436,7 @@ private
 			#Transaction failed
 			@subscription.destroy
 			flash[:error] = "Invalid payment method."
-			redirect_to(:back)		
+			redirect_to(:back)	
 		end
 	end
 

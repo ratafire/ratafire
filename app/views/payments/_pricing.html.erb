@@ -11,42 +11,49 @@
 						$("#collectible-holder-20").hide();
 						$("#collectible-holder-50").hide();
 						$("#collectible-holder-100").hide();
+						$("#submit-amount").val(<%= ENV["PRICE_0_RECEIVE"]%>);
 						break;
 					case <%= ENV["PRICE_1_RECEIVE"]%>:
 						$("#collectible-holder").hide();
 						$("#collectible-holder-20").hide();
 						$("#collectible-holder-50").hide();
-						$("#collectible-holder-100").hide();						
+						$("#collectible-holder-100").hide();	
+						$("#submit-amount").val(<%= ENV["PRICE_1_RECEIVE"]%>);					
 						break;								
 					case <%= ENV["PRICE_2_RECEIVE"]%>:
 						$("#collectible-holder").show();
 						$("#collectible-holder-20").hide();
 						$("#collectible-holder-50").hide();
-						$("#collectible-holder-100").hide();						
+						$("#collectible-holder-100").hide();	
+						$("#submit-amount").val(<%= ENV["PRICE_2_RECEIVE"]%>);						
 						break;	
 					case <%= ENV["PRICE_3_RECEIVE"]%>:
 						$("#collectible-holder").show();
 						$("#collectible-holder-20").hide();
 						$("#collectible-holder-50").hide();
-						$("#collectible-holder-100").hide();						
+						$("#collectible-holder-100").hide();	
+						$("#submit-amount").val(<%= ENV["PRICE_3_RECEIVE"]%>);						
 						break;
 					case <%= ENV["PRICE_4_RECEIVE"]%>:
 						$("#collectible-holder").hide();
 						$("#collectible-holder-20").show();
 						$("#collectible-holder-50").hide();
-						$("#collectible-holder-100").hide();						
+						$("#collectible-holder-100").hide();
+						$("#submit-amount").val(<%= ENV["PRICE_4_RECEIVE"]%>);							
 						break;
 					case <%= ENV["PRICE_5_RECEIVE"]%>:
 						$("#collectible-holder").hide();
 						$("#collectible-holder-20").hide();
 						$("#collectible-holder-50").show();
-						$("#collectible-holder-100").hide();						
+						$("#collectible-holder-100").hide();	
+						$("#submit-amount").val(<%= ENV["PRICE_5_RECEIVE"]%>);						
 						break;
 					case <%= ENV["PRICE_6_RECEIVE"]%>:
 						$("#collectible-holder").hide();
 						$("#collectible-holder-20").hide();
 						$("#collectible-holder-50").hide();
-						$("#collectible-holder-100").show();						
+						$("#collectible-holder-100").show();		
+						$("#submit-amount").val(<%= ENV["PRICE_6_RECEIVE"]%>);					
 						break;										
 				}			
 
@@ -124,7 +131,7 @@
 <div id="payments-amazon-case">
 	<div class="checkout-holder">
 		<h2 style="color:#999;">Checkout</h2>
-		<ol><span id="checkout">Become a Patron </span><%= @user.fullname %> with the amount of <span class="price-size" id="jquery-total-value">$<%=@amount%>.00</span> per month <span id="edit">Edit Amount</span></ol>
+		<ol><span id="checkout">Become a Patron of </span><%= link_to @user.fullname, @user, class:"no_ajaxify" %> with the amount of <span class="price-size" id="jquery-total-value">$<%=@amount%>.00</span> per month <span id="edit">Edit Amount</span></ol>
 		<% if @project != nil then %>
 				<h2 style="color:#999;">You will be a patron of <%= @user.fullname %> since</h2>
 				<%=  render "projects/project_one_exp"%>
