@@ -99,16 +99,18 @@
 				<%= yield(:side_bar)%>
 			</div>
 
+			<!--~~~~~~~~~~~~~~~~~~~~~~~~ Right Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
+			<div id="sidebar-right">
+				<%= yield(:side_bar_right)%>
+			</div>	
+			
 			<!--~~~~~~~~~~~~~~~~~~~~~~~~ Page Contents ~~~~~~~~~~~~~~~~~~~~~~~~-->
 			<div id="main">
 					<%= yield %>
 			</div><!-- end:#main -->
 
 
-			<!--~~~~~~~~~~~~~~~~~~~~~~~~ Right Sidebar ~~~~~~~~~~~~~~~~~~~~~~~~-->
-			<div id="sidebar-right">
-				<%= yield(:side_bar_right)%>
-			</div>	
+
 		</div><!-- end:.wrapper -->
 		
 	</body>

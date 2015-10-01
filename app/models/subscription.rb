@@ -190,7 +190,7 @@ class Subscription < ActiveRecord::Base
 						 	#The subscribed has not updated
 						 	@subscribed.update_column(:subscription_inactive, true)
 						 	#send an email to the inactive account to ask the user to update
-						 	SubscriptionMailer.fail_to_update(@subscribed.id).deliver
+						 	#SubscriptionMailer.fail_to_update(@subscribed.id).deliver
 						 end
 					end					
 				end
