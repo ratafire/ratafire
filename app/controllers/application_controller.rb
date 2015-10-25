@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
 	include SessionsHelper
 
+  def blog
+    redirect_to "https://www.ratafire.com/blog#{request.fullpath.gsub('/blog','')}", :status => :moved_permanently
+  end
+
 	# Force signout to prevent CSRF attacks
   def handle_unverified_request
     sign_out

@@ -99,6 +99,8 @@ gem "rinku"
 gem 'letsrate', :path => "vendor/gems/ratyrate"
 gem 'acts_as_votable', '~> 0.10.0'
 
+#Wordpress
+gem 'rack-reverse-proxy', :require => 'rack/reverse_proxy'
 
 #------------Mailer-----------------
 gem 'sendgrid'
