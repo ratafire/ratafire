@@ -405,10 +405,8 @@ Ratafire::Application.routes.draw do
 	#match '/blog-news', to: 'blogposts#news', as: :blog_news
 	#match '/blog/category-selector/r/r/r/r/:category', to: 'blogposts#category_selector', as: :blog_category_selector
 
-	constraints Constraints::CustomSubdomain do
-  		get '(*path)' => 'application#blog', :constraints => {subdomain: 'blog'}
-	end
 
+  	get '(*path)' => 'application#blog', :constraints => {subdomain: 'blog'}
 	get '/blog' => redirect("https://www.ratafire.com/blog/")
 
 #---Tutorial---	
