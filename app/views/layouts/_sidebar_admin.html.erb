@@ -13,6 +13,5 @@
 		<ol><%= link_to "Discussion", admin_discussion_path, class:"no_ajaxify"%> <span class="btn-delete"><%= Discussion.where(:deleted => false, :review_status => "Pending", :published => true).count%></span></ol>
 		<ol><%= link_to "Subscription", admin_subscription_path, class:"no_ajaxify"%> <span class="btn-delete"><%= SubscriptionApplication.where(:step => 7, :status => nil).count%></span></ol>
 		<ol><%= link_to "Patron Videos", admin_patron_video_path, class:"no_ajaxify"%> <span class="btn-delete"><%= PatronVideo.where(:deleted => nil, :status => "Pending").count%></span></ol>
-		<ol><%= link_to "Blog", admin_blog_path, class:"no_ajaxify"%></ol>
 	</ul>
 </div>
