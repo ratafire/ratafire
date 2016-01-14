@@ -1,0 +1,49 @@
+<div class="sidebar sidebar-main sidebar-fixed" id="sidebar-content">
+	<div class="sidebar-content">
+		<!-- Main navigation -->
+		<div class="sidebar-category sidebar-category-visible">
+			<!-- Sidebar content with padding -->
+			<div class="category-content sidebar-hide-toggle">
+				<!-- Search -->
+				<div class="center-block spacer-mini-bottom spacer-mini-top" style="width:120px;">
+					<img src="assets/logo/ratafire_light_blue" style="width:120px;"></img>
+				</div>	
+				<div class="input-group">
+					<input type="text" class="form-control bg-darkglass" style="border:none;" >
+					<span class="input-group-btn">
+						<button class="btn btn-blue" stype="button"><i class="ti-search"></i></button>
+					</span>
+				</div><!-- end .input-group-->					
+			</div><!-- end .category-content -->	
+			<!-- Sidebar content no padding-->
+			<div class="category-content no-padding">
+				<ul class="navigation navigation-main navigation-accordion">
+					<!-- Explore -->
+					<li class="navigation-header"><span>Explore</span> <i class="icon-menu" title="Main pages"></i></li>
+					<li><a href="index.html"><i class="fa fa-binoculars"></i> <span>Discover</span></a></li>
+					<li><a href="index.html"><i class="fa fa-thumbs-up"></i> <span>Support creators</span></a></li>
+					<li><a href="index.html"><i class="fa fa-video-camera"></i> <span>Visit hangouts</span></a></li>
+					<!-- /Explore -->
+					<!-- Followed Tags -->
+					<div class="sidebar-hide-toggle">
+						<li class="navigation-header"><span>Followed Tags</span> <i class="icon-menu" title="Main pages"></i></li>
+						<div class="padding-mini-left padding-mini-right">
+							<div class="panel-flat bg-darkglass">
+								<div class="panel-body">
+									<div class="spacer-tiny-bottom">
+										You can now follow the topics you are interested in!
+									</div>
+									<a class="btn btn-blue btn-xs open-popup-link" href="#signup-popup">
+										Learn more
+									</a>
+									<%= render 'utilities/popups/signup' %>
+								</div>	
+							</div>	
+						</div><!-- end find out more-->
+					</div><!-- end .sidebar-hide-toggle -->	
+				</ul>
+			</div><!-- end .category-content-->			
+		</div>
+		<!-- /main navigation -->
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= full_title(yield(:title)) %></title>
+		<!-- Stylesheet -->
+		<%= stylesheet_link_tag 'template_foundry', media: 'all', 'data-turbolinks-track' => true %>
+		<!-- Javascript -->
+		<%= javascript_include_tag 'template_foundry', 'data-turbolinks-track' => true %>
+		<%= csrf_meta_tags %>
+		<!-- Webfonts-->
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+		<!-- Page Meta -->
+		<%= render 'utilities/page_meta/facebook_open_graph_static_pages'%>
+	</head>
+	<body>
+		<!-- Header -->
+        	<!-- Not signed-in Users-->
+        	<%= render 'utilities/header/header_not_signed_in_users'%>
+            <!-- Signed-in Users-->
+		<!-- Page Content -->
+		<div class="main-container">
+			<%= yield %>
+		</div>	
+
+	</body>
+</html>

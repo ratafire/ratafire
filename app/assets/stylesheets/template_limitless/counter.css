@@ -1,0 +1,38 @@
+/* COUNTER */
+#counter-wrapper{
+	clear:both;
+}
+
+.countdown_section_wrapper{
+	width:25%;
+	padding: 1px;
+	float:left;
+	margin-bottom: 20px;
+}
+
+.countdown_section_wrapper:before{
+	content: "";
+	display: block;
+}
+
+.countdown_section{ 
+	text-align:center;
+	color: #222;
+	font-weight: 300;
+	font-size: 18px;	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.countdown_amount{
+	margin:5px;
+	font-size:150%;
+	line-height:50px;
+	font-weight:500;
+	text-align:center;
+}
+.countdown_day{
+	text-align:center;
+	font-size:60%;
+	text-transform:uppercase;
+}

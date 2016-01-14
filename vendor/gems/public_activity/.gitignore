@@ -1,0 +1,8 @@
+/doc/
+/.yardoc/
+*.gem
+/coverage/
+/*.sublime-workspace
+/tmp
+/Gemfile.lock
+/gemfiles/*.lock

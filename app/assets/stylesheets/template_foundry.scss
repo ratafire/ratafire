@@ -1,0 +1,5 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "jquery-ui.min";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrapValidator.min"; 

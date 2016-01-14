@@ -1,0 +1,6 @@
+<%= link_to profile_url_path(user) do %>
+	<div class="panel-image" style="background-image:url(<%= user.profilephoto.url(:small)%>);">
+		<div class="panel-image-text text-size-mini"><%= user.fullname %>
+		</div>
+	</div>	
+<% end %>	

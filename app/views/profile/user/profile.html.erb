@@ -1,0 +1,106 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.fullname) %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Cover area -->
+<div class="profile-cover">
+	<!-- Profile Cover Overlay -->
+	<div class="profile-cover-overlay"></div>
+	<div class="profile-cover-img" style="background-image: url(assets/placeholder/cover2.jpg)"></div>
+	<div class="media">
+		<div class="media-left">
+			<!-- Profile Image -->
+			<a href="#" class="profile-thumb">
+				<div class="profile-thumb-holder">
+					<img src="<%= @user.profilephoto.url(:small)%>"  alt="">
+				</div>
+			</a>
+		</div>
+		<div class="media-body">
+    		<h1 style="margin-top:2px;"><%= truncate(@user.fullname,length: 50)%><small class="display-block" style="margin-left:3px;"><%= @user.tagline %></small></h1>
+		</div>
+	</div>
+</div>
+<!-- /cover area -->
+<!-- Toolbar -->
+<div class="navbar navbar-default navbar-ratafire navbar-xs">
+	<ul class="nav navbar-nav visible-xs-block">
+		<li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+	</ul>
+
+	<div class="navbar-collapse collapse" id="navbar-filter">
+		<!-- Toolbar left -->
+		<ul class="nav navbar-nav element-active-slate-400">
+			<!-- Updates -->
+			<li class="active"><a href="#activity" data-toggle="tab"><i class="ti-rss-alt" style="margin-right:10px;"></i> Updates</a></li>
+			<!-- Friends -->
+			<li>
+				<a href="#settings" data-toggle="tab"><i class="ti-user" style="margin-right:10px;"></i> Friends
+				<!-- <span class="badge badge-success badge-inline position-right">32</span> -->
+			</a></li>
+			<li><a href="#settings" data-toggle="tab"><i class="ti-money" style="margin-right:10px;"></i> Backers</a></li>	
+			<li><a href="#settings" data-toggle="tab"><i class="ti-cup" style="margin-right:10px;"></i> Backed</a></li>				
+			<li><a href="#settings" data-toggle="tab"><i class="fa fa-heart" style="margin-right:10px;"></i> Liked</a></li>
+		</ul>
+	</div>
+</div>
+<!-- /toolbar -->
+<!-- Content Area -->
+<div class="content">
+	<!-- Pledge Area -->
+	<div class="row" id="pledge-area">
+		<!-- Title -->
+		<h1 class="spacer-bottom text-center text-300" style="font-size:2.3em;">Jane Smith is creating <span class="text-500">Concept Art for a Video Game</span></h1>		
+		<!-- Video Area -->
+		<div class="col-xs-12 col-sm-6 col-md-8" style="padding-left:40px;">
+			<!-- Current Project -->
+			<%= render 'profile/components/current_project'%>
+		</div>
+		<!-- Side Area -->
+		<div class="col-xs-6 col-md-3 padding-left">
+			<!-- Back the Creator -->
+			<%= render 'profile/components/back_the_creator'%>
+			<!-- Project Meta -->		
+			<%= render 'profile/components/project_meta'%>
+		</div>	
+	</div><!-- end #updates_area-->	
+	<!-- Updates -->
+	<div class="row" id="updates-area">
+		<!-- Feed Area -->
+		<!-- Updates -->
+		<%= render 'public_activity/Majorpost/create'%>
+		<!-- Side Area -->
+		<div class="col-xs-6 col-md-4" style="padding-right:40px;">
+			<!-- Backers -->
+			<% if @user.record_subscribers.count > 0 then %>
+				<%= render 'profile/components/backers'%>
+			<% end %>
+			<!-- Backed -->
+			<% if @user.record_subscribed.count > 0 then %>
+				<%= render 'profile/components/backed'%>
+			<% end %>
+			<!-- Friends -->
+			<%= render 'profile/components/friends'%>	
+			<!-- About -->
+			<%= render 'profile/components/about'%>
+			<!-- Donation Button -->
+			<%= render 'profile/components/donation_button'%>
+			<!-- Current Goal -->
+			<%= render 'profile/components/current_goal'%>
+			<!-- Rewards -->
+			<%= render 'profile/components/rewards'%>
+			<!-- Donation Button -->
+			<%= render 'profile/components/donation_button'%>
+		</div>	
+	</div><!-- end #updates_area-->	
+		<!-- Footer -->
+		<div class="footer text-size-mini" style="color:rgba(0,0,0,0.4)">
+			<span class="spacer-tiny-right">About</span> 
+			<span class="spacer-tiny-right">Blog</span> 
+			<span class="spacer-tiny-right">Terms</span> 
+			<span class="spacer-tiny-right">Privacy</span>
+			<span class="spacer-tiny-right">Pricing</span>
+			<span class="spacer-tiny-right">FAQ</span>
+			<span class="spacer-tiny-right">Press</span>
+		</div>	
+</div><!-- end .content-->

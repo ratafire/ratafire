@@ -1,0 +1,78 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title) %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Section 1 -->
+<!-- Home Page Video -->
+<section class="cover fullscreen overlay overlay-texture bg-dark vid-bg pt-xs-120">
+    <!-- Adjust video height and width -->
+    <script>
+        var w = $(window).width(), h = $(window).height()  
+        $('#video-block video').css({height: ''+h+'',width: ''+w+''})
+        $(window).resize(function(){
+        var w = $(window).width(), h = $(window).height()  
+        $('#video-block video').css({height: ''+h+'',width: ''+w+''})
+        })  
+    </script>
+   
+    <!-- Embed Video as Background-->
+    <div style="width:initial;" class="overlay-texture">
+        <video autoplay loop id="video-background" muted poster="/assets/homepage/park_pool.jpg">
+            <source src="//s3.amazonaws.com/Ratafire_production_videos/park_space.mp4" type="video/mp4">
+            <source src="//s3.amazonaws.com/Ratafire_production_videos/park_space.webm" type="video/webm">
+        </video>
+    </div>
+
+    <div class="container v-align-transform">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                <h1>Your Fan Donations
+                    <br /> in One Place</h1>
+                <p class="lead mb40 mb-xs-24">
+                    Whether you are a fan supporting your favorite creators, or a creator looking for support, Ratafire is for you, for <b>FREE</b>. We enable both one time and monthly recurring pledges, so you can be a long term backer of creators.
+                </p>
+                <%= link_to '#homepage-sign-up' do %>
+                    <div class="btn btn-lg btn-join-us">
+                    </div>  
+                <% end %>  
+            </div>
+        </div>
+        <!--end of row-->
+    </div>
+    <!--end of container-->
+</section>
+<!-- Section 2 -->
+<!-- Sign Up-->
+<section id="homepage-sign-up" class="cover image-bg fullscreen">
+    <!-- Starfield Animation -->
+    <div class="stars"></div>
+    <div class="stars"></div>
+    <div class="stars"></div>
+    <div class="stars"></div>
+    <div class="stars"></div>   
+    <!-- Starfield Background -->
+    <div class="background-image-holder">
+        <%= image_tag('static_pages/starfield_small.jpg')%>
+    </div> 
+    <!-- Signup Form Section -->
+    <input type="radio" checked id="toggle--signup" name="toggle" class="ghost" />
+    <input type="radio" id="toggle--login" name="toggle" class="signup-ghost" />
+
+    <!-- Signup Form -->
+    <%= render 'utilities/sessions/signup'%>
+    <!-- Login Form -->
+    <%= render 'utilities/sessions/login'%>
+    <!-- Social Buttons -->
+    <div class="signup-social-buttons">
+        <div class="btn-social-social btn-social-sm btn-social btn-facebook">
+            <i class="fa fa-facebook"></i>
+            Sign in with Facebook
+        </div>   
+    </div> 
+    <!-- Legal -->
+    <div class="signup-legal">
+        <a class="signup-text--small signup-text--border-right">Terms</a>
+        <a class="signup-text--small signup-text--border-right">Privacy</a>
+        <a class="signup-text--small">Password help</a>
+    </div>   
+</section>    

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= full_title(yield(:title)) %></title>
+		<!-- Stylesheet -->
+		<%= stylesheet_link_tag 'template_limitless', 'data-turbolinks-track' => true %>
+		<!-- Javascript Core-->
+		<%= javascript_include_tag 'template_limitless' %>
+		<%= csrf_meta_tags %>
+		<!-- Webfonts -->
+		<!-- Roboto -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+		<!-- Open Sans -->
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+		<!-- Page Meta -->
+		<%= render 'utilities/page_meta/facebook_open_graph_profile'%>
+		<!-- AddThis-->	
+	</head>
+	<!-- Page Structure -->
+	<body class="navbar-top">
+		<!-- Main navbar -->
+        <% if user_signed_in? %>
+        	<!-- Signed-in Users-->
+        	<%= render 'utilities/header/main_navbar_signed_in_users'%>
+        <% else %>
+        	<!-- Not signed-in Users-->
+        	<%= render 'utilities/header/main_navbar_not_signed_in_users'%>
+        <% end %>
+		<!-- Page container -->
+		<div class="page-container">
+            <div class="page-content">
+            	<!-- Main sidebar -->
+            	<% if user_signed_in? %>
+            		<!-- Signed-in Users-->	
+            		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+            	<% else %>
+            		<!-- Not signed-in Users-->	
+	            	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+	            <% end %>
+				<!-- Main content -->
+				<div class="content-wrapper">
+					<!-- Content area -->
+					<%= yield %>
+				</div><!-- end .content-wrapper -->
+			</div><!-- end .page-content-->	
+		</div><!-- end .page-container -->	
+	</body>
+</html>

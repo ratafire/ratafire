@@ -1,0 +1,58 @@
+<div class="panel">
+	<div class="panel-heading bg-blue-light border-blue-light">
+		<div class="panel-title text-uppercase text-semibold">About <%= @user.firstname %></div>
+		<div class="heading-elements">
+			<ul class="icons-list">
+        		<li><a data-action="collapse"></a></li>
+        	</ul>
+    	</div>
+	</div>
+
+	<div class="panel-body">
+		<!-- About -->
+		<p>
+			<%= @user.bio %>
+		</p>
+		<!-- Website -->
+		<p class="text-blue">
+			<i class="fa fa-globe" style="margin-right:8px;"></i><%= link_to truncate(@user.website, :length => 25), @user.website,class:"no_ajaxify", target: "_blank" %>
+		</p>
+		<!-- Social Media Icons -->
+		<p>
+			<ul class="soc">
+				<!-- Facebook -->
+				<% if @user.facebook != nil then %>
+					<li><%= link_to "", @user.facebook.link, class:"socicon-facebook", target:"_blank"%></li>
+				<% end %>
+				<!-- Twitter -->
+				<% if @user.twitter != nil then %>
+			    	<li><%= link_to "", @user.twitter.link, class:"socicon-twitter", target:"_blank"%></a></li>
+			    <% end %>
+			    <!-- Tumblr -->
+			    <% if @user.tumblr != nil then %>
+			    	<li><%= link_to "", @user.tumblr.link, class:"socicon-tumblr", target:"_blank"%></a></li>
+			    <% end %>	
+			    <!-- Deviantart -->
+			    <% if @user.deviantart != nil then %>
+			    	<li><%= link_to "", @user.deviantart.link, class:"socicon-deviantart", target:"_blank"%></a></li>
+			    <% end %>
+			    <!-- YouTube -->	
+			    <% if @user.youtube != nil then %>
+			    	<li><%= link_to "", @user.youtube.link, class:"socicon-youtube", target:"_blank"%></li>
+			    <% end %>	
+			    <!-- Github -->
+			    <% if @user.github != nil then %>
+			    	<li><%= link_to "", @user.github.link, class:"socicon-github", target:"_blank"%></li>
+			    <% end %>	
+			    <!-- Twitch -->
+			    <% if @user.twitch != nil then %>
+			    	<li><%= link_to "", @user.twitch.link, class:"socicon-twitch", target:"_blank"%></li>
+			    <% end %>
+			    <!-- Pinterest -->
+			    <% if @user.pinterest %>
+			    	<li><%= link_to "", @user.pinterest.link, class:"socicon-pinterest", target:"_blank"%></li>
+			    <% end %>	
+			</ul>
+		</p>	
+	</div><!-- end .panel-body -->
+</div>

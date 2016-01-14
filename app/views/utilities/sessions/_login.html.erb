@@ -1,0 +1,14 @@
+<!-- Login Form -->
+<%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {:class => 'signup-form signup-form--login signup-framed'}) do |f| %>
+    <!-- Form Indications -->
+    <h1 style="margin-left:7rem;margin-bottom:5px;">Ratafire</h1>
+    <h4 style="margin-left:2.2rem;">Welcome home, Ratafirer</h4>
+    <!-- Email -->
+    <%= f.email_field :email,placeholder:"Your Email", class:"signup-input signup-input--top" %>
+    <!-- Password -->
+    <%= f.password_field :password,placeholder:"Password", autocomplete: "off", class:"signup-input"%>
+    <!-- Submit -->
+    <%= f.submit "Log in", class:"signup-input signup-input--submit", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
+    <!-- Switch Form -->
+    <label for="toggle--signup" class="signup-text signup-text--small signup-text--centered">New? <b>Sign up</b></label>
+<% end %><!-- end form_for resource -->

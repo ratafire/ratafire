@@ -1,0 +1,13 @@
+defaults: &defaults
+  access_key_id: AKIAJ4ZF2OGURAAHVGDQ
+  secret_access_key: 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
+development:
+  <<: *defaults
+  bucket: Ratafire_development
+test:
+  <<: *defaults
+  bucket: Ratafire_test
+production:
+  access_key_id: <%=ENV["AMAZON_KEY"]%>
+  secret_access_key: <%=ENV["AMAZON_SECRET"]%>
+  bucket: Ratafire_production

@@ -1,0 +1,16 @@
+<div class="panel">
+	<!-- Panel Heading -->
+	<div class="panel-heading bg-blue-light border-blue-light">
+		<div class="panel-title text-uppercase text-semibold">Backers</div>
+		<div class="heading-elements">
+			<ul class="icons-list">
+        		<li><a data-action="collapse"></a></li>
+        	</ul>
+    	</div>
+	</div><!-- end .panel-heading-->
+	<!-- Panel Body -->
+	<div class="panel-body" style="padding:0 2px 2px 0;">
+		<!-- Backer Images -->
+		<%= render partial: "profile/components/friend_images", collection: @user.record_subscribers.where("profilephoto_file_name IS NOT NULL").first(9), :as => :user %>			
+	</div>
+</div>

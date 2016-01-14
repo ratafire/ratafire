@@ -1,0 +1,44 @@
+
+<div id="login-popup" class="white-popup mfp-hide">
+	<div class="tabbable">
+		<!-- Tab navigation -->
+		<ul class="nav nav-tabs nav-tabs-bottom">
+			<li><a href="#bottom-tab1" data-toggle="tab">Sign up</a></li>
+			<li class="active"><a href="#bottom-tab2" data-toggle="tab">Log in</a></li>
+			<li data-popup="tooltip" title data-original-title="Sign in with Facebook"><a data-toggle="tab"><i class="fa fa-facebook"></i></a></li>
+		</ul>
+		<!-- Tab content -->
+		<div class="tab-content">
+			<!-- Sign up Form -->
+			<div class="tab-pane" id="bottom-tab1">
+				<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+				    <!-- Email -->
+				    <%= f.label "Email"%>
+				    <%= f.email_field :email, class:"form-control spacer-tiny-bottom", type:"email" %>
+				    <!-- Password -->
+				    <%= f.label "Password"%>
+				    <%= f.password_field :password, autocomplete: "off", class:"form-control spacer-tiny-bottom", type:"password"%>
+				    <!-- Username -->
+				    <%= f.label "Username"%>
+				    <%= f.text_field :username, class:"form-control spacer-tiny-bottom" %>
+				    <!-- Submit -->
+				    <%= f.submit "Sign up", class:"btn btn-blue"%>
+				<% end %><!-- end form_for resource -->
+			</div>
+			<!-- Log in Form -->
+			<div class="tab-pane  active" id="bottom-tab2">				
+				<!-- Normal sign in-->
+				<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+				    <!-- Email -->
+				    <%= f.label "Email"%>
+				    <%= f.email_field :email, class:"form-control spacer-tiny-bottom", type:"email" %>
+				    <!-- Password -->
+				    <%= f.label "Password"%>
+				    <%= f.password_field :password, autocomplete: "off", class:"form-control spacer-tiny-bottom", type:"password"%>
+				    <!-- Submit -->
+				    <%= f.submit "Log in", class:"btn btn-blue"%><span class="text-muted spacer-mini-left text-size-small">Password help?</span>
+				<% end %><!-- end form_for resource -->		
+			</div>	
+		</div><!-- end .tab-content-->	
+	</div><!-- end .tabbable-->	
+</div><!-- end #signup-popup-->

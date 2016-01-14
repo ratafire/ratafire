@@ -1,0 +1,15 @@
+<div class="panel">
+	<div class="panel-heading bg-blue-light border-blue-light">
+		<div class="panel-title text-uppercase text-semibold">Friends</div>
+		<div class="heading-elements">
+			<ul class="icons-list">
+        		<li><a data-action="collapse"></a></li>
+        	</ul>
+    	</div>
+	</div>
+
+	<div class="panel-body" style="padding:0 2px 2px 0;">
+		<!-- Friend Images -->
+		<%= render partial: "profile/components/friend_images", collection: @user.friends.where("profilephoto_file_name IS NOT NULL").first(9), :as => :user %>
+	</div><!-- end .panel-body -->
+</div>
