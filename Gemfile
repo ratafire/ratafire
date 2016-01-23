@@ -69,13 +69,13 @@ gem 'friendly_id'
 #------------Forms and Validation------------
 #Ajax form entering
 gem 'best_in_place', '~> 3.0.1'
-#Form validation
-gem 'bootstrap-validator-rails'
+#Validation
+gem 'formvalidation-rails'
 
 #------------File Upload System------------
 #Amazon S3
-gem 'aws-sdk','>= 2.0.0' #S3
-gem 'aws-s3', '0.6.3'#s3
+gem 'aws-sdk', '< 2.0'
+gem 'aws-s3'
 
 #File upload handler
 gem 'paperclip'
@@ -103,7 +103,6 @@ gem 'acts-as-taggable-on', '~> 3.4' #important
 #------------Paginate------------
 #Paginator
 gem 'kaminari'
-#Infinate scrolling
 gem 'jquery-infinite-pages'
 
 #------------Text Editor------------
@@ -143,8 +142,6 @@ gem 'paypal-express', :git => 'https://github.com/ratafire/paypal-express'
 gem "browser"
 #Autolink parser
 gem "rinku"
-#Outside link feeder for Wordpress
-gem 'rack-reverse-proxy', :require => 'rack/reverse_proxy'
 #Enable maintainance
 gem 'turnout'
 

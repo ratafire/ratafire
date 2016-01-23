@@ -1,6 +1,7 @@
 <!-- Video -->
 <div class="video-holder spacer-mini-bottom">
-	<iframe src="https://www.youtube.com/embed/SCwS8mi843I" frameborder="0" allowfullscreen></iframe>
+	<!--<iframe src="https://www.youtube.com/embed/SCwS8mi843I" frameborder="0" allowfullscreen></iframe>-->
+	<%= videojs_rails sources: { webm: '//s3.amazonaws.com/Ratafire_production_videos/park_space.webm', mp4: '//s3.amazonaws.com/Ratafire_production_videos/park_space.mp4' }, height:"auto", width:"auto", poster:'https://ratafire.com/assets/homepage/park_pool.jpg' %>
 </div><!-- end .video-holder -->
 <!-- About the Project -->
 <div class="text-size-large spacer-mini-bottom text-light">

@@ -11,7 +11,7 @@
  *= require_self
 
 *= require jquery-ui.min
-*= require bootstrapValidator.min
+*= require formvalidation.min
 *= require utilities/signup_form.css
 *= require utilities/bootstrap-social.css
 *= require_directory ./template_foundry

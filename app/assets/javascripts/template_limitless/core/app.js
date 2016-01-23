@@ -594,15 +594,43 @@ $(function() {
     //
     // ========================================
 
-
     // Plugins
     // -------------------------
 
-    // Popover
-    $('[data-popup="popover"]').popover();
+    $( document ).ajaxComplete(function() {
+        // Popover
+        $('[data-popup="popover"]').popover();
 
+        // Tooltip
+        $('[data-popup="tooltip"]').tooltip();
 
-    // Tooltip
-    $('[data-popup="tooltip"]').tooltip();
+        // Photoset
+        $('.photoset-grid-lightbox').photosetGrid({
+            highresLinks: true,
+            rel: 'withhearts-gallery',
+            gutter: '2px',
+
+        onComplete: function(){
+            $('.photoset-grid-lightbox').attr('style', '');
+            $('.photoset-grid-lightbox a').colorbox({
+                photo: true,
+                scalePhotos: true,
+                maxHeight:'90%',
+                maxWidth:'90%'
+                });
+            }
+        });
+    });    
+
+    // Sticky
+    $("#sticker").sticky({topSpacing:0});
+
+    // Infinite Scroll
+    $(".post-pagination").infinitescroll({
+        navSelector: "nav.pagination",
+        nextSelector: "nav.pagination a[rel=next]",
+        itemSelector: "#post-pagination .post-pagination",
+        loadingImg   : null
+    });
 
 });

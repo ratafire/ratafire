@@ -12,4 +12,6 @@ Rails.application.routes.draw do
 	devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks",:registrations => "registrations" }
 	#Profile Page
 	get '/:username' => 'profile/user#profile', :as => 'profile_url'
+	#Content -----------------------------------
+	get 'tags/:tag', to: 'discover/tag#tags', as: :tag
 end

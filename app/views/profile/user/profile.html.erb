@@ -68,9 +68,16 @@
 	<div class="row" id="updates-area">
 		<!-- Feed Area -->
 		<!-- Updates -->
-		<%= render 'public_activity/Majorpost/create'%>
+		<div class="col-xs-12 col-md-8" id="post-pagination" >
+			<!-- Posts -->
+			<div class="post-pagination">
+				<%= render_activities(@activities) %>
+			</div>
+			<!-- Paginate -->
+			<%= paginate @activities %>
+		</div>
 		<!-- Side Area -->
-		<div class="col-xs-6 col-md-4" style="padding-right:40px;">
+		<div class="col-xs-6 col-md-4 padding-right">
 			<!-- Backers -->
 			<% if @user.record_subscribers.count > 0 then %>
 				<%= render 'profile/components/backers'%>
@@ -85,22 +92,14 @@
 			<%= render 'profile/components/about'%>
 			<!-- Donation Button -->
 			<%= render 'profile/components/donation_button'%>
-			<!-- Current Goal -->
-			<%= render 'profile/components/current_goal'%>
 			<!-- Rewards -->
 			<%= render 'profile/components/rewards'%>
-			<!-- Donation Button -->
-			<%= render 'profile/components/donation_button'%>
+			<div id="sticker" class="spacer-top">
+				<!-- Current Goal -->
+				<%= render 'profile/components/current_goal'%>			
+				<!-- Donation Button -->
+				<%= render 'profile/components/donation_button'%>
+			</div><!-- end #sticker -->	
 		</div>	
 	</div><!-- end #updates_area-->	
-		<!-- Footer -->
-		<div class="footer text-size-mini" style="color:rgba(0,0,0,0.4)">
-			<span class="spacer-tiny-right">About</span> 
-			<span class="spacer-tiny-right">Blog</span> 
-			<span class="spacer-tiny-right">Terms</span> 
-			<span class="spacer-tiny-right">Privacy</span>
-			<span class="spacer-tiny-right">Pricing</span>
-			<span class="spacer-tiny-right">FAQ</span>
-			<span class="spacer-tiny-right">Press</span>
-		</div>	
 </div><!-- end .content-->

@@ -1,22 +1,73 @@
-<div class="col-xs-2 col-md-1" style="padding-left:20px;">
-	<!-- User Image -->
-	<%= image_tag('/assets/placeholder/profile.jpg', style:"width:100%;border-radius:5px;")%>
+<!-- User Image -->
+<div class="col-fixed-64">
+	<%= link_to image_tag(activity.trackable.user.profilephoto.url(:small64), style:"width:100%;border-radius:5px;"), profile_url_path(activity.trackable.user) %>
 </div>	
-<div class="col-xs-10 col-md-7">
+<!-- Post Holder -->
+<div class="col-xs-12 col-md-12 col-offset-64">
+	<!-- Post Panel -->
 	<div class="panel panel-speech">
+		<!-- Post User -->
+		<div class="panel-user text-bold text-size-small"><%= link_to activity.trackable.user.firstname, profile_url_path(activity.trackable.user),class:"text-grey-800" %></div>
+		<!-- Video Post -->
+		<% if activity.trackable.post_type == 'video' then %>
+			<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
+				<!-- External Video-->
+				<% if activity.trackable.video.youtube_vimeo == true %>
+					<!-- Youtube Video -->
+					<iframe src="https://www.youtube.com/embed/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+				<% else %>
+					<!-- Vimeo Video -->
+					<iframe src="//player.vimeo.com/video/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+				<% end %>
+			<% else %>
+				<!-- Internal Video -->
+				<%= videojs_rails sources: { mp4: activity.trackable.video.output_url_mp4, webm: activity.trackable.video.output_url }, height:"auto", width:"auto", poster: activity.trackable.video.thumbnail(:preview) %>
+			<% end %>
+		<% end %><!-- end video post -->
+		<!-- Image Post -->
+		<% if activity.trackable.post_type == 'image' then %>
+			<div class="imagePost">
+				<div class="photoset-grid-lightbox" data-layout="123" style="visibility: hidden;">
+				  	<% activity.trackable.artwork.each do |artwork| %>
+				  		<img src="<%= artwork.image.url(:preview800) %>" data-highres="<%= artwork.image.url(:original) %>">
+				  	<% end %>
+				</div>				
+			</div>			
+		<% end %><!-- end image post -->
+		<!-- Link Post -->
+		<% if activity.trackable.post_type == 'link' then %>
+			<div class="linkPost">
+				<%= link_to activity.trackable.link, target:"_blank" do %>
+					<div class="photoset-grid-lightbox" data-layout="123" style="visibility: hidden;">
+						<!-- Link Image -->
+						<img src="<%= activity.trackable.artwork.image.url(:preview800) %>" data-highres="<%= activity.trackable.artwork.image.url(:original) %>">
+						<!-- Link Title -->
+						<div class="bg-grey-800" style="margin-top:-20px;">
+							<div class="panel-body">
+								<h2 class="text-light"><%= activity.trackable.title %></h2>
+								<div class="text-light" style="margin-top:-10px;color:#cccccc;"><%= activity.trackable.link_description %></div>
+							</div>	
+						</div>	
+					</div>
+				<% end %><!-- end link to external link -->
+			</div>	
+		<% end %><!-- end link post -->
+		<!-- Content -->
 		<div class="panel-body">
-			<div class="panel-user text-blod text-size-small">Fari</div>
-			<!-- Text Post -->
-			<!-- Text Post Title -->
-			<div class="panel-title text-light" style="font-size:25px;margin:10px 0 10px 0;">This is a title</div>
-			<!-- Content -->
+			<!-- Title for Text Post Only  -->
+			<% if activity.trackable.post_type == 'text' then %>
+				<div class="panel-title text-light" style="font-size:25px;margin:-20px 0 10px 0;"><%= activity.trackable.title %></div>
+			<% end %>
+			<!-- Content -->	
 			<div class="panel-content text-light">
-				The little Princess Barenziah and her nurse were found among the wreckage. General Symmachus, himself a dark elf and born in Mournhold, suggested to His Excellency that the child might someday be valuable, and she was placed with a loyal supporter who had recently retired from the Imperial army. On retirement, Sven Advensen had been made Baron of Blackmoor, a small town in central Skyrim. Baron Sven and his wife reared her as their own daughter, saw to it that she was educated appropriately, and more importantly, was taught the Imperial virtues and piety. In short, she was made fit to take her place as a member of the new ruling class of Morrowind.
+				<%= sanitize activity.trackable.content, tags: %w(strong em a p h2), attributes: %w(href) %>
 			</div><!-- end .panel-content-->	
 			<!-- Tags -->
-			<div class="text-muted spacer-tiny-top text-thin">#tags #tagsmore</div>			
+			<% if activity.trackable.tags.any? %>
+				<div class="spacer-tiny-top text-thin"><%= raw activity.trackable.tag_list.map { |t| link_to '#'+t, tag_path(t), class:"text-muted" }.join('  ') %></div>	
+			<% end %>			
 		</div><!-- end .panel-body -->
-			<!-- Tools -->
-			<div class="text-right text-muted" style="padding:0 20px 15px 0;font-size:20px;"><i class="ti-share spacer-tiny-right"></i><i class="ti-loop spacer-tiny-right"></i><i class="fa fa-heart-o" style="font-size:20px;"></i></div>			
-	</div><!-- end .panel -->
+		<!-- Tools -->
+		<div class="text-right text-muted" style="padding:0 20px 15px 0;font-size:20px;"><i class="ti-share spacer-tiny-right" data-popup="tooltip" title="Share" data-placement="bottom"></i><i class="ti-loop spacer-tiny-right" data-popup="tooltip" title="Repost" data-placement="bottom"></i><i class="fa fa-heart-o" style="font-size:20px;" data-popup="tooltip" title="Like" data-placement="bottom"></i></div>			
+	</div><!-- end .panel -->	
 </div><!-- end .col-xs-10 col-md-7-->	

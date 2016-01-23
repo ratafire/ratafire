@@ -1,14 +1,16 @@
 <!-- Signup Form -->
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name),:html => {:class => 'signup-form signup-form--signup signup-framed'}) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name),:html => {:class => 'signup-form signup-form--signup signup-framed', :id => 'homepage-signup-form'}) do |f| %>
     <!-- Form Indications -->
     <h1 style="margin-left:7rem;margin-bottom:5px;">Ratafire</h1>
-    <h4 style="margin-left:2.23rem;">Join 259 Creators and Fans</h4>
+    <h4 style="margin-left:2.23rem;">Join 300 Creators and Fans</h4>
+    <!-- First Name -->
+    <%= f.email_field :firstname,placeholder:"First Name", class:"signup-input", style:"width:50%;float:left;border-radius: 0.5rem 0 0 0;" %>
+    <!-- Last Name -->
+    <%= f.email_field :lastname,placeholder:"Last Name", class:"signup-input", style:"width:50%;border-radius: 0 0.5rem 0 0;" %>
     <!-- Email -->
-    <%= f.email_field :email,placeholder:"Your Email", class:"signup-input signup-input--top" %>
+    <%= f.email_field :email,placeholder:"Your Email", class:"signup-input" %>
     <!-- Password -->
     <%= f.password_field :password,placeholder:"Password", autocomplete: "off", class:"signup-input"%>
-    <!-- Username -->
-    <%= f.text_field :username, placeholder:"Username", class:"signup-input" %>
     <!-- Submit -->
     <%= f.submit "Sign up", class:"signup-input signup-input--submit", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
     <!-- Switch Form -->

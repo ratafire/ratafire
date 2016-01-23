@@ -27,7 +27,7 @@
   border: 0;
   margin-top:0px !important;
   margin-bottom: 0px !important;
-  border-top: 1px solid rgba(255,255,255,0.3) !important;
+  border-top: 1px solid rgba(0,0,0,0.02) !important;
   padding: 0 2rem !important;
   font-family: 'Open Sans', sans-serif;
 }
@@ -39,6 +39,7 @@
     border-radius: 0.5rem 0.5rem 0 0;
     border-top: 0;
 }
+
 .signup-input--submit {
     background-color: rgba(54,184,223, 0.9) !important;
     color: #fff !important;
@@ -62,7 +63,7 @@
 }
 .signup-text--small {
     opacity: 0.85;
-    font-size: 1.5rem;
+    font-size: 1rem;
     cursor: pointer;
     margin-top:20px; 
 }
@@ -93,7 +94,7 @@
 
 .signup-social-buttons{
   position: absolute;
-  bottom: 1.125rem; right: 1.125rem;    
+  bottom: 1.125rem; right: 1.125rem; 
 }
 
 #toggle--signup:checked ~ .signup-form--login { top:200%; visibility:hidden; }

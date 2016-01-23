@@ -1,0 +1,1 @@
+.fn.bstooltip = $.fn.tooltip;

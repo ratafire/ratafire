@@ -6076,7 +6076,7 @@ h6.panel-title,
   display: block;
   width: 0;
   z-index: 1;
-  left: 0px;
+  left: 74px;
   top: 1px;
 
 }
@@ -6091,8 +6091,19 @@ h6.panel-title,
   display: block;
   width: 0;
   z-index: 0;
-  left: -2px;
+  left: 72px;
   top: 0px;
+}
+
+.panel-user{
+  padding-left: 20px;
+  font-size: 13px;
+  margin: 13px 0 10px 0;
+  line-height: 20px;
+  height: 20px;
+  vertical-align: middle;
+  text-rendering: optimizeLegibility;
+  color: #555555;
 }
 /* ------------------------------------------------------------------------------
 *

@@ -454,6 +454,10 @@
   border-color: #777777;
   color: #fff;
 }
+.bg-grey-200 {
+  background-color: #dddddd;
+  color: #666666;
+}
 .bg-grey-300 {
   background-color: #999999;
   border-color: #999999;

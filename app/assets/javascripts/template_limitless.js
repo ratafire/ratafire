@@ -12,8 +12,10 @@
 //
 //= require jquery
 //= require jquery-ui.min
+//= require jquery_ujs
 //= require bootstrap.min
+//= require jquery.infinite-pages
+//= require formvalidation.min
 //= require turbolinks
 //= require video
-//= require_directory .
 //= require_tree ./template_limitless

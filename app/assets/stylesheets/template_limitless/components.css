@@ -988,6 +988,7 @@
 .footer {
   position: absolute;
   bottom: 20px;
+  margin-left: 20px;
 }
 .footer-fixed {
   position: fixed;

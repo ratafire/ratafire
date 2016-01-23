@@ -11,7 +11,8 @@
  *= require_self
 
 *= require jquery-ui.min
-*= require bootstrapValidator.min
+*= require video-js
+*= require formvalidation.min
 *= require utilities/video
 *= require_directory ./template_limitless
 *= require_directory ./font_styles

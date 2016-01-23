@@ -436,7 +436,7 @@ a:hover {
 }
 a {
   font-weight: 600;
-  color: #47b475;
+  color: #36b8df;
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -459,7 +459,7 @@ a {
   opacity: 1;
 }
 a:hover {
-  color: #398f5d;
+  color: #2dddfc;
   text-decoration: none;
 }
 .label {
@@ -1817,7 +1817,7 @@ input.transparent,
 button.transparent {
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  color: #fff !important  ;
+  color: #fff !important	;
 }
 input[type="text"]:focus,
 input[type="password"]:focus {
@@ -2654,7 +2654,7 @@ button[type="submit"] .form-loading {
   .page-title-4 .breadcrumb,
   .page-title-2 .breadcrumb {
     float: left;
-    margin-top: 8 px;
+    margin-top: 8	px;
   }
 }
 /*!---------- 17. PAGINATION ----------*/
@@ -3874,17 +3874,17 @@ iframe {
 #video-background {
 /*  making the video fullscreen  */
   position: absolute;
+  display: block;  
   right: 0; 
   bottom: 0;
   min-width: 100%; 
   min-height: 100%;
+  width: initial;   
+  height: auto;  
   z-index: 1;
-  display: block;
-  height: auto;
   margin: 0 auto;
   object-fit: cover;
   padding: 0;
-  width: initial;  
 }
 .player {
   position: absolute;
