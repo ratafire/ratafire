@@ -1,0 +1,19 @@
+<!-- Update Holder-->
+<div>
+    <!-- Post Holder -->
+    <div class="col-xs-12 col-md-12 col-offset-64">
+    <!-- User Image -->
+    <div class="col-fixed-64">
+        <%= link_to profile_url_path(user) do %>
+            <img src="<%= user.profilephoto.url(:small64) %>" class="profile-thumb-panel usercard <%= @popoverclass%>" data-content='<i class="icon-spinner2 spinner text-grey"></i>' data-id="<%= user.uid %>" data-placement="right">
+        <% end %>
+    </div>          
+        <!-- Post Panel -->
+        <div class="panel panel-speech">
+            <!-- Editor -->
+            <%= render partial:'profile/components/editor', locals: {user: user}%>
+            <!-- Text Editor -->
+            <%= render partial:'profile/components/editor_text', locals: {user: user}%>
+        </div><!-- end .panel -->   
+    </div><!-- end .col-xs-10 col-md-7-->   
+</div><!-- end #update_holder-->    

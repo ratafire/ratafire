@@ -8,4 +8,4 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( template_foundry.scss template_foundry.css template_foundry.js template_limitless.scss template_limitless.css template_limitless.js video-js.swf)
+Rails.application.config.assets.precompile += %w( template_foundry.scss template_foundry.css template_foundry.js template_limitless.scss template_limitless.css template_limitless.js profile_user.js video.min.js)

@@ -21,7 +21,8 @@ class Artwork < ActiveRecord::Base
             :preview256 => ["256", :jpg], 
             :thumbnail512 => ["512x512#",:jpg],
             :thumbnail128 => ["128x128#",:jpg],
-            :thumbnail64 => ["64x64#",:jpg], }, 
+            :thumbnail64 => ["64x64#",:jpg], 
+        }, 
         :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
         :url =>  "/:class/uploads/:id/:style/:escaped_filename",
         #If s3
@@ -31,8 +32,17 @@ class Artwork < ActiveRecord::Base
         :s3_region => 'us-east-1'
 
         validates_attachment :image, 
-        :content_type => { :content_type => ["image/jpeg","image/jpg","image/png","image/bmp"]},
-        :size => { :in => 0..524288.kilobytes}
+            :content_type => { 
+                :content_type => [
+                    "image/jpeg",
+                    "image/jpg",
+                    "image/png",
+                    "image/bmp"
+                ]
+            },
+            :size => { 
+                :in => 0..524288.kilobytes
+            }
 
 
     # Escape the file name

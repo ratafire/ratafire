@@ -1,0 +1,41 @@
+<!-- Cover area -->
+<div class="profile-cover">
+	<!-- Profile Cover Overlay -->
+	<div class="profile-cover-overlay"></div>
+	<div id="fpc_effect-back">
+		<div id="fpc_box">
+			<div id="fpc_content">
+			<div class="profile-cover-img" style="background-image: url('/assets/placeholder/cover2.jpg')"></div>
+			</div>
+			<div id="fpc_corner-box">
+			    <a id="fpc_page-tip" href="#">
+			    <div id="fpc_corner-contents"><div id="fpc_corner-button"><div class="text-right" style="font-size:20px;"><i class="ti-camera"></i></div><div class="text-right">Change Cover</div></div></div></a>
+			</div>
+		</div>
+	</div>
+	<div class="media">
+		<div class="media-left">
+			<!-- Profile Image -->
+			<%= link_to profile_url_path(user),class:"profile-thumb" do %>
+				<div class="thumb  thumb-slide thumb-shadow-radius">
+					<img src="<%= user.profilephoto.url(:thumbnail128)%>" class="profile-thumb-holder" alt="">
+					<div class="caption">
+						<span>
+							<div class="thumb-slide-style">
+								<a class="btn bg-blue btn-icon btn-xs" data-popup="tooltip" data-popup="tooltip" title="Upload" data-placement="top" ><i class="icon-plus2"></i></a>
+								<a class="btn bg-blue btn-icon btn-xs" data-popup="tooltip" title="Facebook" data-placement="top"><i class="icon-facebook"></i></a>
+							</div>
+						</span>
+					</div>
+				</div>
+			<% end %>
+		</div><!-- end .media-left-->
+		<div class="media-body">
+			<%= link_to profile_url_path(user) do %>
+				<!-- Username -->
+    			<h1 style="margin-top:2px;" class="text-white"><%= truncate(user.fullname,length: 50)%><small class="display-block" style="margin-left:1px;"><%= user.tagline %></small></h1>
+    		<% end %>
+		</div><!-- end .media-body-->
+	</div>
+</div>
+<!-- /cover area -->

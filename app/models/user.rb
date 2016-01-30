@@ -28,11 +28,33 @@ class User < ActiveRecord::Base
     friendly_id :username
 
     #--------Profile Photo---------
-    has_attached_file :profilephoto, :styles => { :medium => "256x256#", :small => "128x128#", :small64 => "64x64#", :tiny => "40x40#"}, :default_url => "/assets/usericon_:style.png",
+    has_attached_file :profilephoto, 
+        :styles => { 
+            :thumbnail512 => ["512x512#",:jpg],
+            :thumbnail256 => ["256x256#",:jpg],
+            :thumbnail128 => ["128x128#",:jpg],
+            :thumbnail64 => ["64x64#",:jpg], 
+            :thumbnail40 => "40x40#"
+            }, 
+        :default_url => "/assets/usericon_:style.png",
         :url => ":class/:id/:style/:escaped_filename2",:hash_secret => "longSecretString",
         :path => ":class/:id/:style/:escaped_filename2",
         :storage => :s3,
-        :s3_credentials => "#{Rails.root}/config/s3_profile.yml"    
+        :s3_credentials => "#{Rails.root}/config/s3_profile.yml"
+
+    validates_attachment :profilephoto, 
+        :content_type => { 
+            :content_type => [
+                "image/jpeg",
+                "image/jpg",
+                "image/png",
+                "image/bmp"
+            ]
+        },
+        :size => { 
+            :in => 0..15000.kilobytes #15mb
+        }         
+            
     #Escaped file name for paperclip
     Paperclip.interpolates :escaped_filename2 do |attachment, style|
         attachment.instance.normalized_profile_file_name
@@ -114,4 +136,13 @@ class User < ActiveRecord::Base
     has_one :twitch
     #--------Pinterest---------
     has_one :pinterest
+
+    #----------------Validation----------------
+    #Real Name
+    validates :firstname, :presence => true
+    validates :lastname, :presence => true
+
+    #Email
+    validates :email, :presence => true, format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i}
+
 end

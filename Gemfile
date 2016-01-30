@@ -32,7 +32,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -87,7 +86,7 @@ gem 'paperclip-ghostscript' #pdf
 
 #------------Video------------
 #Video Interface
-gem 'videojs_rails',:git => "git://github.com/ratafire/videojs_rails.git"
+#gem 'videojs_rails',:git => "git://github.com/ratafire/videojs_rails.git"
 #Video Encoder
 gem 'httparty' #for Zencoder
 gem 'zencoder-fetcher' #only for development
@@ -102,12 +101,10 @@ gem 'acts-as-taggable-on', '~> 3.4' #important
 
 #------------Paginate------------
 #Paginator
-gem 'kaminari'
+gem 'will_paginate'
 gem 'jquery-infinite-pages'
 
 #------------Text Editor------------
-#Marked down editor
-gem 'pagedown-bootstrap-rails'
 #Text sanitizer
 gem 'rails-html-sanitizer'
 
@@ -115,6 +112,9 @@ gem 'rails-html-sanitizer'
 #Rating enabler
 gem 'letsrate', :path => "vendor/gems/ratyrate"
 gem 'acts_as_votable', '~> 0.10.0'
+
+#------------Flash Message------------
+gem 'unobtrusive_flash'
 
 #------------------------ Search ------------------------
 

@@ -6,6 +6,9 @@
 		<%= link_to root_path do %>
 			<div class="header-logo">
 			</div>
+			<a class="navbar-brand">
+				<img src="/assets/logo/ratafire_clean" class="header-logo-name">
+			</a>				
 		<% end %>		
 		<!-- Sidebar Toggle -->
 		<ul class="nav navbar-nav visible-xs-block">
@@ -23,10 +26,10 @@
 		<ul class="nav navbar-nav navbar-right">
 			<!-- Signup and Login Popup -->
 			<!-- Login Button -->
-			<p class="navbar-text"><a href="#login-popup" class="open-popup-link">Log in</a></p>
+			<p class="navbar-text"><a href="#login-popup" class="open-popup-link login-open-popup">Log in</a></p>
 			<%= render 'utilities/popups/login' %>
 			<!-- Signup Button -->
-			<li><a href="#signup-popup" class="open-popup-link" style="padding:0;"><div type="button" class="btn btn-blue btn-xxs navbar-login-button open-popup-link" href="#signup-popup">Sign up</div></a></li>
+			<li><a href="#login-popup" class="open-popup-link signup-open-popup" style="padding:0;"><div type="button" class="btn btn-blue btn-xxs navbar-login-button open-popup-link" href="#signup-popup">Sign up</div></a></li>
 		</ul>
 	</div>
 </div><!-- end .navbar navbar-default navbar-fixed-top header-highlight -->

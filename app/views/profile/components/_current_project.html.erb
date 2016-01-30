@@ -1,12 +1,23 @@
 <!-- Video -->
-<div class="video-holder spacer-mini-bottom">
-	<!--<iframe src="https://www.youtube.com/embed/SCwS8mi843I" frameborder="0" allowfullscreen></iframe>-->
-	<%= videojs_rails sources: { webm: '//s3.amazonaws.com/Ratafire_production_videos/park_space.webm', mp4: '//s3.amazonaws.com/Ratafire_production_videos/park_space.mp4' }, height:"auto", width:"auto", poster:'https://ratafire.com/assets/homepage/park_pool.jpg' %>
+<div class="video-holder mb-20" id="video-holder" style="width:100%;">
+	<video id="placeholder_video" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls
+ 		preload="auto" poster="https://ratafire.com/assets/homepage/park_pool.jpg"
+ 		data-setup='{}'>
+  		<source src="//s3.amazonaws.com/Ratafire_production_videos/park_space.mp4" type='video/mp4'>
+  		<source src="//s3.amazonaws.com/Ratafire_production_videos/park_space.webm" type='video/webm'>
+  		<p class="vjs-no-js">
+    		To view this video please enable JavaScript, and consider upgrading to a web browser
+    		that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+  		</p>
+	</video>
+	<!-- Reload the video after ajax -->
 </div><!-- end .video-holder -->
 <!-- About the Project -->
-<div class="text-size-large spacer-mini-bottom text-light">
+<div class="text-size-large mb-20 text-light">
 	<span class="label label-blue">Art</span>
 	We've added a whole new section, called Items of the Second Era, into the People & Societies tab. It's a breakdown of over 2,200 items and their descriptions. 
 </div>	
 <!-- Social Share Buttons -->
-<%= render 'utilities/social/share_buttons'%>
+<div style="width:280px;">
+  <%= render 'utilities/social/share_buttons'%>
+</div>

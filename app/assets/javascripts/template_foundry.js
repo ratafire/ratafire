@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require formvalidation.min
 //= require turbolinks
+//= require formvalidation.min
 //= require_directory .
 //= require_directory ./template_foundry

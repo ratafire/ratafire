@@ -1,0 +1,5 @@
+//Clean the popover previous content  
+$('.usercard-profile').empty();   
+$('.icon-spinner2').hide(); 
+//Fill in content with new AJAX data
+$('.usercard-profile').append("<%= j render(:partial => 'profile/usercard/usercard', :locals => { :user => @usercard_user })%>");

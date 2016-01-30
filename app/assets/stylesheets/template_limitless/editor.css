@@ -1,0 +1,20 @@
+.editor-holder{
+  height: 80px;
+}
+.editor-ball {
+  background: url(/assets/sidebar/washington-square-park-blurry.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.editor-ball-margin-right{
+  margin-right: 2%;
+}
+.post-type-icon{
+  width: 15%;
+}
+
+.editor-ball i{
+  font-size: 20vw;
+}

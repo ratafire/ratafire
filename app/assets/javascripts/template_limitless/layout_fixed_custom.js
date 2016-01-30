@@ -49,33 +49,7 @@ $(function() {
     // Nice scroll
     // ------------------------------
 
-	// Setup
-	function initScroll() {
-	    $(".sidebar-fixed .sidebar-content").niceScroll({
-	        mousescrollstep: 100,
-	        cursorcolor: '#ccc',
-	        cursorborder: '',
-	        cursorwidth: 3,
-	        hidecursordelay: 100,
-	        autohidemode: 'scroll',
-	        horizrailenabled: false,
-	        preservenativescrolling: false,
-	        railpadding: {
-	        	right: 0.5,
-	        	top: 1.5,
-	        	bottom: 1.5
-	        }
-	    });
-	}
 
-	// Remove
-	function removeScroll() {
-		$(".sidebar-fixed .sidebar-content").getNiceScroll().remove();
-		$(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
-	}
-
-    // Initialize
-    initScroll();
 
 
 
@@ -85,12 +59,27 @@ $(function() {
             if($(window).width() <= 768) {
 
                 // Remove nicescroll on mobiles
-                removeScroll();
+                $(".sidebar-fixed .sidebar-content").getNiceScroll().remove();
+                $(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
             }
             else {
 
                 // Init scrollbar
-                initScroll();
+                $(".sidebar-fixed .sidebar-content").niceScroll({
+                    mousescrollstep: 100,
+                    cursorcolor: '#ccc',
+                    cursorborder: '',
+                    cursorwidth: 3,
+                    hidecursordelay: 100,
+                    autohidemode: 'scroll',
+                    horizrailenabled: false,
+                    preservenativescrolling: false,
+                    railpadding: {
+                        right: 0.5,
+                        top: 1.5,
+                        bottom: 1.5
+                    }
+                });
             }
         }, 100);
     }).resize();

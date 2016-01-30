@@ -941,6 +941,10 @@ textarea {
   -webkit-appearance: none;
 
 }
+.form-transparent{
+  border: 0px !important;
+  padding-left: 0px !important;
+}
 /* Form components
 ----------------------------------*/
 .form-group {
@@ -1021,6 +1025,13 @@ fieldset[disabled] .checkbox-inline {
 }
 /* Form control sizing
 ----------------------------------*/
+.input-title{
+  height: 50px;
+  padding: 10px 15px;
+  font-size: 30px;
+  line-height: 1.4285715;
+  border-radius: 3px;
+}
 .input-xlg {
   height: 42px;
   padding: 10px 15px;
@@ -1516,11 +1527,11 @@ input[class*=bg-] + .form-control-feedback {
 }
 .btn-float > span {
   display: block;
-  padding-top: 10px;
+  padding-top: 6px;
   margin-bottom: -6px;
 }
 .btn-float.btn-float-lg i {
-  font-size: 32px;
+  font-size: 25px;
 }
 .btn-link {
   color: #333333;
@@ -5083,7 +5094,7 @@ a.thumbnail.active {
   -o-transition: all 0.1s linear;
   transition: all 0.1s linear;
 }
-.thumb-slide .caption span {
+.thumb-slide-style,.thumb-slide .caption span {
   position: absolute;
   top: 50%;
   left: 0;
@@ -6063,6 +6074,9 @@ h6.panel-title,
   width: 100%;
   line-height: 1em;
   text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+}
+.panel-align:before {
+  position: absolute;
 }
 .panel-speech{
   border-radius: 0 3px 3px 3px !important;

@@ -1,1 +1,10 @@
+//Add update
 $("#post-pagination").append("<div class='post-pagination'><%= j render_activities(@activities) %></div>");
+initiate_plugins('<%= j @popoverclass %>_video_class');
+refreshUsercard('<%= j @popoverclass %>');
+<% if @activities.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@activities) %>');
+  $(".pagination").hide();
+<% else %>
+  $('.pagination').remove();
+<% end %>

@@ -5,8 +5,8 @@
 			<!-- Sidebar content with padding -->
 			<div class="category-content sidebar-hide-toggle">
 				<!-- Search -->
-				<div class="center-block spacer-mini-bottom spacer-mini-top" style="width:120px;">
-					<img src="assets/logo/ratafire_light_blue" style="width:120px;"></img>
+				<div class="center-block mb-20 mt-20" style="width:120px;">
+					<img src="/assets/logo/ratafire_light_blue" style="width:120px;"></img>
 				</div>	
 				<div class="input-group">
 					<input type="text" class="form-control bg-darkglass" style="border:none;" >
@@ -24,26 +24,39 @@
 					<li><a href="index.html"><i class="fa fa-thumbs-up"></i> <span>Support creators</span></a></li>
 					<li><a href="index.html"><i class="fa fa-video-camera"></i> <span>Visit hangouts</span></a></li>
 					<!-- /Explore -->
-					<!-- Followed Tags -->
+					<!-- Collapsing Sidebar Content -->
 					<div class="sidebar-hide-toggle">
+						<!-- Followed Tags -->
 						<li class="navigation-header"><span>Followed Tags</span> <i class="icon-menu" title="Main pages"></i></li>
-						<div class="padding-mini-left padding-mini-right">
+						<div class="pl-20 pr-20">
 							<div class="panel-flat bg-darkglass">
 								<div class="panel-body">
-									<div class="spacer-tiny-bottom">
+									<div class="mb-10">
 										You can now follow the topics you are interested in!
 									</div>
-									<a class="btn btn-blue btn-xs open-popup-link" href="#signup-popup">
+									<a class="btn btn-blue btn-xs open-popup-link signup-open-popup" href="#login-popup">
 										Learn more
 									</a>
-									<%= render 'utilities/popups/signup' %>
 								</div>	
 							</div>	
-						</div><!-- end find out more-->
+						</div><!-- end find out more-->						
 					</div><!-- end .sidebar-hide-toggle -->	
 				</ul>
-			</div><!-- end .category-content-->			
+			</div><!-- end .category-content-->						
 		</div>
 		<!-- /main navigation -->
+		<!-- Collapsing Sidebar Content -->
+		<div class="sidebar-hide-toggle">
+			<!-- Footer -->
+			<div class="footer text-size-mini">
+				<span class="mr-10">About</span> 
+				<span class="mr-10">Blog</span> 
+				<span class="mr-10">Terms</span> 
+				<span class="mr-10">Privacy</span>
+				<span class="mr-10">Pricing</span>
+				<span class="mr-10">FAQ</span>
+				<span class="mr-10">Press</span>
+			</div>	
+		</div><!-- end .sidebar-hide-toggle -->			
 	</div>
 </div>

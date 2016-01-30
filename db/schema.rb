@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216040754) do
+ActiveRecord::Schema.define(version: 20160130010417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 20151216040754) do
     t.boolean  "deleted",                  default: false
     t.boolean  "featured",                 default: false
     t.text     "realm"
-    t.boolean  "draft"
     t.boolean  "test",                     default: false
     t.boolean  "featured_home",            default: false
     t.text     "sub_realm"
@@ -48,6 +47,7 @@ ActiveRecord::Schema.define(version: 20151216040754) do
     t.boolean  "abandoned"
     t.boolean  "listed"
     t.boolean  "reviewed"
+    t.boolean  "published",                default: true
   end
 
   add_index "activities", ["owner_id", "owner_type"], name: "idx_16401_index_activities_on_owner_id_and_owner_type", using: :btree
@@ -914,10 +914,8 @@ ActiveRecord::Schema.define(version: 20151216040754) do
     t.datetime "updated_at"
     t.integer  "project_id",            limit: 8
     t.text     "title"
-    t.text     "slug"
     t.text     "artwork_id"
-    t.boolean  "published"
-    t.text     "perlink"
+    t.boolean  "published",                       default: true
     t.integer  "video_id",              limit: 8
     t.text     "excerpt"
     t.text     "edit_permission",                 default: "free"
@@ -1241,14 +1239,6 @@ ActiveRecord::Schema.define(version: 20151216040754) do
     t.datetime "updated_at",   null: false
   end
 
-  create_table "postimages", id: :bigserial, force: :cascade do |t|
-    t.integer  "majorpost_id", limit: 8
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.text     "url"
-    t.text     "thumbnail"
-  end
-
   create_table "project_comments", id: :bigserial, force: :cascade do |t|
     t.text     "content"
     t.integer  "user_id",                 limit: 8
@@ -1280,14 +1270,6 @@ ActiveRecord::Schema.define(version: 20151216040754) do
   create_table "project_suggestions", id: :bigserial, force: :cascade do |t|
     t.text     "term"
     t.integer  "popularity", limit: 8
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  create_table "projectimages", id: :bigserial, force: :cascade do |t|
-    t.integer  "project_id", limit: 8
-    t.text     "url"
-    t.text     "thumbnail"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end

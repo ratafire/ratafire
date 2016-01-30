@@ -18,7 +18,10 @@
 *  Latest update: Oct 20, 2015
 *
 * ---------------------------------------------------------------------------- */
-
+.bg-transparent{
+  background-color: transparent;
+  color: #cccccc;
+}
 .bg-primary {
   background-color: #2196f3;
   border-color: #2196f3;
@@ -2468,6 +2471,11 @@
 .text-grey:hover,
 .text-grey:focus {
   color: #777777 !important;
+}
+.text-grey-200,
+.text-grey-200:hover,
+.text-grey-200:focus {
+  color: #cccccc !important;
 }
 .text-grey-300,
 .text-grey-300:hover,

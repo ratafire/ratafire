@@ -987,8 +987,10 @@
 * ---------------------------------------------------------------------------- */
 .footer {
   position: absolute;
-  bottom: 20px;
-  margin-left: 20px;
+  bottom: 0px;
+  padding: 10px 20px 5px 20px;
+  color:rgba(0,0,0,0.4);
+  background:rgba(0,0,0,0.04);  
 }
 .footer-fixed {
   position: fixed;
@@ -2703,7 +2705,7 @@ label.checkbox-switch.checkbox-inline {
   padding: 0 0 3px 0;
   position: relative;
   outline: 0;
-  border: 1px solid #dddddd;
+  border: 1px solid transparent;
   cursor: text;
   overflow: hidden;
   background-color: #fff;
@@ -2728,13 +2730,13 @@ label.checkbox-switch.checkbox-inline {
 .select2-container-multi .select2-choices .select2-search-field input {
   padding: 7px 12px;
   margin-top: 3px;
-  color: #333333;
+  color: #cccccc;
   outline: 0;
   border: 0;
   background: transparent !important;
 }
 .select2-container-multi .select2-choices .select2-search-choice {
-  margin: 3px 0 0 3px;
+  margin: 3px 3px 0 0;
   position: relative;
   cursor: default;
   background-clip: padding-box;
@@ -2747,10 +2749,10 @@ label.checkbox-switch.checkbox-inline {
 }
 .select2-container-multi .select2-choices .select2-search-choice > div {
   border-radius: 3px;
-  color: #fff;
+  color: #999999;
   padding: 7px 12px;
   padding-right: 30px;
-  background-color: #455a64;
+  background-color: #f9f9f9;
 }
 .select2-container-multi .select2-choices .select2-search-choice > div > i {
   margin-right: 10px;
@@ -2782,7 +2784,7 @@ label.checkbox-switch.checkbox-inline {
   font-family: 'icomoon';
   display: block;
   font-size: 16px;
-  color: #fff;
+  color: #dddddd;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -2892,7 +2894,7 @@ label.checkbox-switch.checkbox-inline {
   right: 7px;
 }
 .select-xs.select2-container-multi .select2-choices .select2-search-field input {
-  padding: 5px 10px;
+  padding: 5px 0;
   font-size: 12px;
 }
 /* # Other Select2 styles
@@ -13559,21 +13561,29 @@ a.plupload_disabled:focus {
     height: 320px;
   }
 }
+
+.profile-thumb-panel{
+  width:100%;
+  border-radius:5px;
+  border: 1px solid #cccccc;
+}
+
 .media .profile-thumb img {
-  border-radius: 6px;
+  border-radius: 5px;
   width: 128px !important;
   height: 128px !important;
-  margin:5px 0 0 5px;  
+ 
 }
 
 .profile-thumb-holder{
-  width: 138px !important;
-  height: 138px !important;
-  border-radius: 7px;
+  border-radius: 6px !important;
   background-color: #ffffff;
-  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  border: 2px solid #ffffff;
 
+}
+.thumb-shadow-radius{
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); 
+  border-radius: 6px;
 }
 /* ------------------------------------------------------------------------------
  *
@@ -14741,6 +14751,30 @@ label.display-block {
 }
 .pr-20 {
   padding-right: 20px!important;
+}
+.mt-40{
+  margin-top:40px !important;
+}
+.mr-40{
+  margin-right: 40px !important;
+}
+.mb-40{
+  margin-bottom: 40px !important;
+}
+.ml-40{
+  margin-left: 40px !important;
+}
+.pt-40{
+  padding-top: 40px !important;
+}
+.pr-40{
+  padding-right: 40px !important;
+}
+.pb-40{
+  padding-bottom: 40px !important;
+}
+.pl-40{
+  padding-left: 40px !important;
 }
 .no-border {
   border: 0!important;
