@@ -18,6 +18,54 @@
 *  Latest update: Oct 20, 2015
 *
 * ---------------------------------------------------------------------------- */
+.bg-rainbow{
+  background: url(/assets/editor/rainbow-blur2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
+}
+.bg-rainbow-800{
+  background: url(/assets/editor/rainbow-blur.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
+}
+.bg-rainbow-700{
+  background: url(/assets/editor/rainbow-blur3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
+}
+.bg-rainbow-600{
+  background: url(/assets/editor/rainbow-blur4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
+}
+.bg-rainbow-500{
+  background: url(/assets/sidebar/washington-square-park-blurry.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
+}
+.bg-rainbow-400{
+  background: url(/assets/editor/dark-blur.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
+}
 .bg-transparent{
   background-color: transparent;
   color: #cccccc;
@@ -2471,6 +2519,11 @@
 .text-grey:hover,
 .text-grey:focus {
   color: #777777 !important;
+}
+.text-grey-100,
+.text-grey-100:hover,
+.text-grey-100:focus {
+  color: #dddddd !important;
 }
 .text-grey-200,
 .text-grey-200:hover,

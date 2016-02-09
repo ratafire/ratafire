@@ -14,7 +14,7 @@
 		<!-- Pledge Area -->
 		<div class="row" id="pledge-area">
 			<!-- Title -->
-			<h1 class="animated bounceIn mb-20 text-center text-300" style="font-size:2.3em;">Jane Smith is creating <span class="text-500">Concept Art for a Video Game</span></h1>		
+			<h1 class="animated bounceIn mb-20 text-center text-300" style="font-size:2.3em;"><%= @user.preferred_name %> is creating <span class="text-500">Concept Art for a Video Game</span></h1>		
 			<!-- Video Area -->
 			<div class="animated bounceInLeft col-xs-12 col-sm-6 col-md-8 pl-40">
 				<!-- Current Project -->
@@ -35,24 +35,26 @@
 			<div class="col-xs-12 col-md-8">
 				<div class="tabbable">
 					<div class="tab-content">
-						<div id="post-pagination">
+						
 							<!-- Updates -->
 							<div class="tab-pane fade in active" id="updates">
 								<!-- editor -->
 								<% if current_user == @user || current_user.try(:admin) %>
-									<%= render partial:'profile/components/editor', locals: {user: @user}%>
+									<%= render partial:'utilities/editor/editor', locals: {user: @user}%>
 								<% end %>	
 								<!-- Posts -->
-								<div class="post-pagination">
-									<%= render_activities(@activities) %>
-								</div>
-								<!-- Paginate -->
-								<%= will_paginate @activities %>
+								<div id="post-pagination">
+									<div class="post-pagination">
+										<%= render_activities(@activities) %>
+									</div>
+									<!-- Paginate -->
+									<%= will_paginate @activities %>
+								</div><!-- end #post-pagination-->
 							</div>	
 							<!-- Friends -->
 							<div class="tab-pane fade" id="friends">
 							</div>	
-						</div><!-- end #post-pagination-->	
+							
 					</div><!-- end .tab-content-->	
 				</div><!-- end .tabbable-->				
 			</div>
@@ -89,6 +91,7 @@
         // Initiate refreshable plugins
         initiate_plugins();      
         profile_user_plugins();     
+        initiate_profilephoto_uploader();
     });
     $(document).on('ready', function(){
     	document_ready_plugins();

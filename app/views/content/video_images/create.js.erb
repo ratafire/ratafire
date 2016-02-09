@@ -1,0 +1,4 @@
+//Hide Uploader
+$('#s3_direct_uploader_video_image').remove();
+$("#artwork_preview").append("<%= j render(:partial => 'editor/editor_image/artwork_preview', locals: {artwork: @video_image}) %>");
+$('#artwork_preview').addClass('mt-20');

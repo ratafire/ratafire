@@ -1,7 +1,7 @@
 class Subscription < ActiveRecord::Base
 	#attr_accessible :amount, :subscriber_id, :subscribed_id, :created_at, :supporter, :method
 
-	default_scope order: 'subscriptions.created_at DESC'
+	default_scope  { order(:created_at => :desc) }
 
 	#track activities
 	include PublicActivity::Model

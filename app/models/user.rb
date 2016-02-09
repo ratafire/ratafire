@@ -25,36 +25,9 @@ class User < ActiveRecord::Base
 
     #--------Friendly id for routing--------
     extend FriendlyId
-    friendly_id :username
+    friendly_id :uid
 
-    #--------Profile Photo---------
-    has_attached_file :profilephoto, 
-        :styles => { 
-            :thumbnail512 => ["512x512#",:jpg],
-            :thumbnail256 => ["256x256#",:jpg],
-            :thumbnail128 => ["128x128#",:jpg],
-            :thumbnail64 => ["64x64#",:jpg], 
-            :thumbnail40 => "40x40#"
-            }, 
-        :default_url => "/assets/usericon_:style.png",
-        :url => ":class/:id/:style/:escaped_filename2",:hash_secret => "longSecretString",
-        :path => ":class/:id/:style/:escaped_filename2",
-        :storage => :s3,
-        :s3_credentials => "#{Rails.root}/config/s3_profile.yml"
-
-    validates_attachment :profilephoto, 
-        :content_type => { 
-            :content_type => [
-                "image/jpeg",
-                "image/jpg",
-                "image/png",
-                "image/bmp"
-            ]
-        },
-        :size => { 
-            :in => 0..15000.kilobytes #15mb
-        }         
-            
+    #--------Profile Photo--------- 
     #Escaped file name for paperclip
     Paperclip.interpolates :escaped_filename2 do |attachment, style|
         attachment.instance.normalized_profile_file_name
@@ -65,6 +38,9 @@ class User < ActiveRecord::Base
     end
 
     #----------------Relationships----------------
+
+    #--------User Info---------
+    has_one :profilephoto, foreign_key: "user_uid", primary_key: "uid", class_name: "Profilephoto", dependent: :destroy
 
     #--------Friends---------
     has_many :friendships, 
@@ -117,6 +93,15 @@ class User < ActiveRecord::Base
     has_many :record_subscribed, 
         through: :reverse_subscription_records, 
         source: :subscribed
+
+    #--------Content---------
+    has_many :majorpost
+        has_many :artwork
+        has_many :link
+        has_many :audio
+            has_many :audio_image
+        has_many :video
+            has_many :video_image
 
     #----------------Social Media----------------
     #--------Facebook---------

@@ -1,0 +1,67 @@
+/*demo styles*/
+.demo{background:url(/assets/cheetah/upload1.jpg); 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.quickPlate{margin:0 auto;
+}
+.plate b {
+	font-weight: 300;
+}
+
+/*plate styles*/
+.plate{overflow:hidden; font-family:Arial, serif;padding:20px;width:100% !important;}
+	.plate .clr{clear:both;}
+	.plate .album{height:232px; width:232px; display:block; margin:0 auto; padding:0; position:relative;}
+		.plate .album img.cover{display:none !important;height:232px; width:232px; display:block; margin:0; padding:6px; position:absolute; top:0; left:0; z-index:4;}
+		.plate .album .glass{height:217px; display:block; margin:0; position:absolute; top:8px; right:88px; left:8px;  z-index:3;}
+		.plate .album .record{height:213px; width:213px; display:block; position:absolute; top:10px; right:6px;  z-index:1;}
+		.plate .album .record_light{height:213px; cursor:n-resize; width:213px; display:block; position:absolute; top:10px; right:6px;  z-index:2;}
+		.plate .album .playlist{height:224px; width:224px; padding:4px; position:absolute; top:0; left:0; z-index:4; overflow:hidden; background:rgba(0, 0, 0, 0.2); overflow-y: auto;}
+		.plate .album .playlist .track{overflow:hidden; white-space:nowrap; text-overflow:ellipsis; color:#fff; font-size:11px; cursor:pointer; margin:3px 2px; padding:0 5px; border-bottom:1px dotted rgba(0, 0, 0, 0.3);}
+			.plate .album .playlist .track.active{color:#4e768a;}
+			.plate .album .playlist .track:hover{opacity:0.7;}
+		
+		
+	.plate .progress{height:15px; margin:13px 0 0 5px; background:rgba(0,0,0,0.3); position:relative; z-index:1;}
+		.plate .progress:before{display:block; height:15px; position:absolute; left:-5px; width:5px; background:rgba(0,0,0,0.3); content:''; z-index:1;}
+		.plate .progress:after{display:block; height:15px; position:absolute; right:-5px; width:5px;  content:''; z-index:1;}
+		.plate .progress .bufer{background:rgba(0,0,0,0.4); margin:0 5px;border-radius:5px;top:4px; left:0; right:0; opacity:0.5; height:7px; position:absolute; width:auto; z-index:2;}
+		.plate .progress .ui-widget-header{
+			background:#2dddfc;			
+			top:2px; 
+			height:10px; 
+			position:absolute; 
+			border-radius:5px; 
+			padding:0 6px 0 0; 
+			left:0px; 
+			right:-3px; 
+			z-index:3; 
+			min-width:4px;
+		}
+		
+	.plate .time{color:#777; font-size:13px; line-height:16px; float:right;  cursor:pointer; margin-top:17px;}
+		.plate .time b{color:#fff; font-size:16px; }
+		
+	.plate .control{float:left; margin:17px 5px 0 4px;}
+		.plate .control .prev{width:21px; height:11px; margin:3px 0 1px; display:block; float:left; background:url('/assets/audio/plate_control3.png') 0 0 no-repeat; cursor:pointer;}
+		.plate .control .next{width:21px; height:11px; margin:3px 0 1px; display:block; float:left; background:url('/assets/audio/plate_control3.png') 0 -11px no-repeat; cursor:pointer;}
+		.plate .control .play{width:21px; height:15px; margin:0 5px; display:block; float:left; background:url('/assets/audio/plate_control3.png') 0 -37px no-repeat; cursor:pointer;}
+			.plate .control .play.pause{background-position:0 -22px;}
+		.plate .control .repeat{width:14px; height:15px; margin:0 5px 0 40px; display:block; float:left; background:url('/assets/audio/plate_control3.png') 0 -52px no-repeat; opacity:0.3; cursor:pointer;}
+			.plate .control .repeat.all{opacity:0.9;}
+			.plate .control .repeat.one{background-position:0 -82px; opacity:0.9;}
+		.plate .control .random{width:17px; height:15px; margin:0 5px; display:block; float:left; background:url('/assets/audio/plate_control3.png') 0 -67px no-repeat; opacity:0.3; cursor:pointer;}
+			.plate .control .random.active{opacity:0.9;}
+		.plate .control .speed{width:25px; height:10px;  box-shadow:0 1px 2px #000; margin:0 5px; border:2px solid #ccc; border-radius:4px; text-align:center; color:#fff; font-weight:bold; line-height:9px; font-size:9px; display:block; float:left; opacity:0.3; cursor:pointer;}
+			.plate .control .speed.active{opacity:0.9;}
+		
+	.plate .info{color:#777; font-size:13px; line-height:16px;margin:17px -110px 0 5px; padding-right:225px;}
+		.plate .info b{color:#fff; font-size:16px; display:block; margin-bottom:5px;}
+		
+	.plate .pl_btn{margin:13px 6px -20px 0; text-align:right; font-weight:bold; border-bottom:1px dashed; font-size:60%; opacity:0.5; float:right; cursor:pointer; clear:right; color:#ccc; }	
+		.plate .pl_btn.active{opacity:1;}	
+	.plate .volume{height:7px; width:80px; margin:23px 6px 0 0; float:right; background:rgba(0,0,0,0.2); position:relative; z-index:1;}
+		.plate .volume:before{display:block; height:14px; top:-3px; position:absolute; left:-25px; width:18px;  content:''; z-index:1;}
+		.plate .volume .ui-widget-header{background:#2dddfc; height:7px; position:absolute; z-index:2;}
+		.plate .volume .ui-slider-handle{ width:12px; top:-3px; margin-left:-6px; outline:none; height:12px; display:block; position:absolute; z-index:3;}

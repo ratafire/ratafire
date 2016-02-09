@@ -1,0 +1,9 @@
+<% if @link %>
+	//Show text editor
+	$('.majorpost_content_hidden_holder').velocity('fadeIn');
+	$('#link-upload-form').hide();
+	$('#editor-submition-block').unblock();
+	//Show link preview
+	$('#link_preview').append("<%= j render(:partial => 'editor/editor_link/link_preview', locals: {link:@link}) %>")
+	$('#link_preview').addClass('mt-20');
+<% end %>

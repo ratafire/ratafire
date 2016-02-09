@@ -1,0 +1,85 @@
+<div id="editor-text-holder" class="animated fadeIn">
+		<!-- Direct upload form-->
+		<div class="imagePost" id="artwork_preview">
+		</div>
+		<div id="add-video">
+			<div id="s3_direct_uploader_video" class="mt-20 ml-20 mr-20 mb-20">
+				<%= s3_uploader_form callback_url: content_videos_path,
+					callback_method: 'POST',
+					id: "s3_uploader_video",
+					callback_param: "video[direct_upload_url]",
+					expiration: 24.hours.from_now.utc.iso8601,
+					max_file_size: 5000.megabytes,:remote => true,
+	                data: {majorpost_uuid: majorpost.uuid} do %>
+					<div class="valign-middle dropzone-bg">
+						<div id="video-progress-case">
+						</div>
+						<%= file_field_tag :file, multiple: false, class:"artwork-choose btn-upload" %>
+						<div class="cursor-pointer center-block text-center">
+							<div id="big-image-upload">
+								<div class="fa fa-youtube-play text-grey-100" style="font-size:40px;"></div>
+								<div class="text-size-large text-grey-200 mt-5">Drop a video to upload</div>
+								<div class="text-grey-100">or CLICK</div>
+							</div>
+							<div id="small-image-upload" style="display:none;">
+								<div class="text-grey-100">Add more</div>
+							</div>
+						</div>
+					</div>	
+				<% end %>	
+				<!-- Progress bar -->
+				<%= render partial:'utilities/editor/editor_progress_bar', locals:{name:'video'} %>	
+			</div>	
+			<div id="audio-embed-block">
+				<!-- Separator -->
+				<div style="width:100%;" class="text-center">
+					<div class="label label-rounded label-blue">or</div>
+				</div>	
+				<!-- form for link -->
+				<div id="audio-upload-form">
+					<div class="mr-20 ml-20">
+						<%= form_for [:content, video], :html =>{:id => 'soundcloud-form'},name:"video-external-form",:remote => true do |f| %>	
+							<%= f.hidden_field :majorpost_uuid, :value => majorpost.uuid %>
+							<%= f.text_field :external,id:"soundcloud-url-input", placeholder:'Paste or type a YourTube or Vimeo link',class:"form-control form-transparent" %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<!-- form for text content -->
+		<%= form_for [:content, majorpost], :html =>{:id => 'audio-editor-form'},name:"video-editor-form",:remote => true do |f| %>	
+			<div class="panel-body pb-5" id="editor-image-panel-body">
+				<%= f.hidden_field :uuid, :value => majorpost.uuid %>
+				<%= f.hidden_field :post_type, :value => 'video' %>
+				<!-- Content -->
+				<div class="majorpost_content_hidden_holder">
+					<%= f.text_field :title, class:"form-control input-title form-transparent", placeholder:"Title", id:"audio-title" %>
+					<%= f.text_area :content, type:"hidden",class:"medium-editor-textarea editable-textarea form-transparent", data:{placeholder: "Description..."},id:"majorpost_content_textarea" %>
+				</div>
+				<div id="editor-text-word-count"></div>											
+			</div><!-- end .panel-body-->
+			<div class="pl-20 pr-20 pb-10 majorpost_content_hidden_holder">
+				<!-- Tags -->
+				<%= f.text_field :tag_list, type:"hidden", placeholder:"#tags",class:"editor-tags text-grey-200 text-thin select-xs" %>
+			</div>	
+			<div class="panel-footer pt-10 pb-10">
+				<div class="pull-left">
+					<%= link_to remove_user_editor_editor_video_path(user.id, majorpost.uuid), method: :get, remote: :true do %>
+						<div class="btn bg-slate-300 btn-xs">
+							Cancel
+						</div>	
+					<% end %>
+				</div>		
+				<div class="pull-right">
+					<div class="checkbox checkbox-switchery switchery-xs pull-left mr-10" data-popup="tooltip" title="Get paid for this creation" data-placement="top">
+						<label>
+							<%= f.check_box :paid_update, checked: false,class:"switchery"%>
+						</label>
+					</div>
+					<div class='pull-left' id="editor-submition-block">
+						<%= f.submit "Post Update", class: "btn btn-blue btn-xs", id:"editor-submition" %>
+					</div>
+				</div>
+			</div>	
+		<% end %><!-- end #image-editor-form-->	
+</div>

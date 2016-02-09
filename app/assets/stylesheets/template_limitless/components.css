@@ -2510,6 +2510,10 @@ label.checkbox-switch.checkbox-inline {
   border-top-width: 0;
   border-radius: 0 0 3px 3px;
 }
+.select2-editor-tags{
+  border-top-width: 1px;
+  border-radius: 3px !important;
+}
 .select2-drop-above {
   border-top-width: 1px;
   border-bottom-width: 0;
@@ -8810,6 +8814,7 @@ body > .jGrowl {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
 }
+/*
 .ui-slider .ui-slider-handle {
   position: absolute;
   z-index: 2;
@@ -8831,6 +8836,7 @@ body > .jGrowl {
 .ui-slider .ui-slider-handle.ui-state-active:after {
   background-color: #999;
 }
+
 .ui-slider .ui-slider-handle:after {
   content: '';
   display: inline-block;
@@ -8843,6 +8849,9 @@ body > .jGrowl {
   margin-left: -3px;
   background-color: #666666;
   border-radius: 50%;
+}*/
+.ui-slider .ui-slider-handle.ui-state-focus {
+  outline: 0;
 }
 .ui-slider .ui-slider-range {
   position: absolute;
@@ -13565,7 +13574,8 @@ a.plupload_disabled:focus {
 .profile-thumb-panel{
   width:100%;
   border-radius:5px;
-  border: 1px solid #cccccc;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .media .profile-thumb img {
@@ -14546,6 +14556,8 @@ a.plupload_disabled:focus {
 }
 .valign-middle {
   vertical-align: middle;
+  display : flex;
+  align-items : center;
 }
 .valign-bottom {
   vertical-align: bottom;
@@ -14641,6 +14653,12 @@ label.display-block {
 .mt-20 {
   margin-top: 20px!important;
 }
+.mt-25 {
+  margin-top: 25px!important;
+}
+.mt-30 {
+  margin-top: 30px!important;
+}
 .mb-5 {
   margin-bottom: 5px!important;
 }
@@ -14676,6 +14694,9 @@ label.display-block {
 }
 .mr-20 {
   margin-right: 20px!important;
+}
+.mr-25 {
+  margin-right: 25px!important;
 }
 .no-padding {
   padding: 0!important;
@@ -14763,6 +14784,9 @@ label.display-block {
 }
 .ml-40{
   margin-left: 40px !important;
+}
+.ml-80{
+  margin-left: 80px !important;
 }
 .pt-40{
   padding-top: 40px !important;
@@ -14923,4 +14947,24 @@ label.display-block {
 .progress-list > li span {
   float: right;
   display: block;
+}
+
+.imagePost, .linkPost{
+  margin-left: -1px;
+  margin-right: -1px;
+}
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

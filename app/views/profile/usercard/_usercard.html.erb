@@ -1,8 +1,8 @@
 <div class="usercardcover-overlay"></div>
 <div class="usercardcover" style="background-image: url('/assets/placeholder/cover2.jpg')"></div>
-<img class="usercardavatar profile-thumb-holder" src="<%= user.profilephoto.url(:thumbnail128) %>">
-<div class="usercardname">
-    <div class="text-white text-thin text-shadow usercardbio"><%= truncate(user.fullname,length: 28) %></div>
+<img class="usercardavatar animated bounceIn" src="<%= user.profilephoto.image.url(:thumbnail128) %>">
+<div class="usercardname animated fadeIn">
+    <div class="text-white text-thin text-shadow usercardbio"><%= truncate(user.preferred_name,length: 28) %></div>
     <div class="text-white text-thin text-shadow"><%= truncate(user.tagline, length: 70)%></div>
 </div>
 <ul class="usercardstats">
@@ -10,7 +10,7 @@
     <li><label>Backers</label>264</li>
     <li><label>Backed</label>141</li>
 </ul>
-<div class="usercarddata bg-blue text-size-small">
+<div class="usercarddata bg-rainbow text-size-small">
     <li class="btn">Follow</li>        
     <li class="btn">Back This Creator</li>
 </div>

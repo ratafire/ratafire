@@ -6,13 +6,13 @@ function initiate_plugins(random_id){
     // Tooltip
     $('[data-popup="tooltip"]').tooltip();
     // Photoset
-    $('.photoset-grid-lightbox').photosetGrid({
+    $('.photoset-grid-lightbox, .medium-insert-images').photosetGrid({
         highresLinks: true,
         rel: 'withhearts-gallery',
         gutter: '2px',
     onComplete: function(){
-        $('.photoset-grid-lightbox').attr('style', '');
-        $('.photoset-grid-lightbox a').colorbox({
+        $('.photoset-grid-lightbox,.medium-insert-images').attr('style', '');
+        $('.photoset-grid-lightbox a,.medium-insert-images a').colorbox({
             photo: true,
             scalePhotos: true,
             maxHeight:'90%',
@@ -30,5 +30,4 @@ function initiate_plugins(random_id){
     $('.open-popup-link').magnificPopup({type:'inline'});  
     // Sticky
     $("#sticker").sticky({topSpacing:0}); 
-     
 }

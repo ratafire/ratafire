@@ -1,0 +1,18 @@
+<div class="insert_video" id="<%= video.uuid %>_insert_video">
+	<%= link_to content_video_path(video.uuid), method: :delete, remote: true do %>
+		<div class="medium-editor-toolbar-remove mr-15 mt-30" style="position:absolute;">
+			<span class="ti-close"></span>
+		</div>
+	<% end %>	
+	<% if video.youtube_vimeo == true %>
+		<!-- YouTube Video -->
+		<div class="video-container">
+			<iframe src="https://www.youtube.com/embed/<%= video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+		</div>
+	<% else %>
+		<!-- Vimeo Video -->
+		<div class="video-container">
+			<iframe src="//player.vimeo.com/video/<%= video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+		</div>
+	<% end %>
+</div>

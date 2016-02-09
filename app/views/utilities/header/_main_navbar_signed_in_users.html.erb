@@ -6,9 +6,6 @@
 		<%= link_to root_path do %>
 			<div class="header-logo">
 			</div>
-			<a class="navbar-brand">
-				<img src="/assets/logo/ratafire_clean" class="header-logo-name">
-			</a>	
 		<% end %>		
 		<!-- Sidebar Toggle -->
 		<ul class="nav navbar-nav visible-xs-block">
@@ -119,7 +116,7 @@
 				<!-- Profile Function Dropdown -->	
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown">
-						<img src="<%= current_user.profilephoto.url(:small64)%>" alt="">
+						<img src="<%= current_user.profilephoto.image.url(:thumbnail64)%>" alt="">
 						<span><%= current_user.firstname %></span>
 						<i class="caret"></i>
 					</a>

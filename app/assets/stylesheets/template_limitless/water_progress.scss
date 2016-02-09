@@ -1,0 +1,43 @@
+#artwork-progress-case, #audio-progress-case, #audio-image-progress-case, #video-progress-case, #video-image-progress-case{
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0;
+  left: 0;    
+}
+#artwork-progress-box, #audio-progress-box, #video-progress-box{
+  width:100%;
+  height:100%;
+  z-index:2000;
+  position: absolute;
+}
+.fundo
+{ height: 100%; 
+  animation: anima-fundo 10s ease 1s infinite alternate; 
+  -webkit-animation: anima-fundo 10s ease 1s infinite alternate; 
+  -moz-animation: anima-fundo 10s ease 1s infinite alternate; transition: 1s all; 
+  -webkit-transition: 1s all; -moz-transition: 1s all; }
+
+@keyframes anima-fundo {
+   0%   { background-position: 50% 50% }
+   25%  { background-position: 55% 55% }
+   50%  { background-position: 60% 45% }
+   75%  { background-position: 40% 30% }
+   100% { background-position: 60% 40% }
+}
+
+@-webkit-keyframes anima-fundo {
+   0%   { background-position: 50% 50% }
+   25%  { background-position: 55% 55% }
+   50%  { background-position: 60% 45% }
+   75%  { background-position: 40% 30% }
+   100% { background-position: 60% 40% }
+}
+
+@-moz-keyframes anima-fundo {
+   0%   { background-position: 50% 50% }
+   25%  { background-position: 55% 55% }
+   50%  { background-position: 60% 45% }
+   75%  { background-position: 40% 30% }
+   100% { background-position: 60% 40% }
+}

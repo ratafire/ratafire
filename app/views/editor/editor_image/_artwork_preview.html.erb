@@ -1,0 +1,8 @@
+<div class="insert_image" id="<%= artwork.uuid %>_insert_image">
+	<%= link_to content_artwork_remove_path(artwork), method: :delete, remote: true do %>
+		<div class="medium-editor-toolbar-remove mr-5 mt-5">
+			<span class="ti-close"></span>
+		</div>
+	<% end %>	
+	<img src="<%= artwork.image.url(:preview800) %>" style="width:100%;">
+</div>

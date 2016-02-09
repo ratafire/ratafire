@@ -1,0 +1,31 @@
+<% if @audio %>
+	//Show text editor
+	$('.majorpost_content_hidden_holder').velocity('fadeIn');
+	$('#artwork-progress-box').remove();
+	$('#add-audio').remove();
+	<% if @audio.soundcloud %>
+		//Show soundcloudn embed
+		$("#artwork_preview").append("<%= j render(:partial => 'editor/editor_audio/soundcloud_preview', locals: {audio: @audio}) %>");
+		$('#artwork_preview').addClass('mt-20');
+	<% else %>
+		//Show audio image upload
+		$('#editor-text-holder').prepend("<%= j render(:partial => 'utilities/editor/editor_audio_image', :locals => {:audio => @audio}) %>");
+	<% end %>
+	initiate_audio_editor();
+	//majorpost audio image uploader	
+	$('#s3_uploader_audio_image').S3Uploader(
+	  { 
+	    remove_completed_progress_bar: false,
+	    dropZone: $('#audio-image-dropzone'),
+	    progress_bar_target: $('#audio-image-progress-case'),
+	    additional_data: { "audio_image[majorpost_uuid]": $('#s3_uploader_audio_image').data('majorpost-uuid'),
+	    "audio_image[audio_uuid]":$('#s3_uploader_audio_image').data('audio-uuid')
+	  },
+	},"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+	$('#s3_uploader_audio_image').bind('s3_upload_failed', function(e, content) {
+	  return alert(content.filename + ' failed to upload');
+	});   
+	$('#s3_uploader_audio_image').bind('s3_upload_complete', function(e, content) {
+	  $('#progress-words').html("Processing...meow");
+	});
+<% end %>

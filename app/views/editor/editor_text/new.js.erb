@@ -1,0 +1,8 @@
+//Hide editor options
+hide_editor_options();
+//Append editor text
+$('#editor-holder').append("<%= j render(:partial => 'utilities/editor/editor_text', :locals => {:majorpost => @majorpost, :user => @user}) %>");
+//Initiate editor js
+initiate_editor();
+initiate_text_editor('<%= @upload_url %>','subscribe');
+turn_lights_off('#above-blockui')

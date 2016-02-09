@@ -1,0 +1,38 @@
+<div id="editor-text-holder" class="animated fadeIn">
+	<%= form_for [:content, majorpost], :html =>{:id => 'text-editor-form'},name:"text-editor-form",:remote => true do |f| %>
+		<%= f.hidden_field :uuid, :value => majorpost.uuid %>
+		<div class="panel-body pb-5">
+			<!-- Title -->
+			<%= f.text_field :title, class:"mb-10 form-control input-title form-transparent", placeholder:"Title" %>
+			<!-- Content -->
+			<div id="majorpost_content_textarea_holder">
+				<%= f.text_area :content, type:"hidden",class:"medium-editor-textarea editable-textarea form-transparent", data:{placeholder: "Write something..."},id:"majorpost_content_textarea" %>
+			</div>				
+			<div id="editor-text-word-count"></div>
+		</div>
+		<div class="pl-20 pr-20 pb-10">
+			<!-- Tags -->
+			<%= f.text_field :tag_list, type:"hidden", placeholder:"#tags",class:"editor-tags text-grey-200 text-thin select-xs" %>
+		</div>	
+		<div class="panel-footer pt-10 pb-10">
+			<div class="pull-left">
+				<%= link_to remove_user_editor_editor_text_path(user.id, majorpost.uuid), method: :get, remote: :true do %>
+					<div class="btn bg-slate-300 btn-xs">
+						Cancel
+					</div>	
+				<% end %>
+			</div>	
+			<div class="pull-right">
+				<div class="pull-left cursor-pointer fa fa-lightbulb-o text-grey-100 mt-10 hidden" data-popup="tooltip" title="Focus" data-placement="top"></div>
+				<div class="checkbox checkbox-switchery switchery-xs pull-left mr-10 ml-20" data-popup="tooltip" title="Get paid for this creation" data-placement="top">
+					<label>
+						<%= f.check_box :paid_update, checked: false,class:"switchery"%>
+					</label>
+				</div>
+				<div class='pull-left' id="editor-submition-block">
+					<%= f.submit "Post Update", class: "btn btn-blue btn-xs", id:"editor-submition" %>
+				</div>	
+			</div>
+		</div>	
+	<% end %><!-- end #text-editor-form-->
+</div>

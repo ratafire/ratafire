@@ -11,6 +11,6 @@
 	<!-- Panel Body -->
 	<div class="panel-body" style="padding:0 2px 2px 0;">
 		<!-- Backer Images -->
-		<%= render partial: "profile/components/friend_images", collection: user.record_subscribers.where("profilephoto_file_name IS NOT NULL").first(9), :as => :user %>			
+		<%= render partial: "profile/components/friend_images", collection: user.record_subscribers.first(9), :as => :user %>			
 	</div>
 </div>

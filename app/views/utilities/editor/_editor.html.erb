@@ -1,0 +1,15 @@
+<!-- Update Holder-->
+<div>
+    <!-- Post Holder -->
+    <div class="col-xs-12 col-md-12 col-offset-64" id="above-blockui">
+    <!-- User Image -->
+    <div class="col-fixed-64">
+        <img src="<%= user.profilephoto.image.url(:thumbnail64) %>" class="profile-thumb-panel" data-content='<i class="icon-spinner2 spinner text-grey"></i>' data-id="<%= user.uid %>" data-placement="right">
+    </div>          
+        <!-- Post Panel -->
+        <div class="panel panel-speech" id="editor-holder">
+            <!-- Editor -->
+            <%= render partial:'utilities/editor/editor_options', locals: {user: user}%>
+        </div><!-- end .panel -->   
+    </div><!-- end .col-xs-10 col-md-7-->   
+</div><!-- end #update_holder-->    

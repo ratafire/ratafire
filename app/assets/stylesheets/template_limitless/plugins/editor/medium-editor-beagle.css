@@ -1,0 +1,135 @@
+.medium-toolbar-arrow-under:after {
+  display: none !important;
+}
+
+.medium-toolbar-arrow-over:before {
+  border-color: transparent transparent #000 transparent; }
+
+.medium-editor-toolbar {
+  border: none;
+  border-radius: 50px; }
+  .medium-editor-toolbar li button {
+    box-sizing:border-box;cursor:pointer;display:block;font-size:14px;line-height:1;margin:0;text-decoration:none;
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    color: #ffffff;
+    min-height: 40px;
+    min-width: 40px;
+    margin-right:5px !important;
+    margin-top: 6px !important;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+    background: url(/assets/editor/rainbow-blur.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.9;
+    background-attachment: fixed;
+    -webkit-transition: background-color .2s ease-in, color .2s ease-in;
+            transition: background-color .2s ease-in, color .2s ease-in; }
+    .medium-editor-toolbar li button:hover {
+      opacity:1; }
+  .medium-editor-toolbar li .medium-editor-button-first {
+   }
+  .medium-editor-toolbar li .medium-editor-button-last {
+    }
+  .medium-editor-toolbar li .medium-editor-button-active {
+    min-height: 48px;
+    min-width: 48px;
+    margin-top: -4px;
+    font-size: 20px;
+    -webkit-transition: min-height .1s ease-in, min-width .1s ease-in;
+            transition: min-height .1s ease-in, min-width .1s ease-in;    
+  }
+
+.medium-editor-toolbar-form {
+  border-radius: 50px;
+  color: #ccc;
+  overflow: hidden; 
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  opacity: 0.9;
+  background: url(/assets/editor/rainbow-blur2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+  .medium-editor-toolbar-form .medium-editor-toolbar-input {
+    background: transparent;
+    box-sizing: border-box;
+    color: #ffffff;
+    height: 40px;
+    padding-left: 16px;
+    width: 220px; }
+    .medium-editor-toolbar-form .medium-editor-toolbar-input::-webkit-input-placeholder {
+      color: #f8f5f3;
+      color: rgba(248, 245, 243, 0.8); }
+    .medium-editor-toolbar-form .medium-editor-toolbar-input:-moz-placeholder {
+      /* Firefox 18- */
+      color: #f8f5f3;
+      color: rgba(248, 245, 243, 0.8); }
+    .medium-editor-toolbar-form .medium-editor-toolbar-input::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #f8f5f3;
+      color: rgba(248, 245, 243, 0.8); }
+    .medium-editor-toolbar-form .medium-editor-toolbar-input:-ms-input-placeholder {
+      color: #f8f5f3;
+      color: rgba(248, 245, 243, 0.8); }
+  .medium-editor-toolbar-form a {
+    color: #ffffff;
+    -webkit-transform: translateY(2px);
+            transform: translateY(2px); }
+  .medium-editor-toolbar-form .medium-editor-toolbar-close {
+    margin-right: 16px; }
+
+.medium-editor-toolbar-anchor-preview {
+  font-size: 12px;
+  background: #000;
+  opacity: 0.9;
+  border-radius: 3px;
+  padding: 4px 6px 0 6px; }
+
+.medium-editor-anchor-preview a {
+  color: #ccc;
+  text-decoration: none; }
+.medium-editor-textarea{
+  outline: none;
+}  
+.medium-editor-textarea p {
+  margin:0px;
+  padding: 0 0 10px 0;
+}  
+.medium-editor-textarea{
+  min-height: 50px;
+}
+.medium-editor-placeholder{
+  color: #b7b7b7;
+}
+.medium-editor-toolbar-remove{
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  z-index:2000;
+  right:0;
+  float:right;
+  margin-bottom: -50px;
+  top:0;
+  visibility: visible !important;
+  left: auto !important;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  min-height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  padding: 9px 13px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  background: url(/assets/editor/rainbow-blur2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.9;
+  background-attachment: fixed;
+  -webkit-transition: background-color .2s ease-in, color .2s ease-in;
+  transition: background-color .2s ease-in, color .2s ease-in;  
+  border: none;
+}

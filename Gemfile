@@ -40,7 +40,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Redirections
 gem 'rack-reverse-proxy', :require => 'rack/reverse_proxy'
 gem 'rack-rewrite'
-
+# Show application.yml
+gem "figaro"
 
 #------------------------ UI ------------------------
 
@@ -84,6 +85,8 @@ gem 'mini_magick','3.7.0' #important
 gem 'jquery-fileupload-rails', :path => "vendor/gems/jquery-fileupload-rails-master"
 gem 'paperclip-ghostscript' #pdf
 
+#Ajax File upload
+
 #------------Video------------
 #Video Interface
 #gem 'videojs_rails',:git => "git://github.com/ratafire/videojs_rails.git"
@@ -115,6 +118,9 @@ gem 'acts_as_votable', '~> 0.10.0'
 
 #------------Flash Message------------
 gem 'unobtrusive_flash'
+
+#------------Grab meta info from link------------
+gem 'metainspector'
 
 #------------------------ Search ------------------------
 

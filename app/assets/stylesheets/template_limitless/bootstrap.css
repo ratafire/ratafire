@@ -4383,7 +4383,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 999;
 }
 @media (min-width: 769px) {
   .navbar-fixed-top,
@@ -6260,9 +6260,9 @@ button.close {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1060;
+  z-index: 2001;
   display: none;
- 
+  opacity: 0.95;
   padding: 1px;
   font-family: "Roboto", Helvetica Neue, Helvetica, Arial, sans-serif;
   font-style: normal;
@@ -6282,8 +6282,8 @@ button.close {
   font-size: 13px;
   background-color: #ffffff;
   background-clip: padding-box;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
+  border: 1px solid transparent;
+  border-radius: 10px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
@@ -6330,8 +6330,8 @@ button.close {
   left: 50%;
   margin-left: -6px;
   border-bottom-width: 0;
-  border-top-color: #999999;
-  border-top-color: #b3b3b3;
+  border-top-color: transparent;
+  border-top-color: transparent;
   bottom: -6px;
 }
 .popover.top > .arrow:after {
@@ -6346,8 +6346,8 @@ button.close {
   left: -6px;
   margin-top: -6px;
   border-left-width: 0;
-  border-right-color: #999999;
-  border-right-color: #b3b3b3;
+  border-right-color: transparent;
+  border-right-color: transparent;
 }
 .popover.right > .arrow:after {
   content: " ";
@@ -6360,8 +6360,8 @@ button.close {
   left: 15px !important;
   margin-left: -6px;
   border-top-width: 0;
-  border-bottom-color: #999999;
-  border-bottom-color: #b3b3b3;
+  border-bottom-color: transparent;
+  border-bottom-color: transparent;
   top: -6px;
 }
 .popover.bottom > .arrow:after {
@@ -6376,8 +6376,8 @@ button.close {
   right: -6px;
   margin-top: -6px;
   border-right-width: 0;
-  border-left-color: #999999;
-  border-left-color: #b3b3b3;
+  border-left-color: transparent;
+  border-left-color: transparent;
 }
 .popover.left > .arrow:after {
   content: " ";
@@ -6949,3 +6949,39 @@ button.close {
 .text-shadow{
   text-shadow:0 0 3px rgba(0, 0, 0, 0.8);
 }
+.btn-upload{
+  width: 100%;
+  height: 100%; 
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+}
+.dropzone-bg {
+  position: relative;
+  border: 3px dashed #eeeeee;
+  height: 146px;
+  border-radius: 2px;
+  background-color: #fcfcfc;
+  padding: 5px;
+  width: 100%;
+}
+.dropzone-bg-small {
+  height: 40px;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.above-blockui{
+  position: relative;
+  z-index: 2000;
+}
+.position-absolute{
+  position: absolute;
+}
+.position-absolute-r{
+  position: absolute;
+  right: 0;
+}
+.z-index-2000{
+  z-index: 2000;
+} 

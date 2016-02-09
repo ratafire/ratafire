@@ -1,0 +1,24 @@
+//Show text editor
+$('.majorpost_content_hidden_holder').velocity('fadeIn');
+$('#artwork-progress-box').remove();
+$('#editor-submition-block').unblock();
+//Show image
+$('#big-image-upload').hide();
+$('#small-image-upload').show();
+$('.dropzone-bg').addClass("dropzone-bg-small");
+$("#artwork_preview").append("<%= j render(:partial => 'editor/editor_image/artwork_preview', locals: {artwork: @artwork}) %>");
+$('#artwork_preview').addClass('mt-20');
+$('.photoset-grid-lightbox, .medium-insert-images').photosetGrid({
+    highresLinks: true,
+    rel: 'withhearts-gallery',
+    gutter: '2px',
+onComplete: function(){
+    $('.photoset-grid-lightbox,.medium-insert-images').attr('style', '');
+    $('.photoset-grid-lightbox a,.medium-insert-images a').colorbox({
+        photo: true,
+        scalePhotos: true,
+        maxHeight:'90%',
+        maxWidth:'90%'
+        });
+    }
+});

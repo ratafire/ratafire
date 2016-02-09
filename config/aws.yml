@@ -1,7 +1,7 @@
 development:
   access_key_id: AKIAJ4ZF2OGURAAHVGDQ
   secret_access_key: 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
-  bucket: Ratafire_production
+  bucket: Ratafire_development
   s3_region: us-east-1
 test:
   access_key_id: AKIAJ4ZF2OGURAAHVGDQ

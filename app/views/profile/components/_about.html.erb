@@ -1,6 +1,6 @@
 <div class="panel">
 	<div class="panel-heading bg-blue-light border-blue-light">
-		<div class="panel-title text-uppercase text-semibold">About <%= user.firstname %></div>
+		<div class="panel-title text-uppercase text-semibold">About</div>
 		<div class="heading-elements">
 			<ul class="icons-list">
         		<li><a data-action="collapse"></a></li>
@@ -8,19 +8,17 @@
     	</div>
 	</div>
 	<!-- User thumbnail -->
-	<div class="thumb  thumb-slide">
-		<img src="<%= user.profilephoto.url(:thumbnail512)%>" alt="">
-		<div class="caption">
-			<span>
-				<a class="btn bg-blue btn-icon btn-xs" data-popup="tooltip" title="Upload" data-placement="top" ><i class="icon-plus2"></i></a>
-				<a class="btn bg-blue btn-icon btn-xs" data-popup="tooltip" title="Facebook" data-placement="top"><i class="icon-facebook"></i></a>
-			</span>
-		</div>
+	<div class="thumb  thumb-slide" id="about-profilephoto-holder">
+		<img src="<%= user.profilephoto.image.url(:thumbnail512)%>" class="about-profilephoto-holder" alt="">
+		<!-- Upload Panel -->
+		<% if current_user == @user || current_user.try(:admin) %>
+			<%= render partial:'profile/components/upload_user_photo', locals: { profilephoto: @user.profilephoto, user: @user}%>
+		<% end %>
 	</div>	
 	<div class="panel-body text-center">
 		<!-- Username -->
     	<div class="caption text-center">
-    		<h6 class="text-semibold no-margin"><%= user.fullname %><small class="display-block"><%= user.tagline %></small></h6>
+    		<h6 class="text-semibold no-margin"><%= user.preferred_name %><small class="display-block"><%= user.tagline %></small></h6>
     	</div>
 		<!-- About -->
 		<p class="mt-10">

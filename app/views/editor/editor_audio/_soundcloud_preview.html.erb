@@ -1,0 +1,9 @@
+<div class="insert_audio" id="<%= audio.uuid %>_insert_audio">
+	<%= link_to content_audio_path(audio), method: :delete, remote: true do %>
+		<div class="medium-editor-toolbar-remove mr-5 mt-5">
+			<span class="ti-close"></span>
+		</div>
+	<% end %>	
+	<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/<%= audio.soundcloud %>&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true">
+	</iframe>
+</div>

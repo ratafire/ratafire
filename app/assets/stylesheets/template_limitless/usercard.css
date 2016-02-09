@@ -52,6 +52,7 @@
   position: absolute;
   border: 1px solid #e5e6e9 #dfe0e4 #d0d1d5;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+
 }
 .usercard-profile .usercarddata {
 	height: auto;
@@ -60,7 +61,6 @@
   width: 100%;
   z-index: 20;
   bottom: 0;
-  border-radius: 0 0 3px 3px;
 }
 .usercard-profile li {
   height: 30px;

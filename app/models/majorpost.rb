@@ -1,8 +1,6 @@
 class Majorpost < ActiveRecord::Base
     #----------------Utilities----------------
 
-    before_validation :generate_uuid!, :on => :create
-
     #--------Friendlyid--------
     extend FriendlyId
     friendly_id :uuid
@@ -21,20 +19,21 @@ class Majorpost < ActiveRecord::Base
     has_many :postimage
     #Has many
     has_many :comments, dependent: :destroy
-    has_many :artwork, dependent: :destroy
+    has_many :artwork, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Artwork", dependent: :destroy
     #Has one
-    has_one :video, dependent: :destroy
-    has_one :audio, dependent: :destroy
+    has_one :link, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Link",dependent: :destroy
+    has_one :video, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Video",dependent: :destroy
+    has_one :video_image, foreign_key:"majorpost_uuid", primary_key:"uuid", class_name:"VideoImage", dependent: :destroy
+    has_one :audio, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Audio",dependent: :destroy
+    has_one :audio_image, foreign_key:"majorpost_uuid", primary_key:"uuid", class_name:"AudioImage", dependent: :destroy
     has_one :pdf, dependent: :destroy
 
     #----------------Validations----------------
-    validates :content, :presence => true
+
+    #uuid
+    validates_uniqueness_of :uuid, case_sensitive: false
 
 private
 
-    def generate_uuid!
-        begin
-            self.uuid = SecureRandom.hex(6)
-        end while Majorpost.find_by_uuid(self.uuid).present?
-    end
+    
 end

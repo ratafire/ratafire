@@ -1,0 +1,27 @@
+<div id="s3_direct_uploader_audio_image" class="mt-20 ml-20 mr-20">
+	<%= s3_uploader_form callback_url: content_audio_images_path,
+		callback_method: 'POST',
+		id: "s3_uploader_audio_image",
+		callback_param: "audio_image[direct_upload_url]",
+		expiration: 24.hours.from_now.utc.iso8601,
+		max_file_size: 20.megabytes,:remote => true,
+		data: {majorpost_uuid: audio.majorpost_uuid, audio_uuid: audio.uuid} do %>
+		<div class="valign-middle dropzone-bg" id="#audio-image-dropzone">
+			<div id="audio-image-progress-case">
+			</div>
+			<%= file_field_tag :file, multiple: false, class:"artwork-choose btn-upload" %>
+			<div class="cursor-pointer center-block text-center">
+				<div id="big-image-upload">
+					<div class="fa fa-image text-grey-100" style="font-size:40px;"></div>
+					<div class="text-size-large text-grey-200 mt-5">Drop to upload piece artwork</div>
+					<div class="text-grey-100">or CLICK</div>
+				</div>
+				<div id="small-image-upload" style="display:none;">
+					<div class="text-grey-100">Add more</div>
+				</div>
+			</div>
+		</div>	
+	<% end %>	
+	<!-- Progress bar -->
+	<%= render partial:'utilities/editor/editor_progress_bar', locals:{name:'artwork'} %>		
+</div>

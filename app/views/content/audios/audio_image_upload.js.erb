@@ -1,0 +1,4 @@
+//Remove Image uploader
+$('#s3_direct_uploader_audio_image').remove();
+//Show Image preview
+$('#audio-image-upload-holder').append("<%= j render(:partial => 'editor/editor_image/artwork_preview', locals: {artwork: @audio}) %>");

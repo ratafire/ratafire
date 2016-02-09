@@ -1,5 +1,5 @@
 <%= link_to profile_url_path(user) do %>
-	<div class="panel-image usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey-200"></i>' data-id="<%= user.uid %>" style="background-image:url(<%= user.profilephoto.url(:small)%>);" data-placement="left">
+	<div class="panel-image usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey-200"></i>' data-id="<%= user.uid %>" style="background-image:url(<%= user.profilephoto.image.url(:thumbnail128)%>);" data-placement="left">
 		<div class="panel-image-text text-size-mini"><%= user.fullname %>
 		</div>
 	</div>	

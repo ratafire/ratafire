@@ -1,0 +1,32 @@
+<% if @video %>
+	//Show text editor
+	$('.majorpost_content_hidden_holder').velocity('fadeIn');
+	$('#video-progress-box').remove();
+	$('#add-video').remove();
+	turn_lights_off('#above-blockui');
+	<% if @video.external %>
+		//Show video embed
+		$("#artwork_preview").append("<%= j render(:partial => 'editor/editor_video/video_preview', locals: {video: @video}) %>");
+		$('#artwork_preview').addClass('mt-20');
+	<% else %>
+		//Show video image upload
+		$('#editor-text-holder').prepend("<%= j render(:partial => 'utilities/editor/editor_video_image', :locals => {:video => @video}) %>");
+	<% end %>
+	initiate_audio_editor();
+	//majorpost video image uploader	
+	$('#s3_uploader_video_image').S3Uploader(
+	  { 
+	    remove_completed_progress_bar: false,
+	    dropZone: $('#video-image-dropzone'),
+	    progress_bar_target: $('#video-image-progress-case'),
+	    additional_data: { "video_image[majorpost_uuid]": $('#s3_uploader_video_image').data('majorpost-uuid'),
+	    "video_image[video_uuid]":$('#s3_uploader_video_image').data('video-uuid')
+	  },
+	},"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+	$('#s3_uploader_video_image').bind('s3_upload_failed', function(e, content) {
+	  return alert(content.filename + ' failed to upload');
+	});   
+	$('#s3_uploader_video_image').bind('s3_upload_complete', function(e, content) {
+	  $('#progress-words').html("Processing...meow");
+	});
+<% end %>

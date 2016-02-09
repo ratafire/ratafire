@@ -356,7 +356,7 @@ $(function() {
 
         // Toggle min sidebar class
         $('body').toggleClass('sidebar-xs');
-        $('.sidebar-hide-toggle').toggleClass('element-hider');
+        $('.sidebar-hide-toggle').toggleClass('hidden');
     });
 
 
@@ -593,7 +593,7 @@ $(function() {
     // Plugins
     // -------------------------
     // Initiate userCard
-    initiateUsercard();    
+    refreshUsercard('usercard');    
     // Initiate Pagination
     if ($('.pagination').length) {
         $(window).scroll(function() {

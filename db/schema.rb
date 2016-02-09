@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130010417) do
+ActiveRecord::Schema.define(version: 20160209035543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,10 +138,12 @@ ActiveRecord::Schema.define(version: 20160130010417) do
     t.text     "content_temp"
     t.text     "tags_temp"
     t.integer  "archive_id",         limit: 8
-    t.text     "direct_upload_url",                            null: false
+    t.string   "direct_upload_url"
     t.boolean  "processed",                    default: false, null: false
     t.integer  "user_id",            limit: 8,                 null: false
     t.boolean  "skip_everafter",               default: false
+    t.string   "uuid"
+    t.string   "majorpost_uuid"
   end
 
   add_index "artworks", ["processed"], name: "idx_16450_index_artworks_on_processed", using: :btree
@@ -168,26 +170,57 @@ ActiveRecord::Schema.define(version: 20160130010417) do
     t.datetime "updated_at",           null: false
   end
 
+  create_table "audio_images", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "majorpost_id"
+    t.string   "audio_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "direct_upload_url"
+    t.string   "uuid"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "audio_uuid"
+    t.string   "majorpost_uuid"
+    t.boolean  "skip_everafter"
+  end
+
   create_table "audios", id: :bigserial, force: :cascade do |t|
     t.text     "audio"
-    t.integer  "majorpost_id",       limit: 8
-    t.integer  "project_id",         limit: 8
+    t.integer  "majorpost_id",            limit: 8
+    t.integer  "project_id",              limit: 8
     t.text     "content_temp"
     t.text     "tags_temp"
-    t.integer  "archive_id",         limit: 8
-    t.text     "direct_upload_url",                            null: false
-    t.boolean  "processed",                    default: false, null: false
-    t.integer  "user_id",            limit: 8,                 null: false
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.integer  "archive_id",              limit: 8
+    t.string   "direct_upload_url"
+    t.boolean  "processed",                         default: false, null: false
+    t.integer  "user_id",                 limit: 8,                 null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.text     "soundcloud"
     t.text     "audio_file_name"
     t.text     "audio_content_type"
-    t.integer  "audio_file_size",    limit: 8
+    t.integer  "audio_file_size",         limit: 8
     t.datetime "audio_updated_at"
     t.text     "soundcloud_image"
-    t.integer  "default_image",      limit: 8, default: 0
-    t.boolean  "skip_everafter",               default: false
+    t.integer  "default_image",           limit: 8, default: 0
+    t.boolean  "skip_everafter",                    default: false
+    t.string   "majorpost_uuid"
+    t.string   "uuid"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "composer"
+    t.string   "artist"
+    t.text     "title"
+    t.string   "direct_image_upload_url"
+    t.text     "description"
+    t.string   "genre"
   end
 
   create_table "beta_users", id: :bigserial, force: :cascade do |t|
@@ -809,6 +842,24 @@ ActiveRecord::Schema.define(version: 20160130010417) do
     t.integer  "liker_id",   limit: 8
   end
 
+  create_table "links", force: :cascade do |t|
+    t.string   "image_best"
+    t.text     "description"
+    t.string   "best_title"
+    t.string   "title"
+    t.string   "root_url"
+    t.string   "host"
+    t.boolean  "tracked"
+    t.string   "url"
+    t.string   "majorpost_uuid"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "uuid"
+    t.integer  "user_id"
+  end
+
   create_table "m_e_inspirations", id: :bigserial, force: :cascade do |t|
     t.integer  "inspired_id", limit: 8
     t.datetime "created_at"
@@ -940,6 +991,10 @@ ActiveRecord::Schema.define(version: 20160130010417) do
     t.boolean  "listed"
     t.text     "license"
     t.string   "post_type",                       default: "text"
+    t.boolean  "paid_update",                     default: false
+    t.string   "composer"
+    t.string   "artist"
+    t.string   "genre"
   end
 
   create_table "masspay_batches", id: :bigserial, force: :cascade do |t|
@@ -1237,6 +1292,24 @@ ActiveRecord::Schema.define(version: 20160130010417) do
     t.string   "email"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "profilephotos", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "user_id"
+    t.string   "user_uid"
+    t.string   "source"
+    t.string   "uuid"
+    t.string   "direct_upload_url"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "processed"
+    t.boolean  "skip_everafter"
   end
 
   create_table "project_comments", id: :bigserial, force: :cascade do |t|
@@ -1800,18 +1873,6 @@ ActiveRecord::Schema.define(version: 20160130010417) do
     t.boolean  "admin"
     t.text     "website"
     t.text     "bio"
-    t.text     "profilelarge_file_name"
-    t.text     "profilelarge_content_type"
-    t.integer  "profilelarge_file_size",      limit: 8
-    t.datetime "profilelarge_updated_at"
-    t.text     "profilemedium_file_name"
-    t.text     "profilemedium_content_type"
-    t.integer  "profilemedium_file_size",     limit: 8
-    t.datetime "profilemedium_updated_at"
-    t.text     "profilephoto_file_name"
-    t.text     "profilephoto_content_type"
-    t.integer  "profilephoto_file_size",      limit: 8
-    t.datetime "profilephoto_updated_at"
     t.integer  "goals_subscribers",           limit: 8,                         default: 256
     t.integer  "goals_monthly",               limit: 8,                         default: 7730
     t.integer  "goals_project",               limit: 8,                         default: 5
@@ -1829,43 +1890,25 @@ ActiveRecord::Schema.define(version: 20160130010417) do
     t.datetime "confirmation_sent_at"
     t.text     "unconfirmed_email"
     t.text     "provider"
-    t.text     "uid"
+    t.string   "uid"
     t.decimal  "subscription_amount",                   precision: 8, scale: 2, default: 0.0
-    t.text     "why"
     t.boolean  "subscription_status",                                           default: false
-    t.text     "plan"
-    t.boolean  "amazon_authorized",                                             default: false
     t.text     "subscribed_permission"
     t.text     "subscriber_permission"
     t.boolean  "disabled",                                                      default: false
     t.datetime "deactivated_at"
     t.datetime "goals_updated_at"
-    t.text     "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit",            limit: 8
-    t.integer  "invited_by_id",               limit: 8
-    t.text     "invited_by_type"
-    t.integer  "invitations_count",           limit: 8,                         default: 0
     t.decimal  "subscribing_amount",                    precision: 8, scale: 2, default: 0.0
-    t.integer  "supporter_slot",              limit: 8,                         default: 5
-    t.boolean  "amount_display_switch",                                         default: false
     t.boolean  "accept_message",                                                default: true
-    t.text     "uuid"
     t.text     "location"
     t.text     "bio_html"
     t.text     "direct_upload_url"
     t.boolean  "processed",                                                     default: false
     t.text     "subscription_status_initial"
     t.text     "legalname"
-    t.integer  "ssn",                         limit: 8
-    t.boolean  "need_username",                                                 default: false
-    t.text     "after_subscription_url"
     t.boolean  "signup_during_subscription",                                    default: false
     t.text     "school"
     t.text     "concentration"
-    t.boolean  "accept_venmo"
     t.boolean  "homepage_fundable"
     t.boolean  "fundable_show"
     t.integer  "goals_watching",              limit: 8,                         default: 10
@@ -1874,21 +1917,35 @@ ActiveRecord::Schema.define(version: 20160130010417) do
     t.boolean  "subscription_inactive"
     t.text     "default_billing_method"
     t.boolean  "subscription_switch",                                           default: true
-    t.integer  "organization_id",             limit: 8
-    t.integer  "organization_leader_id",      limit: 8
-    t.boolean  "masked"
     t.text     "memorized_fullname"
     t.integer  "homepage_fundable_weight",    limit: 8
     t.boolean  "explore_fundable"
     t.integer  "explore_fundable_weight",     limit: 8
     t.string   "firstname"
     t.string   "lastname"
+    t.string   "preferred_name"
   end
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree
-  add_index "users", ["invitation_token"], name: "idx_17362_index_users_on_invitation_token", unique: true, using: :btree
-  add_index "users", ["invitations_count"], name: "idx_17362_index_users_on_invitations_count", using: :btree
-  add_index "users", ["invited_by_id"], name: "idx_17362_index_users_on_invited_by_id", using: :btree
+
+  create_table "video_images", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "majorpost_id"
+    t.string   "audio_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "direct_upload_url"
+    t.string   "uuid"
+    t.string   "majorpost_uuid"
+    t.string   "video_uuid"
+    t.boolean  "skip_everafter"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
 
   create_table "videos", id: :bigserial, force: :cascade do |t|
     t.text     "title"
@@ -1917,13 +1974,15 @@ ActiveRecord::Schema.define(version: 20160130010417) do
     t.text     "thumbnail"
     t.boolean  "processed",                             default: false,       null: false
     t.integer  "user_id",                     limit: 8,                       null: false
-    t.text     "direct_upload_url",                                           null: false
+    t.string   "direct_upload_url"
     t.text     "output_url_mp4"
     t.boolean  "skip_everafter",                        default: false
     t.integer  "subscribed_id",               limit: 8
     t.integer  "patron_video_id",             limit: 8
     t.integer  "organization_id",             limit: 8
     t.integer  "organization_application_id", limit: 8
+    t.string   "majorpost_uuid"
+    t.string   "uuid"
   end
 
   add_index "videos", ["processed"], name: "idx_17408_index_videos_on_processed", using: :btree

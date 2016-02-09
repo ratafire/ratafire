@@ -6,16 +6,7 @@ function document_ready_plugins(random_id){
     $('.signup-open-popup').on('click', function(){
     	$('#login-popup li:eq(0) a').tab('show');//select the first tab
     });  
-	// Initialize Editor
-	var editor = new MediumEditor('.medium-editor');
-	// Initialize Editor Tags
-    $(".editor-tags").select2({
-        width: '100%',
-        tags: []
-    });
-    $(".publish-post-editor").select2({
-    	minimumResultsForSearch: "-1"
-    	});
+
 	// Initialize MagnificPopup
 	$('.open-popup-link').magnificPopup({type:'inline'});   
     // Initialize Nice Scroll
@@ -41,5 +32,5 @@ function document_ready_plugins(random_id){
             text: params.message,
             type: params.type
         });
-    });          	      
+    });  	      
 }

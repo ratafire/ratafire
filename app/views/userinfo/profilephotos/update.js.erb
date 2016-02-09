@@ -1,0 +1,7 @@
+//Update Profile Photo
+$('.cover-profilephoto-holder').remove();
+$('#cover-profilephoto-holder').append("<%= j render(:partial => 'userinfo/profilephotos/profilephotos_preview', locals: {profilephoto: @profilephoto}) %>");
+$('.about-profilephoto-holder').remove();
+$('#about-profilephoto-holder').append("<%= j render(:partial => 'userinfo/profilephotos/profilephotos_preview_about', locals: {profilephoto: @profilephoto}) %>");
+$('#cover-profilephoto-holder,#about-profilephoto-holder').unblock();
+$('.caption').show();

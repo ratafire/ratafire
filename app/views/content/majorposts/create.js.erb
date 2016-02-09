@@ -1,1 +1,10 @@
-$("#text-editor-holder").velocity("transition.slideLeftBigOut");
+//Remove block ui
+$('.outer-space').unblock();
+$('#above-blockui').removeClass('above-blockui')
+//Remove text editor
+$('#editor-text-holder').remove();
+$('#editor-options-holder').velocity('fadeIn');
+//Add new post
+$("#post-pagination").prepend("<div class='post-pagination'><%= j render_activities(@activity) %></div>");
+initiate_plugins('<%= j @popoverclass %>_video_class');
+refreshUsercard('<%= j @popoverclass %>');

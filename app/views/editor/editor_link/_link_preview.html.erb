@@ -1,0 +1,20 @@
+<div class="insert_link <%= link.uuid %>_insert_link inserted_link">
+	<%= link_to content_link_path(link), method: :delete, remote: true do %>
+		<div class="medium-editor-toolbar-remove mr-5 mt-5">
+			<span class="ti-close"></span>
+		</div>
+	<% end %>	
+	<%= link_to link.url, target:"_blank" do %>
+			<!-- Link Image -->
+			<% if link.image_best %>
+				<img src="<%= link.image_best %>" style="width:100%;">
+			<% end %>
+			<!-- Link Title -->
+			<div class="bg-rainbow-400">
+				<div class="panel-body" style="position:inherit;">
+					<h2 class="text-light no-margin-top"><%= link.title %></h2>
+					<div class="text-light" style="margin-top:-10px;"><%= truncate(link.description, length: 200) %></div>
+				</div>	
+			</div>	
+	<% end %><!-- end link to external link -->
+</div>

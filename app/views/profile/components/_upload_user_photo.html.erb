@@ -1,0 +1,21 @@
+<div class="caption">
+	<span>
+		<div class="thumb-slide-style">
+			<!-- Direct Upload-->
+			<a class="btn bg-blue btn-icon btn-xs cursor-pointer" data-popup="tooltip" data-popup="tooltip" title="Upload" data-placement="top" >
+				<%= s3_uploader_form callback_url: userinfo_profilephoto_path(profilephoto),
+				callback_method: 'PATCH',
+				id: "s3_uploader_profilephoto",
+				callback_param: "profilephoto[direct_upload_url]",
+				expiration: 24.hours.from_now.utc.iso8601,
+				max_file_size: 2.megabytes,:remote => true,
+                data: {user_uid: user.uid} do %>
+					<%= file_field_tag :file, multiple: false, class:"btn-upload",style:"margin:-5px 0 0 -10px;z-index:100;" %>
+				<% end %>	
+				<i class="icon-plus2 cursor-pointer"></i>
+			</a>
+			<!-- Facebook Image-->
+			<a class="btn bg-blue btn-icon btn-xs" data-popup="tooltip" title="Facebook" data-placement="top" style="z-index:101;"><i class="icon-facebook"></i></a>
+		</div>
+	</span>
+</div>
