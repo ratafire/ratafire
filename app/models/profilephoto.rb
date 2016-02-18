@@ -32,6 +32,7 @@ class Profilephoto < ActiveRecord::Base
             :thumbnail64 => ["64x64#",:jpg], 
             :thumbnail40 => "40x40#"
             }, 
+        :default_url => lambda { |av| "/assets/default/profilephoto/profile#{av.instance.default_image_number}_:style.jpg" },
         :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
         :url =>  "/:class/uploads/:id/:style/:uuid_profilephoto_filename",
         #If s3
@@ -60,6 +61,10 @@ class Profilephoto < ActiveRecord::Base
 
     def profilephoto_uuid_to_filename
         "#{self.uuid}"
+    end
+
+    def default_image_number
+        id.to_s.last
     end
 
     #----------------S3 Direct Upload----------------

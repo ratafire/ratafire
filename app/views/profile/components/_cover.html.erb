@@ -5,7 +5,7 @@
 	<div id="fpc_effect-back">
 		<div id="fpc_box">
 			<div id="fpc_content">
-			<div class="profile-cover-img" style="background-image: url('/assets/default/profilecover/cover4.jpg')"></div>
+			<div class="profile-cover-img" style="background-image: url('<%= user.profilecover.image.url(:preview1024)%>')"></div>
 			</div>
 			<div id="fpc_corner-box">
 			    <a id="fpc_page-tip" href="#">
@@ -18,8 +18,7 @@
 			<!-- Profile Image -->
 			<%= link_to profile_url_path(user),class:"profile-thumb" do %>
 				<div class="thumb  thumb-slide thumb-shadow-radius" id="cover-profilephoto-holder">
-					<img src="/assets/default/profilephoto/triceratops.png" class="profile-thumb-holder cover-profilephoto-holder" alt="<%= user.preferred_name %>">
-					<!--<img src="<%= user.profilephoto.image.url(:thumbnail128)%>" class="profile-thumb-holder cover-profilephoto-holder" alt="<%= user.preferred_name %>">-->
+					<img src="<%= user.profilephoto.image.url(:thumbnail128)%>" class="profile-thumb-holder cover-profilephoto-holder" alt="<%= user.preferred_name %>">
 					<!-- Upload Panel -->
 					<% if current_user == @user || current_user.try(:admin) %>
 						<%= render partial:'profile/components/upload_user_photo', locals: {profilephoto: @user.profilephoto,user: @user}%>

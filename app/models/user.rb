@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
 
     #--------User Info---------
     has_one :profilephoto, foreign_key: "user_uid", primary_key: "uid", class_name: "Profilephoto", dependent: :destroy
+    has_one :profilecover, foreign_key: "user_uid", primary_key: "uid", class_name: "Profilecover", dependent: :destroy
 
     #--------Friends---------
     has_many :friendships, 

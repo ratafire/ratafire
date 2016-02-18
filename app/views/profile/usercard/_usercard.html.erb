@@ -1,5 +1,5 @@
 <div class="usercardcover-overlay"></div>
-<div class="usercardcover" style="background-image: url('/assets/placeholder/cover2.jpg')"></div>
+<div class="usercardcover" style="background-image: url('<%= user.profilecover.image.url(:preview1024) %>')"></div>
 <img class="usercardavatar animated bounceIn" src="<%= user.profilephoto.image.url(:thumbnail128) %>">
 <div class="usercardname animated fadeIn">
     <div class="text-white text-thin text-shadow usercardbio"><%= truncate(user.preferred_name,length: 28) %></div>
