@@ -1,0 +1,115 @@
+.friendcard-profile {
+  margin: auto;
+	width: 95%; 
+  height: 255px;
+  background: #fff;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  box-shadow:0 1px 1px rgba(0, 0, 0, 0.05);
+  border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+  border-radius: 3px;
+
+}
+.friendcardcover {
+  width: inherit;
+  height: 95px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;  
+  position: absolute;
+  top: 0;
+  border-radius: 3px 3px 0 0;
+}
+.friendcardcover-overlay {
+  width: inherit;
+  height: 95px;
+  background: rgba(0,0,0,0.3);
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0.3)), color-stop(100%, rgba(0,0,0,0)));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: -o-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: -ms-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+  position: absolute;
+  z-index: 11;
+  top: 0;
+  border-radius: 3px 3px 0 0;
+}
+.friendcard-profile  .friendcardname {
+  margin: auto;
+  margin-top: 0px;
+  margin-left: 123px;
+  position: absolute;
+  z-index: 20;
+}
+.friendcard-profile  .friendcardbio {
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.friendcard-profile  .friendcardtagline {
+  font-size: 10px;
+}
+.friendcardavatar {
+  margin-left: 15px;
+  margin-top: 15px;
+  height: 88px;
+  width: 88px;
+  border-radius: 5px;
+  z-index: 20;
+  position: absolute;
+  border: 1px solid #e5e6e9 #dfe0e4 #d0d1d5;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+}
+.friendcard-profile .friendcarddata {
+	height: auto;
+  text-align: center;
+  position: absolute;
+  width: inherit;
+  z-index: 20;
+  bottom: 0;
+  margin-bottom:20px;
+  border-radius: 0 0 3px 3px;
+  box-shadow:0 1px 1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e6e9 #dfe0e4 #d0d1d5;
+  color: #b7b7b7 !important;  
+}
+.friendcard-profile li {
+  height: 30px;
+  width: 33.34%;
+  display: table-cell;
+  text-align: center;
+}
+.friendcard-profile span {
+  white-space: nowrap;
+}
+.friendcard-profile .friendcarddata li:hover {
+  background: url(/assets/editor/rainbow-blur4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
+}
+.friendcardstats{ 
+  width: inherit;
+  float:left;
+  bottom: 0;
+  margin-top: 115px;
+  z-index: 20;
+  font-size:12px;
+}
+.friendcardstats li {
+  float:left;
+  font-size:22px;
+  width:33.3%;
+  color:#353535;
+}
+.friendcardstats label {
+  line-height: 7px;
+  font-size:13px;
+  display:block;
+  color:#757575;    
+}

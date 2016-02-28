@@ -3,8 +3,10 @@
 	<head>
 		<title><%= full_title(yield(:title)) %></title>
 		<!-- Stylesheet -->
-		<%= stylesheet_link_tag 'template_limitless', 'data-turbolinks-track' => true %>
-		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag 'template_limitless' %>
+		<%= javascript_include_tag 'template_limitless' %>
+		<%= javascript_include_tag 'page_specific/profile_user', 'data-turbolinks-track' => "reload"  %>
+		<%= csrf_meta_tags %>		
 		<!-- Webfonts -->
 		<!-- Roboto -->
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -18,13 +20,15 @@
 		
 		<div class="outer-space">
 			<!-- Main navbar -->
-	        <% if user_signed_in? %>
-	        	<!-- Signed-in Users-->
-	        	<%= render 'utilities/header/main_navbar_signed_in_users'%>
-	        <% else %>
-	        	<!-- Not signed-in Users-->
-	        	<%= render 'utilities/header/main_navbar_not_signed_in_users'%>
-	        <% end %>
+			<div id="main-navbar">
+		        <% if user_signed_in? %>
+		        	<!-- Signed-in Users-->
+		        	<%= render 'utilities/header/main_navbar_signed_in_users'%>
+		        <% else %>
+		        	<!-- Not signed-in Users-->
+		        	<%= render 'utilities/header/main_navbar_not_signed_in_users'%>
+		        <% end %>
+		    </div>
 			<!-- Page container -->
 			<div class="page-container">
 	            <div class="page-content">
@@ -41,7 +45,7 @@
 						<!-- Content area -->
 						<!-- Javascript Core-->
 						<!-- Video JS -->
-						<%= javascript_include_tag 'template_limitless', 'data-turbolinks-track' => true  %>
+						
 						<%= yield %>
 					</div><!-- end .content-wrapper -->
 				</div><!-- end .page-content-->	

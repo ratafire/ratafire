@@ -1,0 +1,56 @@
+<!-- Pinterest -->
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin" id="pinterest-heading">
+		<h4 class="panel-title">Pinterest</h4>
+		<span>Display Pinterest info...</span>
+<% unless user.pinterest %>
+	<!-- Without Pinterest -->
+		<div class="heading-elements">
+			<%= link_to user_omniauth_authorize_path(:pinterest), class:"btn btn-block btn-social btn-pinterest mb-10" do %>
+			    <span class="fa fa-pinterest"></span> Connect with Pinterest
+			<% end %>
+		</div>
+	</div><!-- end panel-heading-->
+	<div class="panel-body">
+		Currently for displaying your Pinterest info only.
+	</div>
+<% else %>
+	<!-- With pinterest -->
+		<div class="heading-elements" id="pinterest-disconnect">
+			<%= link_to user_disconnect_path(user,:pinterest),remote: true, class:"btn btn-block btn-social btn-default mb-10" do %>
+			    <span class="fa fa-pinterest fa-pinterest-square"></span> Disconnect
+			<% end %>
+		</div>
+	</div><!-- end panel-heading-->
+	<!-- Tweet Updates -->
+	<div class="table-responsive" id="pinterest-table">
+		<table class="table" data-popup="tooltip" title="Refresh is coming soon." data-placement="left">
+			<tbody>
+				<tr class="border-double active">
+					<td colspan="2">
+						<span class="text-semibold">Pinterest Profile</span>
+					</td>
+					<td class="col-md-1 col-sm-1 text-center">
+						<span class="text-semibold">Refresh</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="col-md-1 col-sm-1">
+						<%= link_to user.pinterest.url, target:"_blank" do %>
+							<img src="<%= user.pinterest.image %>" class="profile-thumb-holder cover-profilephoto-holder">
+						<% end %>
+					</td>
+					<td class="col-md-10 col-sm-10">
+						<%= link_to user.pinterest.name, user.pinterest.url, target:"_blank", class:"text-grey"%>
+					</td>
+					<td class="text-center"><i class="fa fa-refresh"></i></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+	<!-- Hidden pinterest Body -->
+	<div class="panel-body" id="pinterest-body" style="display:none;">
+		Currently for displaying your Pinterest info only.
+	</div>
+<% end %>
+</div>

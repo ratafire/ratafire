@@ -30,6 +30,7 @@ class AudioImage < ActiveRecord::Base
             :preview512 => ["512", :jpg],
             :preview256 => ["256", :jpg], 
             :thumbnail512 => ["512x512#",:jpg],
+            :thumbnail256 => ["256x256#",:jpg],
             :thumbnail128 => ["128x128#",:jpg],
             :thumbnail64 => ["64x64#",:jpg], 
         }, 

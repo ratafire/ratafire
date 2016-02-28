@@ -593,16 +593,26 @@ $(function() {
     // Plugins
     // -------------------------
     // Initiate userCard
-    refreshUsercard('usercard');    
-    // Initiate Pagination
-    if ($('.pagination').length) {
-        $(window).scroll(function() {
-          var url = $('.pagination .next_page').attr('href');
-          if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
-            $('.pagination').text("Please Wait...");
-            return $.getScript(url);        
-          }
+    $(document).on("ready turbolinks:render", function() {
+        //Switchery
+        var elem2s = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+        elem2s.forEach(function(html) {
+          var switchery2 = new Switchery(html);
         });
-        return $(window).scroll();
-    }
+    })
+    $(document).on('ready turbolinks:render', function(event) {
+        // Initiate refreshable plugins
+        initiate_plugins();      
+        profile_user_plugins('<%= @user.id %>');     
+        initiate_profilephoto_uploader();
+        initiate_profilecover_uploader();
+        refreshUsercard('usercard');  
+        initiate_videojs();     
+        initiate_profile_editor();
+    });
+    $(document).on('ready', function(){
+        document_ready_plugins();
+    });
+        
 });

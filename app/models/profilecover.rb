@@ -57,7 +57,7 @@ class Profilecover < ActiveRecord::Base
         attachment.instance.profilecover_uuid_to_filename
     end
 
-    def Profilecover_uuid_to_filename
+    def profilecover_uuid_to_filename
         "#{self.uuid}"
     end
 

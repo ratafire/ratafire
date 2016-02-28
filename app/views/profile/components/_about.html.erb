@@ -30,40 +30,78 @@
 		</p>
 		<!-- Social Media Icons -->
 		<p>
-			<ul class="soc">
-				<!-- Facebook -->
-				<% if user.facebook != nil then %>
-					<li data-popup="tooltip" title="Facebook" data-placement="bottom"><%= link_to "", user.facebook.link, class:"socicon-facebook", target:"_blank"%></li>
+			<!-- Facebook -->
+			<% if user.facebook != nil then %>
+				<%= link_to user.facebook.link, class:"socicon-facebook", target:"_blank" do %>
+					<span class="btn btn-facebook btn-icon" data-popup="tooltip" title="Facebook" data-placement="bottom">
+							<i class="fa fa-facebook pl-3 pr-3"></i>
+					</span>
 				<% end %>
-				<!-- Twitter -->
-				<% if user.twitter != nil then %>
-			    	<li data-popup="tooltip" title="Twitter" data-placement="bottom"><%= link_to "", user.twitter.link, class:"socicon-twitter", target:"_blank"%></a></li>
-			    <% end %>
-			    <!-- Tumblr -->
-			    <% if user.tumblr != nil then %>
-			    	<li data-popup="tooltip" title="Tumblr" data-placement="bottom" ><%= link_to "", user.tumblr.link, class:"socicon-tumblr", target:"_blank"%></a></li>
-			    <% end %>	
-			    <!-- Deviantart -->
-			    <% if user.deviantart != nil then %>
-			    	<li data-popup="tooltip" title="Deviantart" data-placement="bottom"><%= link_to "", user.deviantart.link, class:"socicon-deviantart", target:"_blank"%></a></li>
-			    <% end %>
-			    <!-- YouTube -->	
-			    <% if user.youtube != nil then %>
-			    	<li data-popup="tooltip" title="YouTube" data-placement="bottom"><%= link_to "", user.youtube.link, class:"socicon-youtube", target:"_blank"%></li>
-			    <% end %>	
-			    <!-- Github -->
-			    <% if user.github != nil then %>
-			    	<li data-popup="tooltip" title="GitHub" data-placement="bottom"><%= link_to "", user.github.link, class:"socicon-github", target:"_blank"%></li>
-			    <% end %>	
-			    <!-- Twitch -->
-			    <% if user.twitch != nil then %>
-			    	<li data-popup="tooltip" title="Twitch" data-placement="bottom"><%= link_to "", user.twitch.link, class:"socicon-twitch", target:"_blank"%></li>
-			    <% end %>
-			    <!-- Pinterest -->
-			    <% if user.pinterest %>
-			    	<li data-popup="tooltip" title="Pinterest" data-placement="bottom"><%= link_to "", user.pinterest.link, class:"socicon-pinterest", target:"_blank"%></li>
-			    <% end %>	
-			</ul>
+			<% end %>
+			<!-- Twitter -->
+			<% if user.twitter != nil then %>
+	    		<%= link_to user.twitter.link, class:"socicon-twitter", target:"_blank" do %>
+		    		<span class="btn btn-twitter btn-icon" data-popup="tooltip" title="Twitter" data-placement="bottom">
+		    			<i class="fa fa-twitter"></i>
+		    		</span>
+	    		<% end %>
+		    <% end %>
+		    <!-- Tumblr -->
+		    <% if user.tumblr != nil then %>
+	    		<%= link_to user.tumblr.link, class:"socicon-tumblr", target:"_blank" do %>
+	    			<span class="btn btn-tumblr btn-icon" data-popup="tooltip" title="Tumblr" data-placement="bottom" >
+	    				<i class="fa fa-tumblr"></i>
+	    			</span>
+	    		<% end %>
+		    <% end %>	
+		    <!-- Deviantart -->
+		    <% if user.deviantart != nil then %>
+	    		<%= link_to user.deviantart.link, class:"socicon-deviantart", target:"_blank" do %>
+		    		<span class="btn btn-deviantart btn-icon" data-popup="tooltip" title="DeviantArt" data-placement="bottom">
+		    			<i class="fa fa-deviantart pl-3 pr-3"></i>
+		    		</span>
+	    		<% end %>
+		    <% end %>
+		    <!-- YouTube -->	
+		    <% if user.youtube != nil then %>
+	    		<%= link_to user.youtube.link, class:"socicon-youtube", target:"_blank" do %>
+		    		<span class="btn btn-youtube btn-icon" data-popup="tooltip" title="YouTube" data-placement="bottom">
+		    			<i class="fa fa-youtube"></i>
+		    		</span>
+	    		<% end %>
+		    <% end %>	
+		    <!-- Vimeo -->
+		    <% if user.vimeo != nil then %>
+	    		<%= link_to user.vimeo.link, class:"socicon-vimeo", target:"_blank" do %>
+		    		<span class="btn btn-vimeo btn-icon" data-popup="tooltip" title="Vimeo" data-placement="bottom">
+		    			<i class="fa fa-vimeo-square"></i>
+		    		</span>
+	    		<% end %>
+		    <% end %>
+		    <!-- Github -->
+		    <% if user.github != nil then %>
+	    		<%= link_to user.github.link, class:"socicon-github", target:"_blank" do %>
+		    		<span class="btn btn-github btn-icon" data-popup="tooltip" title="GitHub" data-placement="bottom">
+		    			<i class="fa fa-github"></i>
+		    		</span>
+	    		<% end %>
+		    <% end %>	
+		    <!-- Twitch -->
+		    <% if user.twitch != nil then %>
+	    		<%= link_to user.twitch.link_self, class:"socicon-twitch", target:"_blank" do %>
+		    		<span class="btn btn-twitch btn-icon" data-popup="tooltip" title="Twitch" data-placement="bottom">
+		    			<i class="fa fa-twitch"></i>
+		    		</span>
+	    		<% end %>
+		    <% end %>
+		    <!-- Pinterest -->
+		    <% if user.pinterest %>
+	    		<%= link_to user.pinterest.link, class:"socicon-pinterest", target:"_blank" do %>
+		    		<span class="btn btn-pinterest btn-icon" data-popup="tooltip" title="Pinterest" data-placement="bottom">
+		    			<i class="fa fa-pinterest"></i>
+		    		</span>
+	    		<% end %>
+		    <% end %>	
 		</p>	
 	</div><!-- end .panel-body -->
 </div>

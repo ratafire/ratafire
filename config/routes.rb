@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
 	#User -----------------------------------
 
-		resources :users, except: [:show], shallow: true do 
+		resources :users, only: [:update], shallow: true do 
+			#Methods in users_controller
+			get 'disconnect/:provider', to: 'users#disconnect', as: :disconnect
 			#Editor
 			namespace :editor do 
 				#Ajax responses to show the editor
@@ -22,8 +24,29 @@ Rails.application.routes.draw do
 			#Update User Info
 			namespace :userinfo do
 				resources :profilephotos, only: [:create,:update,:destroy]
+				resources :profilecovers, only: [:create, :update,:destroy]
 			end
+
+			#Profile page display
+			namespace :profile do
+				#Tabs for profile page
+				resource :tabs, only:[] do
+					get 'updates'
+					get 'friends'
+					get 'backers'
+					get 'backed'
+					get 'subscribed'
+				end
+				#Settings
+				resource :settings, only:[] do
+					get 'profile_settings'
+					get 'social_media_settings'
+				end
+			end	
+
 		end
+
+	
 
 		devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks",registrations: 'users/registrations' }
 		#Profile Page
@@ -42,20 +65,20 @@ Rails.application.routes.draw do
 		
 		namespace :content do 
 			#Majorposts
-			resources :majorposts
+			resources :majorposts, only:[:create, :destroy]
 				#Majorpost attachments
-				resources :artworks do
+				resources :artworks, only:[:create,:destroy] do
 					delete 'remove'
 				end
-				resources :links do
+				resources :links, only:[:create, :destroy] do
 				end
-				resources :audios do 
+				resources :audios, only:[:create, :destroy] do 
 				end
-					resources :audio_images do
+					resources :audio_images, only:[:create] do
 					end
-				resources :videos do
+				resources :videos, only:[:create, :destroy] do
 				end
-					resources :video_images do
+					resources :video_images, only:[:create] do
 					end
 		end
 		#Artworks -----------------

@@ -122,10 +122,28 @@
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="#"><i class="ti-crown"></i> My profile</a></li>
-						<li><a href="#"><i class="ti-money"></i> Payment settings</a></li>
+						<li>
+							<%= link_to profile_url_path(current_user.username) do %>
+								<i class="ti-crown"></i> My Ratafire
+							<% end %>
+						</li>
+						<li>
+							<%= link_to profile_url_path(current_user.username) do %>
+								<i class="ti-palette"></i> <span class="btn btn-blue btn-xs">Creator Studio</span>
+							<% end %>
+						</li>
+						<li class="divider"></li>						
+						<li>
+							<%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
+								<i class="ti-settings"></i>Profile Settings
+							<% end %>
+						</li>
+						<li>
+							<%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
+								<i class="ti-money"></i>Payment Settings
+							<% end %>
+						</li>						
 						<li class="divider"></li>
-						<li><a href="#"><i class="ti-settings"></i> Account settings</a></li>
 						<li><%= link_to destroy_user_session_path, :method => :delete do %><i class="ti-power-off"></i> Logout<% end %></li>
 					</ul>
 				</li>

@@ -1,0 +1,107 @@
+<div class="error-messages"></div>
+<%= form_for(user, :remote => true) do |f| %>
+
+	<!-- Turing Test-->
+	<fieldset>
+		<legend class="text-semibold">
+			<i class="ti-user position-left"></i>
+			Turing Test
+			<!--<a class="control-arrow" data-toggle="collapse" data-target="#demo1">
+				<i class="icon-circle-down2"></i>
+			</a>-->
+		</legend>
+
+		<div class="collapse in" id="demo1">
+			<!-- First Name-->
+			<div class="form-group">
+				<label class="col-lg-3 control-label">First name:</label>
+				<div class="col-lg-9">
+					<%= f.text_field :firstname, class:"form-control mb-20", placeholder:"Your first name"%>
+				</div>
+			</div>
+			<!-- Last Name-->
+			<div class="form-group">
+				<label class="col-lg-3 control-label">Last name:</label>
+				<div class="col-lg-9">
+					<%= f.text_field :lastname, class:"form-control mb-20", placeholder:"Your last name"%>
+				</div>
+			</div>
+			<!-- Preferred Name -->
+			<div class="form-group">
+				<label class="col-lg-3 control-label">Display name:</label>
+				<div class="col-lg-9">
+					<% if user.preferred_name == user.fullname %>
+						<%= f.select(:preferred_name, [[user.preferred_name], [user.firstname]], {}, { :class => 'simple-select mb-20' }) %>
+					<% else %>
+						<%= f.select(:preferred_name, [[user.preferred_name], [user.fullname]], {}, { :class => 'simple-select mb-20' }) %>
+					<% end %>
+				</div>
+			</div>	
+			<!-- Username -->	
+			<div class="form-group">
+				<label class="col-lg-3 control-label">Username:</label>
+				<div class="col-lg-9">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-default mb-20" type="button" style="border-right:none;">https://ratafire.com/</button>
+						</span>
+							<%= f.text_field :username, class:"form-control mb-20", placeholder:"username"%>
+					</div>					
+				</div>
+			</div>	
+		</div>
+	</fieldset>
+
+	<!-- Basic Info -->
+	<fieldset>
+		<legend class="text-semibold">
+			<i class="ti-info-alt position-left"></i>
+			Basic Info
+			<!--<a class="control-arrow" data-toggle="collapse" data-target="#demo1">
+				<i class="icon-circle-down2"></i>
+			</a>-->
+		</legend>
+
+		<div class="collapse in" id="demo1">
+			<!-- Tagline -->
+			<div class="form-group">
+				<label class="col-lg-3 control-label">Tagline:</label>
+				<div class="col-lg-9">
+					<%= f.text_field :tagline, class:"form-control mb-20", placeholder:"What do you do"%>
+				</div>
+			</div>
+			<!-- Website -->
+			<div class="form-group">
+				<label class="col-lg-3 control-label">Website:</label>
+				<div class="col-lg-9">
+					<%= f.text_field :website, class:"form-control mb-20", placeholder:"Your website"%>
+				</div>
+			</div>
+			<!-- Country -->
+			<div class="form-group">
+				<label class="col-lg-3 control-label">Country:</label>
+				<div class="col-lg-9">
+					<%= f.country_select(:country, { selected: "US" }, { class: 'simple-select mb-20' }) %>
+				</div>
+			</div>
+			<!-- City -->
+			<div class="form-group">
+				<label class="col-lg-3 control-label">City:</label>
+				<div class="col-lg-9">
+					<%= f.text_field :city, class:"form-control mb-20", placeholder:"Your city"%>
+				</div>
+			</div>
+			<!-- Short bio -->	
+			<div class="form-group">
+				<label class="col-lg-3 control-label">Short bio:</label>
+				<div class="col-lg-9">
+					<%= f.text_area :bio, class:"form-control mb-20", placeholder:"Your short bio"%>
+				</div>
+			</div>	
+		</div>
+	</fieldset>
+
+	<div class="text-right">
+		<%= f.submit "Save Changes", class: "btn btn-blue" %>
+	</div>
+<% end %>

@@ -939,7 +939,7 @@ input[type="url"],
 input[type="tel"],
 textarea {
   -webkit-appearance: none;
-
+  resize:vertical;
 }
 .form-transparent{
   border: 0px !important;
@@ -2414,7 +2414,7 @@ select[multiple].input-group-xs > .input-group-btn > .btn {
   .nav-tabs.nav-tabs-highlight > li.active > a,
   .nav-tabs.nav-tabs-highlight > li.active > a:hover,
   .nav-tabs.nav-tabs-highlight > li.active > a:focus {
-    border-top-color: #2196f3;
+    border-top-color: #36b8df;
   }
 }
 @media (min-width: 769px) {

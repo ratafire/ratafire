@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215041832) do
+ActiveRecord::Schema.define(version: 20160228032742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -432,6 +432,8 @@ ActiveRecord::Schema.define(version: 20160215041832) do
     t.text     "oauth_token"
     t.text     "oauth_token_expires_at"
     t.text     "link"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
   end
 
   create_table "discussion_threads", id: :bigserial, force: :cascade do |t|
@@ -771,6 +773,8 @@ ActiveRecord::Schema.define(version: 20160215041832) do
     t.text     "name"
     t.text     "hireable"
     t.text     "public_repos"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
   end
 
   create_table "ibifrosts", id: :bigserial, force: :cascade do |t|
@@ -1551,6 +1555,40 @@ ActiveRecord::Schema.define(version: 20160215041832) do
     t.text     "mailer_message"
   end
 
+  create_table "soundcloud_oauths", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "user_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "name"
+    t.string   "uid"
+    t.string   "nickname"
+    t.string   "image"
+    t.string   "location"
+    t.string   "token"
+    t.string   "kind"
+    t.string   "permalink"
+    t.string   "fullname"
+    t.string   "uri"
+    t.string   "permalink_url"
+    t.string   "avatar_url"
+    t.string   "country"
+    t.string   "city"
+    t.string   "track_count"
+    t.string   "playlist_count"
+    t.string   "public_favorites_count"
+    t.string   "followers_count"
+    t.string   "followings_count"
+    t.string   "plan"
+    t.string   "private_tracks_count"
+    t.string   "private_playlists_count"
+    t.string   "primary_email_confirmed"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.boolean  "expires"
+    t.string   "refresh_token"
+  end
+
   create_table "subscription_applications", id: :bigserial, force: :cascade do |t|
     t.text     "why"
     t.text     "plan"
@@ -1819,12 +1857,12 @@ ActiveRecord::Schema.define(version: 20160215041832) do
     t.string   "token"
     t.boolean  "expires"
     t.string   "display_name"
-    t.string   "type"
     t.string   "bio"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "link_self"
     t.boolean  "partnered"
+    t.string   "account_type"
   end
 
   create_table "twitters", id: :bigserial, force: :cascade do |t|
@@ -1843,6 +1881,8 @@ ActiveRecord::Schema.define(version: 20160215041832) do
     t.integer  "followers_count", limit: 8
     t.text     "entities"
     t.text     "nickname"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
   end
 
   create_table "updates", id: :bigserial, force: :cascade do |t|
@@ -1918,7 +1958,6 @@ ActiveRecord::Schema.define(version: 20160215041832) do
     t.datetime "goals_updated_at"
     t.decimal  "subscribing_amount",                    precision: 8, scale: 2, default: 0.0
     t.boolean  "accept_message",                                                default: true
-    t.text     "location"
     t.text     "bio_html"
     t.text     "direct_upload_url"
     t.boolean  "processed",                                                     default: false
@@ -1942,6 +1981,9 @@ ActiveRecord::Schema.define(version: 20160215041832) do
     t.string   "firstname"
     t.string   "lastname"
     t.string   "preferred_name"
+    t.string   "country"
+    t.string   "state"
+    t.string   "city"
   end
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree
@@ -2018,6 +2060,8 @@ ActiveRecord::Schema.define(version: 20160215041832) do
     t.text     "name"
     t.text     "description"
     t.text     "image"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
   end
 
   create_table "votes", id: :bigserial, force: :cascade do |t|

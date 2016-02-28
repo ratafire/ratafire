@@ -33,7 +33,4 @@ class Majorpost < ActiveRecord::Base
     #uuid
     validates_uniqueness_of :uuid, case_sensitive: false
 
-private
-
-    
 end

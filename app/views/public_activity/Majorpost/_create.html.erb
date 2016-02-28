@@ -11,7 +11,7 @@
 		<!-- Post Panel -->
 		<div class="panel panel-speech">
 			<!-- Post User -->
-			<div class="panel-user text-bold text-size-small"><%= link_to activity.trackable.user.preferred_name, profile_url_path(activity.trackable.user),class:"text-grey-800" %>
+			<div class="panel-user text-semibold text-size-small"><%= link_to activity.trackable.user.preferred_name, profile_url_path(activity.trackable.user),class:"text-grey-800" %>
 				<!-- More -->
 				<% if current_user == @user || current_user.try(:admin) %>
 					<span class="dropdown pull-right mr-20">

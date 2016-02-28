@@ -1,10 +1,79 @@
 //Add update
-$("#post-pagination").append("<div class='post-pagination'><%= j render_activities(@activities) %></div>");
-initiate_plugins('<%= j @popoverclass %>_video_class');
-refreshUsercard('<%= j @popoverclass %>');
-<% if @activities.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate(@activities) %>');
-  $(".pagination").hide();
-<% else %>
-  $('.pagination').remove();
+<% if @activity_paginate == true %>
+	$("#post-pagination").append("<div class='post-pagination'><%= j render_activities(@activities) %></div>");
+	initiate_plugins('<%= j @popoverclass %>_video_class');
+	refreshUsercard('<%= j @popoverclass %>');
+	<% if @activities.next_page %>
+	  $('.post-will-paginate').replaceWith('<div class="post-will-paginate"><%= j will_paginate(@activities) %></div>');
+	  $(".post-will-paginate").hide();
+	<% else %>
+	  $('.post-will-paginate').remove();
+	<% end %>
+    $(window).scroll(function() {
+        //Post
+        if ($('.post-will-paginate').length) {
+          var url = $('.post-will-paginate .next_page').attr('href');
+          if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 1500) {
+            $('.post-will-paginate').html("<i class=\"icon-spinner2 spinner text-blue\"></i>");
+            return $.getScript(url);        
+          }
+        }           
+    });
+<% end %>
+<% if @friends_paginate == true %>
+	$("#friends-pagination").append("<div class='added-friends'><%= j render(:partial => 'profile/components/tab_friends', collection: @friends, :as => :user)%></div>");
+	refreshUsercard('<%= j @popoverclass %>');
+	<% if @activities.next_page %>
+	  $('.friends-pagination').replaceWith('<div class="friends-pagination"><%= j will_paginate(@friends, param_name: :friend) %></div>');
+	  $(".friends-pagination").hide();
+	<% else %>
+	  $('.friends-pagination').remove();
+	<% end %>	
+	$(window).scroll(function() {
+            if ($('.friends-pagination').length) {
+              var url_friends = $('.friends-pagination .next_page').attr('href');
+              if (url_friends && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
+                $('.friends-pagination').text("Please Wait...");
+                return $.getScript(url_friends);        
+              }
+            } 
+    }); 
+<% end %>
+<% if @backers_paginate == true %>
+	$("#backers-pagination").append("<div class='added-backers'><%= j render(:partial => 'profile/components/tab_backers', collection: @backers, :as => :user)%></div>");
+	refreshUsercard('<%= j @popoverclass %>');
+	<% if @activities.next_page %>
+	  $('.backers-pagination').replaceWith('<div class="backers-pagination"><%= j will_paginate(@backers, param_name: :friend) %></div>');
+	  $(".backers-pagination").hide();
+	<% else %>
+	  $('.backers-pagination').remove();
+	<% end %>	
+	$(window).scroll(function() {
+            if ($('.backers-pagination').length) {
+              var url_backers = $('.backers-pagination .next_page').attr('href');
+              if (url_backers && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
+                $('.backers-pagination').text("Please Wait...");
+                return $.getScript(url_backers);        
+              }
+            } 
+    }); 
+<% end %>
+<% if @backeds_paginate == true %>
+	$("#backeds-pagination").append("<div class='added-backeds'><%= j render(:partial => 'profile/components/tab_backeds', collection: @backeds, :as => :user)%></div>");
+	refreshUsercard('<%= j @popoverclass %>');
+	<% if @activities.next_page %>
+	  $('.backeds-pagination').replaceWith('<div class="backeds-pagination"><%= j will_paginate(@backeds, param_name: :friend) %></div>');
+	  $(".backeds-pagination").hide();
+	<% else %>
+	  $('.backeds-pagination').remove();
+	<% end %>	
+	$(window).scroll(function() {
+            if ($('.backeds-pagination').length) {
+              var url_backeds = $('.backeds-pagination .next_page').attr('href');
+              if (url_backeds && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
+                $('.backeds-pagination').text("Please Wait...");
+                return $.getScript(url_backeds);        
+              }
+            } 
+    }); 
 <% end %>

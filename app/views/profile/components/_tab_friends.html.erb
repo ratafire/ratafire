@@ -1,0 +1,27 @@
+<div class="col-lg-4 col-sm-6 no-padding tab-friends-holder">
+	<div class="friendcard-profile">
+			<div class="friendcardcover-overlay"></div>
+			<div class="friendcardcover" style="background-image: url('<%= user.profilecover.image.url(:preview600) %>')"></div>
+			<%= link_to profile_url_path(user.username) do %>
+				<img class="friendcardavatar animated bounceIn" src="<%= user.profilephoto.image.url(:thumbnail128) %>">
+				<div class="friendcardname animated fadeIn pr-20">
+					    <div class="text-white text-thin text-shadow friendcardbio"><%= truncate(user.preferred_name,length: 28) %></div>
+					    <div class="friendcardtagline text-white text-thin text-shadow"><%= truncate(user.tagline, length: 70)%></div>
+				</div>
+		 	<% end %>
+		<div class="friendcardstats pr-15 pl-15 pb-15 text-grey-200">
+			<%= truncate(user.bio, length: 140) %>
+			<span class="text-grey-300">
+				<% if user.try(:majorpost).try(:first) %>
+			    	Last update <%= time_ago_in_words(user.majorpost.first.created_at) %> ago
+			    <% else %>
+			    	No post...meow
+			    <% end %>
+			</span>
+		</div>
+		<div class="friendcarddata bg-blue-light text-size-small">
+		    <li class="btn">Follow</li>        
+		    <li class="btn">Back This Creator</li>
+		</div>
+	</div>
+</div>

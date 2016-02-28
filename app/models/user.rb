@@ -14,10 +14,13 @@ class User < ActiveRecord::Base
         :omniauth_providers => [
         	:facebook, 
         	:twitter, 
+            :google_oauth2,
+            :twitch,
+            :pinterest,
+            :soundcloud,
         	:github, 
         	:deviantart, 
         	:vimeo, 
-        	:venmo, 
         	:facebookpages, 
         	:facebookposts, 
         	:paypal
@@ -108,20 +111,35 @@ class User < ActiveRecord::Base
     #--------Facebook---------
     has_one :facebook, 
         -> { where( facebooks: { :deleted_at => nil}) }
+        has_many :facebook_pages,
+            -> { where( facebook_pages: { :deleted_at => nil}) }
     #--------Twitter---------
-    has_one :twitter
+    has_one :twitter,
+        -> { where( twitters: { :deleted_at => nil}) }
     #--------Github---------
-    has_one :github
+    has_one :github,
+        -> { where( githubs: { :deleted_at => nil}) }
     #--------Deviantart---------
-    has_one :deviantart
+    has_one :deviantart,
+        -> { where( deviantarts: { :deleted_at => nil}) }
     #--------Youtube---------
-    has_one :youtube
+    has_one :youtube,
+        -> { where( youtubes: { :deleted_at => nil}) }
     #--------Tumblr---------
-    has_one :tumblr
+    has_one :tumblr,
+        -> { where( tumblrs: { :deleted_at => nil}) }
     #--------Tiwtch---------
-    has_one :twitch
+    has_one :twitch,
+        -> { where( twitches: { :deleted_at => nil}) }
+    #--------SoundCloud---------
+    has_one :soundcloud_oauth,
+        -> { where( soundcloud_oauths: { :deleted_at => nil}) }
+    #--------Vimeo---------
+    has_one :vimeo,
+        -> { where( vimeos: { :deleted_at => nil}) }
     #--------Pinterest---------
-    has_one :pinterest
+    has_one :pinterest,
+        -> { where( pinterests: { :deleted_at => nil}) }
 
     #----------------Validation----------------
     #Real Name
@@ -129,6 +147,13 @@ class User < ActiveRecord::Base
     validates :lastname, :presence => true
 
     #Email
-    validates :email, :presence => true, format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i}
+    validates :email, :presence => true, format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i}, uniqueness: { case_sensitive: false }
 
+    #Username
+    validates :username, :presence => true, format: {with: /\A[a-zA-Z0-9_]+\z/}, uniqueness: { case_sensitive: false }, length: { in: 3..50 }
+
+    #User Info
+    validates :tagline, length: { in: 3..42 }
+    validates :website, length: { in: 3..100 }, format: {with: /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix}
+    validates :bio, length: { in: 0..214 }
 end

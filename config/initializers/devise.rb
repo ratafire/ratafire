@@ -276,6 +276,18 @@ Devise.setup do |config|
     require "omniauth-twitter"
     config.omniauth :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
 
+    #YouTube
+    require "omniauth-google-oauth2"
+    config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"],{:scope => 'https://www.googleapis.com/auth/youtube.force-ssl'}
+
+    #Twitch
+    require "omniauth-twitch"
+    config.omniauth :twitch, ENV["TWITCH_CLIENT_ID"], ENV["TWITCH_CLIENT_SECRET"]
+
+    #Soundcloud
+    require "omniauth-soundcloud"
+    config.omniauth :soundcloud, ENV['SOUNDCLOUD_CLIENT_ID'], ENV['SOUNDCLOUD_SECRET'], redirect_uri: :omniauth_callbacks 
+
     #Github
     require "omniauth-github"
     config.omniauth :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'], scope: "user,repo,gist", redirect_uri: :omniauth_callbacks 
@@ -286,15 +298,11 @@ Devise.setup do |config|
 
     #Vimeo
     require "omniauth-vimeo"
-    config.omniauth :vimeo, ENV['VIMEO_KEY'], ENV['VIMEO_SECRET']
+    config.omniauth :vimeo, ENV['VIMEO_KEY'], ENV['VIMEO_SECRET'], redirect_uri: :omniauth_callbacks 
 
-    #Venmo
-    require "omniauth-venmo"
-    if Rails.env.production?
-        config.omniauth :venmo, ENV['VENMO_CLIENT_ID'], ENV['VENMO_CLIENT_SECRET'], :scope => 'access_profile,make_payments', redirect_uri: :omniauth_callbacks 
-    else
-        config.omniauth :venmo, ENV['VENMO_SANDBOX_CLIENT_ID'], ENV['VENMO_SANDBOX_CLIENT_SECRET'], :scope => 'access_profile,make_payments', redirect_uri: :omniauth_callbacks     
-    end
+    #Pinterst
+    require 'omniauth-pinterest'
+     config.omniauth :pinterest, ENV['PINTEREST_APP_ID'], ENV['PINTEREST_APP_SECRET']
 
     #PayPal
     require "omniauth-paypal"

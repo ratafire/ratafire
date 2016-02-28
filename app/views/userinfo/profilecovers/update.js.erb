@@ -1,0 +1,4 @@
+//Update Profile Photo
+$('.profile-cover-img').remove();
+$('#fpc_content').append("<%= j render(:partial => 'userinfo/profilecovers/profilecovers_preview', locals: {profilecover: @profilecover}) %>");
+$('#fpc_content').unblock();

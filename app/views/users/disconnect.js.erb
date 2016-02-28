@@ -1,0 +1,4 @@
+$('#<%= @provider %>-disconnect').remove();
+$('#<%= @provider %>-table').remove();
+$('#<%= @provider %>-heading').append("<%= j render(:partial => 'profile/settings/disconnect', :locals => {:provider => @provider, :provider_title => @provider_title}) %>");
+$('#<%= @provider %>-body').velocity('fadeIn');

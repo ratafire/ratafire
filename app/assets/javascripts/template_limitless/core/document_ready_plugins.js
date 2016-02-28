@@ -1,4 +1,5 @@
 function document_ready_plugins(random_id){
+ 
     //Signup Signin tab
     $('.login-open-popup').on('click', function(){
     	$('#login-popup li:eq(1) a').tab('show');//select the secrond tab
@@ -26,11 +27,13 @@ function document_ready_plugins(random_id){
         }
     });      
     // Flash Message
-    $(window).bind('rails:flash', function(e, params) {
+    $(window).bind('rails:flash turbolinks:load', function(e, params) {
         new PNotify({
             title: params.type,
             text: params.message,
             type: params.type
         });
-    });  	      
+    });  	   
+      
 }
+
