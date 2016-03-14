@@ -76,7 +76,7 @@
 				<% else %>
 					<!-- Internal Video -->
 					<video oncontextmenu="return false;" id="<%= activity.trackable.id %>_internal_video" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity <%= @popoverclass %>_video_class mb-20" controls
-				 		preload="none" width="auto" height="auto" poster="<% if activity.trackable.video.video_image %><%= activity.trackable.video.video_image.image(:preview800) %><% else %><% if activity.trackable.video.encoded_state %><%= activity.trackable.video.thumbnail(:preview800) %><% else %>/assets/editor/rainbow-blur3.jpg<% end %><% end %>"
+				 		preload="none" width="auto" height="auto" poster="<% if activity.trackable.video.video_image %><%= activity.trackable.video.video_image.image(:preview800) %><% else %><% if activity.trackable.video.encoded_state == 'finished' %><%= activity.trackable.video.thumbnail(:preview800) %><% else %>/assets/editor/rainbow-blur3.jpg<% end %><% end %>"
 				 		data-setup='{}'>
 				  		<source src="<%= activity.trackable.video.output_url_mp4 %>" type='video/mp4'>
 				  		<source src="<%= activity.trackable.video.output_url %>" type='video/webm'>

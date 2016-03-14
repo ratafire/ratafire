@@ -1,1 +1,8 @@
-//Add update
+$("#friends-pagination").append("<div class='added-friends'><%= j render(:partial => 'profile/components/tab_friends', collection: @friends, :as => :user)%></div>");
+refreshUsercard('<%= j @popoverclass %>');
+<% if @friends.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@friends, param_name: :friend) %>');
+  $(".pagination").hide();
+<% else %>
+  $('.pagination').remove();
+<% end %>	

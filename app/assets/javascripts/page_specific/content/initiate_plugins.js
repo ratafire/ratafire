@@ -1,5 +1,10 @@
 function initiate_plugins(random_id){
+    //Switchery
+    var elem2s = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
+    elem2s.forEach(function(html) {
+      var switchery2 = new Switchery(html);
+    });
     //Dropdown    
     $('.dropdown-toggle').dropdown();
 	// Popover

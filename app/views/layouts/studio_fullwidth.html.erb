@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= full_title(yield(:title)) %></title>
+		<!-- Stylesheet -->
+		<%= stylesheet_link_tag 'template_limitless' %>
+		<%= stylesheet_link_tag 'template_limitless_layouts/layout3', 'data-turbolinks-track' => "reload" %>
+		<%= javascript_include_tag 'template_limitless' %>
+		<%= javascript_include_tag 'page_specific/creator_studio', 'data-turbolinks-track' => "reload"  %>
+		<%= csrf_meta_tags %>		
+		<!-- Webfonts -->
+		<!-- Roboto -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+		<!-- Open Sans -->
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:100,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+		<!-- Page Meta -->
+		<%= render 'utilities/page_meta/facebook_open_graph_creator_studio'%>
+	</head>
+	<!-- Page Structure -->
+	<body class="navbar-top">
+		
+		<div class="outer-space">
+			<!-- Main navbar -->
+			<div id="main-navbar">
+	        	<!-- Signed-in Users-->
+	        	<%= render 'utilities/header/main_navbar_signed_in_users'%>
+		    </div>
+
+			<!-- Page container -->
+			<div class="page-container" style="min-height:1024px;">
+	            <div class="page-content">
+					<!-- Main content -->
+					<div class="content-wrapper">
+						<!-- Content area -->
+						<%= yield %>
+
+					</div><!-- end .content-wrapper -->
+				</div><!-- end .page-content-->
+			</div><!-- end .page-container -->	
+			<!-- Footer -->
+			<%= render 'utilities/footer/full_footer' %>
+		</div>
+	</body>
+</html>

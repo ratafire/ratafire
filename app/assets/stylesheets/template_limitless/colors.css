@@ -26,6 +26,7 @@
   color: #ffffff;
   border-color: transparent;
 }
+
 .bg-rainbow-800{
   background: url(/assets/editor/rainbow-blur.jpg);
   background-repeat: no-repeat;
@@ -65,6 +66,23 @@
   background-attachment: fixed;  
   color: #ffffff;
   border-color: transparent;
+}
+.bg-rainbow-300{
+  background: url(/assets/editor/rainbow-blur5.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
+}
+.text-rainbow{
+  overflow: hidden;
+  color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .bg-transparent{
   background-color: transparent;
@@ -800,7 +818,7 @@
   border-color: #283593;
 }
 .border-blue {
-  border-color: #03a9f4;
+  border-color: #36b8df !important;
 }
 .border-blue-300 {
   border-color: #4fc3f7;
@@ -891,6 +909,12 @@
 }
 .border-grey {
   border-color: #777777;
+}
+.border-grey-100 {
+  border-color: #dddddd;
+}
+.border-grey-200 {
+  border-color: #cccccc;
 }
 .border-grey-300 {
   border-color: #999999;

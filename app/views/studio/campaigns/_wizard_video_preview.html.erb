@@ -1,0 +1,17 @@
+<div id="application-video-preview">
+	<%= link_to remove_campaign_video_user_studio_campaigns_path(video.user_id, video.campaign_id), method: :delete, remote: true do %>
+		<div class="medium-editor-toolbar-remove mr-40 mt-30" style="position:absolute;">
+			<span class="ti-close"></span>
+		</div>
+	<% end %>
+	<video oncontextmenu="return false;" id="application-video-preview" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity mb-20 video-encoding" controls
+			preload="none" width="auto" height="auto" poster="<% if video.video_image %><%= video.video_image.image(:preview800) %><% else %><% if video.encoded_state == 'finished' %><%= video.thumbnail(:preview800) %><% else %>/assets/editor/rainbow-blur3.jpg<% end %><% end %>"
+			data-setup='{}'>
+			<source src="<%= video.output_url_mp4 %>" type='video/mp4'>
+			<source src="<%= video.output_url %>" type='video/webm'>
+			<p class="vjs-no-js">
+			To view this video please enable JavaScript, and consider upgrading to a web browser
+			that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+			</p>
+	</video>	
+</div>

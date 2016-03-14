@@ -81,6 +81,10 @@ class User < ActiveRecord::Base
         through: :reverse_subscriptions, 
         source: :subscribed
 
+    #--------Payment---------
+    has_one :paypal_account,
+        -> { where( paypal_accounts: { :deleted_at => nil, :organization_id => nil, :organization_application_id => nil }) }
+
     #--------Record Backers---------
     has_many :subscription_records, 
         foreign_key: "subscribed_id", 
@@ -106,6 +110,12 @@ class User < ActiveRecord::Base
             has_many :audio_image
         has_many :video
             has_many :video_image
+
+    #--------Campaign---------
+    has_many :campaigns
+        has_one :active_campaign,
+            -> { where( campaigns: { :deleted_at => nil, :published => true, :completed => false }) },
+            class_name: "Campaign"
 
     #----------------Social Media----------------
     #--------Facebook---------

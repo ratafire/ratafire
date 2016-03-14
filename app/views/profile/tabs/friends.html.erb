@@ -1,0 +1,28 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+	<!-- Cover area -->
+	<%= render partial:'profile/components/cover', locals: {user: @user} %>
+	<!-- Toolbar -->
+	<%= render partial:'profile/components/toolbar', locals: {user: @user}%>
+	<!-- Content Area -->
+	<div class="content" >
+		<!-- Updates -->
+		<div class="row" id="updates-area">
+			<!-- Feed Area -->
+			<!-- Updates -->
+			<div class="col-xs-12 col-md-12" id="updates-main-area">
+				<% if @friends %>
+					<div id="friends-pagination">
+						<%= render :partial => 'profile/components/tab_friends', collection: @friends, :as => :user %>
+					</div>
+					<div class="friends-pagination">
+						<%= will_paginate @friends, param_name: :friend %>
+					</div>
+				<% end %>	
+			</div>
+		</div><!-- end #updates_area-->	
+	</div><!-- end .content-->

@@ -1,0 +1,36 @@
+<div id="add-video-image">
+	<%= s3_uploader_form callback_url: campaign_video_image_user_studio_campaigns_path(user.id, campaign.id),
+		callback_method: 'POST',
+		id: "s3_uploader_video_image",
+		callback_param: "video_image[direct_upload_url]",
+		expiration: 24.hours.from_now.utc.iso8601,
+		max_file_size: 20.megabytes,:remote => true,
+		data: {video_uuid: video.uuid} do %>
+		<div class="valign-middle dropzone-bg" id="#video-image-dropzone">
+			<div id="video-image-progress-case">
+			</div>
+			<%= file_field_tag :file, multiple: false, class:"artwork-choose btn-upload" %>
+			<div class="cursor-pointer center-block text-center">
+				<div id="big-image-upload">
+					<div class="fa fa-image text-grey-100" style="font-size:40px;"></div>
+					<div class="text-size-large text-grey-300 mt-5">Upload a project image</div>
+					<div class="text-grey-200">Cover image will also be your video thumbnail</div>
+				</div>
+				<div id="small-image-upload" style="display:none;">
+					<div class="text-grey-100">Change project cover image</div>
+				</div>
+			</div>
+		</div>	
+	<% end %>	
+	<!-- Progress bar -->
+	<%= render partial:'utilities/editor/editor_progress_bar', locals:{name:'artwork'} %>		
+</div>
+<% if video.video_image %>
+	<script>
+		$(document).on('ready turbolinks:render', function(){
+			$('#big-image-upload').hide();
+			$('#small-image-upload').show();
+			$('.dropzone-bg').addClass("dropzone-bg-small");
+		});	
+	</script>
+<% end %>

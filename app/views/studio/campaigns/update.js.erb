@@ -1,0 +1,8 @@
+//scroll to top
+$("html").velocity("scroll", {});
+//refresh video
+<% if @campaign.video %>
+	$('#application-video-preview').remove();
+	$('#apply-panel').prepend("<%= j render(:partial => 'studio/campaigns/wizard_video_preview', :locals => {:video => @campaign.video}) %>");
+	initiate_videojs();  
+<% end %>

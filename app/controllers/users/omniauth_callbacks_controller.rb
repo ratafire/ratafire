@@ -61,6 +61,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		redirect_to_settings
 	end
 
+	#PayPal
+	def paypal
+		params = request.env["omniauth.params"]
+		paypal = PaypalAccount.find_for_paypal_oauth(request.env['omniauth.auth'], @user.id)
+		redirect_to apply_user_studio_campaigns_path(@user.id, params["campaign_id"])
+	end
+
 private
 	
 	def load_user

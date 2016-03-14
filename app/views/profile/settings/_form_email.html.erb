@@ -1,0 +1,81 @@
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin">
+		<h4 class="panel-title">Email</h4>
+		<span>Update your login email...</span>
+	</div>
+	<div class="panel-body">
+		<div class="error-messages">
+			<% if user.unconfirmed_email %>
+				<div class="alert bg-info">
+					<button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>You have an unconfirmed email: <%= user.unconfirmed_email %>. If you want to use it as your current email, please confirm it.
+				</div>
+			<% end %>
+		</div>
+		<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, :remote => true) do |f| %>
+			<!-- Edit email-->
+			<fieldset>
+				<legend class="text-semibold">
+					<i class="ti-email position-left"></i>
+					Update Email
+					<!--<a class="control-arrow" data-toggle="collapse" data-target="#demo1">
+						<i class="icon-circle-down2"></i>
+					</a>-->
+				</legend>
+				<div class="collapse in" id="demo1">
+					<!-- Current Email -->
+					<div class="form-group">
+						<div class="col-lg-3 mb-20">Current email:</div>
+						<div class="col-lg-9 mb-20">
+							<%= user.email %>
+						</div>
+					</div>
+					<!-- New Email -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">New email:</label>
+						<div class="col-lg-9">
+							<%= f.email_field :email, class:"form-control mb-20", placeholder:"Your email"%>
+						</div>
+					</div>
+					<!-- Password -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Current password:</label>
+						<div class="col-lg-9">
+							<%= f.password_field :current_password, class:"form-control mb-20", placeholder:"We need your current password to confirm your changes"%>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+
+			<div class="text-right">
+				<%= f.submit "Update email", class: "btn btn-blue" %>
+			</div>
+		<% end %>
+		<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+			<fieldset>
+				<legend class="text-semibold">
+					<i class="ti-info position-left"></i>
+					Resend confirmation instructions
+					<!--<a class="control-arrow" data-toggle="collapse" data-target="#demo1">
+						<i class="icon-circle-down2"></i>
+					</a>-->
+				</legend>
+				<div class="collapse in" id="demo1">
+					<!-- New Email -->
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Email:</label>
+						<div class="col-lg-6">
+							<%= f.email_field :email, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),class:"form-control mb-20" %> 
+						</div>
+						<div class="col-lg-3">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<%= f.submit "Resend", class:"btn btn-blue"%>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		<% end %>
+	</div>
+</div>

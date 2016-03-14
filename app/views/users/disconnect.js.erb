@@ -1,4 +1,10 @@
-$('#<%= @provider %>-disconnect').remove();
-$('#<%= @provider %>-table').remove();
-$('#<%= @provider %>-heading').append("<%= j render(:partial => 'profile/settings/disconnect', :locals => {:provider => @provider, :provider_title => @provider_title}) %>");
-$('#<%= @provider %>-body').velocity('fadeIn');
+<% if @provider_title == 'PayPal' %>
+	$('#paypal-connection-holder').append("<%= j render(:partial => 'studio/campaigns/connect_with_paypal') %>");
+	$('#paypal-panel-connected').remove();
+	$('#field-recipient').val(null);
+<% else %>
+	$('#<%= @provider %>-disconnect').remove();
+	$('#<%= @provider %>-table').remove();
+	$('#<%= @provider %>-heading').append("<%= j render(:partial => 'profile/settings/disconnect', :locals => {:provider => @provider, :provider_title => @provider_title}) %>");
+	$('#<%= @provider %>-body').velocity('fadeIn');
+<% end %>

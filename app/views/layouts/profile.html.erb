@@ -4,6 +4,7 @@
 		<title><%= full_title(yield(:title)) %></title>
 		<!-- Stylesheet -->
 		<%= stylesheet_link_tag 'template_limitless' %>
+		<%= stylesheet_link_tag 'template_limitless_layouts/layout2', 'data-turbolinks-track' => "reload" %>
 		<%= javascript_include_tag 'template_limitless' %>
 		<%= javascript_include_tag 'page_specific/profile_user', 'data-turbolinks-track' => "reload"  %>
 		<%= csrf_meta_tags %>		
@@ -30,7 +31,7 @@
 		        <% end %>
 		    </div>
 			<!-- Page container -->
-			<div class="page-container">
+			<div class="page-container no-padding">
 	            <div class="page-content">
 	            	<!-- Main sidebar -->
 	            	<% if user_signed_in? %>

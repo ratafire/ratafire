@@ -45,7 +45,7 @@ function initiate_editor(upload_url){
     	return alert(content.filename + ' failed to upload');
   	});
     $('#s3_uploader_artwork').bind('s3_upload_complete', function(e, content) {
-      $('#progress-words').html("Processing...meow");
+      $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
     });    	
  	//majorpost audio uploader	
   	$('#s3_uploader_audio').S3Uploader(
@@ -63,7 +63,7 @@ function initiate_editor(upload_url){
       $('#s3_direct_uploader_audio').removeClass('mb-20');
   	});	 
     $('#s3_uploader_audio').bind('s3_upload_complete', function(e, content) {
-        $('#progress-words').html("Processing...meow");
+        $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
     }); 
   //majorpost video uploader  
     $('#s3_uploader_video').S3Uploader(
@@ -82,6 +82,6 @@ function initiate_editor(upload_url){
         turn_lights_on('#above-blockui');
     });  
     $('#s3_uploader_video').bind('s3_upload_complete', function(e, content) {
-        $('#progress-words').html("Processing...meow");
+        $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
     });     	  		
 }

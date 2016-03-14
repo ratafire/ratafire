@@ -3,6 +3,7 @@ class Content::VideosController < ApplicationController
 	protect_from_forgery :except => [:create, :encode_notify]
 
 	#Before filters
+	respond_to :html, :js
 
 	#REST Methods -----------------------------------
 
@@ -40,7 +41,7 @@ class Content::VideosController < ApplicationController
 			end	
 		else
 			#Internal video
-			@video = current_user.video.create(audio_params)
+			@video = current_user.video.create(video_params)
 			@video.encode!
 		end
 	end
@@ -72,11 +73,16 @@ class Content::VideosController < ApplicationController
 	#NoREST Methods -----------------------------------
 	
 	# capture notifications from the Zencoder service about video encoding
+	# zencoder_fetcher 8fa049ee1d0050ea8bd520d085f128a9 --url http://localhost:3000/video/zencoder_notify_encode
 	def encode_notify
 		# get the job id so we can find the video
-		video = Video.find_by_job_id(params[:job][:id].to_i)
-		video.capture_notification(params[:output]) if video
+		@video = Video.find_by_job_id(params[:job][:id].to_i)
+		@video.capture_notification(params[:output]) if @video
 		render :text => "Thanks, Zencoder!", :status => 200
+		#respond_to do |format|
+	    #  format.js { render :action => 'encode_notify'}
+	    #  format.html { render :action => 'encode_notify', :formats=>[:js]}
+		#end
 	end
 
 private

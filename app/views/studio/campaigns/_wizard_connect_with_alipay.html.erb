@@ -1,0 +1,29 @@
+<div class="col-md-6 no-padding">
+	<!-- Free Price Tag -->
+	<div class="panel text-thin" id="alipay-panel" data-popup="tooltip" title="Coming soon" data-placement="top">
+		<div class="text-center">
+			<%= image_tag('/assets/icon/payment/alipay-round.png', class:"p-20 mt-20")%>
+			<div class="text-large mb-20" id="alipay-title">Alipay</div>
+			<div class="tabel-responsive">
+				<table class="table">
+					<tbody>
+						<tr class="active" >
+							<td style="border-bottom:1px solid #ddd;">
+								<span><%= @alipay_user %> million users</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+					<div class="btn btn-default" id="alipay-btn">
+						Connect with Alipay
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

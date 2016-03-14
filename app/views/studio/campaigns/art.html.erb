@@ -1,0 +1,541 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Content Area -->
+<div class="content">
+    <!-- Starfield Animation -->
+    <canvas id="canvas" width="100%" height="100%" style="position:fixed;top:0;left:0;" ></canvas>
+	<!-- Page header -->
+	<div class="page-header">
+		<div class="page-header-content text-center">
+			<div class="page-title text-grey">
+				<%= image_tag(@user.profilephoto.image.url(:thumbnail128),class:"img-circle mb-20")%>
+				<h2 class="text-thin text-white">Become an Art Creator</h2>
+			</div>
+		</div><!-- end .page-header-content-->
+	</div><!-- end .page-header-->
+	
+		<div class="row" style="height:2350px;">
+			<div class="col-lg-2">
+			</div>
+			<div class="col-lg-8">
+				<!-- Clickable title -->
+	            <div class="panel panel-white p-20" id="apply-panel">
+					<!-- Project Video -->
+					<% if @campaign.video %>
+						<!-- Video uploader -->
+						<%= render partial: 'studio/campaigns/wizard_video_preview',:locals => {:video => @campaign.video} %>
+						<!-- Video image uploader -->
+						<%= render partial: 'studio/campaigns/wizard_upload_video_image',:locals => {:video => @campaign.video, :user => @user, :campaign => @campaign } %>
+					<% else %>
+						<%= render partial: 'studio/campaigns/wizard_upload_video',:locals => {:user => @user, :campaign => @campaign} %>
+					<% end %>
+					<%= form_for([@campaign], :url=>update_user_studio_campaigns_path(@user.id, @campaign.id), remote: true, html: {class: "stepy-validation", id:"campaign-wizard", action:"#"}) do |f|%>
+	            		<%= f.hidden_field :ratafirer, id:"field-ratafirer" %>
+	            		<!-- Start -->
+						<fieldset title="1" class="pt-0">
+							<legend class="text-semibold">Start</legend>
+							<!-- Topic -->
+							<div class="row text-center p-40">
+								<div class="text-giant text-thin"><%= render 'studio/campaigns/sentences/start' %></div>
+								<h3 class="text-thin text-grey-200"><%= render 'studio/campaigns/sentences/title_art' %></h3>
+							</div>
+							<!-- Title -->
+							<div class="row">
+								<div class="col-md-3">
+									<div>Title: <span class="text-danger">*</span></div>
+								</div>
+
+								<div class="col-md-9">
+									<div class="form-group">
+										<%= f.text_field :title, class:"form-control required", placeholder:"Enter a title", maxlength:"50"%>
+										<span class="help-block">
+											<%= render 'studio/campaigns/help_block/title' %>
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- Description -->
+							<div class="row">
+								<div class="col-md-3">
+									<div>Short description: <span class="text-danger">*</span></div>
+								</div>
+
+								<div class="col-md-9">
+									<div class="form-group user-textarea">
+										<div class="pull-right mr-5 mb-30- text-grey-100"><span id="h">175</span></div>
+										<%= f.text_area :description, class:"form-control required", placeholder:"Write a short description for your project", id:"text",onKeyUp:"get()",maxlength:"175", style:"resize: none;"%>
+										<span class="help-block">
+											<%= render 'studio/campaigns/help_block/short_description' %>
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- Sub Category -->
+							<div class="row">
+								<div class="col-md-3">
+									<div>Sub category: <span class="text-danger">*</span></div>
+								</div>
+
+								<div class="col-md-9">
+									<div class="form-group">
+										<%= f.select(:sub_category, [['A New Field'], ['Concept Art'],['3D Models'],['Drawing'],['Painting'],['Architecture'],['Interior Design'],['Photography'],['Graphic Design'],['Sculpting'],['Jewelry Design'],['Other']], {prompt: "Select a sub category"}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+										<span class="help-block">
+											<%= render 'studio/campaigns/help_block/sub_category' %>
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- Tags -->
+							<div class="row">
+								<div class="col-md-3">
+									<div>Tags: <span class="text-danger">*</span></div>
+								</div>
+
+								<div class="col-md-9">
+									<div class="form-group">
+										<%= f.text_field :tag_list, type:"hidden", placeholder:"#tags",class:"editor-tags text-grey-200 text-thin select-xs" %>
+										<span class="help-block">
+											<%= render 'studio/campaigns/help_block/tags' %>
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- Duration -->
+							<div class="row">
+								<div class="col-md-3">
+									<div>Duration: <span class="text-danger">*</span></div>
+								</div>
+
+								<div class="col-md-9">
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon">
+												Number of years
+											</span>
+											<%= f.number_field :duration, class:"touchspin-vertical form-control required", min:"1", max:"6"%>
+										</div>
+										<span class="help-block">
+											<%= render 'studio/campaigns/help_block/duration' %>
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<!-- How you get paid -->
+							<div class="row">
+								<div class="col-md-3">
+									<div>How you get paid: <span class="text-danger">*</span></div>
+								</div>
+
+								<div class="col-md-9">
+									<div class="row">
+										<!-- Connect with PayPal -->
+										<%= render 'studio/campaigns/wizard_connect_with_paypal' %>
+										<!-- Connect with Alipay -->
+										<%= render 'studio/campaigns/wizard_connect_with_alipay' %>
+									</div>
+									<span class="help-block">
+										<%= render 'studio/campaigns/help_block/how_you_get_paid' %>
+										<% if @user.paypal_account	%>
+											<%= f.text_field :recipient, value:true, id:"field-recipient", class:"required", style:"display:none;" %>
+										<% else %>
+											<%= f.text_field :recipient, id:"field-recipient", class:"required", style:"display:none;" %>
+										<% end %>
+									</span>
+								</div>
+							</div>
+
+						</fieldset>
+
+						<!-- Rewards -->
+						<fieldset title="2">
+							<legend class="text-semibold">Rewards</legend>
+							<!-- Topic -->
+							<div class="row text-center p-40">
+								<div class="text-giant text-thin"><%= render 'studio/campaigns/sentences/rewards' %></div>
+								<h3 class="text-thin text-grey-200"><%= render 'studio/campaigns/sentences/rewards_art' %></h3>
+							</div>
+						</fieldset>
+
+						<!-- Rewards -->
+						<fieldset title="2">
+							<legend class="text-semibold">Your creation</legend>
+						</fieldset>
+
+						<!-- About You -->
+						<fieldset title="2">
+							<legend class="text-semibold">Artist info</legend>
+						</fieldset>
+
+						<button type="submit" class="btn btn-blue stepy-finish">Submit <i class="icon-check position-right"></i></button>
+					
+					<% end %>
+	            </div>
+			</div>
+			<div class="col-lg-2">
+			</div>
+		</div><!-- end row -->
+	
+</div><!-- end .content-->
+<!--~~~~~~~~~~~~~~~~~ Page Specific Javascript ~~~~~~~~~~~~~~~~~-->
+<script>
+//Profile editor
+initiate_profile_editor();
+//Video js
+initiate_videojs();     
+//Textarea count
+function get()
+{
+	var max =175;
+	var text =document.getElementById("text").value.length;
+	h.innerHTML=max-text;
+	if(text > 0)
+	{
+		btn=document.getElementById("btn");
+		btn.style.cursor="pointer";
+		btn.style.opacity=1;
+		btn.disabled=false;
+	}
+}
+$(document).on('ready turbolinks:render', function(){
+	//Price tag
+	var ratafirer = $('#field-ratafirer').val();
+	if (ratafirer == true){
+		$('#ratafirer-price-panel').click();
+	} else {
+		$('#free-price-panel').click();
+	}
+	//Submit form
+	$('.button-next').click(function(){
+		//submit form
+		$("#campaign-wizard").trigger('submit.rails');
+	});	
+	$('.stepy-navigator').prepend(
+								'<button class=\"btn bg-green\">\
+							Save\
+						</button>'
+		);
+	//Block Alipay
+	$('#alipay-panel').block({message: null,overlayCSS: {
+        backgroundColor: '#fff',
+        opacity: 0.4,
+        cursor: 'not-allowed'
+	},});
+	//Upload video
+    $('#s3_uploader_video').S3Uploader(
+      { 
+        remove_completed_progress_bar: false,
+        dropZone: $('#video-dropzone'),
+        progress_bar_target: $('#video-progress-case'),
+        additional_data: { "video[campaign_id]":$('#s3_uploader_video').data('campaign-id')},
+    },"video"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+    $('#s3_uploader_video').bind('s3_upload_failed', function(e, content) {
+        return alert(content.filename + ' failed to upload');
+    });   
+    $('#s3_uploader_video').bind('s3_uploads_start', function(e, content) {
+        $('#audio-embed-block').hide();
+        $('#s3_direct_uploader_video').removeClass('mb-20');
+        turn_lights_on('#above-blockui');
+    });  
+    $('#s3_uploader_video').bind('s3_upload_complete', function(e, content) {
+        $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
+    });    
+	//Upload video image
+	$('#s3_uploader_video_image').S3Uploader(
+	  { 
+	    remove_completed_progress_bar: false,
+	    dropZone: $('#video-image-dropzone'),
+	    progress_bar_target: $('#video-image-progress-case'),
+	    additional_data: { "video_image[video_uuid]":$('#s3_uploader_video_image').data('video-uuid')},
+	},"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+	$('#s3_uploader_video_image').bind('s3_upload_failed', function(e, content) {
+	  return alert(content.filename + ' failed to upload');
+	});   
+	$('#s3_uploader_video_image').bind('s3_upload_complete', function(e, content) {
+	  $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
+	});    
+});
+//Price tag
+$('#free-price-panel').click(function(){
+	$(this).addClass('border-xlg border-blue');	
+	$('#free-price-btn').removeClass('btn-default');
+	$('#free-price-btn').addClass('btn-blue');
+	$('#free-price-btn').html('<i class="fa fa-check"></i> Free');
+	$('#free-price-title').addClass('text-blue');
+	//Remove
+	$('#ratafirer-price-btn').removeClass('btn-blue');
+	$('#ratafirer-price-btn').addClass('btn-default');
+	$('#ratafirer-price-panel').removeClass('border-xlg border-blue');
+	$('#ratafirer-price-btn').html('$8 per month');
+	$('#ratafirer-price-title').removeClass('text-blue');
+	$('#field-ratafirer').val(false);
+});
+$('#ratafirer-price-panel').click(function(){
+	$(this).addClass('border-xlg border-blue');	
+	$('#ratafirer-price-btn').removeClass('btn-default');
+	$('#ratafirer-price-btn').addClass('btn-blue');
+	$('#ratafirer-price-btn').html('<i class="fa fa-check"></i> $8 per month');
+	$('#ratafirer-price-title').addClass('text-blue');
+	//Remove
+	$('#free-price-btn').removeClass('btn-blue');
+	$('#free-price-btn').addClass('btn-default');
+	$('#free-price-panel').removeClass('border-xlg border-blue');
+	$('#free-price-btn').html('Free');
+	$('#free-price-title').removeClass('text-blue');
+	$('#field-ratafirer').val(true);
+});
+//Canvas Background
+var canvas,
+	ctx,
+	width,
+	height,
+	xGravity,
+	yGravity,
+	friction,
+	dots,
+	palettes,
+	paletteCount,
+	paletteCurrent,
+	colorCount,
+	tick,
+	mx,
+	my,
+	PI,
+	TWOPI;
+
+function rand( min, max ) {
+	return Math.random() * ( max - min ) + min;
+}
+
+function randInt( min, max ) {
+	return Math.floor( min + Math.random() * ( max - min + 1 ) );
+};
+
+function Dot() {
+	this.x = width / 2;
+	this.y = height / 2;
+	this.vx = rand( -2, 2 );
+	this.vy = rand( -2, 2 );
+	this.radius = rand( 5, 15 );
+	this.color = randInt( 1, colorCount - 1 );
+}
+
+Dot.prototype.step = function( i ) {
+	// apply forces	
+	this.x += this.vx;
+	this.y += this.vy;
+		
+	// handle bounce	
+	if( this.vx > 0 && this.x + this.radius >= width ) {
+		this.vx *= -0.6;
+	}
+	
+	if( this.vx < 0 && this.x - this.radius <= 0 ) {
+		this.vx *= -0.6;
+	}
+	
+	if( this.vy > 0 && this.y + this.radius >= height ) {
+		this.vy *= -0.6;
+	}
+	
+	if( this.vy < 0 && this.y - this.radius <= 0 ) {
+		this.vy *= -0.6;
+	}
+	
+	// handle bounds and friction	
+	if( this.x + this.radius > width ) {
+		this.x = width - this.radius;
+		this.vy *= friction;
+	}
+	
+	if( this.x - this.radius < 0 ) {
+		this.x = this.radius;
+		this.vy *= friction;
+	}
+	
+	if( this.y + this.radius > height ) {
+		this.y = height - this.radius;
+		this.vx *= friction;
+	}
+	
+	if( this.y - this.radius < 0 ) {
+		this.y = this.radius;
+		this.vx *= friction;
+	}
+	
+	// handle gravity	
+	this.vx += xGravity;
+	this.vy += yGravity;
+};
+
+Dot.prototype.collide = function( otherDot ) {
+	// still working on understanding this
+	// lots of help from http://lamberta.github.io/html5-animation/
+	var dx = otherDot.x - this.x,
+		dy = otherDot.y - this.y,
+		dist = Math.sqrt( dx * dx + dy * dy ),
+		minDist = this.radius + otherDot.radius;
+	if( dist < minDist ) {
+		var tx = this.x + dx / dist * minDist,
+			ty = this.y + dy / dist * minDist,
+			ax = ( tx - otherDot.x ) * 0.6,
+			ay = ( ty - otherDot.y ) * 0.6;
+		this.vx -= ax;
+		this.vy -= ay;      
+		otherDot.vx += ax;
+		otherDot.vy += ay;
+		this.vx *= friction * 0.9;
+		this.vy *= friction * 0.9;
+		otherDot.vx *= friction * 0.9;
+		otherDot.vy *= friction * 0.9;
+	}
+};
+
+Dot.prototype.draw = function() {
+	ctx.beginPath();
+	ctx.arc( this.x, this.y, this.radius, 0, TWOPI );
+	ctx.fillStyle = palettes[ paletteCurrent ][ this.color ];
+	ctx.fill();
+};
+
+function init() {
+	canvas = document.getElementById( 'canvas' );
+	ctx = canvas.getContext( '2d' );
+	xGravity = 0;
+	yGravity = 1;
+	friction = 0.99;
+	dots = [];
+	// palette credits:
+	// https://color.adobe.com/Friends-and-foes-color-theme-1175537/
+	// https://color.adobe.com/Ocean-Sunset-color-theme-46355/
+	// https://color.adobe.com/Gettysburg-color-theme-209416/
+	// https://color.adobe.com/vintage-card-color-theme-3165833/
+	palettes = [
+		[
+			'#2e2932',
+			'#01a2a6',
+			'#37d8c2',
+			'#bdf271',
+			'#ffffa6'
+		],
+		[
+			'#405952',
+			'#9c9b7a',
+			'#ffd393',
+			'#ff974f',
+			'#f35033'
+		],
+		[
+			'#962d3e',
+			'#343641',
+			'#979c9c',
+			'#f2ebc9',
+			'#388898'
+		],
+		[
+			'#f2ebbf',
+			'#5c4b51',
+			'#8dbeb2',
+			'#f2b468',
+			'#ee6163'
+		]
+	];
+	paletteCount = palettes.length;
+	paletteCurrent = 3;	
+	colorCount = palettes[ 0 ].length;
+	PI = Math.PI;
+	TWOPI = PI * 2;
+	
+	reset();
+	loop();
+}
+
+function reset() {
+	width = window.innerWidth;
+	height = window.innerHeight;
+	dots.length = 0;
+	tick = 0;
+	mx = width / 2;
+	my = height / 2;
+	
+	canvas.width = width;
+	canvas.height = height;
+}
+
+function create() {
+	if( tick && dots.length < 500 ) {
+		dots.push( new Dot() );	
+	}
+}
+
+function step() {
+	var i = dots.length;
+	while( i-- ) {
+		dots[ i ].step( i );	
+	}
+	
+	i = dots.length;
+	while( i-- ) {
+		dot = dots[ i ];
+		var j = i;
+		if( j > 0 ) {
+			while( j-- ) {
+				dot.collide( dots[ j ] );
+			}
+		}
+	}
+}
+
+function draw() {
+	ctx.fillStyle = palettes[ paletteCurrent ][ 0 ];
+	ctx.fillRect( 0, 0, width, height );
+	
+	var i = dots.length;
+	while( i-- ) {
+		dots[ i ].draw();	
+	}
+}
+
+function loop() {
+	requestAnimationFrame( loop );
+	create();
+	step();
+	draw();
+	tick++;
+}
+
+function onmousemove( e ) {
+	mx = e.pageX;
+	my = e.pageY;
+	
+	xGravity = ( mx - width / 2 ) / ( width / 2 );
+	yGravity = ( my - height / 2 ) / ( height / 2 );
+}
+
+function onmousedown() {
+	var i = dots.length;
+	while( i-- ) {
+		dots[ i ].vx += rand( -10, 10 );
+		dots[ i ].vy += rand( -10, 10 );
+	}
+
+	if( paletteCurrent < paletteCount - 1 ) {
+		paletteCurrent++;	
+	} else {
+		paletteCurrent = 0;	
+	}
+}
+
+window.addEventListener( 'resize', reset );
+window.addEventListener( 'mousemove', onmousemove );
+window.addEventListener( 'mousedown', onmousedown );
+
+init();
+
+</script>

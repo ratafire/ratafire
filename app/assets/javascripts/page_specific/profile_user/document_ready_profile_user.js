@@ -11,6 +11,7 @@ function profile_user_plugins(user_id){
         $('#updates-main-area').removeClass('col-xs-12, col-md-8');
     });
 
+
     // Initiate Pagination
     $(window).scroll(function() {
         //Post
@@ -24,7 +25,7 @@ function profile_user_plugins(user_id){
         //Friend
         if ($('.friends-pagination').length) {
           var url_friends = $('.friends-pagination .next_page').attr('href');
-          if (url_friends && $(window).scrollTop() > $('.friends-pagination').offset().top - 3000) {
+          if (url_friends && $(window).scrollTop() > $('.backers-pagination').offset().top - 3000) {
             $('.friends-pagination').html("<i class=\"icon-spinner2 spinner text-blue\"></i>");
             return $.getScript(url_friends);        
           }

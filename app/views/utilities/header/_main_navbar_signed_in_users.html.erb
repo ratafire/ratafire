@@ -2,7 +2,6 @@
 	<!-- Navbar header -->
 	<div class="navbar-header">
 		<!-- Logo -->
-		<!-- Logo -->
 		<%= link_to root_path do %>
 			<div class="header-logo">
 			</div>
@@ -15,33 +14,75 @@
 	</div><!-- end .navbar-header-->
 	<!-- Navbar collapse-->
 	<div class="navbar-collapse collapse" id="navbar-mobile">
-		<!-- Sidebar Toggle-->
+		<!-- Sidebar Toggle
 		<ul class="nav navbar-nav">
 			<li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
-		</ul>
+		</ul>-->
+		<!-- Search -->
+		<p class="navbar-text no-padding col-xs-6 col-md-6">
+			<span class="input-group pt-7">
+				<input type="text" class="form-control height-30 masthead-search-terms-border no-border-radius">
+				<span class="input-group-btn height-30 box-shadow">
+					<span class="btn btn-default pt-3 height-30" type="button" style="width:66px;">
+						<i class="fa fa-search text-grey-300"></i>
+					</span>
+				</span>
+			</span>
+		</p>
 		<!-- Navbar Right -->
 		<div class="navbar-right">
 			<ul class="nav navbar-nav">
+				<!-- Become a creator -->
+				<p class="navbar-text no-padding">
+					<% if current_user.campaigns.count > 0 %>
+						<% unless current_user.active_campaign %>
+							<%= link_to apply_user_studio_campaigns_path(current_user.username, current_user.campaigns.last) do %>
+								<span class="btn-group pt-7">
+									<span class="btn btn-default btn-xs height-30 text-grey-300">Become a Creator</span>
+								</span>
+							<% end %>
+						<% end %>
+					<% else %>
+						<%= link_to new_user_studio_campaigns_path(current_user.username) do %>
+							<span class="btn-group pt-7">
+								<span class="btn btn-default btn-xs height-30 text-grey-300">Become a Creator</span>
+							</span>
+						<% end %>
+					<% end %>
+				</p>
+				
+				<!-- Language 
+				<li class="dropdown language-switch">
+					<a class="dropdown-toggle" data-toggle="dropdown">
+						<img src="/assets/flags/us.png" class="position-left" alt="">
+						English
+						<span class="caret"></span>
+					</a>
+
+					<ul class="dropdown-menu">
+						<li><a class="中文"><img src="/assets/flags/cn.png" alt=""> 中文</a></li>
+					</ul>
+				</li>-->
 				<!-- Messages -->
 				<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="ti-email"></i>
+							<i class="fa fa-envelope-o"></i>
 							<span class="visible-xs-inline-block position-right">Messages</span>
 							<span class="badge bg-blue">2</span>
 						</a>
 						
-						<div class="dropdown-menu dropdown-content width-350">
+						<div class="dropdown-menu dropdown-content width-400">
 							<div class="dropdown-content-heading">
 								Messages
 								<ul class="icons-list">
-									<li><a href="#"><i class="icon-compose"></i></a></li>
+									<li><a href="#"><i class="ti-pencil-alt"></i></a></li>
 								</ul>
 							</div>
 
 							<ul class="media-list dropdown-content-body">
 								<li class="media">
 									<div class="media-left">
-										<img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+										<img src="<%= @user.profilephoto.image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
 										<span class="badge bg-danger-400 media-badge">5</span>
 									</div>
 
@@ -54,56 +95,43 @@
 										<span class="text-muted">who knows, maybe that would be the best thing for me...</span>
 									</div>
 								</li>
+							</ul>
 
+							<div class="dropdown-content-footer">
+								<a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+							</div>
+						</div>
+				</li>		
+				<!-- Notifications -->
+				<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="icon-earth"></i>
+							<span class="visible-xs-inline-block position-right">Notifications</span>
+							<span class="badge bg-blue">3</span>
+						</a>
+						
+						<div class="dropdown-menu dropdown-content width-400">
+							<div class="dropdown-content-heading">
+								Messages
+								<ul class="icons-list">
+									<li><a href="#"><i class="ti-pencil-alt"></i></a></li>
+								</ul>
+							</div>
+
+							<ul class="media-list dropdown-content-body">
 								<li class="media">
 									<div class="media-left">
-										<img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
-										<span class="badge bg-danger-400 media-badge">4</span>
+										<img src="<%= @user.profilephoto.image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
+										<span class="badge bg-danger-400 media-badge">5</span>
 									</div>
 
 									<div class="media-body">
 										<a href="#" class="media-heading">
-											<span class="text-semibold">Margo Baker</span>
-											<span class="media-annotation pull-right">12:16</span>
+											<span class="text-semibold">James Alexander</span>
+											<span class="media-annotation pull-right">04:58</span>
 										</a>
 
-										<span class="text-muted">That was something he was unable to do because...</span>
-									</div>
-								</li>
-
-								<li class="media">
-									<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
-									<div class="media-body">
-										<a href="#" class="media-heading">
-											<span class="text-semibold">Jeremy Victorino</span>
-											<span class="media-annotation pull-right">22:48</span>
-										</a>
-
-										<span class="text-muted">But that would be extremely strained and suspicious...</span>
-									</div>
-								</li>
-
-								<li class="media">
-									<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
-									<div class="media-body">
-										<a href="#" class="media-heading">
-											<span class="text-semibold">Beatrix Diaz</span>
-											<span class="media-annotation pull-right">Tue</span>
-										</a>
-
-										<span class="text-muted">What a strenuous career it is that I've chosen...</span>
-									</div>
-								</li>
-
-								<li class="media">
-									<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
-									<div class="media-body">
-										<a href="#" class="media-heading">
-											<span class="text-semibold">Richard Vango</span>
-											<span class="media-annotation pull-right">Mon</span>
-										</a>
-										
-										<span class="text-muted">Other travelling salesmen live a life of luxury...</span>
+										<span class="text-muted">who knows, maybe that would be the best thing for me...</span>
 									</div>
 								</li>
 							</ul>
@@ -112,7 +140,7 @@
 								<a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
 							</div>
 						</div>
-				</li>		
+				</li>	
 				<!-- Profile Function Dropdown -->	
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown">
@@ -124,27 +152,27 @@
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>
 							<%= link_to profile_url_path(current_user.username) do %>
-								<i class="ti-crown"></i> My Ratafire
+								<i class="icon-profile"></i> My Ratafire
 							<% end %>
 						</li>
 						<li>
-							<%= link_to profile_url_path(current_user.username) do %>
-								<i class="ti-palette"></i> <span class="btn btn-blue btn-xs">Creator Studio</span>
+							<%= link_to dashboard_user_studio_creator_studio_path(current_user.username) do %>
+								<i class="icon-magic-wand"></i> <span class="btn btn-blue btn-xs">Creator Studio</span>
 							<% end %>
 						</li>
 						<li class="divider"></li>						
 						<li>
 							<%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
-								<i class="ti-settings"></i>Profile Settings
+								<i class="icon-cog"></i>Profile Settings
 							<% end %>
 						</li>
 						<li>
 							<%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
-								<i class="ti-money"></i>Payment Settings
+								<i class="icon-credit-card"></i>Payment Settings
 							<% end %>
 						</li>						
 						<li class="divider"></li>
-						<li><%= link_to destroy_user_session_path, :method => :delete do %><i class="ti-power-off"></i> Logout<% end %></li>
+						<li><%= link_to destroy_user_session_path, :method => :delete do %><i class="icon-switch"></i> Logout<% end %></li>
 					</ul>
 				</li>
 			</ul>

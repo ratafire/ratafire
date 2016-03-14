@@ -593,15 +593,7 @@ $(function() {
     // Plugins
     // -------------------------
     // Initiate userCard
-    $(document).on("ready turbolinks:render", function() {
-        //Switchery
-        var elem2s = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
-        elem2s.forEach(function(html) {
-          var switchery2 = new Switchery(html);
-        });
-    })
-    $(document).on('ready turbolinks:render', function(event) {
+    $(document).on('ready turbolinks:render', function() {
         // Initiate refreshable plugins
         initiate_plugins();      
         profile_user_plugins('<%= @user.id %>');     

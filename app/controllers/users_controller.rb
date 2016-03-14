@@ -52,6 +52,10 @@ class UsersController < ActionController::Base
 		when "deviantart"
 			social_media = current_user.deviantart
 			@provider_title = "DeviantArt"
+		when "paypal"
+			social_media = current_user.paypal_account
+			@provider_title = "PayPal"
+			@paypal_user = '173'
 		end
 		social_media.destroy
 	end

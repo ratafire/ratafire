@@ -11,22 +11,9 @@
 	<!-- Content Area -->
 	<div class="content" >
 		<!-- Pledge Area -->
-		<div class="row" id="pledge-area">
-			<!-- Title -->
-			<h1 class="animated bounceIn mb-20 text-center text-300" style="font-size:2.3em;"><%= @user.preferred_name %> is creating <span class="text-500">Concept Art for a Video Game</span></h1>		
-			<!-- Video Area -->
-			<div class="col-xs-12 col-sm-6 col-md-8 pl-40">
-				<!-- Current Project -->
-				<%= render partial:'profile/components/current_project', locals: {user: @user}%>
-			</div>
-			<!-- Side Area -->
-			<div class="animated bounceInRight col-xs-6 col-md-3 pl-40" style="max-width:200px;">
-				<!-- Back the Creator -->
-				<%= render partial:'profile/components/back_the_creator', locals: {user: @user}%>
-				<!-- Project Meta -->		
-				<%= render partial:'profile/components/project_meta', locals: {user: @user}%>
-			</div>	
-		</div><!-- end #updates_area-->	
+		<% unless @user.active_campaign %>
+			<%= render partial:'profile/components/pledge_area' %>
+		<% end %>
 		<!-- Updates -->
 		<div class="row" id="updates-area">
 			<!-- Feed Area -->

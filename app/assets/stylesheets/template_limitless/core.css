@@ -402,6 +402,14 @@ a.bg-danger:focus {
 .page-header-content[class*=border-bottom-] + .breadcrumb-line {
   border-top: 0;
 }
+.text-giant{
+  font-size:48px;
+  line-height:50px;
+}
+.text-large{
+  font-size:32px;
+  line-height:40px;
+}
 .text-black {
   font-weight: 900;
 }
@@ -945,6 +953,11 @@ textarea {
   border: 0px !important;
   padding-left: 0px !important;
   background: transparent;
+}
+.form-detransparent{
+  border:1px solid #dddddd;
+  border-radius:3px;
+  padding:0px 12px;
 }
 /* Form components
 ----------------------------------*/
@@ -2875,6 +2888,7 @@ select[multiple].input-group-xs > .input-group-btn > .btn {
   border-width: 1px 0;
   padding-left: 0;
   padding-right: 0;
+  z-index: 3000;
 }
 @media (min-width: 769px) {
   .navbar {

@@ -1,0 +1,25 @@
+<% if @video %>
+	//Show text editor
+	$('#video-progress-box').remove();
+	$('#add-video').remove();
+	//Show video image upload
+	$('#apply-panel').prepend("<%= j render(:partial => 'studio/campaigns/wizard_upload_video_image', :locals => {:video => @video, :user => @user, :campaign => @campaign}) %>");
+	//Show video
+	$('#apply-panel').prepend("<%= j render(:partial => 'studio/campaigns/wizard_video_preview', :locals => {:video => @video}) %>");
+	//Video js
+	initiate_videojs(); 	
+	//majorpost video image uploader	
+	$('#s3_uploader_video_image').S3Uploader(
+	  { 
+	    remove_completed_progress_bar: false,
+	    dropZone: $('#video-image-dropzone'),
+	    progress_bar_target: $('#video-image-progress-case'),
+	    additional_data: { "video_image[video_uuid]":$('#s3_uploader_video_image').data('video-uuid')},
+	},"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+	$('#s3_uploader_video_image').bind('s3_upload_failed', function(e, content) {
+	  return alert(content.filename + ' failed to upload');
+	});   
+	$('#s3_uploader_video_image').bind('s3_upload_complete', function(e, content) {
+	  $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
+	});
+<% end %>

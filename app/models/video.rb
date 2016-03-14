@@ -64,6 +64,9 @@ class Video < ActiveRecord::Base
     #Thumbnail
   	has_attached_file :thumbnail, 
         :styles => { 
+            :preview720p => ["1080x720#", :jpg],
+            :preview480p => ["640x480#",:jpg],
+            :preview360p => ["480x360#",:jpg],
             :preview800 => ["800", :jpg], 
             :preview512 => ["512", :jpg],
             :preview256 => ["256", :jpg], 
@@ -170,7 +173,6 @@ class Video < ActiveRecord::Base
                 self.output_url_mp4 = output[:url]  
             end  
             self.thumbnail = open(URI.parse("http://s3.amazonaws.com/" + zencoder_setting["s3_output"]["bucket"] + "/thumbnails_#{self.id}/frame_0000.png"))
-            self.thumbnail_content_type = "image/png"
             # get the job details so we can retrieve the length of the video in milliseconds
             zen = Zencoder.new
             self.duration_in_ms = zen.details(self.job_id)["job"]["output_media_files"].first["duration_in_ms"]

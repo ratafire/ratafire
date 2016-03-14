@@ -1,0 +1,27 @@
+<div id="add-video">
+	<%= s3_uploader_form callback_url: campaign_video_user_studio_campaigns_path(user.id, campaign.id),
+		callback_method: 'POST',
+		id: "s3_uploader_video",
+		callback_param: "video[direct_upload_url]",
+		expiration: 24.hours.from_now.utc.iso8601,
+		max_file_size: 5000.megabytes,:remote => true,
+        data: {campaign_id: campaign.id} do %>
+		<div class="valign-middle dropzone-bg" id="video-dropzone">
+			<div id="video-progress-case">
+			</div>
+			<%= file_field_tag :file, multiple: false, class:"video-choose btn-upload" %>
+			<div class="cursor-pointer center-block text-center">
+				<div id="big-image-upload">
+					<div class="fa fa-youtube-play text-grey-100" style="font-size:40px;"></div>
+					<div class="text-size-large text-grey-300 mt-5">Upload a video about what you are creating</div>
+					<div class="text-grey-200">Creators with a video have a much higher chance of success</div>
+				</div>
+				<div id="small-image-upload" style="display:none;">
+					<div class="text-grey-100">Add more</div>
+				</div>
+			</div>
+		</div>	
+	<% end %>
+	<!-- Progress bar -->
+	<%= render partial:'utilities/editor/editor_progress_bar', locals:{name:'video'} %>	
+</div>

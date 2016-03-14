@@ -7,42 +7,20 @@
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <!-- Content Area -->
 <div class="content">
-	<!-- Page header -->
-	<div class="page-header">
-		<!-- Page title -->
-		<div class="page-header-content">
-			<div class="page-title text-grey">
-				<h2 class="text-thin">Settings</h2>
-			</div>
-		</div><!-- end .page-header-content-->
+	<!-- Page title -->
+	<%= render partial: "profile/settings/page_header_content", locals: {user: @user} %>
 
-		<!-- Tabs -->
-		<div class="tabbable pl-20 pr-20">
-			<!-- Nav tabs-->
-			<ul class="nav nav-tabs nav-tabs-bottom">
-				<li class="active"><%= link_to "Profile",profile_settings_user_profile_settings_path(@user.username) %></li>
-				<li ><%= link_to "Social Media",social_media_settings_user_profile_settings_path(@user.username) %></li>
-				<li><a href="#bordered-tab2" data-toggle="tab">Security & Privacy</a></li>
-				<li><a href="#bordered-tab2" data-toggle="tab">Email Notifications</a></li>
-			</ul><!-- end .nav-->
+	<!-- Tabs -->
+	<div class="tabbable pl-20 pr-20">
+		<!-- Nav tabs-->
+		<%= render partial: "profile/settings/tabs", locals: {user: @user} %>
 
-			<!-- Tab content -->
-			<div class="tab-content">
-				<!-- Profile Settings -->
-				<div class="tab-pane active" id="profile">
-					<div class="panel panel-default panel-default">
-						<div class="panel-heading p-20 text-grey text-thin">
-							<h4 class="panel-title">Profile Settings</h4>
-							<span>Update your preferred name, bio, location...</span>
-						</div>
-						<div class="panel-body">
-							<%= render partial: "profile/settings/form_profile", locals: {user: @user} %>
-						</div>
-					</div>
-				</div>
-				<!-- Social Media Connections -->			
-			</div><!-- end .tab-content-->
+		<!-- Tab content -->
+		<div class="tab-content">
+			<!-- Profile Settings -->
+			<%= render partial: "profile/settings/form_profile", locals: {user: @user} %>
+			<!-- Social Media Connections -->			
+		</div><!-- end .tab-content-->
 
-		</div><!-- end .tabbable-->
-	</div><!-- end .page-header-->
+	</div><!-- end .tabbable-->
 </div><!-- end .content-->

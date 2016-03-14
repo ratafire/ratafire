@@ -1,5 +1,7 @@
 class Profile::TabsController < ApplicationController
 
+	layout 'profile'
+
 	#Before filters
 	before_filter :load_user
 
@@ -15,6 +17,9 @@ class Profile::TabsController < ApplicationController
 	#Friends tab
 	#/users/:user_id/profile/tabs/friends
 	def friends
+		if @user.friends.count > 0
+			@friends = @user.friends.order('created_at asc').page(params[:friend]).per_page(3)
+		end
 	end
 
 	#backers_user_profile_tabs GET

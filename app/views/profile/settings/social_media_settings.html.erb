@@ -9,47 +9,33 @@
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <!-- Content Area -->
 <div class="content">
-	<!-- Page header -->
-	<div class="page-header">
-		<!-- Page title -->
-		<div class="page-header-content">
-			<div class="page-title text-grey">
-				<h2 class="text-thin">Settings</h2>
-			</div>
-		</div><!-- end .page-header-content-->
+	<!-- Page title -->
+	<%= render partial: "profile/settings/page_header_content", locals: {user: @user} %>
 
-		<!-- Tabs -->
-		<div class="tabbable pl-20 pr-20">
-			<!-- Nav tabs-->
-			<ul class="nav nav-tabs nav-tabs-bottom">
-				<li><%= link_to "Profile",profile_settings_user_profile_settings_path(@user.username) %></li>
-				<li class="active"><%= link_to "Social Media",social_media_settings_user_profile_settings_path(@user.username) %></li>
-				<li><a href="#bordered-tab2" data-toggle="tab">Security & Privacy</a></li>
-				<li><a href="#bordered-tab2" data-toggle="tab">Email Notifications</a></li>
-			</ul><!-- end .nav-->
+	<!-- Tabs -->
+	<div class="tabbable pl-20 pr-20">
+		<!-- Nav tabs-->
+		<%= render partial: "profile/settings/tabs", locals: {user: @user} %>
 
-			<!-- Tab content -->
-			<div class="tab-content">
-				<!-- Social Media Connections -->
-				<div class="tab-pane active" id="social">
-					<!-- Facebook -->
-					<%= render partial: "profile/settings/facebook", locals: {user: @user} %>
-					<!-- Twitter -->
-					<%= render partial: "profile/settings/twitter", locals: {user: @user} %>
-					<!-- YouTube -->
-					<%= render partial: "profile/settings/youtube", locals: {user: @user} %>
-					<!-- Twitch -->
-					<%= render partial: "profile/settings/twitch", locals: {user: @user} %>
-					<!-- Vimeo -->
-					<%= render partial: "profile/settings/vimeo", locals: {user: @user} %>
-					<!-- Pinterst -->
-					<%= render partial: "profile/settings/pinterest", locals: {user: @user} %>
-					<!-- GitHub -->
-					<%= render partial: "profile/settings/github", locals: {user: @user} %>
-					<%= render partial: "profile/settings/form_social", locals: {user: @user} %>
-				</div>				
-			</div><!-- end .tab-content-->
+		<!-- Tab content -->
+		<div class="tab-content">
+			<!-- Social Media Connections -->
+			<!-- Facebook -->
+			<%= render partial: "profile/settings/facebook", locals: {user: @user} %>
+			<!-- Twitter -->
+			<%= render partial: "profile/settings/twitter", locals: {user: @user} %>
+			<!-- YouTube -->
+			<%= render partial: "profile/settings/youtube", locals: {user: @user} %>
+			<!-- Twitch -->
+			<%= render partial: "profile/settings/twitch", locals: {user: @user} %>
+			<!-- Vimeo -->
+			<%= render partial: "profile/settings/vimeo", locals: {user: @user} %>
+			<!-- Pinterst -->
+			<%= render partial: "profile/settings/pinterest", locals: {user: @user} %>
+			<!-- GitHub -->
+			<%= render partial: "profile/settings/github", locals: {user: @user} %>
+			<%= render partial: "profile/settings/form_social", locals: {user: @user} %>			
+		</div><!-- end .tab-content-->
 
-		</div><!-- end .tabbable-->
-	</div><!-- end .page-header-->
+	</div><!-- end .tabbable-->
 </div><!-- end .content-->

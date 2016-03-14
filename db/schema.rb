@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228032742) do
+ActiveRecord::Schema.define(version: 20160314045538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20160228032742) do
     t.boolean  "listed"
     t.boolean  "reviewed"
     t.boolean  "published",                default: true
+    t.string   "language"
   end
 
   add_index "activities", ["owner_id", "owner_type"], name: "idx_16401_index_activities_on_owner_id_and_owner_type", using: :btree
@@ -221,6 +222,7 @@ ActiveRecord::Schema.define(version: 20160228032742) do
     t.string   "direct_image_upload_url"
     t.text     "description"
     t.string   "genre"
+    t.string   "language"
   end
 
   create_table "beta_users", id: :bigserial, force: :cascade do |t|
@@ -319,6 +321,39 @@ ActiveRecord::Schema.define(version: 20160228032742) do
     t.boolean  "featured"
     t.boolean  "published"
     t.datetime "deleted_at"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "user_id"
+    t.string   "uuid"
+    t.string   "category"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "completed_at"
+    t.boolean  "completed"
+    t.boolean  "published"
+    t.datetime "published_at"
+    t.datetime "expiration"
+    t.string   "subcategory"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "sub_category"
+    t.string   "country"
+    t.string   "city"
+    t.integer  "duration",                default: 1
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "transcript_file_name"
+    t.string   "transcript_content_type"
+    t.integer  "transcript_file_size"
+    t.datetime "transcript_updated_at"
+    t.boolean  "ratafirer",               default: false
+    t.boolean  "recipient"
+    t.string   "language"
   end
 
   create_table "cards", id: :bigserial, force: :cascade do |t|
@@ -999,6 +1034,7 @@ ActiveRecord::Schema.define(version: 20160228032742) do
     t.string   "composer"
     t.string   "artist"
     t.string   "genre"
+    t.string   "language"
   end
 
   create_table "masspay_batches", id: :bigserial, force: :cascade do |t|
@@ -1539,6 +1575,37 @@ ActiveRecord::Schema.define(version: 20160228032742) do
     t.boolean  "skip_countdown",                        default: false
   end
 
+  create_table "rewards", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "campaign_id"
+    t.integer  "goal_id"
+    t.decimal  "amount",               precision: 10, scale: 2
+    t.text     "description"
+    t.string   "title"
+    t.boolean  "limited"
+    t.integer  "quantity"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "backers",                                       default: 0
+    t.integer  "month"
+    t.integer  "year"
+    t.datetime "estimated_delivery"
+    t.string   "shipping"
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
+    t.string   "package_file_name"
+    t.string   "package_content_type"
+    t.integer  "package_file_size"
+    t.datetime "package_updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "active"
+    t.boolean  "in_stock",                                      default: false
+    t.string   "download_url"
+  end
+
   create_table "secrets", id: :bigserial, force: :cascade do |t|
     t.text     "status"
     t.integer  "user_id",        limit: 8
@@ -1920,7 +1987,7 @@ ActiveRecord::Schema.define(version: 20160228032742) do
   end
 
   create_table "users", id: :bigserial, force: :cascade do |t|
-    t.text     "tagline",                                                       default: "Sits down at the fire of Ratatoskr"
+    t.text     "tagline",                                                  default: "Sits down at the fire of Ratatoskr"
     t.text     "fullname"
     t.text     "username"
     t.text     "email"
@@ -1931,14 +1998,11 @@ ActiveRecord::Schema.define(version: 20160228032742) do
     t.boolean  "admin"
     t.text     "website"
     t.text     "bio"
-    t.integer  "goals_subscribers",           limit: 8,                         default: 256
-    t.integer  "goals_monthly",               limit: 8,                         default: 7730
-    t.integer  "goals_project",               limit: 8,                         default: 5
     t.text     "encrypted_password"
     t.text     "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",               limit: 8
+    t.integer  "sign_in_count",          limit: 8
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.text     "current_sign_in_ip"
@@ -1947,43 +2011,26 @@ ActiveRecord::Schema.define(version: 20160228032742) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.text     "unconfirmed_email"
-    t.text     "provider"
     t.string   "uid"
-    t.decimal  "subscription_amount",                   precision: 8, scale: 2, default: 0.0
-    t.boolean  "subscription_status",                                           default: false
+    t.decimal  "subscription_amount",              precision: 8, scale: 2, default: 0.0
+    t.boolean  "subscription_status",                                      default: false
     t.text     "subscribed_permission"
     t.text     "subscriber_permission"
-    t.boolean  "disabled",                                                      default: false
+    t.boolean  "disabled",                                                 default: false
     t.datetime "deactivated_at"
-    t.datetime "goals_updated_at"
-    t.decimal  "subscribing_amount",                    precision: 8, scale: 2, default: 0.0
-    t.boolean  "accept_message",                                                default: true
-    t.text     "bio_html"
+    t.decimal  "subscribing_amount",               precision: 8, scale: 2, default: 0.0
+    t.boolean  "accept_message",                                           default: true
     t.text     "direct_upload_url"
-    t.boolean  "processed",                                                     default: false
-    t.text     "subscription_status_initial"
-    t.text     "legalname"
-    t.boolean  "signup_during_subscription",                                    default: false
+    t.boolean  "processed",                                                default: false
     t.text     "school"
     t.text     "concentration"
-    t.boolean  "homepage_fundable"
-    t.boolean  "fundable_show"
-    t.integer  "goals_watching",              limit: 8,                         default: 10
-    t.integer  "goals_reviews",               limit: 8,                         default: 10
-    t.boolean  "post_to_facebook"
-    t.boolean  "subscription_inactive"
-    t.text     "default_billing_method"
-    t.boolean  "subscription_switch",                                           default: true
-    t.text     "memorized_fullname"
-    t.integer  "homepage_fundable_weight",    limit: 8
-    t.boolean  "explore_fundable"
-    t.integer  "explore_fundable_weight",     limit: 8
     t.string   "firstname"
     t.string   "lastname"
     t.string   "preferred_name"
     t.string   "country"
     t.string   "state"
     t.string   "city"
+    t.string   "language"
   end
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree
@@ -2005,6 +2052,7 @@ ActiveRecord::Schema.define(version: 20160228032742) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "campaign_id"
   end
 
   create_table "videos", id: :bigserial, force: :cascade do |t|
@@ -2043,6 +2091,8 @@ ActiveRecord::Schema.define(version: 20160228032742) do
     t.integer  "organization_application_id", limit: 8
     t.string   "majorpost_uuid"
     t.string   "uuid"
+    t.integer  "campaign_id"
+    t.string   "language"
   end
 
   add_index "videos", ["processed"], name: "idx_17408_index_videos_on_processed", using: :btree

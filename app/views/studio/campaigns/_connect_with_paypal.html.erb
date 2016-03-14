@@ -1,0 +1,27 @@
+<div class="panel text-thin" id="paypal-panel">
+	<div class="text-center">
+		<%= image_tag('/assets/icon/payment/paypal-round.png', class:"p-20 mt-20")%>
+		<div class="text-large mb-20" id="paypal-title">PayPal</div>
+		<div class="tabel-responsive">
+			<table class="table">
+				<tbody>
+					<tr class="active" >
+						<td style="border-bottom:1px solid #ddd;">
+							<span><%= @paypal_user %> million users</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div class="btn-group btn-group-justified">
+			<div class="btn-group">
+				<div class="btn btn-default" id="paypal-btn">
+					Connect with PayPal
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

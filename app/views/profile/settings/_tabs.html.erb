@@ -1,0 +1,8 @@
+<!-- Nav tabs-->
+<ul class="nav nav-tabs nav-tabs-bottom">
+	<li class="<%= @profile_settings_active_tag %>"><%= link_to "Profile",profile_settings_user_profile_settings_path(@user.username) %></li>
+	<li class="<%= @social_media_settings_active_tag %>"><%= link_to "Social Media",social_media_settings_user_profile_settings_path(@user.username) %></li>
+	<li><a data-popup="tooltip" title="Coming soon" data-placement="bottom" >Security & Privacy</a></li>
+	<li><a data-popup="tooltip" title="Coming soon" data-placement="bottom" >Email Notifications</a></li>
+	<li class="<%= @account_settings_active_tag %>"><%= link_to "Account",account_settings_user_profile_settings_path(@user.username) %></li>
+</ul><!-- end .nav-->

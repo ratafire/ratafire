@@ -30,19 +30,36 @@ Rails.application.routes.draw do
 			#Profile page display
 			namespace :profile do
 				#Tabs for profile page
-				resource :tabs, only:[] do
-					get 'updates'
-					get 'friends'
-					get 'backers'
-					get 'backed'
-					get 'subscribed'
-				end
+				#resource :tabs, only:[] do
+				#	get 'friends'
+				#	get 'backers'
+				#	get 'backed'
+				#	get 'subscribed'
+				#end
 				#Settings
 				resource :settings, only:[] do
 					get 'profile_settings'
 					get 'social_media_settings'
+					get 'account_settings'
 				end
 			end	
+
+			#Creator studio
+			namespace :studio do 
+				#Creator studio
+				resource :creator_studio, only:[] do
+					get 'dashboard'
+				end
+				#campaign
+				resource :campaigns, only:[:new,:create] do
+					get ':campaign_id/art', to: 'campaigns#art', as: :art
+					patch ':campaign_id/update', to: 'campaigns#update', as: :update
+					get ':campaign_id/apply', to: 'campaigns#apply', as: :apply
+					post ':campaign_id/campaign_video', to: 'campaigns#campaign_video', as: :campaign_video
+					post ':campaign_id/campaign_video_image', to: 'campaigns#campaign_video_image', as: :campaign_video_image
+					delete ':campaign_id/campaign_video', to:'campaigns#remove_campaign_video', as: :remove_campaign_video
+				end
+			end
 
 		end
 

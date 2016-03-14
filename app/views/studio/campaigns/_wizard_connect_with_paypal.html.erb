@@ -1,0 +1,70 @@
+<% if @user.paypal_account %>
+	<div class="col-md-6 no-padding pr-20" id="connect-with-paypal">
+		<div class="panel text-thin border-xlg border-blue" id="paypal-panel-connected">
+			<%= link_to user_disconnect_path(@user,:paypal), remote: true do %>
+				<div class="medium-editor-toolbar-remove mr-5 mt-5">
+					<span class="ti-close"></span>
+				</div>
+			<% end %>
+			<div class="text-center">
+				<%= image_tag('/assets/icon/payment/paypal-round.png', class:"p-20 mt-20")%>
+				<div class="text-large mb-20 text-blue" id="paypal-title-connected">PayPal</div>
+				<div class="tabel-responsive">
+					<table class="table">
+						<tbody>
+							<tr class="active" >
+								<td style="border-bottom:1px solid #ddd;">
+									<span><%= @paypal_user %> million users</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="btn-group btn-group-justified">
+					<div class="btn-group">
+						<div class="btn btn-blue" id="paypal-btn-connected">
+							<i class="fa fa-check"></i> Get paid via PayPal
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%= link_to user_omniauth_authorize_path(:paypal, campaign_id: @campaign.id) do %>
+			<div id="paypal-connection-holder"></div>
+		<% end %>	
+	</div>
+<% else %>
+	<!-- Connect with PayPal -->
+	<%= link_to user_omniauth_authorize_path(:paypal, campaign_id: @campaign.id) do %>
+		<div class="col-md-6 no-padding pr-20" id="connect-with-paypal">
+			<div class="panel text-thin" id="paypal-panel">
+				<div class="text-center">
+					<%= image_tag('/assets/icon/payment/paypal-round.png', class:"p-20 mt-20")%>
+					<div class="text-large mb-20" id="paypal-title">PayPal</div>
+					<div class="tabel-responsive">
+						<table class="table">
+							<tbody>
+								<tr class="active" >
+									<td style="border-bottom:1px solid #ddd;">
+										<span><%= @paypal_user %> million users</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="btn-group btn-group-justified">
+						<div class="btn-group">
+							<div class="btn btn-default" id="paypal-btn">
+								Connect with PayPal
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+<% end %>

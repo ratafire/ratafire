@@ -26,6 +26,6 @@
 	  return alert(content.filename + ' failed to upload');
 	});   
 	$('#s3_uploader_audio_image').bind('s3_upload_complete', function(e, content) {
-	  $('#progress-words').html("Processing...meow");
+	  $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
 	});
 <% end %>

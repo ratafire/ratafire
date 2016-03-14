@@ -1,0 +1,7 @@
+$('#big-image-upload').hide();
+$('#small-image-upload').show();
+$('.dropzone-bg').addClass("dropzone-bg-small");
+$('#application-video-preview').remove();
+$('#apply-panel').prepend("<%= j render(:partial => 'studio/campaigns/wizard_video_preview', :locals => {:video => @campaign.video}) %>");
+initiate_videojs();
+$('#artwork-progress-box').remove();

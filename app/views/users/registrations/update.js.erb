@@ -1,8 +1,0 @@
-<% if @user_update_profilephoto %>
-//Update Profile Photo
-$('.cover-profilephoto-holder').remove();
-$('#cover-profilephoto-holder').append("<img src=\"<%= @user.profilephoto.image.url(:thumbnail128)%>\" class=\"profile-thumb-holder cover-profilephoto-holder\" alt=\"<%= @user.preferred_name %>\">");
-$('.about-profilephoto-holder').remove();
-$('#about-profilephoto-holder').append("<img src=\"<%= @user.profilephoto.image.url(:thumbnail512)%>\" class=\"about-profilephoto-holder\" alt=\"\">");
-$('#cover-profilephoto-holder,#about-profilephoto-holder').unblock();
-<% end %>

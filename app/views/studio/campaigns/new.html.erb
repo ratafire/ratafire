@@ -1,0 +1,167 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Content Area -->
+<div class="content" >
+    <!-- Starfield Animation -->
+    <canvas id="c" style="position:fixed;"></canvas>
+	<%= form_for([@user,:studio,@campaign]) do |f|%>
+		<!-- Page title -->
+		<div class="row" style="height:800px;">
+			<!-- Success select -->
+			<div class="col-lg-3">
+			</div>
+			<div class="col-lg-6 text-center">
+				<div class="text-giant text-thin pt-80 power" >What are you creating?</div>
+				<div class="text-large text-thin pt-80 text-grey-200" > I am creating<%= f.text_field :title, class:"form-control input-title mt-40 mb-20 form-transparent",style:"border-bottom:4px dotted #eaeaea !important;", placeholder:"Title", id:"project-title"%></div>
+				<div class="pt-20">
+					<%= f.select(:category, [['Art'], ['Music'],['Games'],['Writing'],['Videos'],['Math'],['Research: Science'],['Research: Humanity'],['Engineering']], {prompt: "Select a category"}, { :class => 'simple-select mb-20', :id => 'category-selection' }) %>
+				</div>
+				<div class="pull-right mt-40" id="start-project">
+					<%= f.submit "Start", class: "text-thin btn bg-rainbow-600 btn-xlg pl-40 pr-40", style:"font-size:20px;" %>
+				</div>
+			</div>
+			<div class="col-lg-3">
+			</div>
+		</div>
+	<% end %>
+</div>
+<!--~~~~~~~~~~~~~~~~~ Page Specific Javascript ~~~~~~~~~~~~~~~~~-->
+<!-- Page Specific Javascript -->
+<script>
+    //Block
+    $('#start-project').block({message: null,overlayCSS: {
+    backgroundColor: '#fff',
+    opacity: 0.4,
+    cursor: 'not-allowed'
+    },});
+    //Select
+    $('#category-selection').on('change', function() {
+    	if (this.value && $('#project-title').val()) {
+    		$('#start-project').unblock();
+    	} else {
+    		$('#start-project').block({message: null,overlayCSS: {
+    		backgroundColor: '#fff',
+    		opacity: 0.4,
+    		cursor: 'not-allowed'
+    		},});
+    	}
+    });
+    $('#project-title').donetyping(function(){
+    	if (this.value && $('#category-selection').val()) {
+    		$('#start-project').unblock();
+    	} else {
+    		$('#start-project').block({message: null,overlayCSS: {
+    		backgroundColor: '#fff',
+    		opacity: 0.4,
+    		cursor: 'not-allowed'
+    		},});
+    	}
+    });
+
+    //Moving Stars
+
+    //want youtube vid on this? follow me!
+
+    //scroll down...
+
+    var starsNumber = 100;
+    //number of stars
+
+    var c = document.getElementById('c');
+    var ctx = c.getContext('2d');
+
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var x = 100; var y = 100;
+
+    //where the stars are stored
+    var stars = [];
+    for(i = 0; i < starsNumber; i++) {
+      //making 100 stars
+      stars.push(new star);
+    };
+
+    function star() {
+      //the obj star function
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      //random position
+      
+      this.vx = 1;
+      //starting velocity
+      
+      this.r = Math.random() * 3 + 2;
+      //random size
+    }
+
+    //the reset
+    function draw() {
+    	c.width = w;
+    	c.height = h;
+      //canvas width & height
+      
+      for(t = 0; t < stars.length; t++) {
+        var s = stars[t];
+        
+        //building the stars
+        ctx.beginPath();
+      	ctx.fillStyle = 'lightgray';
+      	ctx.arc(s.x, s.y, s.r, Math.PI * 2, false);
+      	ctx.fill();
+        
+        //animating the stars
+        s.x-=s.vx;
+        
+        //keeping the stars on the canvas
+        if(s.x < -s.r) {
+          s.x = w + s.r;
+        };
+        if(s.r < 5) {
+          s.vx = 1;
+        };
+        if(s.r < 4) {
+          s.vx = 0.5;
+        };
+        if(s.r < 3) {
+          s.vx = 0.25;
+        };
+      }
+    }
+
+    setInterval(draw, 20);
+
+
+    //want youtube vid on this follow me!
+
+
+    /*     AlexSafayan.com
+              Follow me!
+
+          CCCCCC         DDDD
+        CCC              DD  DD
+       CC                DD   DDD
+      CC                 DD     DD
+      CC                 DD      D
+      CC                 DD      D
+      CC                 DD     DD
+       CC                DD   DDD
+        CCC              DD  DD
+          CCCCCC         DDDD
+          
+          OOOOOO         EEEEEEEEEEEE
+         OO    OO        EE
+        OO      OO       EE
+       OOO      OOO      EE
+       OO        OO      EEEEEEEE
+       OO        OO      EE
+       OOO      OOO      EE
+        OO      OO       EE
+         OO    OO        EE
+          OOOOOO         EEEEEEEEEEEE
+          
+    */
+        initiate_profile_editor();
+</script>
