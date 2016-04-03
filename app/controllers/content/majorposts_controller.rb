@@ -14,6 +14,10 @@ class Content::MajorpostsController < ApplicationController
 	def create
 		#Create the majorpost
 		@majorpost = Majorpost.new(majorpost_params)
+		#Detect language
+		if language = CLD.detect_language(@majorpost.content)
+			@majorpost.locale = language[:code]
+		end
 		if @majorpost.update(
 				published_at: Time.now,
 				user_id: current_user.id

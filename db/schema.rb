@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314045538) do
+ActiveRecord::Schema.define(version: 20160328002636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.boolean  "listed"
     t.boolean  "reviewed"
     t.boolean  "published",                default: true
-    t.string   "language"
+    t.string   "locale"
   end
 
   add_index "activities", ["owner_id", "owner_type"], name: "idx_16401_index_activities_on_owner_id_and_owner_type", using: :btree
@@ -222,7 +222,17 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.string   "direct_image_upload_url"
     t.text     "description"
     t.string   "genre"
-    t.string   "language"
+    t.string   "locale"
+  end
+
+  create_table "baidus", force: :cascade do |t|
+    t.datetime "deleted_at"
+    t.integer  "user_id"
+    t.boolean  "deleted"
+    t.string   "uuid"
+    t.text     "test"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "beta_users", id: :bigserial, force: :cascade do |t|
@@ -353,7 +363,7 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.datetime "transcript_updated_at"
     t.boolean  "ratafirer",               default: false
     t.boolean  "recipient"
-    t.string   "language"
+    t.string   "locale"
   end
 
   create_table "cards", id: :bigserial, force: :cascade do |t|
@@ -387,6 +397,16 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.text     "cardno"
     t.text     "cardcvc"
     t.text     "uuid"
+  end
+
+  create_table "clearances", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.boolean  "historical_quotes"
+    t.string   "uuid"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "collectibles", id: :bigserial, force: :cascade do |t|
@@ -563,6 +583,31 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.decimal  "accumulated_fee",        precision: 10, scale: 2, default: 0.0
     t.datetime "created_at",                                                    null: false
     t.datetime "updated_at",                                                    null: false
+  end
+
+  create_table "doubans", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "uuid"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "nickname"
+    t.string   "location"
+    t.string   "image"
+    t.string   "url"
+    t.text     "description"
+    t.string   "token"
+    t.string   "refresh_token"
+    t.integer  "expires_at"
+    t.boolean  "expires"
+    t.string   "loc_id"
+    t.string   "created"
+    t.string   "loc_name"
+    t.string   "avatar"
+    t.string   "signature"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "facebook_pages", id: :bigserial, force: :cascade do |t|
@@ -812,6 +857,38 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.datetime "deleted_at"
   end
 
+  create_table "historical_quote_translations", force: :cascade do |t|
+    t.integer  "historical_quote_id", null: false
+    t.string   "locale",              null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.text     "quote"
+    t.string   "author"
+    t.string   "source"
+    t.string   "original_language"
+    t.string   "chapter"
+    t.string   "category"
+  end
+
+  add_index "historical_quote_translations", ["historical_quote_id"], name: "index_historical_quote_translations_on_historical_quote_id", using: :btree
+  add_index "historical_quote_translations", ["locale"], name: "index_historical_quote_translations_on_locale", using: :btree
+
+  create_table "historical_quotes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.text     "quote"
+    t.string   "author"
+    t.string   "source"
+    t.string   "chapter"
+    t.string   "page"
+    t.string   "uuid"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "original_language"
+    t.string   "category"
+  end
+
   create_table "ibifrosts", id: :bigserial, force: :cascade do |t|
     t.integer  "project_id", limit: 8
     t.datetime "created_at",           null: false
@@ -1034,7 +1111,7 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.string   "composer"
     t.string   "artist"
     t.string   "genre"
-    t.string   "language"
+    t.string   "locale"
   end
 
   create_table "masspay_batches", id: :bigserial, force: :cascade do |t|
@@ -1558,6 +1635,16 @@ ActiveRecord::Schema.define(version: 20160314045538) do
   add_index "redactor_assets", ["assetable_type", "assetable_id"], name: "idx_17182_idx_redactor_assetable", using: :btree
   add_index "redactor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_17182_idx_redactor_assetable_type", using: :btree
 
+  create_table "renrens", force: :cascade do |t|
+    t.text     "test"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "user_id"
+    t.string   "uuid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reviews", id: :bigserial, force: :cascade do |t|
     t.integer  "project_id",                  limit: 8
     t.integer  "discussion_id",               limit: 8
@@ -1770,6 +1857,24 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.datetime "updated_at",           null: false
   end
 
+  create_table "taobaos", force: :cascade do |t|
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.integer  "user_id"
+    t.string   "uuid"
+    t.string   "uid"
+    t.string   "nickname"
+    t.string   "email"
+    t.string   "alipay_bind"
+    t.string   "token"
+    t.string   "refresh_token"
+    t.text     "test"
+    t.integer  "expires_at"
+    t.boolean  "expires"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "thread_connectors", id: :bigserial, force: :cascade do |t|
     t.integer  "discussion_id", limit: 8
     t.integer  "level_1_id",    limit: 8
@@ -1964,6 +2069,26 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.datetime "updated_at",           null: false
   end
 
+  create_table "user_translations", force: :cascade do |t|
+    t.integer  "user_id",        null: false
+    t.string   "locale",         null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "tagline"
+    t.string   "fullname"
+    t.string   "website"
+    t.string   "bio"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "preferred_name"
+    t.string   "country"
+    t.string   "city"
+    t.string   "job_title"
+  end
+
+  add_index "user_translations", ["locale"], name: "index_user_translations_on_locale", using: :btree
+  add_index "user_translations", ["user_id"], name: "index_user_translations_on_user_id", using: :btree
+
   create_table "user_venmos", id: :bigserial, force: :cascade do |t|
     t.text     "uid"
     t.text     "username"
@@ -1987,8 +2112,8 @@ ActiveRecord::Schema.define(version: 20160314045538) do
   end
 
   create_table "users", id: :bigserial, force: :cascade do |t|
-    t.text     "tagline",                                                  default: "Sits down at the fire of Ratatoskr"
-    t.text     "fullname"
+    t.string   "tagline",                                                  default: "Sits down at the fire of Ratatoskr"
+    t.string   "fullname"
     t.text     "username"
     t.text     "email"
     t.datetime "created_at"
@@ -1996,7 +2121,7 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.text     "password_digest"
     t.text     "remember_token"
     t.boolean  "admin"
-    t.text     "website"
+    t.string   "website"
     t.text     "bio"
     t.text     "encrypted_password"
     t.text     "reset_password_token"
@@ -2030,7 +2155,8 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.string   "country"
     t.string   "state"
     t.string   "city"
-    t.string   "language"
+    t.string   "locale"
+    t.string   "job_title"
   end
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree
@@ -2092,7 +2218,7 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.string   "majorpost_uuid"
     t.string   "uuid"
     t.integer  "campaign_id"
-    t.string   "language"
+    t.string   "locale"
   end
 
   add_index "videos", ["processed"], name: "idx_17408_index_videos_on_processed", using: :btree
@@ -2137,6 +2263,47 @@ ActiveRecord::Schema.define(version: 20160314045538) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "watcher_id", limit: 8
+  end
+
+  create_table "wechats", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.string   "uid"
+    t.string   "uuid"
+    t.string   "nickname"
+    t.integer  "sex"
+    t.string   "province"
+    t.string   "city"
+    t.string   "country"
+    t.string   "headimgurl"
+    t.string   "token"
+    t.string   "refresh_token"
+    t.integer  "expires_at"
+    t.boolean  "expires"
+    t.string   "openid"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "weibos", force: :cascade do |t|
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.integer  "user_id"
+    t.string   "uuid"
+    t.string   "uid"
+    t.string   "nickname"
+    t.string   "name"
+    t.string   "location"
+    t.string   "image"
+    t.text     "description"
+    t.string   "url_blog"
+    t.string   "url_weibo"
+    t.string   "token"
+    t.boolean  "expires"
+    t.integer  "expires_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "youtubes", force: :cascade do |t|

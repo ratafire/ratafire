@@ -1,1 +1,6 @@
-<div class="btn btn-lg btn-back-this-creator"></div>
+<% if I18n.locale == :en %>
+	<div class="btn-back-this-creator cursor-pointer" style="background-image: url(/assets/button/btn-back-this-creator-waterdrop-en.png);"></div>
+<% end %>
+<% if I18n.locale == :zh %>
+	<div class="btn-back-this-creator cursor-pointer" style="background-image: url(/assets/button/btn-back-this-creator-waterdrop-zh.png);"></div>
+<% end %>

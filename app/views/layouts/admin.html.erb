@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= full_title(yield(:title)) %></title>
+		<!-- Stylesheet -->
+		<%= stylesheet_link_tag 'template_angular' %>
+		<%= javascript_include_tag 'template_angular' %>
+		<%= csrf_meta_tags %>		
+		<!-- Webfonts-->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,500,600,700%7CNoto+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+		<!-- Page Meta -->
+		<%= render 'utilities/page_meta/facebook_open_graph_profile'%>
+	</head>
+	<!-- Page Structure -->
+	<body>
+		<div class="app app-header-fixed">
+			<!-- Header -->
+			<%= render 'utilities/header/admin_navbar'%>
+			<!-- Sidebar -->
+			<%= render 'utilities/sidebar/sidebar_admin'%>
+			<!-- Content -->
+			<div id="content" class="app-content" role="main">
+		  		<div class="app-content-body ">
+		  			<%= yield %>
+		  		</div>
+		  	</div>	
+			<!-- Sidebar -->
+			<%= render 'utilities/footer/admin_footer'%>
+		</div>
+	</body>
+</html>

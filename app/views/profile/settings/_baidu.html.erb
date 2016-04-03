@@ -1,0 +1,62 @@
+<!-- baidu -->
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin" id="baidu-heading">
+		<h4 class="panel-title"><%= t 'views.profile.settings.social_media_settings.baidu' %></h4>
+		<span><%= t 'views.profile.settings.social_media_settings.baidu_tagline' %></span>
+<% unless user.baidu %>
+	<!-- Without baidu -->
+		<div class="heading-elements">
+			<%= link_to '#', class:"btn btn-block btn-social btn-baidu mb-10", :data => {title: t('views.utilities.tooltip.coming_soon'), placement:"top",popup:"tooltip"} do %>
+			    <span class="iconfont fa-baidu"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= t 'views.profile.settings.social_media_settings.baidu' %>
+			<% end %>
+		</div>
+	</div><!-- end panel-heading-->
+	<div class="panel-body">
+		<%= t 'views.profile.settings.social_media_settings.baidu_description' %> <span class="label label-default"><%= t 'views.utilities.tooltip.coming_soon' %></span>
+	</div>
+<% else %>
+	<!-- With baidu -->
+		<div class="heading-elements" id="baidu-disconnect">
+			<%= link_to user_disconnect_path(user,:baidu),remote: true, class:"btn btn-block btn-social btn-default mb-10" do %>
+			    <span class="iconfont fa-baidu"></span><%= t 'views.profile.settings.social_media_settings.disconnect' %>
+			<% end %>
+		</div>
+	</div><!-- end panel-heading-->
+	<!-- Tweet Updates -->
+	<div class="table-responsive" id="baidu-table">
+		<table class="table" data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="left">
+			<tbody>
+				<tr class="border-double active">
+					<td colspan="2">
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.baidu_profile' %></span>
+					</td>
+					<td class="col-md-1 col-sm-1 text-center">
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.refresh' %></span>
+					</td>
+					<td class="col-md-2 col-sm-2 text-center">
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.post_to_baidu' %></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="col-md-1 col-sm-1">
+						<%= link_to user.baidu.link, target:"_blank" do %>
+							<img src="<%= user.baidu.image %>" class="profile-thumb-holder cover-profilephoto-holder">
+						<% end %>
+					</td>
+					<td class="col-md-8 col-sm-8">
+						<%= link_to user.baidu.name, user.baidu.link, target:"_blank", class:"text-grey"%>
+					</td>
+					<td class="text-center"><i class="fa fa-refresh"></i></td>
+					<td class="text-center">
+						<input type="checkbox" class="js-switch" disabled="disabled"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+	<!-- Hidden baidu Body -->
+	<div class="panel-body" id="baidu-body" style="display:none;">
+		<%= t 'views.profile.settings.social_media_settings.baidu_description' %> <span class="label label-default"><%= t 'views.utilities.tooltip.coming_soon' %></span>
+	</div>
+<% end %>
+</div>

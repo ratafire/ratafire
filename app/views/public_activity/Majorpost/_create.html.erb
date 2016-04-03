@@ -16,7 +16,7 @@
 				<% if current_user == @user || current_user.try(:admin) %>
 					<span class="dropdown pull-right mr-20">
 						<a href="#" class="dropdown-toggle text-grey-200" data-toggle="dropdown">
-							<i class="fa fa-chevron-down" style="font-size:11px;">
+							<i class="ti-angle-down" style="font-size:11px;">
 							</i>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
@@ -119,6 +119,7 @@
 			<% end %><!-- end link post -->
 			<!-- Content -->
 			<div class="panel-body no-padding-bottom">
+				<%= activity.trackable.locale %>
 				<!-- Title for Text Post Only  -->
 				<% if ['text', 'audio','video'].include?(activity.trackable.post_type) %>
 					<div class="panel-title text-light" style="font-size:25px;margin:-20px 0 10px 0;"><%= activity.trackable.title %></div>
@@ -130,7 +131,7 @@
 					<% if activity.trackable.audio.artist != "" %><div class="pb-5"><span class="label label-blue">Artist</span> <%= activity.trackable.audio.artist %></div><% end %>
 					<% if activity.trackable.audio.genre != "" %><div class="pb-5"><span class="label label-blue">Genre</span> <%= activity.trackable.audio.genre %></div><% end %>
 				<% end %>				
-				<div class="panel-content text-light">
+				<div class="panel-content">
 					<!-- normal content -->
 					<%= raw(activity.trackable.content)%>
 				</div><!-- end .panel-content-->	
@@ -145,7 +146,7 @@
 				<div class="pull-right">
 					<span class="dropup">
 						<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
-							<i class="ti-share mr-10" data-popup="tooltip" title="Share" data-placement="bottom" style="font-size:20px;">
+							<i class="huaxia huaxia-share mr-10" style="font-size:20px;">
 							</i>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
@@ -163,10 +164,10 @@
 							<li><a href="#"><i class="ti-link"></i> Link</a></li>
 						</ul>
 					</span>				
-					<!-- Repost -->
-					<i class="ti-loop mr-10" data-popup="tooltip" title="Repost" data-placement="bottom"></i>
+					<!-- Repost 
+					<i class="ti-loop mr-10" data-popup="tooltip" title="Repost" data-placement="bottom"></i>-->
 					<!-- Like -->
-					<i class="ti-heart" style="font-size:20px;" data-popup="tooltip" title="Like" data-placement="bottom"></i>
+					<i class="huaxia huaxia-guanzhu" style="font-size:20px;"></i>
 				</div>	
 			</div>			
 		</div><!-- end .panel -->	

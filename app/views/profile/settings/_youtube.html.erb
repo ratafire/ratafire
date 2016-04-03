@@ -1,24 +1,24 @@
 <!-- YouTube -->
 <div class="panel panel-default panel-default">
 	<div class="panel-heading p-20 text-grey text-thin">
-		<h4 class="panel-title">YouTube</h4>
-		<span>Display YouTube info, update from YouTube...</span>
+		<h4 class="panel-title"><%= t 'views.profile.settings.social_media_settings.youtube' %></h4>
+		<span><%= t 'views.profile.settings.social_media_settings.youtube_tagline' %></span>
 <% unless user.youtube %>
 	<!-- Without YouTube -->
 		<div class="heading-elements">
 			<%= link_to user_omniauth_authorize_path(:google_oauth2),class:"btn btn-block btn-social btn-google mb-10" do %>
-			    <span class="fa fa-youtube"></span> Connect with YouTube
+			    <span class="fa fa-youtube"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= t 'views.profile.settings.social_media_settings.youtube' %>
 			<% end %>
 		</div>
 	</div>
 	<div class="panel-body">
-		You can sync your YouTube updates to Ratafire. Start by connecting with YouTube.
+		<%= t 'views.profile.settings.social_media_settings.youtube_description' %>
 	</div>
 <% else %>
 	<!-- With YouTube -->
 		<div class="heading-elements">
 			<a class="btn btn-block btn-social btn-default mb-10">
-			    <span class="fa fa-youtube"></span> Disconnect
+			    <span class="fa fa-youtube"></span> <%= t 'views.profile.settings.social_media_settings.disconnect' %>
 			</a>
 		</div>	
 	</div><!-- end panel-heading-->
@@ -28,13 +28,13 @@
 			<tbody>
 				<tr class="border-double active">
 					<td colspan="2">
-						<span class="text-semibold">YouTube Channel</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.youtube_channel' %></span>
 					</td>
 					<td class="col-md-1 col-sm-1 text-center">
-						<span class="text-semibold">Refresh</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.refresh' %></span>
 					</td>
 					<td class="col-md-2 col-sm-2 text-center">
-						<span class="text-semibold">Sync</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.sync' %></span>
 					</td>
 				</tr>
 				<tr>

@@ -1,15 +1,16 @@
 <div class="page-header">
 	<div class="page-header-content">
 		<div class="page-title text-grey">
-			<h2 class="text-thin">Settings</h2>
+			<h2 class="text-thin"><%= t 'views.profile.settings.menu.settings' %></h2>
 		</div>
 		<div class="heading-elements">
 			<div class="heading-btn-group">
-				<a href="#" class="btn btn-link btn-float has-text"><i class="icon-credit-card text-blue"></i><span class="text-grey">Payment</span></a>
+				<a href="#" class="btn btn-link btn-float has-text"><i class="icon-credit-card text-blue"></i><span class="text-grey"><%= t 'views.profile.settings.menu.payment_settings' %></span></a>
 				<%= link_to dashboard_user_studio_creator_studio_path(user.username),class:"btn btn-link btn-float has-text" do %>
-					<i class="icon-magic-wand text-blue"></i> <span class="text-grey">Creator Studio</span>
+					<i class="icon-magic-wand text-blue"></i> <span class="text-grey"><%= t 'views.profile.settings.menu.creator_studio' %></span>
 				<% end %>
-				<a href="#" class="btn btn-link btn-float has-text"><i class="icon-rocket text-blue"></i> <span class="text-grey">Maestro</span></a>
+				<!--
+				<a href="#" class="btn btn-link btn-float has-text"><i class="icon-rocket text-blue"></i> <span class="text-grey">Maestro</span></a>-->
 			</div>
 		</div>
 	</div><!-- end .page-header-content-->

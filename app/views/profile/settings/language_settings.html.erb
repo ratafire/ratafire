@@ -1,0 +1,27 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<%= javascript_include_tag 'page_specific/settings', 'data-turbolinks-track' => "reload"  %>
+
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Content Area -->
+<div class="content">
+	<!-- Page title -->
+	<%= render partial: "profile/settings/page_header_content", locals: {user: @user} %>
+	<!-- Tabs -->
+	<div class="tabbable pl-20 pr-20">
+		<!-- Nav tabs-->
+		<%= render partial: "profile/settings/tabs", locals: {user: @user} %>
+
+		<!-- Tab content -->
+		<div class="tab-content">
+			<!-- Language Settings -->
+				<!-- Language -->
+				<%= render partial: "profile/settings/form_language", locals: {user: @user} %>		
+				<!-- Reading Language -->
+				<%= render partial: "profile/settings/reading_language", locals: {user: @user} %>	
+		</div><!-- end .tab-content-->
+
+	</div><!-- end .tabbable-->
+</div><!-- end .content-->

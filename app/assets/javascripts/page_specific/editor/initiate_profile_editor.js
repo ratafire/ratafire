@@ -3,6 +3,8 @@ function initiate_profile_editor(){
 	$(".simple-select").select2({
 		minimumResultsForSearch: Infinity,
 	});
+	$(".simple-select-search").select2({
+	});
 	// Initialize Editor Tags
 	$(".editor-tags").select2({
 		containerCssClass : "form-detransparent",

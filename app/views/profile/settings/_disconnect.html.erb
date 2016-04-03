@@ -1,14 +1,14 @@
 <div class="heading-elements">
-	<% if provider_title == "YouTube" %>
+	<% if provider == "youtube" %>
 		<%= link_to user_omniauth_authorize_path(:google_oauth2) do %>
 			<div class="btn btn-block btn-social btn-<%= provider %> mb-10 animated bounceIn">
-			    <span class="fa fa-<%= provider %> fa-<%= provider %>-square"></span> Connect with <%= provider %>
+			    <span class="fa fa-<%= provider %> fa-<%= provider %>-square"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= t 'views.profile.settings.social_media_settings.youtube' %>
 			</div>
 		<% end %>
 	<% else %>
 		<%= link_to user_omniauth_authorize_path(provider) do %>
 			<div class="btn btn-block btn-social btn-<%= provider %> mb-10 animated bounceIn">
-			    <span class="fa fa-<%= provider %> fa-<%= provider %>-square"></span> Connect with <%= provider_title %>
+			    <span class="fa fa-<%= provider %> fa-<%= provider %>-square"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= provider_title %>
 			</div>
 		<% end %>
 	<% end %>

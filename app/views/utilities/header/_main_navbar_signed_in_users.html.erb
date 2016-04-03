@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top">
+<div class="navbar navbar-default navbar-fixed-top box-shadow">
 	<!-- Navbar header -->
 	<div class="navbar-header">
 		<!-- Logo -->
@@ -19,10 +19,10 @@
 			<li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
 		</ul>-->
 		<!-- Search -->
-		<p class="navbar-text no-padding col-xs-6 col-md-6">
+		<p class="navbar-text no-padding col-sm-4 col-md-5 col-lg-6">
 			<span class="input-group pt-7">
 				<input type="text" class="form-control height-30 masthead-search-terms-border no-border-radius">
-				<span class="input-group-btn height-30 box-shadow">
+				<span class="input-group-btn height-30">
 					<span class="btn btn-default pt-3 height-30" type="button" style="width:66px;">
 						<i class="fa fa-search text-grey-300"></i>
 					</span>
@@ -38,14 +38,14 @@
 						<% unless current_user.active_campaign %>
 							<%= link_to apply_user_studio_campaigns_path(current_user.username, current_user.campaigns.last) do %>
 								<span class="btn-group pt-7">
-									<span class="btn btn-default btn-xs height-30 text-grey-300">Become a Creator</span>
+									<span class="btn btn-default btn-xs height-30 text-grey-300"><%= t 'views.utilities.menu.become_a_creator' %></span>
 								</span>
 							<% end %>
 						<% end %>
 					<% else %>
 						<%= link_to new_user_studio_campaigns_path(current_user.username) do %>
 							<span class="btn-group pt-7">
-								<span class="btn btn-default btn-xs height-30 text-grey-300">Become a Creator</span>
+								<span class="btn btn-default btn-xs height-30 text-grey-300"><%= t 'views.utilities.menu.become_a_creator' %></span>
 							</span>
 						<% end %>
 					<% end %>
@@ -65,54 +65,22 @@
 				</li>-->
 				<!-- Messages -->
 				<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-envelope-o"></i>
-							<span class="visible-xs-inline-block position-right">Messages</span>
-							<span class="badge bg-blue">2</span>
-						</a>
-						
-						<div class="dropdown-menu dropdown-content width-400">
-							<div class="dropdown-content-heading">
-								Messages
-								<ul class="icons-list">
-									<li><a href="#"><i class="ti-pencil-alt"></i></a></li>
-								</ul>
-							</div>
-
-							<ul class="media-list dropdown-content-body">
-								<li class="media">
-									<div class="media-left">
-										<img src="<%= @user.profilephoto.image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
-										<span class="badge bg-danger-400 media-badge">5</span>
-									</div>
-
-									<div class="media-body">
-										<a href="#" class="media-heading">
-											<span class="text-semibold">James Alexander</span>
-											<span class="media-annotation pull-right">04:58</span>
-										</a>
-
-										<span class="text-muted">who knows, maybe that would be the best thing for me...</span>
-									</div>
-								</li>
-							</ul>
-
-							<div class="dropdown-content-footer">
-								<a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
-							</div>
-						</div>
+					<%= link_to "", class:"dropdown-toggle", :data => {title: t('views.utilities.tooltip.coming_soon'), placement:"bottom",popup:"tooltip", toggle:"dropdown" } do %>
+						<i class="fa fa-envelope-o"></i>
+						<span class="visible-xs-inline-block position-right"><%= t 'views.utilities.menu.messages' %></span>
+					<% end %>
 				</li>		
 				<!-- Notifications -->
 				<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="icon-earth"></i>
-							<span class="visible-xs-inline-block position-right">Notifications</span>
+							<span class="visible-xs-inline-block position-right"><%= t 'views.utilities.menu.notifications' %></span>
 							<span class="badge bg-blue">3</span>
 						</a>
 						
 						<div class="dropdown-menu dropdown-content width-400">
 							<div class="dropdown-content-heading">
-								Messages
+								<%= t 'views.utilities.menu.messages' %>
 								<ul class="icons-list">
 									<li><a href="#"><i class="ti-pencil-alt"></i></a></li>
 								</ul>
@@ -145,34 +113,37 @@
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown">
 						<img src="<%= current_user.profilephoto.image.url(:thumbnail64)%>" alt="">
-						<span><%= current_user.firstname %></span>
+						<span><%= current_user.preferred_name %></span>
 						<i class="caret"></i>
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>
 							<%= link_to profile_url_path(current_user.username) do %>
-								<i class="icon-profile"></i> My Ratafire
+								<i class="icon-profile"></i><%= t 'views.utilities.menu.my_ratafire' %>
 							<% end %>
 						</li>
 						<li>
 							<%= link_to dashboard_user_studio_creator_studio_path(current_user.username) do %>
-								<i class="icon-magic-wand"></i> <span class="btn btn-blue btn-xs">Creator Studio</span>
+								<i class="icon-magic-wand"></i> <span class="btn btn-blue btn-xs"><%= t 'views.utilities.menu.creator_studio' %></span>
 							<% end %>
 						</li>
 						<li class="divider"></li>						
 						<li>
 							<%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
-								<i class="icon-cog"></i>Profile Settings
+								<i class="icon-cog"></i><%= t 'views.utilities.menu.profile_settings' %>
 							<% end %>
-						</li>
-						<li>
-							<%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
-								<i class="icon-credit-card"></i>Payment Settings
-							<% end %>
-						</li>						
+						</li>				
+						<% if current_user.try(:admin) %>	
+							<li class="divider"></li>						
+							<li>
+								<%= link_to user_admin_historical_quotes_path(current_user.id) do %>
+									<i class="huaxia huaxia-tilong"></i><%= t 'views.utilities.menu.villa_draco' %>
+								<% end %>
+							</li>
+						<% end %>
 						<li class="divider"></li>
-						<li><%= link_to destroy_user_session_path, :method => :delete do %><i class="icon-switch"></i> Logout<% end %></li>
+						<li><%= link_to destroy_user_session_path, :method => :delete do %><i class="icon-switch"></i> <%= t 'views.utilities.menu.logout' %><% end %></li>
 					</ul>
 				</li>
 			</ul>

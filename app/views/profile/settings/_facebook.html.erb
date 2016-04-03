@@ -1,35 +1,35 @@
 <!-- Facebook -->
 <div class="panel panel-default panel-default">
 	<div class="panel-heading p-20 text-grey text-thin">
-		<h4 class="panel-title">Facebook</h4>
-		<span>Use Facebook info, update from Facebook, display Facebook friends...</span>
+		<h4 class="panel-title"><%= t 'views.profile.settings.social_media_settings.facebook' %></h4>
+		<span><%= t 'views.profile.settings.social_media_settings.facebook_tagline' %></span>
 <% unless user.facebook %>
 	<!-- Without Facebook -->
 		<div class="heading-elements">
 			<a class="btn btn-block btn-social btn-facebook mb-10">
-			    <span class="fa fa-facebook"></span> Connect with Facebook
+			    <span class="fa fa-facebook"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= t 'views.profile.settings.social_media_settings.facebook' %>
 			</a>
 		</div>
 	</div><!-- end panel-heading-->
 	<div class="panel-body">
-		You can sync your Facebook creator page's updates to Ratafire. Start by connecting with Facebook. <span class="label label-default">Coming Soon</span>
+		<%= t 'views.profile.settings.social_media_settings.facebook_description' %> <span class="label label-default"><%= t 'views.utilities.tooltip.coming_soon' %></span>
 	</div>
 <% else %>
 	<!-- With Facebook -->
 	</div><!-- end panel-heading-->
 	<!-- Post to Facebook -->
 	<div class="table-responsive">
-		<table class="table" data-popup="tooltip" title="Refresh, post to Facebook are coming soon." data-placement="left">
+		<table class="table" data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="left">
 			<tbody>
 				<tr class="border-double active">
 					<td colspan="2">
-						<span class="text-semibold">Facebook Profile</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.facebook_profile' %></span>
 					</td>
 					<td class="col-md-1 col-sm-1 text-center">
-						<span class="text-semibold">Refresh</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.refresh' %></span>
 					</td>
 					<td class="col-md-2 col-sm-2 text-center">
-						<span class="text-semibold">Post to Facebook</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.post_to_facebook' %></span>
 					</td>
 				</tr>
 				<tr>
@@ -52,20 +52,17 @@
 		<% if user.facebook_pages.any? %>
 			<!-- With Facebook Pages -->
 			<div class="table-responsive">
-				<table class="table" data-popup="tooltip" data-popup="tooltip" title="Refresh, sync, post to page are coming soon." data-placement="left">
+				<table class="table" data-popup="tooltip" data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="left">
 					<tbody>
 						<tr class="border-double active">
 							<td colspan="2">
-								<span class="text-semibold">Facebook Pages</span>
+								<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.facebook_pages' %></span>
 							</td>
 							<td class="col-md-1 col-sm-1 text-center">
-								<span class="text-semibold">Refresh</span>
-							</td>
-							<td class="col-md-1 col-sm-1 text-center">
-								<span class="text-semibold">Sync</span>
+								<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.refresh' %></span>
 							</td>
 							<td class="col-md-2 col-sm-2 text-center">
-								<span class="text-semibold">Post to Page</span>
+								<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.post_to_page' %></span>
 							</td>
 						</tr>
 						<%= render partial: "profile/settings/facebook_page", collection:  user.facebook_pages, :as => :page %>
@@ -79,14 +76,14 @@
 					<tbody>
 						<tr class="border-double active">
 							<td class="col-md-2 col-sm-2">
-								<span class="text-semibold">Facebook Pages</span>
+								<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.facebook_pages' %></span>
 							</td>
 							<td class="col-md-8 col-sm-8">
-								<span class="text-semibold">You can sync your Facebook creator page's updates to Ratafire.</span>
+								<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.facebook_pages_description' %></span>
 							</td>
 							<td class="col-md-2 col-sm-2 text-center">
 								<a class="btn btn-block btn-social btn-facebook mb-10">
-								    <span class="fa fa-facebook"></span> Add Facebook Pages
+								    <span class="fa fa-facebook"></span> <%= t 'views.profile.settings.social_media_settings.add_facebook_pages' %>
 								</a>
 							</td>
 						</tr>

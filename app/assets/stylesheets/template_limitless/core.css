@@ -2650,7 +2650,7 @@ select[multiple].input-group-xs > .input-group-btn > .btn {
 }
 .nav-pills.nav-pills-bordered > .active > a,
 .nav-pills.nav-pills-bordered > .active.open > a {
-  border-color: #2196f3;
+  border-color: #36b8df;
 }
 .nav-pills.nav-pills-bordered .open > a {
   border-color: #dddddd;
@@ -3021,7 +3021,7 @@ select[multiple].input-group-xs > .input-group-btn > .btn {
   }
   /* custom logo */
   .header-logo{
-    background-image: url('/assets/logo/header_logo.png');
+    background-image: url('/assets/logo/header_logo_water.png');
     background-position: top;
     width:29px;
     height: 29px;
@@ -3248,7 +3248,7 @@ select[multiple].input-group-xs > .input-group-btn > .btn {
 }
 @media (min-width: 769px) {
   .navbar-nav {
-    margin-left: 20px;
+    /* margin-left: 20px; */
   }
   .navbar-default .navbar-nav > .active > a {
     /*-webkit-box-shadow: 0 1px 0 0 #26a69a;

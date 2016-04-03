@@ -1078,7 +1078,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 1.5384616;
   color: #333333;
@@ -3381,22 +3381,19 @@ fieldset[disabled] .btn-blue.active {
 
 /* Custom Buttons */
 .btn-back-this-creator {
-  background-image: url(/assets/button/btn-back-this-creator.png);
   background-position: top;
   height:50px;
-  width:200px;
+  width:206px;
   border: 0;
 }
 
 .btn-back-this-creator:hover {
-  background-image: url(/assets/button/btn-back-this-creator.png) !important;
   background-position: center;
   border:0;
   background-color:transparent !important; 
 }
 
 .btn-back-this-creator:active {
-  background-image: url(/assets/button/btn-back-this-creator.png) !important;
   background-position: bottom;
   background-color:transparent !important; 
   border:0;
@@ -4230,7 +4227,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
   color: #ffffff;
-  background-color: #2196f3;
+  background-color: #36b8df;
 }
 .nav-stacked > li {
   float: none;

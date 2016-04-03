@@ -4,50 +4,51 @@
         	<div class="col-md-1 col-sm-6">
         	</div>
             <div class="col-md-3 col-sm-6">
-                <div><img alt="Logo" class="logo" src="/assets/logo/ratafire_light_blue.png" style="width:128px;" /></div>
-                <div class="mt-5">Back the next top
-                    <div class="slidingVertical" style="text-indent: 4px;">
-                        <span class="text-grey-100">artist&nbsp</span>
-                        <span class="text-grey-100">musician&nbsp</span>
-                        <span class="text-grey-100">game designer&nbsp</span>
-                        <span class="text-grey-100">writer&nbsp</span>
-                        <span class="text-grey-100">film maker&nbsp</span>
-                        <span class="text-grey-100">mathematician&nbsp</span>
-                        <span class="text-grey-100">scientist&nbsp</span>
-                        <span class="text-grey-100">scholar&nbsp</span>
-                        <span class="text-grey-100">engineer&nbsp</span>
+                <div><img alt=t('views.utilities.menu.ratafire') class="logo" src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>.png" style="max-height:30px;" /></div>
+                <div class="mt-5"><%= t 'views.utilities.menu.back_the_next_top' %><% unless I18n.locale == :zh %>&nbsp<% end %>
+                    <div class="slidingVertical">
+                        <span class="text-grey-100"><%= t 'views.utilities.menu.artist' %></span>
+                        <span class="text-grey-100"><%= t 'views.utilities.menu.musician' %></span>
+                        <span class="text-grey-100"><%= t 'views.utilities.menu.game_designer' %></span>
+                        <span class="text-grey-100"><%= t 'views.utilities.menu.writer' %></span>
+                        <span class="text-grey-100"><%= t 'views.utilities.menu.film_maker' %></span>
+                        <span class="text-grey-100"><%= t 'views.utilities.menu.mathematician' %></span>
+                        <span class="text-grey-100"><%= t 'views.utilities.menu.scientist' %></span>
+                        <span class="text-grey-100"><%= t 'views.utilities.menu.scholar' %></span>
+                        <span class="text-grey-100"><%= t 'views.utilities.menu.engineer' %></span>
                     </div>  
                 </div>
+                <%= render partial:'utilities/language/language_switcher', locals: {switcher_type: 'down'}%> 
             </div>
             <div class="col-md-2 col-sm-6">
-                <div class="text-bold">About</div>
-                <div>Blog</div>
-                <div>Terms</div>
-                <div>Privacy</div>
-                <div>Pricing</div>
-                <div>Press</div>
+                <div class="text-bold"><%= t 'views.utilities.menu.about' %></div>
+                <div><%= t 'views.utilities.menu.blog' %></div>
+                <div><%= t 'views.utilities.menu.terms' %></div>
+                <div><%= t 'views.utilities.menu.privacy' %></div>
+                <div><%= t 'views.utilities.menu.pricing' %></div>
+                <div><%= t 'views.utilities.menu.press' %></div>
             </div>
             <div class="col-md-2 col-sm-6">
-                <div class="text-bold">Help</div>
-                <div>Guidelines</div>
-                <div>Creator's Guide</div>
-                <div>FAQ</div>
-                <div>Support</div>
+                <div class="text-bold"><%= t 'views.utilities.menu.help' %></div>
+                <div><%= t 'views.utilities.menu.guidelines' %></div>
+                <div><%= t 'views.utilities.menu.creators_guide' %></div>
+                <div><%= t 'views.utilities.menu.faq' %></div>
+                <div><%= t 'views.utilities.menu.customer_support' %></div>
             </div>
             <div class="col-md-2 col-sm-6">
-                <div class="text-bold">Explore</div>
-                <div>Art</div>
-                <div>Music</div>    
-                <div>Games</div> 
-                <div>Writing</div>   
-                <div>Videos</div>        
+                <div class="text-bold"><%= t 'views.utilities.menu.explore' %></div>
+                <div><%= t 'views.utilities.menu.art' %></div>
+                <div><%= t 'views.utilities.menu.music' %></div>    
+                <div><%= t 'views.utilities.menu.games' %></div> 
+                <div><%= t 'views.utilities.menu.writing' %></div>   
+                <div><%= t 'views.utilities.menu.videos' %></div>        
             </div>
             <div class="col-md-2 col-sm-6">
                 <div>&nbsp</div>
-                <div>Math</div>
-                <div>Science</div>    
-                <div>Humanity</div> 
-                <div>Engineering</div>       
+                <div><%= t 'views.utilities.menu.math' %></div>
+                <div><%= t 'views.utilities.menu.science' %></div>    
+                <div><%= t 'views.utilities.menu.humanity' %></div> 
+                <div><%= t 'views.utilities.menu.engineering' %></div>       
             </div>
         	<div class="col-md-1 col-sm-6">
         	</div>
@@ -57,35 +58,43 @@
         	<div class="col-md-1 col-sm-6">
         	</div>
             <div class="col-md-5 col-sm-6">
-                <span class="sub">&copy; Copyright 2016 - Ratafire</span>
+                <span class="sub">&copy; <%= t 'views.utilities.menu.copyright' %> <%= Time.now.year %> - <%= t 'views.utilities.menu.ratafire' %></span>
             </div>
             <div class="col-md-5 col-sm-6 text-right">
                 <ul class="list-inline social-list">
-                    <li>
-                        <a href="https://www.facebook.com/ratafire" data-popup="tooltip" title="Facebook" data-placement="top" target="_blank">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/ratafirer" data-popup="tooltip" title="Twitter" data-placement="top" target="_blank">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://youtube.com/ratafire" data-popup="tooltip" title="YouTube" data-placement="top" target="_blank">
-                            <i class="fa fa-youtube"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/ratafire/" data-popup="tooltip" title="Instagram" data-placement="top" target="_blank">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.pinterest.com/ratafire/" data-popup="tooltip" title="Pinterest" data-placement="top" target="_blank">
-                            <i class="fa fa-pinterest"></i>
-                        </a>
-                    </li>
+                    <% if I18n.locale == :zh %>
+                        <li>
+                            <a href="http://weibo.com/ratafire" data-popup="tooltip" title="<%= t 'views.profile.settings.social_media_settings.weibo' %>" data-placement="top" target="_blank">
+                                <i class="fa fa-weibo"></i>
+                            </a>
+                        </li>
+                    <% else %>
+                        <li>
+                            <a href="https://www.facebook.com/ratafire" data-popup="tooltip" title="<%= t 'views.profile.settings.social_media_settings.facebook' %>" data-placement="top" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/ratafirer" data-popup="tooltip" title="<%= t 'views.profile.settings.social_media_settings.twitter' %>" data-placement="top" target="_blank">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://youtube.com/ratafire" data-popup="tooltip" title="<%= t 'views.profile.settings.social_media_settings.youtube' %>" data-placement="top" target="_blank">
+                                <i class="fa fa-youtube"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/ratafire/" data-popup="tooltip" title="<%= t 'views.profile.settings.social_media_settings.instagram' %>" data-placement="top" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.pinterest.com/ratafire/" data-popup="tooltip" title="<%= t 'views.profile.settings.social_media_settings.pinterest' %>" data-placement="top" target="_blank">
+                                <i class="fa fa-pinterest"></i>
+                            </a>
+                        </li>
+                    <% end %>
                 </ul>
             </div>
             <div class="col-md-1 col-sm-6">

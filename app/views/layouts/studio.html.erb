@@ -8,11 +8,8 @@
 		<%= javascript_include_tag 'template_limitless' %>
 		<%= javascript_include_tag 'page_specific/creator_studio', 'data-turbolinks-track' => "reload"  %>
 		<%= csrf_meta_tags %>		
-		<!-- Webfonts -->
-		<!-- Roboto -->
-		<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-		<!-- Open Sans -->
-		<link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:100,300,400,500,600,700,900' rel='stylesheet' type='text/css'>
+		<!-- Webfonts-->
+		<%= render 'utilities/fonts/webfonts'%>
 		<!-- Page Meta -->
 		<%= render 'utilities/page_meta/facebook_open_graph_creator_studio'%>
 	</head>

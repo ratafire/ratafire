@@ -1,15 +1,15 @@
 <div class="col-md-6 no-padding">
 	<!-- Free Price Tag -->
-	<div class="panel text-thin" id="alipay-panel" data-popup="tooltip" title="Coming soon" data-placement="top">
+	<div class="panel text-thin" id="alipay-panel" data-popup="tooltip" title="<%= t 'views.utilities.tooltip.coming_soon' %>" data-placement="top">
 		<div class="text-center">
 			<%= image_tag('/assets/icon/payment/alipay-round.png', class:"p-20 mt-20")%>
-			<div class="text-large mb-20" id="alipay-title">Alipay</div>
+			<div class="text-large mb-20" id="alipay-title"><%= t 'views.campaign.alipay' %></div>
 			<div class="tabel-responsive">
 				<table class="table">
 					<tbody>
 						<tr class="active" >
 							<td style="border-bottom:1px solid #ddd;">
-								<span><%= @alipay_user %> million users</span>
+								<span><% if I18n.locale == :zh %><%= @alipay_user_zh %><%= t 'views.campaign.payment_user_count' %><% else %><%= @alipay_user_en %><%= t 'views.campaign.payment_user_count' %><% end %></span>
 							</td>
 						</tr>
 					</tbody>
@@ -20,7 +20,7 @@
 			<div class="btn-group btn-group-justified">
 				<div class="btn-group">
 					<div class="btn btn-default" id="alipay-btn">
-						Connect with Alipay
+						<%= t 'views.campaign.connect_with' %><%= t 'views.campaign.alipay' %>
 					</div>
 				</div>
 			</div>

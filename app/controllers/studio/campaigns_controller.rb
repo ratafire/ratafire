@@ -74,8 +74,10 @@ class Studio::CampaignsController < ApplicationController
 protected
 
 	def load_info
-		@alipay_user = '800'
-		@paypal_user = '173'
+		@alipay_user_en = '800'
+		@paypal_user_en = '173'
+		@alipay_user_zh = '8'
+		@paypal_user_zh = '1.73'
 	end
 
 	def load_user

@@ -77,21 +77,11 @@
 			<!-- Side Area -->
 			<div class="col-xs-6 col-md-4 pr-40" id="side-area">
 				<!-- Backers -->
-				<% if @backers %>
-					<%= render partial:'profile/components/backers', locals: {backers: @backers}%>
-				<% end %>
-				<!-- Backed -->
-				<% if @backeds %>
-					<%= render partial:'profile/components/backed', locals: {backeds: @backeds}%>
-				<% end %>
-				<!-- Friends -->
-				<% if @friends %>
-					<%= render partial:'profile/components/friends', locals: {friends: @friends}%>	
+				<% if @contacts %>
+					<%= render partial:'profile/components/contacts', locals: {contacts: @contacts}%>	
 				<% end %>
 				<!-- About -->
 				<%= render partial:'profile/components/about', locals: {user: @user}%>
-				<!-- Donation Button -->
-				<%= render partial:'profile/components/donation_button', locals: {user: @user}%>
 				<!-- Rewards -->
 				<%= render partial:'profile/components/rewards', locals: {user: @user}%>
 				<div id="sticker" class="mt-40">

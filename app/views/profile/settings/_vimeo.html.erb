@@ -1,40 +1,40 @@
 <!-- Vimeo -->
 <div class="panel panel-default panel-default">
 	<div class="panel-heading p-20 text-grey text-thin" id="vimeo-heading">
-		<h4 class="panel-title">Vimeo</h4>
-		<span>Display Video info, update from Vimeo...</span>
+		<h4 class="panel-title"><%= t 'views.profile.settings.social_media_settings.vimeo' %></h4>
+		<span><%= t 'views.profile.settings.social_media_settings.vimeo_tagline' %></span>
 <% unless user.vimeo %>
 	<!-- Without Vimeo -->
 		<div class="heading-elements">
 			<%= link_to user_omniauth_authorize_path(:vimeo), class:"btn btn-block btn-social btn-vimeo mb-10" do %>
-			    <span class="fa fa-vimeo fa-vimeo-square"></span> Connect with Vimeo
+			    <span class="fa fa-vimeo fa-vimeo-square"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= t 'views.profile.settings.social_media_settings.vimeo' %>
 			<% end %>
 		</div>
 	</div><!-- end panel-heading -->
 	<div class="panel-body">
-		You can sync your Vimeo updates to Ratafire. Start by connecting with Vimeo. <span class="label label-default">Coming Soon</span>
+		<%= t 'views.profile.settings.social_media_settings.vimeo_description' %> <span class="label label-default"><%= t 'views.utilities.tooltip.coming_soon' %></span>
 	</div>
 <% else %>
 	<!-- With Vimeo -->
 		<div class="heading-elements" id="vimeo-disconnect">
 			<%= link_to user_disconnect_path(user,:vimeo),remote: true, class:"btn btn-block btn-social btn-default mb-10" do %>
-			    <span class="fa fa-vimeo fa-vimeo-square"></span> Disconnect
+			    <span class="fa fa-vimeo fa-vimeo-square"></span> <%= t 'views.profile.settings.social_media_settings.disconnect' %>
 			<% end %>
 		</div>
 	</div><!-- end panel-heading-->
 	<!-- vimeo Updates -->
 	<div class="table-responsive" id="vimeo-table">
-		<table class="table" data-popup="tooltip" title="Refresh, Sync are coming soon." data-placement="left">
+		<table class="table" data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="left">
 			<tbody>
 				<tr class="border-double active">
 					<td colspan="2">
-						<span class="text-semibold">Vimeo Channel</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.vimeo_channel' %></span>
 					</td>
 					<td class="col-md-1 col-sm-1 text-center">
-						<span class="text-semibold">Refresh</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.refresh' %></span>
 					</td>
 					<td class="col-md-2 col-sm-2 text-center">
-						<span class="text-semibold">Sync</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.sync' %></span>
 					</td>
 				</tr>
 				<tr>
@@ -56,7 +56,7 @@
 	</div>	
 	<!-- Hidden vimeo Body -->
 	<div class="panel-body" id="vimeo-body" style="display:none;">
-		You can sync your Vimeo updates to Ratafire. Start by connecting with Vimeo. <span class="label label-default">Coming Soon</span>
+		<%= t 'views.profile.settings.social_media_settings.vimeo_description' %> <span class="label label-default"><%= t 'views.utilities.tooltip.coming_soon' %></span>
 	</div>
 <% end %>
 </div>

@@ -1,0 +1,62 @@
+<!-- taobao -->
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin" id="taobao-heading">
+		<h4 class="panel-title"><%= t 'views.profile.settings.social_media_settings.taobao' %></h4>
+		<span><%= t 'views.profile.settings.social_media_settings.taobao_tagline' %></span>
+<% unless user.taobao %>
+	<!-- Without taobao -->
+		<div class="heading-elements">
+			<%= link_to '#', class:"btn btn-block btn-social btn-taobao mb-10", :data => {title: t('views.utilities.tooltip.coming_soon'), placement:"top",popup:"tooltip"} do %>
+			    <span class="iconfont fa-taobao"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= t 'views.profile.settings.social_media_settings.taobao' %>
+			<% end %>
+		</div>
+	</div><!-- end panel-heading-->
+	<div class="panel-body">
+		<%= t 'views.profile.settings.social_media_settings.taobao_description' %> <span class="label label-default"><%= t 'views.utilities.tooltip.coming_soon' %></span>
+	</div>
+<% else %>
+	<!-- With taobao -->
+		<div class="heading-elements" id="taobao-disconnect">
+			<%= link_to user_disconnect_path(user,:taobao),remote: true, class:"btn btn-block btn-social btn-default mb-10" do %>
+			    <span class="iconfont fa-taobao"></span><%= t 'views.profile.settings.social_media_settings.disconnect' %>
+			<% end %>
+		</div>
+	</div><!-- end panel-heading-->
+	<!-- Tweet Updates -->
+	<div class="table-responsive" id="taobao-table">
+		<table class="table" data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="left">
+			<tbody>
+				<tr class="border-double active">
+					<td colspan="2">
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.taobao_profile' %></span>
+					</td>
+					<td class="col-md-1 col-sm-1 text-center">
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.refresh' %></span>
+					</td>
+					<td class="col-md-2 col-sm-2 text-center">
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.post_to_taobao' %></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="col-md-1 col-sm-1">
+						<%= link_to user.taobao.link, target:"_blank" do %>
+							<img src="<%= user.taobao.image %>" class="profile-thumb-holder cover-profilephoto-holder">
+						<% end %>
+					</td>
+					<td class="col-md-8 col-sm-8">
+						<%= link_to user.taobao.name, user.taobao.link, target:"_blank", class:"text-grey"%>
+					</td>
+					<td class="text-center"><i class="fa fa-refresh"></i></td>
+					<td class="text-center">
+						<input type="checkbox" class="js-switch" disabled="disabled"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+	<!-- Hidden taobao Body -->
+	<div class="panel-body" id="taobao-body" style="display:none;">
+		<%= t 'views.profile.settings.social_media_settings.taobao_description' %> <span class="label label-default"><%= t 'views.utilities.tooltip.coming_soon' %></span>
+	</div>
+<% end %>
+</div>

@@ -1,1 +1,1 @@
-<span class="label bg-blue"><%= @campaign.category %></span> is this project's primary category. Please select a sub category to further describe your project.
+<span class="label bg-blue"><%= t is_category(@campaign.category) %></span><%= t 'views.campaign.sub_category_help' %>

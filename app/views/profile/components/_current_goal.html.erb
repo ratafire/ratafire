@@ -1,26 +1,26 @@
 <div>
-	<h2 class="mt-40 mb-20"><i class="ti-announcement" style="margin-right:15px;"></i>Making a much better new version of my current creation <span class="label label-default">current goal</span></h2>
+	<h2 class="mt-40 mb-20"><i class="ti-announcement" style="margin-right:15px;"></i>Making a much better new version of my current creation <span class="label label-default"><%= t 'views.utilities.menu.current_goal' %></span></h2>
 	<!-- Countdown Script -->
 	<div class="countdown" id="counter-wrapper">
 		<!-- Days -->
 		<div class="countdown_section_wrapper">
 			<div class="countdown_section">
 				<div class="countdown_amount days">00</div>
-				<div class="countdown_day"><span class="label label-blue">days to go</span></div>
+				<div class="countdown_day"><span class="label label-blue"><%= t 'views.utilities.menu.days_to_go' %></span></div>
 			</div>	
 		</div>	
 		<!-- Hours -->
 		<div class="countdown_section_wrapper">
 			<div class="countdown_section">
 				<div class="countdown_amount hours">00</div>
-				<div class="countdown_day">hrs</div>
+				<div class="countdown_day"><%= t 'views.utilities.menu.hrs' %></div>
 			</div>	
 		</div>	
 		<!-- Min -->
 		<div class="countdown_section_wrapper">
 			<div class="countdown_section">
 				<div class="countdown_amount minutes">00</div>
-				<div class="countdown_day">min</div>
+				<div class="countdown_day"><%= t 'views.utilities.menu.min' %></div>
 			</div>	
 		</div>	
 		<!-- Sec -->
@@ -28,7 +28,7 @@
 			<div class="countdown_section">
 			<div class="countdown_section">
 				<div class="countdown_amount seconds">00</div>
-				<div class="countdown_day">sec</div>
+				<div class="countdown_day"><%= t 'views.utilities.menu.sec' %></div>
 			</div>	
 		</div>		
 	</div><!-- end. counter-wrapper -->
@@ -40,10 +40,10 @@
 	</script> 
 </div>
 <!-- Progress Bar -->
-<div class="progress" style="height:40px;border-radius:5px;clear:both;" data-popup="tooltip" title="20% of $500" data-placement="top">
+<div class="progress" style="height:40px;border-radius:5px;clear:both;" data-popup="tooltip" title="20% <%= t 'views.utilities.menu.of' %> $500" data-placement="top">
 
 	<div class="progress-bar progress-bar-blue progress-bar-striped active" style="width: 20%;padding:12px;overflow:hidden;"  >
-		<span style="font-size:1.8em;white-space: nowrap;">20% of $500</span>
+		<span style="font-size:1.8em;white-space: nowrap;">20% <%= t 'views.utilities.menu.of' %> $500</span>
 	</div>
 </div>
 <div class="mt-20"></div>	

@@ -14,6 +14,7 @@
 *= require formvalidation.min
 *= require utilities/signup_form.css
 *= require utilities/bootstrap-social.css
+*= require template_limitless/colors
 *= require_directory ./template_foundry
 *= require_directory ./font_styles
  */

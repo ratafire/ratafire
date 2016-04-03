@@ -593,7 +593,8 @@ $(function() {
     // Plugins
     // -------------------------
     // Initiate userCard
-    $(document).on('ready turbolinks:render', function() {
+
+    $(document).on('ready page:load', function() {
         // Initiate refreshable plugins
         initiate_plugins();      
         profile_user_plugins('<%= @user.id %>');     

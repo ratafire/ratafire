@@ -4,9 +4,9 @@
         <div class="nav-bar">
             <div class="module left">
                 <!-- Logo Light-->
-                <%= image_tag("logo/ratafire_clean.png", class:"logo logo-light", alt:"Ratafire") %>
+                <img src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>" class="logo logo-light" alt="Ratafire"></img>
                 <!-- Logo Dark-->
-                <%= image_tag("logo/ratafire_clean.png", class:"logo logo-dark", alt:"Ratafire")%>
+                <img src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>" class="logo logo-dark" alt="Ratafire"></img>
             </div>
             <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
                 <i class="ti-menu"></i>
@@ -22,25 +22,25 @@
                         <!-- Home-->
                         <li>
                             <%= link_to root_path do %>
-                               <span class="ti-home menu-icon"></span>Home
+                               <span class="ti-home menu-icon"></span><%= t 'views.utilities.menu.home' %>
                             <% end %>
                         </li>
                         <!-- Back Creators -->
                         <li>
                             <%= link_to root_path do %>
-                               <span class="ti-heart menu-icon"></span>Back Creators
+                               <span class="ti-heart menu-icon"></span><%= t 'views.utilities.menu.back_creators' %>
                             <% end %>
                         </li>   
                         <!-- Explore -->
                         <li>
                             <%= link_to root_path do %>
-                               <span class="ti-target menu-icon"></span>Explore
+                               <span class="ti-target menu-icon"></span><%= t 'views.utilities.menu.explore' %>
                             <% end %>
                         </li>   
                         <!-- Blog -->
                         <li>
                             <%= link_to 'https://ratafire.com/blog/' do %>
-                               <span class="ti-rss-alt menu-icon"></span>Blog
+                               <span class="ti-rss-alt menu-icon"></span><%= t 'views.utilities.menu.blog' %>
                             <% end %>
                         </li>     
                     </ul>
@@ -53,29 +53,18 @@
                         <!-- Sign up button -->
                         <li>
                             <%= link_to '#homepage-sign-up' do %>
-                            <span class="btn btn-sm btn-blue btn-rounded">Sign Up</span>
+                            <span class="btn btn-sm btn-blue btn-rounded"><%= t 'views.utilities.btn.sign_up' %></span>
                             <% end %>
                         </li>    
                         <!-- Sign in button -->
                         <li>
                             <%= link_to root_path do %>
-                                Log In
+                                <%= t 'views.utilities.btn.log_in' %>
                             <% end %>
                         </li>
                     </ul>    
                 </div><!-- end .module left-->    
                 <!--end of menu module-->
-                <div class="module widget-handle search-widget-handle left">
-                    <div class="search">
-                        <i class="ti-search"></i>
-                        <span class="title">Search Site</span>
-                    </div>
-                    <div class="function">
-                        <form class="search-form">
-                            <input type="text" placeholder="Type Here" />
-                        </form>
-                    </div>
-                </div><!-- end .module widget-handle search-widget-handle left-->
             </div><!--end .module-group right-->
         </div><!-- end .nav-bar-->
     </nav>			

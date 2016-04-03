@@ -1,14 +1,16 @@
 <!-- Login Form -->
 <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {:class => 'signup-form signup-form--login signup-framed'}) do |f| %>
     <!-- Form Indications -->
-    <h1 style="margin-left:7rem;margin-bottom:5px;">Ratafire</h1>
-    <h4 style="margin-left:2.2rem;">Welcome home, Ratafirer</h4>
+    <div class="text-center">
+        <img alt=t('views.utilities.menu.ratafire') src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>.png" style="height:40px;" />
+    </div>
+    <div class="text-center text-white mt-20 mb-20" style="font-size:18px;"><%= t 'views.home.welcome_home' %></div>
     <!-- Email -->
-    <%= f.email_field :email,placeholder:"Your Email", class:"signup-input signup-input--top" %>
+    <%= f.email_field :email,placeholder:t('views.profile.settings.profile_settings.your_email'), class:"signup-input signup-input--top" %>
     <!-- Password -->
-    <%= f.password_field :password,placeholder:"Password", autocomplete: "off", class:"signup-input"%>
+    <%= f.password_field :password,placeholder:t('views.profile.settings.account_settings.password'), autocomplete: "off", class:"signup-input"%>
     <!-- Submit -->
-    <%= f.submit "Log in", class:"signup-input signup-input--submit", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
+    <%= f.submit t('views.utilities.btn.log_in'), class:"signup-input signup-input--submit", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
     <!-- Switch Form -->
-    <label for="toggle--signup" class="signup-text signup-text--small signup-text--centered">New? <b>Sign up</b></label>
+    <label for="toggle--signup" class="signup-text signup-text--small signup-text--centered"><%= t 'views.home.new_sign_up' %></label>
 <% end %><!-- end form_for resource -->

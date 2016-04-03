@@ -1,0 +1,2 @@
+$('#historical-quote-holder-inner').remove();
+$('#historical-quote-holder-outter').append("<%= j render(:partial => 'admin/historical_quotes/form_historical_quotes_update', locals: {user: @historical_quote.user, historical_quote: @historical_quote}) %>");

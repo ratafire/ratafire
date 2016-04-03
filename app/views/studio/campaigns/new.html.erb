@@ -15,7 +15,7 @@
 			</div>
 			<div class="col-lg-6 text-center">
 				<div class="text-giant text-thin pt-80 power" >What are you creating?</div>
-				<div class="text-large text-thin pt-80 text-grey-200" > I am creating<%= f.text_field :title, class:"form-control input-title mt-40 mb-20 form-transparent",style:"border-bottom:4px dotted #eaeaea !important;", placeholder:"Title", id:"project-title"%></div>
+				<div class="text-large text-thin pt-80 text-grey-200" > I am creating<%= f.text_field :title, class:"form-control input-title mt-40 mb-20 form-transparent",style:"border-bottom:4px dotted #eaeaea !important;", placeholder:"Title",maxlength:"50", id:"project-title"%></div>
 				<div class="pt-20">
 					<%= f.select(:category, [['Art'], ['Music'],['Games'],['Writing'],['Videos'],['Math'],['Research: Science'],['Research: Humanity'],['Engineering']], {prompt: "Select a category"}, { :class => 'simple-select mb-20', :id => 'category-selection' }) %>
 				</div>

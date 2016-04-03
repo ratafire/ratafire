@@ -4,8 +4,8 @@
 		<div class="sidebar-category sidebar-category-visible">
 			<!-- Sidebar content with padding -->
 			<div class="category-content sidebar-hide-toggle">
-				<div class="center-block mt-20" style="width:120px;">
-					<img src="/assets/logo/ratafire_light_blue" style="width:120px;"></img>
+				<div class="text-center mt-20 row">
+					<img src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>" style="height:27px;"></img>
 				</div>	
 				<!-- Search 
 				<div class="input-group">
@@ -19,14 +19,13 @@
 			<div class="category-content no-padding">
 				<ul class="navigation navigation-main navigation-accordion">
 					<!-- Explore -->
-					<li class="navigation-header"><span>Explore</span> <i class="icon-menu" title="Main pages"></i></li>
-					<li><a href="index.html"><i class="fa fa-binoculars"></i> <span>Discover</span></a></li>
-					<li><a href="index.html"><i class="fa fa-thumbs-up"></i> <span>Support creators</span></a></li>
-					<li><a href="index.html"><i class="fa fa-video-camera"></i> <span>Visit live online events</span></a></li>
+					<li class="navigation-header"><span><%= t 'views.utilities.menu.explore' %></span> <i class="icon-menu" title="Main pages"></i></li>
+					<li><a href="index.html"><i class="huaxia huaxia-2b"></i> <span><%= t 'views.utilities.menu.discover' %></span></a></li>
+					<li><a href="index.html"><i class="huaxia huaxia-apppai"></i> <span><%= t 'views.utilities.menu.back_creators' %></span></a></li>
 					<!-- /Explore -->
 					<!-- Followed Tags -->
 					<div class="sidebar-hide-toggle">
-						<li class="navigation-header"><span>Followed Tags</span> <i class="icon-menu" title="Main pages"></i></li>
+						<li class="navigation-header"><span><%= t 'views.utilities.menu.followed_tags' %></span> <i class="icon-menu" title="Main pages"></i></li>
 						
 					</div><!-- end .sidebar-hide-toggle -->	
 				</ul>
@@ -35,16 +34,8 @@
 		<!-- /main navigation -->
 		<!-- Collapsing Sidebar Content -->
 		<div class="sidebar-hide-toggle">
-			<!-- Footer -->
-			<div class="footer text-size-mini">
-				<span class="mr-10">About</span> 
-				<span class="mr-10">Blog</span> 
-				<span class="mr-10">Terms</span> 
-				<span class="mr-10">Privacy</span>
-				<span class="mr-10">Pricing</span>
-				<span class="mr-10">FAQ</span>
-				<span class="mr-10">Press</span>
-			</div>	
-		</div><!-- end .sidebar-hide-toggle -->			
+			<!-- Footer-->
+			<%= render 'utilities/footer/sidebar_footer' %>	
+		</div><!-- end .sidebar-hide-toggle -->	
 	</div>
 </div>

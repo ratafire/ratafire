@@ -1,14 +1,6 @@
 <div class="panel">
-	<div class="panel-heading bg-blue-light border-blue-light">
-		<div class="panel-title text-uppercase text-semibold">About</div>
-		<div class="heading-elements">
-			<ul class="icons-list">
-        		<li><a data-action="collapse"></a></li>
-        	</ul>
-    	</div>
-	</div>
 	<!-- User thumbnail -->
-	<div class="thumb  thumb-slide" id="about-profilephoto-holder">
+	<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px 3px 0 0;">
 		<img src="<%= user.profilephoto.image.url(:thumbnail512)%>" class="about-profilephoto-holder" alt="">
 		<!-- Upload Panel -->
 		<% if current_user == @user || current_user.try(:admin) %>
@@ -25,83 +17,10 @@
 			<%= user.bio %>
 		</p>
 		<!-- Website -->
-		<p class="text-blue" >
-			<i class="fa fa-globe" style="margin-right:8px;"></i><%= link_to truncate(user.website, :length => 25), user.website,class:"no_ajaxify", target: "_blank" %>
-		</p>
-		<!-- Social Media Icons -->
-		<p>
-			<!-- Facebook -->
-			<% if user.facebook != nil then %>
-				<%= link_to user.facebook.link, class:"socicon-facebook", target:"_blank" do %>
-					<span class="btn btn-facebook btn-icon" data-popup="tooltip" title="Facebook" data-placement="bottom">
-							<i class="fa fa-facebook pl-3 pr-3"></i>
-					</span>
-				<% end %>
-			<% end %>
-			<!-- Twitter -->
-			<% if user.twitter != nil then %>
-	    		<%= link_to user.twitter.link, class:"socicon-twitter", target:"_blank" do %>
-		    		<span class="btn btn-twitter btn-icon" data-popup="tooltip" title="Twitter" data-placement="bottom">
-		    			<i class="fa fa-twitter"></i>
-		    		</span>
-	    		<% end %>
-		    <% end %>
-		    <!-- Tumblr -->
-		    <% if user.tumblr != nil then %>
-	    		<%= link_to user.tumblr.link, class:"socicon-tumblr", target:"_blank" do %>
-	    			<span class="btn btn-tumblr btn-icon" data-popup="tooltip" title="Tumblr" data-placement="bottom" >
-	    				<i class="fa fa-tumblr"></i>
-	    			</span>
-	    		<% end %>
-		    <% end %>	
-		    <!-- Deviantart -->
-		    <% if user.deviantart != nil then %>
-	    		<%= link_to user.deviantart.link, class:"socicon-deviantart", target:"_blank" do %>
-		    		<span class="btn btn-deviantart btn-icon" data-popup="tooltip" title="DeviantArt" data-placement="bottom">
-		    			<i class="fa fa-deviantart pl-3 pr-3"></i>
-		    		</span>
-	    		<% end %>
-		    <% end %>
-		    <!-- YouTube -->	
-		    <% if user.youtube != nil then %>
-	    		<%= link_to user.youtube.link, class:"socicon-youtube", target:"_blank" do %>
-		    		<span class="btn btn-youtube btn-icon" data-popup="tooltip" title="YouTube" data-placement="bottom">
-		    			<i class="fa fa-youtube"></i>
-		    		</span>
-	    		<% end %>
-		    <% end %>	
-		    <!-- Vimeo -->
-		    <% if user.vimeo != nil then %>
-	    		<%= link_to user.vimeo.link, class:"socicon-vimeo", target:"_blank" do %>
-		    		<span class="btn btn-vimeo btn-icon" data-popup="tooltip" title="Vimeo" data-placement="bottom">
-		    			<i class="fa fa-vimeo-square"></i>
-		    		</span>
-	    		<% end %>
-		    <% end %>
-		    <!-- Github -->
-		    <% if user.github != nil then %>
-	    		<%= link_to user.github.link, class:"socicon-github", target:"_blank" do %>
-		    		<span class="btn btn-github btn-icon" data-popup="tooltip" title="GitHub" data-placement="bottom">
-		    			<i class="fa fa-github"></i>
-		    		</span>
-	    		<% end %>
-		    <% end %>	
-		    <!-- Twitch -->
-		    <% if user.twitch != nil then %>
-	    		<%= link_to user.twitch.link_self, class:"socicon-twitch", target:"_blank" do %>
-		    		<span class="btn btn-twitch btn-icon" data-popup="tooltip" title="Twitch" data-placement="bottom">
-		    			<i class="fa fa-twitch"></i>
-		    		</span>
-	    		<% end %>
-		    <% end %>
-		    <!-- Pinterest -->
-		    <% if user.pinterest %>
-	    		<%= link_to user.pinterest.link, class:"socicon-pinterest", target:"_blank" do %>
-		    		<span class="btn btn-pinterest btn-icon" data-popup="tooltip" title="Pinterest" data-placement="bottom">
-		    			<i class="fa fa-pinterest"></i>
-		    		</span>
-	    		<% end %>
-		    <% end %>	
-		</p>	
+        <%= link_to user.website, target: "_blank" do %>
+                <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
+                    <i class="huaxia huaxia-link text-green-400"></i>
+                </div> 
+        <% end %>  
 	</div><!-- end .panel-body -->
 </div>

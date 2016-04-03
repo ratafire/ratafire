@@ -15,6 +15,11 @@ class Profile::SettingsController < ApplicationController
 		tags_rotation('social_media_settings')
 	end
 
+	#language_settings_user_profile_settings GET
+	def language_settings
+		tags_rotation('language_settings')
+	end
+
 	#account_settings_user_profile_settings GET
 	def account_settings
 		tags_rotation('account_settings')
@@ -36,6 +41,8 @@ protected
 			@profile_settings_active_tag = "active"
 		when "social_media_settings"
 			@social_media_settings_active_tag = "active"
+		when "language_settings"
+			@language_settings_active_tag = "active"
 		when "account_settings"
 			@account_settings_active_tag = "active"
 		end

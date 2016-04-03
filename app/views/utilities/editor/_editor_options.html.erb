@@ -4,7 +4,7 @@
         <%= link_to new_user_editor_editor_text_path(user.id), method: :get, remote: :true do %>
             <div class="col-xs-2 col-md-2 no-padding">
                 <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
-                    <i class="fa fa-font text-pink-300"></i><span class="text-thin text-grey-200">Text</span>
+                    <i class="huaxia huaxia-pen text-pink-300"></i>
                 </div>
             </div>
         <% end %> 
@@ -12,7 +12,7 @@
         <%= link_to new_user_editor_editor_image_path(user.id), method: :get, remote: :true do %>
             <div class="col-xs-2 col-md-2 no-padding">
                 <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
-                    <i class="fa fa-camera-retro text-brown-300"></i><span class="text-thin text-grey-200">Image</span>
+                    <i class="huaxia huaxia-multipleimage text-brown-300"></i>
                 </div>
             </div>
         <% end %>
@@ -20,7 +20,7 @@
         <%= link_to new_user_editor_editor_link_path(user.id), method: :get, remote: :true do %>
             <div class="col-xs-2 col-md-2 no-padding">
                 <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
-                    <i class="fa fa-link text-green-400"></i><span class="text-thin text-grey-200">Link</span>
+                    <i class="huaxia huaxia-link text-green-400"></i>
                 </div>
             </div>  
         <% end %>  
@@ -28,7 +28,7 @@
         <%= link_to new_user_editor_editor_audio_path(user.id), method: :get, remote: :true do %>
             <div class="col-xs-2 col-md-2 no-padding">
                 <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
-                    <i class="fa fa-headphones text-info-400"></i><span class="text-thin text-grey-200">Audio</span>
+                    <i class="huaxia huaxia-music text-info-400"></i>
                 </div>
             </div>
         <% end %>        
@@ -36,14 +36,14 @@
         <%= link_to new_user_editor_editor_video_path(user.id), method: :get, remote: :true do %>
             <div class="col-xs-2 col-md-2 no-padding">
                 <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
-                    <i class="fa fa-youtube-play text-purple-400"></i><span class="text-thin text-grey-200">Video</span>
+                    <i class="huaxia huaxia-jiaocheng text-purple-400"></i>
                 </div>
             </div>
         <% end %>             
         <!-- Story Post -->
-        <div class="col-xs-2 col-md-2 no-padding" data-popup="tooltip" title="Coming soon" data-placement="top">
+        <div class="col-xs-2 col-md-2 no-padding" data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="top">
             <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
-                <i class="fa fa-book text-slate-300"></i><span class="text-thin text-grey-200">Book</span>
+                <i class="huaxia huaxia-book text-slate-300"></i>
             </div>
         </div>         
     </div>       

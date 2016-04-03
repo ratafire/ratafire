@@ -1,7 +1,6 @@
 /*Vertical Sliding*/
 .slidingVertical{
   display: inline;
-  text-indent: 8px;
 }
 .slidingVertical span{
   animation: topToBottom 22.5s linear infinite 0s;
@@ -12,6 +11,7 @@
   overflow: hidden;
   position: absolute;
   white-space: nowrap;
+  padding-right: 20px;
 }
 .slidingVertical span:nth-child(2){
   animation-delay: 2.5s;

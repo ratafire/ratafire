@@ -1,0 +1,31 @@
+<script type="text/javascript">
+
+</script>
+<%= form_for [user,:admin, historical_quote], url: user_admin_historical_quotes_path(user,historical_quote) do |f| %>
+    <!-- Quote -->
+    <div class="form-group">
+        <label><%= t 'views.admin.culture.historical_quotes.quote' %></label>
+        <%= f.text_area :quote, class:"no-resize input-sm form-control"%>
+    </div>
+    <!-- Author -->
+    <div class="form-group">
+        <label><%= t 'views.admin.culture.historical_quotes.author' %></label>
+        <%= f.text_field :author, class:"input-sm form-control"%>
+    </div>
+    <!-- Source -->
+    <div class="form-group">
+        <label><%= t 'views.admin.culture.historical_quotes.source' %></label>
+        <%= f.text_field :source, class:"input-sm form-control"%>
+    </div>
+    <!-- Chapter -->
+    <div class="form-group">
+        <label><%= t 'views.admin.culture.historical_quotes.chapter' %></label>
+        <%= f.text_field :chapter, class:"input-sm form-control"%>
+    </div>
+    <!-- Cancel -->
+    <%= link_to user_admin_historical_quotes_path(current_user.id) do %>
+        <div class="btn btn-sm btn-success"><%= t 'views.utilities.editor.cancel' %></div>
+    <% end %>    
+    <!-- Submit -->
+    <%= f.submit t('views.utilities.editor.submit_btn'), class: "btn btn-sm btn-primary", id:"editor-submition" %>
+<% end %>

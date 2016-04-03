@@ -150,6 +150,31 @@ class User < ActiveRecord::Base
     #--------Pinterest---------
     has_one :pinterest,
         -> { where( pinterests: { :deleted_at => nil}) }
+    #--------Weibo---------
+    has_one :weibo,
+        -> { where( weibos: { :deleted_at => nil}) }
+    #--------WeChat---------
+    has_one :wechat,
+        -> { where( wechats: { :deleted_at => nil}) }
+    #--------Renren---------
+    has_one :renren,
+        -> { where( renrens: { :deleted_at => nil}) }
+    #--------Douban---------
+    has_one :douban,
+        -> { where( doubans: { :deleted_at => nil}) }
+    #--------Taobao---------
+    has_one :taobao,
+        -> { where( taobaos: { :deleted_at => nil}) }
+    #--------Baidu---------
+    has_one :baidu,
+        -> { where( baidus: { :deleted_at => nil}) }
+
+    #----------------Admin----------------
+    has_many :historical_quotes
+
+    #----------------Translation----------------
+
+    translates :tagline, :fullname, :website, :bio, :job_title ,:firstname, :lastname, :preferred_name, :country, :city, :fallbacks_for_empty_translations => true
 
     #----------------Validation----------------
     #Real Name

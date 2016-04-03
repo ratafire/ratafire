@@ -12,6 +12,11 @@ Rails.application.routes.draw do
 		resources :users, only: [:update], shallow: true do 
 			#Methods in users_controller
 			get 'disconnect/:provider', to: 'users#disconnect', as: :disconnect
+			#Admin
+			namespace :admin do
+				resource :historical_quotes, only:[:show, :create,:destroy] do
+				end
+			end
 			#Editor
 			namespace :editor do 
 				#Ajax responses to show the editor
@@ -40,6 +45,7 @@ Rails.application.routes.draw do
 				resource :settings, only:[] do
 					get 'profile_settings'
 					get 'social_media_settings'
+					get 'language_settings'
 					get 'account_settings'
 				end
 			end	
@@ -109,6 +115,12 @@ Rails.application.routes.draw do
 		#Tags -----------------
 			get 'tags/:tag', to: 'discover/tag#tags', as: :tag
 
+	#International -----------------------------------
+		namespace :global do
+			#Basic
+			get ':locale/switch', to: 'software_language#switch', as: :switch
+		end
+
 	#Friendship -----------------------------------
 
 		namespace :friendship do
@@ -117,6 +129,17 @@ Rails.application.routes.draw do
 		end
 		#Display user friends
 		get '/:username/friends' => 'friendship/friendship#friends', :as => 'friends'
+
+	#Datatable & Edit -----------------------------------
+
+	#Admin
+	namespace :admin do
+		resource :historical_quotes, only:[] do
+			get '/index', to: 'historical_quotes#index', as: :index
+			get '/:id', to: 'historical_quotes#edit', as: :edit
+			patch '/:id', to: 'historical_quotes#update', as: :update
+		end
+	end
 
 	#Resque -----------------------------------
 

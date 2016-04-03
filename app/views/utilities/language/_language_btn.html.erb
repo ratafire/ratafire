@@ -1,0 +1,14 @@
+<span class="drop<%= switcher_type %>">
+	<a href="#" class="dropdown-toggle btn btn-blue" data-toggle="dropdown">
+		<%= t 'views.utilities.menu.language' %> <i class="fa fa-angle-<%= switcher_type %>"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-menu-right" style="z-index:1000;">
+    	<% if I18n.locale == :zh %>
+    		<li><%= link_to '中文',global_switch_path('zh'), data: { no_turbolink: true }%></li>
+	        <li><%= link_to 'English',global_switch_path('en'), data: { no_turbolink: true }%></li>
+	    <% else %>
+	        <li><%= link_to 'English',global_switch_path('en'), data: { no_turbolink: true }%></li>
+	        <li><%= link_to '中文',global_switch_path('zh'), data: { no_turbolink: true }%></li>
+	    <% end %>
+	</ul>
+</span>	

@@ -1,0 +1,1 @@
+Globalize.fallbacks = {:en => [:en, :zh], :zh => [:zh, :en]}

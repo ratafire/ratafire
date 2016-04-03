@@ -1,0 +1,59 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- .col -->
+    <div class="col w-lg bg-light dk b-r bg-auto" id="aside">
+        <div class="wrapper bg b-b">
+          <h3 class="m-n font-thin"><%= t 'views.admin.culture.historical_quotes.historical_quote' %></h3>
+        </div>
+        <div class="wrapper" id="historical-quote-holder-outter">
+            <div id="historical-quote-holder-inner">
+                <%= render partial:'admin/historical_quotes/form_historical_quotes', locals: {user: @user, historical_quote: @historical_quote}%>
+            </div>
+        </div>
+    </div>
+    <!-- /.col -->
+    <!-- .col -->
+    <div class="col">
+        <div class="wrapper">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <%= t 'views.admin.culture.historical_quotes.historical_quotes' %>
+                </div>
+                <div class="table-responsive">
+                    <table id="historical_quotes" ui-jq="dataTable" class="table table-striped b-t b-b responsive no-wrap" data-source="<%= index_admin_historical_quotes_path(format: "json") %>">
+                        <thead>
+                          <tr>
+                            <th  style="width:10%"><%= t 'views.admin.culture.historical_quotes.id' %></th>
+                            <th  style="width:35%"><%= t 'views.admin.culture.historical_quotes.quote' %></th>
+                            <th  style="width:15%"><%= t 'views.admin.culture.historical_quotes.author' %></th>
+                            <th  style="width:15%"><%= t 'views.admin.culture.historical_quotes.source' %></th>
+                            <th  style="width:15%"><%= t 'views.admin.culture.historical_quotes.chapter' %></th>
+                            <th  style="width:10%"><%= t 'views.utilities.editor.edit' %></th>
+                          </tr>
+                        </thead>
+                    <tbody>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- end.wrapper-->
+    <!-- /.col -->            
+    </div>
+    <script type="text/javascript">
+        $('#historical_quotes').DataTable({
+            responsive: true,
+            sPaginationType: "full_numbers",
+            "language": {
+                "url": "/translation/dataTable/<%= I18n.locale %>.json"
+            },
+            bProcessing: true,
+            bServerSide: true,
+            sAjaxSource: $('#historical_quotes').data('source')
+        });
+    </script>
+</div>

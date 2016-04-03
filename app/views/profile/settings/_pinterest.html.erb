@@ -1,37 +1,37 @@
 <!-- Pinterest -->
 <div class="panel panel-default panel-default">
 	<div class="panel-heading p-20 text-grey text-thin" id="pinterest-heading">
-		<h4 class="panel-title">Pinterest</h4>
-		<span>Display Pinterest info...</span>
+		<h4 class="panel-title"><%= t 'views.profile.settings.social_media_settings.pinterest' %></h4>
+		<span><%= t 'views.profile.settings.social_media_settings.pinterest_tagline' %></span>
 <% unless user.pinterest %>
 	<!-- Without Pinterest -->
 		<div class="heading-elements">
 			<%= link_to user_omniauth_authorize_path(:pinterest), class:"btn btn-block btn-social btn-pinterest mb-10" do %>
-			    <span class="fa fa-pinterest"></span> Connect with Pinterest
+			    <span class="fa fa-pinterest"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= t 'views.profile.settings.social_media_settings.pinterest' %>
 			<% end %>
 		</div>
 	</div><!-- end panel-heading-->
 	<div class="panel-body">
-		Currently for displaying your Pinterest info only.
+		<%= t 'views.profile.settings.social_media_settings.pinterest_description' %>
 	</div>
 <% else %>
 	<!-- With pinterest -->
 		<div class="heading-elements" id="pinterest-disconnect">
 			<%= link_to user_disconnect_path(user,:pinterest),remote: true, class:"btn btn-block btn-social btn-default mb-10" do %>
-			    <span class="fa fa-pinterest fa-pinterest-square"></span> Disconnect
+			    <span class="fa fa-pinterest fa-pinterest-square"></span> <%= t 'views.profile.settings.social_media_settings.disconnect' %>
 			<% end %>
 		</div>
 	</div><!-- end panel-heading-->
 	<!-- Tweet Updates -->
 	<div class="table-responsive" id="pinterest-table">
-		<table class="table" data-popup="tooltip" title="Refresh is coming soon." data-placement="left">
+		<table class="table" data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="left">
 			<tbody>
 				<tr class="border-double active">
 					<td colspan="2">
-						<span class="text-semibold">Pinterest Profile</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.pinterest_profile' %></span>
 					</td>
 					<td class="col-md-1 col-sm-1 text-center">
-						<span class="text-semibold">Refresh</span>
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.refresh' %></span>
 					</td>
 				</tr>
 				<tr>
@@ -50,7 +50,7 @@
 	</div>	
 	<!-- Hidden pinterest Body -->
 	<div class="panel-body" id="pinterest-body" style="display:none;">
-		Currently for displaying your Pinterest info only.
+		<%= t 'views.profile.settings.social_media_settings.pinterest_description' %>
 	</div>
 <% end %>
 </div>

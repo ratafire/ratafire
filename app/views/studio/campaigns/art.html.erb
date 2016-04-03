@@ -11,7 +11,7 @@
 		<div class="page-header-content text-center">
 			<div class="page-title text-grey">
 				<%= image_tag(@user.profilephoto.image.url(:thumbnail128),class:"img-circle mb-20")%>
-				<h2 class="text-thin text-white">Become an Art Creator</h2>
+				<h2 class="text-thin text-white"><%= t 'views.campaign.become_an' %><%= t 'views.campaign.art_creator' %></h2>
 			</div>
 		</div><!-- end .page-header-content-->
 	</div><!-- end .page-header-->
@@ -35,21 +35,21 @@
 	            		<%= f.hidden_field :ratafirer, id:"field-ratafirer" %>
 	            		<!-- Start -->
 						<fieldset title="1" class="pt-0">
-							<legend class="text-semibold">Start</legend>
+							<legend class="text-semibold"><%= t 'views.campaign.start' %></legend>
 							<!-- Topic -->
 							<div class="row text-center p-40">
-								<div class="text-giant text-thin"><%= render 'studio/campaigns/sentences/start' %></div>
-								<h3 class="text-thin text-grey-200"><%= render 'studio/campaigns/sentences/title_art' %></h3>
+								<div class="text-giant text-thin"><%= t 'views.campaign.what_are_you_creationg' %></div>
+								<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(7).quote %>" - <%= HistoricalQuote.find(7).author %></h3>
 							</div>
 							<!-- Title -->
 							<div class="row">
 								<div class="col-md-3">
-									<div>Title: <span class="text-danger">*</span></div>
+									<div><%= t 'views.campaign.title' %>: <span class="text-danger">*</span></div>
 								</div>
 
 								<div class="col-md-9">
 									<div class="form-group">
-										<%= f.text_field :title, class:"form-control required", placeholder:"Enter a title", maxlength:"50"%>
+										<%= f.text_field :title, class:"form-control required", placeholder:t('views.campaign.title_placeholder'), maxlength:"50"%>
 										<span class="help-block">
 											<%= render 'studio/campaigns/help_block/title' %>
 										</span>
@@ -60,13 +60,13 @@
 							<!-- Description -->
 							<div class="row">
 								<div class="col-md-3">
-									<div>Short description: <span class="text-danger">*</span></div>
+									<div><%= t 'views.campaign.short_description' %>: <span class="text-danger">*</span></div>
 								</div>
 
 								<div class="col-md-9">
 									<div class="form-group user-textarea">
 										<div class="pull-right mr-5 mb-30- text-grey-100"><span id="h">175</span></div>
-										<%= f.text_area :description, class:"form-control required", placeholder:"Write a short description for your project", id:"text",onKeyUp:"get()",maxlength:"175", style:"resize: none;"%>
+										<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"text",onKeyUp:"get()",maxlength:"175", style:"resize: none;"%>
 										<span class="help-block">
 											<%= render 'studio/campaigns/help_block/short_description' %>
 										</span>
@@ -77,12 +77,12 @@
 							<!-- Sub Category -->
 							<div class="row">
 								<div class="col-md-3">
-									<div>Sub category: <span class="text-danger">*</span></div>
+									<div><%= t 'views.campaign.sub_category' %>: <span class="text-danger">*</span></div>
 								</div>
 
 								<div class="col-md-9">
 									<div class="form-group">
-										<%= f.select(:sub_category, [['A New Field'], ['Concept Art'],['3D Models'],['Drawing'],['Painting'],['Architecture'],['Interior Design'],['Photography'],['Graphic Design'],['Sculpting'],['Jewelry Design'],['Other']], {prompt: "Select a sub category"}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+										<%= f.select(:sub_category, [[t('views.campaign.a_new_field'),'A New Field'], [t('views.campaign.concept_art'),'Concept Art'],[t('views.campaign.3D_model'),'3D Models'],[t('views.campaign.drawing'),'Drawing'],[t('views.campaign.painting'),'Painting'],[t('views.campaign.architecture'),'Architecture'],[t('views.campaign.interior_design'),'Interior Design'],[t('views.campaign.photography'),'Photography'],[t('views.campaign.graphic_design'),'Graphic Design'],[t('views.campaign.sculpting'),'Sculpting'],[t('views.campaign.jewelry_design'),'Jewelry Design'],[t('views.campaign.other'),'Other']], {prompt: "Select a sub category"}, { :class => 'simple-select required', :id => 'category-selection' }) %>
 										<span class="help-block">
 											<%= render 'studio/campaigns/help_block/sub_category' %>
 										</span>
@@ -93,14 +93,13 @@
 							<!-- Tags -->
 							<div class="row">
 								<div class="col-md-3">
-									<div>Tags: <span class="text-danger">*</span></div>
+									<div><%= t 'views.campaign.tags' %>: <span class="text-danger">*</span></div>
 								</div>
 
 								<div class="col-md-9">
 									<div class="form-group">
-										<%= f.text_field :tag_list, type:"hidden", placeholder:"#tags",class:"editor-tags text-grey-200 text-thin select-xs" %>
+										<%= f.text_field :tag_list, type:"hidden", placeholder:"#"+t('views.campaign.tags'),class:"editor-tags text-grey-200 text-thin select-xs" %>
 										<span class="help-block">
-											<%= render 'studio/campaigns/help_block/tags' %>
 										</span>
 									</div>
 								</div>
@@ -109,14 +108,14 @@
 							<!-- Duration -->
 							<div class="row">
 								<div class="col-md-3">
-									<div>Duration: <span class="text-danger">*</span></div>
+									<div><%= t 'views.campaign.duration' %>: <span class="text-danger">*</span></div>
 								</div>
 
 								<div class="col-md-9">
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon">
-												Number of years
+												<%= t 'views.campaign.number_of_years' %>
 											</span>
 											<%= f.number_field :duration, class:"touchspin-vertical form-control required", min:"1", max:"6"%>
 										</div>
@@ -130,7 +129,7 @@
 							<!-- How you get paid -->
 							<div class="row">
 								<div class="col-md-3">
-									<div>How you get paid: <span class="text-danger">*</span></div>
+									<div><%= t 'views.campaign.how_you_get_paid' %>: <span class="text-danger">*</span></div>
 								</div>
 
 								<div class="col-md-9">
@@ -155,25 +154,25 @@
 
 						<!-- Rewards -->
 						<fieldset title="2">
-							<legend class="text-semibold">Rewards</legend>
+							<legend class="text-semibold"><%= t 'views.campaign.rewards' %></legend>
 							<!-- Topic -->
 							<div class="row text-center p-40">
-								<div class="text-giant text-thin"><%= render 'studio/campaigns/sentences/rewards' %></div>
-								<h3 class="text-thin text-grey-200"><%= render 'studio/campaigns/sentences/rewards_art' %></h3>
+								<div class="text-giant text-thin"><%= t 'views.campaign.how_will_you_thank_your_backers' %></div>
+								<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(8).quote %>" - <%= HistoricalQuote.find(8).author %></h3>
 							</div>
 						</fieldset>
 
 						<!-- Rewards -->
-						<fieldset title="2">
-							<legend class="text-semibold">Your creation</legend>
+						<fieldset title="3">
+							<legend class="text-semibold"><%= t 'views.campaign.your_creation' %></legend>
 						</fieldset>
 
 						<!-- About You -->
-						<fieldset title="2">
-							<legend class="text-semibold">Artist info</legend>
+						<fieldset title="4">
+							<legend class="text-semibold"><%= t 'views.campaign.artist_info' %></legend>
 						</fieldset>
 
-						<button type="submit" class="btn btn-blue stepy-finish">Submit <i class="icon-check position-right"></i></button>
+						<button type="submit" class="btn btn-blue stepy-finish"><%= t 'views.utilities.editor.submit_btn' %></button>
 					
 					<% end %>
 	            </div>
@@ -184,6 +183,7 @@
 	
 </div><!-- end .content-->
 <!--~~~~~~~~~~~~~~~~~ Page Specific Javascript ~~~~~~~~~~~~~~~~~-->
+<%= render 'studio/campaigns/wizard_stepy_js'%>
 <script>
 //Profile editor
 initiate_profile_editor();
@@ -218,7 +218,7 @@ $(document).on('ready turbolinks:render', function(){
 	});	
 	$('.stepy-navigator').prepend(
 								'<button class=\"btn bg-green\">\
-							Save\
+							<%= t 'views.utilities.editor.save' %>\
 						</button>'
 		);
 	//Block Alipay

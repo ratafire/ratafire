@@ -3,7 +3,7 @@
 		<div class="imagePost" id="artwork_preview">
 		</div>
 		<div id="add-audio">
-			<div id="s3_direct_uploader_audio" class="mt-20 ml-20 mr-20 mb-20">
+			<div id="s3_direct_uploader_audio" class="mt-20 ml-20 mr-20">
 				<%= s3_uploader_form callback_url: content_audios_path,
 					callback_method: 'POST',
 					id: "s3_uploader_audio",
@@ -17,12 +17,12 @@
 						<%= file_field_tag :file, multiple: false, class:"artwork-choose btn-upload" %>
 						<div class="cursor-pointer center-block text-center">
 							<div id="big-image-upload">
-								<div class="fa fa-headphones text-grey-100" style="font-size:40px;"></div>
-								<div class="text-size-large text-grey-200 mt-5">Drop a mp3 file to upload</div>
-								<div class="text-grey-100">or CLICK</div>
+								<div class="huaxia huaxia-music text-grey-100" style="font-size:40px;"></div>
+								<div class="text-size-large text-grey-200 mt-5"><%= t 'views.utilities.editor.drop_a_mp3_file_to_upload' %></div>
+								<div class="text-grey-100"><%= t 'views.utilities.editor.or_click' %></div>
 							</div>
 							<div id="small-image-upload" style="display:none;">
-								<div class="text-grey-100">Add more</div>
+								<div class="text-grey-100"><%= t 'views.utilities.editor.add_more' %></div>
 							</div>
 						</div>
 					</div>	
@@ -30,21 +30,23 @@
 				<!-- Progress bar -->
 				<%= render partial:'utilities/editor/editor_progress_bar', locals:{name:'audio'} %>	
 			</div>	
-			<div id="audio-embed-block">
-				<!-- Separator -->
-				<div style="width:100%;" class="text-center">
-					<div class="label label-rounded label-blue">or</div>
-				</div>	
-				<!-- form for link -->
-				<div id="audio-upload-form">
-					<div class="mr-20 ml-20">
-						<%= form_for [:content, audio], :html =>{:id => 'soundcloud-form'},name:"soundcloud-form",:remote => true do |f| %>	
-							<%= f.hidden_field :majorpost_uuid, :value => majorpost.uuid %>
-							<%= f.text_field :soundcloud,id:"soundcloud-url-input", placeholder:'Paste or type a SoundCloud link',class:"form-control form-transparent" %>
-						<% end %>
+			<% unless I18n.locale == :zh %>
+				<div id="audio-embed-block" class="mt-20">
+					<!-- Separator -->
+					<div style="width:100%;" class="text-center">
+						<div class="label label-rounded label-blue"><%= t 'views.utilities.editor.or' %></div>
+					</div>	
+					<!-- form for link -->
+					<div id="audio-upload-form">
+						<div class="mr-20 ml-20">
+							<%= form_for [:content, audio], :html =>{:id => 'soundcloud-form'},name:"soundcloud-form",:remote => true do |f| %>	
+								<%= f.hidden_field :majorpost_uuid, :value => majorpost.uuid %>
+								<%= f.text_field :soundcloud,id:"soundcloud-url-input", placeholder:t('views.utilities.editor.paste_or_type_a_soundcloud_link'),class:"form-control form-transparent" %>
+							<% end %>
+						</div>
 					</div>
 				</div>
-			</div>
+			<% end %>
 		</div>	
 		<!-- form for text content -->
 		<%= form_for [:content, majorpost], :html =>{:id => 'audio-editor-form'},name:"audio-editor-form",:remote => true do |f| %>	
@@ -53,36 +55,41 @@
 				<%= f.hidden_field :post_type, :value => 'audio' %>
 				<!-- Content -->
 				<div class="majorpost_content_hidden_holder">
-					<%= f.text_field :title, class:"form-control input-title form-transparent", placeholder:"Title", id:"audio-title" %>
-					<%= f.text_field :composer, class:"form-control form-transparent", placeholder:"Composer"%>
-					<%= f.text_field :artist, class:"form-control form-transparent", placeholder:"Artist"%>
-					<%= f.text_field :genre, class:"mb-10 form-control form-transparent", placeholder:"Genre"%>
-					<%= f.text_area :content, type:"hidden",class:"medium-editor-textarea editable-textarea form-transparent", data:{placeholder: "Description..."},id:"majorpost_content_textarea" %>
+					<%= f.text_field :title, class:"form-control input-title form-transparent", placeholder:t('views.utilities.editor.title'), id:"audio-title" %>
+					<%= f.text_field :composer, class:"form-control form-transparent", placeholder:t('views.utilities.editor.composer')%>
+					<%= f.text_field :artist, class:"form-control form-transparent", placeholder:t('views.utilities.editor.artist')%>
+					<%= f.text_field :genre, class:"mb-10 form-control form-transparent", placeholder:t('views.utilities.editor.genre')%>
+					<%= f.text_area :content, type:"hidden",class:"medium-editor-textarea editable-textarea form-transparent", data:{placeholder: t('views.utilities.editor.description')},id:"majorpost_content_textarea" %>
 				</div>
 				<div id="editor-text-word-count"></div>											
 			</div><!-- end .panel-body-->
 			<div class="pl-20 pr-20 pb-10 majorpost_content_hidden_holder">
 				<!-- Tags -->
-				<%= f.text_field :tag_list, type:"hidden", placeholder:"#tags",class:"editor-tags text-grey-200 text-thin select-xs" %>
+				<%= f.text_field :tag_list, type:"hidden", placeholder:t('views.utilities.editor.tags'),class:"editor-tags text-grey-200 text-thin select-xs" %>
 			</div>	
 			<div class="panel-footer pt-10 pb-10">
 				<div class="pull-left">
 					<%= link_to remove_user_editor_editor_audio_path(user.id, majorpost.uuid), method: :get, remote: :true do %>
 						<div class="btn bg-slate-300 btn-xs">
-							Cancel
+							<%= t 'views.utilities.editor.cancel' %>
 						</div>	
 					<% end %>
 				</div>		
 				<div class="pull-right">
-					<div class="checkbox checkbox-switchery switchery-xs pull-left mr-10" data-popup="tooltip" title="Get paid for this creation" data-placement="top">
+					<div class="checkbox checkbox-switchery switchery-xs pull-left mr-10" data-popup="tooltip" title=<%= t get_paid_for_this('') %>  data-placement="top">
 						<label>
 							<%= f.check_box :paid_update, checked: false,class:"switchery"%>
 						</label>
 					</div>
 					<div class='pull-left' id="editor-submition-block">
-						<%= f.submit "Post Update", class: "btn btn-blue btn-xs", id:"editor-submition" %>
+						<%= f.submit t('views.utilities.editor.post_update'), class: "btn btn-blue btn-xs", id:"editor-submition" %>
 					</div>
 				</div>
 			</div>	
 		<% end %><!-- end #image-editor-form-->	
 </div>
+<!--  Additional Javascript -->
+<!-- Switchery -->
+<%= render 'utilities/editor/initiate_switchery' %>
+<!-- Uploader -->
+<%= render 'utilities/editor/initiate_uploaders' %>

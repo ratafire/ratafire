@@ -1,8 +1,10 @@
 <!-- Backers -->
-<h1 class="number">6,243</h1>
-<div class="label label-blue">backers</div>
-<h1 class="number">$54,320</h1>
-<div class="label label-blue">total support</div>
+<h1 class="number">6</h1>
+<div class="label label-blue"><%= t 'views.utilities.menu.likes' %></div>
+<h1 class="number">45,360</h1>
+<div class="label label-blue"><%= t 'views.utilities.menu.backers' %></div>
 <h1 class="number">20</h1>
-<div class="label label-blue">days to current goal</div>
-<div class="btn btn-lg btn-back-this-creator mt-20 mb-20"></div>
+<div class="label label-blue"><%= t 'views.utilities.menu.days_to_current_goal' %></div>
+<div class="mt-20 mb-20">
+	<%= render partial:'profile/components/donation_button', locals: {user: user}%>
+</div>

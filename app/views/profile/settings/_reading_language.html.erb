@@ -1,0 +1,35 @@
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin">
+		<h4 class="panel-title"><%= t 'views.profile.settings.language_settings.reading_language' %></h4>
+		<span><%= t 'views.profile.settings.language_settings.reading_language_tagline' %></span>
+		<div class="heading-elements">
+		</div>
+	</div>
+	<!-- Tweet Updates -->
+	<div class="table-responsive" id="twitter-table">
+		<table class="table" data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="left">
+			<tbody>
+				<tr class="border-double active">
+					<td>
+						<span class="text-semibold"><%= t 'views.profile.settings.language_settings.language' %></span>
+					</td>
+					<td class="col-md-2 col-sm-2 text-center">
+						<span class="text-semibold"><%= t 'views.profile.settings.language_settings.show_posts_in_this_language' %></span>
+					</td>
+				</tr>
+					<!-- Arabic -->
+					<%= render 'profile/settings/arabic' %> 
+					<!-- Chinese -->
+					<%= render 'profile/settings/chinese' %> 
+					<!-- English -->
+					<%= render 'profile/settings/english' %> 
+					<!-- French -->
+					<%= render 'profile/settings/french' %> 
+					<!-- Russian -->
+					<%= render 'profile/settings/russian' %> 
+					<!-- Spanish -->
+					<%= render 'profile/settings/spanish' %> 
+			</tbody>
+		</table>
+	</div>	
+</div>

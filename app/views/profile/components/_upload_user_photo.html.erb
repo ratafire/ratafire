@@ -2,7 +2,7 @@
 	<span>
 		<div class="thumb-slide-style">
 			<!-- Direct Upload-->
-			<a class="btn bg-blue btn-icon btn-xs cursor-pointer" data-popup="tooltip" data-popup="tooltip" title="Upload" data-placement="top" >
+			<a class="btn bg-blue btn-icon btn-xs cursor-pointer">
 				<%= s3_uploader_form callback_url: userinfo_profilephoto_path(profilephoto),
 				callback_method: 'PATCH',
 				id: "s3_uploader_profilephoto",
@@ -14,8 +14,6 @@
 				<% end %>	
 				<i class="icon-plus2 cursor-pointer"></i>
 			</a>
-			<!-- Facebook Image-->
-			<a class="btn bg-blue btn-icon btn-xs" data-popup="tooltip" title="Facebook" data-placement="top" style="z-index:101;"><i class="icon-facebook"></i></a>
 		</div>
 	</span>
 </div>

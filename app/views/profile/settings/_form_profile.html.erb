@@ -1,7 +1,7 @@
 <div class="panel panel-default panel-default">
 	<div class="panel-heading p-20 text-grey text-thin">
-		<h4 class="panel-title">Profile Settings</h4>
-		<span>Update your preferred name, bio, location...</span>
+		<h4 class="panel-title"><%= t 'views.profile.settings.profile_settings.profile_settings' %></h4>
+		<span><%= t 'views.profile.settings.profile_settings.profile_settings_tagline' %></span>
 	</div>
 	<div class="panel-body">
 		<div class="error-messages"></div>
@@ -11,47 +11,69 @@
 			<fieldset>
 				<legend class="text-semibold">
 					<i class="ti-user position-left"></i>
-					Turing Test
+					<%= t 'views.profile.settings.profile_settings.turing_test' %>
 					<!--<a class="control-arrow" data-toggle="collapse" data-target="#demo1">
 						<i class="icon-circle-down2"></i>
 					</a>-->
 				</legend>
 
 				<div class="collapse in" id="demo1">
-					<!-- First Name-->
-					<div class="form-group">
-						<label class="col-lg-3 control-label">First name:</label>
-						<div class="col-lg-9">
-							<%= f.text_field :firstname, class:"form-control mb-20", placeholder:"Your first name"%>
+					<% if I18n.locale == :zh %>
+						<!-- Last Name-->
+						<div class="form-group">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.last_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.text_field :lastname, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.last_name_placeholder')%>
+							</div>
 						</div>
-					</div>
-					<!-- Last Name-->
-					<div class="form-group">
-						<label class="col-lg-3 control-label">Last name:</label>
-						<div class="col-lg-9">
-							<%= f.text_field :lastname, class:"form-control mb-20", placeholder:"Your last name"%>
+						<!-- First Name-->
+						<div class="form-group">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.first_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.text_field :firstname, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.first_name_placeholder')%>
+							</div>
 						</div>
-					</div>
+					<% else %>
+						<!-- First Name-->
+						<div class="form-group">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.first_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.text_field :firstname, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.first_name_placeholder')%>
+							</div>
+						</div>
+						<!-- Last Name-->
+						<div class="form-group">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.last_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.text_field :lastname, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.last_name_placeholder')%>
+							</div>
+						</div>
+					<% end %>
 					<!-- Preferred Name -->
-					<div class="form-group">
-						<label class="col-lg-3 control-label">Display name:</label>
-						<div class="col-lg-9">
-							<% if user.preferred_name == user.fullname %>
-								<%= f.select(:preferred_name, [[user.preferred_name], [user.firstname]], {}, { :class => 'simple-select mb-20' }) %>
-							<% else %>
-								<%= f.select(:preferred_name, [[user.preferred_name], [user.fullname]], {}, { :class => 'simple-select mb-20' }) %>
-							<% end %>
-						</div>
-					</div>	
+					<% if I18n.locale == :zh %>
+						<div class="form-group">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.display_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.text_field :preferred_name, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.display_name_placeholder') %>
+							</div>
+						</div>	
+					<% else %>
+						<div class="form-group">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.display_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.select(:preferred_name, [[user.firstname], [user.fullname]], {}, { :selected => params[:locale],:class => 'simple-select mb-20' }) %>
+							</div>
+						</div>	
+					<% end %>
 					<!-- Username -->	
 					<div class="form-group">
-						<label class="col-lg-3 control-label">Username:</label>
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.username' %>:</label>
 						<div class="col-lg-9">
 							<div class="input-group">
 								<span class="input-group-btn">
 									<button class="btn btn-default mb-20" type="button" style="border-right:none;">https://ratafire.com/</button>
 								</span>
-									<%= f.text_field :username, class:"form-control mb-20", placeholder:"username"%>
+									<%= f.text_field :username, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.username_placeholder')%>
 							</div>					
 						</div>
 					</div>	
@@ -62,7 +84,7 @@
 			<fieldset>
 				<legend class="text-semibold">
 					<i class="ti-info-alt position-left"></i>
-					Basic Info
+					<%= t 'views.profile.settings.profile_settings.basic_info' %>
 					<!--<a class="control-arrow" data-toggle="collapse" data-target="#demo1">
 						<i class="icon-circle-down2"></i>
 					</a>-->
@@ -71,44 +93,44 @@
 				<div class="collapse in" id="demo1">
 					<!-- Tagline -->
 					<div class="form-group">
-						<label class="col-lg-3 control-label">Tagline:</label>
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.tagline' %>:</label>
 						<div class="col-lg-9">
-							<%= f.text_field :tagline, class:"form-control mb-20", placeholder:"What do you do"%>
+							<%= f.text_field :tagline, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.tagline_placeholder'),maxlength:"42"%>
 						</div>
 					</div>
 					<!-- Website -->
 					<div class="form-group">
-						<label class="col-lg-3 control-label">Website:</label>
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.website' %>:</label>
 						<div class="col-lg-9">
-							<%= f.text_field :website, class:"form-control mb-20", placeholder:"Your website"%>
+							<%= f.text_field :website, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.website_placeholder')%>
 						</div>
 					</div>
 					<!-- Country -->
 					<div class="form-group">
-						<label class="col-lg-3 control-label">Country:</label>
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.country' %>:</label>
 						<div class="col-lg-9">
-							<%= f.country_select(:country, { selected: "US" }, { class: 'simple-select mb-20' }) %>
+							<%= f.country_select(:country, { }, { class: 'simple-select-search mb-20' }) %>
 						</div>
 					</div>
 					<!-- City -->
 					<div class="form-group">
-						<label class="col-lg-3 control-label">City:</label>
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.city' %>:</label>
 						<div class="col-lg-9">
-							<%= f.text_field :city, class:"form-control mb-20", placeholder:"Your city"%>
+							<%= f.text_field :city, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.city_placeholder')%>
 						</div>
 					</div>
 					<!-- Short bio -->	
 					<div class="form-group">
-						<label class="col-lg-3 control-label">Short bio:</label>
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.short_bio' %>:</label>
 						<div class="col-lg-9">
-							<%= f.text_area :bio, class:"form-control mb-20", placeholder:"Your short bio"%>
+							<%= f.text_area :bio, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.short_bio_placeholder')%>
 						</div>
 					</div>	
 				</div>
 			</fieldset>
 
 			<div class="text-right">
-				<%= f.submit "Save Changes", class: "btn btn-blue" %>
+				<%= f.submit I18n.t('views.utilities.btn.save_changes'), class: "btn btn-blue" %>
 			</div>
 		<% end %>
 	</div>

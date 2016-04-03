@@ -1,0 +1,56 @@
+<!-- Deviantart -->
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin" id="deviantart-heading">
+		<h4 class="panel-title"><%= t 'views.profile.settings.social_media_settings.deviantart' %></h4>
+		<span><%= t 'views.profile.settings.social_media_settings.deviantart_tagline' %></span>
+<% unless user.deviantart %>
+	<!-- Without DeviantArt -->
+		<div class="heading-elements">
+			<%= link_to user_omniauth_authorize_path(:deviantart), class:"btn btn-block btn-social btn-deviantart mb-10" do %>
+			    <span class="fa fa-deviantart"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= t 'views.profile.settings.social_media_settings.deviantart' %>
+			<% end %>
+		</div><!-- end panel-heading-->
+	</div>
+	<div class="panel-body">
+		<%= t 'views.profile.settings.social_media_settings.deviantart_description' %>
+	</div>
+<% else %>
+	<!-- With deviantart -->
+		<div class="heading-elements" id="deviantart-disconnect">
+			<%= link_to user_disconnect_path(user,:deviantart),remote: true, class:"btn btn-block btn-social btn-default mb-10" do %>
+			    <span class="fa fa-deviantart fa-deviantart-square"></span> <%= t 'views.profile.settings.social_media_settings.disconnect' %>
+			<% end %>
+		</div>
+	</div><!-- end panel-heading-->
+	<!-- Tweet Updates -->
+	<div class="table-responsive" id="deviantart-table">
+		<table class="table" data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="left">
+			<tbody>
+				<tr class="border-double active">
+					<td colspan="2">
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.deviantart_gallery' %></span>
+					</td>
+					<td class="col-md-1 col-sm-1 text-center">
+						<span class="text-semibold"><%= t 'views.profile.settings.social_media_settings.refresh' %></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="col-md-1 col-sm-1">
+						<%= link_to user.deviantart.link, target:"_blank" do %>
+							<img src="<%= user.deviantart.image %>" class="profile-thumb-holder cover-profilephoto-holder">
+						<% end %>
+					</td>
+					<td class="col-md-10 col-sm-10">
+						<%= link_to user.deviantart.nickname, user.deviantart.link, target:"_blank", class:"text-grey"%>
+					</td>
+					<td class="text-center"><i class="fa fa-refresh"></i></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+	<!-- Hidden deviantart Body -->
+	<div class="panel-body" id="deviantart-body" style="display:none;">
+		<%= t 'views.profile.settings.social_media_settings.deviantart_description' %>
+	</div>
+<% end %>
+</div>

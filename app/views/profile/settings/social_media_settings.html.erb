@@ -14,27 +14,43 @@
 
 	<!-- Tabs -->
 	<div class="tabbable pl-20 pr-20">
-		<!-- Nav tabs-->
+		<!-- Nav tabs
 		<%= render partial: "profile/settings/tabs", locals: {user: @user} %>
+
+		<!--
+		<ul class="nav nav-pills nav-pills-bordered">
+			<li class="active"><a href="#nav-pills-bordered1" data-toggle="tab"><%= t 'views.profile.settings.social_media_settings.sites_you_may_often_use' %></a></li>
+			<li><a href="#nav-pills-bordered2" data-toggle="tab"><%= t 'views.profile.settings.social_media_settings.other_sites' %></a></li>
+		</ul>-->
 
 		<!-- Tab content -->
 		<div class="tab-content">
-			<!-- Social Media Connections -->
+			<!-- Baidu -->
+			<%= render partial: "profile/settings/baidu", locals: {user: @user} %>
+			<!-- DeviantArt-->
+			<%= render partial: "profile/settings/deviantart", locals: {user: @user} %>
+			<!-- Douban -->
+			<%= render partial: "profile/settings/douban", locals: {user: @user} %>
 			<!-- Facebook -->
 			<%= render partial: "profile/settings/facebook", locals: {user: @user} %>
-			<!-- Twitter -->
-			<%= render partial: "profile/settings/twitter", locals: {user: @user} %>
-			<!-- YouTube -->
-			<%= render partial: "profile/settings/youtube", locals: {user: @user} %>
-			<!-- Twitch -->
-			<%= render partial: "profile/settings/twitch", locals: {user: @user} %>
-			<!-- Vimeo -->
-			<%= render partial: "profile/settings/vimeo", locals: {user: @user} %>
-			<!-- Pinterst -->
-			<%= render partial: "profile/settings/pinterest", locals: {user: @user} %>
 			<!-- GitHub -->
 			<%= render partial: "profile/settings/github", locals: {user: @user} %>
-			<%= render partial: "profile/settings/form_social", locals: {user: @user} %>			
+			<!-- Pinterst -->
+			<%= render partial: "profile/settings/pinterest", locals: {user: @user} %>
+			<!-- Taobao -->
+			<%= render partial: "profile/settings/taobao", locals: {user: @user} %>
+			<!-- Twitch -->
+			<%= render partial: "profile/settings/twitch", locals: {user: @user} %>
+			<!-- Twitter -->
+			<%= render partial: "profile/settings/twitter", locals: {user: @user} %>
+			<!-- Vimeo -->
+			<%= render partial: "profile/settings/vimeo", locals: {user: @user} %>
+			<!-- WeChat -->
+			<%= render partial: "profile/settings/wechat", locals: {user: @user} %>
+			<!-- Weibo -->
+			<%= render partial: "profile/settings/weibo", locals: {user: @user} %>
+			<!-- YouTube -->
+			<%= render partial: "profile/settings/youtube", locals: {user: @user} %>
 		</div><!-- end .tab-content-->
 
 	</div><!-- end .tabbable-->
