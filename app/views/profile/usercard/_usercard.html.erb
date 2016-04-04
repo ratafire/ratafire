@@ -5,12 +5,16 @@
     <div class="text-white text-thin text-shadow usercardbio"><%= truncate(user.preferred_name,length: 28) %></div>
     <div class="text-white text-thin text-shadow"><%= truncate(user.tagline, length: 70)%></div>
 </div>
-<ul class="usercardstats">
-    <li><label>Posts</label>1,954</li>
-    <li><label>Backers</label>264</li>
-    <li><label>Backed</label>141</li>
+<ul class="usercardstats bg-rainbow text-rainbow">
+    <li><label>Foodie</label><i class="huaxia huaxia-mian"></i></li>
+    <li><label>Musician</label><i class="huaxia huaxia-music"></i></li>
+    <li><label>Explorer</label><i class="huaxia huaxia-faxian"></i></li>
 </ul>
-<div class="usercarddata bg-rainbow text-size-small">
-    <li class="btn">Follow</li>        
-    <li class="btn">Back This Creator</li>
+<div class="usercarddata bg-rainbow text-size-small btn-group btn-group-justified">
+	<div class="btn-group">
+		<li class="btn btn-xs"><i class="huaxia huaxia-guanzhu"></i></li>
+	</div>
+	<div class="btn-group">     
+		<li class="btn btn-xs"><i class="huaxia huaxia-shui"></i></li>
+	</div>
 </div>

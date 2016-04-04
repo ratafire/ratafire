@@ -1,0 +1,29 @@
+<section id="homepage-sign-up" class="cover image-bg fullscreen">
+    <!-- Starfield Animation -->
+    <div class="stars"></div>
+    <div class="stars"></div>
+    <div class="stars"></div>
+    <div class="stars"></div>
+    <div class="stars"></div>   
+    <!-- Starfield Background -->
+    <div class="background-image-holder">
+        <%= image_tag('static_pages/starfield_small3.jpg')%>
+    </div> 
+    <!-- Signup Form Section -->
+    <input style="display:none;" type="radio" checked id="toggle--signup" name="toggle" class="ghost" />
+    <input style="display:none;" type="radio" id="toggle--login" name="toggle" class="signup-ghost" />
+
+    <!-- Signup Form -->
+    <%= render 'utilities/sessions/signup'%>
+    <!-- Login Form -->
+    <%= render 'utilities/sessions/login'%>
+    <!-- Legal -->
+    <div class="signup-legal">
+        <a class="signup-text--small signup-text--border-right text-grey-100"><%= t 'views.utilities.menu.terms' %></a>
+        <a class="signup-text--small signup-text--border-right text-grey-100"><%= t 'views.utilities.menu.privacy' %></a>
+        <a class="signup-text--small text-grey-100"><%= t 'views.profile.settings.account_settings.password_help' %></a>
+    </div>   
+    <div style="position: absolute;bottom: 1.125rem; right: 2.125rem;">
+        <%= render partial:'utilities/language/language_switcher', locals: {switcher_type: 'up'}%> 
+    </div>
+</section>  

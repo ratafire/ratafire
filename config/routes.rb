@@ -35,12 +35,12 @@ Rails.application.routes.draw do
 			#Profile page display
 			namespace :profile do
 				#Tabs for profile page
-				#resource :tabs, only:[] do
-				#	get 'friends'
+				resource :tabs, only:[] do
+					get 'friends'
 				#	get 'backers'
 				#	get 'backed'
 				#	get 'subscribed'
-				#end
+				end
 				#Settings
 				resource :settings, only:[] do
 					get 'profile_settings'
@@ -88,7 +88,9 @@ Rails.application.routes.draw do
 		
 		namespace :content do 
 			#Majorposts
-			resources :majorposts, only:[:create, :destroy]
+			resources :majorposts, only:[:create, :destroy] do
+				get 'read_more'
+			end
 				#Majorpost attachments
 				resources :artworks, only:[:create,:destroy] do
 					delete 'remove'
@@ -146,4 +148,5 @@ Rails.application.routes.draw do
 	authenticate :user, lambda {|u| u.admin == true } do
 	    mount Resque::Server, :at => "/admin/resque"
 	end		
+
 end

@@ -8,6 +8,8 @@ class Content::MajorpostsController < ApplicationController
 	#After filters
 	after_filter :prepare_unobtrusive_flash
 
+	#REST Methods -----------------------------------
+
 	def new
 	end
 	
@@ -18,9 +20,11 @@ class Content::MajorpostsController < ApplicationController
 		if language = CLD.detect_language(@majorpost.content)
 			@majorpost.locale = language[:code]
 		end
+		#Update Majorpost
 		if @majorpost.update(
 				published_at: Time.now,
-				user_id: current_user.id
+				user_id: current_user.id,
+				excerpt: ActionView::Base.full_sanitizer.sanitize(@majorpost.content).squish.truncate(140)
 			) 
 			#Update activity
 			update_majorpost_activity
@@ -56,10 +60,20 @@ class Content::MajorpostsController < ApplicationController
 		Resque.enqueue(Majorpost::MajorpostCleanup, params[:majorpost_uuid])
 	end	
 
+	#NoREST Methods -----------------------------------
+
+	#content_majorpost_read_more GET
+	#/content/majorposts/:majorpost_id/read_more
+	def read_more
+	end
+
 private
 
 	def load_majorpost
-		@majorpost = Majorpost.find_by_uuid(params[:id])
+		unless @majorpost = Majorpost.find_by_uuid(params[:id])
+			unless @majorpost = Majorpost.find_by_uuid(params[:majorpost_id])
+			end
+		end
 	end
 
 	def update_majorpost_activity

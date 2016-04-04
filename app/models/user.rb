@@ -46,6 +46,9 @@ class User < ActiveRecord::Base
     has_one :profilephoto, foreign_key: "user_uid", primary_key: "uid", class_name: "Profilephoto", dependent: :destroy
     has_one :profilecover, foreign_key: "user_uid", primary_key: "uid", class_name: "Profilecover", dependent: :destroy
 
+    #--------Contacts---------
+    
+
     #--------Friends---------
     has_many :friendships, 
         -> { where( friendships: { :deleted_at => nil }) },

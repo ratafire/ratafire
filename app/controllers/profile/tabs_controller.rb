@@ -18,8 +18,16 @@ class Profile::TabsController < ApplicationController
 	#/users/:user_id/profile/tabs/friends
 	def friends
 		if @user.friends.count > 0
-			@friends = @user.friends.order('created_at asc').page(params[:friend]).per_page(3)
+			@friends = @user.friends.order('created_at asc')
 		end
+		if @user.record_subscribers.count > 0
+			@backers = @user.record_subscribers.order('created_at asc')
+		end
+		if @user.record_subscribed.count > 0
+			@backeds = @user.record_subscribed.order('created_at asc')
+		end
+		@popoverclass = SecureRandom.hex(16)
+		@contacts = (@friends + @backers + @backeds).sort_by(&:created_at).reverse.uniq.paginate(:page => params[:page], :per_page => 9)
 	end
 
 	#backers_user_profile_tabs GET
@@ -43,7 +51,8 @@ class Profile::TabsController < ApplicationController
 protected
 
 	def load_user
-		@user = User.find_by_username(params[:user_id])
+		unless @user = User.find(params[:user_id])
+		end
 	end
 
 end

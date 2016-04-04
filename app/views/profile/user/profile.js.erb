@@ -1,25 +1,23 @@
 //Add update
-<% if @activity_paginate == true %>
-	$("#post-pagination").append("<div class='post-pagination'><%= j render_activities(@activities) %></div>");
-	initiate_plugins('<%= j @popoverclass %>_video_class');
-	refreshUsercard('<%= j @popoverclass %>');
-	<% if @activities.next_page %>
-	  $('.post-will-paginate').replaceWith('<div class="post-will-paginate"><%= j will_paginate(@activities) %></div>');
-	  $(".post-will-paginate").hide();
-	<% else %>
-	  $('.post-will-paginate').remove();
-	<% end %>
-    $(window).scroll(function() {
-        //Post
-        if ($('.post-will-paginate').length) {
-          var url = $('.post-will-paginate .next_page').attr('href');
-          if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 1500) {
-            $('.post-will-paginate').html("<i class=\"icon-spinner2 spinner text-blue\"></i>");
-            return $.getScript(url);        
-          }
-        }           
-    });
+$("#post-pagination").append("<div class='post-pagination'><%= j render_activities(@activities) %></div>");
+initiate_plugins('<%= j @popoverclass %>_video_class');
+refreshUsercard('<%= j @popoverclass %>');
+<% if @activities.next_page %>
+  $('.post-will-paginate').replaceWith('<div class="post-will-paginate"><%= j will_paginate(@activities) %></div>');
+  $(".post-will-paginate").hide();
+<% else %>
+  $('.post-will-paginate').remove();
 <% end %>
+$(window).scroll(function() {
+    //Post
+    if ($('.post-will-paginate').length) {
+      var url = $('.post-will-paginate .next_page').attr('href');
+      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 1500) {
+        $('.post-will-paginate').html("<i class=\"icon-spinner2 spinner text-blue\"></i>");
+        return $.getScript(url);        
+      }
+    }           
+});
 <% if @friends_paginate == true %>
 	$("#friends-pagination").append("<div class='added-friends'><%= j render(:partial => 'profile/components/tab_friends', collection: @friends, :as => :user)%></div>");
 	refreshUsercard('<%= j @popoverclass %>');

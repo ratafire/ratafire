@@ -8,9 +8,9 @@
 		<!-- Toolbar left -->
 		<ul class="nav navbar-nav element-active-slate-400">
 			<!-- Updates -->
-			<li class="active tab-updates"><a href="#updates" data-toggle="tab" id="tab-updates"><i class="ti-rss-alt"></i></a></li>
+			<li class="<%= tab_updates %> tab-updates"><%= link_to profile_url_path(user.username),id:"tab-updates" do %><i class="ti-rss-alt"></i><% end %></li>
 			<!-- Friends -->
-			<li class="tab-backeds"><a href="#backed" data-toggle="tab" id="tab-backeds"><i class="huaxia huaxia-haoyouqingqiu"></i></a></li>				
+			<li class="<%= tab_contacts %> tab-backeds"><%= link_to friends_user_profile_tabs_path(user.id), id:"tab-contacts" do %><i class="huaxia huaxia-haoyouqingqiu"></i><% end %></li>				
 			<li><a href="#liked" data-toggle="tab"><i class="huaxia huaxia-guanzhu"></i></a></li>
 		</ul>
 	</div>

@@ -3,65 +3,47 @@
     <nav class="absolute transparent">
         <div class="nav-bar">
             <div class="module left">
-                <!-- Logo Light-->
-                <img src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>" class="logo logo-light" alt="Ratafire"></img>
-                <!-- Logo Dark-->
-                <img src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>" class="logo logo-dark" alt="Ratafire"></img>
+                <%= link_to root_path do %>
+                    <!-- Logo Light-->
+                    <img src="/assets/logo/ratafire_header_logo" class="logo logo-light" alt="Ratafire"></img>
+                    <!-- Logo Dark-->
+                    <img src="/assets/logo/ratafire_header_logo" class="logo logo-dark" alt="Ratafire"></img>
+                <% end %>
             </div>
             <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
                 <i class="ti-menu"></i>
             </div>
-            <!-- Module-group Left-->
-            <div class="module-group left">
+            <!-- Module-group Left-->  
+            <div class="text-grey-100 module-group left" style="width:200px;">
+                <%= t 'views.utilities.menu.back_the_next_top' %><% unless I18n.locale == :zh %>&nbsp<% end %>
+                <div class="slidingVertical">
+                    <span class="text-grey-100"><%= t 'views.utilities.menu.artist' %></span>
+                    <span class="text-grey-100"><%= t 'views.utilities.menu.musician' %></span>
+                    <span class="text-grey-100"><%= t 'views.utilities.menu.game_designer' %></span>
+                    <span class="text-grey-100"><%= t 'views.utilities.menu.writer' %></span>
+                    <span class="text-grey-100"><%= t 'views.utilities.menu.film_maker' %></span>
+                    <span class="text-grey-100"><%= t 'views.utilities.menu.mathematician' %></span>
+                    <span class="text-grey-100"><%= t 'views.utilities.menu.scientist' %></span>
+                    <span class="text-grey-100"><%= t 'views.utilities.menu.scholar' %></span>
+                    <span class="text-grey-100"><%= t 'views.utilities.menu.engineer' %></span>
+                </div>  
+            </div>
+            <!-- Module-group Right-->
+            <div class="module-group right">
                 <div class="module left">
                     <ul class="menu">
-                        <!-- Example of Has Dropdown-->
-                        <!--
-                        <li class="has-dropdown">
-                        </li>-->
-                        <!-- Home-->
-                        <li>
-                            <%= link_to root_path do %>
-                               <span class="ti-home menu-icon"></span><%= t 'views.utilities.menu.home' %>
-                            <% end %>
-                        </li>
                         <!-- Back Creators -->
                         <li>
                             <%= link_to root_path do %>
-                               <span class="ti-heart menu-icon"></span><%= t 'views.utilities.menu.back_creators' %>
+                               <span class="huaxia huaxia-2b"></span>
                             <% end %>
                         </li>   
                         <!-- Explore -->
                         <li>
                             <%= link_to root_path do %>
-                               <span class="ti-target menu-icon"></span><%= t 'views.utilities.menu.explore' %>
+                               <span class="huaxia huaxia-apppai"></span>
                             <% end %>
                         </li>   
-                        <!-- Blog -->
-                        <li>
-                            <%= link_to 'https://ratafire.com/blog/' do %>
-                               <span class="ti-rss-alt menu-icon"></span><%= t 'views.utilities.menu.blog' %>
-                            <% end %>
-                        </li>     
-                    </ul>
-                </div>
-            </div><!-- end .module-group left-->    
-            <!-- Module-group Right-->
-            <div class="module-group right">
-                <div class="module left">
-                    <ul class="menu">
-                        <!-- Sign up button -->
-                        <li>
-                            <%= link_to '#homepage-sign-up' do %>
-                            <span class="btn btn-sm btn-blue btn-rounded"><%= t 'views.utilities.btn.sign_up' %></span>
-                            <% end %>
-                        </li>    
-                        <!-- Sign in button -->
-                        <li>
-                            <%= link_to root_path do %>
-                                <%= t 'views.utilities.btn.log_in' %>
-                            <% end %>
-                        </li>
                     </ul>    
                 </div><!-- end .module left-->    
                 <!--end of menu module-->
@@ -69,3 +51,11 @@
         </div><!-- end .nav-bar-->
     </nav>			
 </div>	
+<script>
+    $('#login-trigger').click(function(){
+        $('#homepage-login').trigger("click");
+    });
+    $('#signup-trigger').click(function(){
+        $('#homepage-signup').trigger("click");
+    });
+</script>

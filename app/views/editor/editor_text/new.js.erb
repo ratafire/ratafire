@@ -1,6 +1,7 @@
 //Hide editor options
 hide_editor_options();
 //Append editor text
+$('#editor-text-holder').remove();
 $('#editor-holder').append("<%= j render(:partial => 'utilities/editor/editor_text', :locals => {:majorpost => @majorpost, :user => @user}) %>");
 //Initiate editor js
 initiate_editor();

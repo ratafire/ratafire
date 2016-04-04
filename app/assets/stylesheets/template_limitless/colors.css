@@ -528,6 +528,10 @@
   border-color: #777777;
   color: #fff;
 }
+.bg-grey-100 {
+  background-color: #f9f9f9;
+  color: #c9c9c9;
+}
 .bg-grey-200 {
   background-color: #dddddd;
   color: #666666;
@@ -2543,6 +2547,11 @@
 .text-brown-800:hover,
 .text-brown-800:focus {
   color: #4e342e !important;
+}
+.text-grey-transparent,
+.text-grey-transparent:hover,
+.text-grey-transparent:focus {
+  color: rgba(256,256,256, 0.7) !important;
 }
 .text-grey,
 .text-grey:hover,

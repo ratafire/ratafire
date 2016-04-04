@@ -24,7 +24,7 @@ zh:
     home:
       home_description: "举个栗子，如果你是个粉，你可以支持你喜欢的大手。如果你是个创作者，你可以找到支持者。火栗是你的免费粉丝聚合。我们同时开通单次和长期众筹，你可以长期支持你喜欢的大手了！"
       join: ""
-      creators_and_fans: "位栗子坐在世界树松鼠的小火堆旁"
+      creators_and_fans: "位栗子坐在小火堆旁"
       welcome_home: "欢迎回家, 栗子们！"
       new_sign_up: "没有账号？注册"
       not_new_log_in: "已有账号？登录"
@@ -249,6 +249,7 @@ zh:
         backers: "支持者"
         ratafirers: "栗子们"
         total_support: "已获支持"
+        currently_funded: "当前众筹进度"
         backed: "支持了"
         follow: "关注"
         followed: "关注了"

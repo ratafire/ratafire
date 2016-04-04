@@ -996,6 +996,14 @@ nav .btn,
 .logo-light {
   display: none;
 }
+.header-logo{
+  background-image: url('/assets/logo/header_logo_water.png');
+  background-position: top;
+  width:29px;
+  height: 29px;
+  vertical-align: middle;
+
+}
 nav.nav-centered .logo {
   max-height: 64px;
   margin: 64px 0 40px 0;
@@ -1403,7 +1411,6 @@ nav .cart-overview a {
   }
   .nav-bar .module-group {
     width: 100%;
-    padding: 16px 0;
   }
   .nav-bar .module-group .module {
     display: block;

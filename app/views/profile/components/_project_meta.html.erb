@@ -1,4 +1,17 @@
 <!-- Live Button -->
 <div class="mb-40 text-grey-300 text-semibold">
-	<i class="huaxia huaxia-guanzhu" style="margin-right:10px;"></i>
+	<span class="dropup">
+		<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
+			<i class="huaxia huaxia-share mr-10 text-medium">
+			</i>
+		</a>
+		<ul id="majorpost-share-toolbar" class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
+			<li><div class="p-20"><%= raw RQRCode::QRCode.new( 'https://github.com/whomwah/rqrcode', :size => 4, :level => :h ).as_html %></div></li>		
+			<li><a href="#"><i class="huaxia huaxia-link"></i> Link</a></li>
+		</ul>
+	</span>				
+	<!-- Repost 
+	<i class="ti-loop mr-10" data-popup="tooltip" title="Repost" data-placement="bottom"></i>-->
+	<!-- Like -->
+	<i class="huaxia huaxia-guanzhu text-medium"></i>
 </div>	

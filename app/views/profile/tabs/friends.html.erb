@@ -4,25 +4,25 @@
 <!-- Page Specific JS -->
 
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
-	<!-- Cover area -->
-	<%= render partial:'profile/components/cover', locals: {user: @user} %>
-	<!-- Toolbar -->
-	<%= render partial:'profile/components/toolbar', locals: {user: @user}%>
-	<!-- Content Area -->
-	<div class="content" >
+<!-- Cover area -->
+<%= render partial:'profile/components/cover', locals: {user: @user} %>
+<!-- Toolbar -->
+<%= render partial:'profile/components/toolbar', locals: {user: @user, tab_updates: '', tab_contacts: 'active'}%>
+<!-- Content Area -->
+<div class="content" >
+	<!-- Updates -->
+	<div class="row" id="updates-area">
+		<!-- Feed Area -->
 		<!-- Updates -->
-		<div class="row" id="updates-area">
-			<!-- Feed Area -->
-			<!-- Updates -->
-			<div class="col-xs-12 col-md-12" id="updates-main-area">
-				<% if @friends %>
-					<div id="friends-pagination">
-						<%= render :partial => 'profile/components/tab_friends', collection: @friends, :as => :user %>
-					</div>
-					<div class="friends-pagination">
-						<%= will_paginate @friends, param_name: :friend %>
-					</div>
-				<% end %>	
+		<div class="col-xs-12 col-md-12" id="updates-main-area">
+			<div id="friends-pagination">
+				<%= render :partial => 'profile/components/tab_friends', collection: @contacts, :as => :user %>
 			</div>
-		</div><!-- end #updates_area-->	
-	</div><!-- end .content-->
+			<div class="friends-pagination">
+				<div id="friend-pagination-old">
+					<%= will_paginate(@contacts) %>
+				</div>
+			</div>
+		</div>
+	</div><!-- end #updates_area-->	
+</div><!-- end .content-->

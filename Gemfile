@@ -115,6 +115,16 @@ gem 'jquery-infinite-pages'
 #Text sanitizer
 gem 'rails-html-sanitizer'
 
+#------------Views------------
+#Page views
+gem 'impressionist'
+#Mark read objects
+gem 'unread'
+
+#------------Share------------
+#QRCode
+gem 'rqrcode'
+
 #------------Rating System------------
 #Rating enabler
 gem 'letsrate', :path => "vendor/gems/ratyrate"
@@ -158,6 +168,8 @@ gem 'paypal-sdk-rest'
 gem 'paypal-sdk-merchant'
 gem 'paypal-express', :git => 'https://github.com/ratafire/paypal-express'
 
+
+#------------------------ Admin ------------------------
 
 #------------------------ Utilities ------------------------
 #Browser differentiator

@@ -42,7 +42,7 @@
 
 .signup-input--submit {
     background-color: rgba(54,184,223, 0.9) !important;
-    color: #fff !important;
+    color: rgba(256,256,256, 0.8) !important;
     cursor: pointer;
     border:0 !important;
     font-size:1.2em !important;

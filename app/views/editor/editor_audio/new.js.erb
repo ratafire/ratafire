@@ -1,6 +1,7 @@
 //Hide editor options
 hide_editor_options();
 //Append editor text
+$('#editor-text-holder').remove();
 $('#editor-holder').append("<%= j render(:partial => 'utilities/editor/editor_audio', :locals => {:majorpost => @majorpost, :user => @user, :audio => @audio}) %>");
 //Initiate editor js
 $('.majorpost_content_hidden_holder').hide();

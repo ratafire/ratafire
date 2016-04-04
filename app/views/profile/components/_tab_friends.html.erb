@@ -10,7 +10,14 @@
 				</div>
 		 	<% end %>
 		<div class="friendcardstats pr-15 pl-15 pb-15 text-grey-200">
-			<%= truncate(user.bio, length: 140) %>
+		    <div class="bg-rainbow-600 text-rainbow">
+		    	<li><label>Foodie</label><i class="huaxia huaxia-mian"></i></li>
+				<li><label>Musician</label><i class="huaxia huaxia-music"></i></li>
+				<li><label>Explorer</label><i class="huaxia huaxia-faxian"></i></li>
+			</div>
+			<div class="pt-5">
+				<%= truncate(user.bio, length: 140) %>
+			</div>
 			<span class="text-grey-300">
 				<% if user.try(:majorpost).try(:first) %>
 			    	Last update <%= time_ago_in_words(user.majorpost.first.created_at) %> ago
@@ -19,9 +26,13 @@
 			    <% end %>
 			</span>
 		</div>
-		<div class="friendcarddata bg-blue-light text-size-small">
-		    <li class="btn">Follow</li>        
-		    <li class="btn">Back This Creator</li>
+		<div class="friendcarddata bg-blue-light text-size-small btn-group btn-group-justified">
+			<div class="btn-group">
+				<li class="btn btn-xs"><i class="huaxia huaxia-guanzhu"></i></li>
+			</div>
+			<div class="btn-group">     
+				<li class="btn btn-xs"><i class="huaxia huaxia-shui"></i></li>
+			</div>
 		</div>
 	</div>
 </div>

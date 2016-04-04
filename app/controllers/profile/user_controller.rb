@@ -2,6 +2,7 @@ class Profile::UserController < ApplicationController
 #This controller controls functions related to homepage
 
 	layout 'profile'
+	require 'rqrcode'
 
 	#Before filters
 	before_filter :load_user, only:[:profile]
@@ -12,43 +13,15 @@ class Profile::UserController < ApplicationController
 		@activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @user, owner_type: "User", :published => true,trackable_type: ["Majorpost"]).page(params[:page]).per_page(5)
 		@popoverclass = SecureRandom.hex(16)
 		if @user.friends.count > 0
-			@friends = @user.friends.order('created_at asc').page(params[:friend]).per_page(9)
+			@friends = @user.friends.order('created_at asc')
 		end
 		if @user.record_subscribers.count > 0
-			@backers = @user.record_subscribers.order('created_at asc').page(params[:backer]).per_page(9)
+			@backers = @user.record_subscribers.order('created_at asc')
 		end
 		if @user.record_subscribed.count > 0
-			@backeds = @user.record_subscribed.order('created_at asc').page(params[:backed]).per_page(9)
+			@backeds = @user.record_subscribed.order('created_at asc')
 		end
 		@contacts = (@friends + @backers + @backeds).sort_by(&:created_at).reverse.uniq.paginate(:per_page => 9)
-		#Tabs
-		if params[:page]
-			@activity_paginate = true
-			@friends_paginate = false
-			@backers_paginate = false
-			@backeds_paginate = false
-		else 
-			if params[:friend]
-				@activity_paginate = false
-				@friends_paginate = true
-				@backers_paginate = false
-				@backeds_paginate = false				
-			else
-				if params[:backer]
-					@activity_paginate = false
-					@friends_paginate = false
-					@backers_paginate = true
-					@backeds_paginate = false
-				else
-					if params[:backed]
-						@activity_paginate = false
-						@friends_paginate = false
-						@backers_paginate = false
-						@backeds_paginate = true
-					end
-				end
-			end
-		end
 	end
 
 protected

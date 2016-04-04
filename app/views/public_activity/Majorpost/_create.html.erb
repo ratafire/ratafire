@@ -1,15 +1,13 @@
-<!-- Update Holder-->
-<div id="<%= activity.trackable.id %>_update_holder">
-	<!-- Post Holder -->
-	<div class="col-xs-12 col-md-12 col-offset-64">
+<!-- Post Holder -->
+<div class="col-xs-12 col-md-12 col-offset-64" id="<%= activity.trackable.id %>_holder">
 	<!-- User Image -->
 	<div class="col-fixed-64">
 		<%= link_to profile_url_path(activity.trackable.user) do %>
 			<img src="<%= activity.trackable.user.profilephoto.image.url(:thumbnail64) %>" class="profile-thumb-panel usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey"></i>' data-id="<%= activity.trackable.user.uid %>" data-placement="right">
 		<% end %>
 	</div>			
-		<!-- Post Panel -->
-		<div class="panel panel-speech">
+	<!-- Post Panel -->
+	<div class="panel panel-speech">
 			<!-- Post User -->
 			<div class="panel-user text-semibold text-size-small"><%= link_to activity.trackable.user.preferred_name, profile_url_path(activity.trackable.user),class:"text-grey-800" %>
 				<!-- More -->
@@ -87,16 +85,6 @@
 					</video>	
 				<% end %>
 			<% end %><!-- end video post -->
-			<!-- Image Post -->
-			<% if activity.trackable.post_type == 'image' then %>
-				<div class="imagePost">
-					<div class="photoset-grid-lightbox" data-layout="<%= image_grid(activity.trackable.artwork.count)%>" style="visibility: hidden;">
-					  	<% activity.trackable.artwork.each do |artwork| %>
-					  		<img src="<%= artwork.image.url(:preview800) %>" data-highres="<%= artwork.image.url(:original) %>">
-					  	<% end %>
-					</div>				
-				</div>			
-			<% end %><!-- end image post -->
 			<!-- Link Post -->
 			<% if activity.trackable.post_type == 'link' then %>
 				<div class="linkPost">
@@ -117,13 +105,25 @@
 					<% end %><!-- end link to external link -->
 				</div>	
 			<% end %><!-- end link post -->
+		<!-- Read All -->
+		<div id="<%= activity.trackable.id %>_update_holder_read_all" >
+		</div>
+		<!-- Update Holder-->
+		<div id="<%= activity.trackable.id %>_update_holder">	
+			<!-- Image Post -->
+			<% if activity.trackable.artwork.count > 0 %>
+				<div class="imagePost">
+					<div class="photoset-grid-lightbox" data-layout="1" style="visibility: hidden;">
+					  	<img src="<%= activity.trackable.artwork.first.image.url(:preview800) %>" data-highres="<%= activity.trackable.artwork.first.image.url(:original) %>">
+					</div>				
+				</div>			
+			<% end %><!-- end image post -->
+			<!-- Title for Text Post Only  -->
+			<% if ['text', 'audio','video'].include?(activity.trackable.post_type) %>
+				<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= activity.trackable.title %></div>
+			<% end %>
 			<!-- Content -->
-			<div class="panel-body no-padding-bottom">
-				<%= activity.trackable.locale %>
-				<!-- Title for Text Post Only  -->
-				<% if ['text', 'audio','video'].include?(activity.trackable.post_type) %>
-					<div class="panel-title text-light" style="font-size:25px;margin:-20px 0 10px 0;"><%= activity.trackable.title %></div>
-				<% end %>
+			<div class="panel-body pb-20">
 				<!-- Content -->	
 					<!-- Audio info -->
 				<% if activity.trackable.post_type == 'audio' && activity.trackable.audio %>
@@ -133,43 +133,34 @@
 				<% end %>				
 				<div class="panel-content">
 					<!-- normal content -->
-					<%= raw(activity.trackable.content)%>
-				</div><!-- end .panel-content-->	
-				<!-- Tags -->
-				<% if activity.trackable.tags.any? %>
-					<div class="mt-10 text-thin"><%= raw activity.trackable.tag_list.map { |t| link_to '#'+t, tag_path(t), class:"text-grey-200" }.join('  ') %></div>	
-				<% end %>			
+					<%= activity.trackable.excerpt %>
+				</div><!-- end .panel-content-->			
 			</div><!-- end .panel-body -->
-			<!-- Tools -->
-			<div class="panel-footer panel-footer-transparent" style="padding:0 20px 15px 0;font-size:20px;">
-				<!-- Share -->
-				<div class="pull-right">
-					<span class="dropup">
-						<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
-							<i class="huaxia huaxia-share mr-10" style="font-size:20px;">
-							</i>
-						</a>
-						<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
-							<li><a href="#"><i class="fa fa-facebook"></i> Facebook</a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i> Twitter</a></li>
-							<li class="dropdown-submenu" >
-								<a href="#"><i class="ti-more"></i> More</a>
-								<ul class="dropdown-menu bg-rainbow-600">
-									<li><a href="#"><i class="fa fa-tumblr"></i> Tumblr</a></li>
-									<li><a href="#"><i class="fa fa-pinterest"></i> Pinterest</a></li>
-									<li><a href="#"> <i class="fa fa-google-plus"></i> Goolge+</a></li>
-									<li><a href="#"> <i class="fa fa-reddit"></i> Reddit</a></li>
-								</ul>
-							</li>						
-							<li><a href="#"><i class="ti-link"></i> Link</a></li>
-						</ul>
-					</span>				
-					<!-- Repost 
-					<i class="ti-loop mr-10" data-popup="tooltip" title="Repost" data-placement="bottom"></i>-->
-					<!-- Like -->
-					<i class="huaxia huaxia-guanzhu" style="font-size:20px;"></i>
-				</div>	
-			</div>			
-		</div><!-- end .panel -->	
-	</div><!-- end .col-xs-10 col-md-7-->	
-</div><!-- end #update_holder-->	
+		</div>
+		<!-- Tools -->
+		<div class="panel-footer panel-footer-transparent" style="padding:0 20px 15px 0;">
+			<div class="pull-left" id="<%= activity.trackable.id %>_read_all_button">
+				<%= link_to content_majorpost_read_more_path(activity.trackable),remote: true do %>
+					<div class="ml-20 btn btn-xs bg-grey-100 btn-rounded">Read All</div>
+				<% end %>
+			</div>
+			<!-- Share -->
+			<div class="pull-right">
+				<span class="dropup">
+					<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
+						<i class="huaxia huaxia-share mr-10 text-medium">
+						</i>
+					</a>
+					<ul id="majorpost-share-toolbar" class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
+						<li><div class="p-20"><%= raw RQRCode::QRCode.new( 'https://github.com/whomwah/rqrcode', :size => 4, :level => :h ).as_html %></div></li>		
+						<li><a href="#"><i class="huaxia huaxia-link"></i> Link</a></li>
+					</ul>
+				</span>				
+				<!-- Repost 
+				<i class="ti-loop mr-10" data-popup="tooltip" title="Repost" data-placement="bottom"></i>-->
+				<!-- Like -->
+				<i class="huaxia huaxia-guanzhu text-medium"></i>
+			</div>	
+		</div>			
+	</div><!-- end .panel -->	
+</div><!-- end .col-xs-10 col-md-7-->

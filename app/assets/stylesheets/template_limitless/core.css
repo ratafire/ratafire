@@ -410,6 +410,9 @@ a.bg-danger:focus {
   font-size:32px;
   line-height:40px;
 }
+.text-medium{
+  font-size: 20px;
+}
 .text-black {
   font-weight: 900;
 }

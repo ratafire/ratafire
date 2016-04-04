@@ -1,8 +1,8 @@
-$("#friends-pagination").append("<div class='added-friends'><%= j render(:partial => 'profile/components/tab_friends', collection: @friends, :as => :user)%></div>");
-refreshUsercard('<%= j @popoverclass %>');
-<% if @friends.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate(@friends, param_name: :friend) %>');
-  $(".pagination").hide();
+$("#friends-pagination").append("<div class='added-friends'><%= j render(:partial => 'profile/components/tab_friends', collection: @contacts, :as => :user)%></div>");
+$('#friend-pagination-old').remove();
+<% if @contacts.next_page %>
+  $('.friends-pagination').append('<%= j will_paginate(@contacts) %>');
 <% else %>
-  $('.pagination').remove();
+  $('.friends-pagination').remove();
 <% end %>	
+refreshUsercard('<%= j @popoverclass %>');

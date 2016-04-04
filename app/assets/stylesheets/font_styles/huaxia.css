@@ -8,10 +8,8 @@
 
 .huaxia {
   font-family:"huaxia" !important;
-  font-size:14px;
   font-style:normal;
   -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
 .huaxia-tanghulu:before { content: "\e600"; }
@@ -63,6 +61,7 @@
 .huaxia-yun:before { content: "\e627"; }
 .huaxia-zhongchou:before { content: "\e66a"; }
 .huaxia-5:before { content: "\e628"; }
+.huaxia-liwu:before { content: "\e676"; }
 .huaxia-wenhuayishu:before { content: "\e629"; }
 .huaxia-shicaida:before { content: "\e62a"; }
 .huaxia-planet:before { content: "\e655"; }
@@ -96,6 +95,7 @@
 .huaxia-fukuanxuanzhong:before { content: "\e65f"; }
 .huaxia-wen:before { content: "\e639"; }
 .huaxia-nmian01:before { content: "\e63a"; }
+.huaxia-libao:before { content: "\e677"; }
 .huaxia-tianhezuotianchong:before { content: "\e63b"; }
 .huaxia-fanchuanzuotianchong:before { content: "\e63c"; }
 .huaxia-qilinzuotianchong:before { content: "\e63d"; }
@@ -104,10 +104,12 @@
 .huaxia-zhuanshuhanyizhuanshufan:before { content: "\e63f"; }
 .huaxia-bagua:before { content: "\e640"; }
 .huaxia-guzhen01:before { content: "\e641"; }
+.huaxia-ny4:before { content: "\e673"; }
 .huaxia-fu01:before { content: "\e642"; }
 .huaxia-xiang:before { content: "\e643"; }
 .huaxia-10icon:before { content: "\e644"; }
 .huaxia-icon8:before { content: "\e645"; }
+.huaxia-shui:before { content: "\e674"; }
 .huaxia-yuanzifuwu:before { content: "\e65a"; }
 .huaxia-chilun2:before { content: "\e660"; }
 .huaxia-shan:before { content: "\e646"; }
@@ -119,6 +121,7 @@
 .huaxia-xiangzaiico-copy:before { content: "\e64b"; }
 .huaxia-zhongchou-copy:before { content: "\e65b"; }
 .huaxia-yuan:before { content: "\e65c"; }
+.huaxia-target:before { content: "\e675"; }
 .huaxia-kongxin17menpiaoguzhen:before { content: "\e64c"; }
 .huaxia-shixin18menpiaoguzhen:before { content: "\e64d"; }
 .huaxia-jucha2:before { content: "\e64e"; }
