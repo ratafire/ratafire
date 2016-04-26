@@ -30,24 +30,6 @@ class Profile::TabsController < ApplicationController
 		@contacts = (@friends + @backers + @backeds).sort_by(&:created_at).reverse.uniq.paginate(:page => params[:page], :per_page => 9)
 	end
 
-	#backers_user_profile_tabs GET
-	#Backers tab
-	#/users/:user_id/profile/tabs/backers
-	def backers
-	end
-
-	#backed_user_profile_tabs GET
-	#Backed tab
-	#/users/:user_id/profile/tabs/backed
-	def backed
-	end
-
-	#subscribed_user_profile_tabs GET
-	#Subscribed tab
-	#/users/:user_id/profile/tabs/subscribed
-	def subscribed
-	end
-
 protected
 
 	def load_user

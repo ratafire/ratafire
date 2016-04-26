@@ -53,9 +53,6 @@ function initiate_link_editor(){
             }
         },
         validClass: "validation-valid-label",
-        success: function(label) {
-            label.addClass("validation-valid-label").text("Success.")
-        },
         rules: {
             'link[url]': {
                 url: true

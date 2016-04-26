@@ -106,3 +106,9 @@
 <%= render 'utilities/editor/initiate_switchery' %>
 <!-- Uploader -->
 <%= render 'utilities/editor/initiate_uploaders' %>
+<!-- Page specific js -->
+<script type="text/javascript">
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+    });	
+</script>

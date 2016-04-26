@@ -11,5 +11,9 @@ function initiate_profile_editor(){
 	    width: '100%',
 	    tags: []
 	});
-
+	// Initialize radio button
+    $(".control").uniform({
+        radioClass: 'choice',
+        wrapperClass: 'border-blue text-blue'
+    });	
 }

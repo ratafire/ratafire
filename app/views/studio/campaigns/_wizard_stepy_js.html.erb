@@ -129,6 +129,9 @@ $(function() {
         }
     }
 
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+    });
 
 
     // Initialize plugins
@@ -137,10 +140,6 @@ $(function() {
     // Apply "Back" and "Next" button styling
     $('.stepy-step').find('.button-next').addClass('btn btn-blue');
     $('.stepy-step').find('.button-back').addClass('btn btn-default');
-
-
-    // Select2 selects
-    $('.select').select2();
 
 
     // Simple select without search
@@ -160,6 +159,17 @@ $(function() {
         wrapperClass: 'bg-warning',
         fileButtonHtml: '<i class="icon-googleplus5"></i>'
     });
+
+    //Submit form
+    $('.button-next').click(function(){
+        //submit form
+        $("#campaign-wizard").trigger('submit.rails');
+    }); 
+    $('.stepy-navigator').prepend(
+                                '<button class=\"btn bg-green\">\
+                            <%= t 'views.utilities.editor.save' %>\
+                        </button>'
+        );    
     
 });
 </script>

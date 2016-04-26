@@ -25,6 +25,8 @@
 		<div class="panel-content">
 			<!-- normal content -->
 			<%= raw(majorpost.content) %>
-		</div><!-- end .panel-content-->			
+		</div><!-- end .panel-content-->	
+		<!-- Tags -->
+		<div class="mt-10 text-thin text-grey-200"><%= majorpost.created_at.strftime('%F') %> <% if majorpost.tags.any? %><%= raw majorpost.tag_list.map { |t| link_to '#'+t, tag_path(t), class:"text-grey-200" }.join('  ') %></div><% end %>
 	</div><!-- end .panel-body -->
 </div>

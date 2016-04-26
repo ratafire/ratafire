@@ -34,7 +34,7 @@ class AudioImage < ActiveRecord::Base
             :thumbnail128 => ["128x128#",:jpg],
             :thumbnail64 => ["64x64#",:jpg], 
         }, 
-        :default_url => lambda { |av| "/assets/default/profilephoto/audio#{av.instance.default_image_number}.jpg" },
+        :default_url => lambda { |av| "/assets/default/audio/audio#{av.instance.default_image_number}_:style.jpg" },
         :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
         :url =>  "/:class/uploads/:id/image/:style/:uuid_audio_image_filename",
         #If s3

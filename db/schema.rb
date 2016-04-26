@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404035803) do
+ActiveRecord::Schema.define(version: 20160425153513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(version: 20160404035803) do
   add_index "activities", ["owner_id", "owner_type"], name: "idx_16401_index_activities_on_owner_id_and_owner_type", using: :btree
   add_index "activities", ["recipient_id", "recipient_type"], name: "idx_16401_index_activities_on_recipient_id_and_recipient_type", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "idx_16401_index_activities_on_trackable_id_and_trackable_type", using: :btree
+
+  create_table "ahoy_events", force: :cascade do |t|
+    t.integer  "visit_id"
+    t.integer  "user_id"
+    t.string   "name"
+    t.json     "properties"
+    t.datetime "time"
+  end
+
+  add_index "ahoy_events", ["name", "time"], name: "index_ahoy_events_on_name_and_time", using: :btree
+  add_index "ahoy_events", ["user_id", "name"], name: "index_ahoy_events_on_user_id_and_name", using: :btree
+  add_index "ahoy_events", ["visit_id", "name"], name: "index_ahoy_events_on_visit_id_and_name", using: :btree
 
   create_table "amazon_recipients", id: :bigserial, force: :cascade do |t|
     t.text     "callerreference"
@@ -332,6 +344,18 @@ ActiveRecord::Schema.define(version: 20160404035803) do
     t.boolean  "published"
     t.datetime "deleted_at"
   end
+
+  create_table "campaign_translations", force: :cascade do |t|
+    t.integer  "campaign_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.string   "description"
+  end
+
+  add_index "campaign_translations", ["campaign_id"], name: "index_campaign_translations_on_campaign_id", using: :btree
+  add_index "campaign_translations", ["locale"], name: "index_campaign_translations_on_locale", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
     t.boolean  "deleted"
@@ -1687,10 +1711,21 @@ ActiveRecord::Schema.define(version: 20160404035803) do
     t.boolean  "skip_countdown",                        default: false
   end
 
+  create_table "reward_translations", force: :cascade do |t|
+    t.integer  "reward_id",   null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.text     "description"
+  end
+
+  add_index "reward_translations", ["locale"], name: "index_reward_translations_on_locale", using: :btree
+  add_index "reward_translations", ["reward_id"], name: "index_reward_translations_on_reward_id", using: :btree
+
   create_table "rewards", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "campaign_id"
-    t.integer  "goal_id"
     t.decimal  "amount",               precision: 10, scale: 2
     t.text     "description"
     t.string   "title"
@@ -1716,6 +1751,13 @@ ActiveRecord::Schema.define(version: 20160404035803) do
     t.boolean  "active"
     t.boolean  "in_stock",                                      default: false
     t.string   "download_url"
+    t.datetime "due"
+    t.decimal  "received",             precision: 10, scale: 2, default: 0.0
+    t.string   "uuid"
+    t.string   "goal_title"
+    t.decimal  "goal",                 precision: 10, scale: 2, default: 0.0
+    t.boolean  "intro"
+    t.string   "currency"
   end
 
   create_table "secrets", id: :bigserial, force: :cascade do |t|
@@ -2264,6 +2306,38 @@ ActiveRecord::Schema.define(version: 20160404035803) do
     t.boolean  "deleted"
     t.datetime "deleted_at"
   end
+
+  create_table "visits", force: :cascade do |t|
+    t.string   "visit_token"
+    t.string   "visitor_token"
+    t.string   "ip"
+    t.text     "user_agent"
+    t.text     "referrer"
+    t.text     "landing_page"
+    t.integer  "user_id"
+    t.string   "referring_domain"
+    t.string   "search_keyword"
+    t.string   "browser"
+    t.string   "os"
+    t.string   "device_type"
+    t.integer  "screen_height"
+    t.integer  "screen_width"
+    t.string   "country"
+    t.string   "region"
+    t.string   "city"
+    t.string   "postal_code"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.string   "utm_source"
+    t.string   "utm_medium"
+    t.string   "utm_term"
+    t.string   "utm_content"
+    t.string   "utm_campaign"
+    t.datetime "started_at"
+  end
+
+  add_index "visits", ["user_id"], name: "index_visits_on_user_id", using: :btree
+  add_index "visits", ["visit_token"], name: "index_visits_on_visit_token", unique: true, using: :btree
 
   create_table "votes", id: :bigserial, force: :cascade do |t|
     t.integer  "votable_id",   limit: 8

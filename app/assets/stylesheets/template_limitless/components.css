@@ -21,13 +21,13 @@
 * ---------------------------------------------------------------------------- */
 .page-container {
   position: relative;
-  padding:20px 20px 40px;
 }
 @media (min-width: 769px) {
   .page-container {
     width: 100%;
     display: table;
     table-layout: fixed;
+    padding:20px 20px 0 20px;
   }
 }
 @-moz-document url-prefix() {
@@ -140,6 +140,13 @@
   bottom: 0;
   left: 0;
 
+}
+.light-footer{
+  position: absolute;
+  bottom: 0px;
+  right:0px;
+  padding: 10px 20px 5px 20px;
+  color:rgba(0,0,0,0.4);
 }
 /* ------------------------------------------------------------------------------
 *
@@ -11389,6 +11396,7 @@ a.plupload_disabled:focus {
   margin-left: 0;
 }
 .dataTables_filter input {
+  margin-left:10px;
   outline: 0;
   width: 200px;
   height: 36px;
@@ -11440,7 +11448,7 @@ a.plupload_disabled:focus {
 .dataTables_paginate .paginate_button.current:hover,
 .dataTables_paginate .paginate_button.current:focus {
   color: #fff;
-  background-color: #455a64;
+  background-color: #36b8df;
 }
 .dataTables_paginate .paginate_button.disabled,
 .dataTables_paginate .paginate_button.disabled:hover,
@@ -11455,7 +11463,7 @@ a.plupload_disabled:focus {
 .paging_simple .paginate_button:hover,
 .paging_simple .paginate_button:focus {
   color: #fff;
-  background-color: #455a64;
+  background-color: #36b8df;
 }
 .dataTables_scroll {
   clear: both;
@@ -13972,6 +13980,9 @@ label.display-block {
 .pt-40{
   padding-top: 40px !important;
 }
+.pr-35{
+  padding-right: 35px !important;
+}
 .pr-40{
   padding-right: 40px !important;
 }
@@ -14162,8 +14173,14 @@ label.display-block {
 .display-none {
   display: none;
 }
+.display-none-important{
+  display: none !important;
+}
 .no-resize {
   resize: none;
+}
+.border-radius-6{
+  border-radius: 6px;
 }
 /* QR Code */
 #majorpost-share-toolbar table {

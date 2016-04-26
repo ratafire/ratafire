@@ -1,13 +1,21 @@
 <!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
 <!-- Page Title -->
 <% provide(:title, @user.preferred_name) %>
-<!-- Page Specific JS -->
-
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 	<!-- Cover area -->
 	<%= render partial:'profile/components/cover', locals: {user: @user} %>
 	<!-- Toolbar -->
-	<%= render partial:'profile/components/toolbar', locals: {user: @user, tab_updates: 'active', tab_contacts: ''}%>
+	<%= render partial:'profile/components/toolbar', locals: {user: @user}%>
 	<!-- Content Area -->
 	<div class="content" >
 		<!-- Pledge Area -->
@@ -38,39 +46,6 @@
 								</div>
 							</div><!-- end #post-pagination-->
 						</div>	
-						<!-- Friends -->
-						<div class="tab-pane fade pl-20" id="friends">
-							<% if @friends %>
-								<div id="friends-pagination">
-									<%= render :partial => 'profile/components/tab_friends', collection: @friends, :as => :user %>
-								</div>
-								<div class="friends-pagination">
-									<%= will_paginate @friends, param_name: :friend %>
-								</div>
-							<% end %>
-						</div>	
-						<!-- Backers -->
-						<div class="tab-pane fade pl-20" id="backers">
-							<% if @backers %>
-								<div id="backers-pagination">
-									<%= render :partial => 'profile/components/tab_friends', collection: @backers, :as => :user %>
-								</div>
-								<div class="backers-pagination">
-									<%= will_paginate @backers, param_name: :backer %>
-								</div>
-							<% end %>
-						</div>	
-						<!-- Backed -->
-						<div class="tab-pane fade pl-20" id="backed">
-							<% if @backeds %>
-								<div id="backeds-pagination">
-									<%= render :partial => 'profile/components/tab_friends', collection: @backeds, :as => :user %>
-								</div>
-								<div class="backeds-pagination">
-									<%= will_paginate @backeds, param_name: :backed %>
-								</div>
-							<% end %>
-						</div>
 					</div><!-- end .tab-content-->	
 				</div><!-- end .tabbable-->				
 			</div>

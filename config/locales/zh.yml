@@ -23,6 +23,7 @@ zh:
   views:
     home:
       home_description: "举个栗子，如果你是个粉，你可以支持你喜欢的大手。如果你是个创作者，你可以找到支持者。火栗是你的免费粉丝聚合。我们同时开通单次和长期众筹，你可以长期支持你喜欢的大手了！"
+      trailer: "造一个升级版的火栗"
       join: ""
       creators_and_fans: "位栗子坐在小火堆旁"
       welcome_home: "欢迎回家, 栗子们！"
@@ -163,7 +164,23 @@ zh:
           current_password_placeholder: "请输入当前密码"
           resend_confirmation_instructions: "重新发送验证邮件"
           resend: "发送验证邮件"
+    creator_studio:
+      menu:
+        creator_studio: "工作室"
+        dashboard: "控制面板"
+        projects: "项目"
+        rewards: "奖励"
+        community: "通讯录"
+        wallet: "钱包"
+        upcoming: "预告"
+        receipts: "收据"
+        how_I_pay: "付款方式"
+        how_I_get_paid: "收款方式"
+        upper_limits: "上限"
     campaign:
+      what_are_you_creating: "你在创作什么？"
+      I_am_creating: "我正在创作"
+      select_a_category: "选择分类"      
       become_an: "成为一个"
       art_creator: "艺术创作者"
       upload_a_video_about_what_you_are_creating: "上传介绍视频"
@@ -182,6 +199,7 @@ zh:
       short_description_help: "有朋自远方来，如何向TA一句话介绍你的项目？"
       sub_category: "小分类"
       sub_category_help: "是本项目的分类。请选择一个小分类。"
+      select_a_sub_category: "请选择一个小分类"
       a_new_field: "新领域"
       concept_art: "概念艺术"
       3D_model: "3D模型"
@@ -196,6 +214,8 @@ zh:
       other: "其它"
       tags: "标签"
       duration: "预计用时"
+      based_country: "所在国家"
+      based_country_placeholder: "选择所在国家"
       number_of_years: "以年计"
       duration_line_1: "火栗用于长期众筹。项目完结后你不会失去支持者。欲在项目完结后继续使用火栗，到时申请开通下一个项目即可。即便有的目标需要100年来实现，它们都能被分为小目标。"
       duration_line_2: "给出的项目预计用时越精确越好。我们将不会采纳一个1年就能完成的6年项目。"
@@ -208,6 +228,17 @@ zh:
       alipay: "支付宝"
       connect_with: "绑定"
       how_will_you_thank_your_backers: "你会怎么感谢支持你的人？"
+      current_goal: "当前目标"
+      current_goal_placeholder: "请输入当前目标"
+      current_goal_help_1: "例：我的直播器材，发布新书的前10章，观察者概念插画系列。"
+      current_goal_help_2: "火栗帮助你将长期项目化为一个个当前目标，每个当前目标是一次小的长期众筹期。当前目标到期不会让你损失长期支持者。"
+      current_goal_help_3: "当前目标到期后，只需设定新当前目标，即可继续寻找支持者。"
+      currency: "货币"
+      current_goal_due: "当前目标截止日期"
+      current_goal_due_help: "你有至多90天来完成当前目标。"
+      reward_title: "众筹奖励名称"
+      reward_title_placeholder: "给当前奖励取个名字"
+      reward_title_help: "当前目标截止时，你要给支持们一个奖励，好感谢他们。"
     utilities:
       menu:
         ratafire: "火栗"
@@ -225,6 +256,7 @@ zh:
         logout: "退出"
         messages: "站短"
         notifications: "系统消息"
+        main: "常用"
         home: "主站"
         about: "关于"
         blog: "博客"
@@ -283,6 +315,7 @@ zh:
         sec: "秒"
         of: "之于"
         copyright: "版权所有"
+        read_all: "阅读全文"
       btn:
         save_changes: "保存"
         sign_up: "注册"
@@ -296,7 +329,7 @@ zh:
         audio: "音频"
         video: "视频"
         book: "写书"
-        title: "输入标题"
+        title: "标题"
         write_something: "写点什么……"
         tags: "#标签"
         uploading_meow: "正在上传……喵"
@@ -329,10 +362,15 @@ zh:
         paste_or_type_a_youtube_or_vimeo_link: "复制黏贴或输入一个油管或Vimeo链接"
         drop_to_upload_thumbnail: "把视频封面图丢框里上传"
         edit: "编辑"
+        select_a_category: "选择分类"
+        start: "开始"
     admin:
       menu:
         competitor: "竞争对手"
+        history: "历史"
         world_history: "世界历史"
+        main: "常用"
+        dashboard: "控制面板"
       culture:
         historical_quotes:
           historical_quote: "古今名句"
@@ -343,3 +381,6 @@ zh:
           source: "来源"
           chapter: "章节"
           category: "类别"
+    form:
+      validate:
+        required: "必填"

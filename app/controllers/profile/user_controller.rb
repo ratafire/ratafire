@@ -14,14 +14,17 @@ class Profile::UserController < ApplicationController
 		@popoverclass = SecureRandom.hex(16)
 		if @user.friends.count > 0
 			@friends = @user.friends.order('created_at asc')
+			@contacts = @friends
 		end
 		if @user.record_subscribers.count > 0
 			@backers = @user.record_subscribers.order('created_at asc')
+			@contacts += @backers
 		end
 		if @user.record_subscribed.count > 0
 			@backeds = @user.record_subscribed.order('created_at asc')
+			@contacts += @backeds
 		end
-		@contacts = (@friends + @backers + @backeds).sort_by(&:created_at).reverse.uniq.paginate(:per_page => 9)
+		@contacts = @contacts.sort_by(&:created_at).reverse.uniq.paginate(:per_page => 9)
 	end
 
 protected

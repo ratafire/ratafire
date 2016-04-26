@@ -7,6 +7,9 @@ class Studio::CampaignsController < ApplicationController
 	before_filter :load_campaign, only:[:art,:update, :campaign_video,:campaign_video_image,:remove_campaign_video]
 	before_filter :load_info, except:[:new, :create, :update,:apply]
 
+	#After filter
+	after_filter :create_reward, only:[:create]
+
 	#REST Methods -----------------------------------
 
 	#new_user_studio_campaigns GET      
@@ -93,6 +96,12 @@ protected
 		@campaign = Campaign.find(params[:campaign_id])
 	end
 
+	def create_reward
+		@campaign.rewards.create(
+			user_id: @campaign.user_id
+			)
+	end
+
 	def redirect_to_application
 		case @campaign.category
 		when "Art"
@@ -126,7 +135,7 @@ protected
 	end
 
 	def campaign_params
-		params.require(:campaign).permit(:user_id, :category, :title, :description, :sub_category, :tag_list, :duration, :ratafirer)
+		params.require(:campaign).permit(:user_id, :category, :title, :description, :sub_category, :tag_list, :country, :duration, :ratafirer)
 	end
 
 	def video_params

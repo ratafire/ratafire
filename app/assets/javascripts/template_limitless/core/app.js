@@ -11,7 +11,7 @@
 
 $(function() {
 
-
+    $(document).on('ready page:load', function() {
     // ========================================
     //
     // Layout
@@ -594,10 +594,10 @@ $(function() {
     // -------------------------
     // Initiate userCard
 
-    $(document).on('ready page:load', function() {
+
         // Initiate refreshable plugins
         initiate_plugins();      
-        profile_user_plugins('<%= @user.id %>');     
+        //profile_user_plugins('<%= @user.id %>');     
         initiate_profilephoto_uploader();
         initiate_profilecover_uploader();
         refreshUsercard('usercard');  

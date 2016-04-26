@@ -1,0 +1,67 @@
+<!-- Rewards -->
+<fieldset title="2">
+	<legend class="text-semibold"><%= t 'views.campaign.rewards' %></legend>
+	<!-- Topic -->
+	<div class="row text-center p-40">
+		<div class="text-giant text-thin"><%= t 'views.campaign.how_will_you_thank_your_backers' %></div>
+		<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(8).quote %>" - <%= HistoricalQuote.find(8).author %></h3>
+	</div>
+	<%= f.fields_for :rewards do |r| %>
+		<!-- Current Goal -->
+		<div class="row">
+			<div class="col-md-3">
+				<div><%= t 'views.campaign.current_goal' %>: <span class="text-danger">*</span></div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<%= r.text_field :goal_title, class:"form-control required", placeholder:t('views.campaign.current_goal_placeholder')%>
+					<span class="help-block">
+						<p><%= t 'views.campaign.current_goal_help_1' %></p>
+						<p><%= t 'views.campaign.current_goal_help_2' %></p>
+						<p><%= t 'views.campaign.current_goal_help_3' %></p>
+					</span>
+				</div>
+			</div>
+		</div>		
+		<!-- Current Goal Time -->
+		<div class="row">
+			<div class="col-md-3">
+				<div><%= t 'views.campaign.current_goal_due' %>: <span class="text-danger">*</span></div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<%= r.text_field :due, class:"form-control daterange required", placeholder:t('views.campaign.current_goal_due')%>
+					<span class="help-block">
+						<%= t 'views.campaign.current_goal_due_help' %>
+					</span>
+				</div>
+			</div>
+		</div>		
+		<!-- Reward Title -->
+		<div class="row">
+			<div class="col-md-3">
+				<div><%= t 'views.campaign.reward_title' %>: <span class="text-danger">*</span></div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<%= r.text_field :title, class:"form-control required", placeholder:t('views.campaign.reward_title_placeholder')%>
+					<span class="help-block">
+						<%= t 'views.campaign.reward_title_help' %>
+					</span>
+				</div>
+			</div>
+		</div>
+	<% end %>
+</fieldset>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<script type="text/javascript">
+	$(window).on('load page:load', function(){
+		//Date Picker
+	    $('.daterange').daterangepicker({ 
+	        singleDatePicker: true,
+	        "startDate": moment().add(30, 'days'),
+	        "minDate": moment().add(10, 'days'),
+	        "maxDate": moment().add(90, 'days'),
+	    });
+	});
+</script>

@@ -1,0 +1,23 @@
+<!-- How you get paid -->
+<div class="row">
+	<div class="col-md-3">
+		<div><%= t 'views.campaign.how_you_get_paid' %>: <span class="text-danger">*</span></div>
+	</div>
+
+	<div class="col-md-9">
+		<div class="row">
+			<!-- Connect with PayPal -->
+			<%= render 'studio/campaigns/wizard_connect_with_paypal' %>
+			<!-- Connect with Alipay -->
+			<%= render 'studio/campaigns/wizard_connect_with_alipay' %>
+		</div>
+		<span class="help-block">
+			<%= render 'studio/campaigns/help_block/how_you_get_paid' %>
+			<% if @user.paypal_account	%>
+				<%= f.text_field :recipient, value:true, id:"field-recipient", class:"required", style:"display:none;" %>
+			<% else %>
+				<%= f.text_field :recipient, id:"field-recipient", class:"required", style:"display:none;" %>
+			<% end %>
+		</span>
+	</div>
+</div>

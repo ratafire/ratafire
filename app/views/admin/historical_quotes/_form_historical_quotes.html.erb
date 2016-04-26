@@ -24,8 +24,8 @@
     </div>
     <!-- Cancel -->
     <%= link_to user_admin_historical_quotes_path(current_user.id) do %>
-        <div class="btn btn-sm btn-success"><%= t 'views.utilities.editor.cancel' %></div>
+        <div class="btn btn-sm bg-green"><%= t 'views.utilities.editor.cancel' %></div>
     <% end %>    
     <!-- Submit -->
-    <%= f.submit t('views.utilities.editor.submit_btn'), class: "btn btn-sm btn-primary", id:"editor-submition" %>
+    <%= f.submit t('views.utilities.editor.submit_btn'), class: "btn btn-sm bg-blue", id:"editor-submition" %>
 <% end %>

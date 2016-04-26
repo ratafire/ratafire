@@ -95,7 +95,12 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.tagline' %>:</label>
 						<div class="col-lg-9">
-							<%= f.text_field :tagline, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.tagline_placeholder'),maxlength:"42"%>
+							<div class="pull-right mr-5 mb-30- text-grey-100"><span id="e" class="display-none"></span></div>
+							<% if I18n.locale == :zh %>
+								<%= f.text_field :tagline, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.tagline_placeholder'),maxlength:"8", id:"tagline", onKeyUp:"tagline_text_count()"%>
+							<% else %>
+								<%= f.text_field :tagline, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.tagline_placeholder'),maxlength:"42", id:"tagline", onKeyUp:"tagline_text_count()"%>
+							<% end %>
 						</div>
 					</div>
 					<!-- Website -->
@@ -123,7 +128,12 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.short_bio' %>:</label>
 						<div class="col-lg-9">
-							<%= f.text_area :bio, class:"form-control mb-20 no-resize", placeholder:t('views.profile.settings.profile_settings.short_bio_placeholder')%>
+							<div class="pull-right mr-5 mb-30- text-grey-100"><span id="h" class="display-none"></span></div>
+							<% if I18n.locale == :zh %>
+								<%= f.text_area :bio, class:"form-control mb-20 no-resize",maxlength:"116",onKeyUp:"bio_textarea_count()", id:"bio", placeholder:t('views.profile.settings.profile_settings.short_bio_placeholder')%>
+							<% else %>
+								<%= f.text_area :bio, class:"form-control mb-20 no-resize",maxlength:"214",onKeyUp:"bio_textarea_count()", id:"bio", placeholder:t('views.profile.settings.profile_settings.short_bio_placeholder')%>
+							<% end %>
 						</div>
 					</div>	
 				</div>
@@ -135,3 +145,42 @@
 		<% end %>
 	</div>
 </div>
+<!-- Page specific js-->
+<script type="text/javascript">
+	//Bio Textarea count
+	function bio_textarea_count()
+	{	<% if I18n.locale == :zh %>
+			var max =116;
+		<% else %>
+			var max =214;
+		<% end %>
+		var text =document.getElementById("bio").value.length;
+		$('#h').show();
+		h.innerHTML=max-text;
+		if(text > 0)
+		{
+			btn=document.getElementById("btn");
+			btn.style.cursor="pointer";
+			btn.style.opacity=1;
+			btn.disabled=false;
+		}
+	}
+	//Tagline count
+	function tagline_text_count()
+	{	<% if I18n.locale == :zh %>
+			var max =8;
+		<% else %>
+			var max =42;
+		<% end %>
+		var text =document.getElementById("tagline").value.length;
+		$('#e').show();
+		e.innerHTML=max-text;
+		if(text > 0)
+		{
+			btn=document.getElementById("btn");
+			btn.style.cursor="pointer";
+			btn.style.opacity=1;
+			btn.disabled=false;
+		}
+	}	
+</script>

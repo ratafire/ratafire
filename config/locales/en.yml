@@ -24,6 +24,7 @@ en:
   views:
     home:
       home_description: "Whether you are a fan supporting your favorite creators, or a creator looking for support, Ratafire is the fan donation site for you, for FREE. We enable both one time and monthly recurring pledges, so that you can be a long term backer of creators."
+      trailer: "Making a much better new version of my current creation"
       join: "Join"
       creators_and_fans: "Creators and Fans"
       welcome_home: "Welcome home, Ratafirer"
@@ -162,7 +163,23 @@ en:
           current_password_placeholder: "We need your current password to confirm your changes"
           resend_confirmation_instructions: "Resend confirmation instructions"
           resend: "Send confirmation instructions"
+    creator_studio:
+      menu:
+        creator_studio: "Creator Studio"
+        dashboard: "Dashboard"
+        projects: "Projects"
+        rewards: "Rewards"
+        contacts: "Contacts"
+        wallet: "Wallet"
+        upcoming: "Upcoming"
+        receipts: "Receipts"
+        how_I_pay: "How I pay"
+        how_I_get_paid: "How I get paid"
+        upper_limits: "Upper Limits"
     campaign:
+      what_are_you_creating: "What are you creating?"
+      I_am_creating: "I am creating"
+      select_a_category: "Select a category"
       become_an: "Become an " 
       art_creator: "Art Creator"
       upload_a_video_about_what_you_are_creating: "Upload a video about what you are creating"
@@ -181,6 +198,7 @@ en:
       short_description_help: "How would you tell your friends about your work in one sentence?"
       sub_category: "Sub category"
       sub_category_help: " is this project's primary category. Please select a sub category to further describe your project."
+      select_a_sub_category: "Select a sub category"
       a_new_field: "A New Field"
       concept_art: "Concept Art"
       3D_model: "3D Model"
@@ -194,6 +212,8 @@ en:
       jewelry_design: "Jewelry Design"
       other: "Other"
       tags: "Tags"
+      based_country: "Based country"
+      based_country_placeholder: "Select based country"
       duration: "Duration"
       number_of_years: "Number of years"
       duration_line_1: "Ratafire is designed for long term fan funding. You will not lose long term backers when a project expires. To continue to use Ratafire after a project expires, simply create another project. Even if your grand goal will take 100 years, it can be divided into smaller cycles."
@@ -207,6 +227,18 @@ en:
       alipay: "Alipay"
       connect_with: "Connect with "
       how_will_you_thank_your_backers: "How will you thank your backers?"
+      current_goal: "Current goal"
+      current_goal_placeholder: "Please enter current goal"
+      current_goal_help_1: "Ex: Funding for my Streaming Equipments, The first 10 Chapters of my Book, The Views Painting Series.  You will not lose long term backers when your current goal expires."
+      current_goal_help_2: "Ratafire helps you break down your long term project into smaller goals. Each current goal is a small funding period."
+      current_goal_help_3: "Simply start another current goal to continue funding after one expires."
+      currency: "Currency"
+      currency_help: "Each currency may require different identification"
+      current_goal_due: "Current goal due"
+      current_goal_due_help: "You have at most 90 days to complete a current goal."
+      reward_title: "Reward title"
+      reward_title_placeholder: "Please enter a title for the reward of this funding period"
+      reward_title_help: "When the current goal is due, you will send out a reward to thank qualified supporters."
     utilities:
       menu:
         ratafire: "Ratafire"
@@ -224,6 +256,7 @@ en:
         logout: "Logout"
         messages: "Messages"
         notifications: "Notifications"
+        main: "Main"
         home: "Home"
         about: "About"
         blog: "Blog"
@@ -282,6 +315,7 @@ en:
         sec: "sec"
         of: "of"
         copyright: "Copyright"
+        read_all: "Read All"
       btn:
         save_changes: "Save Changes"
         sign_up: "Sign up"
@@ -328,10 +362,15 @@ en:
         paste_or_type_a_youtube_or_vimeo_link: "Paste or type a YouTube or Vimeo link"
         drop_to_upload_thumbnail: "Drop to upload thumbnail"
         edit: "Edit"
+        select_a_category: "Select a category"
+        start: "Start"
     admin:
       menu:
         competitor: "Competitor"
+        history: "History"
         world_history: "World History"
+        main: "Main"
+        dashboard: "Dashboard"
       culture:
         historical_quotes:
           historical_quote: "Historical Quote"
@@ -342,5 +381,7 @@ en:
           source: "Source"
           chapter: "Chapter"
           category: "Category"
-
+    form:
+      validate:
+        required: "Required"
 

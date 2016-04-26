@@ -221,8 +221,12 @@
 .navigation > li.active > a,
 .navigation > li.active > a:hover,
 .navigation > li.active > a:focus {
-  background-color: #36b8df;
-  color: #fff;
+  background: url(/assets/editor/rainbow-blur4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
 }
 .navigation > li.active > a > [class*=text-] {
   color: #fff;

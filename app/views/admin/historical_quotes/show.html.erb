@@ -1,31 +1,33 @@
 <!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
 <!-- Page Title -->
 <% provide(:title, @user.preferred_name) %>
-<!-- Page Specific JS -->
-
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+    <%= render 'utilities/sidebar/sidebar_admin'%>
+<% end %>
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
-<div class="hbox hbox-auto-xs hbox-auto-sm">
-    <!-- .col -->
-    <div class="col w-lg bg-light dk b-r bg-auto" id="aside">
-        <div class="wrapper bg b-b">
-          <h3 class="m-n font-thin"><%= t 'views.admin.culture.historical_quotes.historical_quote' %></h3>
-        </div>
-        <div class="wrapper" id="historical-quote-holder-outter">
-            <div id="historical-quote-holder-inner">
-                <%= render partial:'admin/historical_quotes/form_historical_quotes', locals: {user: @user, historical_quote: @historical_quote}%>
+<div class="content">
+    <div class="row">
+        <!-- .col -->
+        <div class="col-md-4 pr-20 pl-20" id="aside">
+            <div class="wrapper bg b-b">
+              <h3 class="m-n font-thin"><%= t 'views.admin.culture.historical_quotes.historical_quote' %></h3>
+            </div>
+            <div class="wrapper" id="historical-quote-holder-outter">
+                <div id="historical-quote-holder-inner">
+                    <%= render partial:'admin/historical_quotes/form_historical_quotes', locals: {user: @user, historical_quote: @historical_quote}%>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- /.col -->
-    <!-- .col -->
-    <div class="col">
-        <div class="wrapper">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <%= t 'views.admin.culture.historical_quotes.historical_quotes' %>
-                </div>
-                <div class="table-responsive">
-                    <table id="historical_quotes" ui-jq="dataTable" class="table table-striped b-t b-b responsive no-wrap" data-source="<%= index_admin_historical_quotes_path(format: "json") %>">
+        <!-- /.col -->
+        <!-- .col -->
+        <div class="col col-md-8">
+            <div class="wrapper">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <%= t 'views.admin.culture.historical_quotes.historical_quotes' %>
+                    </div>
+                    <table id="historical_quotes" class="table datatable-basic responsive no-wrap" data-source="<%= index_admin_historical_quotes_path(format: "json") %>">
                         <thead>
                           <tr>
                             <th  style="width:10%"><%= t 'views.admin.culture.historical_quotes.id' %></th>
@@ -36,24 +38,53 @@
                             <th  style="width:10%"><%= t 'views.utilities.editor.edit' %></th>
                           </tr>
                         </thead>
-                    <tbody>
-                    </tbody>
+                        <tbody>
+                        </tbody>
                     </table>
                 </div>
-            </div>
-        </div><!-- end.wrapper-->
-    <!-- /.col -->            
+            </div><!-- end.wrapper-->
+        <!-- /.col -->            
+        </div>
     </div>
-    <script type="text/javascript">
-        $('#historical_quotes').DataTable({
-            responsive: true,
-            sPaginationType: "full_numbers",
-            "language": {
-                "url": "/translation/dataTable/<%= I18n.locale %>.json"
-            },
-            bProcessing: true,
-            bServerSide: true,
-            sAjaxSource: $('#historical_quotes').data('source')
-        });
-    </script>
-</div>
+</div>    
+<script type="text/javascript">
+
+    // Setting datatable defaults
+    $.extend( $.fn.dataTable.defaults, {
+        autoWidth: false,
+        columnDefs: [{ 
+            orderable: false,
+            width: '100px',
+            targets: [ 5 ]
+        }],
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        language: {
+            search: '<span>Filter:</span> _INPUT_',
+            lengthMenu: '<span>Show:</span> _MENU_',
+            paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+        },
+        drawCallback: function () {
+            $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
+        },
+        preDrawCallback: function() {
+            $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
+        }
+    });
+    $('#historical_quotes').DataTable({
+        responsive: true,
+        sPaginationType: "full_numbers",
+        "language": {
+            "url": "/translation/dataTable/<%= I18n.locale %>.json"
+        },
+        bProcessing: true,
+        bServerSide: true,
+        sAjaxSource: $('#historical_quotes').data('source')
+    });
+    $(window).on('load page:load', function() { 
+        // Enable Select2 select for the length option
+        $('.dataTables_length select').select2({
+            minimumResultsForSearch: Infinity,
+            width: 'auto'
+        });    
+    });
+</script>

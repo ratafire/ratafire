@@ -16,7 +16,7 @@
 		</div><!-- end .page-header-content-->
 	</div><!-- end .page-header-->
 	
-		<div class="row" style="height:2350px;">
+		<div class="row">
 			<div class="col-lg-2">
 			</div>
 			<div class="col-lg-8">
@@ -34,133 +34,10 @@
 					<%= form_for([@campaign], :url=>update_user_studio_campaigns_path(@user.id, @campaign.id), remote: true, html: {class: "stepy-validation", id:"campaign-wizard", action:"#"}) do |f|%>
 	            		<%= f.hidden_field :ratafirer, id:"field-ratafirer" %>
 	            		<!-- Start -->
-						<fieldset title="1" class="pt-0">
-							<legend class="text-semibold"><%= t 'views.campaign.start' %></legend>
-							<!-- Topic -->
-							<div class="row text-center p-40">
-								<div class="text-giant text-thin"><%= t 'views.campaign.what_are_you_creationg' %></div>
-								<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(7).quote %>" - <%= HistoricalQuote.find(7).author %></h3>
-							</div>
-							<!-- Title -->
-							<div class="row">
-								<div class="col-md-3">
-									<div><%= t 'views.campaign.title' %>: <span class="text-danger">*</span></div>
-								</div>
-
-								<div class="col-md-9">
-									<div class="form-group">
-										<%= f.text_field :title, class:"form-control required", placeholder:t('views.campaign.title_placeholder'), maxlength:"50"%>
-										<span class="help-block">
-											<%= render 'studio/campaigns/help_block/title' %>
-										</span>
-									</div>
-								</div>
-							</div>
-
-							<!-- Description -->
-							<div class="row">
-								<div class="col-md-3">
-									<div><%= t 'views.campaign.short_description' %>: <span class="text-danger">*</span></div>
-								</div>
-
-								<div class="col-md-9">
-									<div class="form-group user-textarea">
-										<div class="pull-right mr-5 mb-30- text-grey-100"><span id="h">175</span></div>
-										<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"text",onKeyUp:"get()",maxlength:"175", style:"resize: none;"%>
-										<span class="help-block">
-											<%= render 'studio/campaigns/help_block/short_description' %>
-										</span>
-									</div>
-								</div>
-							</div>
-
-							<!-- Sub Category -->
-							<div class="row">
-								<div class="col-md-3">
-									<div><%= t 'views.campaign.sub_category' %>: <span class="text-danger">*</span></div>
-								</div>
-
-								<div class="col-md-9">
-									<div class="form-group">
-										<%= f.select(:sub_category, [[t('views.campaign.a_new_field'),'A New Field'], [t('views.campaign.concept_art'),'Concept Art'],[t('views.campaign.3D_model'),'3D Models'],[t('views.campaign.drawing'),'Drawing'],[t('views.campaign.painting'),'Painting'],[t('views.campaign.architecture'),'Architecture'],[t('views.campaign.interior_design'),'Interior Design'],[t('views.campaign.photography'),'Photography'],[t('views.campaign.graphic_design'),'Graphic Design'],[t('views.campaign.sculpting'),'Sculpting'],[t('views.campaign.jewelry_design'),'Jewelry Design'],[t('views.campaign.other'),'Other']], {prompt: "Select a sub category"}, { :class => 'simple-select required', :id => 'category-selection' }) %>
-										<span class="help-block">
-											<%= render 'studio/campaigns/help_block/sub_category' %>
-										</span>
-									</div>
-								</div>
-							</div>
-
-							<!-- Tags -->
-							<div class="row">
-								<div class="col-md-3">
-									<div><%= t 'views.campaign.tags' %>: <span class="text-danger">*</span></div>
-								</div>
-
-								<div class="col-md-9">
-									<div class="form-group">
-										<%= f.text_field :tag_list, type:"hidden", placeholder:"#"+t('views.campaign.tags'),class:"editor-tags text-grey-200 text-thin select-xs" %>
-										<span class="help-block">
-										</span>
-									</div>
-								</div>
-							</div>
-
-							<!-- Duration -->
-							<div class="row">
-								<div class="col-md-3">
-									<div><%= t 'views.campaign.duration' %>: <span class="text-danger">*</span></div>
-								</div>
-
-								<div class="col-md-9">
-									<div class="form-group">
-										<div class="input-group">
-											<span class="input-group-addon">
-												<%= t 'views.campaign.number_of_years' %>
-											</span>
-											<%= f.number_field :duration, class:"touchspin-vertical form-control required", min:"1", max:"6"%>
-										</div>
-										<span class="help-block">
-											<%= render 'studio/campaigns/help_block/duration' %>
-										</span>
-									</div>
-								</div>
-							</div>
-
-							<!-- How you get paid -->
-							<div class="row">
-								<div class="col-md-3">
-									<div><%= t 'views.campaign.how_you_get_paid' %>: <span class="text-danger">*</span></div>
-								</div>
-
-								<div class="col-md-9">
-									<div class="row">
-										<!-- Connect with PayPal -->
-										<%= render 'studio/campaigns/wizard_connect_with_paypal' %>
-										<!-- Connect with Alipay -->
-										<%= render 'studio/campaigns/wizard_connect_with_alipay' %>
-									</div>
-									<span class="help-block">
-										<%= render 'studio/campaigns/help_block/how_you_get_paid' %>
-										<% if @user.paypal_account	%>
-											<%= f.text_field :recipient, value:true, id:"field-recipient", class:"required", style:"display:none;" %>
-										<% else %>
-											<%= f.text_field :recipient, id:"field-recipient", class:"required", style:"display:none;" %>
-										<% end %>
-									</span>
-								</div>
-							</div>
-
-						</fieldset>
-
+						<%= render partial: "studio/campaigns/form_start", locals: { f: f } %>
+						
 						<!-- Rewards -->
-						<fieldset title="2">
-							<legend class="text-semibold"><%= t 'views.campaign.rewards' %></legend>
-							<!-- Topic -->
-							<div class="row text-center p-40">
-								<div class="text-giant text-thin"><%= t 'views.campaign.how_will_you_thank_your_backers' %></div>
-								<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(8).quote %>" - <%= HistoricalQuote.find(8).author %></h3>
-							</div>
-						</fieldset>
+						<%= render partial: "studio/campaigns/form_rewards", locals: { f: f } %>
 
 						<!-- Rewards -->
 						<fieldset title="3">
@@ -189,21 +66,8 @@
 initiate_profile_editor();
 //Video js
 initiate_videojs();     
-//Textarea count
-function get()
-{
-	var max =175;
-	var text =document.getElementById("text").value.length;
-	h.innerHTML=max-text;
-	if(text > 0)
-	{
-		btn=document.getElementById("btn");
-		btn.style.cursor="pointer";
-		btn.style.opacity=1;
-		btn.disabled=false;
-	}
-}
-$(document).on('ready turbolinks:render', function(){
+
+$(document).on('load page:load', function(){
 	//Price tag
 	var ratafirer = $('#field-ratafirer').val();
 	if (ratafirer == true){
@@ -211,16 +75,7 @@ $(document).on('ready turbolinks:render', function(){
 	} else {
 		$('#free-price-panel').click();
 	}
-	//Submit form
-	$('.button-next').click(function(){
-		//submit form
-		$("#campaign-wizard").trigger('submit.rails');
-	});	
-	$('.stepy-navigator').prepend(
-								'<button class=\"btn bg-green\">\
-							<%= t 'views.utilities.editor.save' %>\
-						</button>'
-		);
+
 	//Block Alipay
 	$('#alipay-panel').block({message: null,overlayCSS: {
         backgroundColor: '#fff',

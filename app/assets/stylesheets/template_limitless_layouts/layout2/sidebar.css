@@ -9,8 +9,13 @@
  *
  * ---------------------------------------------------------------------------- */
 .sidebar {
-  
+  background-image:url(/assets/sidebar/washington-square-park-blurry.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; 
   color: #fff;
+
   position: relative;
   width: 100%;
   display: none;
@@ -59,11 +64,7 @@
 }
 .sidebar-content {
   position: relative;
-  background-image:url(/assets/sidebar/washington-square-park-blurry.jpg);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; 
+
 }
 .sidebar-all-hidden .sidebar-main,
 .sidebar-all-hidden .sidebar-secondary,

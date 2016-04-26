@@ -56,9 +56,9 @@
 				<!-- Content -->
 				<div class="majorpost_content_hidden_holder">
 					<%= f.text_field :title, class:"form-control input-title form-transparent", placeholder:t('views.utilities.editor.title'), id:"audio-title" %>
-					<%= f.text_field :composer, class:"form-control form-transparent", placeholder:t('views.utilities.editor.composer')%>
-					<%= f.text_field :artist, class:"form-control form-transparent", placeholder:t('views.utilities.editor.artist')%>
-					<%= f.text_field :genre, class:"mb-10 form-control form-transparent", placeholder:t('views.utilities.editor.genre')%>
+					<%= f.text_field :composer, class:"form-control form-transparent", placeholder:t('views.utilities.editor.composer'), id: "audio-composer"%>
+					<%= f.text_field :artist, class:"form-control form-transparent", placeholder:t('views.utilities.editor.artist'), id: "audio-artist"%>
+					<%= f.text_field :genre, class:"mb-10 form-control form-transparent", placeholder:t('views.utilities.editor.genre'), id: "audio-genre"%>
 					<%= f.text_area :content, type:"hidden",class:"medium-editor-textarea editable-textarea form-transparent", data:{placeholder: t('views.utilities.editor.description')},id:"majorpost_content_textarea" %>
 				</div>
 				<div id="editor-text-word-count"></div>											
@@ -93,3 +93,9 @@
 <%= render 'utilities/editor/initiate_switchery' %>
 <!-- Uploader -->
 <%= render 'utilities/editor/initiate_uploaders' %>
+<!-- Page specific js -->
+<script type="text/javascript">
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+    });	
+</script>

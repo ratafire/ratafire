@@ -49,3 +49,9 @@
 <!--  Additional Javascript -->
 <!-- Switchery -->
 <%= render 'utilities/editor/initiate_switchery' %>
+<!-- Page specific js -->
+<script type="text/javascript">
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+    });	
+</script>

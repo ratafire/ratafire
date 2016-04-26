@@ -1,0 +1,153 @@
+<!-- Start -->
+<fieldset title="1" class="pt-0">
+	<legend class="text-semibold"><%= t 'views.campaign.start' %></legend>
+	<!-- Topic -->
+	<div class="row text-center p-40">
+		<div class="text-giant text-thin"><%= t 'views.campaign.what_are_you_creationg' %></div>
+		<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(7).quote %>" - <%= HistoricalQuote.find(7).author %></h3>
+	</div>
+	<!-- Title -->
+	<div class="row">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.title' %>: <span class="text-danger">*</span></div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="form-group">
+				<div class="pull-right mr-5 mb-30- text-grey-100"><span id="e" class="display-none"></span></div>
+				<% if I18n.locale == :zh %>
+					<%= f.text_field :title, class:"form-control required", placeholder:t('views.campaign.title_placeholder'), maxlength:"38",id:"title", onKeyUp:"title_text_count()"%>
+				<% else %>
+					<%= f.text_field :title, class:"form-control required", placeholder:t('views.campaign.title_placeholder'), maxlength:"50",id:"title", onKeyUp:"title_text_count()"%>
+				<% end %>
+				<span class="help-block">
+					<%= render 'studio/campaigns/help_block/title' %>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Description -->
+	<div class="row">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.short_description' %>: <span class="text-danger">*</span></div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="form-group user-textarea">
+				<div class="pull-right mr-5 mb-30- text-grey-100"><span id="h" class="display-none"></span></div>
+				<% if I18n.locale == :zh %>
+					<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"text",onKeyUp:"description_textarea_count()",maxlength:"88", style:"resize: none;"%>
+				<% else %>
+					<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"text",onKeyUp:"description_textarea_count()",maxlength:"175", style:"resize: none;"%>
+				<% end %>
+				<span class="help-block">
+					<%= render 'studio/campaigns/help_block/short_description' %>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Sub Category -->
+	<div class="row">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.sub_category' %>: <span class="text-danger">*</span></div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="form-group">
+				<%= f.select(:sub_category, [[t('views.campaign.a_new_field'),'A New Field'], [t('views.campaign.concept_art'),'Concept Art'],[t('views.campaign.3D_model'),'3D Models'],[t('views.campaign.drawing'),'Drawing'],[t('views.campaign.painting'),'Painting'],[t('views.campaign.architecture'),'Architecture'],[t('views.campaign.interior_design'),'Interior Design'],[t('views.campaign.photography'),'Photography'],[t('views.campaign.graphic_design'),'Graphic Design'],[t('views.campaign.sculpting'),'Sculpting'],[t('views.campaign.jewelry_design'),'Jewelry Design'],[t('views.campaign.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+				<span class="help-block">
+					<%= render 'studio/campaigns/help_block/sub_category' %>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Tags -->
+	<div class="row">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.tags' %>: <span class="text-danger">*</span></div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="form-group">
+				<%= f.text_field :tag_list, type:"hidden", placeholder:"#"+t('views.campaign.tags'),class:"editor-tags text-grey-200 text-thin select-xs select required" %>
+				<span class="help-block">
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Country -->
+	<div class="row">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.based_country' %>: <span class="text-danger">*</span></div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="form-group">
+				<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'),selected: @campaign.country, only: ["AU", "CA", "CN", "DK", "FI", "IE", "NO", "SE", "GB", "US"] }, { class: 'simple-select-search required' }) %>
+			</div>
+		</div>
+	</div>
+	<!-- Duration -->
+	<div class="row">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.duration' %>: <span class="text-danger">*</span></div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<%= t 'views.campaign.number_of_years' %>
+					</span>
+					<%= f.number_field :duration, class:"touchspin-vertical form-control required", min:"1", max:"6"%>
+				</div>
+				<span class="help-block">
+					<%= render 'studio/campaigns/help_block/duration' %>
+				</span>
+			</div>
+		</div>
+	</div>
+
+</fieldset>
+<script type="text/javascript">
+	//Description textarea count
+	function description_textarea_count()
+	{	<% if I18n.locale == :zh %>
+			var max =88;
+		<% else %>
+			var max =175;
+		<% end %>
+		var text =document.getElementById("text").value.length;
+		$('#h').show();
+		h.innerHTML=max-text;
+		if(text > 0)
+		{
+			btn=document.getElementById("btn");
+			btn.style.cursor="pointer";
+			btn.style.opacity=1;
+			btn.disabled=false;
+		}
+	}
+	//Description textarea count
+	function title_text_count()
+	{	<% if I18n.locale == :zh %>
+			var max =38;
+		<% else %>
+			var max =50;
+		<% end %>
+		var text =document.getElementById("text").value.length;
+		$('#e').show();
+		e.innerHTML=max-text;
+		if(text > 0)
+		{
+			btn=document.getElementById("btn");
+			btn.style.cursor="pointer";
+			btn.style.opacity=1;
+			btn.disabled=false;
+		}
+	}	
+</script>

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 			get 'disconnect/:provider', to: 'users#disconnect', as: :disconnect
 			#Admin
 			namespace :admin do
+				resource :dashboard, only:[] do
+					get 'dashboard'
+				end
 				resource :historical_quotes, only:[:show, :create,:destroy] do
 				end
 			end
@@ -37,9 +40,6 @@ Rails.application.routes.draw do
 				#Tabs for profile page
 				resource :tabs, only:[] do
 					get 'friends'
-				#	get 'backers'
-				#	get 'backed'
-				#	get 'subscribed'
 				end
 				#Settings
 				resource :settings, only:[] do
@@ -71,7 +71,7 @@ Rails.application.routes.draw do
 
 	
 
-		devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks",registrations: 'users/registrations' }
+		devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks",registrations: 'users/registrations', sessions: "users/sessions" }
 		#Profile Page
 		get '/:username' => 'profile/user#profile', :as => 'profile_url'
 		#User cards ajax

@@ -5,4 +5,5 @@
 //= require bootstrap.min
 //= require unobtrusive_flash
 //= require s3_direct_upload
+//= require ahoy
 //= require_tree ./template_limitless

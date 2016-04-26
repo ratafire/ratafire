@@ -5,15 +5,11 @@
  		data-setup='{}'>
   		<source src="//s3.amazonaws.com/Ratafire_production_videos/park_space.mp4" type='video/mp4'>
   		<source src="//s3.amazonaws.com/Ratafire_production_videos/park_space.webm" type='video/webm'>
-  		<p class="vjs-no-js">
-    		To view this video please enable JavaScript, and consider upgrading to a web browser
-    		that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-  		</p>
 	</video>
 	<!-- Reload the video after ajax -->
 </div><!-- end .video-holder -->
 <!-- About the Project -->
 <div class="text-size-large mb-40 text-light">
-	<span class="label label-blue"><%= t 'views.utilities.menu.humanity' %></span>
-	We've added a whole new section, called Items of the Second Era, into the People & Societies tab. It's a breakdown of over 2,200 items and their descriptions. 
+	<span class="label label-blue"><%= t 'views.utilities.menu.art' %></span>
+	<%= user.campaigns.first.description %>
 </div>	

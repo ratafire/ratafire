@@ -1,125 +1,50 @@
-<!-- aside -->
-<aside id="aside" class="app-aside hidden-xs">
-    <div class="aside-wrap">
-      <div class="navi-wrap">
-        <!-- user -->
-        <div class="clearfix hidden-xs text-center" id="aside-user">
-          <div class="dropdown wrapper">
-            <a href="app.page.profile">
-              <span class="thumb-lg w-auto-folded avatar m-t-sm">
-                <img src="<%= current_user.profilephoto.image.url(:thumbnail128)%>" class="img-full" alt="...">
-              </span>
-            </a>
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
-              <span class="clear">
-                <span class="block m-t-sm">
-                  <strong class="font-bold text-lt"><%= @user.preferred_name %></strong> 
-                  <b class="caret"></b>
-                </span>
-                <span class="text-muted text-xs block"><%= @user.job_title %></span>
-              </span>
-            </a>
-            <!-- dropdown -->
-            <ul class="dropdown-menu animated fadeInRight w hidden-folded">
-                <li class="wrapper b-b m-b-sm bg-info m-t-n-xs">
-                    <span class="arrow top hidden-folded arrow-info"></span>
-                    <div>
-                      <p><%= @user.job_title %><span class="badge bg-primary pull-right">3</span></p>
+<div class="sidebar sidebar-main sidebar-fixed" id="sidebar-content">
+    <div class="sidebar-content">
+        <!-- Main navigation -->
+        <div class="sidebar-category sidebar-category-visible">
+            <!-- Sidebar content with padding -->
+            <div class="category-content sidebar-hide-toggle no-padding-bottom">
+                <!-- User menu -->
+                <div class="sidebar-user">
+                    <div class="category-content">
+                        <div class="media">
+                            <a class="media-left"><img src="<%= current_user.profilephoto.image.url(:thumbnail64)%>" class="border-radius-6" alt=""></a>
+                            <div class="media-body">
+                                <span class="media-heading text-semibold"><% if I18n.locale == :zh %><%= current_user.lastname %><%= current_user.firstname%><% else %><%= current_user.firstname %> <%= current_user.lastname%><% end %></span>
+                                <div class="text-size-mini text-muted"><%= current_user.job_title %>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="progress progress-xs m-b-none dker">
-                      <div class="progress-bar bg-white" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
-                    </div>
-                </li>
-                <li>
-                    <%= link_to profile_url_path(current_user.username) do %>
-                        <i class="icon-profile mr-10"></i><%= t 'views.utilities.menu.my_ratafire' %>
-                    <% end %>
-                </li>
-                <li>
-                    <%= link_to dashboard_user_studio_creator_studio_path(current_user.username) do %>
-                        <i class="icon-magic-wand mr-10"></i> <span class="btn btn-info btn-sm"><%= t 'views.utilities.menu.creator_studio' %></span>
-                    <% end %>
-                </li>
-                <li class="divider"></li>                       
-                <li>
-                    <%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
-                        <i class="icon-cog mr-10"></i><%= t 'views.utilities.menu.profile_settings' %>
-                    <% end %>
-                </li>
-                <li>
-                    <%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
-                        <i class="icon-credit-card mr-10"></i><%= t 'views.utilities.menu.payment_settings' %>
-                    <% end %>
-                </li>                   
-                <% if current_user.try(:admin) %>   
-                    <li class="divider"></li>                       
+                </div>
+                <!-- /user menu -->   
+            </div><!-- end .category-content -->    
+            <!-- Sidebar content no padding-->
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-main navigation-accordion">
+                    <!-- Main -->
+                    <li class="navigation-header"><span><%= t 'views.admin.menu.main' %></span> <i class="icon-menu" title="Main pages"></i></li>
+                    <li id="dashboards-dashboard-sidebaractive"><%= link_to dashboard_user_admin_dashboard_path(current_user.id) do %><i class="icon-newspaper"></i> <span><%= t 'views.admin.menu.dashboard' %></span><% end %></li>
+                    <!-- Competitor -->
+                    <li class="navigation-header"><span><%= t 'views.admin.menu.competitor' %></span> <i class="icon-menu" title="Main pages"></i></li>
                     <li>
-                        <%= link_to user_admin_historical_quotes_path(current_user.id) do %>
-                            <i class="icon-cog mr-10"></i>Admin
-                        <% end %>
+                        <a><i class="huaxia huaxia-lishi"></i> <span><%= t 'views.admin.menu.history' %></span></a>
+                        <ul>
+                            <li id="historical_quotes-show-sidebaractive"><%= link_to user_admin_historical_quotes_path(current_user.id) do %><span><%= t 'views.admin.culture.historical_quotes.historical_quotes' %></span><% end %></li>
+                        </ul>
                     </li>
-                <% end %>
-                <li class="divider"></li>
-                <li><%= link_to destroy_user_session_path, :method => :delete do %><i class="icon-switch mr-10"></i> <%= t 'views.utilities.menu.logout' %><% end %></li>
-            </ul>
-            <!-- / dropdown -->
-          </div>
-          <div class="line dk hidden-folded"></div>
+                </ul>
+            </div><!-- end .category-content-->         
         </div>
-        <!-- / user -->
-
-        <!-- nav -->
-        <nav ui-nav class="navi clearfix">
-          <ul class="nav">
-            <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-              <span><%= t 'views.admin.menu.competitor' %></span>
-            </li>
-            <li>
-              <a href class="auto">      
-                <span class="pull-right text-muted">
-                  <i class="fa fa-fw fa-angle-right text"></i>
-                  <i class="fa fa-fw fa-angle-down text-active"></i>
-                </span>
-                <i class="huaxia huaxia-lishi"></i>
-                <span><%= t 'views.admin.menu.world_history' %></span>
-              </a>
-              <ul class="nav nav-sub dk">
-                <li class="nav-sub-header">
-                  <a href>
-                    <span>Layout</span>
-                  </a>
-                </li>
-                <li>
-                  <%= link_to user_admin_historical_quotes_path(current_user.id) do %>
-                    <span><%= t 'views.admin.culture.historical_quotes.historical_quotes' %></span>
-                  <% end %>
-                </li>    
-              </ul>
-            </li>
-          </ul>
-        </nav>
-        <!-- nav -->
-
-        <!-- aside footer -->
-        <div class="wrapper m-t">
-          <div class="text-center-folded">
-            <span class="pull-right pull-none-folded">60%</span>
-            <span class="hidden-folded">Milestone</span>
-          </div>
-          <div class="progress progress-xxs m-t-sm dk">
-            <div class="progress-bar progress-bar-info" style="width: 60%;">
-            </div>
-          </div>
-          <div class="text-center-folded">
-            <span class="pull-right pull-none-folded">35%</span>
-            <span class="hidden-folded">Release</span>
-          </div>
-          <div class="progress progress-xxs m-t-sm dk">
-            <div class="progress-bar progress-bar-primary" style="width: 35%;">
-            </div>
-          </div>
-        </div>
-        <!-- / aside footer -->
-      </div>
+        <!-- /main navigation -->
+        <!-- Collapsing Sidebar Content -->
+        <div class="sidebar-hide-toggle">
+            <!-- Footer-->
+            <%= render 'utilities/footer/sidebar_footer' %> 
+        </div><!-- end .sidebar-hide-toggle --> 
     </div>
-</aside>
+</div>
+<script type="text/javascript">
+    //Add active to specific sidebar selection
+    $('#<%= controller_name %>-<%= action_name %>-sidebaractive').addClass('active');
+</script>

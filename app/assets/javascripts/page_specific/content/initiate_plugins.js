@@ -36,4 +36,6 @@ function initiate_plugins(random_id){
     $('.open-popup-link').magnificPopup({type:'inline'});  
     // Sticky
     $("#sticker").sticky({topSpacing:0}); 
+    // Resize sidebar to window height
+    $('#sidebar-content').height($( window ).height());
 }

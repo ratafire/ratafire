@@ -1,7 +1,7 @@
 function initiate_audio_editor(){
-	//Unblock submit
-	$('#audio-title').donetyping(function(){
-  		if ($('#audio-title').val().length > 3){
+	//Unblock submit 
+	$('#audio-title, #audio-composer, #audio-artist, #audio-genre').on('keyup',function(){
+  		if ($('#audio-title').val().length > 0 && $('#audio-composer').val().length > 0 && $('#audio-artist').val().length > 0 && $('#audio-genre').val().length > 0){
   			$('#editor-submition-block').unblock();
   		} else {
     		var data = $('#editor-submition-block').data();
@@ -63,11 +63,11 @@ function initiate_audio_editor(){
             }
         },
         validClass: "validation-valid-label",
-        success: function(label) {
-            label.addClass("validation-valid-label").text("Success.")
-        },
         rules: {
             'majorpost[title]': "required",
+            'majorpost[composer]':'required',
+            'majorpost[artist]':'required',
+            'majorpost[genre]':'required',
         },
         messages: {
             custom: {

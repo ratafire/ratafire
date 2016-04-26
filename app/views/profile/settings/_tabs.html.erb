@@ -1,8 +1,11 @@
 <!-- Nav tabs-->
 <ul class="nav nav-tabs nav-tabs-bottom">
-	<li class="<%= @profile_settings_active_tag %>"><%= link_to t('views.profile.settings.menu.profile'),profile_settings_user_profile_settings_path(@user.username) %></li>
-	<li><a data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="bottom" ><%= t 'views.profile.settings.menu.security_&_privacy' %></a></li>
-	<li><a data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="bottom" ><%= t 'views.profile.settings.menu.email_notifications' %></a></li>
-	<li class="<%= @language_settings_active_tag %>"><%= link_to t('views.profile.settings.menu.language'),language_settings_user_profile_settings_path(@user.username) %></li>
-	<li class="<%= @account_settings_active_tag %>"><%= link_to t('views.profile.settings.menu.account'),account_settings_user_profile_settings_path(@user.username) %></li>
+	<li id="settings-profile_settings-settingstabactive"><%= link_to t('views.profile.settings.menu.profile'),profile_settings_user_profile_settings_path(@user.username) %></li>
+	<li id="settings-privacy_settings-settingstabactive"><a data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="bottom" ><%= t 'views.profile.settings.menu.security_&_privacy' %></a></li>
+	<li id="settings-language_settings-settingstabactive"><%= link_to t('views.profile.settings.menu.language'),language_settings_user_profile_settings_path(@user.username) %></li>
+	<li id='settings-account_settings-settingstabactive'><%= link_to t('views.profile.settings.menu.account'),account_settings_user_profile_settings_path(@user.username) %></li>
 </ul><!-- end .nav-->
+<script type="text/javascript">
+    //Add active to specific sidebar selection
+    $('#<%= controller_name %>-<%= action_name %>-settingstabactive').addClass('active');
+</script>

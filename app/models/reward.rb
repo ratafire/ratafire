@@ -9,6 +9,10 @@ class Reward < ActiveRecord::Base
     belongs_to :user  
     belongs_to :campaign  
 
+    #----------------Translation----------------
+
+    translates :title, :description
+
 private
 
     def generate_uuid!

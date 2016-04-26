@@ -16,6 +16,14 @@ class Campaign < ActiveRecord::Base
     has_one :artwork, class_name:"Artwork", dependent: :destroy
     has_one :video, class_name:"Video",dependent: :destroy
 
+    #Has many
+    has_many :rewards, class_name: "Reward", dependent: :destroy
+    accepts_nested_attributes_for :rewards
+
+    #----------------Translation----------------
+
+    translates :title, :description
+
     #----------------Validations----------------
 
     #Basic info

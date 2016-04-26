@@ -120,12 +120,12 @@
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>
 							<%= link_to profile_url_path(current_user.username) do %>
-								<i class="icon-profile"></i><%= t 'views.utilities.menu.my_ratafire' %>
+								<i class="huaxia huaxia-apppai"></i><%= t 'views.utilities.menu.my_ratafire' %>
 							<% end %>
 						</li>
 						<li>
 							<%= link_to dashboard_user_studio_creator_studio_path(current_user.username) do %>
-								<i class="icon-magic-wand"></i> <span class="btn btn-blue btn-xs"><%= t 'views.utilities.menu.creator_studio' %></span>
+								<i class="huaxia huaxia-yu"></i> <span class="btn btn-blue btn-xs"><%= t 'views.utilities.menu.creator_studio' %></span>
 							<% end %>
 						</li>
 						<li class="divider"></li>						
@@ -137,7 +137,7 @@
 						<% if current_user.try(:admin) %>	
 							<li class="divider"></li>						
 							<li>
-								<%= link_to user_admin_historical_quotes_path(current_user.id) do %>
+								<%= link_to dashboard_user_admin_dashboard_path(current_user.id) do %>
 									<i class="huaxia huaxia-tilong"></i><%= t 'views.utilities.menu.villa_draco' %>
 								<% end %>
 							</li>

@@ -120,6 +120,8 @@ gem 'rails-html-sanitizer'
 gem 'impressionist'
 #Mark read objects
 gem 'unread'
+#Traffic source
+gem 'ahoy_matey'
 
 #------------Share------------
 #QRCode

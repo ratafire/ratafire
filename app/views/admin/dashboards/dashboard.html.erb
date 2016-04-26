@@ -1,0 +1,7 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+    <%= render 'utilities/sidebar/sidebar_admin'%>
+<% end %>

@@ -1,6 +1,6 @@
 class Admin::HistoricalQuotesController < ApplicationController
 
-	layout 'admin'
+	layout 'profile'
 
 	protect_from_forgery :except => [:create]
 
