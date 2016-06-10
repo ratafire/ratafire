@@ -1,0 +1,10 @@
+<div id="application-image-preview" class="mb-20">
+	<div class="insert_image" id="application-image-preview">
+		<%= link_to remove_campaign_image_user_studio_campaigns_path(user.id, campaign.id), remote: true, method: :delete do %>
+			<div class="medium-editor-toolbar-remove mr-5 mt-5">
+				<span class="ti-close"></span>
+			</div>
+		<% end %>	
+		<img src="<%= campaign.image.url(:preview800) %>" style="width:100%;">
+	</div>
+</div>

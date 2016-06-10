@@ -23,6 +23,10 @@ gem 'omniauth-paypal', :git => "git://github.com/ratafire/omniauth-paypal"
 gem 'open_uri_redirections' #To get Facebook image
 gem "koala", "~> 2.0" #To get Facebook realtime update
 
+#Identity Verification
+gem 'identified'
+gem 'zip-codes'
+
 #------------------------ Main ------------------------
 # Database
 gem 'pg'
@@ -75,6 +79,8 @@ gem 'friendly_id'
 gem 'best_in_place', '~> 3.0.1'
 #Validation
 gem 'formvalidation-rails'
+#Nested form
+gem "nested_form", :path => "vendor/gems/nested_form"
 
 #------------File Upload System------------
 #Amazon S3
@@ -88,6 +94,7 @@ gem 'delayed_paperclip', :git => "git://github.com/jrgifford/delayed_paperclip.g
 gem 'mini_magick','3.7.0' #important
 gem 'jquery-fileupload-rails', :path => "vendor/gems/jquery-fileupload-rails-master"
 gem 'paperclip-ghostscript' #pdf
+
 
 #Ajax File upload
 
@@ -170,6 +177,8 @@ gem 'paypal-sdk-rest'
 gem 'paypal-sdk-merchant'
 gem 'paypal-express', :git => 'https://github.com/ratafire/paypal-express'
 
+#Encryption
+gem "attr_encrypted"
 
 #------------------------ Admin ------------------------
 

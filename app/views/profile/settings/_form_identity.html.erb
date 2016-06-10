@@ -1,0 +1,258 @@
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin">
+		<h4 class="panel-title"><%= t 'views.profile.settings.menu.identity_verification' %></h4>
+		<span><%= t 'views.profile.settings.identity_verification.identity_verification_tagline' %></span>
+	</div>
+	<div class="panel-body" id="identity-verification-panel-body">
+		<div class="error-messages"></div>
+		<%= form_for(@identity_verification, url: user_profile_identity_verifications_path(@user.id, @identity_verification),:html =>{:id => 'identity-verification-form'}, name:"identity-verification-form") do |f| %>
+			<!-- Edit email-->
+			<fieldset>
+				<legend class="text-semibold">
+					<i class="ti-user position-left"></i>
+					<%= t 'views.profile.settings.identity_verification.basic_info' %>
+					<!--<a class="control-arrow mb-20" data-toggle="collapse" data-target="#demo1">
+						<i class="icon-circle-down2"></i>
+					</a>-->
+				</legend>
+				<div class="collapse in" id="demo1">
+					<% if I18n.locale == :zh %>
+						<!-- Last Name -->
+						<div class="row mb-20">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.last_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.text_field :last_name, autocomplete: "off",class:"form-control", placeholder:t('views.profile.settings.identity_verification.last_name_placeholder')%>
+							</div>
+						</div>
+						<!-- First Name -->
+						<div class="row mb-20">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.first_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.text_field :first_name, autocomplete: "off", class:"form-control", placeholder:t('views.profile.settings.identity_verification.first_name_placeholder')%>
+							</div>
+						</div>
+					<% else %>
+						<!-- First Name -->
+						<div class="row mb-20">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.first_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.text_field :first_name, autocomplete: "off", class:"form-control", placeholder:t('views.profile.settings.identity_verification.first_name_placeholder'), :maxlength => "50"%>
+							</div>
+						</div>
+						<!-- Last Name -->
+						<div class="row mb-20">
+							<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.last_name' %>:</label>
+							<div class="col-lg-9">
+								<%= f.text_field :last_name, autocomplete: "off",class:"form-control", placeholder:t('views.profile.settings.identity_verification.last_name_placeholder'), :maxlength => "50"%>
+							</div>
+						</div>
+					<% end %>
+					<!-- Birthday -->
+					<div class="row mb-20">
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.birthday' %>:</label>
+						<div class="col-lg-9">
+							<%= f.text_field :birthday, type:"date",class:"form-control" %>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend class="text-semibold">
+					<i class="ti-user position-left"></i>
+					<%= t 'views.profile.settings.identity_verification.verification_document' %>
+				</legend>
+				<div class="collapse in" id="demo2">
+					<!-- Country -->
+					<div class="row mb-20">
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.country' %>:</label>
+						<div class="col-lg-9">
+							<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'),selected: @identity_verification.country, only: ["AU", "CA","DK", "FI", "IE", "NO", "SE", "GB", "US"] }, { class: 'simple-select-search required', id: 'verification-country-select' }) %>
+						</div>
+					</div>	
+					<!-- SSN -->
+					<div class="row mb-20 display-none" id="ssn-holder">
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.ssn' %>:</label>
+						<div class="col-lg-9">
+							<%= f.text_field :ssn, type:"number",class:"form-control", :maxlength => "9", id:"ssn-input" %>
+						</div>
+					</div>
+					<!-- Verification Type -->
+					<div class="row mb-20 display-none" id="verification-type-holder">
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.verification_type' %>:</label>
+						<div class="col-lg-9">
+							<%= f.select(:verification_type, [[t('views.profile.settings.identity_verification.id_card'),'id_card'], [t('views.profile.settings.identity_verification.passport'),'passport']], {selected: 'id_card'}, { :class => 'simple-select', :id => 'verification-type-selection' }) %>
+						</div>
+					</div>
+					<!-- Id card number -->
+					<div class="row mb-20 display-none" id="id-card-holder">
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.id_card_number' %>:</label>
+						<div class="col-lg-9">
+							<%= f.text_field :id_card,class:"form-control", id:"id-card-input" %>
+						</div>
+					</div>
+					<!-- Passport number -->
+					<div class="row mb-20 display-none" id="passport-holder">
+						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.passport_number' %>:</label>
+						<div class="col-lg-9">
+							<%= f.text_field :passport,class:"form-control", id:"passport-input" %>
+						</div>
+					</div>
+					<!-- Upload Id card -->
+					<div class="row mb-20 display-none" id="upload-id-card-holder">
+						<label class="col-lg-3 control-label" id="upload-label"><%= t 'views.profile.settings.identity_verification.upload_id_card_image' %>:</label>
+						<div class="col-lg-9">
+							<%= f.file_field :identity_document,class:"mt-20 file-styled", id:"identity-document-input" %>
+						</div>
+					</div>
+				</div>		
+			</fieldset>
+
+			<div class="text-right">
+				<%= f.submit I18n.t('views.profile.settings.identity_verification.verify_identity'), class: "btn btn-blue", id:"identity-verification-submit" %>
+			</div>
+		<% end %>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).on('ready page:load', function(){
+		//Styled file upload
+		$(".file-styled").uniform({
+			fileButtonClass: 'action btn bg-blue',
+			fileDefaultHtml: '<%= t 'views.form.uniform.no_file_selected' %>',
+			fileButtonHtml: '<%= t 'views.form.uniform.choose_file' %>'
+		});
+		//Country selector
+		$('#verification-country-select').on('change', function(){
+			if (this.value == 'US'){
+				$('#verification-type-holder').hide();
+				$('#id-card-holder').hide();
+				$('#upload-id-card-holder').hide();
+				$('#verification-type-selection').val('ssn');
+				$('#ssn-holder').show();
+				$('#ssn-input').addClass('required');
+				$('#id-card-input').removeClass('required');
+				$('#passport-input').removeClass('required');
+				$('#identity-document-input').removeClass('required');
+			} else {
+				if (this.value == '' ){
+					$('#verification-type-holder').hide();
+					$('#id-card-holder').hide();
+					$('#upload-id-card-holder').hide();
+					$('#verification-type-selection').val('id_card');
+					$('#ssn-holder').hide();
+					$('#ssn-input').removeClass('required');
+					$('#id-card-input').removeClass('required');
+					$('#passport-input').removeClass('required');
+					$('#identity-document-input').removeClass('required');
+				} else {
+					$('#verification-type-holder').show();
+					$('#id-card-holder').show();
+					$('#upload-id-card-holder').show();
+					$('#verification-type-selection').val('id_card');
+					$('#ssn-holder').hide();
+					$('#ssn-input').removeClass('required');
+					$('#id-card-input').addClass('required');
+					$('#passport-input').removeClass('required');
+					$('#identity-document-input').addClass('required');
+				}
+			}
+		});
+		//Type selector
+		$('#verification-type-holder').on('change', function(){
+			if (this.value == 'id_card'){
+				$('#id-card-holder').show();
+				$('#upload-label').html('<%= t 'views.profile.settings.identity_verification.upload_id_card_image' %>');
+				$('#ssn-input').removeClass('required');
+				$('#id-card-input').addClass('required');
+				$('#passport-input').removeClass('required');
+				$('#identity-document-input').addClass('required');
+			} else {
+				$('#id-card-holder').show();
+				$('#upload-label').html('<%= t 'views.profile.settings.identity_verification.upload_passport_image' %>');
+				$('#ssn-input').removeClass('required');
+				$('#id-card-input').removeClass('required');
+				$('#passport-input').addClass('required');
+				$('#identity-document-input').addClass('required');
+			}
+		});
+		//Validate
+	    var validator = $("#identity-verification-form").validate({
+	        ignore: 'input[type=hidden], .select2-input', // ignore hidden fields
+	        errorClass: 'validation-error-label',
+	        successClass: 'validation-valid-label',
+		    submitHandler: function(){
+		        $('#identity-verification-panel-body').block({
+		            message: '<i class="icon-spinner2 spinner text-blue"></i>',
+		            overlayCSS: {
+		            	backgroundColor: '#fff',
+		                opacity: 0.4,
+		                cursor: 'wait'
+		            },
+		            css: {
+		                border: 0,
+		                padding: 0,
+		                backgroundColor: 'transparent'
+		            }
+		        }); 
+		        $('#identity-verification-form').trigger('submit.rails');
+		    },        
+	        highlight: function(element, errorClass) {
+	            $(element).removeClass(errorClass);
+	        },
+	        unhighlight: function(element, errorClass) {
+	            $(element).removeClass(errorClass);
+	        },
+
+	        // Different components require proper error label placement
+	        errorPlacement: function(error, element) {
+
+	            // Styled checkboxes, radios, bootstrap switch
+	            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+	                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+	                    error.appendTo( element.parent().parent().parent().parent() );
+	                }
+	                 else {
+	                    error.appendTo( element.parent().parent().parent().parent().parent() );
+	                }
+	            }
+
+	            // Unstyled checkboxes, radios
+	            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+	                error.appendTo( element.parent().parent().parent() );
+	            }
+
+	            // Input with icons
+	            else if (element.parents('div').hasClass('has-feedback')) {
+	                error.appendTo( element.parent() );
+	            }
+
+	            // Inline checkboxes, radios
+	            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+	                error.appendTo( element.parent().parent() );
+	            }
+
+	            // Input group, styled file input
+	            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+	                error.appendTo( element.parent().parent() );
+	            }
+	            else {
+	                error.insertAfter(element);
+	            }
+	        },
+	        validClass: "validation-valid-label",
+	        rules: {
+	            'identity_verification[first_name]': "required",
+	            'identity_verification[last_name]':'required',
+	            'identity_verification[birthday]': {
+	            	required: true,
+	            	date: true,
+	            },
+	            'majorpost[genre]':'required',
+	        }
+	    });	
+	    jQuery.extend(jQuery.validator.messages, {
+	        required: '<%= t 'views.form.validate.required' %>',
+	    });
+	});
+</script>

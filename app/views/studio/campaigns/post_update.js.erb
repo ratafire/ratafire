@@ -1,0 +1,6 @@
+//refresh image
+<% if @campaign.image.present? %>
+	$('#application-image-holder').remove();
+	$('#application-image-preview').remove();
+	$('#application-image').prepend("<%= j render(:partial => 'studio/campaigns/wizard_image_preview', :locals => {:image => @campaign.image, :campaign_id => @campaign.id, :user_id => @campaign.user_id}) %>");
+<% end %>

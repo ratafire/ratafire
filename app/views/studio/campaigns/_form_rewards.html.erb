@@ -51,17 +51,216 @@
 				</div>
 			</div>
 		</div>
+		<!-- Reward Amount -->
+		<div class="row">
+			<div class="col-md-3">
+				<div><%= t 'views.campaign.pledge_amount' %>: <span class="text-danger">*</span></div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<div class="input-group">
+						<%= r.number_field :amount, class:"touchspin-reward-amount form-control required", min:"1", max:"200"%>
+					</div>
+					<span class="help-block">
+						<%= t 'views.campaign.pledge_amount_help' %>
+					</span>
+				</div>
+			</div>
+		</div>	
+		<!-- Description -->
+		<div class="row">
+			<div class="col-md-3">
+				<div><%= t 'views.campaign.reward_description' %>: <span class="text-danger">*</span></div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group user-textarea">
+					<div class="pull-right mr-5 mb-30- text-grey-100"><span id="c"></span></div>
+					<% if I18n.locale == :zh %>
+						<%= r.text_area :description, class:"form-control required", placeholder:t('views.campaign.reward_description_placeholder'), id:"reward_text",onKeyUp:"reward_description_textarea_count()",maxlength:"88", style:"resize: none;"%>
+					<% else %>
+						<%= r.text_area :description, class:"form-control required", placeholder:t('views.campaign.reward_description_placeholder'), id:"reward_text",onKeyUp:"reward_description_textarea_count()",maxlength:"175", style:"resize: none;"%>
+					<% end %>
+				</div>
+			</div>
+		</div>	
+		<!-- Shipping -->
+		<div class="row">
+			<div class="col-md-3">
+				<div><%= t 'views.campaign.shipping' %>: <span class="text-danger">*</span></div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<%= r.select(:shipping, [[t('views.campaign.no_shipping_involved'),'no'], [t('views.campaign.only_ships_to_certain_countries'),'some'],[t('views.campaign.ships_anywhere_in_the_world'),'anywhere']], {prompt: t('views.campaign.shipping_placeholder')}, { :class => 'simple-select required', :id => 'shipping-select' }) %>
+					<!-- Shipping countries -->
+					<div class="display-none" id="shipping-countries">
+						<div class="bifrost-fields-majorpost pt-20"></div>
+						<%= r.fields_for :shippings do |s| %>					
+							<div class="majorpost-user-inspirer-holder pb-20">
+								<div class="row">
+									<div class="form-group">
+										<div class="control-label col-lg-4 no-padding pl-10" >
+											<%= s.country_select(:country, { include_blank: t('views.campaign.add_country'), except: ['AN'] }, { class: 'form-control required' }) %>
+										</div>
+										<div class="col-lg-8 pl-5">
+											<div class="input-group">
+												<span class="input-group-addon"><%= currency_signs(@campaign.currency) %></span>
+												<%= s.text_field :amount, class:"form-control", placeholder:"0" %>
+												<div class="input-group-btn">
+													<%= s.link_to_remove do %>
+														<div class="btn bg-rainbow">
+															<i class="ti-close"></i>
+														</div>
+													<% end %>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						<% end %>
+						<!-- Shipping anywhere -->
+						<%= r.fields_for :shipping_anywhere do |sa| %>					
+							<div class="majorpost-user-inspirer-holder pb-20">
+								<div class="row">
+									<div class="form-group">
+										<div class="control-label col-lg-4 no-padding pl-10" >
+											<div class="btn-group-justified">
+												<div class="btn-group">
+													<li class="btn btn-default"><%= t 'views.campaign.anywhere'%></li>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-8 pl-5">
+											<div class="input-group">
+												<span class="input-group-addon"><%= currency_signs(@campaign.currency) %></span>
+												<%= sa.text_field :amount, class:"form-control", placeholder:"0" %>
+												<%= sa.link_to_remove do %>
+													<div class="display-none remove_shipping_anywhere" >
+													</div>
+												<% end %>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						<% end %>
+						<%= r.link_to_add :shippings, :data => {:target => ".bifrost-fields-majorpost"} do %>
+							<div class="btn bg-rainbow" id="add_country_btn">
+								<%= t 'views.campaign.add_country'%>
+							</div>
+						<% end %>
+						<%= r.link_to_add :shipping_anywhere, :data => {:target => ".bifrost-fields-majorpost"} do %>
+							<div class="display-none" id="add_anywhere_btn">
+							</div>
+						<% end %>
+						<div class="btn bg-rainbow" id="add_anywhere_trigger">
+							<%= t 'views.campaign.ships_anywhere_in_the_world'%>
+						</div>
+						<div class="btn bg-rainbow" id="remove_anywhere_trigger">
+							<%= t 'views.campaign.remove_anywhere'%>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Estimated Delivery -->		
+		<div class="row">
+			<div class="col-md-3">
+				<div><%= t 'views.campaign.estimated_delivery' %>: <span class="text-danger">*</span></div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<%= r.text_field :estimated_delivery, class:"form-control daterange-estimated-delivery required", placeholder:t('views.campaign.current_goal_due')%>
+				</div>
+			</div>
+		</div>					
 	<% end %>
 </fieldset>
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <script type="text/javascript">
 	$(window).on('load page:load', function(){
-		//Date Picker
+		//Show the existing shipping if so
+		<% if @campaign.rewards.first.shippings.count > 0 || @campaign.rewards.first.shipping_anywhere %>
+			$('#shipping-countries').show();
+		<% end %>
+		//Hide ships everywhere if there is already ships everywhere
+		<% if @campaign.rewards.first.shipping_anywhere %>
+			$('#add_anywhere_trigger').hide();
+		<% end %>
+		//Remove anywhere in the world
+		$('#add_anywhere_trigger').on('click', function(){
+			$('#add_anywhere_btn').click();
+			$('#add_anywhere_trigger').hide();
+			$('#remove_anywhere_trigger').show();
+		});
+		$('#anywhere_remove_here').on('click', function(){
+			$('#add_anywhere_btn').show();
+		});
+		$('#remove_anywhere_trigger').on('click', function(){
+			$('.remove_shipping_anywhere').click();
+			$('#remove_anywhere_trigger').hide();
+			$('#add_anywhere_trigger').show();
+		});
+		//Select country
+		$('#shipping-select').on('change', function(){
+			var shipping_select = $('#shipping-select').val();
+			if ( shipping_select == 'no'){
+				$('#shipping-countries').hide();
+			} 
+			if ( shipping_select == 'some') {
+					$('#shipping-countries').show();
+					$('#remove_anywhere_trigger').hide();
+
+				}
+			if ( shipping_select == 'anywhere') {
+				$('#shipping-countries').show();
+				$('#add_anywhere_trigger').click();
+			}
+		});
+		//Date Picker for due
 	    $('.daterange').daterangepicker({ 
 	        singleDatePicker: true,
 	        "startDate": moment().add(30, 'days'),
 	        "minDate": moment().add(10, 'days'),
 	        "maxDate": moment().add(90, 'days'),
+			locale: {
+			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+			},
 	    });
+	    //Date Picker for estimate delivery
+	    $('.daterange-estimated-delivery').daterangepicker({ 
+	        singleDatePicker: true,
+	        "startDate": moment().add(30, 'days'),
+	        "minDate": moment().add(10, 'days'),
+	        "maxDate": moment().add(180, 'days'),
+			locale: {
+			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+			},
+	    });
+	    //Reward Amount
+	    $(".touchspin-reward-amount").TouchSpin({
+	        min: 2,
+	        max: 200,
+	        step: 1,
+	        prefix: '<%= currency_signs(@campaign.currency) %>'
+	    });
+		//Description textarea count
+		function reward_description_textarea_count()
+		{	<% if I18n.locale == :zh %>
+				var max =88;
+			<% else %>
+				var max =175;
+			<% end %>
+			var text =document.getElementById("reward_text").value.length;
+			$('#c').show();
+			c.innerHTML=max-text;
+			if(text > 0)
+			{
+				btn=document.getElementById("btn");
+				btn.style.cursor="pointer";
+				btn.style.opacity=1;
+				btn.disabled=false;
+			}
+		}	    
 	});
 </script>

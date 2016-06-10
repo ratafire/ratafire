@@ -35,7 +35,11 @@
 			<div class="category-content no-padding">
 				<ul class="navigation navigation-main navigation-accordion">
 					<!-- Main -->
-					<li class="active"><a href="index.html"><i class="icon-newspaper"></i> <span><%= t 'views.creator_studio.menu.dashboard'%></span></a></li>
+					<li id="creator_studios-dashboard-sidebaractive">
+						<%= link_to dashboard_user_studio_creator_studio_path(current_user.username) do %>
+							<i class="icon-newspaper"></i> <span><%= t 'views.creator_studio.menu.dashboard'%></span>
+						<% end %>
+					</li>
 					<li>
 						<a href="#"><i class="icon-cloud"></i> <span><%= t 'views.creator_studio.menu.projects'%></span></a>
 					</li>
@@ -48,11 +52,23 @@
 					<li>
 						<a href="#"><i class="icon-wallet"></i> <span><%= t 'views.creator_studio.menu.wallet'%></span></a>
 						<ul>
-							<li><a><%= t 'views.creator_studio.menu.upcoming'%></a></li>
+							<li>
+								<a>
+									<%= t 'views.creator_studio.menu.upcoming'%>
+								</a>
+							</li>
 							<li><a><%= t 'views.creator_studio.menu.receipts'%></a></li>
 							<li class="navigation-divider"></li>
-							<li><a><%= t 'views.creator_studio.menu.how_I_pay'%></a></li>
-							<li><a><%= t 'views.creator_studio.menu.how_I_get_paid'%></a></li>
+							<li id="wallets-how_i_pay-sidebaractive">
+								<%= link_to how_i_pay_user_studio_wallets_path(current_user.username) do %>
+									<%= t 'views.creator_studio.menu.how_i_pay'%>
+								<% end %>
+							</li>
+							<li id="wallets-how_i_get_paid-sidebaractive" >
+								<%= link_to how_i_get_paid_user_studio_wallets_path(current_user.username) do %>
+									<%= t 'views.creator_studio.menu.how_i_get_paid'%>
+								<% end %>
+							</li>
 							<li class="navigation-divider"></li>
 							<li><a><%= t 'views.creator_studio.menu.upper_limits'%></a></li>							
 						</ul>
@@ -61,6 +77,9 @@
 			</div>
 		</div>
 		<!-- /main navigation -->
-
 	</div>
 </div>
+<script type="text/javascript">
+	//Add active to specific tabs
+	$('#<%= controller_name %>-<%= action_name %>-sidebaractive').addClass('active');
+</script>

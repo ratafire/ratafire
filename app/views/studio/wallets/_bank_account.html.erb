@@ -1,0 +1,22 @@
+<div class="row bg-grey-100 p-20 m-5" id="current-bank-account-holder">
+	<div class="col-lg-3">
+		<%= bank_account.bank_name %>
+	</div>
+	<div class="col-lg-3">
+		********<%= bank_account.last4 %>
+	</div>
+	<div class="col-lg-3">
+		<%= bank_account.first_name %> <%= bank_account.last_name %>
+	</div>
+	<div class="col-lg-2">
+		<%= bank_account.country %>
+	</div>
+	<div class="col-lg-1">
+		<%= link_to edit_user_payment_bank_accounts_path(user.id), remote: true do %>
+			<div class="btn bg-blue btn-xs">
+				<b><i class="icon-pencil position-left"></i></b>
+				<%= t'views.utilities.editor.edit' %>
+			</div>
+		<% end %>
+	</div>
+</div>

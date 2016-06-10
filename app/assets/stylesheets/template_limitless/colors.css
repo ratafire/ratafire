@@ -595,6 +595,9 @@
   background-color: #fff;
   color: #333333;
 }
+.bg-white-transparent{
+  background-color: rgba(256,256,256,0.7) !important;
+}
 .alpha-primary {
   background-color: #e3f2fd;
   border-color: #1e88e5;

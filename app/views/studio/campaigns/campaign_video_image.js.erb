@@ -1,7 +1,33 @@
 $('#big-image-upload').hide();
 $('#small-image-upload').show();
-$('.dropzone-bg').addClass("dropzone-bg-small");
-$('#application-video-preview').remove();
-$('#apply-panel').prepend("<%= j render(:partial => 'studio/campaigns/wizard_video_preview', :locals => {:video => @campaign.video}) %>");
-initiate_videojs();
+$('.video-image-dropzone').addClass("dropzone-bg-small mb-20");
 $('#artwork-progress-box').remove();
+//Show image preview
+<% if @campaign.image %>
+	$('#application-image-preview').remove();
+    $('#apply-panel').prepend("<%= j render(:partial => 'studio/campaigns/wizard_upload_video_image_preview', :locals => {:user => @user, :campaign => @campaign}) %>");
+	//Show video upload
+	$('#apply-panel').append("<%= j render(:partial => 'studio/campaigns/wizard_upload_video', :locals => {:user => @user, :campaign => @campaign}) %>");
+<% else %>
+	//Show image upload
+	$('#apply-panel').prepend("<%= j render(:partial => 'studio/campaigns/wizard_upload_video_image', :locals => {:user => @user, :campaign => @campaign}) %>");
+<% end %>
+//Upload video
+$('#s3_uploader_video').S3Uploader(
+  { 
+    remove_completed_progress_bar: false,
+    dropZone: $('#video-dropzone'),
+    progress_bar_target: $('#video-progress-case'),
+    additional_data: { "video[campaign_id]":$('#s3_uploader_video').data('campaign-id')},
+},"video"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+$('#s3_uploader_video').bind('s3_upload_failed', function(e, content) {
+    return alert(content.filename + ' failed to upload');
+});   
+$('#s3_uploader_video').bind('s3_uploads_start', function(e, content) {
+    $('#audio-embed-block').hide();
+    $('#s3_direct_uploader_video').removeClass('mb-20');
+    turn_lights_on('#above-blockui');
+});  
+$('#s3_uploader_video').bind('s3_upload_complete', function(e, content) {
+    $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
+}); 

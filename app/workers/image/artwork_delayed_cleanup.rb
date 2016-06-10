@@ -3,7 +3,7 @@ class Image::ArtworkDelayedCleanup
 	@queue = :image 
 	def self.perform(artwork_uuid)
 		if @artwork = Artwork.find_by_uuid(artwork_uuid) then
-			unless Majorpost.find_by_uuid(@artwork.uuid) then
+			unless Majorpost.find_by_uuid(@artwork.uuid) || Campaign.find_by_uuid(@artwork.uuid) then
 				@artwork.destroy
 			end
 		end

@@ -19,7 +19,7 @@
 	<!-- Content Area -->
 	<div class="content" >
 		<!-- Pledge Area -->
-		<% unless @user.active_campaign %>
+		<% if @user.active_campaign %>
 			<%= render partial:'profile/components/pledge_area' %>
 		<% end %>
 		<!-- Updates -->

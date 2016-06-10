@@ -1,0 +1,8 @@
+<div class="alert bg-danger mb-20" id="error-messages-content">
+	<button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+	<% campaign.errors.messages.values.each do |e| %>
+		<% e.each do |m| %>
+			<span class="mr-10"><%= m %></span>
+		<% end %>
+	<% end %>
+</div>

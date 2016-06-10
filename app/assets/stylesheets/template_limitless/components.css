@@ -1007,10 +1007,10 @@
 }
 .uploader .action {
   position: absolute;
-  color: #333333;
+  /* color: #333333; */
   top: 0;
   right: 0;
-  width: 36px;
+  /* width: 36px; */
   height: 36px;
   cursor: pointer;
   z-index: 1;
@@ -13887,6 +13887,9 @@ label.display-block {
 .p-20 {
   padding: 20px!important;
 }
+.p-30 {
+  padding: 30px!important;
+}
 .p-40 {
   padding: 40px!important;
 }
@@ -13922,6 +13925,12 @@ label.display-block {
 }
 .pb-20 {
   padding-bottom: 20px!important;
+}
+.pb-30 {
+  padding-bottom: 30px!important;
+}
+.pb-35 {
+  padding-bottom: 35px!important;
 }
 .pl-3{
   padding-left: 3px!important;
@@ -14182,6 +14191,12 @@ label.display-block {
 .border-radius-6{
   border-radius: 6px;
 }
+.border-dotted{
+  border: 1px dashed #eeeeee !important;
+}
+.min-height-600{
+  min-height: 600px !important;
+}
 /* QR Code */
 #majorpost-share-toolbar table {
   border-width: 0;
@@ -14200,3 +14215,7 @@ label.display-block {
 
 #majorpost-share-toolbar td.black { border-color: #000; }
 #majorpost-share-toolbar td.white { border-color: #fff; }
+
+.cursor-default {
+  cursor: default;
+}

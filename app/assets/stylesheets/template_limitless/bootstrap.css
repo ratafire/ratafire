@@ -5887,6 +5887,14 @@ button.list-group-item-danger.active:focus {
 .panel-info > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #00bcd4;
 }
+.panel-rainbow-800 > .panel-heading{
+  background: url(/assets/editor/rainbow-blur4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;  
+}
 .panel-warning {
   border-color: #ff5722;
 }

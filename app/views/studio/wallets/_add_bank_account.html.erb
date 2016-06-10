@@ -1,0 +1,200 @@
+<%= form_for(bank_account, url: user_payment_bank_accounts_path(user.id),:html =>{:id => 'add-bank-account-form'}, name:"add-bank-account-form") do |f| %>
+	<fieldset>
+		<legend class="text-semibold">
+			<i class="ti-user position-left"></i>
+			<%= t 'views.creator_studio.how_i_get_paid.bank_account_info' %>
+			<!--<a class="control-arrow mb-20" data-toggle="collapse" data-target="#demo1">
+				<i class="icon-circle-down2"></i>
+			</a>-->
+		</legend>
+		<div class="collapse in" id="demo1">
+			<% if I18n.locale == :zh %>
+				<!-- Last name -->
+				<div class="form-group">
+					<div class="row mb-20">
+						<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.last_name' %>:</label>
+						<div class="col-lg-9">
+							<%= f.text_field :last_name, class:"form-control", placeholder:t('views.creator_studio.how_i_get_paid.last_name_placeholder') %>
+						</div>
+					</div>
+				</div>
+				<!-- First name -->
+				<div class="form-group">
+					<div class="row mb-20">
+						<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.first_name' %>:</label>
+						<div class="col-lg-9">
+							<%= f.text_field :first_name, class:"form-control", placeholder:t('views.creator_studio.how_i_get_paid.first_name_placeholder') %>
+						</div>
+					</div>
+				</div>
+			<% else %>
+				<!-- First name -->
+				<div class="form-group">
+					<div class="row mb-20">
+						<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.first_name' %>:</label>
+						<div class="col-lg-9">
+							<%= f.text_field :first_name, class:"form-control", placeholder:t('views.creator_studio.how_i_get_paid.first_name_placeholder') %>
+						</div>
+					</div>
+				</div>
+				<!-- Last name -->
+				<div class="form-group">
+					<div class="row mb-20">
+						<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.last_name' %>:</label>
+						<div class="col-lg-9">
+							<%= f.text_field :last_name, class:"form-control", placeholder:t('views.creator_studio.how_i_get_paid.last_name_placeholder') %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+			<!-- Country -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.country' %>:</label>
+					<div class="col-lg-9">
+					<%= f.country_select(:country, { include_blank: t('views.creator_studio.how_i_get_paid.country_placeholder'),selected: bank_account.country, only: ["AU", "CA","DK", "FI", "IE", "NO", "SE", "GB", "US"] }, { class: 'simple-select-search required', id: 'verification-country-select' }) %>
+					</div>
+				</div>
+			</div>
+			<!-- Routing number -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.routing_number' %>:</label>
+					<div class="col-lg-9">
+						<%= f.text_field :routing_number, class:"form-control mb-20", id: 'routing-number', placeholder:t('views.creator_studio.how_i_get_paid.routing_number_placeholder') %>
+						<%= image_tag('/assets/stripe/routing_number.png')%>
+					</div>
+				</div>
+			</div>
+			<!-- Account number -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.account_number' %>:</label>
+					<div class="col-lg-9">
+						<%= f.text_field :account_number, class:"form-control mb-20",id: 'account-number', placeholder:t('views.creator_studio.how_i_get_paid.account_number_placeholder') %>
+						<%= image_tag('/assets/stripe/account_number.png')%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend class="text-semibold">
+			<i class="ti-map-alt position-left"></i>
+			<%= t 'views.creator_studio.how_i_get_paid.address' %>
+		</legend>
+		<div class="collapse in" id="demo2">
+			<!-- City -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.city' %>:</label>
+					<div class="col-lg-9">
+						<%= f.text_field :city, class:"form-control", placeholder:t('views.creator_studio.how_i_get_paid.city_placeholder') %>
+					</div>
+				</div>
+			</div>
+			<!-- Address Line 1 -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.address_line1' %>:</label>
+					<div class="col-lg-9">
+						<%= f.text_field :line1, class:"form-control", placeholder:t('views.creator_studio.how_i_get_paid.address_line1_placeholder') %>
+					</div>
+				</div>
+			</div>
+			<!-- Address Line 1 -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-lg-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.postal_code' %>:</label>
+					<div class="col-lg-9">
+						<%= f.text_field :postal_code, class:"form-control", placeholder:t('views.creator_studio.how_i_get_paid.postal_code_placeholder') %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+	<div class="text-right">
+		<%= f.submit I18n.t('views.utilities.editor.submit_btn'), class: "btn btn-blue", id:"bank-account-submit" %>
+	</div>
+<% end %>
+<script type="text/javascript">
+	//Validate
+    var validator = $("#add-bank-account-form").validate({
+        ignore: 'input[type=hidden], .select2-input', // ignore hidden fields
+        errorClass: 'validation-error-label',
+        successClass: 'validation-valid-label',
+	    submitHandler: function(){
+	        $('#add-bank-account-panel-body').block({
+	            message: '<i class="icon-spinner2 spinner text-blue"></i>',
+	            overlayCSS: {
+	            	backgroundColor: '#fff',
+	                opacity: 0.4,
+	                cursor: 'wait'
+	            },
+	            css: {
+	                border: 0,
+	                padding: 0,
+	                backgroundColor: 'transparent'
+	            }
+	        }); 
+	        $('#add-bank-account-form').trigger('submit.rails');
+	    },        
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+
+            // Styled checkboxes, radios, bootstrap switch
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo( element.parent().parent().parent().parent() );
+                }
+                 else {
+                    error.appendTo( element.parent().parent().parent().parent().parent() );
+                }
+            }
+
+            // Unstyled checkboxes, radios
+            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                error.appendTo( element.parent().parent().parent() );
+            }
+
+            // Input with icons
+            else if (element.parents('div').hasClass('has-feedback')) {
+                error.appendTo( element.parent() );
+            }
+
+            // Inline checkboxes, radios
+            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            // Input group, styled file input
+            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                error.appendTo( element.parent().parent() );
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        validClass: "validation-valid-label",
+        rules: {
+            'bank_account[first_name]': "required",
+            'bank_account[last_name]':'required',
+            'bank_account[country]': 'required',
+            'bank_account[routing_number]': 'required',
+            'bank_account[account_number]': 'required',
+            'bank_account[city]': 'required',
+            'bank_account[address]': 'required',
+            'bank_account[postal_code]': 'required',
+        }
+    });	
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+    });	
+</script>

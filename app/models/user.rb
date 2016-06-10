@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
         	:paypal
         ]
 
+
     #--------Friendly id for routing--------
     extend FriendlyId
     friendly_id :uid
@@ -45,7 +46,7 @@ class User < ActiveRecord::Base
     #--------User Info---------
     has_one :profilephoto, foreign_key: "user_uid", primary_key: "uid", class_name: "Profilephoto", dependent: :destroy
     has_one :profilecover, foreign_key: "user_uid", primary_key: "uid", class_name: "Profilecover", dependent: :destroy
-
+    has_one :identity_verification, class_name: "IdentityVerification", dependent: :destroy
     #--------Contacts---------
     
 
@@ -87,7 +88,11 @@ class User < ActiveRecord::Base
     #--------Payment---------
     has_one :paypal_account,
         -> { where( paypal_accounts: { :deleted_at => nil, :organization_id => nil, :organization_application_id => nil }) }
-
+    has_one :stripe_account
+    has_one :customer
+    has_one :bank_account
+    has_one :card
+    
     #--------Record Backers---------
     has_many :subscription_records, 
         foreign_key: "subscribed_id", 

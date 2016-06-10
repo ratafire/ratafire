@@ -37,9 +37,9 @@
 			<div class="form-group user-textarea">
 				<div class="pull-right mr-5 mb-30- text-grey-100"><span id="h" class="display-none"></span></div>
 				<% if I18n.locale == :zh %>
-					<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"text",onKeyUp:"description_textarea_count()",maxlength:"88", style:"resize: none;"%>
+					<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"description_text",onKeyUp:"description_textarea_count()",maxlength:"88", style:"resize: none;"%>
 				<% else %>
-					<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"text",onKeyUp:"description_textarea_count()",maxlength:"175", style:"resize: none;"%>
+					<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"description_text",onKeyUp:"description_textarea_count()",maxlength:"175", style:"resize: none;"%>
 				<% end %>
 				<span class="help-block">
 					<%= render 'studio/campaigns/help_block/short_description' %>
@@ -87,7 +87,7 @@
 
 		<div class="col-md-9">
 			<div class="form-group">
-				<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'),selected: @campaign.country, only: ["AU", "CA", "CN", "DK", "FI", "IE", "NO", "SE", "GB", "US"] }, { class: 'simple-select-search required' }) %>
+				<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'),selected: @campaign.country, only: ["AU", "CA","DK", "FI", "IE", "NO", "SE", "GB", "US"] }, { class: 'simple-select-search required' }) %>
 			</div>
 		</div>
 	</div>
@@ -111,7 +111,21 @@
 			</div>
 		</div>
 	</div>
+	<!-- Funding type -->
+	<div class="row">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.funding_type' %>: <span class="text-danger">*</span></div>
+		</div>
 
+		<div class="col-md-9">
+			<div class="form-group">
+				<%= f.select(:sub_category, [[t('views.campaign.per_creation'),'creation'], [t('views.campaign.per_month'),'month']], {include_blank: t('views.campaign.select_a_funding_type')}, { :class => 'simple-select required', :id => 'funding-type-selection',selected: @campaign.funding_type }) %>
+				<span class="help-block">
+					<%= t 'views.campaign.funding_type_help' %>
+				</span>
+			</div>
+		</div>
+	</div>
 </fieldset>
 <script type="text/javascript">
 	//Description textarea count
@@ -121,7 +135,7 @@
 		<% else %>
 			var max =175;
 		<% end %>
-		var text =document.getElementById("text").value.length;
+		var text =document.getElementById("description_text").value.length;
 		$('#h').show();
 		h.innerHTML=max-text;
 		if(text > 0)

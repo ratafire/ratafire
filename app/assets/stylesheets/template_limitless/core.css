@@ -1202,10 +1202,13 @@ input[class*=bg-] + .form-control-feedback {
   line-height: 32px;
 }
 .help-block {
-  color: #999999;
+  color: #dddddd;
   font-size: 12px;
   margin-top: 7px;
   margin-bottom: 7px;
+}
+.help-block:hover{
+  color: #999999;
 }
 .help-inline {
   display: inline-block;

@@ -1,0 +1,103 @@
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin">
+		<h4 class="panel-title"><%= t 'views.profile.settings.menu.identity_verification' %></h4>
+		<span><%= t 'views.profile.settings.identity_verification.identity_verification_tagline' %></span>
+	</div>
+	<div class="panel-body" id="identity-verification-panel-body">
+		<div class="error-messages"></div>
+		<!-- Edit email-->
+		<fieldset>
+			<legend class="text-semibold">
+				<i class="ti-user position-left"></i>
+				<%= t 'views.profile.settings.identity_verification.basic_info' %>
+				<!--<a class="control-arrow" data-toggle="collapse" data-target="#demo1">
+					<i class="icon-circle-down2"></i>
+				</a>-->
+			</legend>
+			<div class="collapse in" id="demo1">
+				<% if I18n.locale == :zh %>
+					<!-- Last Name -->
+					<div class="row">
+						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.last_name' %>:</label>
+						<div class="col-lg-11">
+							<%= @user.identity_verification.last_name %>
+						</div>
+					</div>
+					<!-- First Name -->
+					<div class="row">
+						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.first_name' %>:</label>
+						<div class="col-lg-11">
+							<%= @user.identity_verification.first_name %>
+						</div>
+					</div>
+				<% else %>
+					<!-- First Name -->
+					<div class="row">
+						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.first_name' %>:</label>
+						<div class="col-lg-11">
+							<%= @user.identity_verification.first_name %>
+						</div>
+					</div>
+					<!-- Last Name -->
+					<div class="row">
+						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.last_name' %>:</label>
+						<div class="col-lg-11">
+							<%= @user.identity_verification.last_name %>
+						</div>
+					</div>
+				<% end %>
+				<!-- Birthday -->
+				<div class="row">
+					<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.birthday' %>:</label>
+					<div class="col-lg-11">
+						<%= @user.identity_verification.birthday %>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend class="text-semibold">
+				<i class="ti-user position-left"></i>
+				<%= t 'views.profile.settings.identity_verification.verification_document' %>
+			</legend>
+			<div class="collapse in" id="demo1">
+				<!-- Country -->
+				<div class="row">
+					<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.country' %>:</label>
+					<div class="col-lg-11">
+						<%= @user.identity_verification.country %>
+					</div>
+				</div>	
+				<% if @user.identity_verification.verification_type == 'ssn' %>
+					<!-- SSN -->
+					<div class="row" id="ssn-holder">
+						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.ssn' %>:</label>
+						<div class="col-lg-11">
+							*****<%= @user.identity_verification.ssn_last4 %>
+						</div>
+					</div>
+				<% else %>
+					<% if @user.identity_verification.verification_type == 'passport' %>
+					<!-- Passport number -->
+					<div class="row" id="passport-holder">
+						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.passport_number' %>:</label>
+						<div class="col-lg-11">
+							***<%= @user.identity_verification.passport_last4 %>
+						</div>
+					</div>
+					<% else %>
+						<!-- Id card number -->
+						<div class="row" id="id-card-holder">
+							<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.id_card_number' %>:</label>
+							<div class="col-lg-11">
+								***<%= @user.identity_verification.id_card_last4 %>
+							</div>
+						</div>
+					<% end %>
+				<% end %>
+
+			</div>		
+		</fieldset>
+	</div>
+</div>

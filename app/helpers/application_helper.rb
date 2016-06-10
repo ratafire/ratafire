@@ -157,4 +157,17 @@ module ApplicationHelper
 		end
 	end
 
+	def currency_signs(currency)
+		case currency
+		when 'aud'
+			return 'AU$'
+		when 'eur'
+			return '€'
+		when 'cad'
+			return 'C$'
+		when 'usd'
+			return '$'
+		end
+	end
+
 end

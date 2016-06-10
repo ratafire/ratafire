@@ -1,0 +1,110 @@
+<fieldset title="4">
+	<legend class="text-semibold"><%= t 'views.campaign.artist_info' %></legend>
+	<!-- Topic -->
+	<div class="row text-center p-40">
+		<div class="text-giant text-thin"><%= t 'views.campaign.your_info_and_how_would_you_get_paid' %></div>
+		<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(6).quote %>" - <%= HistoricalQuote.find(8).author %></h3>
+	</div>
+	<div id="error-messages">
+	</div>	
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-9">
+			<div class="help-block">
+				<%= t 'views.campaign.show_you_around' %>
+			</div>
+		</div>
+	</div>
+	<div class="row mb-20">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.identity_verification' %>: <span class="text-danger">*</span></div>
+		</div>
+		<div class="col-md-9">
+			<!-- Identity Verification -->
+			<% if @user.try(:identity_verification).try(:status) == 'Approved' %>
+				<!-- Identity Verified -->
+				<div class="label bg-rainbow mb-5 mr-5"><i class="fa fa-check-circle"></i> <%= t 'views.profile.settings.identity_verification.approved' %></div>
+				<div>
+					<%= link_to identity_verification_user_profile_settings_path(@user.username) do %>
+						<div class="btn bg-rainbow">
+							<i class="icon-profile mr-10"></i><%= t 'views.profile.settings.menu.view' %>
+						</div>
+					<% end %>
+				</div>
+			<% else %>
+				<!-- If identity verification pending -->
+				<% if @user.try(:identity_verification).try(:status) == 'Pending' %>
+					<div class="label bg-rainbow mb-5 mr-5"><i class="fa fa-check-circle"></i> <%= t 'views.profile.settings.identity_verification.submitted' %></div> 
+					<div>
+						<%= link_to identity_verification_user_profile_settings_path(@user.username) do %>
+							<div class="btn bg-rainbow">
+								<i class="icon-profile mr-10"></i><%= t 'views.profile.settings.menu.view' %>
+							</div>
+						<% end %>
+					</div>
+				<% else %>
+					<!-- Identity not verified -->
+					<span class="btn bg-rainbow"><i class="icon-profile mr-10"></i> <%= t 'views.profile.settings.identity_verification.verify_your_identity' %></span>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<div class="row mb-20">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.how_you_get_paid' %>: <span class="text-danger">*</span></div>
+		</div>
+		<div class="col-md-9">
+			<% if @user.bank_account %>
+				<div class="label bg-rainbow mb-5 mr-5"><i class="fa fa-check-circle"></i> <%= t 'views.profile.settings.identity_verification.added' %></div> 
+				<div>
+					<%= link_to how_i_get_paid_user_studio_wallets_path(@user.username) do %>
+						<div class="btn bg-rainbow"><i class="icon-wallet mr-10"></i><%= t 'views.profile.settings.menu.view' %></div>
+					<% end %>
+				</div>
+			<% else %>
+				<%= link_to how_i_get_paid_user_studio_wallets_path(@user.username) do %>
+					<div class="btn bg-rainbow"><i class="icon-wallet mr-10"></i><%= t 'views.campaign.add_a_bank_account' %></div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<div class="row mb-20">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.profile_photo' %>: <span class="text-danger">*</span></div>
+		</div>
+		<div class="col-md-9">
+			<% if @user.profilephoto.image.present? %>
+				<div class="label bg-rainbow mb-5 mr-5"><i class="fa fa-check-circle"></i> <%= t 'views.profile.settings.identity_verification.added' %></div> 
+				<div>
+					<%= link_to profile_url_path(@user.username) do %>
+						<div class="btn bg-rainbow"><i class="icon-user mr-10"></i><%= t 'views.profile.settings.menu.view' %></div>
+					<% end %>
+				</div>
+			<% else %>
+				<%= link_to profile_url_path(@user.username) do %>
+					<div class="btn bg-rainbow"><i class="icon-user mr-10"></i><%= t 'views.campaign.upload_a_profile_photo' %></div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<div class="row mb-20">
+		<div class="col-md-3">
+			<div><%= t 'views.campaign.tagline_and_short_bio' %>: <span class="text-danger">*</span></div>
+		</div>
+		<div class="col-md-9">
+			<% if @user.tagline && @user.bio %>
+				<div class="label bg-rainbow mb-5 mr-5"><i class="fa fa-check-circle"></i> <%= t 'views.profile.settings.identity_verification.added' %></div> 
+				<div>
+					<%= link_to profile_url_path(@user.username) do %>
+						<div class="btn bg-rainbow"><i class="icon-user-check mr-10"></i><%= t 'views.profile.settings.menu.view' %></div>
+					<% end %>
+				</div>
+			<% else %>
+				<%= link_to profile_url_path(@user.username) do %>
+					<div class="btn bg-rainbow"><i class="icon-user-check mr-10"></i><%= t 'views.campaign.add_tagline_and_short_bio' %></div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</fieldset>

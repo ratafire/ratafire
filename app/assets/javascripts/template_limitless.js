@@ -4,6 +4,8 @@
 //= require jquery-ui.min
 //= require bootstrap.min
 //= require unobtrusive_flash
+//= require confirmation.js
 //= require s3_direct_upload
 //= require ahoy
+//= require jquery_nested_form
 //= require_tree ./template_limitless

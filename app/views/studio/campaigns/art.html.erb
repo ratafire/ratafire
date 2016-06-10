@@ -6,33 +6,65 @@
 <div class="content">
     <!-- Starfield Animation -->
     <canvas id="canvas" width="100%" height="100%" style="position:fixed;top:0;left:0;" ></canvas>
-	<!-- Page header -->
-	<div class="page-header">
-		<div class="page-header-content text-center">
-			<div class="page-title text-grey">
-				<%= image_tag(@user.profilephoto.image.url(:thumbnail128),class:"img-circle mb-20")%>
-				<h2 class="text-thin text-white"><%= t 'views.campaign.become_an' %><%= t 'views.campaign.art_creator' %></h2>
-			</div>
-		</div><!-- end .page-header-content-->
-	</div><!-- end .page-header-->
 	
-		<div class="row">
+	<% if @campaign.status %>
+		<!-- Page header -->
+		<div class="page-header">
+			<div class="page-header-content text-center">
+				<div class="page-title text-grey">
+					<%= image_tag(@user.profilephoto.image.url(:thumbnail128),class:"img-circle mb-20 animated infinite bounce", id:"campaign-user-image")%>
+					<h2 class="text-thin text-white" id="application-text">
+						<p><%= t "views.campaign.congratulations_line1" %></p>
+						<p><%= t "views.campaign.congratulations_line2" %></p>
+						<p>
+							<%= link_to profile_url_path(@campaign.user.username) do %>
+								<span class="btn btn-blue btn-xlg"><i class="icon-enter mr-10"></i><%= t "views.utilities.editor.back" %></span>
+							<% end %>
+						</p>
+					</h2>
+				</div>
+			</div><!-- end .page-header-content-->
+		</div><!-- end .page-header-->	
+	<% else %>
+		<!-- Page header -->
+		<div class="page-header">
+			<div class="page-header-content text-center">
+				<div class="page-title text-grey">
+					<%= image_tag(@user.profilephoto.image.url(:thumbnail128),class:"img-circle mb-20", id:"campaign-user-image")%>
+					<h2 class="text-thin text-white" id="application-text"><%= t 'views.campaign.become_an' %><%= t 'views.campaign.art_creator' %></h2>
+				</div>
+			</div><!-- end .page-header-content-->
+		</div><!-- end .page-header-->	
+		<div class="row" id="application-form-holder">
 			<div class="col-lg-2">
 			</div>
 			<div class="col-lg-8">
 				<!-- Clickable title -->
-	            <div class="panel panel-white p-20" id="apply-panel">
-					<!-- Project Video -->
-					<% if @campaign.video %>
-						<!-- Video uploader -->
-						<%= render partial: 'studio/campaigns/wizard_video_preview',:locals => {:video => @campaign.video} %>
-						<!-- Video image uploader -->
-						<%= render partial: 'studio/campaigns/wizard_upload_video_image',:locals => {:video => @campaign.video, :user => @user, :campaign => @campaign } %>
-					<% else %>
-						<%= render partial: 'studio/campaigns/wizard_upload_video',:locals => {:user => @user, :campaign => @campaign} %>
-					<% end %>
-					<%= form_for([@campaign], :url=>update_user_studio_campaigns_path(@user.id, @campaign.id), remote: true, html: {class: "stepy-validation", id:"campaign-wizard", action:"#"}) do |f|%>
+	            <div class="panel panel-white p-20">
+	            	<div id="apply-panel">
+						<!-- Project Video -->
+						<% if @campaign.image.present? %>
+							<% if @campaign.video %>
+								<!-- Video preview -->
+								<%= render partial: 'studio/campaigns/wizard_video_preview',:locals => {:video => @campaign.video, :campaign => @campaign } %>
+								<!-- Replace campaign image-->
+								<%= render partial: 'studio/campaigns/wizard_upload_video_image',:locals => { :user => @user, :campaign => @campaign } %>
+							<% else %>
+								<!-- Video image preview -->
+								<%= render partial: 'studio/campaigns/wizard_upload_video_image_preview',:locals => { :user => @user, :campaign => @campaign } %>
+								<!-- Image upload -->
+								<%= render partial: 'studio/campaigns/wizard_upload_video_image',:locals => { :user => @user, :campaign => @campaign } %>
+								<!-- Video uploader -->
+								<%= render partial: 'studio/campaigns/wizard_upload_video',:locals => { :user => @user, :campaign => @campaign } %>
+							<% end %>
+						<% else %>
+							<!-- Video image uploader -->
+							<%= render partial: 'studio/campaigns/wizard_upload_video_image',:locals => { :user => @user, :campaign => @campaign } %>
+						<% end %>
+					</div>
+					<%= nested_form_for [@campaign], :url=>update_user_studio_campaigns_path(@user.id, @campaign.id),authenticity_token: true, :method => :patch, remote: true, html: {class: "stepy-validation", id:"campaign-wizard", action:"#"} do |f|%>
 	            		<%= f.hidden_field :ratafirer, id:"field-ratafirer" %>
+	            		<%= f.hidden_field :status, id:"field-status"%>
 	            		<!-- Start -->
 						<%= render partial: "studio/campaigns/form_start", locals: { f: f } %>
 						
@@ -40,16 +72,12 @@
 						<%= render partial: "studio/campaigns/form_rewards", locals: { f: f } %>
 
 						<!-- Rewards -->
-						<fieldset title="3">
-							<legend class="text-semibold"><%= t 'views.campaign.your_creation' %></legend>
-						</fieldset>
+						<%= render partial: "studio/campaigns/form_creation", locals: { f: f } %>
 
 						<!-- About You -->
-						<fieldset title="4">
-							<legend class="text-semibold"><%= t 'views.campaign.artist_info' %></legend>
-						</fieldset>
+						<%= render partial: "studio/campaigns/form_artist_info", locals: { f: f } %>
 
-						<button type="submit" class="btn btn-blue stepy-finish"><%= t 'views.utilities.editor.submit_btn' %></button>
+						<%= link_to I18n.t('views.utilities.editor.submit_btn'), submit_application_user_studio_campaigns_path(@user.id, @campaign.id), :data => { :confirm => t('views.campaign.please_confirm_your_application_submission') }, remote: true, class:"btn btn-blue stepy-finish" %>
 					
 					<% end %>
 	            </div>
@@ -57,15 +85,52 @@
 			<div class="col-lg-2">
 			</div>
 		</div><!-- end row -->
+	<% end %>
 	
 </div><!-- end .content-->
 <!--~~~~~~~~~~~~~~~~~ Page Specific Javascript ~~~~~~~~~~~~~~~~~-->
 <%= render 'studio/campaigns/wizard_stepy_js'%>
 <script>
+//Submit add status
+
 //Profile editor
 initiate_profile_editor();
 //Video js
 initiate_videojs();     
+
+//Upload video
+$('#s3_uploader_video').S3Uploader(
+  { 
+    remove_completed_progress_bar: false,
+    dropZone: $('#video-dropzone'),
+    progress_bar_target: $('#video-progress-case'),
+    additional_data: { "video[campaign_id]":$('#s3_uploader_video').data('campaign-id')},
+},"video"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+$('#s3_uploader_video').bind('s3_upload_failed', function(e, content) {
+    return alert(content.filename + ' failed to upload');
+});   
+$('#s3_uploader_video').bind('s3_uploads_start', function(e, content) {
+    $('#audio-embed-block').hide();
+    $('#s3_direct_uploader_video').removeClass('mb-20');
+    turn_lights_on('#above-blockui');
+});  
+$('#s3_uploader_video').bind('s3_upload_complete', function(e, content) {
+    $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
+});    
+//Upload video image
+$('#s3_uploader_video_image').S3Uploader(
+  { 
+    remove_completed_progress_bar: false,
+    dropZone: $('#video-image-dropzone'),
+    progress_bar_target: $('#video-image-progress-case'),
+    additional_data: { "video_image[campaign_id]":$('#s3_uploader_video').data('campaign-id')},
+},"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+$('#s3_uploader_video_image').bind('s3_upload_failed', function(e, content) {
+  return alert(content.filename + ' failed to upload');
+});   
+$('#s3_uploader_video_image').bind('s3_upload_complete', function(e, content) {
+  $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
+});   
 
 $(document).on('load page:load', function(){
 	//Price tag
@@ -76,45 +141,6 @@ $(document).on('load page:load', function(){
 		$('#free-price-panel').click();
 	}
 
-	//Block Alipay
-	$('#alipay-panel').block({message: null,overlayCSS: {
-        backgroundColor: '#fff',
-        opacity: 0.4,
-        cursor: 'not-allowed'
-	},});
-	//Upload video
-    $('#s3_uploader_video').S3Uploader(
-      { 
-        remove_completed_progress_bar: false,
-        dropZone: $('#video-dropzone'),
-        progress_bar_target: $('#video-progress-case'),
-        additional_data: { "video[campaign_id]":$('#s3_uploader_video').data('campaign-id')},
-    },"video"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
-    $('#s3_uploader_video').bind('s3_upload_failed', function(e, content) {
-        return alert(content.filename + ' failed to upload');
-    });   
-    $('#s3_uploader_video').bind('s3_uploads_start', function(e, content) {
-        $('#audio-embed-block').hide();
-        $('#s3_direct_uploader_video').removeClass('mb-20');
-        turn_lights_on('#above-blockui');
-    });  
-    $('#s3_uploader_video').bind('s3_upload_complete', function(e, content) {
-        $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
-    });    
-	//Upload video image
-	$('#s3_uploader_video_image').S3Uploader(
-	  { 
-	    remove_completed_progress_bar: false,
-	    dropZone: $('#video-image-dropzone'),
-	    progress_bar_target: $('#video-image-progress-case'),
-	    additional_data: { "video_image[video_uuid]":$('#s3_uploader_video_image').data('video-uuid')},
-	},"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
-	$('#s3_uploader_video_image').bind('s3_upload_failed', function(e, content) {
-	  return alert(content.filename + ' failed to upload');
-	});   
-	$('#s3_uploader_video_image').bind('s3_upload_complete', function(e, content) {
-	  $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
-	});    
 });
 //Price tag
 $('#free-price-panel').click(function(){

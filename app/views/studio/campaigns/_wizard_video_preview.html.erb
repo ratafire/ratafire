@@ -5,7 +5,7 @@
 		</div>
 	<% end %>
 	<video oncontextmenu="return false;" id="application-video-preview" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity mb-20 video-encoding" controls
-			preload="none" width="auto" height="auto" poster="<% if video.video_image %><%= video.video_image.image(:preview800) %><% else %><% if video.encoded_state == 'finished' %><%= video.thumbnail(:preview800) %><% else %>/assets/editor/rainbow-blur3.jpg<% end %><% end %>"
+			preload="none" width="auto" height="auto" poster="<%= campaign.image(:preview800) %>"
 			data-setup='{}'>
 			<source src="<%= video.output_url_mp4 %>" type='video/mp4'>
 			<source src="<%= video.output_url %>" type='video/webm'>

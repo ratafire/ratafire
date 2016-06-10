@@ -21,6 +21,11 @@ class Profile::SettingsController < ApplicationController
 	def account_settings
 	end
 
+	#identity_verification_user_profile_settings GET
+	def identity_verification
+		@identity_verification = IdentityVerification.new
+	end
+
 protected
 
 	def load_user

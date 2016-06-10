@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425153513) do
+ActiveRecord::Schema.define(version: 20160610210024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 20160425153513) do
     t.boolean  "skip_everafter",               default: false
     t.string   "uuid"
     t.string   "majorpost_uuid"
+    t.string   "campaign_uuid"
   end
 
   add_index "artworks", ["processed"], name: "idx_16450_index_artworks_on_processed", using: :btree
@@ -245,6 +246,40 @@ ActiveRecord::Schema.define(version: 20160425153513) do
     t.text     "test"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.string   "uuid"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "stripe_id"
+    t.string   "object"
+    t.string   "account_holder_name"
+    t.string   "account_holder_type"
+    t.string   "bank_name"
+    t.string   "country"
+    t.string   "currency"
+    t.boolean  "default_for_currency"
+    t.string   "fingerprint"
+    t.string   "last4"
+    t.string   "routing_number"
+    t.string   "encrypted_routing_number"
+    t.string   "status"
+    t.string   "account_number"
+    t.string   "encrypted_account_number"
+    t.integer  "user_id"
+    t.integer  "campaign_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "city"
+    t.string   "line1"
+    t.string   "line2"
+    t.string   "postal_code"
+    t.string   "state"
+    t.string   "encrypted_account_number_iv"
+    t.string   "encrypted_routing_number_iv"
   end
 
   create_table "beta_users", id: :bigserial, force: :cascade do |t|
@@ -388,6 +423,10 @@ ActiveRecord::Schema.define(version: 20160425153513) do
     t.boolean  "ratafirer",               default: false
     t.boolean  "recipient"
     t.string   "locale"
+    t.string   "currency"
+    t.text     "content"
+    t.string   "status"
+    t.string   "funding_type"
   end
 
   create_table "cards", id: :bigserial, force: :cascade do |t|
@@ -940,6 +979,44 @@ ActiveRecord::Schema.define(version: 20160425153513) do
 
   add_index "icons", ["processed"], name: "idx_16743_index_icons_on_processed", using: :btree
   add_index "icons", ["user_id"], name: "idx_16743_index_icons_on_user_id", using: :btree
+
+  create_table "identity_verifications", force: :cascade do |t|
+    t.string   "ssn"
+    t.string   "encrypted_ssn"
+    t.string   "passport"
+    t.string   "encrypted_passport"
+    t.string   "drivers_licence"
+    t.string   "encrypted_drivers_licence"
+    t.string   "id_card"
+    t.string   "encrypted_id_card"
+    t.integer  "user_id"
+    t.string   "birthday"
+    t.string   "state"
+    t.string   "address"
+    t.string   "city"
+    t.string   "apartment"
+    t.string   "address_zip"
+    t.string   "country"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "identity_document_file_name"
+    t.string   "identity_document_content_type"
+    t.integer  "identity_document_file_size"
+    t.datetime "identity_document_updated_at"
+    t.string   "status"
+    t.boolean  "stripe_verified"
+    t.string   "stripe_verification_status"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "verification_type"
+    t.string   "ssn_last4"
+    t.string   "id_card_last4"
+    t.string   "passport_last4"
+    t.string   "drivers_license_last4"
+    t.string   "uuid"
+  end
 
   create_table "impressions", force: :cascade do |t|
     t.string   "impressionable_type"
@@ -1776,6 +1853,31 @@ ActiveRecord::Schema.define(version: 20160425153513) do
     t.text     "mailer_message"
   end
 
+  create_table "shipping_anywheres", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "campaign_id"
+    t.integer  "user_id"
+    t.decimal  "amount",      precision: 10, scale: 2, default: 0.0
+    t.integer  "reward_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+  end
+
+  create_table "shippings", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "campaign_id"
+    t.integer  "user_id"
+    t.decimal  "amount",      precision: 10, scale: 2, default: 0.0
+    t.string   "country"
+    t.integer  "reward_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+  end
+
   create_table "soundcloud_oauths", force: :cascade do |t|
     t.string   "uuid"
     t.integer  "user_id"
@@ -1808,6 +1910,63 @@ ActiveRecord::Schema.define(version: 20160425153513) do
     t.datetime "updated_at",              null: false
     t.boolean  "expires"
     t.string   "refresh_token"
+  end
+
+  create_table "stripe_accounts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "uuid"
+    t.string   "stripe_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "object"
+    t.string   "business_name"
+    t.string   "business_primary_color"
+    t.string   "business_url"
+    t.boolean  "charges_enabled"
+    t.string   "country"
+    t.boolean  "debit_negative_balances"
+    t.boolean  "avs_failure"
+    t.boolean  "cvc_failure"
+    t.string   "default_currency"
+    t.boolean  "details_submitted"
+    t.string   "display_name"
+    t.string   "email"
+    t.string   "city"
+    t.string   "line1"
+    t.string   "line2"
+    t.string   "postal_code"
+    t.string   "state"
+    t.string   "town"
+    t.string   "personal_id_number_provided"
+    t.string   "phone_number"
+    t.string   "ssn_last_4_provided"
+    t.string   "account_type"
+    t.string   "verification_details"
+    t.string   "verification_details_code"
+    t.string   "verification_document"
+    t.string   "verification_status"
+    t.boolean  "managed"
+    t.string   "product_description"
+    t.string   "statement_descriptor"
+    t.string   "support_email"
+    t.string   "support_phone"
+    t.string   "support_url"
+    t.string   "timezone"
+    t.string   "tos_acceptance_date"
+    t.string   "tos_acceptance_ip"
+    t.string   "tos_acceptance_user_agent"
+    t.integer  "transfer_schedule_delay_days"
+    t.string   "transfer_schedule_interval"
+    t.string   "transfer_schedule_monthly_anchor"
+    t.string   "weekly_anchor"
+    t.boolean  "transfers_enabled"
+    t.string   "verification_disabled_reason"
+    t.string   "verification_due_by"
+    t.text     "verification_fields_needed"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   create_table "subscription_applications", id: :bigserial, force: :cascade do |t|

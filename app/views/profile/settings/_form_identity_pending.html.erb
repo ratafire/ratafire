@@ -1,0 +1,30 @@
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin">
+		<h4 class="panel-title"><%= t 'views.profile.settings.menu.identity_verification' %></h4>
+		<span><%= t 'views.profile.settings.identity_verification.identity_verification_tagline' %></span>
+	</div>
+	<div class="panel-body text-center p-40" id="identity-verification-panel-body">
+		<div class="fundo img-circle" style="margin:0 auto;height:500px;width:500px;background:url('/assets/default/profilephoto/profile<%= @user.id.to_s.last%>_thumbnail512.jpg')">
+		</div>
+		<div class="mt-20 mb-20">
+			<h3 class="text-thin text-grey-200"><%= t 'views.profile.settings.identity_verification.verification_pending'%></h3>
+		</div>
+		<div>
+			<% if @user.campaigns.count > 0 %>
+				<% unless @user.active_campaign %>
+					<%= link_to apply_user_studio_campaigns_path(@user.username, @user.campaigns.first), :data => {turbolinks: "false"} do %>
+						<span class="btn-group pt-7">
+							<span class="btn btn-blue btn-lg"><%= t 'views.utilities.menu.become_a_creator' %></span>
+						</span>
+					<% end %>
+				<% end %>
+			<% else %>
+				<%= link_to new_user_studio_campaigns_path(@user.username), :data => {turbolinks: "false"} do %>
+					<span class="btn-group pt-7">
+						<span class="btn btn-blue btn-lg"><%= t 'views.utilities.menu.become_a_creator' %></span>
+					</span>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>

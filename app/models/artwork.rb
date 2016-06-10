@@ -24,6 +24,7 @@ class Artwork < ActiveRecord::Base
     #----------------Relationships----------------
     #Belongs to
     belongs_to :majorpost, class_name: "Majorpost"
+    belongs_to :campaign, class_name: "Campaign"
     belongs_to :user
 
     #----------------Attachment----------------
