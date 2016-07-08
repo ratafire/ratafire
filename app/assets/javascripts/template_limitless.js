@@ -3,7 +3,6 @@
 //= require turbolinks
 //= require jquery-ui.min
 //= require bootstrap.min
-//= require unobtrusive_flash
 //= require confirmation.js
 //= require s3_direct_upload
 //= require ahoy

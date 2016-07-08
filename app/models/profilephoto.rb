@@ -30,7 +30,7 @@ class Profilephoto < ActiveRecord::Base
             :thumbnail256 => ["256x256#",:jpg],
             :thumbnail128 => ["128x128#",:jpg],
             :thumbnail64 => ["64x64#",:jpg], 
-            :thumbnail40 => "40x40#"
+            :thumbnail40 => ["40x40#",:jpg],
             }, 
         :default_url => lambda { |av| "/assets/default/profilephoto/profile#{av.instance.default_image_number}_:style.jpg" },
         :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
@@ -64,7 +64,7 @@ class Profilephoto < ActiveRecord::Base
     end
 
     def default_image_number
-        id.to_s.last
+        user.id.to_s.last
     end
 
     #----------------S3 Direct Upload----------------

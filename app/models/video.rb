@@ -26,6 +26,7 @@ class Video < ActiveRecord::Base
     #Belongs to
     belongs_to :majorpost, class_name:"Majorpost"
     belongs_to :user
+    belongs_to :campaign
     #Has one
     has_one :video_image, foreign_key: "video_uuid", primary_key: "uuid", class_name:"VideoImage", dependent: :destroy
 

@@ -1,0 +1,4 @@
+$('#current-shipping-address-holder').remove();
+$('#add-shipping-address-form').remove();
+$('#add-shipping-address-panel-body').append("<%= j render(:partial => 'studio/shipping_addresses/edit_mailing_address', :locals => {user: @user, shipping_address: @shipping_address}) %>");
+$(".simple-select-search").select2({});

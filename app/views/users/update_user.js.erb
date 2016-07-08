@@ -1,0 +1,10 @@
+$('.error-messages').velocity('scroll',{
+	duration:500,
+	offset:-80,
+	easing:'ease-in-out'
+});	
+<% if @error %>
+	$('.error-messages').html('<div class="alert bg-danger"><button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button><%= @user.errors.full_messages.to_sentence %></div>');
+<% else %>
+	$('.error-messages').html('<div class="alert bg-rainbow-800"><button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button><%= t "errors.messages.updated" %></div>');
+<% end %>

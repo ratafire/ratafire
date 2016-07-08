@@ -28,7 +28,11 @@ protected
 
 	def load_user
 		#Load user by username due to FriendlyID
-		@user = User.find_by_username(params[:user_id])
+		unless @user = User.find_by_uid(params[:user_id])
+			unless @user = User.find_by_username(params[:user_id])
+				@user = User.find(params[:user_id])
+			end
+		end
 	end	
 
 end

@@ -1,12 +1,13 @@
 <!-- Rewards -->
 <fieldset title="2">
-	<legend class="text-semibold"><%= t 'views.campaign.rewards' %></legend>
+	<legend class=""><%= t 'views.campaign.rewards' %></legend>
 	<!-- Topic -->
 	<div class="row text-center p-40">
 		<div class="text-giant text-thin"><%= t 'views.campaign.how_will_you_thank_your_backers' %></div>
-		<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(8).quote %>" - <%= HistoricalQuote.find(8).author %></h3>
+		<h3 class="text-thin text-grey-200"><%= render 'studio/campaigns/historical_quotes_rewards', locals: { campaign: @campaign } %></h3>
 	</div>
 	<%= f.fields_for :rewards do |r| %>
+		<legend class=""><i class="ti-announcement mr-5"></i><%= t 'views.campaign.current_goal' %></legend>
 		<!-- Current Goal -->
 		<div class="row">
 			<div class="col-md-3">
@@ -37,6 +38,7 @@
 				</div>
 			</div>
 		</div>		
+		<legend class=""><i class="huaxia huaxia-libao mr-5"></i><%= t 'views.campaign.reward' %></legend>
 		<!-- Reward Title -->
 		<div class="row">
 			<div class="col-md-3">
@@ -63,6 +65,27 @@
 					</div>
 					<span class="help-block">
 						<%= t 'views.campaign.pledge_amount_help' %>
+					</span>
+				</div>
+			</div>
+		</div>	
+		<!-- Backers -->
+		<div class="row">
+			<div class="col-md-3">
+				<div><%= t 'views.campaign.limited_to' %>: <span class="text-danger">*</span></div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<div class="input-group">
+						<%= r.number_field :backers, class:"form-control required" %>
+						<span class="input-group-btn">
+							<span class="btn btn-default cursor-normal">
+								<%= t 'views.campaign.backers' %>
+							</span>
+						</span>
+					</div>
+					<span class="help-block">
+						<%= t 'views.campaign.limited_to_help' %>
 					</span>
 				</div>
 			</div>
@@ -104,7 +127,7 @@
 										<div class="col-lg-8 pl-5">
 											<div class="input-group">
 												<span class="input-group-addon"><%= currency_signs(@campaign.currency) %></span>
-												<%= s.text_field :amount, class:"form-control", placeholder:"0" %>
+												<%= s.text_field :amount, max: "500", class:"form-control", placeholder:"0" %>
 												<div class="input-group-btn">
 													<%= s.link_to_remove do %>
 														<div class="btn bg-rainbow">
@@ -133,7 +156,7 @@
 										<div class="col-lg-8 pl-5">
 											<div class="input-group">
 												<span class="input-group-addon"><%= currency_signs(@campaign.currency) %></span>
-												<%= sa.text_field :amount, class:"form-control", placeholder:"0" %>
+												<%= sa.text_field :amount, max: "500", class:"form-control", placeholder:"0" %>
 												<%= sa.link_to_remove do %>
 													<div class="display-none remove_shipping_anywhere" >
 													</div>
@@ -178,7 +201,7 @@
 </fieldset>
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <script type="text/javascript">
-	$(window).on('load page:load', function(){
+
 		//Show the existing shipping if so
 		<% if @campaign.rewards.first.shippings.count > 0 || @campaign.rewards.first.shipping_anywhere %>
 			$('#shipping-countries').show();
@@ -262,5 +285,4 @@
 				btn.disabled=false;
 			}
 		}	    
-	});
 </script>

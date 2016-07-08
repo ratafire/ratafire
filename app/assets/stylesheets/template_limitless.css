@@ -16,5 +16,6 @@
 *= require_directory ./font_styles
 *= require utilities/video
 *= require utilities/bootstrap-social.css
+*= require utilities/signup_form.css
 *= require s3_direct_upload_progress_bars
  */

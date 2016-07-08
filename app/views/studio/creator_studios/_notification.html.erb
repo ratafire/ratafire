@@ -1,0 +1,18 @@
+<% if notification.notification_type == "project_approved" %>
+	<%= render partial:'studio/notifications/components/notification_project_approved', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "project_declined" %>
+	<%= render partial:'studio/notifications/components/notification_project_declined', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "subscriber_one_time" %>
+	<%= render partial:'studio/notifications/components/subscriber_one_time', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "subscriber_recurring" %>
+	<%= render partial:'studio/notifications/components/subscriber_recurring', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "subscribed_one_time" %>
+	<%= render partial:'studio/notifications/components/subscribed_one_time', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "subscribed_recurring" %>
+	<%= render partial:'studio/notifications/components/subscribed_recurring', locals: {notification: notification} %>
+<% end %>

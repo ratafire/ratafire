@@ -27,12 +27,7 @@
 			</span>
 		</div>
 		<div class="friendcarddata bg-blue-light text-size-small btn-group btn-group-justified">
-			<div class="btn-group">
-				<li class="btn btn-xs"><i class="huaxia huaxia-guanzhu"></i></li>
-			</div>
-			<div class="btn-group">     
-				<li class="btn btn-xs"><i class="huaxia huaxia-shui"></i></li>
-			</div>
+			<%= render partial:'profile/usercard/usercard_buttons', locals: {user: user} %>
 		</div>
 	</div>
 </div>

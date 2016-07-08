@@ -10,15 +10,18 @@ class Content::MajorpostsController < ApplicationController
 
 	#REST Methods -----------------------------------
 
-	def new
-	end
-	
+	#content_majorposts POST
+	#/content/majorposts
 	def create
 		#Create the majorpost
 		@majorpost = Majorpost.new(majorpost_params)
 		#Detect language
 		if language = CLD.detect_language(@majorpost.content)
 			@majorpost.locale = language[:code]
+		end
+		#Set majorpost campaign
+		if current_user.active_campaign
+			@majorpost.campaign_id = current_user.active_campaign.id
 		end
 		#Update Majorpost
 		if @majorpost.update(
@@ -40,9 +43,20 @@ class Content::MajorpostsController < ApplicationController
 		#Check whether the artworks are in the content of the majorpost, if not, delete them
 	end
 
-	def update
+	#content_majorpost GET
+	#/content/majorposts/:id
+	def show
+		@user = @majorpost.user
+		#Mark the activity as read
+		if user_signed_in?
+			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
+				@activity.mark_as_read! :for => current_user
+			end
+		end
 	end
 
+	#content_majorpost DELETE
+	#/content/majorposts/:id
 	def destroy
 		#Set Majorpost as deleted
 		@majorpost.update(

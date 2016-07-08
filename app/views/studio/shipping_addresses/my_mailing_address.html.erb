@@ -1,0 +1,19 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="panel panel-blue bg-white-transparent">
+	<div class="panel-heading">
+		<h6 class="panel-title text-thin"><i class="icon-gift mr-10"></i><%= t 'views.creator_studio.rewards.how_i_get_rewards'%></h6>
+		<div class="heading-elements">
+    	</div>
+	</div>
+	<div class="panel-body" id="add-shipping-address-panel-body">
+		<% if @user.shipping_addresses.count > 0 %>
+			<%= render partial: "studio/shipping_addresses/mailing_address", collection: @shipping_addresses, :as => :shipping_address, locals: {user: @user } %>
+		<% else %>
+			<%= render partial: "studio/shipping_addresses/add_mailing_address", locals: {user: @user, shipping_address: @shipping_address} %>
+		<% end %>
+	</div>
+</div>

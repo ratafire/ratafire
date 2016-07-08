@@ -1,5 +1,5 @@
 <div>
-	<h2 class="mt-40 mb-20"><i class="ti-announcement mr-15"></i><%= t 'views.home.trailer' %> <span class="label label-default"><%= t 'views.utilities.menu.current_goal' %></span></h2>
+	<h2 class="mt-40 mb-20"><i class="ti-announcement mr-15"></i><%= user.active_reward.goal_title %> <span class="label label-default"><%= t 'views.utilities.menu.current_goal' %></span></h2>
 	<!-- Countdown Script -->
 	<div class="countdown" id="counter-wrapper">
 		<!-- Days -->
@@ -35,7 +35,7 @@
 	<!-- Countdown Timer Script -->
 	<script class="source" type="text/javascript">
 	        $('.countdown').downCount({
-	            date: '09/09/2016 12:00:00'
+	            date: '<%= user.active_reward.due.strftime('%m/%d/%Y %T') %>'
 	        });
 	</script> 
 </div>

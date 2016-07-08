@@ -1,0 +1,187 @@
+<%= form_for(card, url: user_payment_cards_path(user.id),remote: true,:html =>{:id => 'add-card-form'}, name:"add-card-form") do |f| %>
+	<fieldset>
+		<legend class="text-semibold">
+			<i class="ti-user position-left"></i>
+			<%= t 'views.creator_studio.how_i_pay.card_info' %>
+			<!--<a class="control-arrow mb-20" data-toggle="collapse" data-target="#demo1">
+				<i class="icon-circle-down2"></i>
+			</a>-->
+		</legend>
+		<div class="collapse in" id="demo1">
+			<!-- Name -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_pay.name' %>:</label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-4">
+								<%= f.text_field :name, class:"form-control", placeholder:t('views.creator_studio.how_i_pay.name_placeholder') %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Expiration date -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_pay.exp_date' %>:</label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-2">
+								<%= f.text_field :exp_year, type:"number", maxlength: "4",class:"form-control", id: 'exp-year', placeholder:"YYYY" %>
+							</div>
+							<div class="col-md-2">
+								<%= f.text_field :exp_month, type:"number", maxlength: "2",class:"form-control", id: 'exp-month', placeholder:"MM" %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Card Number -->
+			<div class="row">
+				<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_pay.card_number' %>:</label>
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-4">
+							<%= f.text_field :card_number, type:"number", maxlength: "16",class:"form-control", id: 'card-number', placeholder:t('views.creator_studio.how_i_pay.card_number_placeholder') %>
+						</div>
+						<div class="col-md-2">
+							<%= f.text_field :cvc, type:"number", maxlength: "3" ,class:"form-control",id: 'cvc', placeholder:t('views.creator_studio.how_i_pay.cvc_placeholder') %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend class="text-semibold">
+			<i class="ti-map-alt position-left"></i>
+			<%= t 'views.creator_studio.how_i_pay.billing_address' %>
+		</legend>
+		<div class="collapse in" id="demo2">
+			<!-- Country -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.country' %>:</label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-6">
+							<%= f.country_select(:country, { include_blank: t('views.creator_studio.how_i_get_paid.country'),selected: card.country, except: ["AN"] }, { class: 'simple-select-search required', id: 'verification-country-select' }) %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Address Line 1 -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.postal_code' %>:</label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-2">
+								<%= f.text_field :address_zip, class:"form-control", placeholder:t('views.creator_studio.how_i_get_paid.postal_code') %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+	<div class="text-right">
+		<%= f.submit I18n.t('views.utilities.editor.submit_btn'), class: "btn btn-blue", id:"bank-account-submit" %>
+	</div>
+<% end %>
+<script type="text/javascript">
+	//Validate
+    var validator = $("#add-card-form").validate({
+        ignore: 'input[type=hidden], .select2-input', // ignore hidden fields
+        errorClass: 'validation-error-label',
+        successClass: 'validation-valid-label',
+	    submitHandler: function(){
+	        $('#add-card-panel-body').block({
+	            message: '<i class="icon-spinner2 spinner text-blue"></i>',
+	            overlayCSS: {
+	            	backgroundColor: '#fff',
+	                opacity: 0.4,
+	                cursor: 'wait'
+	            },
+	            css: {
+	                border: 0,
+	                padding: 0,
+	                backgroundColor: 'transparent'
+	            }
+	        }); 
+	        $('#add-card-form').trigger('submit.rails');
+	    },        
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+
+            // Styled checkboxes, radios, bootstrap switch
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo( element.parent().parent().parent().parent() );
+                }
+                 else {
+                    error.appendTo( element.parent().parent().parent().parent().parent() );
+                }
+            }
+
+            // Unstyled checkboxes, radios
+            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                error.appendTo( element.parent().parent().parent() );
+            }
+
+            // Input with icons
+            else if (element.parents('div').hasClass('has-feedback')) {
+                error.appendTo( element.parent() );
+            }
+
+            // Inline checkboxes, radios
+            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            // Input group, styled file input
+            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                error.appendTo( element.parent().parent() );
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        validClass: "validation-valid-label",
+        rules: {
+            'card[name]': "required",
+            'card[exp_year]':{
+            	digits: true,
+            	required: true
+            },
+            'card[exp_month]': {
+            	digits: true,
+            	required: true
+            },
+            'card[card_number]': {
+            	required: true,
+            	creditcard: true
+           	},
+            'card[cvc]': {
+            	required: true,
+            	digits: true
+            },
+            'card[country]': 'required',
+            'card[address_zip]': 'required',
+        }
+    });	
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+        digits: '<%= t 'views.form.validate.digits' %>',
+        creditcard: '<%= t 'views.form.validate.creditcard' %>',
+    });	
+</script>

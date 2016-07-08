@@ -12,15 +12,35 @@
     	<div class="caption text-center">
     		<h6 class="text-semibold no-margin"><%= user.preferred_name %><small class="display-block"><%= user.tagline %></small></h6>
     	</div>
+        <!-- Become a creator -->
+        <% if current_user == @user %>
+			<% if current_user.campaigns.count > 0 %>
+				<% unless current_user.active_campaign %>
+					<%= link_to apply_user_studio_campaigns_path(current_user.username, current_user.campaigns.first), :data => {turbolinks: "false"} do %>
+						<span class="btn-group pt-7">
+							<span class="btn btn-default text-grey-300 mt-20"><%= t 'views.utilities.menu.become_a_creator' %></span>
+						</span>
+					<% end %>
+				<% end %>
+			<% else %>
+				<%= link_to new_user_studio_campaigns_path(current_user.username), :data => {turbolinks: "false"} do %>
+					<span class="btn-group pt-7">
+						<span class="btn btn-default text-grey-300 mt-20"><%= t 'views.utilities.menu.become_a_creator' %></span>
+					</span>
+				<% end %>
+			<% end %>
+        <% end %>    	
 		<!-- About -->
 		<p class="mt-10">
 			<%= user.bio %>
 		</p>
 		<!-- Website -->
-        <%= link_to user.website, target: "_blank" do %>
-                <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
-                    <i class="huaxia huaxia-link text-green-400"></i>
-                </div> 
-        <% end %>  
+		<% if user.website %>
+	        <%= link_to user.website, target: "_blank" do %>
+	                <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
+	                    <i class="huaxia huaxia-link text-green-400"></i>
+	                </div> 
+	        <% end %> 
+	    <% end %> 
 	</div><!-- end .panel-body -->
 </div>

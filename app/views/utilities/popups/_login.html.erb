@@ -2,51 +2,194 @@
 	<div class="tabbable">
 		<!-- Tab navigation -->
 		<ul class="nav nav-tabs nav-tabs-bottom">
-			<li><a href="#bottom-tab1" data-toggle="tab">Sign up</a></li>
-			<li class="active"><a href="#bottom-tab2" data-toggle="tab">Log in</a></li>
+			<li><a href="#bottom-tab1" data-toggle="tab"><%= t 'views.utilities.devise.sign_up' %></a></li>
+			<li class="active"><a href="#bottom-tab2" data-toggle="tab"><%= t 'views.utilities.devise.log_in' %></a></li>
 		</ul>
 		<!-- Tab content -->
 		<div class="tab-content">
 			<!-- Sign up Form -->
 			<div class="tab-pane tab-pane-signup" id="bottom-tab1">
 				<%= form_for(resource, as: resource_name,:html =>{id:'signup-popup-form'}, url: registration_path(resource_name)) do |f| %>
-					<!-- First Name -->
-					<%= f.label "First Name"%>
-					<%= f.email_field :firstname, class:"form-control mb-10" %>
-					<!-- Last Name -->
-					<%= f.label "Last Name"%>
-					<%= f.email_field :lastname, class:"form-control mb-10" %>
+					<% if I18n.locale == :zh %>
+						<!-- Last Name -->
+						<%= f.label t('views.utilities.devise.last_name')%>
+						<%= f.text_field :lastname, class:"form-control mb-10" %>
+						<!-- First Name -->
+						<%= f.label t('views.utilities.devise.first_name')%>
+						<%= f.text_field :firstname, class:"form-control mb-10" %>
+					<% else %>
+						<!-- First Name -->
+						<%= f.label t('views.utilities.devise.first_name')%>
+						<%= f.text_field :firstname, class:"form-control mb-10" %>
+						<!-- Last Name -->
+						<%= f.label t('views.utilities.devise.last_name')%>
+						<%= f.text_field :lastname, class:"form-control mb-10" %>
+					<% end %>
 				    <!-- Email -->
-				    <%= f.label "Email"%>
-				    <%= f.email_field :email, class:"form-control mb-10", type:"email" %>
+				    <%= f.label t('views.utilities.devise.email')%>
+				    <%= f.text_field :email, class:"form-control mb-10", type:"email" %>
 				    <!-- Password -->
-				    <%= f.label "Password"%>
+				    <%= f.label t('views.utilities.devise.password')%>
 				    <%= f.password_field :password, autocomplete: "off", class:"form-control mb-10", type:"password"%>
 				    <!-- Submit -->
-				    <span class="text-grey-200 pull-left text-size-small">You agree to our terms.</span>
+				    <span class="text-grey-200 pull-left text-size-small"><%= t 'views.utilities.devise.you_agree_to_our_terms' %><%= t 'views.utilities.devise.terms' %></span>
 				    <div class="text-right">
-				    	<%= f.submit "Sign up", class:"btn btn-blue"%>
+				    	<%= f.submit t('views.utilities.devise.sign_up'), class:"btn btn-blue"%>
 				    </div>
 				<% end %><!-- end form_for resource -->
 			</div>
 			<!-- Log in Form -->
 			<div class="tab-pane tab-pane active" id="bottom-tab2">				
 				<!-- Normal sign in-->
-				<%= form_for(resource, as: resource_name, id:'login-popup-form', url: session_path(resource_name)) do |f| %>
+				<%= form_for(resource, as: resource_name, :html =>{id:'login-popup-form'}, url: session_path(resource_name)) do |f| %>
 				    <!-- Email -->
-				    <%= f.label "Email"%>
+				    <%= f.label t('views.utilities.devise.email')%>
 				    <%= f.email_field :email, class:"form-control mb-10", type:"email" %>
 				    <!-- Password -->
-				    <%= f.label "Password"%>
+				    <%= f.label t('views.utilities.devise.password')%>
 				    <%= f.password_field :password, autocomplete: "off", class:"form-control mb-10", type:"password"%>
 				    <!-- Submit -->
-				    <span class="text-grey-200 pull-left text-size-small">Password help?</span>
+                    <%= link_to new_password_path(resource_name), class:"text-grey-200", :data => {turbolinks: "false"} do %>
+				        <span class="text-grey-200 pull-left text-size-small"><%= t 'views.utilities.devise.password_help' %></span>
+                    <% end %>
 				    <div class="text-right">
-					    
-					    <%= f.submit "Log in", class:"btn btn-blue"%>
+					    <%= f.submit t('views.utilities.devise.log_in'), class:"btn btn-blue"%>
 					</div>
 				<% end %><!-- end form_for resource -->		
 			</div>	
 		</div><!-- end .tab-content-->	
 	</div><!-- end .tabbable-->	
 </div><!-- end #signup-popup-->
+<script type="text/javascript">
+	//Validation
+    var validator = $("#signup-popup-form").validate({
+        ignore: 'input[type=hidden], .select2-input', // ignore hidden fields
+        errorClass: 'validation-error-label',
+        successClass: 'validation-valid-label',
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+
+            // Styled checkboxes, radios, bootstrap switch
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo( element.parent().parent().parent().parent() );
+                }
+                 else {
+                    error.appendTo( element.parent().parent().parent().parent().parent() );
+                }
+            }
+
+            // Unstyled checkboxes, radios
+            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                error.appendTo( element.parent().parent().parent() );
+            }
+
+            // Input with icons
+            else if (element.parents('div').hasClass('has-feedback')) {
+                error.appendTo( element.parent() );
+            }
+
+            // Inline checkboxes, radios
+            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            // Input group, styled file input
+            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                error.appendTo( element.parent().parent() );
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        validClass: "validation-valid-label",
+        rules: {
+            'user[firstname]': {
+            	minlength: 1,
+            	maxlength: 20,
+            	required: true,
+            },
+            'user[lastname]':{
+            	minlength: 1,
+            	maxlength: 20,
+            	required: true,
+            },
+            'user[email]':'required',
+            'user[password]':{
+            	minlength: 6,
+            	maxlength: 20,
+            	required: true,
+            },
+        }
+    });	
+    var validator2 = $("#login-popup-form").validate({
+        ignore: 'input[type=hidden], .select2-input', // ignore hidden fields
+        errorClass: 'validation-error-label',
+        successClass: 'validation-valid-label',
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+
+            // Styled checkboxes, radios, bootstrap switch
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo( element.parent().parent().parent().parent() );
+                }
+                 else {
+                    error.appendTo( element.parent().parent().parent().parent().parent() );
+                }
+            }
+
+            // Unstyled checkboxes, radios
+            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                error.appendTo( element.parent().parent().parent() );
+            }
+
+            // Input with icons
+            else if (element.parents('div').hasClass('has-feedback')) {
+                error.appendTo( element.parent() );
+            }
+
+            // Inline checkboxes, radios
+            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            // Input group, styled file input
+            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                error.appendTo( element.parent().parent() );
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        validClass: "validation-valid-label",
+        rules: {
+            'user[email]':'required',
+            'user[password]':{
+            	minlength: 6,
+            	maxlength: 20,
+            	required: true,
+            },
+        }
+    });	    
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+        email: '<%= t 'views.form.validate.email' %>',
+        minlength: jQuery.validator.format("<%= t 'views.form.validate.minlength_1' %>{0}<%= t 'views.form.validate.minlength_2' %>"),
+        maxlength: jQuery.validator.format("<%= t 'views.form.validate.maxlength_1' %>{0}<%= t 'views.form.validate.maxlength_2' %>"),
+    });	    
+</script>

@@ -1,0 +1,2 @@
+$('#<%=@campaign.uuid%>-campaign-liked').remove();
+$('#<%=@campaign.uuid%>-campaign-like-holder').append("<%= j render(:partial => 'content/likes/like_campaign', locals: {campaign:@campaign}) %>");

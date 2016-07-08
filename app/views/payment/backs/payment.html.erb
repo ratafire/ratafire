@@ -1,0 +1,49 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+	<!-- Cover area -->
+	<%= render partial:'profile/components/cover', locals: {user: @user} %>
+	<!-- Toolbar -->
+	<%= render partial:'profile/components/toolbar', locals: {user: @user}%>
+	<!-- Content Area -->
+	<div class="content" >
+		<!-- Pledge Area -->
+		<% if @user.active_campaign %>
+			<!-- Title -->
+			<h1 class="animated bounceIn mb-10 text-center text-300 text-grey" style="font-size:2.3em;"><%= @user.preferred_name %><%= t is_creating('Art') %><span class="text-500"><%= @user.active_campaign.title %></span></h1>	
+			<h4 class="text-300 pb-40 text-grey-200 text-center"><%= t 'views.payment.backs.back'%><%= @user.preferred_name %><%= t 'views.payment.backs.screation'%><%= t 'views.payment.backs.choose_your_reward' %></h4>		
+		<% end %>	
+		<!-- Updates -->
+		<div class="row">
+			<div class="col-xs-12 col-md-8 pl-40 pr-40" id="updates-main-area">	
+				<% if user_signed_in?  %>
+					<%= render partial:'payment/backs/payment_info', locals: {user: @user} %>
+				<% else %>
+					<%= render partial:'payment/backs/sign_up' %>
+				<% end %>
+			</div>
+			<!-- Side Area -->
+			<div class="col-xs-6 col-md-4 pr-40" id="side-area">
+				<!-- Amount -->
+				<%= render partial:'payment/backs/payment_amount', locals: {user: @user, subscription: @subscription} %>
+				<!-- Goal -->
+				<% if @user.active_reward %>
+					<div id="sticker" class="mt-40 pb-40">
+						<!-- Current Goal -->
+						<%= render partial:'profile/components/current_goal', locals: {user: @user}%>			
+					</div><!-- end #sticker -->	
+				<% end %>
+			</div>	
+		</div><!-- end #updates_area-->	
+	</div>

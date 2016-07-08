@@ -2,14 +2,14 @@
 <div class="col-xs-12 col-md-12 col-offset-64" id="<%= activity.trackable.id %>_holder">
 	<!-- User Image -->
 	<div class="col-fixed-64">
-		<%= link_to profile_url_path(activity.trackable.user) do %>
+		<%= link_to profile_url_path(activity.trackable.user.username) do %>
 			<img src="<%= activity.trackable.user.profilephoto.image.url(:thumbnail64) %>" class="profile-thumb-panel usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey"></i>' data-id="<%= activity.trackable.user.uid %>" data-placement="right">
 		<% end %>
 	</div>			
 	<!-- Post Panel -->
 	<div class="panel panel-speech">
 			<!-- Post User -->
-			<div class="panel-user text-semibold text-size-small"><%= link_to activity.trackable.user.preferred_name, profile_url_path(activity.trackable.user),class:"text-grey-800" %>
+			<div class="panel-user text-semibold text-size-small"><%= link_to activity.trackable.user.preferred_name, profile_url_path(activity.trackable.user.username),class:"text-grey-800" %>
 				<!-- More -->
 				<% if current_user == @user || current_user.try(:admin) %>
 					<span class="dropdown pull-right mr-20">
@@ -50,8 +50,7 @@
 				 		data-setup='{}'>
 				  		<source src="<%= activity.trackable.audio.audio.url %>" type='audio/mp3'/>
 				  		<p class="vjs-no-js">
-				    		To view this video please enable JavaScript, and consider upgrading to a web browser
-				    		that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+				    		<%= t 'views.utilities.editor.view_video'%>
 				  		</p>
 					</audio>					
 				<% end %>
@@ -79,8 +78,7 @@
 				  		<source src="<%= activity.trackable.video.output_url_mp4 %>" type='video/mp4'>
 				  		<source src="<%= activity.trackable.video.output_url %>" type='video/webm'>
 				  		<p class="vjs-no-js">
-				    		To view this video please enable JavaScript, and consider upgrading to a web browser
-				    		that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+				    		<%= t 'views.utilities.editor.view_video'%>
 				  		</p>
 					</video>	
 				<% end %>
@@ -148,18 +146,54 @@
 			<div class="pull-right">
 				<span class="dropup">
 					<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
-						<i class="huaxia huaxia-share mr-10 text-medium">
+						<i class="huaxia huaxia-share text-medium">
 						</i>
 					</a>
 					<ul id="majorpost-share-toolbar" class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
-						<li><div class="p-20"><%= raw RQRCode::QRCode.new( 'https://github.com/whomwah/rqrcode', :size => 4, :level => :h ).as_html %></div></li>		
-						<li><a href="#"><i class="huaxia huaxia-link"></i> Link</a></li>
+						<% if I18n.locale == :zh %>
+							<li><div class="p-20"><%= raw RQRCode::QRCode.new( majorpost_fullurl(activity.trackable.uuid) , :size => 6, :level => :h ).as_html %></div></li>
+						<% else %>		
+							<li>
+								<a href="" class="ssk ssk-facebook" data-url="<%= majorpost_fullurl(activity.trackable.uuid)%>">
+									<i class="fa fa-facebook-square"></i><%= t 'views.settings.social_media_settings.facebook' %>
+								</a>
+							</li>
+							<li>
+								<a href="" class="ssk ssk-twitter" data-url="<%= majorpost_fullurl(activity.trackable.uuid)%>" data-text="<%= activity.trackable.title %> @ratafirer" >
+									<i class="fa fa-twitter-square"></i><%= t 'views.settings.social_media_settings.twitter' %>
+								</a>
+							</li>
+							<li>
+								<a href="" class="ssk ssk-tumblr" data-url="<%= majorpost_fullurl(activity.trackable.uuid)%>">
+									<i class="fa fa-tumblr-square"></i><%= t 'views.settings.social_media_settings.tumblr' %>
+								</a>
+							</li>
+						<% end %>
+						<li>
+							<a data-clipboard-text="<%= majorpost_fullurl(activity.trackable.uuid) %>" >
+								<i class="huaxia huaxia-link"></i><%= t 'views.utilities.menu.copy_link' %>
+							</a>
+						</li>
 					</ul>
 				</span>				
 				<!-- Repost 
 				<i class="ti-loop mr-10" data-popup="tooltip" title="Repost" data-placement="bottom"></i>-->
 				<!-- Like -->
-				<i class="huaxia huaxia-guanzhu text-medium"></i>
+				<% if user_signed_in? %>
+					<span id="<%= activity.trackable.uuid %>-majorpost-like-holder">
+						<% if is_liker?(current_user.id, 'Majorpost', activity.trackable.id) %>
+							<%= render partial:'content/likes/unlike_majorpost', locals: {majorpost: activity.trackable} %>
+						<% else %>
+							<%= render partial:'content/likes/like_majorpost', locals: {majorpost: activity.trackable} %>
+						<% end %>
+					</span>
+				<% else %>
+					<span id="<%= activity.trackable.uuid %>-majorpost-like-holder">
+						<%= link_to new_user_registration_path do %>
+							<i class="text-grey-300 huaxia huaxia-guanzhu text-medium inline-block animated rubberBand ml-10"></i>
+						<% end %>
+					</span>
+				<% end %>
 			</div>	
 		</div>			
 	</div><!-- end .panel -->	

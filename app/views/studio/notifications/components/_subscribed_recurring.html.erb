@@ -1,0 +1,23 @@
+<ul class="media-list dropdown-content-body <% unless notification.is_read %>bg-grey-100<% end %>">
+	<li class="media">
+		<div class="media-left">
+			<img src="<%= Subscription.find(notification.trackable_id).subscriber.profilephoto.image.url(:thumbnail40)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
+		</div>
+
+		<div class="media-body">
+			<%= link_to profile_url_path(Subscription.find(notification.trackable_id).subscriber.username), class:"media-heading" do %>
+				<span class="text-semibold"><%= Subscription.find(notification.trackable_id).subscriber.preferred_name %></span>
+				<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
+			<% end %>
+			<span class="text-grey"><%= Subscription.find(notification.trackable_id).subscriber.preferred_name %><%= t 'mailer.payment.subscription.receipt.become_a_long_term_backed_1'%><%= currency_signs(Subscription.find(notification.trackable_id).currency) %><%= Subscription.find(notification.trackable_id).amount %>
+				<span class="text-lowercase">
+					<% if Subscription.find(notification.trackable_id).campaign_funding_type == 'creation' %>
+						<%= t 'views.campaign.per_creation' %>
+					<% else %>
+						<%= t 'views.campaign.per_month' %>
+					<% end %>
+				</span>
+			</span>
+		</div>
+	</li>
+</ul>

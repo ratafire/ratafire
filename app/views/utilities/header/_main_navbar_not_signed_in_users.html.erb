@@ -2,10 +2,9 @@
 	<!-- Navbar header -->
 	<div class="navbar-header">
 		<!-- Logo -->
-		<!-- Logo -->
 		<%= link_to root_path do %>
-			<div class="header-logo">
-			</div>				
+			<div class="header-logo animated_hover" data-action="jello">
+			</div>
 		<% end %>		
 		<!-- Sidebar Toggle -->
 		<ul class="nav navbar-nav visible-xs-block">
@@ -15,18 +14,29 @@
 	</div><!-- end .navbar-header-->
 	<!-- Navbar collapse-->
 	<div class="navbar-collapse collapse" id="navbar-mobile">
-		<!-- Sidebar Toggle-->
+		<!-- Sidebar Toggle
 		<ul class="nav navbar-nav">
 			<li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
-		</ul>
+		</ul>-->
+		<!-- Search -->
+		<p class="navbar-text no-padding col-sm-4 col-md-5 col-lg-6">
+			<span class="input-group pt-7">
+				<input type="text" class="form-control height-30 masthead-search-terms-border no-border-radius">
+				<span class="input-group-btn height-30">
+					<span class="btn btn-default pt-3 height-30" type="button" style="width:66px;">
+						<i class="fa fa-search text-grey-300"></i>
+					</span>
+				</span>
+			</span>
+		</p>
 		<!-- Navbar Right -->
 		<ul class="nav navbar-nav navbar-right">
 			<!-- Signup and Login Popup -->
 			<!-- Login Button -->
-			<p class="navbar-text"><a href="#login-popup" class="open-popup-link login-open-popup">Log in</a></p>
+			<p class="navbar-text"><a href="#login-popup" class="open-popup-link login-open-popup"><%= t 'views.utilities.devise.log_in' %></a></p>
 			<%= render 'utilities/popups/login' %>
 			<!-- Signup Button -->
-			<li><a href="#login-popup" class="open-popup-link signup-open-popup" style="padding:0;"><div type="button" class="btn btn-blue btn-xxs navbar-login-button open-popup-link" href="#signup-popup">Sign up</div></a></li>
+			<li><a href="#login-popup" class="open-popup-link signup-open-popup" style="padding:0;"><div type="button" class="btn btn-blue btn-xxs navbar-login-button open-popup-link" href="#signup-popup"><%= t 'views.utilities.devise.sign_up' %></div></a></li>
 		</ul>
 	</div>
 </div><!-- end .navbar navbar-default navbar-fixed-top header-highlight -->

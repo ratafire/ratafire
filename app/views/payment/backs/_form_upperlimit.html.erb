@@ -1,0 +1,37 @@
+<h4 class="no-margin-top mt-40 mb-20"><%= t 'views.creator_studio.menu.upper_limits' %></h4>
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+		<!-- Name -->
+		<div class="form-group">
+			<div class="row mb-20">
+				<label class="col-md-3 control-label">
+					<% if I18n.locale == :zh %>
+						<%= t 'mailer.payment.subscription.receipt.up_to'%><%= user.preferred_name %><%= t 'mailer.payment.subscription.receipt.support'%>
+					<% else %>
+						<%= t 'mailer.payment.subscription.receipt.support'%><%= user.preferred_name %><%= t 'mailer.payment.subscription.receipt.up_to'%>
+					<% end %>
+				</label>
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-4">
+							<%= f.number_field :upper_limit, class:"touchspin-vertical form-control", min:"1", max:"4",value:4 %>
+						</div>
+						<div class="col-md-8">
+							<%= t 'views.payment.backs.creations_per_month'%>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    // Vertical spinners
+    $(".touchspin-vertical").TouchSpin({
+        min: 1,
+        max: 4,        
+        verticalbuttons: true,
+        verticalupclass: 'icon-arrow-up22',
+        verticaldownclass: 'icon-arrow-down22'
+    });	
+</script>

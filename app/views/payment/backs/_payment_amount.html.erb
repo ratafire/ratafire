@@ -1,0 +1,41 @@
+<div class="panel bg-blue-100 border-blue-100 border-radius-6">
+	<div class="panel-body border-radius-6">
+		<div class="text-blue-200"><%= t 'views.payment.backs.back_this_creator' %></div>
+		<div>
+			<span class="text-bold" style="font-size:30px;">
+				<%= currency_signs(user.active_campaign.currency) %><%= params[:subscription][:amount] %>
+			</span>
+			<span>
+				<% if params[:subscription][:funding_type] == 'recurring' %>
+					<% if user.active_campaign.funding_type == 'creation' %>
+						<%= t 'views.campaign.per_creation' %>
+					<% else %>
+						<%= t 'views.campaign.per_month' %>
+					<% end %>
+				<% else %>
+					<%= t 'views.campaign.one_time' %>
+				<% end %>
+			</span>
+			<span class="pull-right">
+				<%= link_to new_user_payment_backs_path(user.id, amount: params[:subscription][:amount], shipping_country: params[:subscription][:shipping_country], funding_type: params[:subscription][:funding_type]) do %>
+					<%= t 'views.utilities.editor.edit' %>
+				<% end %>
+			</span>
+		</div>
+	</div>
+	<% if params[:subscription][:get_reward] %>
+		<div class="panel-body border-radius-6" style="border-top: 1px dashed #d4dfe4;">
+			<div class="text-blue-200"><%= t 'views.payment.backs.selected_reward' %></div>
+			<div class="text-blue-100" style="font-size:18px;"><%= currency_signs(user.active_campaign.currency) %><%= user.active_reward.amount.to_i %><%= t 'views.payment.backs.or_more' %> - <span class='text-500'><%= user.active_reward.title %></span></div>
+			<div class="text-blue-100 mb-20"><%= user.active_reward.description %></div>
+			<div class="text-blue-200"><%= t 'views.utilities.menu.estimated_delivery' %></div>
+			<div><%= user.active_reward.estimated_delivery.strftime('%Y/%m/%d') %></div>
+		</div>
+		<% if params[:subscription][:shipping_country] %>
+			<div class="panel-body border-radius-6" style="border-top: 1px dashed #d4dfe4;">
+				<div class="text-blue-200 mb-5"><%= t 'views.utilities.menu.ships_to' %></div>
+				<div><%= country_select("user", "country", { selected:params[:subscription][:shipping_country] }, { class: 'form-control',disabled:"disabled" }) %></div>
+			</div>
+		<% end %>
+	<% end %>
+</div>

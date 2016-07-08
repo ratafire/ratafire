@@ -1,0 +1,3 @@
+<%= link_to user_user_content_likes_path(current_user.id, user.id), remote: true,method: :get, id:user.uid+'-user-like' do %>
+	<i class="huaxia huaxia-guanzhu inline-block animated rubberBand text-white"></i>
+<% end %>

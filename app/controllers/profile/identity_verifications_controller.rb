@@ -21,6 +21,7 @@ class Profile::IdentityVerificationsController < ApplicationController
 			if @ssn.valid?
 				process_identity_verification
 			else
+				flash[:error] = t('errors.messages.not_saved')
 				redirect_to(:back)
 			end
 		else
@@ -116,6 +117,7 @@ protected
 				redirect_to(:back)
 			end
 		rescue
+			flash[:error] = t('errors.messages.not_saved')
 			redirect_to(:back)
 			#Delete identity verification
 			if @identity_verification

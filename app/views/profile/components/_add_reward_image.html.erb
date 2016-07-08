@@ -1,0 +1,46 @@
+<!-- Show upload form -->
+<div id="add-reward-image">
+	<%= s3_uploader_form callback_url: upload_image_user_studio_rewards_path(user.id, user.active_reward.id),
+		callback_method: 'POST',
+		id: "s3_uploader_reward_image",
+		callback_param: "reward[direct_upload_url]",
+		expiration: 24.hours.from_now.utc.iso8601,
+		max_file_size: 5000.megabytes,:remote => true do %>
+		<div class="pl-20 pt-20 pr-20">
+			<div class="valign-middle dropzone-bg" id="reward-image-dropzone">
+				<%= file_field_tag :file, multiple: false, class:"video-choose btn-upload" %>
+				<div class="cursor-pointer center-block text-center">
+					<div id="big-image-upload">
+						<div class="huaxia huaxia-multipleimage text-grey-100" style="font-size:40px;"></div>
+						<div class="text-size-large text-grey-300 mt-5"><%= t 'views.campaign.upload_an_image_for_this_reward' %> <span class="label bg-danger"><%= t 'views.utilities.editor.recommended' %></span></div>
+					</div>
+				</div>
+			</div>
+		</div>		
+	<% end %>
+	<script type="text/javascript">
+	    $('#s3_uploader_reward_image').S3Uploader(
+	      { 
+	        remove_completed_progress_bar: false,
+	        dropZone: $('#reward-image-dropzone')
+	    },"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+	    $('#s3_uploader_reward_image').bind('s3_upload_failed', function(e, content) {
+	        return alert(content.filename + ' failed to upload');
+	    });   
+	    $('#s3_uploader_reward_image').bind('s3_uploads_start', function(e, content) {
+	        $('#add-reward-image').block({
+	            message: '<i class="icon-spinner2 spinner text-blue"></i>',
+	            overlayCSS: {
+	            	backgroundColor: '#fff',
+	                opacity: 0.4,
+	                cursor: 'wait'
+	            },
+	            css: {
+	                border: 0,
+	                padding: 0,
+	                backgroundColor: 'transparent'
+	            }
+	        });  
+	    }); 
+	</script>
+</div>

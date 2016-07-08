@@ -57,12 +57,6 @@ function initiate_link_editor(){
             'link[url]': {
                 url: true
             },
-        },
-        messages: {
-            custom: {
-                required: "This is a custom error message",
-            },
-            agree: "Please accept our policy"
         }
     });
 }

@@ -16,10 +16,15 @@ class Majorpost < ActiveRecord::Base
     #----------------Relationships----------------
     #Belongs to
     belongs_to :user
-    has_many :postimage
+    belongs_to :campaign
+
     #Has many
+    has_many :postimage
     has_many :comments, dependent: :destroy
     has_many :artwork, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Artwork", dependent: :destroy
+    has_many :liked_majorposts
+    has_many :likers, through: :liked_majorposts, source: :user
+
     #Has one
     has_one :link, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Link",dependent: :destroy
     has_one :video, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Video",dependent: :destroy

@@ -1,6 +1,6 @@
 <div class="row" id="pledge-area">
 	<!-- Title -->
-	<h1 class="animated bounceIn mb-20 text-center text-300" style="font-size:2.3em;"><%= @user.preferred_name %><%= t is_creating('Art') %><span class="text-500"><%= @user.campaigns.first.title %></span></h1>		
+	<h1 class="animated bounceIn mb-20 text-center text-300" style="font-size:2.3em;"><%= @user.preferred_name %><%= t is_creating('Art') %><span class="text-500"><%= @user.active_campaign.title %></span></h1>		
 	<!-- Video Area -->
 	<div class="col-md-8 pl-40">
 		<!-- Current Project -->

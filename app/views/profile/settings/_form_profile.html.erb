@@ -4,9 +4,8 @@
 		<span><%= t 'views.profile.settings.profile_settings.profile_settings_tagline' %></span>
 	</div>
 	<div class="panel-body">
-		<div class="error-messages"></div>
-		<div class="error-messages"></div>
-		<%= form_for(user, :remote => true) do |f| %>
+		<div class="error-messages mb-10"></div>
+		<%= form_for(user, url: user_update_user_path(user.id), method: :patch, :remote => true) do |f| %>
 			<!-- Turing Test-->
 			<fieldset>
 				<legend class="text-semibold">
@@ -107,14 +106,14 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.website' %>:</label>
 						<div class="col-lg-9">
-							<%= f.text_field :website, class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.website_placeholder')%>
+							<%= f.text_field :website, type:"url", class:"form-control mb-20", placeholder:t('views.profile.settings.profile_settings.website_placeholder')%>
 						</div>
 					</div>
 					<!-- Country -->
 					<div class="form-group">
 						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.country' %>:</label>
 						<div class="col-lg-9">
-							<%= f.country_select(:country, { }, { class: 'simple-select-search mb-20' }) %>
+							<%= f.country_select(:country, { except: ['AN']}, { class: 'simple-select-search mb-20' }) %>
 						</div>
 					</div>
 					<!-- City -->

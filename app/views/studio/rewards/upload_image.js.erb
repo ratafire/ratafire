@@ -1,0 +1,4 @@
+<% if @reward.image.present? %>
+	$('#add-reward-image').remove();
+	$('#active-campaign-reward').prepend("<%= j render(:partial => 'profile/components/reward_image', :locals => {:reward => @reward}) %>");
+<% end %>	

@@ -1,0 +1,15 @@
+<% if @campaign.category == "Art" %>
+	"<%= HistoricalQuote.find(8).quote %>" - <%= HistoricalQuote.find(8).author %>
+<% end %>
+<% if @campaign.category == "Music" %>
+	"<%= HistoricalQuote.find(17).quote %>" - <%= HistoricalQuote.find(17).author %>
+<% end %>
+<% if @campaign.category == "Games" %>
+	"<%= HistoricalQuote.find(16).quote %>" - <%= HistoricalQuote.find(16).author %>
+<% end %>
+<% if @campaign.category == "Writing" %>
+	"<%= HistoricalQuote.find(18).quote %>" - <%= HistoricalQuote.find(18).author %>
+<% end %>
+<% if @campaign.category == "Videos" %>
+	"<%= HistoricalQuote.find(19).quote %>" - <%= HistoricalQuote.find(19).author %>
+<% end %>

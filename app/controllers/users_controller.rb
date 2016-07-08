@@ -1,12 +1,19 @@
 class UsersController < ActionController::Base
 
 	#Before filters
-	before_filter :load_user, only: [:update]
+	before_filter :load_user, only: [:update_user]
 
 	#REST Methods -----------------------------------
 
+	#NoREST Methods -----------------------------------
+
 	#user PATCH
-	def update
+	# user_update_user
+	# /users/:user_id/update_user
+	def update_user
+		if @user.locale
+			I18n.locale = @user.locale
+		end
 		if @user.update(user_params)
 			#flash["success"] = "Info updated."
 			@error = false
@@ -14,9 +21,7 @@ class UsersController < ActionController::Base
 			#flash["error"] = @user.errors.full_messages.to_sentence
 			@error = true
 		end
-	end
-
-	#NoREST Methods -----------------------------------
+	end	
 
 	#user_disconnect GET
 	def disconnect
@@ -64,7 +69,7 @@ class UsersController < ActionController::Base
 protected
 
 	def load_user
-		@user = User.find_by_uid(params[:id])
+		@user = User.find(params[:user_id])
 	end
 
 	def user_params

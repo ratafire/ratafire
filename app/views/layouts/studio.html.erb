@@ -17,6 +17,7 @@
 	<body class="navbar-top">
 		<canvas id="c" style="position:absolute;top:0;left:0;width:100%;"></canvas>
 		<div class="outer-space">
+		<%= render 'shared/flash_messages', flash: flash %>
 			<!-- Main navbar -->
 			<div id="main-navbar">
 	        	<!-- Signed-in Users-->
@@ -47,7 +48,7 @@
 $(function() {
 	var canvas = document.querySelector('canvas'),
       ctx = canvas.getContext('2d'),
-      color = 'rgba(255, 255, 255, 1)';
+      color = 'rgba(45,221,252, 1)';
 
    var w = window.innerWidth;
    var h = window.innerHeight;

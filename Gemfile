@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
-ruby "2.2.0"
+ruby "2.2.2"
 #------------------------ User ------------------------
 #Signups and sessions
 gem 'devise'
+gem 'devise_lastseenable'
 
 #Social Media
 gem 'omniauth'
@@ -31,7 +32,7 @@ gem 'zip-codes'
 # Database
 gem 'pg'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -88,7 +89,7 @@ gem 'aws-sdk', '< 2.0'
 gem 'aws-s3'
 
 #File upload handler
-gem 'paperclip'
+gem 'paperclip', :git=> 'https://github.com/thoughtbot/paperclip', :ref => '523bd46c768226893f23889079a7aa9c73b57d68'
 gem 's3_direct_upload', github: "ratafire/s3_direct_upload"
 gem 'delayed_paperclip', :git => "git://github.com/jrgifford/delayed_paperclip.git"
 gem 'mini_magick','3.7.0' #important
@@ -116,7 +117,6 @@ gem 'acts-as-taggable-on', '~> 3.4' #important
 #------------Paginate------------
 #Paginator
 gem 'will_paginate'
-gem 'jquery-infinite-pages'
 
 #------------Text Editor------------
 #Text sanitizer
@@ -140,7 +140,7 @@ gem 'letsrate', :path => "vendor/gems/ratyrate"
 gem 'acts_as_votable', '~> 0.10.0'
 
 #------------Flash Message------------
-gem 'unobtrusive_flash'
+
 
 #------------Grab meta info from link------------
 gem 'metainspector'
@@ -150,6 +150,7 @@ gem 'country_select'
 #------------------------ Internationalization ------------------------
 #Translation for models
 gem 'globalize'
+gem 'globalize-accessors'
 #Identify language
 gem 'cld'
 
@@ -167,15 +168,16 @@ gem 'sendgrid'
 #Messaging
 gem 'mailboxer'
 
+
 #------------------------ Payments System ------------------------
 
 #Stripe
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 #Paypal
-gem 'paypal-sdk-rest'
-gem 'paypal-sdk-merchant'
-gem 'paypal-express', :git => 'https://github.com/ratafire/paypal-express'
+#gem 'paypal-sdk-rest'
+#gem 'paypal-sdk-merchant'
+#gem 'paypal-express', :git => 'https://github.com/ratafire/paypal-express'
 
 #Encryption
 gem "attr_encrypted"
@@ -187,8 +189,6 @@ gem "attr_encrypted"
 gem "browser"
 #Autolink parser
 gem "rinku"
-#Enable maintainance
-gem 'turnout'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

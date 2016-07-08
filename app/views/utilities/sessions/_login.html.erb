@@ -12,5 +12,7 @@
     <!-- Submit -->
     <%= f.submit t('views.utilities.btn.log_in'), class:"signup-input signup-input--submit", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
     <!-- Switch Form -->
-    <label for="toggle--signup" id="homepage-signup" class="signup-text signup-text--small signup-text--centered"><%= t 'views.home.new_sign_up' %></label>
+    <% if controller_name == 'home' %>
+        <label for="toggle--signup" id="homepage-signup" class="signup-text signup-text--small signup-text--centered"><%= t 'views.home.new_sign_up' %></label>
+    <% end %>
 <% end %><!-- end form_for resource -->

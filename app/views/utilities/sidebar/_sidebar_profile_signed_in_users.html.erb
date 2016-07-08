@@ -5,7 +5,7 @@
 			<!-- Sidebar content with padding -->
 			<div class="category-content sidebar-hide-toggle">
 				<div class="text-center mt-20 row">
-					<img src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>" style="height:27px;"></img>
+					<img src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>" style="height:27px;" class="animated_hover" data-action="rubberBand"></img>
 				</div>	
 				<!-- Search 
 				<div class="input-group">
@@ -20,9 +20,21 @@
 				<ul class="navigation navigation-main navigation-accordion">
 					<!-- Explore -->
 					<li class="navigation-header"><span><%= t 'views.utilities.menu.explore' %></span> <i class="icon-menu" title="Main pages"></i></li>
-					<li><a href="index.html"><i class="huaxia huaxia-2b"></i> <span><%= t 'views.utilities.menu.discover' %></span></a></li>
-					<li><a href="index.html"><i class="huaxia huaxia-apppai"></i> <span><%= t 'views.utilities.menu.back_creators' %></span></a></li>
+						<li><a href="index.html"><i class="huaxia huaxia-2b"></i> <span><%= t 'views.utilities.menu.discover' %></span></a></li>
+						<li><a href="index.html"><i class="huaxia huaxia-apppai"></i> <span><%= t 'views.utilities.menu.back_creators' %></span></a></li>
 					<!-- /Explore -->
+					<!-- Updates -->
+					<% if @followed.count > 0 %>
+						<li class="navigation-header"><span><%= t 'views.utilities.menu.followed' %></span> <i class="icon-menu" title="Main pages"></i></li>
+							<li class="media" id="sidebar-followed-updates-holder">
+								<%= render partial: 'profile/components/followed_updates', collection: @followed, :as => :user %>
+								<% if @followed.count > 3 %>
+									<%= link_to followed_pagination_user_content_likes_path(current_user), style:"padding: 2px 20px;min-height:0;", class:"sidebar-followed-updates-pagination", remote: true do %>
+										<div class="text-center"><i class="ti-angle-down"></i></div>
+									<% end %>
+								<% end %>
+							</li>
+					<% end %>
 					<!-- Followed Tags -->
 					<div class="sidebar-hide-toggle">
 						

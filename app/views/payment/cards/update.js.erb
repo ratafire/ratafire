@@ -1,0 +1,3 @@
+$('#add-card-form').remove();
+$('#add-card-panel-body').append("<%= j render(:partial => 'studio/wallets/card', locals: {user: @user, card: @card}) %>");
+$('#add-card-panel-body').unblock();

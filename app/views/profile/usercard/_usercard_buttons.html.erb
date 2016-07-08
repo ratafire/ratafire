@@ -1,0 +1,66 @@
+<div class="btn-group" id="<%= user.uid %>-user-like-holder-usercard">
+	<% if user_signed_in? %>
+		<% if current_user == user %>
+			<span class="btn btn-xs">
+				<span id="<%= user.uid %>-user-like-holder-inner">
+					<i class="huaxia huaxia-guanzhu inline-block animated rubberBand"></i>
+				</span>
+			</span>
+		<% else %>
+			<% if is_liker?(current_user.id, 'User', user.id) %>
+				<!-- current_user likes user -->
+				<!-- if friend -->
+				<% if current_user.is_friend?(user.id) %>
+					<%= render partial:'content/likes/unfriend_user_usercard', locals: {user: user} %>
+				<% else %>
+					<%= render partial:'content/likes/unlike_user_usercard', locals: {user: user} %>
+				<% end %>
+			<% else %>
+				<%= render partial:'content/likes/like_user_usercard', locals: {user: user} %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<%= link_to new_user_registration_path do %>
+			<span class="btn btn-xs">
+				<span id="<%= user.uid %>-user-like-holder-inner">
+					<i class="huaxia huaxia-guanzhu inline-block animated rubberBand"></i>
+				</span>
+			</span>
+		<% end %>
+	<% end %>
+</div>
+<div class="btn-group" id="<%= user.uid %>-user-subscription-holder-usercard">
+	<% if user_signed_in? %>
+		<% if current_user == user %>
+			<span class="btn btn-xs"> 
+				<span id="<%= user.uid%>-user-subscription-holder-inner">
+					<i class="huaxia huaxia-shui inline-block animated rubberBand"></i>
+				</span>
+			</span>
+		<% else %>
+			<!-- Current user is the subscriber -->
+			<% if user.subscribed_by?(current_user.id) %>
+				<%= render partial:'payment/subscriptions/unsub_subscription_usercard', locals: {user: user} %>
+			<% else %>
+				<!-- User is the subscriber -->
+				<% if current_user.subscribed_by?(user.id) %>
+					<%= render partial:'payment/subscriptions/destroy_subscription_usercard', locals: {user: user} %>
+				<% else %>
+					<span class="btn btn-xs"> 
+						<span id="<%= user.uid%>-user-subscription-holder-inner">
+							<i class="huaxia huaxia-shui inline-block animated rubberBand"></i>
+						</span>
+					</span>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<%= link_to new_user_registration_path do %>
+			<span class="btn btn-xs"> 
+				<span id="<%= user.uid%>-user-subscription-holder-inner">
+					<i class="huaxia huaxia-shui inline-block animated rubberBand"></i>
+				</span>
+			</span>
+		<% end %>
+	<% end %>
+</div>

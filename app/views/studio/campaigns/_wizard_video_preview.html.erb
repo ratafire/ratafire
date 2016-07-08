@@ -5,13 +5,12 @@
 		</div>
 	<% end %>
 	<video oncontextmenu="return false;" id="application-video-preview" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity mb-20 video-encoding" controls
-			preload="none" width="auto" height="auto" poster="<%= campaign.image(:preview800) %>"
+			preload="none" width="auto" height="auto" poster="<%= video.campaign.image(:preview800) %>"
 			data-setup='{}'>
 			<source src="<%= video.output_url_mp4 %>" type='video/mp4'>
 			<source src="<%= video.output_url %>" type='video/webm'>
 			<p class="vjs-no-js">
-			To view this video please enable JavaScript, and consider upgrading to a web browser
-			that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+				<%= t 'views.utilities.editor.view_video'%>
 			</p>
 	</video>	
 </div>

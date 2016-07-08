@@ -1,0 +1,3 @@
+<%= link_to campaign_user_content_likes_path(current_user.id, campaign.id), remote: true,method: :delete, id:campaign.uuid+'-campaign-liked' do %>
+	<i class="text-danger huaxia huaxia-guanzhu1 text-medium inline-block animated rubberBand"></i>
+<% end %>

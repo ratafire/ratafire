@@ -1,0 +1,20 @@
+<% random = rand(0..4) %>
+<% if random == 0 %>
+	<%= render 'studio/campaigns/wizard_background_art'%>
+<% else %>
+	<% if random == 1 %>
+		<%= render 'studio/campaigns/wizard_background_music'%>
+	<% else %>
+		<% if random == 2 %>
+			<%= render 'studio/campaigns/wizard_background_games'%>
+		<% else %>
+			<% if random == 3 %>
+				<%= render 'studio/campaigns/wizard_background_writing'%>
+			<% else %>
+				<% if random == 4 %>
+					<%= render 'studio/campaigns/wizard_background_videos'%>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

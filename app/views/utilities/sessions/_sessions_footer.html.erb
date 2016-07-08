@@ -1,0 +1,10 @@
+<div class="signup-legal">
+    <a class="signup-text--small signup-text--border-right text-grey-100"><%= t 'views.utilities.menu.terms' %></a>
+    <a class="signup-text--small signup-text--border-right text-grey-100"><%= t 'views.utilities.menu.privacy' %></a>
+    <%= link_to new_password_path(resource_name), class:"signup-text--small text-grey-100", :data => {turbolinks: "false"} do %>
+    	<%= t 'views.profile.settings.account_settings.password_help' %>
+ 	<% end %>	
+</div>   
+<div style="position: absolute;bottom: 1.125rem; right: 2.125rem;">
+    <%= render partial:'utilities/language/language_switcher', locals: {switcher_type: 'up'}%> 
+</div>

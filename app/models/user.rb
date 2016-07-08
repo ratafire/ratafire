@@ -2,6 +2,10 @@ class User < ActiveRecord::Base
 
     #----------------Utilities----------------
 
+    #Generate uuid
+    before_validation :generate_uuid!, :on => :create
+    before_create :generate_username, :on => :create    
+
 	#--------Devise--------
   	devise :database_authenticatable, 
   		:registerable,
@@ -11,6 +15,7 @@ class User < ActiveRecord::Base
         :validatable, 
         :confirmable, 
         :omniauthable, 
+        :lastseenable,
         :omniauth_providers => [
         	:facebook, 
         	:twitter, 
@@ -26,10 +31,15 @@ class User < ActiveRecord::Base
         	:paypal
         ]
 
+    #--------Mailboxer--------
+    acts_as_messageable
 
     #--------Friendly id for routing--------
     extend FriendlyId
     friendly_id :uid
+
+    #--------Unread--------
+    acts_as_reader
 
     #--------Profile Photo--------- 
     #Escaped file name for paperclip
@@ -64,6 +74,13 @@ class User < ActiveRecord::Base
         :through => :inverse_friendships, 
         :source => :user        
 
+    #--------Followers---------
+    has_many :liked_users, foreign_key: "liked_id", class_name: "LikedUser"
+    has_many :likers, through: :liked_users, source: :liker, class_name: 'User'
+
+    has_many :reverse_liked_users, foreign_key: "liker_id", class_name: "LikedUser"
+    has_many :likeds, through: :reverse_liked_users, source: :liked, class_name: 'User'
+
     #--------Subscriptions---------
     has_many :subscriptions, 
         -> { where( subscriptions: { :deleted_at => nil, :activated => true }) },
@@ -92,6 +109,17 @@ class User < ActiveRecord::Base
     has_one :customer
     has_one :bank_account
     has_one :card
+    has_one :billing_subscription,
+        -> { where(billing_subscriptions:{:deleted => nil})}
+    has_one :billing_artist, 
+        -> { where(billing_artists:{:deleted => nil})}
+    has_one :transfer, 
+        -> { where(transfers:{:deleted_at => nil , :transfered => nil, :on_hold => nil, :masspay_batch_id => nil})}
+    has_one :hold_transfer,
+        -> { where(transfers:{:deleted_at => nil , :transfered => nil, :on_hold => true})},
+        class_name: "Transfer", foreign_key: "user_id"
+    has_one :order, 
+        -> { where(orders:{:deleted_at => nil, :transacted => nil})}
     
     #--------Record Backers---------
     has_many :subscription_records, 
@@ -99,6 +127,7 @@ class User < ActiveRecord::Base
         class_name: "SubscriptionRecord", 
         dependent: :destroy
     has_many :record_subscribers, 
+        -> { where(subscription_records:{:is_valid => true })},    
         through: :subscription_records, 
         source: :subscriber
 
@@ -107,6 +136,7 @@ class User < ActiveRecord::Base
         class_name: "SubscriptionRecord", 
         dependent: :destroy
     has_many :record_subscribed, 
+        -> { where(subscription_records:{:is_valid => true })},
         through: :reverse_subscription_records, 
         source: :subscribed
 
@@ -122,8 +152,24 @@ class User < ActiveRecord::Base
     #--------Campaign---------
     has_many :campaigns
         has_one :active_campaign,
-            -> { where( campaigns: { :deleted_at => nil, :published => true, :completed => false }) },
+            -> { where( campaigns: { :status => "Approved", :abandoned => nil , :deleted_at => nil, :published => true, :completed => nil }) },
             class_name: "Campaign"
+
+    #--------Reward---------
+    has_many :rewards
+        has_one :active_reward,
+        -> { where( rewards: { :active => true })}, class_name: "Reward"
+    has_many :shipping_addresses
+
+    #--------Likes---------
+    has_many :liked_campaigns
+    has_many :liked_majorposts
+
+    #--------Notification---------
+    has_many :notifications,
+        -> { where( notifications: { :deleted => nil })}, class_name: "Notification"
+        has_many :unread_notifications,
+        -> { where( notifications: { :is_read => false, :deleted => nil })}, class_name: "Notification"
 
     #----------------Social Media----------------
     #--------Facebook---------
@@ -185,18 +231,75 @@ class User < ActiveRecord::Base
     translates :tagline, :fullname, :website, :bio, :job_title ,:firstname, :lastname, :preferred_name, :country, :city, :fallbacks_for_empty_translations => true
 
     #----------------Validation----------------
-    #Real Name
-    validates :firstname, :presence => true
-    validates :lastname, :presence => true
-
     #Email
     validates :email, :presence => true, format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i}, uniqueness: { case_sensitive: false }
 
     #Username
-    validates :username, :presence => true, format: {with: /\A[a-zA-Z0-9_]+\z/}, uniqueness: { case_sensitive: false }, length: { in: 3..50 }
+    validates :username, :presence => true, format: {with: /\A(?=.*[a-z])[a-z\d]+\Z/i}, uniqueness: { case_sensitive: false }, length: { in: 3..50 }, on: :update
+
+    #Pass word
+    validates :password, length: { in: 6..20 }, :on => :create
+
+    #Real Name
+    I18n.locale do |locale|
+        validates :"firstname_#{locale}", :presence => true, length: { in: 1..20}
+        validates :"lastname_#{locale}", :presence => true, length: { in: 1..20}
+    end
 
     #User Info
     validates :tagline, length: { in: 3..42 }
-    validates :website, length: { in: 3..100 }, format: {with: /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix}
-    validates :bio, length: { in: 0..214 }
+    validates :website, format: {with: /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix}
+
+
+
+    #----------------Methods----------------
+
+    #--------Mailboxer--------
+
+    def mailboxer_email(object)
+        return "noreply@ratafire.com"
+    end
+
+    #--------Subscription--------
+
+    def subscribed_by?(subscriber_id)
+        if subscriptions != nil then
+            if subscriptions.where(:deleted => false, :activated => true, :subscriber_id => subscriber_id).count != 0 then
+                return true
+            else
+                return false
+            end
+        else
+            return false    
+        end
+    end    
+
+    #--------Subscription--------
+
+    def is_friend?(friend_id)
+        if friends != nil then
+            if friendships.where(:friend_id => friend_id).count != 0 
+                return true
+            else
+                return false
+            end
+        else
+            return false
+        end
+    end    
+
+private
+
+    def generate_uuid!
+        begin
+            self.uid = SecureRandom.hex(16)
+        end while User.find_by_uid(self.uid).present?
+    end
+
+    def generate_username
+        begin
+            self.username = SecureRandom.hex(5)
+        end while User.find_by_username(self.username).present?
+    end
+
 end

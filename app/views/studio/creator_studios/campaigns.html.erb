@@ -1,0 +1,9 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="row">
+	<!-- Campaigns -->
+	<%= render partial: "studio/creator_studios/campaign", collection: @campaigns, :as => :campaign %>
+</div>

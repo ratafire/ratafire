@@ -1,0 +1,2 @@
+$('#<%=@majorpost.uuid%>-majorpost-liked').remove();
+$('#<%=@majorpost.uuid%>-majorpost-like-holder').append("<%= j render(:partial => 'content/likes/like_majorpost', locals: {majorpost:@majorpost}) %>");

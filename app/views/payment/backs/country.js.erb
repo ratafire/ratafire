@@ -1,0 +1,5 @@
+<% if @shipping_fee == 0 || @shipping_fee == nil || @shipping_fee == '' %>
+	$('#shipping-fee').html('<%= t "views.payment.backs.free_shipping" %>');
+<% else %>
+	$('#shipping-fee').html('<%= currency_signs(@user.active_campaign.currency) %><%= @shipping_fee.to_i %>');
+<% end %>

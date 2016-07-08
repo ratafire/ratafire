@@ -1,0 +1,113 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Content Area -->
+<div class="content mb-120">
+    <!-- Starfield Animation -->
+    <canvas id="canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;" ></canvas>
+	<% if @campaign.status %>
+		<!-- Page header -->
+		<div class="page-header">
+			<div class="page-header-content text-center">
+				<div class="page-title text-grey">
+					<%= image_tag(@user.profilephoto.image.url(:thumbnail128),class:"img-circle mb-20 animated infinite bounce", id:"campaign-user-image")%>
+					<h2 class="text-thin text-white" id="application-text">
+						<p><%= t "views.campaign.congratulations_line1" %></p>
+						<p><%= t "views.campaign.congratulations_line2" %></p>
+						<p>
+							<%= link_to profile_url_path(@campaign.user.username) do %>
+								<span class="btn btn-blue btn-xlg"><i class="icon-enter mr-10"></i><%= t "views.utilities.editor.back" %></span>
+							<% end %>
+						</p>
+					</h2>
+				</div>
+			</div><!-- end .page-header-content-->
+		</div><!-- end .page-header-->	
+	<% else %>
+		<!-- Page header -->
+		<div class="page-header">
+			<div class="page-header-content text-center">
+				<div class="page-title text-grey">
+					<%= image_tag(@user.profilephoto.image.url(:thumbnail128),class:"img-circle mb-20", id:"campaign-user-image")%>
+					<h2 class="text-thin text-white" id="application-text">
+						<% if @campaign.category == "Art" %>
+							<%= t 'views.campaign.become_an' %>
+						<% else %>
+							<%= t 'views.campaign.become_a' %>
+						<% end %>
+						<% if @campaign.category == "Art" %>
+							<%= t 'views.campaign.art_creator' %>
+						<% end %>
+						<% if @campaign.category == "Music" %>
+							<%= t 'views.campaign.music_creator' %>
+						<% end %>
+						<% if @campaign.category == "Games" %>
+							<%= t 'views.campaign.game_creator' %>
+						<% end %>
+						<% if @campaign.category == "Writing" %>
+							<%= t 'views.campaign.writer' %>
+						<% end %>
+						<% if @campaign.category == "Videos" %>
+							<%= t 'views.campaign.video_creator' %>
+						<% end %>
+					</h2>
+				</div>
+			</div><!-- end .page-header-content-->
+		</div><!-- end .page-header-->	
+		<div class="row" id="application-form-holder">
+			<div class="col-lg-2">
+			</div>
+			<div class="col-lg-8">
+				<!-- Clickable title -->
+	            <div class="panel panel-white p-20">
+	            	<div id="apply-panel">
+						<!-- Project Video -->
+						<% if @campaign.image.present? %>
+							<% if @campaign.video %>
+								<!-- Video preview -->
+								<%= render partial: 'studio/campaigns/wizard_video_preview',:locals => {:video => @campaign.video, :campaign => @campaign } %>
+								<!-- Replace campaign image-->
+								<%= render partial: 'studio/campaigns/wizard_upload_video_image',:locals => { :user => @user, :campaign => @campaign } %>
+							<% else %>
+								<!-- Video image preview -->
+								<%= render partial: 'studio/campaigns/wizard_upload_video_image_preview',:locals => { :user => @user, :campaign => @campaign } %>
+								<!-- Image upload -->
+								<%= render partial: 'studio/campaigns/wizard_upload_video_image',:locals => { :user => @user, :campaign => @campaign } %>
+								<!-- Video uploader -->
+								<%= render partial: 'studio/campaigns/wizard_upload_video',:locals => { :user => @user, :campaign => @campaign } %>
+							<% end %>
+						<% else %>
+							<!-- Video image uploader -->
+							<%= render partial: 'studio/campaigns/wizard_upload_video_image',:locals => { :user => @user, :campaign => @campaign } %>
+						<% end %>
+					</div>
+					<%= nested_form_for [@campaign], :url=>update_user_studio_campaigns_path(@user.id, @campaign.id),authenticity_token: true, :method => :patch, remote: true, html: {class: "stepy-validation", id:"campaign-wizard", action:"#"} do |f|%>
+	            		<%= f.hidden_field :ratafirer, id:"field-ratafirer" %>
+	            		<%= f.hidden_field :status, id:"field-status"%>
+	            		<!-- Start -->
+						<%= render partial: "studio/campaigns/form_start", locals: { f: f } %>
+						
+						<!-- Rewards -->
+						<%= render partial: "studio/campaigns/form_rewards", locals: { f: f } %>
+
+						<!-- Rewards -->
+						<%= render partial: "studio/campaigns/form_creation", locals: { f: f } %>
+
+						<!-- About You -->
+						<%= render partial: "studio/campaigns/form_artist_info", locals: { f: f } %>
+
+						<%= link_to I18n.t('views.utilities.editor.submit_btn'), submit_application_user_studio_campaigns_path(@user.id, @campaign.id), :data => { :confirm => t('views.campaign.please_confirm_your_application_submission') }, remote: true, class:"btn btn-blue stepy-finish" %>
+					
+					<% end %>
+	            </div>
+			</div>
+			<div class="col-lg-2">
+			</div>
+		</div><!-- end row -->
+	<% end %>
+	
+</div><!-- end .content-->
+<!--~~~~~~~~~~~~~~~~~ Page Specific Javascript ~~~~~~~~~~~~~~~~~-->
+<%= render 'studio/campaigns/wizard_stepy_js'%>
+<%= render 'studio/campaigns/wizard_background'%>

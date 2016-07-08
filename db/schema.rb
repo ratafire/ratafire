@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610210024) do
+ActiveRecord::Schema.define(version: 20160707235502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.boolean  "reviewed"
     t.boolean  "published",                default: true
     t.string   "locale"
+    t.boolean  "read"
   end
 
   add_index "activities", ["owner_id", "owner_type"], name: "idx_16401_index_activities_on_owner_id_and_owner_type", using: :btree
@@ -158,6 +159,7 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.string   "uuid"
     t.string   "majorpost_uuid"
     t.string   "campaign_uuid"
+    t.integer  "campaign_id"
   end
 
   add_index "artworks", ["processed"], name: "idx_16450_index_artworks_on_processed", using: :btree
@@ -280,6 +282,8 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.string   "state"
     t.string   "encrypted_account_number_iv"
     t.string   "encrypted_routing_number_iv"
+    t.string   "encrypted_postal_code"
+    t.string   "encrypted_postal_code_iv"
   end
 
   create_table "beta_users", id: :bigserial, force: :cascade do |t|
@@ -405,7 +409,6 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.boolean  "published"
     t.datetime "published_at"
     t.datetime "expiration"
-    t.string   "subcategory"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.string   "sub_category"
@@ -427,13 +430,16 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.text     "content"
     t.string   "status"
     t.string   "funding_type"
+    t.boolean  "abandoned"
+    t.datetime "abandoned_at"
+    t.datetime "applied_at"
   end
 
   create_table "cards", id: :bigserial, force: :cascade do |t|
-    t.integer  "user_id",             limit: 8
+    t.integer  "user_id",                  limit: 8
     t.text     "customer_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.text     "last4"
     t.text     "brand"
     t.text     "funding"
@@ -460,6 +466,19 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.text     "cardno"
     t.text     "cardcvc"
     t.text     "uuid"
+    t.string   "card_number"
+    t.string   "encrypted_card_number"
+    t.string   "encrypted_card_number_iv"
+    t.string   "encrypted_exp_month"
+    t.string   "encrypted_exp_month_iv"
+    t.string   "encrypted_exp_year"
+    t.string   "encrypted_exp_year_iv"
+    t.string   "cvc"
+    t.string   "encrypted_cvc"
+    t.string   "encrypted_cvc_iv"
+    t.string   "encrypted_address_zip"
+    t.string   "encrypted_address_zip_iv"
+    t.integer  "subscription_id"
   end
 
   create_table "clearances", force: :cascade do |t|
@@ -1061,6 +1080,14 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.text     "type"
   end
 
+  create_table "liked_campaigns", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "campaign_id"
+    t.integer  "liker_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "liked_comments", id: :bigserial, force: :cascade do |t|
     t.integer  "comment_id",         limit: 8
     t.integer  "user_id",            limit: 8
@@ -1082,6 +1109,13 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "liker_id",   limit: 8
+  end
+
+  create_table "liked_users", force: :cascade do |t|
+    t.integer  "liker_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "liked_id"
   end
 
   create_table "links", force: :cascade do |t|
@@ -1223,8 +1257,8 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.boolean  "early_access",                    default: false
     t.integer  "audio_id",              limit: 8
     t.integer  "pdf_id",                limit: 8
-    t.text     "realm"
-    t.text     "sub_realm"
+    t.text     "category"
+    t.text     "sub_category"
     t.boolean  "post_to_facebook",                default: false
     t.boolean  "post_to_facebook_page",           default: false
     t.text     "facebookupdate_id"
@@ -1238,6 +1272,7 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.string   "artist"
     t.string   "genre"
     t.string   "locale"
+    t.integer  "campaign_id"
   end
 
   create_table "masspay_batches", id: :bigserial, force: :cascade do |t|
@@ -1291,6 +1326,43 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.integer  "receiver_id",     limit: 8
     t.integer  "sender_id",       limit: 8
     t.integer  "conversation_id", limit: 8
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "uuid"
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.integer  "user_id"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.text     "content"
+    t.string   "title"
+    t.boolean  "is_read",           default: false
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "notification_type"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  create_table "order_subsets", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "subscriber_id"
+    t.integer  "subscribed_id"
+    t.integer  "user_id"
+    t.integer  "transaction_id"
+    t.decimal  "amount",                 precision: 10, scale: 2
+    t.string   "description"
+    t.integer  "updates"
+    t.string   "currency"
+    t.integer  "subscription_id"
+    t.integer  "subscription_record_id"
+    t.integer  "transfer_id"
+    t.string   "uuid"
+    t.integer  "order_id"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
   create_table "orders", id: :bigserial, force: :cascade do |t|
@@ -1708,6 +1780,16 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.datetime "updated_at",           null: false
   end
 
+  create_table "read_marks", force: :cascade do |t|
+    t.integer  "readable_id"
+    t.string   "readable_type", null: false
+    t.integer  "reader_id"
+    t.string   "reader_type",   null: false
+    t.datetime "timestamp"
+  end
+
+  add_index "read_marks", ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index", using: :btree
+
   create_table "recipients", id: :bigserial, force: :cascade do |t|
     t.integer  "user_id",         limit: 8
     t.text     "recipient_id"
@@ -1788,6 +1870,26 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.boolean  "skip_countdown",                        default: false
   end
 
+  create_table "reward_receivers", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "user_id"
+    t.integer  "campaign_id"
+    t.integer  "reward_id"
+    t.integer  "subscription_id"
+    t.integer  "subscription_record_id"
+    t.boolean  "default"
+    t.boolean  "shipping_paid"
+    t.boolean  "status"
+    t.string   "tracking_number"
+    t.string   "shipping_company"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "uuid"
+    t.string   "shipping_address_id"
+    t.boolean  "paid",                   default: false
+  end
+
   create_table "reward_translations", force: :cascade do |t|
     t.integer  "reward_id",   null: false
     t.string   "locale",      null: false
@@ -1835,6 +1937,7 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.decimal  "goal",                 precision: 10, scale: 2, default: 0.0
     t.boolean  "intro"
     t.string   "currency"
+    t.string   "direct_upload_url"
   end
 
   create_table "secrets", id: :bigserial, force: :cascade do |t|
@@ -1853,6 +1956,30 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.text     "mailer_message"
   end
 
+  create_table "shipping_addresses", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "uuid"
+    t.integer  "user_id"
+    t.integer  "campaign_id"
+    t.integer  "reward_id"
+    t.integer  "reward_receiver_id"
+    t.string   "country"
+    t.string   "city"
+    t.string   "line1"
+    t.string   "line2"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "postal_code"
+    t.string   "encrypted_postal_code"
+    t.string   "encrypted_postal_code_iv"
+    t.string   "state"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "subscription_id"
+    t.string   "name"
+  end
+
   create_table "shipping_anywheres", force: :cascade do |t|
     t.string   "uuid"
     t.integer  "campaign_id"
@@ -1869,13 +1996,14 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.string   "uuid"
     t.integer  "campaign_id"
     t.integer  "user_id"
-    t.decimal  "amount",      precision: 10, scale: 2, default: 0.0
+    t.decimal  "amount",             precision: 10, scale: 2, default: 0.0
     t.string   "country"
     t.integer  "reward_id"
     t.boolean  "deleted"
     t.datetime "deleted_at"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.integer  "reward_receiver_id"
   end
 
   create_table "soundcloud_oauths", force: :cascade do |t|
@@ -2014,6 +2142,8 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.boolean  "duration_support",                                        default: false
     t.integer  "counter",              limit: 8,                          default: 0
     t.decimal  "accumulated_fee",                precision: 10, scale: 2, default: 0.0
+    t.string   "is_valid",                                                default: "f"
+    t.decimal  "credit",                         precision: 10, scale: 2, default: 0.0
   end
 
   create_table "subscriptions", id: :bigserial, force: :cascade do |t|
@@ -2047,6 +2177,16 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.integer  "facebook_page_id",         limit: 8
     t.integer  "order_id",                 limit: 8
     t.decimal  "accumulated_fee",                    precision: 10, scale: 2, default: 0.0
+    t.string   "funding_type"
+    t.string   "shipping_country"
+    t.string   "get_reward"
+    t.string   "get_reward_false"
+    t.integer  "upper_limit"
+    t.string   "subscription_type"
+    t.boolean  "organization",                                                default: false
+    t.integer  "campaign_id"
+    t.string   "currency"
+    t.string   "campaign_funding_type"
   end
 
   create_table "tag_relationships", id: :bigserial, force: :cascade do |t|
@@ -2112,6 +2252,25 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "transaction_subsets", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "subscriber_id"
+    t.integer  "subscribed_id"
+    t.integer  "user_id"
+    t.integer  "transaction_id"
+    t.decimal  "amount",                 precision: 10, scale: 2
+    t.string   "description"
+    t.integer  "updates"
+    t.string   "currency"
+    t.integer  "subscription_id"
+    t.integer  "subscription_record_id"
+    t.integer  "transfer_id"
+    t.string   "uuid"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+  end
+
   create_table "transactions", id: :bigserial, force: :cascade do |t|
     t.datetime "created_at",                                                                   null: false
     t.decimal  "receive",                           precision: 10, scale: 2
@@ -2170,6 +2329,7 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.text     "venmo_username"
     t.text     "venmo_token"
     t.integer  "transfer_id",             limit: 8
+    t.integer  "user_id"
   end
 
   create_table "transfers", id: :bigserial, force: :cascade do |t|
@@ -2383,6 +2543,7 @@ ActiveRecord::Schema.define(version: 20160610210024) do
     t.string   "city"
     t.string   "locale"
     t.string   "job_title"
+    t.datetime "last_seen"
   end
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree

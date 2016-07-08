@@ -1,0 +1,34 @@
+<div class="row bg-grey-100 p-20 m-5" id="current-shipping-address-holder">
+	<div class="col-lg-2">
+		<%= shipping_address.name %>
+	</div>
+	<div class="col-lg-2">
+		<%= shipping_address.country %>
+	</div>
+	<div class="col-lg-2">
+		<%= shipping_address.city %>
+	</div>
+	<div class="col-lg-3">
+		<%= shipping_address.line1 %>
+	</div>
+	<div class="col-lg-1">
+		<%= shipping_address.postal_code %>
+	</div>
+	<div class="col-lg-1">
+		<% if shipping_address.reward_receivers.count == 0 %>
+			<%= link_to destroy_user_studio_shipping_addresses_path(user.id, shipping_address.id), method: :delete, remote: true do %>
+				<div class="btn btn-default btn-xs text-grey-200">
+					<%= t'views.utilities.editor.remove' %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+	<div class="col-lg-1">
+		<%= link_to edit_user_studio_shipping_addresses_path(user.id, shipping_address.id), remote: true do %>
+			<div class="btn bg-blue btn-xs">
+				<b><i class="icon-pencil position-left"></i></b>
+				<%= t'views.utilities.editor.edit' %>
+			</div>
+		<% end %>
+	</div>
+</div>

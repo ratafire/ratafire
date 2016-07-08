@@ -10,8 +10,15 @@
 			<!-- Updates -->
 			<li id="user-profile-tabactive" class="tab-updates"><%= link_to profile_url_path(user.username),id:"tab-updates" do %><i class="ti-rss-alt"></i><% end %></li>
 			<!-- Friends -->
-			<li id="tabs-friends-tabactive" class="tab-backeds"><%= link_to friends_user_profile_tabs_path(user.id), id:"tab-contacts" do %><i class="huaxia huaxia-haoyouqingqiu"></i><% end %></li>				
-			<li><a href="#liked" data-toggle="tab"><i class="huaxia huaxia-guanzhu"></i></a></li>
+			<% if @contacts %>
+				<li id="tabs-friends-tabactive" class="tab-backeds"><%= link_to friends_user_profile_tabs_path(user.id), id:"tab-contacts" do %><i class="huaxia huaxia-haoyouqingqiu"></i><% end %></li>	
+			<% end %>	
+			<% if @liked %>
+				<li id="likes-show-tabactive"><%= link_to user_content_likes_path(user.id), id:"tab-likes" do %><i class="huaxia huaxia-guanzhu"></i><% end %></li>
+			<% end %>
+			<% if user.artwork.any? %>
+				<li id="tabs-gallery-tabactive"><%= link_to gallery_user_profile_tabs_path(user.id), id:"tab-gallery" do %><i class="huaxia huaxia-multipleimage"></i><% end %></li>
+			<% end %>
 		</ul>
 	</div>
 </div>

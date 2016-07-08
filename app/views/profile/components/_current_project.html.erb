@@ -1,15 +1,22 @@
 <!-- Video -->
-<div class="video-holder mb-20" id="video-holder" style="width:100%;" data-turbolinks-temporary>
-	<video oncontextmenu="return false;" id="<%= user.uid %>_internal_video" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls
- 		preload="none" poster="https://ratafire.com/assets/homepage/park_pool.jpg"
- 		data-setup='{}'>
-  		<source src="//s3.amazonaws.com/Ratafire_production_videos/park_space.mp4" type='video/mp4'>
-  		<source src="//s3.amazonaws.com/Ratafire_production_videos/park_space.webm" type='video/webm'>
+<% if user.active_campaign.video %>
+	<video oncontextmenu="return false;" id="application-video-preview" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity mb-20 video-encoding" controls
+			preload="none" width="auto" height="auto" poster="<%= user.active_campaign.image.url(:preview800) %>"
+			data-setup='{}'>
+			<source src="<%= user.active_campaign.video.output_url_mp4 %>" type='video/mp4'>
+			<source src="<%= user.active_campaign.video.output_url %>" type='video/webm'>
+			<p class="vjs-no-js">
+				<%= t 'views.utilities.editor.view_video'%>
+			</p>
 	</video>
-	<!-- Reload the video after ajax -->
-</div><!-- end .video-holder -->
+<% else %>
+	<img class="mb-20" src="<%= user.active_campaign.image.url(:preview800) %>" style="width:100%;">
+<% end %>
 <!-- About the Project -->
-<div class="text-size-large mb-40 text-light">
-	<span class="label label-blue"><%= t 'views.utilities.menu.art' %></span>
-	<%= user.campaigns.first.description %>
+<div class="mb-40 text-size-large mb-40 text-light">
+	<div class="">
+		<span class="label <%= category_color(user.active_campaign.category)%> mr-5"><%= t 'views.utilities.menu.art' %></span>
+		<span class="label bg-grey-100"><%= user.active_campaign.sub_category %></span>
+		<%= user.active_campaign.description %>
+	</div>
 </div>	

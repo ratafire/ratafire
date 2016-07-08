@@ -1,1 +1,1 @@
-<span class="label bg-blue"><%= t is_category(@campaign.category) %></span><%= t 'views.campaign.sub_category_help' %>
+<span class="label <%= category_color(@campaign.category)%>"><%= t is_category(@campaign.category) %></span><%= t 'views.campaign.sub_category_help' %>

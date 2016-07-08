@@ -1,0 +1,60 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+zh:
+  devise:
+    confirmations:
+      confirmed: "你的邮箱已验证"
+      send_instructions: "几分钟后你会收到验证邮件"
+      send_paranoid_instructions: "如果你的邮箱已注册，几分钟后你会收到验证邮件"
+    failure:
+      already_authenticated: "你已经登录"
+      inactive: "你的账号未激活"
+      invalid: "你输入了无效的%{authentication_keys}或密码"
+      locked: "你的账号已锁定"
+      last_attempt: "你的账号被锁定前你还可以再尝试一次"
+      not_found_in_database: "你输入了无效的%{authentication_keys}或密码"
+      timeout: "登录超时，请重新登录"
+      unauthenticated: "请先登录"
+      unconfirmed: "请验证你的邮箱"
+    mailer:
+      confirmation_instructions:
+        subject: "验证邮箱"
+      reset_password_instructions:
+        subject: "更改密码"
+      unlock_instructions:
+        subject: "解除锁定"
+    omniauth_callbacks:
+      failure: "无法通过%{kind}的验证，因为\"%{reason}\"."
+      success: "通过%{kind}验证"
+    passwords:
+      no_token: "你必须通过一封更改密码邮件来查看这个页面"
+      send_instructions: "几分钟后你会收到更改密码邮件"
+      send_paranoid_instructions: "如果你的邮箱已注册，几分钟后你会收到更改密码邮件"
+      updated: "你的密码已更改，现在你已登录"
+      updated_not_active: "你已成功更改密码"
+    registrations:
+      destroyed: "别了！你的账号已删除"
+      signed_up: "欢迎！你已注册成功"
+      signed_up_but_inactive: "你已注册成功，但我们无法让你登录，你需要先验证邮箱"
+      signed_up_but_locked: "你已注册成功，但我们无法让你登录，因为你的账号已锁定"
+      signed_up_but_unconfirmed: "验证链接已发到你邮箱，请点击链接以激活你的账号"
+      update_needs_confirmation: "你已成功修改账号信息，但我们需要验证你的新邮箱，请点击新邮箱内验证邮件的链接"
+      updated: "你的账号信息已更新"
+    sessions:
+      signed_in: "成功登录"
+      signed_out: "成功注销"
+      already_signed_out: "已注销"
+    unlocks:
+      send_instructions: "几分钟后你会收到解锁邮件"
+      send_paranoid_instructions: "如果你的邮箱已注册，几分钟后你会收到解锁邮件"
+      unlocked: "你的账号已解锁，请登录"
+  errors:
+    messages:
+      already_confirmed: "你的账号已激活，请登录"
+      confirmation_period_expired: "需要用%{period}来激活，请重新激活"
+      expired: "已过期，请重新申请"
+      not_found: "不存在"
+      not_locked: "没有锁定"
+      not_saved:
+        one: "出错啦"
+        other: "出错啦"

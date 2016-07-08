@@ -1,0 +1,166 @@
+<div class="row" id="payment-info-holder">
+	<%= form_for @subscription, url: user_payment_subscriptions_path(user.uid), method: :post,:html =>{:id => 'payment-info'} do |f| %>
+		<%= f.hidden_field :amount, value: params[:subscription][:amount] %>
+        <%= f.hidden_field :funding_type, value: params[:subscription][:funding_type]%>
+        <%= f.hidden_field :shipping_country, value: params[:subscription][:shipping_country] %>
+        <%= f.hidden_field :get_reward, value: params[:subscription][:get_reward] %>
+		<div class="col-md-12 col-lg-12">
+			<h4 class="no-margin-top mb-20"><%= t 'views.payment.backs.payment_information' %></h4>
+			<div class="row">
+				<div class="col-md-12 col-lg-12">
+					<% if params[:subscription][:funding_type] == 'one_time' %>
+						<%= t 'views.payment.backs.will_be_charged_now_1' %><%= currency_signs(user.active_campaign.currency) %><%= params[:subscription][:amount] %><%= t 'views.payment.backs.will_be_charged_now_2' %><%= user.preferred_name %><%= t 'views.payment.backs.screation'%><%= t 'views.payment.backs.will_be_charged_now_3' %>
+					<% else %>
+						<% if user.active_campaign.funding_type == 'creation' %>
+							<!-- Per creation -->
+							<%= t 'views.payment.backs.will_not_be_charged_now_1' %><%= t 'views.payment.backs.charge_per_creation_1' %><%= currency_signs(user.active_campaign.currency) %><%= params[:subscription][:amount] %><%= t 'views.payment.backs.charge_per_creation_2' %><%= user.preferred_name %><%= t 'views.payment.backs.set_uppper_limit_1' %><%= user.preferred_name %><%= t 'views.payment.backs.set_uppper_limit_2' %>
+						<% else %>
+							<!-- Per month -->
+							<%= t 'views.payment.backs.will_not_be_charged_now_1' %><%= t 'views.payment.backs.charge_per_month_1' %><%= currency_signs(user.active_campaign.currency) %><%= params[:subscription][:amount] %><%= t 'views.payment.backs.charge_per_month_2' %><%= user.preferred_name %><%= t 'views.payment.backs.charge_per_month_3' %>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+            <!-- Upper limit -->
+            <% if user.active_campaign.funding_type == 'creation' %>
+                <%= render partial: "payment/backs/form_upperlimit", locals: { f: f, user: @user } %>
+            <% end %>
+			<!-- Add card -->
+			<% if user_signed_in? %>
+				<% if current_user.card %>
+
+				<% else %>
+					<%= render partial: "payment/backs/add_card", locals: { f: f, card: @card } %>
+				<% end %>
+				<!-- Mailing Address -->
+				<% if params[:subscription][:shipping_country] %>
+					<% if current_user.shipping_addresses.count > 0 && current_user.shipping_addresses.where(country: params[:subscription][:shipping_country]).count > 0 %>
+					<% else %>
+						<h4 class="no-margin-top mt-40 mb-20"><%= t 'views.payment.backs.mailing_address' %></h4>
+						<%= render partial: "payment/backs/add_shipping_address", locals: { f: f, shipping_address: @shipping_address } %>
+					<% end %>
+				<% end %>
+			<% else %>
+				<%= render partial: "payment/backs/add_card", locals: { f: f, card: @card } %>
+			<% end %>
+            <div class="row pt-40">
+                <div class="col-md-12 col-lg-12">
+                    <!-- Submit -->
+                    <span class="text-grey-200 pull-left text-size-small"><%= t 'views.utilities.devise.you_agree_to_our_terms' %><%= t 'views.utilities.devise.terms' %></span>
+                    <div class="text-right">
+                        <%= f.submit I18n.t('views.payment.backs.back_this_creator'), class: "btn btn-blue btn-xlg", id:"payment-info-submit" %>
+                    </div>
+                </div>
+            </div>
+		</div>
+	<% end %>
+</div>
+<script type="text/javascript">
+	//Validate
+    var validator = $("#payment-info").validate({
+        ignore: 'input[type=hidden], .select2-input', // ignore hidden fields
+        errorClass: 'validation-error-label',
+        successClass: 'validation-valid-label',
+	    submitHandler: function(){
+	        $('#payment-info-holder').block({
+	            message: '<i class="icon-spinner2 spinner text-blue"></i>',
+	            overlayCSS: {
+	            	backgroundColor: '#fff',
+	                opacity: 0.4,
+	                cursor: 'wait'
+	            },
+	            css: {
+	                border: 0,
+	                padding: 0,
+	                backgroundColor: 'transparent'
+	            }
+	        }); 
+	        $('#payment-info').trigger('submit.rails');
+	    },        
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+
+            // Styled checkboxes, radios, bootstrap switch
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo( element.parent().parent().parent().parent() );
+                }
+                 else {
+                    error.appendTo( element.parent().parent().parent().parent().parent() );
+                }
+            }
+
+            // Unstyled checkboxes, radios
+            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                error.appendTo( element.parent().parent().parent() );
+            }
+
+            // Input with icons
+            else if (element.parents('div').hasClass('has-feedback')) {
+                error.appendTo( element.parent() );
+            }
+
+            // Inline checkboxes, radios
+            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            // Input group, styled file input
+            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                error.appendTo( element.parent().parent() );
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        validClass: "validation-valid-label",
+        rules: {
+            'subscription[cards_attributes][0][name]':{
+            	required: true,
+            },
+            'subscription[cards_attributes][0][exp_year]':{
+            	required: true,
+            },
+            'subscription[cards_attributes][0][exp_month]':{
+            	required: true,
+            },
+            'subscription[cards_attributes][0][card_number]':{
+            	creditcard: true,
+            	required: true,
+            },
+            'subscription[cards_attributes][0][cvc]':{
+            	required: true,
+            },
+            'subscription[cards_attributes][0][country]':{
+            	required: true,
+            },
+            'subscription[cards_attributes][0][address_zip]':{
+            	required: true,
+            },
+            'subscription[shipping_addresses_attributes][0][name]':{
+            	required: true,
+            },
+            'subscription[shipping_addresses_attributes][0][city]': {
+            	required: true,
+           	},
+            'subscription[shipping_addresses_attributes][0][line1]': {
+            	required: true,
+            },
+            'subscription[shipping_addresses_attributes][0][postal_code]': {
+            	required: true,
+            }            
+        }
+    });	
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+    });	    
+	// Special bg
+	$('body').addClass('bg-white');	
+</script>

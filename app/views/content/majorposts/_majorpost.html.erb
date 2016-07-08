@@ -1,0 +1,200 @@
+<!-- Post Holder -->
+<div class="col-xs-12 col-md-12 col-offset-64" id="<%= majorpost.id %>_holder">
+	<!-- User Image -->
+	<div class="col-fixed-64">
+		<%= link_to profile_url_path(majorpost.user.username) do %>
+			<img src="<%= majorpost.user.profilephoto.image.url(:thumbnail64) %>" class="profile-thumb-panel usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey"></i>' data-id="<%= majorpost.user.uid %>" data-placement="right">
+		<% end %>
+	</div>			
+	<!-- Post Panel -->
+	<div class="panel panel-speech">
+			<!-- Post User -->
+			<div class="panel-user text-semibold text-size-small"><%= link_to majorpost.user.preferred_name, profile_url_path(majorpost.user.username),class:"text-grey-800" %>
+				<!-- More -->
+				<% if current_user == @user || current_user.try(:admin) %>
+					<span class="dropdown pull-right mr-20">
+						<a href="#" class="dropdown-toggle text-grey-200" data-toggle="dropdown">
+							<i class="ti-angle-down" style="font-size:11px;">
+							</i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
+							<!-- Edit -->
+							<li><a href="#"><i class="ti-pencil"></i> Edit</a></li>
+							<!-- Admin -->
+							<% if current_user.try(:admin) %>
+								<li class="dropdown-submenu" >
+									<a href="#"><i class="ti-crown"></i> Admin</a>
+									<ul class="dropdown-menu bg-rainbow-600">
+										<li><a href="#">Third level link</a></li>
+										<li><a href="#">Third level link</a></li>
+										<li><a href="#">Third level link</a></li>
+									</ul>
+								</li>
+							<% end %><!-- end if current_user.admin?-->
+							<!-- Delete -->
+							<li><%= link_to content_majorpost_path(majorpost), method: :delete,:remote => true do %><i class="ti-trash"></i> Delete<% end %></li>
+						</ul>
+					</span>	
+				<% end %><!-- end if current_user == @user || current_user.admin? -->			
+			</div>
+			<!-- Audio Post -->
+			<% if majorpost.post_type == 'audio' && majorpost.audio then %>	
+				<% if majorpost.audio.soundcloud != "" && majorpost.audio.soundcloud != nil %>
+					<!-- SoundCloud -->
+					<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/<%= majorpost.audio.soundcloud %>&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true">
+					</iframe>
+				<% else %>
+					<!-- Internal Audio -->
+					<audio oncontextmenu="return false;" id="<%= majorpost.id %>_internal_audio" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity <%= @popoverclass %>_video_class mb-20" controls
+				 		preload="none" width="auto" height="auto" poster="<%= majorpost.audio.audio_image.image.url(:preview800)%>"
+				 		data-setup='{}'>
+				  		<source src="<%= majorpost.audio.audio.url %>" type='audio/mp3'/>
+				  		<p class="vjs-no-js">
+				    		<%= t 'views.utilities.editor.view_video'%>
+				  		</p>
+					</audio>					
+				<% end %>
+			<% end %>	
+			<!-- Video Post -->
+			<% if majorpost.post_type == 'video' then %>
+				<% if majorpost.video.external != "" && majorpost.video.external != nil %>
+					<!-- External Video-->
+					<% if majorpost.video.youtube_vimeo == true %>
+						<!-- Youtube Video -->
+						<div class="video-container mb-20">
+							<iframe src="https://www.youtube.com/embed/<%= majorpost.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+						</div>
+					<% else %>
+						<!-- Vimeo Video -->
+						<div class="video-container mb-20">
+							<iframe src="//player.vimeo.com/video/<%= majorpost.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+						</div>
+					<% end %>
+				<% else %>
+					<!-- Internal Video -->
+					<video oncontextmenu="return false;" id="<%= majorpost.id %>_internal_video" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity <%= @popoverclass %>_video_class mb-20" controls
+				 		preload="none" width="auto" height="auto" poster="<% if majorpost.video.video_image %><%= majorpost.video.video_image.image(:preview800) %><% else %><% if majorpost.video.encoded_state == 'finished' %><%= majorpost.video.thumbnail(:preview800) %><% else %>/assets/editor/rainbow-blur3.jpg<% end %><% end %>"
+				 		data-setup='{}'>
+				  		<source src="<%= majorpost.video.output_url_mp4 %>" type='video/mp4'>
+				  		<source src="<%= majorpost.video.output_url %>" type='video/webm'>
+				  		<p class="vjs-no-js">
+				    		<%= t 'views.utilities.editor.view_video'%>
+				  		</p>
+					</video>	
+				<% end %>
+			<% end %><!-- end video post -->
+			<!-- Link Post -->
+			<% if majorpost.post_type == 'link' then %>
+				<div class="linkPost">
+					<%= link_to majorpost.try(:link).try(:url), target:"_blank" do %>
+						<div class="insert_link">
+							<!-- Link Image -->
+							<% if majorpost.try(:link).try(:image_best) %>
+								<img src="<%= majorpost.try(:link).try(:image_best) %>" style="width:100%;">
+							<% end %>
+							<!-- Link Title -->
+							<div class="bg-rainbow-400">
+								<div class="panel-body">
+									<h2 class="text-light no-margin-top"><%= majorpost.try(:link).try(:title) %></h2>
+									<div class="text-light" style="margin-top:-10px;"><%= majorpost.try(:link).try(:description) %></div>
+								</div>	
+							</div>	
+						</div>
+					<% end %><!-- end link to external link -->
+				</div>	
+			<% end %><!-- end link post -->
+		<!-- Read All -->
+		<div id="<%= majorpost.id %>_update_holder_read_all" >
+		</div>
+		<!-- Update Holder-->
+		<div id="<%= majorpost.id %>_update_holder">	
+			<!-- Image Post -->
+			<% if majorpost.artwork.count > 0 %>
+				<div class="imagePost">
+					<div class="photoset-grid-lightbox" data-layout="1" style="visibility: hidden;">
+					  	<img src="<%= majorpost.artwork.first.image.url(:preview800) %>" data-highres="<%= majorpost.artwork.first.image.url(:original) %>">
+					</div>				
+				</div>			
+			<% end %><!-- end image post -->
+			<!-- Title for Text Post Only  -->
+			<% if ['text', 'audio','video'].include?(majorpost.post_type) %>
+				<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= majorpost.title %></div>
+			<% end %>
+			<!-- Content -->
+			<div class="panel-body pb-20">
+				<!-- Content -->	
+					<!-- Audio info -->
+				<% if majorpost.post_type == 'audio' && majorpost.audio %>
+					<% if majorpost.audio.composer != ""%><div class="pb-5"><span class="label label-blue">Composer</span> <%= majorpost.audio.composer %></div><% end %>
+					<% if majorpost.audio.artist != "" %><div class="pb-5"><span class="label label-blue">Artist</span> <%= majorpost.audio.artist %></div><% end %>
+					<% if majorpost.audio.genre != "" %><div class="pb-5"><span class="label label-blue">Genre</span> <%= majorpost.audio.genre %></div><% end %>
+				<% end %>				
+				<div class="panel-content">
+					<!-- normal content -->
+					<%= majorpost.excerpt %>
+				</div><!-- end .panel-content-->			
+			</div><!-- end .panel-body -->
+		</div>
+		<!-- Tools -->
+		<div class="panel-footer panel-footer-transparent" style="padding:0 20px 15px 0;">
+			<div class="pull-left" id="<%= majorpost.id %>_read_all_button">
+				<%= link_to content_majorpost_read_more_path(majorpost),remote: true do %>
+					<div class="ml-20 btn btn-xs bg-grey-100 btn-rounded"><%= t 'views.utilities.menu.read_all' %></div>
+				<% end %>
+			</div>
+			<!-- Share -->
+			<div class="pull-right">
+				<span class="dropup">
+					<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
+						<i class="huaxia huaxia-share mr-10 text-medium">
+						</i>
+					</a>
+					<ul id="majorpost-share-toolbar" class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
+						<% if I18n.locale == :zh %>
+							<li><div class="p-20"><%= raw RQRCode::QRCode.new( majorpost_fullurl(majorpost.uuid) , :size => 6, :level => :h ).as_html %></div></li>
+						<% else %>		
+							<li>
+								<a href="" class="ssk ssk-facebook" data-url="<%= majorpost_fullurl(majorpost.uuid)%>">
+									<i class="fa fa-facebook-square"></i><%= t 'views.settings.social_media_settings.facebook' %>
+								</a>
+							</li>
+							<li>
+								<a href="" class="ssk ssk-twitter" data-url="<%= majorpost_fullurl(majorpost.uuid)%>" data-text="<%= majorpost.title %> @ratafirer" >
+									<i class="fa fa-twitter-square"></i><%= t 'views.settings.social_media_settings.twitter' %>
+								</a>
+							</li>
+							<li>
+								<a href="" class="ssk ssk-tumblr" data-url="<%= majorpost_fullurl(majorpost.uuid)%>">
+									<i class="fa fa-tumblr-square"></i><%= t 'views.settings.social_media_settings.tumblr' %>
+								</a>
+							</li>
+						<% end %>
+						<li>
+							<a data-clipboard-text="<%= majorpost_fullurl(majorpost.uuid) %>" >
+								<i class="huaxia huaxia-link"></i><%= t 'views.utilities.menu.copy_link' %>
+							</a>
+						</li>
+					</ul>
+				</span>				
+				<!-- Repost 
+				<i class="ti-loop mr-10" data-popup="tooltip" title="Repost" data-placement="bottom"></i>-->
+				<!-- Like -->
+				<% if user_signed_in? %>
+					<span id="<%= majorpost.uuid %>-majorpost-like-holder">
+						<% if is_liker?(current_user.id, 'Majorpost', majorpost.id) %>
+							<%= render partial:'content/likes/unlike_majorpost', locals: {majorpost: majorpost} %>
+						<% else %>
+							<%= render partial:'content/likes/like_majorpost', locals: {majorpost: majorpost} %>
+						<% end %>
+					</span>
+				<% else %>
+					<span id="<%= majorpost.uuid %>-majorpost-like-holder">
+						<%= link_to new_user_registration_path do %>
+							<i class="text-grey-300 huaxia huaxia-guanzhu text-medium inline-block animated rubberBand ml-10"></i>
+						<% end %>
+					</span>
+				<% end %>
+			</div>	
+		</div>			
+	</div><!-- end .panel -->	
+</div><!-- end .col-xs-10 col-md-7-->

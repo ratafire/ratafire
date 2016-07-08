@@ -9,3 +9,6 @@ initiate_editor();
 initiate_link_editor();
 initiate_text_editor('<%= @upload_url %>');
 turn_lights_off('#above-blockui');
+jQuery.extend(jQuery.validator.messages, {
+    required: '<%= t 'views.form.validate.required' %>',
+});	

@@ -12,12 +12,12 @@
 			<%= file_field_tag :file, multiple: false, class:"artwork-choose btn-upload" %>
 			<div class="cursor-pointer center-block text-center">
 				<div id="big-image-upload">
-					<div class="fa fa-image text-grey-100" style="font-size:40px;"></div>
-					<div class="text-size-large text-grey-300 mt-5">Upload a project image<span class="text-danger">*</span></div>
-					<div class="text-grey-200">Please upload a large image to represent your project</div>
+					<div class="huaxia huaxia-multipleimage text-grey-100" style="font-size:40px;"></div>
+					<div class="text-size-large text-grey-300 mt-5"><%= t 'views.campaign.upload_project_image' %><span class="text-danger">*</span></div>
+					<div class="text-grey-200"><%= t 'views.campaign.upload_project_image_help' %></div>
 				</div>
 				<div id="small-image-upload" style="display:none;">
-					<div class="text-grey-100">Change project cover image</div>
+					<div class="text-grey-100"><%= t 'views.campaign.change_project_cover_image' %></div>
 				</div>
 			</div>
 		</div>	
@@ -27,10 +27,8 @@
 </div>
 <% if campaign.image.present? %>
 	<script>
-		$(document).on('ready turbolinks:render', function(){
-			$('#big-image-upload').hide();
-			$('#small-image-upload').show();
-			$('.video-image-dropzone').addClass("dropzone-bg-small mb-20");
-		});	
+		$('#big-image-upload').hide();
+		$('#small-image-upload').show();
+		$('.video-image-dropzone').addClass("dropzone-bg-small mb-20");
 	</script>
 <% end %>

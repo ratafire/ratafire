@@ -1,0 +1,308 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, current_user.preferred_name) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+    <%= render 'utilities/sidebar/sidebar_admin'%>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="content">
+	<div class="row">
+		<div class="col-lg-12">
+			<!-- User info -->
+			<div class="panel panel-flat">
+				<div class="panel-heading pl-20 pr-20">
+					<h6 class="panel-title text-thin"><%= t 'views.admin.content.projects.user_info' %></h6>
+					<div class="heading-elements pr-5">
+						<ul class="icons-list">
+	                		<li><a data-action="collapse"></a></li>
+	                	</ul>
+                	</div>
+				</div>
+				<div class="panel-body">
+					<div class="profile-cover">
+						<div class="profile-cover-overlay"></div>
+						<div id="fpc_box">
+							<div id="fpc_content">
+								<div class="profile-cover-img" style="background-image: url('<%= @user.profilecover.image.url(:preview1024)%>')"></div>
+							</div>
+						</div>
+						<div class="media">
+							<div class="media-left">
+								<!-- Profile Image -->
+								<%= link_to profile_url_path(@user),class:"profile-thumb" do %>
+									<div class="thumb  thumb-slide thumb-shadow-radius" id="cover-profilephoto-holder">
+										<img src="<%= @user.profilephoto.image.url(:thumbnail128)%>" class="profile-thumb-holder cover-profilephoto-holder" alt="<%= @user.preferred_name %>">
+									</div>
+								<% end %>
+							</div><!-- end .media-left-->
+							<div class="media-body">
+								<%= link_to profile_url_path(@user.username) do %>
+									<!-- Username -->
+					    			<h1 style="margin-top:2px;" class="text-white"><%= truncate(@user.preferred_name,length: 50)%><small class="display-block mb-10" style="margin-left:1px;"><%= @user.tagline %></small><small class="display-block" style="margin-left:1px;"><%= @user.bio %></small></h1>
+					    		<% end %>
+							</div><!-- end .media-body-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Project info -->
+			<div class="panel panel-flat">
+				<div class="panel-heading pl-20 pr-20">
+					<h6 class="panel-title text-thin"><%= t 'views.admin.content.projects.project_info' %></h6>
+					<div class="heading-elements pr-5">
+						<ul class="icons-list">
+	                		<li><a data-action="collapse"></a></li>
+	                	</ul>
+                	</div>
+				</div>
+				<div class="panel-body">
+					<div class="row mb-20">
+						<div class="col-md-12">
+							<% if @campaign.video %>
+								<video oncontextmenu="return false;" id="application-video-preview" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity mb-20 video-encoding" controls
+										preload="none" width="auto" height="auto" poster="<%= @campaign.image.url(:preview800) %>"
+										data-setup='{}'>
+										<source src="<%= @campaign.video.output_url_mp4 %>" type='video/mp4'>
+										<source src="<%= @campaign.video.output_url %>" type='video/webm'>
+										<p class="vjs-no-js">
+											<%= t 'views.utilities.editor.view_video'%>
+										</p>
+								</video>
+							<% else %>
+								<img src="<%= @campaign.image.url(:preview800) %>" style="width:100%;">
+							<% end %>
+						</div>
+					</div>
+					<!-- Title -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.title' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.title %>
+						</div>
+					</div>
+					<!-- Description -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.short_description' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.description %>
+						</div>
+					</div>
+					<!-- Category -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.category' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.category %>
+						</div>
+					</div>
+					<!-- Sub Category -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.sub_category' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.sub_category %>
+						</div>
+					</div>
+					<!-- Tags -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.tags' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<% if @campaign.tags.any? %><%= raw @campaign.tag_list.map { |t| link_to '#'+t, tag_path(t), class:"text-grey-200" }.join('  ') %><% end %>
+						</div>
+					</div>
+					<!-- Country -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.based_country' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.country %>
+						</div>
+					</div>
+					<!-- Duration -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.duration' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.duration %>
+						</div>
+					</div>
+					<!-- Funding type -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.funding_type' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.funding_type %>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Rewards -->
+			<div class="panel panel-flat">
+				<div class="panel-heading pl-20 pr-20">
+					<h6 class="panel-title text-thin"><%= t 'views.campaign.rewards' %></h6>
+					<div class="heading-elements pr-5">
+						<ul class="icons-list">
+	                		<li><a data-action="collapse"></a></li>
+	                	</ul>
+                	</div>
+				</div>
+				<div class="panel-body">
+					<% if @campaign.rewards.last.image.present? %>
+						<!-- reward image -->
+						<div class="row mb-20">
+							<div class="col-md-3">
+								<div><%= t 'views.admin.content.projects.reward_image' %>: </div>
+							</div>
+							<div class="col-md-9">
+								<%= image_tag(@campaign.rewards.last.image.url(:thumbnail480p))%>
+							</div>
+						</div>
+					<% end %>
+					<!-- Current goal -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.current_goal' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.rewards.last.goal_title %>
+						</div>
+					</div>
+					<!-- Current Goal Time -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.current_goal_due' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.rewards.last.due %>
+						</div>
+					</div>
+					<!-- Reward title -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.reward_title' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.rewards.last.title %>
+						</div>
+					</div>
+					<!-- Reward amount -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.pledge_amount' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= currency_signs(@campaign.currency) %><%= @campaign.rewards.last.amount %>
+						</div>
+					</div>
+					<!-- Reward description -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.reward_description' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.rewards.last.description %>
+						</div>
+					</div>
+					<!-- Shippings -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.shipping' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.rewards.last.shipping %>
+						</div>
+					</div>
+					<!-- Ships anywhere-->
+					<% if @campaign.rewards.last.shipping_anywhere %>
+						<div class="row mb-20">
+							<div class="col-md-3">
+								<div><%= t 'views.campaign.ships_anywhere_in_the_world' %>: </div>
+							</div>
+							<div class="col-md-9">
+								<%= currency_signs(@campaign.currency) %><%= @campaign.rewards.last.shipping_anywhere.amount %>
+							</div>
+						</div>
+					<% end %>
+					<!-- Shipping countries -->
+					<% if @campaign.rewards.last.shippings.count > 0 %>
+						<% @campaign.rewards.last.shippings.each do |s| %>
+							<div class="row mb-20">
+								<div class="col-md-3">
+									<div><%= s.country %>: </div>
+								</div>
+								<div class="col-md-9">
+									<%= currency_signs(@campaign.currency) %><%= s.amount %>
+								</div>
+							</div>
+						<% end %>
+					<% end %>
+					<!-- Estimated delivery -->
+					<div class="row mb-20">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.estimated_delivery' %>: </div>
+						</div>
+						<div class="col-md-9">
+							<%= @campaign.rewards.last.estimated_delivery %>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Long description -->
+			<div class="panel panel-flat">
+				<div class="panel-heading pl-20 pr-20">
+					<h6 class="panel-title text-thin"><%= t 'views.campaign.your_creation' %></h6>
+					<div class="heading-elements pr-5">
+						<ul class="icons-list">
+	                		<li><a data-action="collapse"></a></li>
+	                	</ul>
+                	</div>
+				</div>
+				<div class="panel-body">
+					<!-- Long description -->
+					<div class="row mb-20">
+						<div class="col-md-12">
+							<%= raw @campaign.content %>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Creator info -->
+			<div class="panel">
+				<div class="panel-heading pl-20 pr-20">
+					<h6 class="panel-title text-thin"><%= t 'views.admin.content.projects.review' %></h6>
+					<div class="heading-elements pr-5">
+						<ul class="icons-list">
+	                		<li><a data-action="collapse"></a></li>
+	                	</ul>
+                	</div>
+				</div>
+				<div class="panel-body">
+					<span class="pull-right">
+						<%= link_to disapprove_admin_campaigns_path(@campaign.id) do %>
+							<span class="btn btn-default">
+								<%= t 'views.admin.content.projects.disapprove' %>
+							</span>
+						<% end %>
+						<%= link_to approve_admin_campaigns_path(@campaign.id) do %>
+							<span class="btn bg-green">
+								<%= t 'views.admin.content.projects.approve' %>
+							</span>
+						<% end %>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

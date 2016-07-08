@@ -1,0 +1,7 @@
+<% flash.each do |type, message| %>
+    <!-- Solid alert -->
+    <div class="alert bg-<%= bootstrap_class_for(type) %> alert-styled-left">
+		<button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+		<%= message %>
+    </div>
+<% end %>

@@ -47,7 +47,7 @@
   color: #333333;
 }
 .sidebar-default .sidebar-content {
-  background-color: rgba(256,256,256,0.7);
+  background-color: rgba(256,256,256,0.9);
   border-color: #ddd;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -338,7 +338,7 @@
 .sidebar-default .navigation li.active > a,
 .sidebar-default .navigation li.active > a:hover,
 .sidebar-default .navigation li.active > a:focus {
-  background-color: #f5f5f5;
+  background-color: rgba(245,245,245,0.9);
   color: #333333;
 }
 .sidebar-default .navigation li.disabled > a,

@@ -1,0 +1,29 @@
+<div class="row bg-grey-100 p-20 m-5" id="current-card-holder">
+	<div class="col-lg-2">
+		<%= card.brand %>
+	</div>
+	<div class="col-lg-4">
+		************<%= card.last4 %>
+	</div>
+	<div class="col-lg-3">
+		<%= card.name %>
+	</div>
+	<div class="col-lg-1">
+
+	</div>
+	<div class="col-lg-1">
+		<%= link_to user_payment_cards_path(user.id), method: :delete, remote: true do %>
+			<div class="btn btn-default btn-xs text-grey-200">
+				<%= t'views.utilities.editor.remove' %>
+			</div>
+		<% end %>
+	</div>
+	<div class="col-lg-1">
+		<%= link_to edit_user_payment_cards_path(user.id), remote: true do %>
+			<div class="btn bg-blue btn-xs">
+				<b><i class="icon-pencil position-left"></i></b>
+				<%= t'views.utilities.editor.edit' %>
+			</div>
+		<% end %>
+	</div>
+</div>

@@ -31,20 +31,30 @@
 					<div class="tab-content">
 						<!-- Updates -->
 						<div class="tab-pane fade in active" id="updates">
+							<!-- Campaign Read all -->
+							<div id="user-profile-project-read-all">
+							</div>
 							<!-- editor -->
 							<% if current_user == @user || current_user.try(:admin) %>
 								<%= render partial:'utilities/editor/editor', locals: {user: @user}%>
 							<% end %>	
-							<!-- Posts -->
-							<div id="post-pagination">
-								<div class="post-pagination">
-									<%= render_activities(@activities) %>
-								</div>
-								<!-- Paginate -->
-								<div class="post-will-paginate">
-									<%= will_paginate @activities %>
-								</div>
-							</div><!-- end #post-pagination-->
+							<% if @activities.count > 0 %>
+								<!-- Posts -->
+								<div id="post-pagination">
+									<div class="post-pagination">
+										<%= render_activities(@activities) %>
+									</div>
+									<!-- Paginate -->
+									<div class="post-will-paginate">
+										<%= will_paginate @activities %>
+									</div>
+								</div><!-- end #post-pagination-->
+							<% else %>
+								<!-- Welcome -->
+								<% if current_user == @user %>
+									<%= render partial:'profile/components/welcome', locals: {user: @user}%>	
+								<% end %>
+							<% end %>
 						</div>	
 					</div><!-- end .tab-content-->	
 				</div><!-- end .tabbable-->				
@@ -58,13 +68,18 @@
 				<!-- About -->
 				<%= render partial:'profile/components/about', locals: {user: @user}%>
 				<!-- Rewards -->
-				<%= render partial:'profile/components/rewards', locals: {user: @user}%>
-				<div id="sticker" class="mt-40">
-					<!-- Current Goal -->
-					<%= render partial:'profile/components/current_goal', locals: {user: @user}%>			
-					<!-- Donation Button -->
-					<%= render partial:'profile/components/donation_button', locals: {user: @user}%>
-				</div><!-- end #sticker -->	
+				<% if @user.active_reward %>
+					<%= render partial:'profile/components/rewards', locals: {user: @user}%>
+				<% end %>
+				<!-- Goal -->
+				<% if @user.active_reward %>
+					<div id="sticker" class="mt-40">
+						<!-- Current Goal -->
+						<%= render partial:'profile/components/current_goal', locals: {user: @user}%>			
+						<!-- Donation Button -->
+						<%= render partial:'profile/components/donation_button', locals: {user: @user}%>
+					</div><!-- end #sticker -->	
+				<% end %>
 			</div>	
 		</div><!-- end #updates_area-->	
 	</div><!-- end .content-->

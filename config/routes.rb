@@ -9,13 +9,16 @@ Rails.application.routes.draw do
 
 	#User -----------------------------------
 
-		resources :users, only: [:update], shallow: true do 
+		resources :users, only: [], shallow: true do 
 			#Methods in users_controller
 			get 'disconnect/:provider', to: 'users#disconnect', as: :disconnect
+			patch 'update_user', to:'users#update_user', as: :update_user
 			#Admin
 			namespace :admin do
 				resource :dashboard, only:[] do
 					get 'dashboard'
+				end
+				resource :campaigns, only:[:show] do
 				end
 				resource :historical_quotes, only:[:show, :create,:destroy] do
 				end
@@ -40,6 +43,7 @@ Rails.application.routes.draw do
 				#Tabs for profile page
 				resource :tabs, only:[] do
 					get 'friends'
+					get 'gallery'
 				end
 				#Settings
 				resource :settings, only:[] do
@@ -47,6 +51,7 @@ Rails.application.routes.draw do
 					get 'social_media_settings'
 					get 'language_settings'
 					get 'account_settings'
+					get 'notification_settings'
 					get 'identity_verification'
 				end
 				#Identity Verification
@@ -59,15 +64,26 @@ Rails.application.routes.draw do
 				#Creator studio
 				resource :creator_studio, only:[] do
 					get 'dashboard'
+					get 'campaigns'
+					get 'rewards'
+					get 'current_goal'
+					get 'notifications'
 				end
 				#Wallet
 				resource :wallets, only:[] do
 					get 'how_i_pay'
 					get 'how_i_get_paid'
 				end
+				#Shipping address
+				resource :shipping_addresses, only:[:create] do
+					get 'my_mailing_address'
+					get '/:shipping_address_id', to: 'shipping_addresses#edit', as: :edit
+					patch '/:shipping_address_id', to: 'shipping_addresses#update', as: :update
+					delete '/:shipping_address_id', to: 'shipping_addresses#destroy', as: :destroy
+				end
 				#campaign
 				resource :campaigns, only:[:new,:create] do
-					get ':campaign_id/art', to: 'campaigns#art', as: :art
+					get ':campaign_id/application', to: 'campaigns#application', as: :application
 					patch ':campaign_id/update', to: 'campaigns#update', as: :update
 					post ':campaign_id/update', to: 'campaigns#post_update', as: :post_update
 					get ':campaign_id/apply', to: 'campaigns#apply', as: :apply
@@ -76,6 +92,16 @@ Rails.application.routes.draw do
 					delete ':campaign_id/campaign_video', to:'campaigns#remove_campaign_video', as: :remove_campaign_video
 					delete ':campaign_id/campaign_image', to: 'campaigns#remove_campaign_image', as: :remove_campaign_image
 					get ':campaign_id/submit_application', to: 'campaigns#submit_application', as: :submit_application
+					get ':campaign_id/display_read_all', to: 'campaigns#display_read_all', as: :display_read_all
+				end
+				#reward
+				resource :rewards, only:[:new, :create] do
+					post ':reward_id/upload_image', to: 'rewards#upload_image', as: :upload_image
+					delete ':reward_id/remove_image', to: 'rewards#remove_image', as: :remove_image
+				end
+				#Notification
+				resource :notifications, only:[] do
+					get '/get_notifications', to: 'notifications#get_notifications', as: :get_notifications
 				end
 				#shipping
 				#resources :shippings, shallow: true, only:[] do
@@ -91,6 +117,32 @@ Rails.application.routes.draw do
 				#bank account
 				resource :bank_accounts, only:[:create, :update, :destroy] do
 					get 'edit'
+				end
+				#card
+				resource :cards, only:[:create, :update, :destroy] do
+					get 'edit'
+				end
+				#back
+				resource :backs, only:[:new, :create] do
+					get 'country/:country_id', to: 'backs#country', as: :country
+					get 'payment', to: 'backs#payment', as: :payment
+				end
+				#subscription
+				resource :subscriptions, only:[:create, :destroy] do
+					delete 'unsub', to: 'subscriptions#unsub', as: :unsub 
+				end
+			end
+
+			#content
+			namespace :content do
+				resource :likes, only:[:show] do
+					get '/majorpost/:majorpost_id', to:'likes#majorpost', as: :majorpost
+					get '/campaign/:campaign_id', to:'likes#campaign', as: :campaign
+					get '/user/:user_id', to:'likes#user', as: :user
+					delete '/majorpost/:majorpost_id', to:'likes#unlike_majorpost', as: :unlike_majorpost
+					delete '/campaign/:campaign_id', to:'likes#unlike_campaign', as: :unlike_campaign
+					delete '/user/:user_id', to:'likes#unlike_user', as: :unlike_user
+					get '/followed_pagination', to: 'likes#followed_pagination', as: :followed_pagination
 				end
 			end
 
@@ -115,7 +167,7 @@ Rails.application.routes.draw do
 		
 		namespace :content do 
 			#Majorposts
-			resources :majorposts, only:[:create, :destroy] do
+			resources :majorposts, only:[:create, :destroy, :show] do
 				get 'read_more'
 			end
 				#Majorpost attachments
@@ -165,6 +217,12 @@ Rails.application.routes.draw do
 
 	#Admin
 	namespace :admin do
+		resource :campaigns, only:[] do
+			get '/index', to: 'campaigns#index', as: :index
+			get '/review/:campaign_id', to: 'campaigns#review', as: :review 
+			get '/approve/:campaign_id', to: 'campaigns#approve', as: :approve
+			get '/disapprove/:campaign_id', to: 'campaigns#disapprove', as: :disapprove
+		end
 		resource :historical_quotes, only:[] do
 			get '/index', to: 'historical_quotes#index', as: :index
 			get '/:id', to: 'historical_quotes#edit', as: :edit

@@ -1,0 +1,15 @@
+<% if @campaign.category == "Art" %>
+	<%= render 'studio/campaigns/wizard_background_art'%>
+<% end %>
+<% if @campaign.category == "Music" %>
+	<%= render 'studio/campaigns/wizard_background_music'%>
+<% end %>
+<% if @campaign.category == "Games" %>
+	<%= render 'studio/campaigns/wizard_background_games'%>
+<% end %>
+<% if @campaign.category == "Writing" %>
+	<%= render 'studio/campaigns/wizard_background_writing'%>
+<% end %>
+<% if @campaign.category == "Videos" %>
+	<%= render 'studio/campaigns/wizard_background_videos'%>
+<% end %>

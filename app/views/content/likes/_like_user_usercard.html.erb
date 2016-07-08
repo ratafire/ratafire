@@ -1,0 +1,7 @@
+<%= link_to user_user_content_likes_path(current_user.id, user.id), remote: true,method: :get, id:user.uid+'-user-like' do %>
+	<span class="btn btn-xs">
+		<span id="<%= user.uid %>-user-like-holder-inner">
+			<i class="huaxia huaxia-guanzhu inline-block animated rubberBand"></i>
+		</span>
+	</span>
+<% end %>

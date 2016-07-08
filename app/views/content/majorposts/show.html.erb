@@ -1,0 +1,64 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+	<!-- Cover area -->
+	<%= render partial:'profile/components/cover', locals: {user: @user} %>
+	<!-- Toolbar -->
+	<%= render partial:'profile/components/toolbar', locals: {user: @user}%>
+	<!-- Content Area -->
+	<div class="content" >
+		<!-- Updates -->
+		<div class="row" id="updates-area">
+			<!-- Updates -->
+			<div class="col-xs-12 col-md-8" id="updates-main-area">
+				<div class="tabbable">
+					<div class="tab-content">
+						<!-- Updates -->
+						<div class="tab-pane fade in active" id="updates">
+							<!-- Campaign Read all -->
+							<div id="user-profile-project-read-all">
+							</div>
+							<!-- Posts -->
+							<div id="post-pagination">
+								<div class="post-pagination">
+									<%= render partial:'content/majorposts/majorpost', locals: {majorpost: @majorpost} %>
+								</div>
+							</div><!-- end #post-pagination-->
+						</div>	
+					</div><!-- end .tab-content-->	
+				</div><!-- end .tabbable-->				
+			</div>
+			<!-- Side Area -->
+			<div class="col-xs-6 col-md-4 pr-40" id="side-area">
+				<!-- Backers -->
+				<% if @contacts %>
+					<%= render partial:'profile/components/contacts', locals: {contacts: @contacts}%>	
+				<% end %>
+				<!-- About -->
+				<%= render partial:'profile/components/about', locals: {user: @user}%>
+				<!-- Rewards -->
+				<% if @user.active_reward %>
+					<%= render partial:'profile/components/rewards', locals: {user: @user}%>
+				<% end %>
+				<!-- Goal -->
+				<% if @user.active_reward %>
+					<div id="sticker" class="mt-40">
+						<!-- Current Goal -->
+						<%= render partial:'profile/components/current_goal', locals: {user: @user}%>			
+						<!-- Donation Button -->
+						<%= render partial:'profile/components/donation_button', locals: {user: @user}%>
+					</div><!-- end #sticker -->	
+				<% end %>
+			</div>	
+	</div>

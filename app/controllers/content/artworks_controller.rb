@@ -85,14 +85,15 @@ class Content::ArtworksController < ApplicationController
 	def medium_editor_upload_campaign
 		@artwork = Artwork.new(artwork_params)
 		if @artwork.update(
-			skip_everafter: true, #Not process by the S3 direct upload code
-			user_id: current_user.id,
-			campaign_uuid: params[:campaign_uuid]
-		)
-		url_response = {files:[{url: @artwork.image.url, id: @artwork.uuid}]}
-		render :json => url_response
-		#Queue to clean up artwork if it has no majorpost
-		Resque.enqueue_in(5.days,Image::ArtworkDelayedCleanup, @artwork.uuid)
+				skip_everafter: true, #Not process by the S3 direct upload code
+				user_id: current_user.id,
+				campaign_uuid: params[:campaign_uuid]
+			)
+			url_response = {files:[{url: @artwork.image.url, id: @artwork.uuid}]}
+			render :json => url_response
+			#Queue to clean up artwork if it has no majorpost
+			Resque.enqueue_in(5.days,Image::ArtworkDelayedCleanup, @artwork.uuid)
+		end
 	end
 
 private

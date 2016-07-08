@@ -23,9 +23,9 @@
         <!-- .col -->
         <div class="col col-md-8">
             <div class="wrapper">
-                <div class="panel panel-default">
+                <div class="panel panel-blue">
                     <div class="panel-heading">
-                        <%= t 'views.admin.culture.historical_quotes.historical_quotes' %>
+                        <h6 class="panel-title text-thin"><%= t 'views.admin.culture.historical_quotes.historical_quotes' %></h6>
                     </div>
                     <table id="historical_quotes" class="table datatable-basic responsive no-wrap" data-source="<%= index_admin_historical_quotes_path(format: "json") %>">
                         <thead>
@@ -80,7 +80,7 @@
         bServerSide: true,
         sAjaxSource: $('#historical_quotes').data('source')
     });
-    $(window).on('load page:load', function() { 
+    $(window).on('load page:render', function() { 
         // Enable Select2 select for the length option
         $('.dataTables_length select').select2({
             minimumResultsForSearch: Infinity,

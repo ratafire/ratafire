@@ -5,7 +5,15 @@
 		</div>
 		<div class="heading-elements">
 			<div class="heading-btn-group">
-				<a href="#" class="btn btn-link btn-float has-text"><i class="icon-credit-card text-blue"></i><span class="text-grey"><%= t 'views.profile.settings.menu.payment_settings' %></span></a>
+				<!-- Payment settings -->
+				<%= link_to how_i_pay_user_studio_wallets_path(user.username), class:"btn btn-link btn-float has-text" do %>
+					<i class="icon-credit-card text-blue"></i><span class="text-grey"><%= t 'views.profile.settings.menu.payment_settings' %></span>
+				<% end %>
+				<!-- Mailing address -->
+				<%= link_to my_mailing_address_user_studio_shipping_addresses_path(user.username),class:"btn btn-link btn-float has-text" do %>
+					<i class="icon-home text-blue"></i> <span class="text-grey"><%= t 'views.creator_studio.rewards.mailing_address'%></span>
+				<% end %>
+				<!-- Creator studio -->
 				<%= link_to dashboard_user_studio_creator_studio_path(user.username),class:"btn btn-link btn-float has-text" do %>
 					<i class="icon-magic-wand text-blue"></i> <span class="text-grey"><%= t 'views.profile.settings.menu.creator_studio' %></span>
 				<% end %>

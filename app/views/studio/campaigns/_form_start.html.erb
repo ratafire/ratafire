@@ -4,7 +4,7 @@
 	<!-- Topic -->
 	<div class="row text-center p-40">
 		<div class="text-giant text-thin"><%= t 'views.campaign.what_are_you_creationg' %></div>
-		<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(7).quote %>" - <%= HistoricalQuote.find(7).author %></h3>
+		<h3 class="text-thin text-grey-200"><%= render 'studio/campaigns/historical_quotes_start', locals: { campaign: @campaign } %></h3>
 	</div>
 	<!-- Title -->
 	<div class="row">
@@ -39,7 +39,7 @@
 				<% if I18n.locale == :zh %>
 					<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"description_text",onKeyUp:"description_textarea_count()",maxlength:"88", style:"resize: none;"%>
 				<% else %>
-					<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"description_text",onKeyUp:"description_textarea_count()",maxlength:"175", style:"resize: none;"%>
+					<%= f.text_area :description, class:"form-control required", placeholder:t('views.campaign.short_description_placeholder'), id:"description_text",onKeyUp:"description_textarea_count()",maxlength:"140", style:"resize: none;"%>
 				<% end %>
 				<span class="help-block">
 					<%= render 'studio/campaigns/help_block/short_description' %>
@@ -56,7 +56,26 @@
 
 		<div class="col-md-9">
 			<div class="form-group">
-				<%= f.select(:sub_category, [[t('views.campaign.a_new_field'),'A New Field'], [t('views.campaign.concept_art'),'Concept Art'],[t('views.campaign.3D_model'),'3D Models'],[t('views.campaign.drawing'),'Drawing'],[t('views.campaign.painting'),'Painting'],[t('views.campaign.architecture'),'Architecture'],[t('views.campaign.interior_design'),'Interior Design'],[t('views.campaign.photography'),'Photography'],[t('views.campaign.graphic_design'),'Graphic Design'],[t('views.campaign.sculpting'),'Sculpting'],[t('views.campaign.jewelry_design'),'Jewelry Design'],[t('views.campaign.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+				<!-- Art -->
+				<% if @campaign.category == "Art" %>
+					<%= f.select(:sub_category, [[t('views.utilities.category.a_new_field'),'A New Field'], [t('views.utilities.category.art.concept_art'),'Concept Art'],[t('views.utilities.category.art.3D_model'),'3D Models'],[t('views.utilities.category.art.drawing'),'Drawing'],[t('views.utilities.category.art.painting'),'Painting'],[t('views.utilities.category.art.architecture'),'Architecture'],[t('views.utilities.category.art.interior_design'),'Interior Design'],[t('views.utilities.category.art.photography'),'Photography'],[t('views.utilities.category.art.graphic_design'),'Graphic Design'],[t('views.utilities.category.art.sculpting'),'Sculpting'],[t('views.utilities.category.art.jewelry_design'),'Jewelry Design'],[t('views.utilities.category.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+				<% end %>
+				<!-- Music -->
+				<% if @campaign.category == "Music" %>
+					<%= f.select(:sub_category, [[t('views.utilities.category.a_new_field'),'A New Field'], [t('views.utilities.category.music.composition'),'Composition'],[t('views.utilities.category.music.soundtrack'),'Soundtrack'],[t('views.utilities.category.music.rock'),'Rock'],[t('views.utilities.category.music.pop'),'Pop'],[t('views.utilities.category.music.cover'),'Cover'],[t('views.utilities.category.music.classical'),'Classical'],[t('views.utilities.category.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+				<% end %>
+				<!-- Games -->
+				<% if @campaign.category == "Games" %>
+					<%= f.select(:sub_category, [[t('views.utilities.category.a_new_field'),'A New Field'], [t('views.utilities.category.games.rpg'),'RPG'],[t('views.utilities.category.games.strategy'),'Strategy'],[t('views.utilities.category.games.simulation'),'Simulation'],[t('views.utilities.category.games.mmo'),'MMO'],[t('views.utilities.category.games.action'),'Action'],[t('views.utilities.category.games.sport'),'Sport'],[t('views.utilities.category.games.adventure'),'Adventure'],[t('views.utilities.category.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+				<% end %>
+				<!-- Writing -->
+				<% if @campaign.category == "Writing" %>
+					<%= f.select(:sub_category, [[t('views.utilities.category.a_new_field'),'A New Field'], [t('views.utilities.category.writing.review'),'Review'],[t('views.utilities.category.writing.poetry'),'Poetry'],[t('views.utilities.category.writing.fantasy'),'Fantasy'],[t('views.utilities.category.writing.science_fiction'),'Science Fiction'],[t('views.utilities.category.writing.non_fiction'),'Non-fiction'],[t('views.utilities.category.writing.sport'),'Sport'],[t('views.utilities.category.games.adventure'),'Adventure'],[t('views.utilities.category.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+				<% end %>
+				<!-- Videos -->
+				<% if @campaign.category == "Videos" %>
+					<%= f.select(:sub_category, [[t('views.utilities.category.a_new_field'),'A New Field'], [t('views.utilities.category.videos.gaming'),'Gaming'],[t('views.utilities.category.videos.animation'),'Animation'],[t('views.utilities.category.videos.cg'),'CG'],[t('views.utilities.category.videos.movies'),'Movies'],[t('views.utilities.category.videos.documentary'),'Documentary'],[t('views.utilities.category.videos.tutorial'),'Tutorial'],[t('views.utilities.category.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+				<% end %>
 				<span class="help-block">
 					<%= render 'studio/campaigns/help_block/sub_category' %>
 				</span>
@@ -87,7 +106,7 @@
 
 		<div class="col-md-9">
 			<div class="form-group">
-				<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'),selected: @campaign.country, only: ["AU", "CA","DK", "FI", "IE", "NO", "SE", "GB", "US"] }, { class: 'simple-select-search required' }) %>
+				<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'),selected: @campaign.country, only: ["AU", "CA","DK", "FI", "IE", "NO", "SE", "GB", "US", "AT", "BE", "DE", "IT", "JP", "LU", "NL", "SG", "ES"] }, { class: 'simple-select-search required' }) %>
 			</div>
 		</div>
 	</div>
@@ -119,7 +138,7 @@
 
 		<div class="col-md-9">
 			<div class="form-group">
-				<%= f.select(:sub_category, [[t('views.campaign.per_creation'),'creation'], [t('views.campaign.per_month'),'month']], {include_blank: t('views.campaign.select_a_funding_type')}, { :class => 'simple-select required', :id => 'funding-type-selection',selected: @campaign.funding_type }) %>
+				<%= f.select(:funding_type, [[t('views.campaign.per_creation'),'creation'], [t('views.campaign.per_month'),'month']], {include_blank: t('views.campaign.select_a_funding_type')}, { :class => 'simple-select required', :id => 'funding-type-selection',selected: @campaign.funding_type }) %>
 				<span class="help-block">
 					<%= t 'views.campaign.funding_type_help' %>
 				</span>
@@ -133,7 +152,7 @@
 	{	<% if I18n.locale == :zh %>
 			var max =88;
 		<% else %>
-			var max =175;
+			var max =140;
 		<% end %>
 		var text =document.getElementById("description_text").value.length;
 		$('#h').show();

@@ -1,0 +1,14 @@
+<% if @notifications %>
+	$('#notification-loader').remove();
+	$('#header-notification-holder').html('');
+	$('#header-notification-holder').append("<%= j render(:partial => 'studio/creator_studios/notification', collection: @notifications, :as => :notification) %>");
+<% else %>
+	$('#notification-loader').remove();
+	$('#header-notification-holder').html('');
+	$('#header-notification-holder').append("<%= j render(:partial => 'studio/notifications/components/empty') %>");
+<% end %>	
+<% if @user.unread_notifications.count > 0 %>
+	$('#notification-count').html('<%= @user.unread_notifications.count %>');
+<% else %>
+	$('#notification-count').remove();
+<% end %>

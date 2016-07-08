@@ -1,0 +1,8 @@
+<% unless @reward.image.present? %>
+	$('#reward-image-holder').remove();
+	<% if current_user == @user %>
+		$('#active-campaign-reward').prepend("<%= j render(:partial => 'profile/components/add_reward_image', :locals => {:user => @user }) %>");
+	<% else %>
+		$('#active-campaign-reward').prepend("<%= j render(:partial => 'profile/components/reward_image', :locals => {:reward => @user.active_reward.campaign}) %>");
+	<% end %>
+<% end %>

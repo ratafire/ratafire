@@ -14,19 +14,27 @@ class Campaign < ActiveRecord::Base
     #---------ActsasTaggable--------
     acts_as_taggable
 
+    #--------Track activities--------
+    include PublicActivity::Model
+    tracked except: [:update, :destroy], 
+            owner: ->(controller, model) { controller && controller.current_user }
+
     #----------------Relationships----------------
     #Belongs to
     belongs_to :user
 
     #Has one
-    has_many :artwork, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Artwork", dependent: :destroy
     has_one :video, class_name:"Video",dependent: :destroy
+    has_one :shipping_anywhere, class_name: "ShippingAnywhere", dependent: :destroy
 
     #Has many
+    has_many :artwork, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Artwork", dependent: :destroy
     has_many :rewards, class_name: "Reward", dependent: :destroy
     accepts_nested_attributes_for :rewards
     has_many :shippings, class_name: "Shippings", dependent: :destroy
-    has_one :shipping_anywhere, class_name: "ShippingAnywhere", dependent: :destroy
+    has_many :majorposts
+    has_many :liked_campaigns
+    has_many :likers, through: :liked_campaigns, source: :user
 
     #----------------Translation----------------
 
@@ -47,10 +55,12 @@ class Campaign < ActiveRecord::Base
             :preview800 => ["800", :jpg], 
             :preview512 => ["512", :jpg],
             :preview256 => ["256", :jpg], 
+            :thumbnail480p => ["640x360#",:jpg],
             :thumbnail512 => ["512x512#",:jpg],
             :thumbnail128 => ["128x128#",:jpg],
             :thumbnail64 => ["64x64#",:jpg], 
         }, 
+        :default_url => lambda { |av| "/assets/default/audio/audio#{av.instance.default_image_number}_:style.jpg" },
         :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
         :url =>  "/:class/uploads/:id/image/:style/:uuid_campaign_filename",
         #If s3
@@ -86,10 +96,6 @@ class Campaign < ActiveRecord::Base
 
     #----------------Error messages----------------
 
-    def initialize
-        @errors = ActiveModel::Errors.new(self)
-    end
-
     def validate_status!
         campaign_status = true
         #Check if cover image presents
@@ -122,6 +128,14 @@ class Campaign < ActiveRecord::Base
         unless user.bio
             errors.add(:profilephoto, I18n.t('views.campaign.error_user_bio'))
             campaign_status = false
+        end
+        #Check if user has a campaign pending
+        user.campaigns.each do |campaign|
+            if campaign.status == "Pending"
+                errors.add(:profilephoto, I18n.t('views.campaign.you_have_a_pending_campaign'))
+                campaign_status = false
+                break
+            end
         end
         if campaign_status == false
             return false

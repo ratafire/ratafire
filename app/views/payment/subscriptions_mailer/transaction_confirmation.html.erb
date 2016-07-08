@@ -1,0 +1,15 @@
+<% content_for :uuid do %>
+	<%= @transaction.uuid %>
+<% end %>
+<% content_for :date do %>
+	<%= @transaction.created_at.strftime("%d/%m/%Y") %>
+<% end %>
+<% content_for :email do %>
+	<%= @subscriber.email %>
+<% end %>
+<% content_for :form do %>
+	<%= render partial: 'payment/subscriptions_mailer/transaction_form', collection: @transaction_subsets, :as => :transaction %>
+<% end %>
+<% content_for :total do %>
+	<%= currency_signs(@transaction.currency)%><%= @transaction.total %>
+<% end %>

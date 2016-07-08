@@ -1,0 +1,27 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-blue bg-white-transparent">
+			<div class="panel-heading">
+				<h6 class="panel-title text-thin"><i class="icon-earth mr-10"></i><%= t 'views.creator_studio.community.notifications'%></h6>
+				<div class="heading-elements">
+		    	</div>
+			</div>
+			<div class="panel-body" id="notifications-panel-body">
+				<div id="notifications-pagination">
+					<%= render partial: "studio/creator_studios/notification", collection: @notifications, :as => :notification %>
+				</div>
+				<div class="notifications-pagination">
+					<div id="notifications-pagination-old">
+						<%= will_paginate(@notifications) %>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

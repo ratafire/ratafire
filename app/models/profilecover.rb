@@ -62,7 +62,7 @@ class Profilecover < ActiveRecord::Base
     end
 
     def default_image_number
-        id.to_s.last
+        user.id.to_s.last
     end
 
     #----------------S3 Direct Upload----------------

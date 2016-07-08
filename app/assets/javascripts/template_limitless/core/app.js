@@ -11,7 +11,7 @@
 
 $(function() {
 
-    $(document).on('ready page:load', function() {
+    $(document).on('ready page:load turbolinks:load', function() {
     // ========================================
     //
     // Layout
@@ -585,6 +585,21 @@ $(function() {
         }, 100);
     }).resize();
 
+    // ========================================
+    //
+    // Animated CSS
+    //
+    // ========================================
+    // Plugins
+    // -------------------------
+    // hover    
+
+    $(".animated_hover").hover(function(){
+        $(this).addClass('animated ' + $(this).data('action'));
+    });
+    $(".animated_hover").bind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd",function(){
+        $(this).removeClass('animated ' + $(this).data('action'));
+    });
 
     // ========================================
     //

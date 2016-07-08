@@ -1,0 +1,531 @@
+/*
+	[Table of contents]
+
+	1. Body
+	2. Container / .container
+	3. Info / .info
+	4. Button / .btn
+	5. SVG Objects
+		5.1. Mackbook / .mackbook
+		5.2. Mouse / .mouse
+		5.3. White Coffee / .whiteCoffee
+		5.4. Notebook / .notebook
+		5.5. Pencil / .pencil
+		5.6. Intuos / .intuos
+		5.7. iPhone / .iphone
+		5.8. iPad / .ipad
+	6. Responsive
+		6.1. Max Width: 1366px / R1
+		6.2. Max Width: 1023px and Max Height: 839px / R2
+		6.3. Max Width: 479px and Max Height: 350px / R3
+		6.4. Max Width: 303px and Max Height: 200px / R4
+
+	------------------------------------------------------------*/
+
+/*	Main Styles
+	==================================================*/
+
+body {
+	background: #d5c19e url('../svg/woodPattern.svg') repeat;
+}
+
+.container {
+	margin: 0 auto;
+	padding: 0;
+	text-align: center;
+}
+
+/*	Error Message
+	==================================================*/
+
+.info {
+	color: #fff;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+	.info h1{
+		font-family: 'Varela Round', sans-serif;
+		font-size: 136px;
+		padding: 0 226px 0 226px;
+		text-shadow: 0px 5px rgba(0,0,0,.05);
+	}
+	.info p{
+		font-family: 'Varela Round', sans-serif;
+		font-size: 36px;
+		text-shadow: 0px 5px rgba(0,0,0,.05);
+	}
+
+/*	Button
+	==================================================*/
+
+.btn {
+	font-family: 'Varela Round', sans-serif;
+	text-transform: uppercase;
+	padding: 25px 150px 25px 150px;
+	margin-top: 50px;
+	border: none;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	-o-transition: all .2s;
+	transition: all .2s;
+	box-shadow: 0px 5px 0px rgba(0,0,0,.05);
+}
+	.btn-info, .btn-info:focus {
+		background-color: #ffffff;
+		color: #d4c09f;
+	}
+	.btn-info:hover {
+		padding: 25px 175px 25px 175px;
+		/* background: #2980b9; */
+		color: #fff;
+	}
+
+/*	SVG Objects
+	==================================================*/
+
+.macbook {
+	background: url('../svg/macbook.svg') no-repeat;
+	background-size: cover;
+	width: 1125px;
+	height: 935px;
+	position: absolute;
+	right: 50%;
+	bottom: 70%;
+	margin-right: -500px;
+
+	-webkit-filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+	filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+}
+.mouse {
+	background: url('../svg/mouse.svg') no-repeat;
+	background-size: cover;
+	width: 210px;
+	height: 350px;
+	position: absolute;
+	right: 35%;
+	bottom: 80%;
+	margin-right: -430px;
+
+	-webkit-filter: drop-shadow(0px 30px 0px rgba(0,0,0,.05));
+	filter: drop-shadow(0px 30px 0px rgba(0,0,0,.05));
+}
+.whiteCoffee {
+	background: url('../svg/whiteCoffee.svg') no-repeat;
+	background-size: cover;
+	width: 320px;
+	height: 320px;
+	position: absolute;
+	right: 15%;
+	bottom: 40%;
+	margin-right: -205px;
+
+	-webkit-filter: drop-shadow(0px 25px 0px rgba(0,0,0,.05));
+	filter: drop-shadow(0px 25px 0px rgba(0,0,0,.05));
+}
+.notebook {
+	background: url('../svg/notebook.svg') no-repeat;
+	background-size: cover;
+	width: 670px;
+	height: 300px;
+	position: absolute;
+	right: 25%;
+	bottom: 0%;
+	margin-right: -330px;
+
+	-webkit-filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+	filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+}
+.pencil {
+	background: url('../svg/pencil.svg') no-repeat;
+	background-size: cover;
+	width: 260px;
+	height: 200px;
+	position: absolute;
+	right: 25%;
+	bottom: 0%;
+	margin-right: -50px;
+
+	-webkit-filter: drop-shadow(0px 15px 0px rgba(0,0,0,.05));
+	filter: drop-shadow(0px 15px 0px rgba(0,0,0,.05));
+}
+.intuos {
+	background: url('../svg/intuos.svg') no-repeat;
+	background-size: cover;
+	width: 1200px;
+	height: 300px;
+	position: absolute;
+	left: 25%;
+	bottom: 0%;
+	margin-left: -500px;
+
+	-webkit-filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+	filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+}
+.iphone {
+	background: url('../svg/iphone.svg') no-repeat;
+	background-size: cover;
+	width: 280px;
+	height: 421px;
+	position: absolute;
+	right: 85%;
+	bottom: 15%;
+	margin-right: 80px;
+
+	-webkit-filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+	filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+}
+.ipad {
+	background: url('../svg/ipad.svg') no-repeat;
+	background-size: cover;
+	width: 745px;
+	height: 745px;
+	position: absolute;
+	right: 80%;
+	bottom: 60%;
+	margin-right: 85px;
+
+	-webkit-filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+	filter: drop-shadow(0px 10px 0px rgba(0,0,0,.05));
+}
+
+/*	Responsive
+	==================================================*/
+
+/*	R1	*/
+@media (max-width: 1366px) {
+	.btn {
+		padding: 25px 115px 25px 115px;
+	}
+	.btn-info:hover, .btn-info:focus {
+		padding: 25px 140px 25px 140px;
+	}
+	.info h1{
+		font-size: 105px;
+	}
+	.info p{
+		font-size: 26px;
+		text-shadow: 0px 4px rgba(0,0,0,.05);
+	}
+	.macbook {
+		width: 750px;
+		height: 637px; 
+		right: 50%;
+		bottom: 75%;
+		margin-right: -350px;
+
+		-webkit-filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+	}
+	.mouse {
+		width: 138px;
+		height: 247px; 
+		right: 35%;
+		bottom: 80%;
+		margin-right: -350px;
+
+		-webkit-filter: drop-shadow(0px 22.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 22.5px 0px rgba(0,0,0,.05));
+	}
+	.whiteCoffee {
+		width: 195px;
+		height: 195px;
+		right: 5%;
+		bottom: 40%;
+		margin-right: -50px;
+
+		-webkit-filter: drop-shadow(0px 18.75px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 18.75px 0px rgba(0,0,0,.05));
+	}
+	.notebook {
+		width: 460px; 
+		height: 225px;
+		right: 25%;
+		bottom: 0%;
+		margin-right: -252px;
+
+		-webkit-filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+	}
+	.pencil {
+		width: 195px;
+		height: 130px;
+		right: 25%;
+		bottom: 0%;
+		margin-right: -100px;
+
+		-webkit-filter: drop-shadow(0px 11.25px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 11.25px 0px rgba(0,0,0,.05));
+	}
+	.intuos {
+		width: 870px;
+		height: 225px;
+		left: 25%;
+		bottom: 0%;
+		margin-left: -375px;
+	}
+	.iphone {
+		width: 150px;
+		height: 250.5px;
+		right: 85%;
+		bottom: 7.5%;
+		margin-right: 85px;
+
+		-webkit-filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+	}
+	.ipad {
+		width: 472px;
+		height: 472px;
+		right: 80%;
+		bottom: 50%;
+		margin-right: 45px;
+
+		-webkit-filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+	}
+}
+
+/*	R2	*/
+@media (max-width: 1023px), (max-height: 839px) {
+	.btn {
+		padding: 20px 75px 20px 75px;
+		margin-top: 25px;
+		font-size: 14px;
+	}
+	.btn-info:hover, .btn-info:focus {
+		padding: 20px 100px 20px 100px;
+	}
+	.info h1{
+		font-size: 105px;
+		padding: 0 50px 0 50px;
+		margin-bottom: 0px;
+	}
+	.info p{
+		font-size: 22px;
+		text-shadow: 0px 3px rgba(0,0,0,.05);
+	}
+	.macbook {
+		width: 375px; 
+		height: 318px;  
+		right: 50%;
+		bottom: 80%;
+		margin-right: -165px;
+
+		-webkit-filter: drop-shadow(0px 5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 5px 0px rgba(0,0,0,.05));
+	}
+	.mouse {
+		width: 69px; 
+		height: 123px;  
+		right: 35%;
+		bottom: 85%;
+		margin-right: -165px;
+
+		-webkit-filter: drop-shadow(0px 15px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 15px 0px rgba(0,0,0,.05));
+	}
+	.whiteCoffee {
+		width: 97px;
+		height: 97px;
+		right: 5%;
+		bottom: 50%;
+		margin-right: -20px;
+		margin-bottom: -50px;
+
+		-webkit-filter: drop-shadow(0px 12.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 12.5px 0px rgba(0,0,0,.05));
+	}
+	.notebook {
+		width: 214px; 
+		height: 113px;
+		right: 25%;
+		bottom: 0%;
+		margin-right: -115px;
+
+		-webkit-filter: drop-shadow(0px 5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 5px 0px rgba(0,0,0,.05));
+	}
+	.pencil {
+		width: 97px;
+		height: 65px;
+		right: 25%;
+		bottom: 0%;
+		margin-right: -35px;
+
+		-webkit-filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+	}
+	.intuos {
+		width: 500px;
+		height: 112px;
+		left: 25%;
+		bottom: 0%;
+		margin-left: -185px;
+	}
+	.iphone {
+		width: 75px;
+		height: 125px;
+		right: 70%;
+		bottom: 80%;
+		margin-right: 80px;
+		margin-bottom: 50px;
+
+		-webkit-filter: drop-shadow(0px 5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 5px 0px rgba(0,0,0,.05));
+	}
+	.ipad {
+		width: 236px;
+		height: 236px;
+		right: 80%;
+		bottom: 50%;
+		margin-right: 0px;
+		margin-bottom: -120px;
+		-ms-transform: rotate(40deg); /* IE 9 */
+	    -webkit-transform: rotate(40deg); /* Chrome, Safari, Opera */
+	    transform: rotate(40deg);
+
+		-webkit-filter: drop-shadow(0px 5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 5px 0px rgba(0,0,0,.05));
+	}
+}
+
+/*	R3	*/
+@media (max-width: 479px), (max-height: 350px) {
+	.btn {
+		padding: 15px 30px 15px 30px;
+		margin-top: 0px;
+		font-size: 12px;
+	}
+	.btn-info:hover, .btn-info:focus {
+		padding: 15px 55px 15px 55px;
+	}
+	.info{
+		top: 45%;
+	}
+	.info h1{
+		font-size: 47px;
+		padding: 0 50px 0 50px;
+		margin-bottom: 0px;
+	}
+	.info p{
+		font-size: 14px;
+		text-shadow: 0px 3px rgba(0,0,0,.05);
+	}
+	.macbook {
+		width: 210px; 
+		height: 187px;  
+		right: 50%;
+		bottom: 80%;
+		margin-right: -90px;
+
+		-webkit-filter: drop-shadow(0px 2.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 2.5px 0px rgba(0,0,0,.05));
+	}
+	.mouse {
+		width: 34px;  
+		height: 61px;  
+		right: 35%;
+		bottom: 85%;
+		margin-right: -100px;
+
+		-webkit-filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 7.5px 0px rgba(0,0,0,.05));
+	}
+	.whiteCoffee {
+		width: 48px;
+		height: 48px;
+		right: 25%;
+		bottom: 50%;
+		margin-right: -76px;
+		margin-bottom: -15px;
+
+		-webkit-filter: drop-shadow(0px 6.25px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 6.25px 0px rgba(0,0,0,.05));
+	}
+	.notebook {
+		width: 107px; 
+		height: 56px;
+		right: 25%;
+		bottom: 0%;
+		margin-right: -55px;
+
+		-webkit-filter: drop-shadow(0px 2.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 2.5px 0px rgba(0,0,0,.05));
+	}
+	.pencil {
+		width: 48px;
+		height: 32px;
+		right: 25%;
+		bottom: 0%;
+		margin-right: -35px;
+
+		-webkit-filter: drop-shadow(0px 3.75px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 3.75px 0px rgba(0,0,0,.05));
+	}
+	.intuos {
+		width: 184.5px;
+		height: 56px;
+		left: 25%;
+		bottom: 0%;
+		margin-left: -85px;
+	}
+	.iphone {
+		width: 37px;
+		height: 62px;
+		right: 60%;
+		bottom: 85%;
+		margin-right: 80px;
+		margin-bottom: 0px;
+
+		-webkit-filter: drop-shadow(0px 2.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 2.5px 0px rgba(0,0,0,.05));
+	}
+	.ipad {
+		width: 118px; 
+		height: 118px;
+		right: 75%;
+		bottom: 50%;
+		margin-right: 33px;
+		margin-bottom: -45px;
+
+		-webkit-filter: drop-shadow(0px 2.5px 0px rgba(0,0,0,.05));
+		filter: drop-shadow(0px 2.5px 0px rgba(0,0,0,.05));
+	}
+}
+
+/*	R4	*/
+@media (max-width: 303px), (max-height: 200px) {
+	.macbook {
+		visibility: hidden;
+	}
+	.mouse {
+		visibility: hidden;
+	}
+	.whiteCoffee {
+		visibility: hidden;
+	}
+	.notebook {
+		visibility: hidden;
+	}
+	.pencil {
+		visibility: hidden;
+	}
+	.intuos {
+		visibility: hidden;
+	}
+	.iphone {
+		visibility: hidden;
+	}
+	.ipad {
+		visibility: hidden;
+	}
+}

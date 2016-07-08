@@ -1,0 +1,16 @@
+<%= link_to profile_url_path(user.username), id:"sidebar-followed-updates" do %>
+	<div class="media-left pr-15 pl-8">
+		<img src="<%= user.profilephoto.image.url(:thumbnail40)%>" class="profile-thumb-holder cover-profilephoto-holder img-xxs ml-5- mt-5-" alt="">
+	</div>
+	<div class="media-body">
+		<div class="media-heading text-semibold">
+			<%= user.preferred_name %>
+			<% if PublicActivity::Activity.where(owner_id: 1, deleted: false, trackable_type:["Majorpost"]).unread_by(current_user).count > 0 %>
+				<span class="label text-grey-100 bg-transparent-dark pull-right">
+					<%= number_to_human(PublicActivity::Activity.where(owner_id: 1, deleted: false, trackable_type:["Majorpost"]).unread_by(current_user).count, :format => '%n%u', :units => { :thousand => 'k' }) %>
+				</span>
+			<% end %>
+		</div>
+	</div>
+<% end %>
+

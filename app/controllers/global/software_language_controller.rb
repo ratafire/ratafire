@@ -20,6 +20,8 @@ class Global::SoftwareLanguageController < ApplicationController
 		cookies['locale'] = params[:locale]
 		I18n.locale = params[:locale]
 		redirect_to :back
+	rescue ActionController::RedirectBackError		
+		redirect_to root_path
 	end
 
 private

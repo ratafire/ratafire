@@ -4,9 +4,10 @@ class Studio::CampaignsController < ApplicationController
 
 	#Before filters
 	before_filter :load_user
-	before_filter :load_campaign, only:[:art,:update, :campaign_video,:campaign_video_image,:remove_campaign_video, :remove_campaign_image,:post_update, :submit_application]
+	before_filter :load_campaign, only:[:application,:update, :campaign_video,:campaign_video_image,:remove_campaign_video, :remove_campaign_image,:post_update, :submit_application, :display_read_all]
 	before_filter :load_info, except:[:new, :create, :update,:apply]
 	before_filter :currency, only:[:update]
+	before_filter :only_confirmed
 
 	#After filter
 	after_filter :create_reward, only:[:create]
@@ -29,10 +30,10 @@ class Studio::CampaignsController < ApplicationController
 
 	#NoREST Methods -----------------------------------
 
-	#art_user_studio_campaigns GET
-	#/users/:user_id/studio/campaigns/:campaign_id/art
-	def art
-		@upload_url = @upload_url = '/content/artworks/medium_editor_upload_artwork_campaign/'+@campaign.uuid
+	#application_user_studio_campaigns GET
+	#/users/:user_id/studio/campaigns/:campaign_id/application
+	def application
+		@upload_url = '/content/artworks/medium_editor_upload_artwork_campaign/'+@campaign.uuid
 	end
 
 	#update_user_studio_campaigns GET
@@ -173,11 +174,17 @@ class Studio::CampaignsController < ApplicationController
 		if @campaign.validate_status!
 			#Update campaign status
 			@campaign.update(
-				status: "Pending"
+				status: "Pending",
+				applied_at: Time.now
 			)
 		else
 			#render error messages
 		end
+	end
+
+	#display_read_all_user_studio_campaigns GET
+	#/users/:user_id/studio/campaigns/:campaign_id/display_read_all
+	def display_read_all
 	end
 
 protected
@@ -191,8 +198,8 @@ protected
 
 	def load_user
 		#Load user by username due to FriendlyID
-		unless @user = User.find_by_username(params[:user_id])
-			unless @user = User.find_by_uid(params[:user_id])
+		unless @user = User.find_by_uid(params[:user_id])
+			unless @user = User.find_by_username(params[:user_id])
 				@user = User.find(params[:user_id])
 			end
 		end
@@ -211,54 +218,36 @@ protected
 	end
 
 	def currency
-		case @campaign.country
-		when 'AU'
-			@campaign.currency = 'aud'
-		when 'CA'
-			@campaign.currency = 'cad'
-		when 'DK'
-			@campaign.currency = 'eur'
-		when 'FI'
-			@campaign.currency = 'eur'
-		when 'IE'
-			@campaign.currency = 'eur'
-		when 'NO'
-			@campaign.currency = 'eur'
-		when 'SE'
-			@campaign.currency = 'eur'
-		when 'GB'
-			@campaign.currency = 'eur'
-		when 'US'
-			@campaign.currency = 'usd'
-		end
+		@campaign.currency = 'usd'
+		#case @campaign.country
+		#when 'AU'
+		#	@campaign.currency = 'aud'
+		#when 'CA'
+		#	@campaign.currency = 'cad'
+		#when 'DK'
+		#	@campaign.currency = 'eur'
+		#when 'FI'
+		#	@campaign.currency = 'eur'
+		#when 'IE'
+		#	@campaign.currency = 'eur'
+		#when 'NO'
+		#	@campaign.currency = 'eur'
+		#when 'SE'
+		#	@campaign.currency = 'eur'
+		#when 'GB'
+		#	@campaign.currency = 'eur'
+		#when 'US'
+		#	@campaign.currency = 'usd'
+		#end
 	end
 
 	def redirect_to_application
-		case @campaign.category
-		when "Art"
-			redirect_to art_user_studio_campaigns_path(@user.id, @campaign.id)
-		when "Music"
-			redirect_to art_user_studio_campaigns_path(@user.id, @campaign.id)
-		when "Games"
-			redirect_to art_user_studio_campaigns_path(@user.id, @campaign.id)
-		when "Writing"
-			redirect_to art_user_studio_campaigns_path(@user.id, @campaign.id)
-		when "Videos"
-			redirect_to art_user_studio_campaigns_path(@user.id, @campaign.id)
-		when "Math"
-			redirect_to art_user_studio_campaigns_path(@user.id, @campaign.id)
-		when "Research: Science"
-			redirect_to art_user_studio_campaigns_path(@user.id, @campaign.id)
-		when "Research: Humanity"
-			redirect_to art_user_studio_campaigns_path(@user.id, @campaign.id)
-		when "Engineering"
-			redirect_to art_user_studio_campaigns_path(@user.id, @campaign.id)
-		end
+		redirect_to application_user_studio_campaigns_path(@user.id, @campaign.id)
 	end
 
 	def resolve_layout
 		case action_name
-		when "new","art"
+		when "new","application"
 		  "studio_fullwidth"
 		else
 		  "studio"
@@ -266,7 +255,7 @@ protected
 	end
 
 	def campaign_params
-		params.require(:campaign).permit(:user_id, :category, :title, :description, :sub_category, :tag_list, :country, :currency, :duration, :ratafirer, :estimated_delivery,:_destroy, :content, :image, :status, :funding_type )
+		params.require(:campaign).permit(:user_id, :category, :title, :description, :sub_category, :tag_list, :country, :currency, :duration, :ratafirer, :estimated_delivery,:_destroy, :content, :image,:funding_type )
 	end
 
 	def fetch_campaign_params
@@ -280,5 +269,12 @@ protected
 	def video_image_params
 		params.require(:video_image).permit(:user_id,:video_uuid,:image, :direct_upload_url, :campaign_id)
 	end	
+
+	def only_confirmed
+		unless @user.confirmed_at
+			redirect_to(:back)
+			flash[:error] = t('flash.user.email_not_confirmed')
+		end
+	end
 
 end

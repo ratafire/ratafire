@@ -1,9 +1,9 @@
 <fieldset title="4">
-	<legend class="text-semibold"><%= t 'views.campaign.artist_info' %></legend>
+	<legend class="text-semibold"><%= t 'views.campaign.creator_info' %></legend>
 	<!-- Topic -->
 	<div class="row text-center p-40">
 		<div class="text-giant text-thin"><%= t 'views.campaign.your_info_and_how_would_you_get_paid' %></div>
-		<h3 class="text-thin text-grey-200">"<%= HistoricalQuote.find(6).quote %>" - <%= HistoricalQuote.find(8).author %></h3>
+		<h3 class="text-thin text-grey-200"><%= render 'studio/campaigns/historical_quotes_artist_info', locals: { campaign: @campaign } %></h3>
 	</div>
 	<div id="error-messages">
 	</div>	
@@ -45,7 +45,9 @@
 					</div>
 				<% else %>
 					<!-- Identity not verified -->
-					<span class="btn bg-rainbow"><i class="icon-profile mr-10"></i> <%= t 'views.profile.settings.identity_verification.verify_your_identity' %></span>
+					<%= link_to identity_verification_user_profile_settings_path(@user.username) do %>
+						<span class="btn bg-rainbow"><i class="icon-profile mr-10"></i> <%= t 'views.profile.settings.identity_verification.verify_your_identity' %></span>
+					<% end %>
 				<% end %>
 			<% end %>
 		</div>

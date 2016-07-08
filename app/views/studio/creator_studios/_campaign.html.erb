@@ -1,0 +1,90 @@
+<div class="col-lg-3 col-sm-6">
+	<div class="panel bg-white-transparent">
+		<div class="thumb thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px 3px 0 0;">
+			<img src="<%= campaign.image.url(:thumbnail480p)%>" style="width:100%;" alt="">
+			<div class="caption-overflow">
+				<span>
+					<a href="<%= campaign.image.url(:preview800)%>.jpg" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
+					<% if campaign.published %>
+						<%= link_to profile_url_path(campaign.user.username), class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
+							<i class="icon-link2"></i>
+						<% end %>
+					<% else %>
+						<%= link_to apply_user_studio_campaigns_path(campaign.user.username, campaign), :data => {turbolinks: "false"} , class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
+							<i class="icon-link2"></i>
+						<% end %>
+					<% end %>
+				</span>
+			</div>
+		</div>
+
+		<div class="panel-body">
+			<div class="pb-10">
+				<span class="label <%= category_color(campaign.category)%> mr-5"><%= t is_category(campaign.category) %></span>
+				<span class="label bg-grey-100"><%= campaign.sub_category %></span>
+				<!-- Edit Campaign -->
+				<!--
+				<span class="dropdown pull-right">
+					<a data-clipboard-text="Just because you can doesn't mean you should — clipboard.js" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
+						<i class="ti-angle-down" style="font-size:11px;">
+						</i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right" style="z-index:1000;">
+						<li><a href="#"><i class="ti-pencil"></i> Edit</a></li>
+						<li><a><i class="ti-trash"></i> Delete</a></li>
+					</ul>
+				</span> -->
+			</div>
+			<% if campaign.published %>
+				<%= link_to profile_url_path(campaign.user.username) do %>
+					<h5 class="no-margin-top text-grey"><%= campaign.title %></h5>
+				<% end %>
+			<% else %>
+				<%= link_to apply_user_studio_campaigns_path(campaign.user.username, campaign) do %>
+					<h5 class="no-margin-top text-grey"><%= campaign.title %></h5>
+				<% end %>
+			<% end %>
+			<div class="text-grey-300 text-thin">
+				<%= truncate(campaign.description, length: 50) %>
+				<!-- Project status -->
+				<% if campaign.status == 'Pending' %>
+					<span class="label bg-grey-100 ml-5"><%= t 'views.utilities.editor.pending'%></span>
+				<% end %>
+				<% if campaign.status == nil %>
+					<span class="label bg-grey-100 ml-5"><%= t 'views.utilities.editor.draft'%></span>
+				<% end %>
+				<% if campaign.completed %>
+					<span class="label bg-grey-100 ml-5"><%= t 'views.utilities.editor.completed'%></span>
+				<% end %>
+				<% if campaign.abandoned %>
+					<span class="label bg-grey-100 ml-5"><%= t 'views.utilities.editor.abandoned'%></span>
+				<% end %>
+			</div>
+			<!-- User profile -->
+			<div class="media">
+				<%= link_to profile_url_path(campaign.user.username), class:"media-left pr-10" do %>
+					<img src="<%= @user.profilephoto.image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
+				<% end %>
+				<div class="media-body">
+					<%= link_to profile_url_path(campaign.user.username) do %>
+						<span class="media-heading text-semibold"><%= campaign.user.preferred_name %></span>
+						<div class="text-size-mini text-grey-100">
+							<%= campaign.user.tagline %>
+						</div>
+					<% end %>
+				</div>
+				<div class="media-right media-middle">
+					<ul class="icons-list">
+						<% unless current_user == campaign.user %>
+							<li>
+								<%= link_to new_user_payment_backs_path(campaign.user.id) do %>
+									<div class="btn bg-rainbow-600 btn-float btn-float-lg btn-rounded pt-4 pr-10 pb-4 pl-10 animated_hover" data-action="jello"><i class="huaxia huaxia-shui"></i></div>
+								<% end %>
+							</li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

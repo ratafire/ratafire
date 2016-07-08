@@ -7,14 +7,14 @@
     <div class="text-center text-grey-transparent mt-20 mb-20" style="font-size:18px;"><%= t 'views.home.join' %> <%= number_to_human(User.count, :format => '%n%u', :units => { :thousand => 'k' }) %> <%= t 'views.home.creators_and_fans' %></div>
     <% if I18n.locale == :zh %>
         <!-- Last Name -->
-        <%= f.email_field :firstname,placeholder:t('views.profile.settings.profile_settings.last_name'), class:"signup-input", style:"width:50%;float:left;border-radius: 0.5rem 0 0 0;" %>
+        <%= f.text_field :firstname,placeholder:t('views.profile.settings.profile_settings.last_name'), class:"signup-input", style:"width:50%;float:left;border-radius: 0.5rem 0 0 0;" %>
         <!-- First Name -->
-        <%= f.email_field :lastname,placeholder:t('views.profile.settings.profile_settings.first_name'), class:"signup-input", style:"width:50%;border-radius: 0 0.5rem 0 0;" %>
+        <%= f.text_field :lastname,placeholder:t('views.profile.settings.profile_settings.first_name'), class:"signup-input", style:"width:50%;border-radius: 0 0.5rem 0 0;" %>
     <% else %>
         <!-- First Name -->
-        <%= f.email_field :firstname,placeholder:t('views.profile.settings.profile_settings.first_name'), class:"signup-input", style:"width:50%;float:left;border-radius: 0.5rem 0 0 0;" %>
+        <%= f.text_field :firstname,placeholder:t('views.profile.settings.profile_settings.first_name'), class:"signup-input", style:"width:50%;float:left;border-radius: 0.5rem 0 0 0;" %>
         <!-- Last Name -->
-        <%= f.email_field :lastname,placeholder:t('views.profile.settings.profile_settings.last_name'), class:"signup-input", style:"width:50%;border-radius: 0 0.5rem 0 0;" %>
+        <%= f.text_field :lastname,placeholder:t('views.profile.settings.profile_settings.last_name'), class:"signup-input", style:"width:50%;border-radius: 0 0.5rem 0 0;" %>
     <% end %>
     <!-- Email -->
     <%= f.email_field :email,placeholder:t('views.profile.settings.profile_settings.your_email'), class:"signup-input" %>
@@ -23,5 +23,7 @@
     <!-- Submit -->
     <%= f.submit t('views.utilities.btn.sign_up'), class:"signup-input signup-input--submit", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
     <!-- Switch Form -->
-    <label for="toggle--login" id="homepage-login" class="signup-text signup-text--small signup-text--centered"><%= t 'views.home.not_new_log_in' %></label>
+    <% if controller_name == 'home' %>
+        <label for="toggle--login" id="homepage-login" class="signup-text signup-text--small signup-text--centered"><%= t 'views.home.not_new_log_in' %></label>
+    <% end %>
 <% end %><!-- end form_for resource -->

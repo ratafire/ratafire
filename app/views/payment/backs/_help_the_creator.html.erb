@@ -1,0 +1,326 @@
+<%= form_for @subscription, url: payment_user_payment_backs_path(user.uid), method: :get do |f| %>
+	<%= f.hidden_field :funding_type, value:'recurring', id:"funding-type-just-want-to-help"%>
+	<!-- Help creator -->
+	<div class="panel panel-reward bg-blue-100 border-blue-100 border-radius-6" id="panel-just-want-to-help">
+		<div class="panel-heading p-30 text-thin text-grey-800">
+			<div class="row">
+				<div class="col-md-1 col-lg-1 text-center">
+					<input type="radio" name="subscription[get_reward_false]" class="control-info" id="radio-just-want-to-help">
+				</div>
+				<div class="col-md-11 col-lg-11">
+					<h4 class="panel-title text-blue text-300"><%= t 'views.payment.backs.no_thanks' %><%= t 'views.payment.backs.creator' %></h4>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body display-none pl-30 pr-40 pb-30 pt-30 border-radius-6" style="border-top: 1px dashed #d4dfe4;" id="panel-body-just-want-to-help">
+			<div class="row">
+				<div class="col-md-1 col-lg-1 text-center">
+				</div>
+				<div class="col-md-9 col-lg-9">
+					<div class="input-group">
+						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100"><%= currency_signs(user.active_campaign.currency) %></span>
+						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-just-want-to-help"%>
+						<div class="input-group-btn dropup">
+							<button type="button" class="btn btn-default dropdown-toggle no-border no-border-radius-left border-radius-6 text-blue bg-blue-200" data-toggle="dropdown" aria-expanded="false" style="padding:10px;" id="funding-type-just-want-to-help-text">
+								<% if user.active_campaign.funding_type == 'creation' %>
+									<%= t 'views.campaign.per_creation' %>
+								<% else %>
+									<%= t 'views.campaign.per_month' %>
+								<% end %>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right text-grey" style="z-index:1000;">
+								<li>
+									<a id="per-creation-just-want-to-help">
+										<% if user.active_campaign.funding_type == 'creation' %>
+											<%= t 'views.campaign.per_creation' %>
+										<% else %>
+											<%= t 'views.campaign.per_month' %>
+										<% end %>
+									</a>
+								</li>
+								<li>
+								 	<a id="one-time-just-want-to-help">
+								 		<%= t 'views.campaign.one_time' %>
+								 	</a>
+								</li>
+							</ul>
+						</div>
+					</div>	
+				</div>
+				<div class="col-md-2 col-lg-2" id="just-want-to-help-submit">
+					<%= f.submit I18n.t('views.payment.backs.continue'), class: "btn bg-rainbow-600 btn-lg" %>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>	
+<%= form_for @subscription, url: payment_user_payment_backs_path(user.uid), method: :get do |f| %>
+	<%= f.hidden_field :funding_type, value:'recurring',id:"funding-type-get-reward"%>
+	<!-- get reward -->
+	<div class="panel panel-reward bg-blue-100 border-blue-100 border-radius-6" id="panel-get-reward">
+		<div class="panel-heading p-30 text-thin text-grey-800">
+			<!-- Reward title -->
+			<div class="row">
+				<div class="col-md-1 col-lg-1 text-center">
+					<input type="radio" name="subscription[get_reward]" class="control-info" id="radio-get-reward">
+				</div>
+				<div class="col-md-11 col-lg-11">
+					<h4 class="panel-title text-blue text-300"><%= currency_signs(user.active_campaign.currency) %><%= user.active_reward.amount.to_i %><%= t 'views.payment.backs.or_more' %> - <span class='text-500'><%= user.active_reward.title %></span></h4>
+				</div>
+			</div>
+			<!-- Reward body -->
+			<div class="row">
+				<div class="col-md-1 col-lg-1 text-center">
+				</div>			
+				<div class="col-md-6">
+					<div class="text-blue-100 mt-10"><%= user.active_reward.description %></div>
+				</div>
+				<div class="col-md-5">
+					<div class="text-blue-200 mt-10"><%= t 'views.utilities.menu.estimated_delivery' %>:</div>
+					<div><%= user.active_reward.estimated_delivery.strftime('%Y/%m/%d') %></div>
+					<div class="text-blue-200"><%= t 'views.utilities.menu.ships_to' %>:</div>
+					<div><%= t shipping(user.active_reward.shipping) %></div>
+				</div>
+			</div>
+			<!-- Shipping fee -->
+			<% unless user.active_reward.shipping == 'no' %>
+				<div class="row mt-30 display-none" id="shipping-selector">
+					<div class="col-md-1 col-lg-1 text-center">
+					</div>
+					<div class="col-md-6">
+						<% if user.active_reward.shipping == "anywhere" %>
+							<%= f.country_select(:shipping_country, { include_blank: t('views.payment.backs.ships_to'), selected: @subscription.shipping_country, except: ['AN'] }, { class: 'form-control border-blue-100', style:"border-radius:6px !important;padding:19px 12px;", id:"shipping-country-selector" }) %>
+						<% end %>
+						<% if user.active_reward.shipping == "some" %>
+							<%= f.country_select(:shipping_country, { include_blank: t('views.payment.backs.ships_to'),selected: @subscription.shipping_country, only: @countires }, { class: 'form-control border-blue-100', style:"border-radius:6px !important;padding:19px 12px;", id:"shipping-country-selector" }) %>
+						<% end %>
+					</div>
+					<div class="col-md-5">
+						<div class="text-blue-200"><%= t 'views.payment.backs.shipping_fee' %></div>
+						<% if @subscription.shipping_country %>
+							<div id="shipping-fee"><%= currency_signs(user.active_campaign.currency) %><%= user.active_reward.shippings.where(:country => @subscription.shipping_country).first.amount.to_i %></div>
+						<% else %>
+							<div id="shipping-fee"><%= t 'views.payment.backs.free_shipping' %></div>
+						<% end %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		<div class="panel-body display-none pl-30 pr-40 pb-30 pt-30 border-radius-6" style="border-top: 1px dashed #d4dfe4;" id="panel-body-get-reward">
+			<!-- Amount -->
+			<div class="row">
+				<div class="col-md-1 col-lg-1 text-center">
+				</div>
+				<div class="col-md-9 col-lg-9">
+					<div class="input-group">
+						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100"><%= currency_signs(user.active_campaign.currency) %></span>
+						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-get-reward"%>
+						<div class="input-group-btn dropup">
+							<button type="button" class="btn btn-default dropdown-toggle no-border no-border-radius-left border-radius-6 text-blue bg-blue-200" data-toggle="dropdown" aria-expanded="false" style="padding:10px;" id="funding-type-get-reward-text">
+								<% if user.active_campaign.funding_type == 'creation' %>
+									<%= t 'views.campaign.per_creation' %>
+								<% else %>
+									<%= t 'views.campaign.per_month' %>
+								<% end %>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" style="z-index:1000;">
+								<li>
+									<a id="per-creation-get-reward">
+										<% if user.active_campaign.funding_type == 'creation' %>
+											<%= t 'views.campaign.per_creation' %>
+										<% else %>
+											<%= t 'views.campaign.per_month' %>
+										<% end %>
+									</a>
+								</li>
+								<li>
+								 	<a id="one-time-get-reward">
+								 		<%= t 'views.campaign.one_time' %>
+								 	</a>
+								</li>
+							</ul>
+						</div>
+					</div>	
+				</div>
+				<div class="col-md-2 col-lg-2" id="get-reward-submit">
+					<%= f.submit I18n.t('views.payment.backs.continue'), class: "btn bg-rainbow-600 btn-lg" %>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
+<script type="text/javascript">
+	// Special bg
+	$('body').addClass('bg-white');	
+    // Default initialization
+    $(".control-info").uniform({
+        radioClass: 'choice',
+        wrapperClass: 'border-info-600 text-info-800'
+    });
+    // Button click
+    $('#panel-just-want-to-help').on('click',function(){
+    	$('#radio-just-want-to-help').prop('checked',true).uniform('refresh');
+    	$('#radio-get-reward').prop('checked',false).uniform('refresh');
+    	$('#panel-body-just-want-to-help').show();
+    	$('#panel-body-get-reward').hide();
+    	$('#panel-just-want-to-help').addClass('panel-reward-active');
+    	$('#panel-get-reward').removeClass('panel-reward-active');
+    	$('#panel-just-want-to-help').removeClass('border-blue-100');
+    	$('#panel-just-want-to-help').addClass('border-blue');
+    	$('#panel-get-reward').addClass('border-blue-100');
+    	$('#panel-get-reward').removeClass('border-blue');
+    	$('#shipping-selector').hide();	
+		if ($('#amount-just-want-to-help').val() > 0 && $('#amount-just-want-to-help').val() < 200) {
+	   		$('#just-want-to-help-submit').unblock();
+		}	
+		$('#panel-just-want-to-help').velocity('scroll',{
+			duration:500,
+			offset:-80,
+			easing:'ease-in-out'
+		});	
+    });
+    $('#panel-get-reward').on('click',function(){
+    	$('#radio-just-want-to-help').prop('checked',false).uniform('refresh');
+    	$('#radio-get-reward').prop('checked',true).uniform('refresh');
+    	$('#panel-body-just-want-to-help').hide();
+    	$('#panel-body-get-reward').show();
+    	$('#panel-just-want-to-help').removeClass('panel-reward-active');
+    	$('#panel-get-reward').addClass('panel-reward-active');
+    	$('#panel-just-want-to-help').addClass('border-blue-100');
+    	$('#panel-just-want-to-help').removeClass('border-blue');
+    	$('#panel-get-reward').removeClass('border-blue-100');
+    	$('#panel-get-reward').addClass('border-blue');
+    	$('#shipping-selector').show();  	
+    	<% if @subscription.shipping_country %>
+			if ($('#amount-get-reward').val() > '<%= user.active_reward.amount.to_i %>' && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val()) {
+		   		$('#get-reward-submit').unblock();
+			}	
+		<% else %>
+			if ($('#amount-get-reward').val() > '<%= user.active_reward.amount.to_i %>' && $('#amount-get-reward').val() < 200 ) {
+		   		$('#get-reward-submit').unblock();
+			}	
+		<% end %>
+		$('#panel-get-reward').velocity('scroll',{
+			duration:500,
+			offset:-80,
+			easing:'ease-in-out'
+		});	  
+    });
+    // Funding type switching button
+    $('#per-creation-just-want-to-help').on('click',function(){
+		<% if user.active_campaign.funding_type == 'creation' %>
+			$('#funding-type-just-want-to-help-text').html('<%= t 'views.campaign.per_creation' %> <span class="caret"></span>');
+		<% else %>
+			$('#funding-type-just-want-to-help-text').html('<%= t 'views.campaign.per_month' %> <span class="caret"></span>');
+		<% end %>
+    	$('#funding-type-just-want-to-help').val('recurring');
+    });
+    $('#one-time-just-want-to-help').on('click',function(){
+    	$('#funding-type-just-want-to-help-text').html('<%= t 'views.campaign.one_time' %> <span class="caret"></span>');
+    	$('#funding-type-just-want-to-help').val('one_time');
+    });
+    $('#per-creation-get-reward').on('click',function(){
+		<% if user.active_campaign.funding_type == 'creation' %>
+			$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_creation' %> <span class="caret"></span>');
+		<% else %>
+			$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_month' %> <span class="caret"></span>');
+		<% end %>
+    	$('#funding-type-get-reward').val('recurring');
+    });
+    $('#one-time-get-reward').on('click',function(){
+    	$('#funding-type-get-reward-text').html('<%= t 'views.campaign.one_time' %> <span class="caret"></span>');
+    	$('#funding-type-get-reward').val('one_time');
+    });    
+	$('#shipping-country-selector').on('change', function() {
+		if(this.value){
+			<% if @subscription.shipping_country %>
+				if ($('#amount-get-reward').val() > '<%= user.active_reward.amount.to_i %>' && $('#amount-get-reward').val() < 200) {
+			   		$('#get-reward-submit').unblock();
+				}	
+			<% else %>
+				if ($('#amount-get-reward').val() > '<%= user.active_reward.amount.to_i %>') {
+			   		$('#get-reward-submit').unblock();
+				}	
+			<% end %>		
+			<% if Rails.env.production? %>
+				return $.getScript('https://ratafire.com/users/<%= user.id %>/payment/backs/country/'+this.value);
+			<% else %>
+				return $.getScript('http://localhost:3000/users/<%= user.id %>/payment/backs/country/'+this.value);
+			<% end %>
+		} else {
+			$('#shipping-fee').html('<%= t "views.payment.backs.free_shipping" %>');
+			$('#get-reward-submit').block({message: null,overlayCSS: {
+			    backgroundColor: '#fff',
+			    opacity: 0.4,
+			    cursor: 'not-allowed'
+			},});
+		}
+	});    
+   //Block submit
+   $('#just-want-to-help-submit').block({message: null,overlayCSS: {
+	    backgroundColor: '#fff',
+	    opacity: 0.4,
+	    cursor: 'not-allowed'
+    },});
+   $('#amount-just-want-to-help').donetyping(function(){
+   		if(this.value > 0 && this.value < 200){
+		   $('#just-want-to-help-submit').unblock();
+   		} else {
+		   $('#just-want-to-help-submit').block({message: null,overlayCSS: {
+			    backgroundColor: '#fff',
+			    opacity: 0.4,
+			    cursor: 'not-allowed'
+		    },});
+   		}
+   });
+   $('#get-reward-submit').block({message: null,overlayCSS: {
+	    backgroundColor: '#fff',
+	    opacity: 0.4,
+	    cursor: 'not-allowed'
+    },});   
+   $('#amount-get-reward').donetyping(function(){
+   		<% if @subscription.shipping_country %>
+	   		if(this.value > '<%= user.active_reward.amount.to_i %>' && this.value < 200 && $('#shipping-country-selector').val()){
+			   $('#get-reward-submit').unblock();
+	   		} else {
+			   $('#get-reward-submit').block({message: null,overlayCSS: {
+				    backgroundColor: '#fff',
+				    opacity: 0.4,
+				    cursor: 'not-allowed'
+			    },});
+	   		}
+	   	<% else %>
+	   		if(this.value > '<%= user.active_reward.amount.to_i %>' && this.value < 200){
+			   $('#get-reward-submit').unblock();
+	   		} else {
+			   $('#get-reward-submit').block({message: null,overlayCSS: {
+				    backgroundColor: '#fff',
+				    opacity: 0.4,
+				    cursor: 'not-allowed'
+			    },});
+	   		}
+	   	<% end %>
+   });
+	// Select panel if clicked
+	<% if @subscription.amount %>
+		<% if @subscription.shipping_country %>
+			$('#panel-get-reward').click();
+			<% if @subscription.funding_type == 'one_time' %>
+				$('#one-time-get-reward').click();
+			<% end %>
+			<% if @subscription.funding_type == 'recurring' %>
+				$('#per-creation-get-reward').click();
+			<% end %>
+		<% else %>
+			$('#panel-just-want-to-help').click();
+			<% if @subscription.funding_type == 'one_time' %>
+				$('#one-time-just-want-to-help').click();
+			<% end %>
+			<% if @subscription.funding_type == 'recurring' %>
+				$('#per-creation-just-want-to-help').click();
+			<% end %>
+		<% end %>
+	<% end %>       
+</script>

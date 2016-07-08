@@ -10,11 +10,6 @@
     <li><label>Concept</label><i class="huaxia huaxia-music"></i></li>
     <li><label>Concept</label><i class="huaxia huaxia-faxian"></i></li>
 </ul>
-<div class="usercarddata bg-rainbow text-size-small btn-group btn-group-justified">
-	<div class="btn-group">
-		<li class="btn btn-xs"><i class="huaxia huaxia-guanzhu"></i></li>
-	</div>
-	<div class="btn-group">     
-		<li class="btn btn-xs"><i class="huaxia huaxia-shui"></i></li>
-	</div>
+<div class="usercarddata bg-rainbow text-size-small btn-group btn-group-justified text-white">
+	<%= render partial:'profile/usercard/usercard_buttons', locals: {user: user} %>
 </div>

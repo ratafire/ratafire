@@ -10,3 +10,6 @@ initiate_text_editor('<%= @upload_url %>');
 initiate_soundcloud_editor();
 initiate_audio_editor();
 turn_lights_off('#above-blockui');
+jQuery.extend(jQuery.validator.messages, {
+    required: '<%= t 'views.form.validate.required' %>',
+});	

@@ -4,6 +4,7 @@ class BankAccount < ActiveRecord::Base
 	#--------Encryption--------
 	attr_encrypted :account_number, key: ENV['ACCOUNT_NUMBER_KEY']
     attr_encrypted :routing_number, key: ENV['ROUTING_NUMBER_KEY']
+    attr_encrypted :postal_code, key: ENV['POSTAL_CODE_KEY']
 
     #Generate uuid
     before_validation :generate_uuid!, :on => :create	

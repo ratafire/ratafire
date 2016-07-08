@@ -1,0 +1,3 @@
+<%= link_to majorpost_user_content_likes_path(current_user.id, majorpost.id), remote: true,method: :get, id:majorpost.uuid+'-majorpost-like' do %>
+	<i class="text-grey-300 huaxia huaxia-guanzhu text-medium inline-block animated rubberBand ml-10"></i>
+<% end %>

@@ -1,0 +1,38 @@
+<div class="masonry" id="<%= artwork.uuid %>_insert_image">
+	<div class="thumb thumb-slide box-shadow" style="border-radius: 3px;">
+		<img src="<%= artwork.image.url(:preview512)%>" style="width:100%;" alt="">
+		<div class="caption-overflow">			
+			<span>
+				<% if artwork.try(:majorpost) %>
+					<% if artwork.majorpost.deleted_at == nil %>
+						<div class="pb-20 pl-20 pr-20">
+							<%= truncate(artwork.majorpost.title, length: 50) %>
+						</div>
+					<% end %>
+				<% else %>
+					<% if artwork.try(:campaign) %>
+						<% if artwork.campaign.deleted_at == nil %>
+							<div class="pb-20 pl-20 pr-20">
+								<%= truncate(artwork.campaign.title, length: 50) %>
+							</div>
+						<% end %>
+					<% end %>
+				<% end %>
+				<!-- Enlarge Image -->
+				<a href="<%= artwork.image.url(:preview800)%>.jpg" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
+				<!-- Link to Majorpost -->
+				<% if artwork.try(:majorpost) %>
+					<%= link_to content_majorpost_path(artwork.majorpost.uuid), class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
+						<i class="icon-link2"></i>
+					<% end %>
+				<% end %>
+				<!-- Link to delete artwork -->
+				<% if current_user == artwork.user || current_user.try(:admin) %>
+					<%= link_to content_artwork_remove_path(artwork), method: :delete, remote: true, class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
+						<i class="icon-cross"></i>
+					<% end %>
+				<% end %>
+			</span>
+		</div>
+	</div>
+</div>

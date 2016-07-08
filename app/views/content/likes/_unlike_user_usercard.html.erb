@@ -1,0 +1,18 @@
+<%= link_to user_user_content_likes_path(current_user.id, user.id), remote: true,method: :delete, id:user.uid+'-user-liked' do %>
+	<span class="btn btn-xs" id="<%= user.uid %>-user-like-hover">
+		<span id="<%= user.uid %>-user-like-holder-inner" class="text-uppercase">
+			<i class="huaxia huaxia-guanzhu1 inline-block animated rubberBand"></i>
+		</span>
+	</span>
+<% end %>
+<script type="text/javascript">
+	$('#<%= user.uid%>-user-like-hover').hover(
+       function () {
+          $('#<%= user.uid%>-user-like-holder-inner').html('<%= t 'views.utilities.btn.unfollow' %>');
+       }, 
+		
+       function () {
+          $('#<%= user.uid%>-user-like-holder-inner').html('<i class="huaxia huaxia-guanzhu1 inline-block animated rubberBand"></i>');
+       }
+	)
+</script>

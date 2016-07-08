@@ -1,0 +1,32 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Cover area -->
+<%= render partial:'profile/components/cover', locals: {user: @user} %>
+<!-- Toolbar -->
+<%= render partial:'profile/components/toolbar', locals: {user: @user}%>
+	<!-- Content Area -->
+	<div class="content" >
+		<!-- Activities -->
+		<div class="row masonry-25">
+			<div id="artwork-pagination">
+				<%= render :partial => 'profile/components/tab_gallery', collection: @artworks, :as => :artwork %>
+			</div>
+			<div class="artwork-pagination">
+				<div id="artwork-pagination-old">
+					<%= will_paginate(@artworks) %>
+				</div>
+			</div>
+		</div>
+	</div>

@@ -3,13 +3,13 @@
 <% provide(:title, @user.preferred_name) %>
 <!-- Page Specific JS -->
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
-<div class="panel panel-rainbow-800 bg-white-transparent">
+<div class="panel panel-blue bg-white-transparent">
 	<div class="panel-heading">
-		<h6 class="panel-title text-thin"><i class="huaxia huaxia-fukuanxuanzhong mr-10"></i><%= t 'views.creator_studio.menu.how_i_pay'%></h6>
+		<h6 class="panel-title text-thin"><i class="icon-credit-card mr-10"></i><%= t 'views.creator_studio.menu.how_i_pay'%></h6>
 		<div class="heading-elements">
     	</div>
 	</div>
-	<div class="panel-body" id="add-bank-account-panel-body">
+	<div class="panel-body" id="add-card-panel-body">
 		<% if @user.card %>
 			<%= render partial: "studio/wallets/card", locals: {user: @user, card: @card} %>
 		<% else %>

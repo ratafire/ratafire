@@ -1,0 +1,15 @@
+<ul class="media-list dropdown-content-body <% unless notification.is_read %>bg-grey-100<% end %>">
+	<li class="media">
+		<div class="media-left">
+			<img src="<%= Subscription.find(notification.trackable_id).subscribed.profilephoto.image.url(:thumbnail40)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
+		</div>
+
+		<div class="media-body">
+			<%= link_to profile_url_path(Subscription.find(notification.trackable_id).subscribed.username), class:"media-heading" do %>
+				<span class="text-semibold"><%= Subscription.find(notification.trackable_id).subscribed.preferred_name %></span>
+				<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
+			<% end %>
+			<span class="text-grey"><%= t 'mailer.payment.subscription.receipt.become_a_one_time_backer_1'%><%= Subscription.find(notification.trackable_id).subscribed.preferred_name %><%= t 'mailer.payment.subscription.receipt.become_a_one_time_backer_2'%><%= currency_signs(Subscription.find(notification.trackable_id).currency) %><%= Subscription.find(notification.trackable_id).amount %></span>
+		</div>
+	</li>
+</ul>

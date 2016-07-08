@@ -14,6 +14,20 @@ function initiate_audio_editor(){
     		}
   		}
 	});
+    $('#video-title').on('keyup',function(){
+        if ($('#video-title').val().length > 0 ){
+            $('#editor-submition-block').unblock();
+        } else {
+            var data = $('#editor-submition-block').data();
+            if (data["blockUI.isBlocked"] == 0) {
+                $('#editor-submition-block').block({message: null,overlayCSS: {
+                backgroundColor: '#fff',
+                opacity: 0.4,
+                cursor: 'not-allowed'
+                },});
+            }
+        }
+    });
 	//Validate Title
     var validator = $("#audio-editor-form").validate({
         ignore: 'input[type=hidden], .select2-input', // ignore hidden fields
@@ -68,12 +82,6 @@ function initiate_audio_editor(){
             'majorpost[composer]':'required',
             'majorpost[artist]':'required',
             'majorpost[genre]':'required',
-        },
-        messages: {
-            custom: {
-                required: "This is a custom error message",
-            },
-            agree: "Please accept our policy"
         }
     });	
 

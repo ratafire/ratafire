@@ -1,4 +1,10 @@
 function initiate_plugins(random_id){
+    // Initialize lightbox
+    $('[data-popup="lightbox"]').fancybox({
+        padding: 3
+    });    
+    //Clipboard
+    new Clipboard('a');    
     //Switchery
     var elem2s = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
@@ -12,13 +18,13 @@ function initiate_plugins(random_id){
     // Tooltip
     $('[data-popup="tooltip"]').tooltip();
     // Photoset
-    $('.photoset-grid-lightbox, .medium-insert-images').photosetGrid({
+    $('.photoset-grid-lightbox').photosetGrid({
         highresLinks: true,
         rel: 'withhearts-gallery',
         gutter: '2px',
     onComplete: function(){
-        $('.photoset-grid-lightbox,.medium-insert-images').attr('style', '');
-        $('.photoset-grid-lightbox a,.medium-insert-images a').colorbox({
+        $('.photoset-grid-lightbox').attr('style', '');
+        $('.photoset-grid-lightbox a').colorbox({
             photo: true,
             scalePhotos: true,
             maxHeight:'90%',
@@ -38,4 +44,16 @@ function initiate_plugins(random_id){
     $("#sticker").sticky({topSpacing:0}); 
     // Resize sidebar to window height
     $('#sidebar-content').height($( window ).height());
+    // Initiate Pagination
+    if ($('.pagination').length) {
+      $(window).scroll(function() {
+        var url;
+        url = $('.pagination .next_page').attr('href');
+        if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
+          $('.pagination').html("<i class=\"icon-spinner2 spinner text-blue\"></i>");
+          return $.getScript(url);
+        }
+      });
+      return $(window).scroll();
+    }     
 }

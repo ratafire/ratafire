@@ -72,9 +72,9 @@ module ApplicationHelper
 			return 'views.utilities.menu.is_creating'
 		when 'Math'
 			return 'views.utilities.menu.is_researching'
-		when 'Research: Science'
+		when 'Science'
 			return 'views.utilities.menu.is_researching'
-		when 'Research: Humanity'
+		when 'Humanity'
 			return 'views.utilities.menu.is_researching'
 		when 'Engineering'
 			return 'views.utilities.menu.is_developing'
@@ -96,12 +96,36 @@ module ApplicationHelper
 			return 'views.utilities.menu.videos'
 		when 'Math'
 			return 'views.utilities.menu.math'
-		when 'Research: Science'
+		when 'Science'
 			return 'views.utilities.menu.science'
-		when 'Research: Humanity'
+		when 'Humanity'
 			return 'views.utilities.menu.humanity'
 		when 'Engineering'
 			return 'views.utilities.menu.engineering'
+		end
+	end
+
+	#Get category color
+	def category_color(category)
+		case category
+		when 'Art'
+			return 'bg-blue'
+		when 'Music'
+			return 'bg-green'
+		when 'Games'
+			return 'bg-pink'
+		when 'Writing'
+			return 'bg-violet'
+		when 'Videos'
+			return 'bg-indigo'
+		when 'Math'
+			return 'bg-orange'
+		when 'Science'
+			return 'bg-brown'
+		when 'Humanity'
+			return 'bg-purple'
+		when 'Engineering'
+			return 'bg-slate'
 		end
 	end
 
@@ -120,9 +144,9 @@ module ApplicationHelper
 			return 'views.utilities.editor.get_paid_for_this_creation'
 		when 'Math'
 			return 'views.utilities.editor.get_paid_for_this_research'
-		when 'Research: Science'
+		when 'Science'
 			return 'views.utilities.editor.get_paid_for_this_research'
-		when 'Research: Humanity'
+		when 'Humanity'
 			return 'views.utilities.editor.get_paid_for_this_research'
 		when 'Engineering'
 			return 'views.utilities.editor.get_paid_for_this_development'
@@ -146,9 +170,9 @@ module ApplicationHelper
 			return 'views.utilities.editor.paid_update'
 		when 'Math'
 			return 'views.utilities.editor.paid_research'
-		when 'Research: Science'
+		when 'Science'
 			return 'views.utilities.editor.paid_research'
-		when 'Research: Humanity'
+		when 'Humanity'
 			return 'views.utilities.editor.paid_research'
 		when 'Engineering'
 			return 'views.utilities.editor.paid_development'
@@ -169,5 +193,71 @@ module ApplicationHelper
 			return '$'
 		end
 	end
+
+	def days_to_current_goal(due)
+		days = (due.to_date - Time.now.to_date).to_i
+		if days >= 0 
+			return days
+		else
+			return 0
+		end
+	end
+
+	def shipping(shipping_method)
+		case shipping_method
+		when 'no'
+			return 'views.campaign.reward_shipping_no'
+		when 'some'
+			return 'views.campaign.reward_shipping_some'
+		when 'anywhere'
+			return 'views.campaign.reward_shipping_anywhere'
+		end
+	end
+
+	def majorpost_fullurl(majorpost_uuid)
+		if Rails.env.production?
+			return 'https://ratafire.com/content/majorposts/'+majorpost_uuid
+		else
+			return 'http://localhost:3000/content/majorposts/'+majorpost_uuid
+		end
+	end
+
+	def is_liker?(user_id, content_type, content_id)
+		case content_type
+		when 'Campaign' 
+			if LikedCampaign.find_by_campaign_id_and_user_id(content_id,user_id)
+				return true
+			else
+				return false
+			end
+		when 'Majorpost'
+			if LikedMajorpost.find_by_majorpost_id_and_user_id(content_id,user_id)
+				return true
+			else
+				return false
+			end
+		when 'User'
+			if LikedUser.find_by_liked_id_and_liker_id(content_id, user_id)
+				return true
+			else
+				return false
+			end
+		end
+	end
+
+	def bootstrap_class_for(flash_type)
+		case flash_type
+		when 'success'
+		"rainbow-800 bg-success transparent-border"
+		when 'error'
+		"rainbow-400 bg-danger transparent-border"
+		when 'alert'
+		"rainbow-700 bg-warning transparent-border"
+		when 'notice'
+		"rainbow-600 bg-info transparent-border"
+		else
+		flash_type.to_s
+		end
+	end	
 
 end

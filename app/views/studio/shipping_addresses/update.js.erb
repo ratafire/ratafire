@@ -1,0 +1,5 @@
+$('#add-shipping-address-form').remove();
+<% if @shipping_addresses %>
+	$('#add-shipping-address-panel-body').append("<%= j render(:partial => 'studio/shipping_addresses/mailing_address', collection: @shipping_addresses, :as => :shipping_address, locals: {user: @user }) %>");
+<% end %>
+$('#add-shipping-address-panel-body').unblock();

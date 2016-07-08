@@ -4294,7 +4294,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-top-left-radius: 0;
 }
 .navbar {
-  position: relative;
+  /* position: relative; */
   min-height: 44px;
   margin-bottom: 20px;
   border: 1px solid transparent;
@@ -5159,9 +5159,7 @@ a.thumbnail.active {
 }
 .alert {
   padding: 15px;
-  margin-bottom: 20px;
   border: 1px solid transparent;
-  border-radius: 3px;
 }
 .alert h4 {
   margin-top: 0;
@@ -5887,6 +5885,24 @@ button.list-group-item-danger.active:focus {
 .panel-info > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #00bcd4;
 }
+.panel-blue {
+  border-color: #36b8df;
+}
+.panel-blue > .panel-heading {
+  color: #ffffff;
+  background-color: #36b8df;
+  border-color: #36b8df;
+}
+.panel-blue > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #36b8df;
+}
+.panel-blue > .panel-heading .badge {
+  color: #36b8df;
+  background-color: #ffffff;
+}
+.panel-blue > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #36b8df;
+}
 .panel-rainbow-800 > .panel-heading{
   background: url(/assets/editor/rainbow-blur4.jpg);
   background-repeat: no-repeat;
@@ -5935,11 +5951,11 @@ button.list-group-item-danger.active:focus {
 .panel-reward {
     border-radius: 2px;
     background-color: #ffffff;
-    -webkit-transition: all 0.5s ease; /* Safari and Chrome */
-    -moz-transition: all 0.5s ease; /* Firefox */
-    -o-transition: all 0.5s ease; /* IE 9 */
-    -ms-transition: all 0.5s ease; /* Opera */
-    transition: all 0.5s ease;  
+    -webkit-transition: all 0.2s ease; /* Safari and Chrome */
+    -moz-transition: all 0.2s ease; /* Firefox */
+    -o-transition: all 0.2s ease; /* IE 9 */
+    -ms-transition: all 0.2s ease; /* Opera */
+    transition: all 0.2s ease;  
     cursor: pointer;
     color: #999999;
 }
@@ -5950,6 +5966,13 @@ button.list-group-item-danger.active:focus {
     -o-transform:scale(1.05); /* Opera */
      transform:scale(1.05);
 
+}
+.panel-reward-active {
+  -webkit-transform:scale(1.05); /* Safari and Chrome */
+  -moz-transform:scale(1.05); /* Firefox */
+  -ms-transform:scale(1.05); /* IE 9 */
+  -o-transform:scale(1.05); /* Opera */
+   transform:scale(1.05);
 }
 .embed-responsive {
   position: relative;
@@ -6267,7 +6290,7 @@ button.close {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2001;
+  z-index: 1000;
   display: none;
   opacity: 0.95;
   padding: 1px;

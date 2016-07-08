@@ -1,0 +1,18 @@
+<div class="content min-height-100vh">
+	<%= devise_error_messages! %>
+	<canvas id="canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;" ></canvas>
+
+	<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, :class => 'signup-form signup-form--signup signup-framed' }) do |f| %>
+	    <div class="text-center">
+	        <img alt=t('views.utilities.menu.ratafire') src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>.png" style="height:40px;" />
+	    </div>
+    	<div class="text-center text-grey-transparent mt-20 mb-20" style="font-size:18px;"><%= t 'views.utilities.devise.resend_confirmation_instructions' %></div>    
+
+	    <%= f.text_field :email, autofocus: true, placeholder:t('views.profile.settings.profile_settings.your_email'), class:"signup-input", style:"border-radius: 0.5rem 0.5rem 0 0;" %>
+
+    	<%= f.submit t('views.utilities.devise.resend_confirmation_instructions'), class:"signup-input signup-input--submit", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
+	<% end %>
+    <%= render 'users/background'%>
+    <!-- Legal -->
+    <%= render partial:'utilities/sessions/sessions_footer', locals: {switcher_type: 'up'}%>     	
+</div>

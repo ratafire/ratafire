@@ -15,7 +15,7 @@
 	</head>
 	<!-- Page Structure -->
 	<body class="navbar-top">
-		
+
 		<div class="outer-space" >
 			<!-- Main navbar -->
 			<div id="main-navbar">
@@ -34,6 +34,7 @@
 	            	<%= yield :sidebar %>
 					<!-- Main content -->
 					<div class="content-wrapper no-padding-bottom">
+						<%= render 'shared/flash_messages', flash: flash %>
 						<!-- Content area -->
 						<!-- Javascript Core-->
 						<!-- Video JS -->

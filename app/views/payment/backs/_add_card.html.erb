@@ -1,0 +1,86 @@
+<h4 class="no-margin-top mt-40 mb-20"><%= t 'views.payment.backs.card_information' %><i class="ti-lock ml-10"></i></h4>
+<%= f.fields_for :cards do |c| %>
+	<div class="row">
+		<div class="col-md-12 col-lg-12">
+			<!-- Name -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_pay.name' %>:</label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-6">
+								<%= c.text_field :name, class:"form-control", placeholder:t('views.creator_studio.how_i_pay.name_placeholder') %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Expiration date -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_pay.exp_date' %>:</label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-3">
+								<%= c.text_field :exp_year, type:"number", maxlength: "4",class:"form-control", id: 'exp-year', placeholder:"YYYY" %>
+							</div>
+							<div class="col-md-3">
+								<%= c.text_field :exp_month, type:"number", maxlength: "2",class:"form-control", id: 'exp-month', placeholder:"MM" %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Card Number -->
+			<div class="row">
+				<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_pay.card_number' %>:</label>
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-6">
+							<%= c.text_field :card_number, type:"number", maxlength: "16",class:"form-control", id: 'card-number', placeholder:t('views.creator_studio.how_i_pay.card_number_placeholder') %>
+						</div>
+						<div class="col-md-2">
+							<%= c.text_field :cvc, type:"number", maxlength: "3" ,class:"form-control",id: 'cvc', placeholder:t('views.creator_studio.how_i_pay.cvc_placeholder') %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<h4 class="no-margin-top mt-40 mb-20"><%= t 'views.payment.backs.billing_address' %></h4>
+	<div class="row">
+		<div class="col-md-12 col-lg-12">
+			<!-- Country -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.country' %>:</label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-8">
+							<%= c.country_select(:country, { include_blank: t('views.creator_studio.how_i_get_paid.country'),selected: card.country, except: ["AN"] }, { class: 'simple-select-search required', id: 'verification-country-select' }) %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Postal code -->
+			<div class="form-group">
+				<div class="row mb-20">
+					<label class="col-md-3 control-label"><%= t 'views.creator_studio.how_i_get_paid.postal_code' %>:</label>
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-md-3">
+								<%= c.text_field :address_zip, class:"form-control", id:'address_zip', placeholder:t('views.creator_studio.how_i_get_paid.postal_code') %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
+<script type="text/javascript">
+	$('#card-number').val(null);
+	$('#cvc').val(null);
+	$('#address_zip').val(null);
+</script>

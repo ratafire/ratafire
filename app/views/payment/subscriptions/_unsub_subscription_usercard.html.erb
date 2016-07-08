@@ -1,0 +1,18 @@
+<%= link_to unsub_user_payment_subscriptions_path(user.uid),method: :delete, data: { confirm: t('views.utilities.btn.are_you_sure_to')+t('views.utilities.btn.unsupport')+'?'}, id:user.uid+'-user-subscribed' do %>
+	<span class="btn btn-xs" id="<%= user.uid%>-user-subscription-hover"> 
+		<span id="<%= user.uid%>-user-subscription-holder" class="text-uppercase">
+			<i class="huaxia huaxia-ny4 inline-block animated rubberBand"></i>
+		</span>
+	</span>
+<% end %>
+<script type="text/javascript">
+	$('#<%= user.uid%>-user-subscription-hover').hover(
+       function () {
+          $('#<%= user.uid%>-user-subscription-holder').html('<%= t 'views.utilities.btn.unsupport' %>');
+       }, 
+		
+       function () {
+          $('#<%= user.uid%>-user-subscription-holder').html('<i class="huaxia huaxia-ny4 inline-block animated rubberBand"></i>');
+       }
+	)
+</script>

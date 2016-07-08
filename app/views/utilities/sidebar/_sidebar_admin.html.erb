@@ -23,10 +23,24 @@
             <div class="category-content no-padding">
                 <ul class="navigation navigation-main navigation-accordion">
                     <!-- Main -->
-                    <li class="navigation-header"><span><%= t 'views.admin.menu.main' %></span> <i class="icon-menu" title="Main pages"></i></li>
+                    <li class="navigation-header"><span><%= t 'views.admin.menu.main' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.main' %>"></i></li>
                     <li id="dashboards-dashboard-sidebaractive"><%= link_to dashboard_user_admin_dashboard_path(current_user.id) do %><i class="icon-newspaper"></i> <span><%= t 'views.admin.menu.dashboard' %></span><% end %></li>
+                    <!-- Content -->
+                    <li class="navigation-header"><span><%= t 'views.admin.menu.content' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.content' %>"></i></li>
+                    <li>
+                        <a>
+                            <i class="icon-cloud"></i> 
+                            <span><%= t 'views.admin.menu.projects' %></span>
+                            <% if Campaign.where(:status => "Pending").count > 0 %>
+                                <span class="badge bg-warning"><%= Campaign.where(:status => "Pending").count %></span>
+                            <% end %>
+                        </a>
+                        <ul>
+                            <li id="campaigns-show-sidebaractive"><%= link_to user_admin_campaigns_path(current_user.id) do %><span><%= t 'views.admin.content.projects.pending_projects' %></span><% end %></li>
+                        </ul>
+                    </li>
                     <!-- Competitor -->
-                    <li class="navigation-header"><span><%= t 'views.admin.menu.competitor' %></span> <i class="icon-menu" title="Main pages"></i></li>
+                    <li class="navigation-header"><span><%= t 'views.admin.menu.competitor' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.competitor' %>"></i></li>
                     <li>
                         <a><i class="huaxia huaxia-lishi"></i> <span><%= t 'views.admin.menu.history' %></span></a>
                         <ul>

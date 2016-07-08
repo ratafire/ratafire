@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Ratafire3</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+	<head>
+		<title><%= full_title(yield(:title)) %></title>
+		<!-- Stylesheet -->
+		<%= stylesheet_link_tag 'template_limitless' %>
+		<%= stylesheet_link_tag 'template_limitless_layouts/layout2', 'data-turbolinks-track' => "reload" %>
+		<%= javascript_include_tag 'template_limitless' %>
+		<%= javascript_include_tag 'page_specific/profile_user', 'data-turbolinks-track' => "reload"  %>
+		<%= csrf_meta_tags %>		
+		<!-- Webfonts-->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,500,600,700%7CNoto+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+		<!-- Page Meta -->
+		<%= render 'utilities/page_meta/facebook_open_graph_profile'%>
+	</head>
+	<!-- Page Structure -->
+	<body class="navbar-top">
+		
+		<div class="outer-space" >
+			<!-- Main navbar -->
+			<div id="main-navbar">
+		        <% if user_signed_in? %>
+		        	<!-- Signed-in Users-->
+		        	<%= render 'utilities/header/main_navbar_signed_in_users'%>
+		        <% else %>
+		        	<!-- Not signed-in Users-->
+		        	<%= render 'utilities/header/main_navbar_not_signed_in_users'%>
+		        <% end %>
+		    </div>
+			<!-- Page container -->
+			<div class="page-container no-padding">
+	            <div class="page-content">
+	            	<!-- Main sidebar -->
+	            	<%= yield :sidebar %>
+					<!-- Main content -->
+					<div class="content-wrapper no-padding-bottom">
+						<!-- Content area -->
+						<!-- Javascript Core-->
+						<!-- Video JS -->
+						<%= yield %>
+					</div><!-- end .content-wrapper -->
+				</div><!-- end .page-content-->	
+			</div><!-- end .page-container -->	
+		</div>
+	</body>
 </html>

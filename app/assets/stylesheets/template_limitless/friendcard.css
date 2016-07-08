@@ -76,6 +76,9 @@
   border: 1px solid #e5e6e9 #dfe0e4 #d0d1d5;
   color: #b7b7b7 !important;  
 }
+.friendcarddata a {
+  color: #cccccc;  
+}
 .friendcard-profile li {
   width: 33.34%;
   display: table-cell;
@@ -84,7 +87,7 @@
 .friendcard-profile span {
   white-space: nowrap;
 }
-.friendcard-profile .friendcarddata li:hover {
+.friendcard-profile .friendcarddata span:hover {
   background: url(/assets/editor/rainbow-blur4.jpg);
   background-repeat: no-repeat;
   background-size: cover;

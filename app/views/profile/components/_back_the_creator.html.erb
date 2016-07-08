@@ -3,7 +3,7 @@
 <div class="label label-blue"><%= t 'views.utilities.menu.backers' %></div>
 <h1 class="number">80%</h1>
 <div class="label label-blue"><%= t 'views.utilities.menu.currently_funded' %></div>
-<h1 class="number">20</h1>
+<h1 class="number"><%= days_to_current_goal(user.active_reward.due) %></h1>
 <div class="label label-blue"><%= t 'views.utilities.menu.days_to_current_goal' %></div>
 <div class="mt-20 mb-20">
 	<%= render partial:'profile/components/donation_button', locals: {user: user}%>

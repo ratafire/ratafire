@@ -1796,7 +1796,7 @@ input[class*=bg-] + .form-control-feedback {
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position:absolute;
-  z-index: -100;
+  /* z-index: -100;*/
   border-top: 0px !important;
 }
 .dropdown-menu .divider {
@@ -5477,7 +5477,7 @@ a.thumbnail.active {
 }
 .media-badge,
 .media-badge[class*=bg-] {
-  border: 2px solid;
+  /* border: 2px solid;*/
 }
 @media (max-width: 768px) {
   .navbar-inverse .media-badge {
@@ -6338,4 +6338,131 @@ h6.panel-title,
 .popover[class*=bg-].left > .arrow:after,
 .popover[class*=border-].left > .arrow:after {
   border-left-color: inherit;
+}
+/*!---------- 5. SECTIONS ----------*/
+section,
+footer {
+  padding: 96px 0;
+  position: relative;
+  overflow: hidden;
+}
+footer {
+  padding: 72px 0;
+}
+.fullscreen {
+  height: 100vh;
+}
+.bg-dark h1,
+nav.bg-dark h1,
+footer.bg-dark h1,
+.bg-primary h1,
+.bg-dark h2,
+nav.bg-dark h2,
+footer.bg-dark h2,
+.bg-primary h2,
+.bg-dark h3,
+nav.bg-dark h3,
+footer.bg-dark h3,
+.bg-primary h3,
+.bg-dark h4,
+nav.bg-dark h4,
+footer.bg-dark h4,
+.bg-primary h4,
+.bg-dark h5,
+nav.bg-dark h5,
+footer.bg-dark h5,
+.bg-primary h5,
+.bg-dark h6,
+nav.bg-dark h6,
+footer.bg-dark h6,
+.bg-primary h6 {
+  color: #ffffff;
+}
+.bg-dark p,
+nav.bg-dark p,
+footer.bg-dark p,
+.bg-primary p,
+.bg-dark span,
+nav.bg-dark span,
+footer.bg-dark span,
+.bg-primary span,
+.bg-dark li,
+nav.bg-dark li,
+footer.bg-dark li,
+.bg-primary li {
+  color: #fefefe;
+}
+@media all and (max-width: 767px) {
+  section {
+    padding: 80px 0;
+  }
+}
+
+.overlay:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #292929;
+  opacity: 0.3;
+  z-index: 2;
+}
+
+.overlay-texture:before{
+   background:url(
+    data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIUlEQVQIW2NkYGCQZGBgeM4ABYxQGi4IEwCJgwWRBcCCAHczAx4qv3vfAAAAAElFTkSuQmCC
+   ) repeat;
+}
+
+.overlay-heavy:before {
+  opacity: .6;
+}
+.bg-light.overlay:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  opacity: 0.1;
+  z-index: 2;
+}
+.image-bg h1,
+.image-bg h2,
+.image-bg h3,
+.image-bg h4,
+.image-bg h5,
+.image-bg h6 {
+  color: #ffffff;
+}
+.image-bg p,
+.image-bg span,
+.image-bg li {
+  color: #ffffff;
+}
+.image-bg .container,
+.image-bg div[class*='col-'] {
+  position: relative;
+  z-index: 3;
+}
+.container.image-bg .row {
+  position: relative;
+  z-index: 3;
+}
+.background-image-holder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: #292929;
+  background-size: cover !important;
+  background-position: 50% 50% !important;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
 }

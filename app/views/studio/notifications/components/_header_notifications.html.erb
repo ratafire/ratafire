@@ -1,0 +1,41 @@
+<li class="dropdown">
+	<%= link_to get_notifications_user_studio_notifications_path(current_user.id), class:"dropdown-toggle", id:"header-notification-link", :data => { :toggle => 'dropdown' }, remote: true do %>
+		<i class="icon-earth"></i>
+		<span class="visible-xs-inline-block position-right"><%= t 'views.utilities.menu.notifications' %></span>
+		<% if user.unread_notifications.count > 0 %><span class="badge bg-danger" id="notification-count"><%= user.unread_notifications.count %></span><% end %>
+	<% end %>
+	<div class="dropdown-menu dropdown-content width-400">
+		<% if user.unread_notifications.count > 0 %>
+			<div id="header-notification-holder">
+			</div>
+
+			<div class="center-block text-center p-40" id="notification-loader">
+				<div class='text-center'><i class="icon-spinner2 spinner text-blue"></i></div>
+			</div>
+		<% else %>
+			<div class="center-block text-center p-40 text-grey-200">
+				<%= t 'views.utilities.menu.all_read' %>
+			</div>
+		<% end %>
+		<div class="dropdown-content-footer">
+			<%= link_to notifications_user_studio_creator_studio_path(current_user.username) do %>
+				<i class="icon-menu display-block text-grey-200"></i>
+			<% end %>
+		</div>
+	</div>	
+</li>	
+<%= link_to get_notifications_user_studio_notifications_path(current_user.id), id:"header-notification-link-to", class:"display-none", remote: true do %>
+<% end %>
+<script type="text/javascript">
+	$('#header-notification-link').bind('click', myHandlerFunction);
+	var first = true;
+
+	function myHandlerFunction(e) {
+	    if(first){
+	        $('#header-notification-link-to').click();
+	    }else{
+	        // Code from the second handler here;
+	    }
+	    first = !first; // Invert `first`
+	}	
+</script>

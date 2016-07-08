@@ -1,0 +1,5 @@
+$('#current-shipping-address-holder').remove();
+<% unless @shipping_addresses.count > 0 %>
+	$('#add-shipping-address-panel-body').append("<%= j render(:partial => 'studio/shipping_addresses/add_mailing_address', :locals => {user: @user, shipping_address: @shipping_address}) %>");
+<% end %>
+$(".simple-select-search").select2({});

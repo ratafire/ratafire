@@ -1,12 +1,19 @@
 class Subscription < ActiveRecord::Base
-	#attr_accessible :amount, :subscriber_id, :subscribed_id, :created_at, :supporter, :method
 
+    #----------------Utilities----------------
+
+    #Default scope
 	default_scope  { order(:created_at => :desc) }
 
-	#track activities
+    #Generate uuid
+    before_validation :generate_uuid!, :on => :create	
+
+    #--------Track activities--------
 	include PublicActivity::Model
 	tracked except: [:create, :update, :destroy], owner: ->(controller, model) { controller && controller.current_user }  
 
+    #----------------Relationships----------------
+    #Belongs to
 	belongs_to :subscriber, class_name: "User"
 	belongs_to :subscribed, class_name: "User"
 	belongs_to :subscription_record
@@ -16,22 +23,34 @@ class Subscription < ActiveRecord::Base
 
 	belongs_to :subscribed_organization, class_name: "Organization"
 
+	#Has many
+	has_many :reward_receivers,
+		-> { where(reward_receivers:{:deleted => nil })}
+    accepts_nested_attributes_for :reward_receivers, limit: 1, :allow_destroy => true
+
+    has_many :cards
+    accepts_nested_attributes_for :cards, limit: 1, :allow_destroy => true
+
+    has_many :shipping_addresses
+    accepts_nested_attributes_for :shipping_addresses, limit: 1, :allow_destroy => true
+
 	#has_one :amazon_recurring
 
-  #Reasons a subscription stopped
-  #1. Subscriber unsubscribed
-  #2. Subscribed removed the subscriber
-  #3. Subscriber failed to make payments
-  #4. Subscribed failed to maintain status
-  #5. Subscribed deactivated account
-  #6. Subscriber deactivated account
-  #7. Subscribed changed payments account
+	#Reasons a subscription stopped
+	#1. Subscriber unsubscribed
+	#2. Subscribed removed the subscriber
+	#3. Subscriber failed to make payments
+	#4. Subscribed failed to maintain status
+	#5. Subscribed deactivated account
+	#6. Subscriber deactivated account
+	#7. Subscribed changed payments account
+	#8. This is a one time payment
 
-  #8. Supported remove the supporter
-  #9. Supporter unsupported
-  #10. Did not pass the 3 supporters test
+	#8. Supported remove the supporter
+	#9. Supporter unsupported
+	#10. Did not pass the 3 supporters test
 
-  #--- Validations ---
+    #----------------Validations----------------
 
 	#subscriber
 	validates_presence_of :subscriber_id
@@ -40,11 +59,12 @@ class Subscription < ActiveRecord::Base
 	validates_presence_of :subscribed_id
 
 	#amount
-	validates_presence_of :amount
+	validates :amount, :presence => true, inclusion: 1..200
 
 
- #--- Methods for Transaction ---
+    #----------------Methods----------------
 
+    #--------Transaction methods--------
  	def self.create_transfer_and_order(subscription_id)
 
  		subscription = Subscription.find(subscription_id)
@@ -190,7 +210,7 @@ class Subscription < ActiveRecord::Base
 						 	#The subscribed has not updated
 						 	@subscribed.update_column(:subscription_inactive, true)
 						 	#send an email to the inactive account to ask the user to update
-						 	#SubscriptionMailer.fail_to_update(@subscribed.id).deliver
+						 	#SubscriptionMailer.fail_to_update(@subscribed.id).deliver_now
 						 end
 					end					
 				end
@@ -198,5 +218,11 @@ class Subscription < ActiveRecord::Base
 		end #if @subscribed != nil && subscription.created_at < ( Time.now - 7.days ) then
  	end
 
+private
 
+    def generate_uuid!
+        begin
+            self.uuid = SecureRandom.hex(16)
+        end while Subscription.find_by_uuid(self.uuid).present?
+    end
 end
