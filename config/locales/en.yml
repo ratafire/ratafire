@@ -212,7 +212,7 @@ en:
         receipts: "Receipts"
         how_I_pay: "How I pay"
         how_I_get_paid: "How I get paid"
-        upper_limits: "Upper Limits"
+        upper_limits: "Upper Limit"
       projects:
         all_projects: "All projects"
         new_project: "New project"
@@ -225,6 +225,7 @@ en:
         my_mailing_address: "My mailing address"
         how_i_get_rewards: "How I get rewards"
         mailling_address: "Mailing address"
+        paid: "Paid"
       community:
         notifications: "Notifications"
       how_i_pay:
@@ -259,6 +260,16 @@ en:
         address_line1_placeholder: "Please enter your address"
         postal_code: "Postal code"
         postal_code_placeholder: "Please enter your postal code"
+      upcoming:
+        payment_due_on: "This payment is due on the 28th of the month. Please confirm or edit it on this page. Your payment method will not be charged before your confirmation. Your payment method will be charged immediately after your confirmation."
+        action: "Action"
+        confirm_payment: "Confirm payment"
+        name: "Name"
+        upcoming_payment: "Upcoming payment"
+      receipt:
+        receipt: "Receipt"
+      transfer:
+        transfers: "Transfers"
     campaign:
       upload_project_image: "Upload a project image"
       upload_project_image_help: "Please upload a large image to represent your project"
@@ -406,7 +417,8 @@ en:
         charge_per_month_1: "Your payment method will be charged "
         charge_per_month_2: " each month upon your approval if "
         charge_per_month_3: " has posted at least one paid creation during the month."
-        creations_per_month: " creations per month."    
+        creations_per_month: " creations per month."  
+        ratafire_payment: "Ratafire payment"  
     utilities:
       menu:
         ratafire: "Ratafire"
@@ -588,6 +600,8 @@ en:
         get_paid_for_this_creation: "Get paid for this creation"
         get_paid_for_this_research: "Get paid for this research"
         get_paid_for_this_development: "Get paid for this development"
+        get_paid: "Get paid"
+        are_you_sure_to_get_paid: "Are you sure to mark this post as paid? You need at least one paid update per month to receive support from long term backers."
         paid_update: "Paid Creation"
         paid_research: "Paid Research"
         paid_development: "Paid Development"
@@ -640,6 +654,7 @@ en:
         world_history: "World History"
         main: "Main"
         dashboard: "Dashboard"
+        development: "Development"
       content:
         projects:
           pending_projects: "Pending projects"
@@ -664,6 +679,8 @@ en:
           source: "Source"
           chapter: "Chapter"
           category: "Category"
+      development:
+        delayed_jobs: "Delayed jobs"
     form:
       validate:
         required: "Required"
@@ -688,7 +705,8 @@ en:
       ratafire_address: "68 West 3rd st, 5FE "
       ratafire_country: "United States "
       ratafire_state: "NY "
-      ratafire_city: "New york "      
+      ratafire_city: "New york "   
+      invoice: "Invoice"   
     studio:
       campaigns:
         review:
@@ -721,6 +739,19 @@ en:
           become_a_long_term_backer_2: ", for "
           become_a_one_time_backed_1: " became your one time backer, for "
           become_a_long_term_backed_1: " became your long term backer, for "
+          payment_amount: "Payment amount "
+        order:
+          order_date: "Date"
+          id: "ID"
+          edit_or_confirm_on_ratafire: "Edit or Confirm on Ratafire"
+          notice: "Before you confirm your invoice every month, your payment method will not be charged. Please use the following link to edit or confirm your this month's payment on Ratafire now."
+          invoice_to: "Invoice to"
+          subject: "Please confirm your Ratafire payment this month"
+          go: "Go"
+      transfer:
+        transfer_sent: "Ratafire transfer sent"
+        line1: "Your Ratafire income this month has transfered. It may take about 2 days before it reaches your bank account. "
+        line2: "This month's transfer amount: "
   flash:
     user:
       email_not_confirmed: "You need to confirm your email address first."

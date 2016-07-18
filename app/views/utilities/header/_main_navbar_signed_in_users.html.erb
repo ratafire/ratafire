@@ -100,7 +100,7 @@
 						<% if current_user.try(:admin) %>	
 							<li class="divider"></li>						
 							<li>
-								<%= link_to dashboard_user_admin_dashboard_path(current_user.id) do %>
+								<%= link_to dashboard_user_admin_dashboard_path(current_user.id),:data => {turbolinks: "false"} do %>
 									<i class="huaxia huaxia-tilong"></i><%= t 'views.utilities.menu.war_room' %>
 	                            	<% if Campaign.where(:status => "Pending").count > 0 %>
 	                                	<span class="badge bg-warning"><%= Campaign.where(:status => "Pending").count %></span>

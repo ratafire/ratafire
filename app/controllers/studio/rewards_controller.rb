@@ -1,8 +1,10 @@
 class Studio::RewardsController < ApplicationController
 
+	layout 'studio'
+
 	#Before filters
 	before_filter :load_user
-	before_filter :load_reward, only:[:upload_image, :remove_image]
+	before_filter :load_reward, only:[:upload_image, :remove_image, :show]
 
 	#REST Methods -----------------------------------
 
@@ -14,6 +16,11 @@ class Studio::RewardsController < ApplicationController
 	#user_studio_rewards POST
 	#/users/:user_id/studio/rewards
 	def create
+	end
+
+	#show_user_studio_rewards GET
+	#/users/:user_id/studio/rewards/:reward_id
+	def show
 	end
 
 	#NoREST Methods -----------------------------------
@@ -30,6 +37,15 @@ class Studio::RewardsController < ApplicationController
 	#/users/:user_id/studio/campaigns/:reward_id/update
 	def remove_image
 		@reward.image.destroy
+	end
+
+	#receiver_datatable_user_studio_rewards GET
+	#/users/:user_id/studio/rewards/receiver_datatable/:reward_id
+	def receiver_datable
+		respond_to do |format|
+			format.html
+			format.json { render json: ReceiverDatatable.new(view_context) }
+		end
 	end
 
 protected

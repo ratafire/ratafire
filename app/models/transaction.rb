@@ -2,6 +2,9 @@ class Transaction < ActiveRecord::Base
 
     #----------------Utilities----------------
 
+    #Default scope
+    default_scope  { order(:created_at => :desc) } 
+
     #Generate uuid
     before_validation :generate_uuid!, :on => :create
 
@@ -37,6 +40,7 @@ class Transaction < ActiveRecord::Base
     #----------------Relationships----------------
     #Belongs to
     belongs_to :user
+    belongs_to :subscriber, class_name: "User"
 
     #Has many
     has_many :transaction_subsets, :foreign_key => 'transaction_id', class_name: "TransactionSubset"

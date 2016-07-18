@@ -11,7 +11,9 @@
 			</div>
 		<% end %>
 		<div class="panel-body">
-			<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><i class="huaxia huaxia-libao mr-5"></i> <%= reward.title %></h5>
+			<%= link_to show_user_studio_rewards_path(reward.user.username,reward.id) do %>
+				<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><i class="huaxia huaxia-libao mr-5"></i> <%= reward.title %></h5>
+			<% end %>
 			<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><%= t 'views.utilities.menu.support' %> <%= currency_signs(reward.campaign.currency) %><%= reward.amount.to_i %></h5>
 			<p class="text-grey-200"><i class="ti-user"></i> <span >0/10 <%= t 'views.utilities.menu.backers' %></span></p>
 			<div class="text-grey mb-20"><%= reward.description %></div>

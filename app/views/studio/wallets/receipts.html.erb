@@ -1,0 +1,26 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-blue bg-white-transparent">
+			<div class="panel-heading">
+				<h6 class="panel-title text-thin"><i class="ti-receipt mr-10"></i><%= t 'views.creator_studio.menu.receipts'%></h6>
+				<div class="heading-elements">
+		    	</div>
+			</div>
+			<div class="panel-body" id="transactions-panel-body">
+				<div id="transactions-pagination">
+					<%= render partial: "studio/wallets/receipt", collection: @transactions, :as => :transaction %>
+				</div>
+				<div class="transactions-pagination">
+					<div id="transactions-pagination-old">
+						<%= will_paginate(@transactions) %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

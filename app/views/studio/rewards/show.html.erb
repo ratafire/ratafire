@@ -1,0 +1,44 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-blue bg-white-transparent">
+			<div class="panel-body" id="transactions-panel-body">
+				<!-- Reward -->
+				<div class="row">
+					<div class="col-md-4">
+						<% if @reward.image.present? %>
+							<div class="thumb thumb-slide" id="about-profilephoto-holder">
+								<img src="<%= @reward.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+							</div>
+						<% else %>
+							<!-- Show project image -->
+							<div class="thumb thumb-slide" id="reward-image-holder">
+								<img src="<%= @reward.campaign.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+							</div>
+						<% end %>
+					</div>
+					<div class='col-md-8'>
+						<h2 class="no-margin-top text-thin"><i class="huaxia huaxia-libao mr-5"></i> <%= @reward.title %></h2>
+						<h5 class="no-margin-top text-thin"><%= t 'views.utilities.menu.support' %> <%= currency_signs(@reward.campaign.currency) %><%= @reward.amount.to_i %></h5>
+						<div class='row'>
+							<div class="col-md-8">
+								<div class="text-thin pb-10"><%= @reward.description %></div>
+							</div>
+							<div class="col-md-4">
+								<div class="text-grey-200"><%= t 'views.utilities.menu.estimated_delivery' %></div>
+								<div class="text-grwy-200"><%= @reward.estimated_delivery.strftime('%Y/%m/%d') %></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Paid Receiver -->
+				<div class="row">
+					<%= render partial: "studio/wallets/receiver", locals: {user: @user, reward: @reward} %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

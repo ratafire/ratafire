@@ -94,6 +94,10 @@ class Campaign < ActiveRecord::Base
         "#{self.uuid}"
     end
 
+    def default_image_number
+        user.id.to_s.last
+    end
+
     #----------------Error messages----------------
 
     def validate_status!

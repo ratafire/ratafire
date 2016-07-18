@@ -1,0 +1,38 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-blue bg-white-transparent">
+			<div class="panel-heading">
+				<h6 class="panel-title text-thin"><i class="ti-receipt mr-10"></i><%= t 'views.creator_studio.menu.receipts'%></h6>
+				<div class="heading-elements">
+		    	</div>
+			</div>
+			<div class="panel-body" id="add-bank-account-panel-body">
+				<div class="row m-5">
+					<h2 class="text-thin text-grey"><%= t 'views.creator_studio.receipt.receipt'%> <%= @transaction.created_at.strftime('%Y/%m')%><span class="bg-grey-100 pl-10 pr-10 ml-10"><%= @transaction.uuid %></span></h2>
+				</div>
+				<!-- Payment table -->
+				<%= render partial: 'studio/wallets/receipt_table', locals: {user: @user, transaction: @transaction} %>
+				<!-- Order Total -->
+				<div class="row m-5">
+					<div class="col-md-8">
+					</div>
+					<div class="col-md-4">
+						<div class="row bg-grey-100 p-20">
+							<div class="col-md-6">
+								<%= t 'mailer.payment.subscription.receipt.total' %>
+							</div>
+							<div class="col-md-6">
+								<span class="text-black text-800 text-large"><%= currency_signs(@transaction.currency) %><%= @transaction.total %></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

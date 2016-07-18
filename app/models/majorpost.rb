@@ -1,6 +1,9 @@
 class Majorpost < ActiveRecord::Base
     #----------------Utilities----------------
 
+    #Default scope
+    default_scope  { order(:created_at => :desc) }    
+
     #--------Friendlyid--------
     extend FriendlyId
     friendly_id :uuid

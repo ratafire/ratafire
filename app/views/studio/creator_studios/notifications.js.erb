@@ -1,7 +1,7 @@
 $("#notifications-pagination").append("<div class='added-notifications'><%= j render(:partial => 'studio/creator_studios/notification', collection: @notifications, :as => :notification)%></div>");
 $('#friend-pagination-old').remove();
 <% if @notifications.next_page %>
-  $('.notifications-pagination').append('<%= j will_paginate(@contacts) %>');
+  $('.notifications-pagination').append('<%= j will_paginate(@notifications) %>');
 <% else %>
   $('.notifications-pagination').remove();
 <% end %>	

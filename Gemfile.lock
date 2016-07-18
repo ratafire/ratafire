@@ -62,10 +62,10 @@ GIT
 
 GIT
   remote: https://github.com/stripe/stripe-ruby
-  revision: d6c73c2b65ebd58e03b71e190d0dfe3fa5a021de
+  revision: 7ed6e48b48a3add03e341dc9ecf9b5eecafd69c2
   specs:
-    stripe (1.46.0)
-      rest-client (~> 1.4)
+    stripe (1.47.0)
+      rest-client (>= 1.4, < 3.0)
 
 GIT
   remote: https://github.com/thoughtbot/paperclip
@@ -210,11 +210,12 @@ GEM
       sort_alphabetical (~> 1.0)
     currencies (0.4.2)
     debug_inspector (0.0.2)
-    devise (4.2.0)
+    devise (3.5.10)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 5.1)
+      railties (>= 3.2.6, < 5)
       responders
+      thread_safe (~> 0.1)
       warden (~> 1.2.3)
     devise_lastseenable (0.0.6)
       devise
@@ -238,7 +239,7 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     fastimage (2.0.0)
       addressable (~> 2)
-    ffi (1.9.13)
+    ffi (1.9.14)
     figaro (1.1.1)
       thor (~> 0.14)
     foreigner (1.7.4)
@@ -282,10 +283,10 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     jwt (1.5.4)
-    koala (2.3.0)
+    koala (2.4.0)
       addressable
       faraday
-      multi_json
+      multi_json (>= 1.3.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -304,7 +305,9 @@ GEM
       fastimage (~> 2.0)
       nesty (~> 1.0)
       nokogiri (~> 1.6)
-    mime-types (2.99.2)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
     mimemagic (0.3.0)
     mini_magick (3.7.0)
       subexec (~> 0.2.1)
@@ -426,10 +429,10 @@ GEM
       rufus-scheduler (~> 3.2)
     resque_mailer (2.3.1)
       actionmailer (>= 3.0)
-    rest-client (1.8.0)
+    rest-client (2.0.0)
       http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 3.0)
-      netrc (~> 0.7)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rinku (2.0.0)
     rqrcode (0.10.1)
       chunky_png (~> 1.0)
@@ -522,7 +525,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   country_select
   delayed_paperclip!
-  devise
+  devise (= 3.5.10)
   devise_lastseenable
   figaro
   formvalidation-rails

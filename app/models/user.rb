@@ -114,12 +114,16 @@ class User < ActiveRecord::Base
     has_one :billing_artist, 
         -> { where(billing_artists:{:deleted => nil})}
     has_one :transfer, 
-        -> { where(transfers:{:deleted_at => nil , :transfered => nil, :on_hold => nil, :masspay_batch_id => nil})}
+        -> { where(transfers:{:deleted_at => nil , :transfered => nil, :on_hold => nil})}
+    has_many :transfer_transfered,
+        -> { where(transfers:{:deleted_at => nil , :transfered => true })},
+        class_name: "Transfer", foreign_key: "user_id"
     has_one :hold_transfer,
         -> { where(transfers:{:deleted_at => nil , :transfered => nil, :on_hold => true})},
         class_name: "Transfer", foreign_key: "user_id"
     has_one :order, 
         -> { where(orders:{:deleted_at => nil, :transacted => nil})}
+    has_many :transactions, foreign_key: "subscriber_id"
     
     #--------Record Backers---------
     has_many :subscription_records, 
@@ -141,7 +145,12 @@ class User < ActiveRecord::Base
         source: :subscribed
 
     #--------Content---------
-    has_many :majorpost
+    has_many :majorpost,
+        -> { where(majorposts:{:deleted_at => nil })}
+    has_many :unpaid_updates,
+        -> { where(majorposts:{:deleted_at => nil, :paid_update => true, :published => true, :mark_as_paid => false})},
+        foreign_key: "user_id",
+        class_name: "Majorpost"
         has_many :artwork
         has_many :link
         has_many :audio

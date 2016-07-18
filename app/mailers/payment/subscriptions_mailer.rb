@@ -10,7 +10,6 @@ class Payment::SubscriptionsMailer < ActionMailer::Base
 		@subscriber = User.find(@transaction.subscriber_id)
 		subject = t('mailer.payment.subscription.receipt.ratafire_receipt')
 		#Create receipt items for transaction form
-		@transaction_form = Array.new
 		if options[:order_id]
 		else
 			@transaction_subsets = @transaction.transaction_subsets

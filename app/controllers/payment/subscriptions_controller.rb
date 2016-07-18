@@ -39,9 +39,9 @@ class Payment::SubscriptionsController < ApplicationController
 			#Do not charge the card
 			subscription_post_payment
 		end
-	#rescue
-	#	flash[:error] = t('errors.messages.not_saved')
-	#	redirect_to(:back)
+	rescue
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to(:back)
 	end
 
 	# user_payment_subscriptions DELETE
@@ -49,8 +49,7 @@ class Payment::SubscriptionsController < ApplicationController
 	# user is the subscriber
 	# current_user is the subscribed
 	def destroy
-		@subscription = Subscription.find_by_subscriber_id_and_subscribed_id(@subscriber.id, @subscribed.id)
-		unsubscribe(2)
+		Subscription.unsubscribe(reason_number: 2, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
 		flash[:success] = t('mailer.payment.subscription.stopped_backer') + @subscriber.preferred_name
 		redirect_to(:back)
 	rescue
@@ -65,8 +64,7 @@ class Payment::SubscriptionsController < ApplicationController
 	# current_user is the subscriber
 	# user is the subscribed
 	def unsub
-		@subscription = Subscription.find_by_subscriber_id_and_subscribed_id(@subscriber.id, @subscribed.id)
-		unsubscribe(1)
+		Subscription.unsubscribe(reason_number: 1, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
 		flash[:success] = t('mailer.payment.subscription.stopped_backing') + @subscribed.preferred_name
 		redirect_to(:back)
 	rescue
@@ -209,7 +207,7 @@ private
 				:amount => @subscription.amount.to_i*100,
 				:currency => "usd",
 				:customer => @subscriber.customer.customer_id,
-				:description => "Subscription fee to <%= @subscribed.fullname %> on Ratafire."
+				:description => t('views.payment.backs.ratafire_payment')
 			)
 		rescue
 			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
@@ -230,12 +228,13 @@ private
 			:currency => "usd"
 			)
 			#Create transaction detail
-			@transaction_detail = TransactionSubset.create(
+			@transaction_subset = TransactionSubset.create(
+				campaign_id: @subscribed.try(:active_campaign).try(:id),
 				transaction_id: @transaction.id,
 				user_id: @subscriber.id,
 				subscriber_id: @subscriber.id,
 				subscribed_id: @subscribed.id,
-				updates: '-',
+				updates: 0,
 				currency: 'usd',
 				amount: @subscription.amount,
 				description: t('mailer.payment.subscription.receipt.support') + @subscription.subscribed.preferred_name
@@ -261,8 +260,6 @@ private
 			send_notification_to_the_subscribed
 			#update subscription record
 			subscription_update_subscription_record
-			#update billing_subscription
-			subscription_update_billing_subscription
 			#Update billing artist
 			subscription_update_billing_artist
 			#Make a follower
@@ -277,8 +274,10 @@ private
 			end
 			#Unsubscribe the one time backer
 			if @subscription.funding_type == 'one_time'
-				unsubscribe(8)
+				Subscription.unsubscribe(reason_number:8, subscriber_id:@subscriber.id, subscribed_id: @subscribed_id)
 			else
+				#update billing_subscription
+				subscription_update_billing_subscription				
 				@subscription.update(
 					activated: true
 				)
@@ -408,13 +407,10 @@ private
 				@subscription_record.attributes = {
 					accumulated_total: @subscription_record.accumulated_total+@transaction.total,
 					accumulated_receive: @subscription_record.accumulated_receive+@transaction.receive,
-					
+					accumulated_fee: @subscription_record.accumulated_fee+@transaction.fee,
+					counter: @subscription_record.counter+1,
+					is_valid: true
 				}
-				@subscription_record.accumulated_total += @transaction.total
-				@subscription_record.accumulated_receive += @transaction.receive
-				@subscription_record.accumulated_fee += @transaction.fee	
-				@subscription_record.counter = @subscription_record.counter+1
-				@subscription_record.is_valid = true
 				if @subscription.get_reward == 'on'
 					@subscription_record.credit += @transaction.total
 				end
@@ -423,12 +419,14 @@ private
 		end		
 		#Subscription 
 		if @transaction
-			@subscription.accumulated_total += @transaction.total
-			@subscription.accumulated_receive += @transaction.receive
-			@subscription.accumulated_fee += @transaction.fee		
-			@subscription.first_payment = true
-			@subscription.first_payment_created_at = Time.now
-			@subscription.counter = @subscription.counter+1
+			@subscription.attributes = {
+				accumulated_total: @subscription.accumulated_total+@transaction.total,
+				accumulated_receive: @subscription.accumulated_receive+@transaction.receive,
+				accumulated_fee: @subscription.accumulated_fee+@transaction.fee,
+				first_payment: true,
+				first_payment_created_at: Time.now,
+				counter: @subscription.counter+1
+			}
 		end
 		@subscription.subscription_record_id = @subscription_record.id
 		@subscription.save
@@ -437,29 +435,36 @@ private
 	def subscription_update_billing_subscription
 		if @subscriber.billing_subscription == nil then
 			#Create a new billing subscription
-			@billing_subscription = BillingSubscription.new
-			@billing_subscription.user_id = @subscriber.id
+			@billing_subscription = BillingSubscription.new(
+				user_id: @subscriber.id,
+				next_billing_date: Time.now.beginning_of_month.next_month + 21.day,
+				next_amount: @subscription.amount,
+				activated: true,
+				activated_at: Time.now
+			)
 			if @transaction
-				@billing_subscription.accumulated_total = @transaction.total
-				@billing_subscription.accumulated_payment_fee += @transaction.fee
-				@billing_subscription.accumulated_receive += @transaction.receive	
-			end		
-			@billing_subscription.next_billing_date = Time.now.beginning_of_month.next_month + 21.day
-			@billing_subscription.next_amount = @subscription.amount
-			@billing_subscription.activated = true
-			@billing_subscription.activated_at = Time.now
+				@billing_subscription.attributes = {
+					accumulated_total: @transaction.total,
+					accumulated_payment_fee: @billing_subscription.accumulated_payment_fee+@transaction.fee,
+					accumulated_receive: @billing_subscription.accumulated_receive+@transaction.receive
+				}
+			end	
 			@billing_subscription.save
 		else
 			#Update the old billing subscription
 			@billing_subscription = @subscriber.billing_subscription
 			if @transaction
-				@billing_subscription.accumulated_total += @transaction.total
-				@billing_subscription.accumulated_payment_fee += @transaction.fee
-				@billing_subscription.accumulated_receive += @transaction.receive
+				@billing_subscription.attributes = {
+					accumulated_total: @billing_subscription.accumulated_total+@transaction.total,
+					accumulated_payment_fee: @billing_subscription.accumulated_payment_fee+@transaction.fee,
+					accumulated_receive: @billing_subscription.accumulated_receive+@transaction.receive
+				}
 			end
-			@billing_subscription.next_amount += @subscription.amount
-			@billing_subscription.activated = true
-			@billing_subscription.activated_at = Time.now			
+			@billing_subscription.attributes = {
+				next_amount: @billing_subscription.next_amount+@subscription.amount,
+				activated: true,
+				activated_at: Time.now
+			}	
 			@billing_subscription.save
 		end
 	end
@@ -467,9 +472,11 @@ private
 	def subscription_update_billing_artist
 		if @subscribed.billing_artist == nil then
 			#Create a new billing artist
-			@billing_artist = BillingArtist.new
-			@billing_artist.user_id = @subscribed.id
-			@billing_artist.next_billing_date = Time.now.beginning_of_month.next_month + 27.day
+			@billing_artist = BillingArtist.new(
+				user_id: @subscribed.id,
+				next_billing_date: Time.now.beginning_of_month.next_month + 27.day,
+				predicted_next_amount: @subscription.amount
+			)
 			if @transaction
 				@billing_artist.next_amount = @transaction.receive
 			end
@@ -477,6 +484,7 @@ private
 		else
 			#Update the old billing artist
 			@billing_artist = @subscribed.billing_artist
+			@billing_artist.predicted_next_amount += @subscription.amount
 			if @transaction
 				@billing_artist.next_amount += @transaction.receive
 			end
@@ -511,80 +519,30 @@ private
 	def subscription_create_or_find_a_transfer
 		if @subscribed.transfer != nil then
 			@transfer = @subscribed.transfer
-			@transfer.user_id = @subscribed.id
-			@transfer.billing_artist_id = @billing_artist.id
-			@transfer.method = "Stripe"
-			@transfer.collected_amount += @subscription.amount
-			@transfer.collected_fee += @transaction.fee
-			@transfer.collected_receive += @transaction.receive
-			@transfer.save
-			@transaction.transfer_id = @transfer.id 
-			@transaction.save
-		else
-			@transfer = Transfer.new
-			@transfer.user_id = @subscribed.id
-			@transfer.billing_artist_id = @billing_artist.id
-			@transfer.method = "Stripe"
-			@transfer.collected_amount += @subscription.amount
-			@transfer.collected_fee += @transaction.fee
-			@transfer.collected_receive += @transaction.receive
-			@transfer.save
-			@transaction.transfer_id = @transfer.id 
-			@transaction.save				
-		end		
-	end
-
-	def unsubscribe(reason_number)
-		#update subscription
-		@subscription.update(
-			deleted_reason: reason_number,
-			deleted: true,
-			deleted_at: Time.now
-		)
-		#update subscription_record
-		if @subscription_record = SubscriptionRecord.find_by_subscriber_id_and_subscribed_id(@subscription.subscriber_id,@subscription.subscribed_id)
-			unless @subscription.funding_type == 'one_time'
-				if @subscription_record.duration == nil then
-					@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
-				else
-					duration = @subscription.deleted_at - @subscription.created_at
-					@subscription_record.duration = @subscription_record.duration + duration
-				end	
-				valid_subscription = ((@subscription.deleted_at - @subscription.created_at)/1.day).to_i
-				if valid_subscription < 30 then
-					PublicActivity::Activity.where(trackable_id: @subscription.id,trackable_type:'Subscription').each do |activity|
-						if activity != nil then 
-							activity.deleted = true
-							activity.deleted_at = Time.now
-							activity.save
-						end
-					end
-				end
-				if @subscription.reward_receivers
-					@subscription.reward_receivers.where(:paid => false, :status => nil, :deleted => nil).each do |reward_receiver|
-						reward_receiver.update(
-							deleted: true,
-							deleted_at: Time.now
-						)
-					end
-				end
-			end
-			@subscription_record.update(
-				past: true
+			@transfer.update(
+				user_id: @subscribed.id,
+				billing_artist_id: @billing_artist.id,
+				method: 'Stripe',
+				collected_amount: @transfer.collected_amount+@subscription.amount,
+				collected_fee: @transfer.collected_fee+@transaction.fee,
+				collected_receive: @transfer.collected_receive+@transaction.receive,
 			)
-		end
-		#clear billing subscription
-		if @billing_subscription != nil then
-			@billing_subscription.next_amount = @billing_subscription.next_amount - @subscription.amount
-			unless @subscriber.subscriptions.any? then
-				@billing_subscription.activated = false
-			end
-			@billing_subscription.save
-		end	
-		if @billing_artist != nil then
-			@billing_artist.next_amount = @billing_artist.next_amount - @subscription.amount
-			@billing_artist.save
-		end
+			@transaction.update(
+				transfer_id: @transfer.id
+			)
+		else
+			@transfer = Transfer.create(
+				user_id: @subscribed.id,
+				billing_artist_id: @billing_artist.id,
+				method: 'Stripe',
+				collected_amount: @transfer.collected_amount+@subscription.amount,
+				collected_fee: @transfer.collected_fee+@transaction.fee,
+				collected_receive: @transfer.collected_receive+@transaction.receive,
+			)
+			@transaction.update(
+				transfer_id: @transfer.id
+			)			
+		end		
 	end
 
 	def connect_to_stripe

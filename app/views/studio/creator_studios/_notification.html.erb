@@ -16,3 +16,12 @@
 <% if notification.notification_type == "subscribed_recurring" %>
 	<%= render partial:'studio/notifications/components/subscribed_recurring', locals: {notification: notification} %>
 <% end %>
+<% if notification.notification_type == "send_order_confirmation" %>
+	<%= render partial:'studio/notifications/components/send_order_confirmation', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "receipt" %>
+	<%= render partial:'studio/notifications/components/receipt', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "transfer" %>
+	<%= render partial:'studio/notifications/components/transfer', locals: {notification: notification} %>
+<% end %>

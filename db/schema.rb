@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707235502) do
+ActiveRecord::Schema.define(version: 20160717042225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -337,6 +337,7 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.datetime "activated_at"
     t.datetime "created_at",                                                               null: false
     t.datetime "updated_at",                                                               null: false
+    t.decimal  "predicted_next_amount",             precision: 10, scale: 2, default: 0.0
   end
 
   create_table "billing_subscriptions", id: :bigserial, force: :cascade do |t|
@@ -1273,6 +1274,7 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.string   "genre"
     t.string   "locale"
     t.integer  "campaign_id"
+    t.boolean  "mark_as_paid",                    default: false
   end
 
   create_table "masspay_batches", id: :bigserial, force: :cascade do |t|
@@ -1363,6 +1365,8 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.integer  "order_id"
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.boolean  "transacted"
+    t.datetime "transacted_at"
   end
 
   create_table "orders", id: :bigserial, force: :cascade do |t|
@@ -1375,6 +1379,9 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false
     t.integer  "count",         limit: 8,                          default: 0
+    t.string   "uuid"
+    t.string   "status"
+    t.string   "currency"
   end
 
   create_table "organization_applications", id: :bigserial, force: :cascade do |t|
@@ -2125,6 +2132,25 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.text     "collectible_100"
   end
 
+  create_table "subscription_errors", force: :cascade do |t|
+    t.string   "uuid"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "subscription_id"
+    t.integer  "subscriber_id"
+    t.integer  "subscribed_id"
+    t.integer  "subscription_record_id"
+    t.integer  "order_id"
+    t.integer  "order_subset_id"
+    t.integer  "transaction_id"
+    t.integer  "transaction_subset_id"
+    t.integer  "transfer_id"
+    t.integer  "transfer_subset_id"
+    t.integer  "error_code"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "subscription_records", id: :bigserial, force: :cascade do |t|
     t.integer  "subscriber_id",        limit: 8
     t.integer  "subscribed_id",        limit: 8
@@ -2269,6 +2295,7 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.string   "uuid"
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.integer  "campaign_id"
   end
 
   create_table "transactions", id: :bigserial, force: :cascade do |t|
@@ -2330,6 +2357,28 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.text     "venmo_token"
     t.integer  "transfer_id",             limit: 8
     t.integer  "user_id"
+    t.string   "transaction_type"
+  end
+
+  create_table "transfer_subsets", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "subscriber_id"
+    t.integer  "subscribed_id"
+    t.integer  "user_id"
+    t.integer  "transaction_id"
+    t.decimal  "collected_amount",       precision: 10, scale: 2
+    t.string   "description"
+    t.integer  "updates"
+    t.string   "currency"
+    t.integer  "subscription_id"
+    t.integer  "subscription_record_id"
+    t.integer  "transfer_id"
+    t.string   "uuid"
+    t.decimal  "collected_fee",          precision: 10, scale: 2
+    t.decimal  "collected_receive",      precision: 10, scale: 2
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
   create_table "transfers", id: :bigserial, force: :cascade do |t|
@@ -2376,6 +2425,16 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.datetime "completed_at"
     t.decimal  "transfer_amount",                         precision: 10, scale: 2, default: 0.0
     t.decimal  "transfer_fee",                            precision: 10, scale: 2, default: 0.0
+    t.string   "balance_transaction"
+    t.string   "destination_payment"
+    t.string   "description"
+    t.string   "destination"
+    t.string   "failure_code"
+    t.string   "failure_message"
+    t.string   "source_transaction"
+    t.string   "source_type"
+    t.string   "statement_descriptor"
+    t.string   "currency"
   end
 
   create_table "tumblrs", force: :cascade do |t|
@@ -2498,7 +2557,7 @@ ActiveRecord::Schema.define(version: 20160707235502) do
   end
 
   create_table "users", id: :bigserial, force: :cascade do |t|
-    t.string   "tagline",                                                  default: "Sits down at the fire of Ratatoskr"
+    t.string   "tagline",                                                    default: "Sits down at the fire of Ratatoskr"
     t.string   "fullname"
     t.text     "username"
     t.text     "email"
@@ -2513,7 +2572,7 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.text     "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 8
+    t.integer  "sign_in_count",            limit: 8
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.text     "current_sign_in_ip"
@@ -2523,16 +2582,16 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.datetime "confirmation_sent_at"
     t.text     "unconfirmed_email"
     t.string   "uid"
-    t.decimal  "subscription_amount",              precision: 8, scale: 2, default: 0.0
-    t.boolean  "subscription_status",                                      default: false
+    t.decimal  "subscription_amount",                precision: 8, scale: 2, default: 0.0
+    t.boolean  "subscription_status",                                        default: false
     t.text     "subscribed_permission"
     t.text     "subscriber_permission"
-    t.boolean  "disabled",                                                 default: false
+    t.boolean  "disabled",                                                   default: false
     t.datetime "deactivated_at"
-    t.decimal  "subscribing_amount",               precision: 8, scale: 2, default: 0.0
-    t.boolean  "accept_message",                                           default: true
+    t.decimal  "subscribing_amount",                 precision: 8, scale: 2, default: 0.0
+    t.boolean  "accept_message",                                             default: true
     t.text     "direct_upload_url"
-    t.boolean  "processed",                                                default: false
+    t.boolean  "processed",                                                  default: false
     t.text     "school"
     t.text     "concentration"
     t.string   "firstname"
@@ -2544,6 +2603,8 @@ ActiveRecord::Schema.define(version: 20160707235502) do
     t.string   "locale"
     t.string   "job_title"
     t.datetime "last_seen"
+    t.boolean  "subscription_inactive"
+    t.datetime "subscription_inactive_at"
   end
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree

@@ -225,6 +225,7 @@ zh:
         my_mailing_address: "我的邮寄地址"
         how_i_get_rewards: "我怎么收到奖励"
         mailing_address: "邮寄地址"
+        paid: "已付款"
       notifications:
         notifications: "提示"
       how_i_pay:
@@ -259,6 +260,16 @@ zh:
         address_line1_placeholder: "你的地址"
         postal_code: "邮政编码"
         postal_code_placeholder: "你的邮政编码"
+      upcoming:
+        payment_due_on: "本月付款确认将于本月28号截止。请在本页确认付款或编辑。在确认前你不会支付款项。确认后你会立即付款。"
+        action: "可用技能"
+        confirm_payment: "确认付款"
+        name: "姓名"
+        upcoming_payment: "将要到期款项"
+      receipt:
+        receipt: "收据"
+      transfer:
+        transfers: "已转账"
     campaign:
       upload_project_image: "上传项目图片"
       upload_project_image_help: "请为你的项目上传一张大图"
@@ -406,6 +417,7 @@ zh:
         charge_per_month_2: "的价格每月支持。"
         charge_per_month_3: "的创作。"
         creations_per_month: "件作品每月"    
+        ratafire_payment: "火栗付款"
     utilities:
       menu:
         ratafire: "火栗"
@@ -587,6 +599,8 @@ zh:
         get_paid_for_this_creation: "设为收费创作"
         get_paid_for_this_research: "设为收费研究"
         get_paid_for_this_development: "设为收费研发"
+        get_pad: "收费"
+        are_you_sure_to_get_paid: "你确定这篇更新要收费？你每月至少要有一篇收费更新，才能从长期支持者处获得支持。"
         paid_update: "收费创作"
         paid_research: "收费研究"
         paid_development: "收费研发"
@@ -638,6 +652,7 @@ zh:
         world_history: "世界历史"
         main: "常用"
         dashboard: "控制面板"
+        development: "开发"
       content:
         projects:
           pending_projects: "待审项目"
@@ -662,6 +677,8 @@ zh:
           source: "来源"
           chapter: "章节"
           category: "类别"
+      development:
+        delayed_jobs: "非并发程序"
     form:
       validate:
         required: "必填"
@@ -687,6 +704,7 @@ zh:
       ratafire_country: "United States "
       ratafire_state: "NY "
       ratafire_city: "New york "
+      invoice: "预账单"
     studio:
       campaigns:
         review: 
@@ -719,6 +737,19 @@ zh:
           become_a_long_term_backer_2: "的长期支持者，"
           become_a_one_time_backed_1: "成为了你的单次支持者，支持了"
           become_a_long_term_backed_1: "成为了你的长期支持者，"
+          payment_amount: "付款总额"
+        order:
+          order_date: "日期"
+          id: "单号"
+          edit_or_confirm_on_ratafire: "到火栗上编辑或确认"
+          notice: "在你每月到火栗上确认账单前，款项不会从你的账号上扣除。请立即使用以下链接以编辑或确认你这个月的火栗账单。"
+          invoice_to: "预账单"
+          subject: "请确认你本月的火栗付款"
+          go: "去确认页"
+      transfer:
+        transfer_sent: "火栗转账"
+        line1: "你本月的火栗收入已转账。到账时间大约为2日以后。"
+        line2: "本月金额："
   flash:
     user:
       email_not_confirmed: "你必须验证邮箱。"

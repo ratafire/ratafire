@@ -1,0 +1,33 @@
+<% if @user.active_campaign %>
+	<div class="checkbox checkbox-switchery switchery-xs pull-left mr-10 ml-20" data-popup="tooltip" title="<%= t get_paid_for_this(@user.active_campaign.category) %>" data-placement="top">
+		<label>
+			<%= f.check_box :paid_update, checked: true,class:"switchery", id:@user.active_campaign.uuid+'-paid-creation'%>
+		</label>
+	</div>
+<% else %>
+	<div class="checkbox checkbox-switchery switchery-xs pull-left mr-10 ml-20" data-popup="tooltip" title="<%= t 'views.utilities.editor.get_paid' %>" data-placement="top">
+		<label>
+			<%= f.check_box :paid_update, checked: false,class:"switchery", disabled:"disabled"%>
+		</label>
+	</div>
+<% end %>
+<!-- Submit -->
+<div class='pull-left' id="editor-submition-block">
+	<%= f.submit t('views.utilities.editor.post_update'), class: "btn btn-blue btn-xs", id:"editor-submition" %>
+</div>	
+<script>
+// Initialize multiple switches
+var elem = document.querySelector('.switchery'),
+    init = new Switchery(elem, { color: '#8BC34A'});
+    elem.addEventListener('click', function() {
+        if (elem.checked){
+            $('#editor-submition').val('<%= t paid_update("Art") %>').removeClass('btn-blue').addClass('bg-green').attr("data-confirm","<%= t 'views.utilities.editor.are_you_sure_to_get_paid' %>");
+        }
+        else {
+            $('#editor-submition').val('<%= t 'views.utilities.editor.post_update' %>').removeClass('bg-green').addClass('btn-blue').removeAttr("data-confirm");
+        }    
+    });
+if ($('#<%= @user.active_campaign.uuid %>-paid-creation').val() == true ){
+	$('#editor-submition').val('<%= t paid_update("Art") %>').removeClass('btn-blue').addClass('bg-green').attr("data-confirm","<%= t 'views.utilities.editor.are_you_sure_to_get_paid' %>");
+}
+</script>

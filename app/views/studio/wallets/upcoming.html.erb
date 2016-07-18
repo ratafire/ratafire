@@ -1,0 +1,49 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="panel panel-blue bg-white-transparent">
+	<div class="panel-heading">
+		<h6 class="panel-title text-thin"><i class="huaxia huaxia-stars mr-10"></i><%= t 'views.creator_studio.menu.upcoming'%></h6>
+		<div class="heading-elements">
+    	</div>
+	</div>
+	<div class="panel-body" id="add-bank-account-panel-body">
+		<div class="row m-5">
+			<h2 class="text-thin text-grey"><%= t 'views.creator_studio.upcoming.upcoming_payment' %> <%= Time.now.strftime('%Y/%m')%></h2>
+		</div>
+		<!-- Payment due -->
+		<div class="row bg-grey-100 p-20 m-5">
+			<%= t 'views.creator_studio.upcoming.payment_due_on' %>
+		</div>
+		<!-- Payment table -->
+		<%= render partial: 'studio/wallets/upcoming_table', locals: {user: @user} %>
+		<!-- Order Total -->
+		<div class="row m-5">
+			<div class="col-md-8">
+			</div>
+			<div class="col-md-4">
+				<div class="row bg-grey-100 p-20">
+					<div class="col-md-6">
+						<%= t 'mailer.payment.subscription.receipt.total' %>
+					</div>
+					<div class="col-md-6">
+						<span class="text-black text-800 text-large"><%= currency_signs(@user.order.currency) %><%= @user.order.amount %></span>
+					</div>
+				</div>
+				<div class="row mt-20">
+					<div class="btn-group btn-group-justified">
+						<div class="btn-group">
+							<%= link_to user_payment_confirm_payments_path(@user.id), method: :post do %>
+								<div class="btn btn-blue btn-xlg">
+									<%= t 'views.creator_studio.upcoming.confirm_payment' %>
+								</div>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

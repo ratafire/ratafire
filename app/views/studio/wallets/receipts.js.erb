@@ -1,0 +1,7 @@
+$("#transactions-pagination").append("<div class='added-transactions'><%= j render(:partial => 'studio/wallets/receipt', collection: @transactions, :as => :transaction)%></div>");
+$('#transactions-pagination-old').remove();
+<% if @transactions.next_page %>
+  $('.transactions-pagination').append('<%= j will_paginate(@transactions) %>');
+<% else %>
+  $('.transactions-pagination').remove();
+<% end %>	

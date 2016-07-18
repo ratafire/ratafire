@@ -194,11 +194,11 @@
     	$('#panel-get-reward').addClass('border-blue');
     	$('#shipping-selector').show();  	
     	<% if @subscription.shipping_country %>
-			if ($('#amount-get-reward').val() > '<%= user.active_reward.amount.to_i %>' && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val()) {
+			if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val()) {
 		   		$('#get-reward-submit').unblock();
 			}	
 		<% else %>
-			if ($('#amount-get-reward').val() > '<%= user.active_reward.amount.to_i %>' && $('#amount-get-reward').val() < 200 ) {
+			if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 ) {
 		   		$('#get-reward-submit').unblock();
 			}	
 		<% end %>
@@ -236,11 +236,11 @@
 	$('#shipping-country-selector').on('change', function() {
 		if(this.value){
 			<% if @subscription.shipping_country %>
-				if ($('#amount-get-reward').val() > '<%= user.active_reward.amount.to_i %>' && $('#amount-get-reward').val() < 200) {
+				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200) {
 			   		$('#get-reward-submit').unblock();
 				}	
 			<% else %>
-				if ($('#amount-get-reward').val() > '<%= user.active_reward.amount.to_i %>') {
+				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %>) {
 			   		$('#get-reward-submit').unblock();
 				}	
 			<% end %>		
@@ -282,7 +282,7 @@
     },});   
    $('#amount-get-reward').donetyping(function(){
    		<% if @subscription.shipping_country %>
-	   		if(this.value > '<%= user.active_reward.amount.to_i %>' && this.value < 200 && $('#shipping-country-selector').val()){
+	   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200 && $('#shipping-country-selector').val()){
 			   $('#get-reward-submit').unblock();
 	   		} else {
 			   $('#get-reward-submit').block({message: null,overlayCSS: {
@@ -292,7 +292,7 @@
 			    },});
 	   		}
 	   	<% else %>
-	   		if(this.value > '<%= user.active_reward.amount.to_i %>' && this.value < 200){
+	   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200){
 			   $('#get-reward-submit').unblock();
 	   		} else {
 			   $('#get-reward-submit').block({message: null,overlayCSS: {

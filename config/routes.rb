@@ -73,6 +73,12 @@ Rails.application.routes.draw do
 				resource :wallets, only:[] do
 					get 'how_i_pay'
 					get 'how_i_get_paid'
+					get 'upcoming'
+					get 'upcoming_datatable', to: 'wallets#upcoming_datatable', as: :upcoming_datatable
+					get 'receipts', to: 'wallets#receipts', as: :receipts
+					get 'single_receipt/:transaction_id', to: 'wallets#single_receipt', as: :single_receipt
+					get 'single_receipt_datatable/:transaction_id', to: 'wallets#single_receipt_datatable', as: :single_receipt_datatable
+					get 'transfers'
 				end
 				#Shipping address
 				resource :shipping_addresses, only:[:create] do
@@ -98,6 +104,8 @@ Rails.application.routes.draw do
 				resource :rewards, only:[:new, :create] do
 					post ':reward_id/upload_image', to: 'rewards#upload_image', as: :upload_image
 					delete ':reward_id/remove_image', to: 'rewards#remove_image', as: :remove_image
+					get '/:reward_id', to: 'rewards#show', as: :show
+					get '/receiver_datatable/:reward_id', to: 'rewards#receiver_datable', as: :receiver_datatable
 				end
 				#Notification
 				resource :notifications, only:[] do
@@ -130,6 +138,9 @@ Rails.application.routes.draw do
 				#subscription
 				resource :subscriptions, only:[:create, :destroy] do
 					delete 'unsub', to: 'subscriptions#unsub', as: :unsub 
+				end
+				#confirm payment
+				resource :confirm_payments, only:[:create] do
 				end
 			end
 
@@ -233,7 +244,7 @@ Rails.application.routes.draw do
 	#Resque -----------------------------------
 
 	authenticate :user, lambda {|u| u.admin == true } do
-	    mount Resque::Server, :at => "/admin/resque"
+	    mount Resque::Server, :at => "/admin/resque", as: :resque
 	end		
 
 end

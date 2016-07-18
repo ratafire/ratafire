@@ -8,12 +8,13 @@ class TransactionSubset < ActiveRecord::Base
     #----------------Relationships----------------
     #Belongs to
     belongs_to :my_transaction, class_name: "Transaction"
+    belongs_to :subscriber, class_name: "User"
 
 private
 
     def generate_uuid!
         begin
-            self.uuid = SecureRandom.hex(8)
+            self.uuid = SecureRandom.hex(16)
         end while TransactionSubset.find_by_uuid(self.uuid).present?
     end
 

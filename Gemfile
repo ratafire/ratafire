@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby "2.2.2"
 #------------------------ User ------------------------
 #Signups and sessions
-gem 'devise'
+gem 'devise', '3.5.10'
 gem 'devise_lastseenable'
 
 #Social Media

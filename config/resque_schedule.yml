@@ -1,2 +1,4 @@
 Subscription::SubscriptionConfirmation:
   cron: "10 0 21 * *"
+Subscription::Transfer:
+  cron: "10 0 28 * *"

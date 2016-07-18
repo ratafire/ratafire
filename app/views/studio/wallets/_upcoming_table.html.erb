@@ -1,0 +1,61 @@
+<div class="row m-5">
+	<table class="table datatable-basic responsive no-wrap table-hover no-border text-grey" id="upcoming_payment" data-source="<%= upcoming_datatable_user_studio_wallets_path(user.id, format: "json") %>">
+		<thead>
+			<tr>
+				<th style="width:5%"><%= t 'views.creator_studio.upcoming.name' %></th>
+				<th></th>
+				<th><%= t 'views.creator_studio.menu.projects' %></th>
+				<th><%= t 'views.admin.content.projects.category' %></th>
+				<th><%= t 'mailer.payment.subscription.receipt.updates' %></th>
+				<th><%= t 'mailer.payment.subscription.receipt.amount' %></th>
+				<th><%= t 'views.creator_studio.upcoming.action' %></th>
+			</tr>
+		</thead>
+	</table>
+</div>
+<script type="text/javascript">
+    $.extend( $.fn.dataTable.defaults, {
+        "bPaginate": false,
+        "bFilter": false,
+        "bInfo": false,
+	    "aaSorting": [[0]],         
+	    "aoColumns": [
+	        { "bSortable": false },
+	        { "bSortable": false },
+	        { "bSortable": false },
+	        { "bSortable": false },
+	        { "bSortable": false },
+	        { "bSortable": false },
+	        { "bSortable": false }
+	    ],
+    	paging: false,
+        autoWidth: false,
+        columnDefs: [{ 
+            orderable: false,
+            width: '100px',
+            targets: [ 5 ]
+        }],
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        language: {
+            search: '<span>Filter:</span> _INPUT_',
+            lengthMenu: '<span>Show:</span> _MENU_',
+            paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+        },
+        drawCallback: function () {
+            $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
+        },
+        preDrawCallback: function() {
+            $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
+        }
+    });
+    $('#upcoming_payment').DataTable({
+        responsive: true,
+        sPaginationType: "full_numbers",
+        "language": {
+            "url": "/translation/dataTable/<%= I18n.locale %>.json"
+        },
+        bProcessing: true,
+        bServerSide: true,
+        sAjaxSource: $('#upcoming_payment').data('source')
+    });	
+</script>

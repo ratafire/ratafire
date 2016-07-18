@@ -5,9 +5,6 @@ class Content::MajorpostsController < ApplicationController
 	#Before filters
 	before_filter :load_majorpost, except: [:create]
 
-	#After filters
-	after_filter :prepare_unobtrusive_flash
-
 	#REST Methods -----------------------------------
 
 	#content_majorposts POST

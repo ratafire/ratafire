@@ -47,6 +47,13 @@
                             <li id="historical_quotes-show-sidebaractive"><%= link_to user_admin_historical_quotes_path(current_user.id) do %><span><%= t 'views.admin.culture.historical_quotes.historical_quotes' %></span><% end %></li>
                         </ul>
                     </li>
+                    <!-- Development -->
+                    <li class="navigation-header"><span><%= t 'views.admin.menu.development' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.development' %>"></i></li>
+                    <li>
+                        <%= link_to resque_path, target: '_blank' do %>
+                            <i class="huaxia huaxia-tanghulu"></i> <span><%= t 'views.admin.menu.delayed_jobs' %></span>
+                        <% end %>
+                    </li>
                 </ul>
             </div><!-- end .category-content-->         
         </div>

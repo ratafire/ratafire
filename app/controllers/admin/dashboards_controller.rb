@@ -5,6 +5,7 @@ class Admin::DashboardsController < ApplicationController
 	protect_from_forgery :except => [:create]
 
 	#Before filters
+	before_filter :authenticate_user!
 	before_filter :load_user
 
 	#NoREST Methods -----------------------------------
