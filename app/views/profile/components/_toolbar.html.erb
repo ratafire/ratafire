@@ -19,6 +19,9 @@
 			<% if user.artwork.any? %>
 				<li id="tabs-gallery-tabactive"><%= link_to gallery_user_profile_tabs_path(user.id), id:"tab-gallery" do %><i class="huaxia huaxia-multipleimage"></i><% end %></li>
 			<% end %>
+			<% if user.video.any? %>
+				<li id="tabs-videos-tabactive"><%= link_to videos_user_profile_tabs_path(user.id), id:"tab-videos" do %><i class="fa fa-play"></i><% end %></li>
+			<% end %>
 		</ul>
 	</div>
 </div>

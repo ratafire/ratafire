@@ -1,0 +1,32 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @tag.name.titleize) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Content Area -->
+<%= render partial: "explore/tags/tags_header", locals: {user: @user} %>
+<div class="content" >
+	<!-- Activities -->
+	<div class="row pl-10 pr-10">
+		<div class="masonry">
+			<div id="like-pagination">
+				<%= render_activities(@activities, layout: :activity_liked) %>
+			</div>
+		</div>
+		
+		<div class="like-pagination">
+			<div id="like-pagination-old">
+				<%= will_paginate(@activities) %>
+			</div>
+		</div>
+	</div>
+</div>

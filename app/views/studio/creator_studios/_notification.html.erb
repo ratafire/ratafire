@@ -25,3 +25,15 @@
 <% if notification.notification_type == "transfer" %>
 	<%= render partial:'studio/notifications/components/transfer', locals: {notification: notification} %>
 <% end %>
+<% if notification.notification_type == "send_shipping_order_confirmation" %>
+	<%= render partial:'studio/notifications/components/send_shipping_order_confirmation', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "ready_to_download" %>
+	<%= render partial:'studio/notifications/components/ready_to_download', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "current_goal_due" %>
+	<%= render partial:'studio/notifications/components/current_goal_due', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "estimated_delivery_due" %>
+	<%= render partial:'studio/notifications/components/estimated_delivery_due', locals: {notification: notification} %>
+<% end %>

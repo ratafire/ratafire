@@ -5,6 +5,9 @@ class Campaign < ActiveRecord::Base
 
     #----------------Utilities----------------
 
+    #Environment-specific direct upload url verifier screens for malicious posted upload locations.
+    DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
+
     #Default scope
     default_scope  { order(:created_at => :desc) }
 
@@ -12,7 +15,7 @@ class Campaign < ActiveRecord::Base
     before_validation :generate_uuid!, :on => :create    
 
     #---------ActsasTaggable--------
-    acts_as_taggable
+    acts_as_taggable_on :tags, :categories, :sub_categories
 
     #--------Track activities--------
     include PublicActivity::Model
@@ -24,7 +27,9 @@ class Campaign < ActiveRecord::Base
     belongs_to :user
 
     #Has one
-    has_one :video, class_name:"Video",dependent: :destroy
+    has_one :video, 
+        -> { where(videos:{:deleted => nil})},
+        class_name:"Video",dependent: :destroy
     has_one :shipping_anywhere, class_name: "ShippingAnywhere", dependent: :destroy
 
     #Has many
@@ -35,10 +40,22 @@ class Campaign < ActiveRecord::Base
     has_many :majorposts
     has_many :liked_campaigns
     has_many :likers, through: :liked_campaigns, source: :user
+    has_many :subscriptions, 
+        -> { where( subscriptions: { :deleted_at => nil, :activated => true }) },
+        class_name: "Subscription", 
+        dependent: :destroy
+    has_many :subscribers, 
+        -> { where( subscriptions: { :deleted_at => nil, :activated => true }) },
+        through: :subscriptions, 
+        source: :subscriber
+
+    #----------------Versioning----------------   
+
+    #has_paper_trail :if => Proc.new { |t| t.status == "Approved" }
 
     #----------------Translation----------------
 
-    translates :title, :description
+    translates :title, :description#, :versioning => :paper_trail
 
     #----------------Validations----------------
 
@@ -55,10 +72,12 @@ class Campaign < ActiveRecord::Base
             :preview800 => ["800", :jpg], 
             :preview512 => ["512", :jpg],
             :preview256 => ["256", :jpg], 
+            :thumbnail800 => ["800x450#",:jpg],
             :thumbnail480p => ["640x360#",:jpg],
             :thumbnail512 => ["512x512#",:jpg],
             :thumbnail128 => ["128x128#",:jpg],
             :thumbnail64 => ["64x64#",:jpg], 
+            :thumbnail40 => ["40x40#",:jpg]
         }, 
         :default_url => lambda { |av| "/assets/default/audio/audio#{av.instance.default_image_number}_:style.jpg" },
         :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
@@ -97,6 +116,42 @@ class Campaign < ActiveRecord::Base
     def default_image_number
         user.id.to_s.last
     end
+
+    # Store an unescaped version of the escaped URL that Amazon returns from direct upload.
+    def direct_upload_url=(escaped_url)
+        write_attribute(:direct_upload_url, (CGI.unescape(escaped_url) rescue nil))
+    end
+
+    # Final upload processing step
+    def transfer_and_cleanup
+        direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(self.direct_upload_url)
+        s3 = AWS::S3.new
+        self.image = URI.parse(URI.escape(self.direct_upload_url))
+        self.save
+        s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
+    end 
+
+    # Set attachment attributes from the direct upload
+    # @note Retry logic handles S3 "eventual consistency" lag.
+    def set_upload_attributes
+        tries ||= 5
+        direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
+        s3 = AWS::S3.new
+        direct_upload_head = s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].head
+
+        self.image_file_name     = direct_upload_url_data[:filename]
+        self.image_file_size     = direct_upload_head.content_length
+        self.image_content_type  = direct_upload_head.content_type
+        self.image_updated_at    = direct_upload_head.last_modified
+        rescue AWS::S3::Errors::NoSuchKey => e
+        tries -= 1
+        if tries > 0
+          sleep(3)
+          retry
+        else
+          false
+        end
+    end           
 
     #----------------Error messages----------------
 
@@ -147,6 +202,8 @@ class Campaign < ActiveRecord::Base
             return true
         end
     end
+
+
 
 private
 

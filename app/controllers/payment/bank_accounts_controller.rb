@@ -128,7 +128,10 @@ private
   					:tos_acceptance => {
   						:date => Time.now.to_time.to_i,
   						:ip => request.remote_ip
-  						}
+  						},
+  					:transfer_schedule => {
+						    :interval => "weekly"
+						},	
 					)
 						if @bank_account.country == 'US'
 							@stripe_account.legal_entity.address.state = @bank_account.state

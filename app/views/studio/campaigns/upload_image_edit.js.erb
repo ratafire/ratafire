@@ -1,0 +1,2 @@
+$('#about-profilephoto-holder').remove();
+$('#campaign-image').append("<%= j render(:partial => 'studio/campaigns/add_campaign_image', :locals => {:user => @user, :campaign => @campaign }) %>");

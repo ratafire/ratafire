@@ -1,0 +1,18 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @category.name.titleize) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Content Area -->
+<div class="content">
+	
+</div>

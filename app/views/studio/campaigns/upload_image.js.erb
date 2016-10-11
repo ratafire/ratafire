@@ -1,0 +1,4 @@
+<% if @campaign.image.present? %>
+	$('#add_campaign_image').remove();
+	$('#campaign-image').prepend("<%= j render(:partial => 'studio/campaigns/campaign_image', :locals => {:user => @user, :campaign => @campaign}) %>");
+<% end %>	

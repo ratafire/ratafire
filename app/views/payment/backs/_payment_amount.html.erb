@@ -17,7 +17,7 @@
 				<% end %>
 			</span>
 			<span class="pull-right">
-				<%= link_to new_user_payment_backs_path(user.id, amount: params[:subscription][:amount], shipping_country: params[:subscription][:shipping_country], funding_type: params[:subscription][:funding_type]) do %>
+				<%= link_to new_user_payment_backs_path(user.uid, amount: params[:subscription][:amount], shipping_country: params[:subscription][:shipping_country], funding_type: params[:subscription][:funding_type], get_reward: params[:subscription][:get_reward]) do %>
 					<%= t 'views.utilities.editor.edit' %>
 				<% end %>
 			</span>

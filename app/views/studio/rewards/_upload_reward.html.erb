@@ -1,0 +1,43 @@
+<div class="row p-20" id='upload-reward-holder'>
+	<div class="col-md-8">
+	    <div class="alert bg-success alert-styled-left mb-20 display-none" id="reward-upload-alert">
+			<%= t 'views.creator_studio.rewards.reward_uploaded' %>
+	    </div>
+		<div id="s3_direct_uploader" class="">
+			<%= s3_uploader_form callback_url: upload_reward_user_studio_rewards_path(user.id,reward.id),
+				callback_method: 'POST',
+				id: "s3_uploader_reward_upload",
+				callback_param: "reward_upload[direct_upload_url]",
+				expiration: 24.hours.from_now.utc.iso8601,
+				max_file_size: 256.megabytes,:remote => true,
+                data: {reward_id: reward.id,user_id: user.id} do %>
+				<div class="valign-middle dropzone-bg" id="reward-upload-dropzone">
+					<div id="reward-upload-progress-case">
+					</div>
+					<%= file_field_tag :file, multiple: true, class:"artwork-choose btn-upload" %>
+					<div class="cursor-pointer center-block text-center">
+						<div id="big-image-upload">
+							<div class="huaxia huaxia-libao text-grey-100" style="font-size:40px;"></div>
+							<div class="text-size-large text-grey-200 mt-5"><%= t 'views.creator_studio.rewards.drop_zip_file_to_upload' %></div>
+							<div class="text-grey-100"><%= t 'views.utilities.editor.or_click' %></div>
+						</div>
+					</div>
+				</div>	
+			<% end %>	
+			<!-- Progress bar -->
+			<%= render partial:'utilities/editor/editor_progress_bar', locals:{name:'zip'} %>			
+		</div>	
+	</div>
+	<div class="col-md-4">
+		<div class="bg-grey-100 p-20 mb-20"><%= t 'views.creator_studio.rewards.confirm_upload_hint' %></div>
+		<div class="btn-group btn-group-justified">
+			<div class="btn-group" id="reward-upload-confirm-button">
+				<%= link_to confirm_upload_reward_user_studio_rewards_path(user.id, reward.id),method: :post, :data => { :confirm => t('views.creator_studio.rewards.are_you_sure_to_confirm_upload') } do %>
+					<div class="btn btn-blue btn-xlg">
+						<%= t 'views.creator_studio.rewards.confirm_upload' %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

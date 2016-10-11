@@ -2269,7 +2269,7 @@ th {
   padding: 12px 20px;
   line-height: 1.5384616;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  /* border-top: 1px solid #dddddd; */
 }
 .table > thead > tr > th {
   vertical-align: bottom;

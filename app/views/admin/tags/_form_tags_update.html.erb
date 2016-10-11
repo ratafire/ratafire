@@ -1,0 +1,36 @@
+<div id="tag-holder-inner">
+    <%= form_for [:admin, tag], url: update_admin_tags_path(tag.id) do |f| %>
+        <!-- Quote -->
+        <div class="form-group">
+            <label><%= t 'views.admin.content.tags.tag_name' %></label>
+            <%= f.text_field :name, class:"no-resize input-sm form-control"%>
+        </div>
+        <!-- Author -->
+        <div class="form-group">
+            <label><%= t 'views.admin.content.tags.description' %></label>
+            <%= f.text_area :description, class:"input-sm form-control"%>
+        </div>
+        <!-- Source -->
+        <div class="form-group">
+            <label><%= t 'views.utilities.editor.image' %></label>
+            <%= f.file_field :image, class:"input-sm form-control file-styled", type:"file"%>
+        </div>
+        <!-- Cancel -->
+        <% if tag.name %>
+            <%= link_to destroy_admin_tags_path(tag.id),method: :delete, :data => { :confirm => t('errors.messages.are_you_sure') } do %>
+                <div class="btn btn-default btn-sm"><%= t 'views.utilities.editor.delete' %></div>
+            <% end %>
+        <% end %>
+        <%= link_to user_admin_tags_path(current_user.id) do %>
+            <div class="btn btn-sm bg-green"><%= t 'views.utilities.editor.cancel' %></div>
+        <% end %>    
+        <!-- Submit -->
+        <%= f.submit t('views.utilities.editor.submit_btn'), class: "btn btn-sm bg-blue", id:"editor-submition" %>
+    <% end %>
+    <script type="text/javascript">
+        // Default file input style
+        $(".file-styled").uniform({
+            fileButtonClass: 'action btn btn-blue'
+        });    
+    </script>
+</div>

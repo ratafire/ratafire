@@ -27,6 +27,7 @@
                     <li id="dashboards-dashboard-sidebaractive"><%= link_to dashboard_user_admin_dashboard_path(current_user.id) do %><i class="icon-newspaper"></i> <span><%= t 'views.admin.menu.dashboard' %></span><% end %></li>
                     <!-- Content -->
                     <li class="navigation-header"><span><%= t 'views.admin.menu.content' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.content' %>"></i></li>
+                    <!-- Projects -->
                     <li>
                         <a>
                             <i class="icon-cloud"></i> 
@@ -37,6 +38,16 @@
                         </a>
                         <ul>
                             <li id="campaigns-show-sidebaractive"><%= link_to user_admin_campaigns_path(current_user.id) do %><span><%= t 'views.admin.content.projects.pending_projects' %></span><% end %></li>
+                        </ul>
+                    </li>
+                    <!-- Tags -->
+                    <li>
+                        <a>
+                            <i class="icon-tag"></i> 
+                            <span><%= t 'views.admin.content.tags.tags' %></span>
+                        </a>
+                        <ul>
+                            <li id="tags-show-sidebaractive"><%= link_to user_admin_tags_path(current_user.id) do %><%= t 'views.admin.content.tags.manage_tags' %><% end %></li>
                         </ul>
                     </li>
                     <!-- Competitor -->
@@ -51,7 +62,7 @@
                     <li class="navigation-header"><span><%= t 'views.admin.menu.development' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.development' %>"></i></li>
                     <li>
                         <%= link_to resque_path, target: '_blank' do %>
-                            <i class="huaxia huaxia-tanghulu"></i> <span><%= t 'views.admin.menu.delayed_jobs' %></span>
+                            <i class="huaxia huaxia-tanghulu"></i> <span><%= t 'views.admin.development.delayed_jobs' %></span>
                         <% end %>
                     </li>
                 </ul>

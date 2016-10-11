@@ -56,7 +56,6 @@ class Users::SessionsController < DeviseController
   # to the after_sign_out path.
   def verify_signed_out_user
     if all_signed_out?
-      set_flash_message! :notice, :already_signed_out
 
       respond_to_on_destroy
     end

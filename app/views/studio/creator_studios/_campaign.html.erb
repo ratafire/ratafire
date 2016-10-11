@@ -21,7 +21,7 @@
 		<div class="panel-body">
 			<div class="pb-10">
 				<span class="label <%= category_color(campaign.category)%> mr-5"><%= t is_category(campaign.category) %></span>
-				<span class="label bg-grey-100"><%= campaign.sub_category %></span>
+				<span class="label bg-grey-100"><%= t is_sub_category(campaign.sub_category) %></span>
 				<!-- Edit Campaign -->
 				<!--
 				<span class="dropdown pull-right">
@@ -35,13 +35,17 @@
 					</ul>
 				</span> -->
 			</div>
-			<% if campaign.published %>
-				<%= link_to profile_url_path(campaign.user.username) do %>
-					<h5 class="no-margin-top text-grey"><%= campaign.title %></h5>
-				<% end %>
-			<% else %>
-				<%= link_to apply_user_studio_campaigns_path(campaign.user.username, campaign) do %>
-					<h5 class="no-margin-top text-grey"><%= campaign.title %></h5>
+			<% unless campaign.completed || campaign.abandoned %>
+				<% if campaign.published %>
+					<%= render partial:"studio/creator_studios/campaign_edit", locals: {campaign: campaign } %>
+					<%= link_to profile_url_path(campaign.user.username) do %>
+						<h5 class="no-margin-top text-grey"><%= campaign.title %></h5>
+					<% end %>
+				<% else %>
+					<%= render partial:"studio/creator_studios/campaign_edit_draft", locals: {campaign: campaign } %>
+					<%= link_to apply_user_studio_campaigns_path(campaign.user.username, campaign) do %>
+						<h5 class="no-margin-top text-grey"sub><%= campaign.title %></h5>
+					<% end %>
 				<% end %>
 			<% end %>
 			<div class="text-grey-300 text-thin">

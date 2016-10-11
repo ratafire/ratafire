@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 				end
 				resource :campaigns, only:[:show] do
 				end
+				resource :tags, only:[:show, :create] do 
+				end
 				resource :historical_quotes, only:[:show, :create,:destroy] do
 				end
 			end
@@ -44,6 +46,7 @@ Rails.application.routes.draw do
 				resource :tabs, only:[] do
 					get 'friends'
 					get 'gallery'
+					get 'videos'
 				end
 				#Settings
 				resource :settings, only:[] do
@@ -89,6 +92,7 @@ Rails.application.routes.draw do
 				end
 				#campaign
 				resource :campaigns, only:[:new,:create] do
+					get ':campaign_id/edit', to: 'campaigns#edit', as: :edit
 					get ':campaign_id/application', to: 'campaigns#application', as: :application
 					patch ':campaign_id/update', to: 'campaigns#update', as: :update
 					post ':campaign_id/update', to: 'campaigns#post_update', as: :post_update
@@ -99,13 +103,28 @@ Rails.application.routes.draw do
 					delete ':campaign_id/campaign_image', to: 'campaigns#remove_campaign_image', as: :remove_campaign_image
 					get ':campaign_id/submit_application', to: 'campaigns#submit_application', as: :submit_application
 					get ':campaign_id/display_read_all', to: 'campaigns#display_read_all', as: :display_read_all
+					post ':campaign_id/upload_image', to: 'campaigns#upload_image', as: :upload_image
+					get ':campaign_id/upload_image_edit', to: 'campaigns#upload_image_edit', as: :upload_image_edit
+					get ':campaign_id/update_content_edit', to: 'campaigns#update_content_edit', as: :update_content_edit
+					get ':campaign_id/update_content_cancel', to: 'campaigns#update_content_cancel', as: :update_content_cancel
+					post ':campaign_id/mark_as_completed', to: 'campaigns#mark_as_completed', as: :mark_as_completed
+					get ':campaign_id/completed', to: 'campaigns#completed', as: :completed
+					post ':campaign_id/abandon', to: 'campaigns#abandon', as: :abandon
+					delete ':campaign_id/delete', to: 'campaigns#delete', as: :delete
 				end
 				#reward
 				resource :rewards, only:[:new, :create] do
 					post ':reward_id/upload_image', to: 'rewards#upload_image', as: :upload_image
 					delete ':reward_id/remove_image', to: 'rewards#remove_image', as: :remove_image
-					get '/:reward_id', to: 'rewards#show', as: :show
+					get '/show/:reward_id', to: 'rewards#show', as: :show
 					get '/receiver_datatable/:reward_id', to: 'rewards#receiver_datable', as: :receiver_datatable
+					get '/upload_image_edit/edit/edit', to: 'rewards#upload_image_edit', as: :upload_image_edit
+					get 'my_rewards'
+					get 'my_rewards_datatable'
+					get '/confirm_shipping_payment/:shipping_order_id', to: 'rewards#confirm_shipping_payment', as: :confirm_shipping_payment
+					get '/upload_reward_editor/:reward_id', to: 'rewards#upload_reward_editor', as: :upload_reward_editor
+					post '/upload_reward/:reward_id', to: 'rewards#upload_reward', as: :upload_reward
+					post '/confirm_upload_reward/:reward_id', to: 'rewards#confirm_upload_reward', as: :confirm_upload_reward
 				end
 				#Notification
 				resource :notifications, only:[] do
@@ -141,7 +160,16 @@ Rails.application.routes.draw do
 				end
 				#confirm payment
 				resource :confirm_payments, only:[:create] do
+					get 'thankyou'
 				end
+				#reward receiver
+				resource :reward_receivers, only:[] do
+					get '/:reward_receiver_id/request_shipping_fee', to: 'reward_receivers#request_shipping_fee', as: :request_shipping_fee
+					post '/:shipping_order_id/confirm_payment', to: 'reward_receivers#confirm_payment', as: :confirm_payment
+					delete '/:shipping_order_id/cancel_payment', to: 'reward_receivers#cancel_payment', as: :cancel_payment	
+					get '/:reward_receiver_id/ship_reward', to: 'reward_receivers#ship_reward', as: :ship_reward	
+					post '/:reward_receiver_id/ship_reward_now', to: 'reward_receivers#ship_reward_now', as: :ship_reward_now 
+				end	
 			end
 
 			#content
@@ -207,7 +235,22 @@ Rails.application.routes.draw do
 			post '/video/zencoder_notify_encode', to: 'content/videos#encode_notify'
 
 		#Tags -----------------
-			get 'tags/:tag', to: 'discover/tag#tags', as: :tag
+			get 'tags/:tag', to: 'explore/tags#tags', as: :tag
+			get 'tags/followed_pagination/get_them', to: 'explore/tags#followed_pagination', as: :followed_pagination
+
+		#Categories -----------------
+			get 'categories/:category', to: 'explore/categories#categories', as: :category
+
+	#Explore -----------------------------------
+
+		namespace :explore do
+			resources :tags, only:[] do
+				post 'follow'
+				delete 'unfollow'
+			end
+			resources :categories, only:[:index] do
+			end
+		end 
 
 	#International -----------------------------------
 		namespace :global do
@@ -234,12 +277,21 @@ Rails.application.routes.draw do
 			get '/approve/:campaign_id', to: 'campaigns#approve', as: :approve
 			get '/disapprove/:campaign_id', to: 'campaigns#disapprove', as: :disapprove
 		end
+		resource :tags, only:[:show] do 
+			get '/index', to: 'tags#index', as: :index
+			get '/:id', to: 'tags#edit', as: :edit
+			delete '/:id', to: 'tags#destroy', as: :destroy
+			patch '/:id', to: 'tags#update', as: :update
+		end
 		resource :historical_quotes, only:[] do
 			get '/index', to: 'historical_quotes#index', as: :index
 			get '/:id', to: 'historical_quotes#edit', as: :edit
 			patch '/:id', to: 'historical_quotes#update', as: :update
 		end
 	end
+
+	#Payment -----------------------------------
+
 
 	#Resque -----------------------------------
 

@@ -1,0 +1,25 @@
+<div id="campaign-content-editor-edit">
+	<%= form_for [campaign], :url=>update_user_studio_campaigns_path(user.id, campaign.id),authenticity_token: true, :method => :patch, remote: true, html: {class: "stepy-validation", id:"campaign-wizard", action:"#"} do |f|%>
+		<%= f.hidden_field :content_updated_at, value: Time.now %>
+		<%= f.text_area :content, type:"hidden",class:"medium-editor-textarea editable-textarea form-transparent", data:{placeholder: t('views.campaign.long_description_creation_placeholder')},id:"majorpost_content_textarea" %>
+		<div class="pull-right">
+			<!-- Cancel -->
+			<%= link_to update_content_cancel_user_studio_campaigns_path(user.id, campaign.id), remote: true do %>
+				<div class="btn btn-default">
+					<%= t 'views.utilities.editor.cancel' %>
+				</div>
+			<% end %>
+			<!-- Mark as completed -->
+			<%= f.submit I18n.t('views.utilities.editor.save'), :data => { :confirm => t('views.campaign.please_confirm_your_content_update') }, remote: true, class:"btn bg-green", id:"editor-submition-block" %>
+		</div>
+	<% end %>
+</div>
+<script type="text/javascript">
+	//Initiate editor js
+	initiate_editor();
+	initiate_text_editor('<%= @upload_url %>','subscribe');
+	// Default file input style
+	$(".file-styled").uniform({
+		fileButtonClass: 'action btn bg-rainbow'
+	});
+</script>

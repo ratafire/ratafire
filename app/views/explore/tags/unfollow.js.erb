@@ -1,0 +1,2 @@
+$('#tag-unfollow').remove();
+$('#tag-follow-holder').append("<%= j render(:partial => 'explore/tags/follow_btn', :locals => {tag: @tag}) %>");

@@ -105,6 +105,94 @@ module ApplicationHelper
 		end
 	end
 
+	#Get subcategory name 
+
+	def is_sub_category(subcategory)
+		case subcategory
+		when 'A New Field'
+			return 'views.utilities.category.a_new_field'		
+		when 'Other'
+			return 'views.utilities.category.other'
+			#Art
+		when 'Concept Art'
+			return 'views.utilities.category.art.concept_art'
+		when '3D Models'
+			return 'views.utilities.category.art.3D_model'
+		when 'Drawing'
+			return 'views.utilities.category.art.drawing'
+		when 'Painting'
+			return 'views.utilities.category.art.painting'
+		when 'Architecture'
+			return 'views.utilities.category.art.architecture'
+		when 'Interior Design'
+			return 'views.utilities.category.art.interior_design'
+		when 'Photography'
+			return 'views.utilities.category.art.photography'
+		when 'Graphic Design'
+			return 'views.utilities.category.art.graphic_design'
+		when 'Sculpting'
+			return 'views.utilities.category.art.sculpting'
+		when 'Jewelry Design'
+			return 'views.utilities.category.art.jewelry_design'
+			#Music
+		when 'Composition'
+			return 'views.utilities.category.music.composition'
+		when 'Soundtrack'
+			return 'views.utilities.category.music.soundtrack'
+		when 'Rock'
+			return 'views.utilities.category.music.rock'
+		when 'Pop'
+			return 'views.utilities.category.music.pop'
+		when 'Cover'
+			return 'views.utilities.category.music.cover'
+		when 'Classical'
+			return 'views.utilities.category.music.classical'
+			#Games			
+		when 'RPG'
+			return 'views.utilities.category.games.rpg'
+		when 'Strategy'
+			return 'views.utilities.category.games.strategy'
+		when 'Simulation'
+			return 'views.utilities.category.games.simulation'
+		when 'MMO'
+			return 'views.utilities.category.games.mmo'
+		when 'Action'
+			return 'views.utilities.category.games.action'
+		when 'Sport'
+			return 'views.utilities.category.games.sport'
+		when 'Adventure'
+			return 'views.utilities.category.games.adventure'
+			#Writing
+		when 'Review'
+			return 'views.utilities.category.writing.review'
+		when 'Poetry'
+			return 'views.utilities.category.writing.poetry'
+		when 'Fantasy'
+			return 'views.utilities.category.writing.fantasy'
+		when 'Science Fiction'
+			return 'views.utilities.category.writing.science_fiction'
+		when 'Non-fiction'
+			return 'views.utilities.category.writing.non_fiction'
+			#Videos
+		when 'Gaming'
+			return 'views.utilities.category.videos.gaming'
+		when 'Animation'
+			return 'views.utilities.category.videos.animation'
+		when 'CG'
+			return 'views.utilities.category.videos.cg'
+		when 'Movies'
+			return 'views.utilities.category.videos.movies'
+		when 'Documentary'
+			return 'views.utilities.category.videos.documentary'
+		when 'Tutorial'
+			return 'views.utilities.category.videos.tutorial'
+			#Math
+			#Science
+			#Huamnity
+			#Engineering
+		end
+	end
+
 	#Get category color
 	def category_color(category)
 		case category

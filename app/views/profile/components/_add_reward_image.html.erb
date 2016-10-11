@@ -18,29 +18,29 @@
 			</div>
 		</div>		
 	<% end %>
-	<script type="text/javascript">
-	    $('#s3_uploader_reward_image').S3Uploader(
-	      { 
-	        remove_completed_progress_bar: false,
-	        dropZone: $('#reward-image-dropzone')
-	    },"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
-	    $('#s3_uploader_reward_image').bind('s3_upload_failed', function(e, content) {
-	        return alert(content.filename + ' failed to upload');
-	    });   
-	    $('#s3_uploader_reward_image').bind('s3_uploads_start', function(e, content) {
-	        $('#add-reward-image').block({
-	            message: '<i class="icon-spinner2 spinner text-blue"></i>',
-	            overlayCSS: {
-	            	backgroundColor: '#fff',
-	                opacity: 0.4,
-	                cursor: 'wait'
-	            },
-	            css: {
-	                border: 0,
-	                padding: 0,
-	                backgroundColor: 'transparent'
-	            }
-	        });  
-	    }); 
-	</script>
 </div>
+<script type="text/javascript">
+    $('#s3_uploader_reward_image').S3Uploader(
+      { 
+        remove_completed_progress_bar: false,
+        dropZone: $('#reward-image-dropzone')
+    },"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+    $('#s3_uploader_reward_image').bind('s3_upload_failed', function(e, content) {
+        return alert(content.filename + ' failed to upload');
+    });   
+    $('#s3_uploader_reward_image').bind('s3_uploads_start', function(e, content) {
+        $('#add-reward-image').block({
+            message: '<i class="icon-spinner2 spinner text-blue"></i>',
+            overlayCSS: {
+            	backgroundColor: '#fff',
+                opacity: 0.4,
+                cursor: 'wait'
+            },
+            css: {
+                border: 0,
+                padding: 0,
+                backgroundColor: 'transparent'
+            }
+        });  
+    }); 
+</script>

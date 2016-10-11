@@ -1,0 +1,4 @@
+<% if @order %>
+	$('#add-bank-account-panel-body').html('');
+	$('#add-bank-account-panel-body').append("<%= j render(:partial => 'studio/wallets/thankyou') %>");
+<% end %>

@@ -1,0 +1,2 @@
+$('#campaign-content-editor-edit').remove();
+$('#campaign-content-holder-edit').append("<%= j render(:partial => 'studio/campaigns/update_content', locals: {user: @user, campaign: @campaign}) %>");

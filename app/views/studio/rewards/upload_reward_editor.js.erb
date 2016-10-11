@@ -1,0 +1,28 @@
+$('#reward-receivers-holder').remove();
+$('#reward-upload-hint').remove();
+$('#transactions-panel-body').append("<%= j render(:partial => 'studio/rewards/upload_reward', locals: {user: @user, reward: @reward}) %>");
+$('#reward-upload-confirm-button').block({message: null,overlayCSS: {
+    backgroundColor: '#fff',
+    opacity: 0.4,
+    cursor: 'not-allowed'
+},});
+//reward uploader
+$('#s3_uploader_reward_upload').S3Uploader(
+  { 
+    remove_completed_progress_bar: false,
+    dropZone: $('#reward-upload-dropzone'),
+    progress_bar_target: $('#reward-upload-progress-case'),
+	additional_data: { "reward_upload[reward_id]": $('#s3_uploader_reward_upload').data('reward-id'),
+	"reward_upload[user_id]":$('#s3_uploader_reward_upload').data('user-id')    
+  },
+},"zip"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
+$('#s3_uploader_reward_upload').bind('s3_upload_failed', function(e, content) {
+  return alert(content.filename + ' failed to upload');
+});   
+$('#s3_uploader_reward_upload').bind('s3_upload_complete', function(e, content) {
+  $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
+});
+<% if RewardUpload.find_by_reward_id(@reward.id).try(:package).present? %>
+	$('#reward-upload-alert').removeClass('display-none');
+  $('#reward-upload-confirm-button').unblock();
+<% end %>

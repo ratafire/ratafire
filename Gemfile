@@ -96,6 +96,9 @@ gem 'mini_magick','3.7.0' #important
 gem 'jquery-fileupload-rails', :path => "vendor/gems/jquery-fileupload-rails-master"
 gem 'paperclip-ghostscript' #pdf
 
+#------------Versioning------------
+#Versioning
+gem 'paper_trail'
 
 #Ajax File upload
 
@@ -112,7 +115,7 @@ gem "soundcloud"
 
 #------------Tags------------
 #Tag adder
-gem 'acts-as-taggable-on', '~> 3.4' #important
+gem 'acts-as-taggable-on', github: "ratafire/acts-as-taggable-on" #important #Change: has_one :tag_image
 
 #------------Paginate------------
 #Paginator
@@ -151,6 +154,7 @@ gem 'country_select'
 #Translation for models
 gem 'globalize'
 gem 'globalize-accessors'
+gem 'globalize-versioning'
 #Identify language
 gem 'cld'
 
@@ -189,6 +193,8 @@ gem "attr_encrypted"
 gem "browser"
 #Autolink parser
 gem "rinku"
+#Rails 5 Sprockets method `register_engine` is deprecated. Temporary solution
+gem 'sprockets', '3.6.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

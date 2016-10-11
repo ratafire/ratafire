@@ -19,9 +19,11 @@
 	<!-- Content Area -->
 	<div class="content" >
 		<!-- Activities -->
-		<div class="row masonry-25">
-			<div id="artwork-pagination">
-				<%= render :partial => 'profile/components/tab_gallery', collection: @artworks, :as => :artwork %>
+		<div class="row pl-10 pr-10">
+			<div class="masonry">
+				<div id="artwork-pagination">
+					<%= render :partial => 'profile/components/tab_gallery', collection: @artworks, :as => :artwork %>
+				</div>
 			</div>
 			<div class="artwork-pagination">
 				<div id="artwork-pagination-old">

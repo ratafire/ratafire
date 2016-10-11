@@ -2,10 +2,10 @@
 	<table class="table datatable-basic responsive no-wrap table-hover no-border text-grey" id="reward_receiver" data-source="<%= receiver_datatable_user_studio_rewards_path(user.id, reward.id, format: "json") %>">
 		<thead>
 			<tr>
-				<th style="width:5%"><%= t 'views.creator_studio.upcoming.name' %></th>
-				<th></th>
-				<th><%= t 'views.creator_studio.menu.projects' %></th>
-				<th><%= t 'views.admin.content.projects.category' %></th>
+				<th style="width:10%;"><%= t 'views.creator_studio.upcoming.name' %></th>
+				<th style="width:30%;"></th>
+				<th style="width:40%;"><%= t 'views.creator_studio.rewards.status' %></th>
+				<th style="width:20%;"><%= t 'views.creator_studio.upcoming.action' %></th>
 			</tr>
 		</thead>
 	</table>
@@ -13,7 +13,7 @@
 <script type="text/javascript">
     $.extend( $.fn.dataTable.defaults, {
         "bFilter": false,
-    	paging: false,
+        "bLengthChange": false,
         autoWidth: false,
         columnDefs: [{ 
             orderable: false,
@@ -42,4 +42,12 @@
         bServerSide: true,
         sAjaxSource: $('#reward_receiver').data('source')
     });	
+    // Enable Select2 select for the length option
+    $(window).on('load page:render turbolinks:render', function() { 
+        // Enable Select2 select for the length option
+        $('.dataTables_length select').select2({
+            minimumResultsForSearch: Infinity,
+            width: 'auto'
+        });    
+    });  
 </script>

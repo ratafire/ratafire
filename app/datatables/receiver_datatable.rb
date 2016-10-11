@@ -1,6 +1,6 @@
 class ReceiverDatatable
 
-    delegate :params, :t, :link_to, :image_tag, :category_color,:currency_signs, :unsub_user_payment_subscriptions_path,:raw,:profile_url_path, :is_category, to: :@view
+    delegate :params, :t, :link_to, :image_tag,:currency_signs, :request_shipping_fee_user_payment_reward_receivers_path,:ship_reward_user_payment_reward_receivers_path,:raw,:profile_url_path, :is_category, to: :@view
 
     def initialize(view)
     	@view = view
@@ -21,12 +21,55 @@ private
 
     def data
         reward_receiver.map do |reward_receiver|
-          [
-            link_to(image_tag(User.find(reward_receiver.user_id).profilephoto.image.url(:thumbnail40)), profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
-            link_to(User.find(reward_receiver.user_id).preferred_name, profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
-            reward_receiver.shipping_paid,
-            reward_receiver.uuid
-          ]
+            if @reward.shipping == 'no'
+                case reward_receiver.status
+                when 'paid'
+                  [
+                    link_to(image_tag(User.find(reward_receiver.user_id).profilephoto.image.url(:thumbnail40)), profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    link_to(User.find(reward_receiver.user_id).preferred_name, profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.paid')+'</div>',
+                    I18n.t('views.creator_studio.rewards.waiting')
+                  ]
+                when 'ready_to_download'
+                  [
+                    link_to(image_tag(User.find(reward_receiver.user_id).profilephoto.image.url(:thumbnail40)), profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    link_to(User.find(reward_receiver.user_id).preferred_name, profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.paid')+'</div>',
+                    I18n.t('views.creator_studio.rewards.waiting')
+                  ]
+                end
+            else
+                case reward_receiver.status
+                when 'waiting_for_payment'
+                  [
+                    link_to(image_tag(User.find(reward_receiver.user_id).profilephoto.image.url(:thumbnail40)), profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    link_to(User.find(reward_receiver.user_id).preferred_name, profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    '<div class="label bg-pink">'+I18n.t('views.creator_studio.rewards.reserved')+'</div>',
+                    I18n.t('views.creator_studio.rewards.waiting')      
+                  ]
+                when 'paid'
+                  [
+                    link_to(image_tag(User.find(reward_receiver.user_id).profilephoto.image.url(:thumbnail40)), profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    link_to(User.find(reward_receiver.user_id).preferred_name, profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    '<div class="label bg-blue">'+I18n.t('views.creator_studio.rewards.paid')+'</div>',
+                    link_to(raw('<div class="btn btn-blue">'+I18n.t('views.creator_studio.rewards.request_shipping_fee')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_s+'</div>'), request_shipping_fee_user_payment_reward_receivers_path(reward_receiver.user_id,reward_receiver.id))
+                  ]
+                when 'ready_to_ship'
+                  [
+                    link_to(image_tag(User.find(reward_receiver.user_id).profilephoto.image.url(:thumbnail40)), profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    link_to(User.find(reward_receiver.user_id).preferred_name, profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    '<div class="label bg-purple">'+I18n.t('views.creator_studio.rewards.ready_to_ship')+'</div>',
+                    link_to(raw('<div class="btn bg-green">'+I18n.t('views.creator_studio.rewards.ship')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_s+'</div>'), ship_reward_user_payment_reward_receivers_path(reward_receiver.user_id,reward_receiver.id))
+                  ]
+                when 'shipped'
+                  [
+                    link_to(image_tag(User.find(reward_receiver.user_id).profilephoto.image.url(:thumbnail40)), profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    link_to(User.find(reward_receiver.user_id).preferred_name, profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
+                    '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.shipped')+'</div>',
+                    reward_receiver.shipping_company+' '+reward_receiver.tracking_number
+                  ]
+                end
+            end
         end
     end
 
@@ -52,7 +95,7 @@ private
     end
 
     def sort_column
-        columns = %w[shipping_paid paid status]
+        columns = %w[user_id user_id status status]
         columns[params[:iSortCol_0].to_i]
     end
 

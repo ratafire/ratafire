@@ -1,0 +1,417 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-blue">
+			<div class="panel-heading">
+				<h6 class="panel-title text-thin"><i class="huaxia huaxia-libao mr-10"></i><%= t 'views.creator_studio.rewards.new_reward'%></h6>
+				<div class="heading-elements">
+		    	</div>
+			</div>
+			<div class="panel-body" id="new-reward-holder">
+				<%= nested_form_for [@reward], url:user_studio_rewards_path(@user.username), html: {method: :post, id:'new-reward-form'} do |f| %>
+					<legend class=""><i class="ti-announcement mr-5"></i><%= t 'views.campaign.new_current_goal' %></legend>
+					<!-- Current Goal -->
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.current_goal' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<%= f.text_field :goal_title, class:"form-control", placeholder:t('views.campaign.current_goal_placeholder')%>
+								<span class="help-block">
+									<p><%= t 'views.campaign.current_goal_help_1' %></p>
+									<p><%= t 'views.campaign.current_goal_help_2' %></p>
+									<p><%= t 'views.campaign.current_goal_help_3' %></p>
+								</span>
+							</div>
+						</div>
+					</div>	
+					<!-- Current Goal Time -->
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.current_goal_due' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<%= f.text_field :due, class:"form-control daterange", placeholder:t('views.campaign.current_goal_due')%>
+								<span class="help-block">
+									<%= t 'views.campaign.current_goal_due_help' %>
+								</span>
+							</div>
+						</div>
+					</div>	
+					<legend class=""><i class="huaxia huaxia-libao mr-5"></i><%= t 'views.creator_studio.rewards.new_reward' %></legend>
+					<!-- Reward Title -->
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.reward_title' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<%= f.text_field :title, class:"form-control", placeholder:t('views.campaign.reward_title_placeholder')%>
+								<span class="help-block">
+									<%= t 'views.campaign.reward_title_help' %>
+								</span>
+							</div>
+						</div>
+					</div>	
+					<!-- Reward Amount -->
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.pledge_amount' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<div class="input-group">
+									<%= f.number_field :amount, class:"touchspin-reward-amount form-control", min:"1", max:"200"%>
+								</div>
+								<span class="help-block">
+									<%= t 'views.campaign.pledge_amount_help' %>
+								</span>
+							</div>
+						</div>
+					</div>	
+					<!-- Backers -->
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.limited_to' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<div class="input-group">
+									<%= f.number_field :backers, class:"form-control", min:"0" %>
+									<span class="input-group-btn">
+										<span class="btn btn-default cursor-normal">
+											<%= t 'views.campaign.backers' %>
+										</span>
+									</span>
+								</div>
+								<span class="help-block">
+									<%= t 'views.campaign.limited_to_help' %>
+								</span>
+							</div>
+						</div>
+					</div>	
+					<!-- Description -->
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.reward_description' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group user-textarea">
+								<div class="pull-right mr-5 mb-30- text-grey-100"><span id="c"></span></div>
+								<% if I18n.locale == :zh %>
+									<%= f.text_area :description, class:"form-control", placeholder:t('views.campaign.reward_description_placeholder'), id:"reward_text",onKeyUp:"reward_description_textarea_count()",maxlength:"88", style:"resize: none;"%>
+								<% else %>
+									<%= f.text_area :description, class:"form-control", placeholder:t('views.campaign.reward_description_placeholder'), id:"reward_text",onKeyUp:"reward_description_textarea_count()",maxlength:"175", style:"resize: none;"%>
+								<% end %>
+							</div>
+						</div>
+					</div>	
+					<!-- Shipping -->
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.shipping' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<%= f.select(:shipping, [[t('views.campaign.no_shipping_involved'),'no'], [t('views.campaign.only_ships_to_certain_countries'),'some'],[t('views.campaign.ships_anywhere_in_the_world'),'anywhere']], {prompt: t('views.campaign.shipping_placeholder')}, { :class => 'simple-select', :id => 'shipping-select' }) %>
+								<!-- Shipping countries -->
+								<div class="display-none" id="shipping-countries">
+									<div class="bifrost-fields-majorpost pt-20"></div>
+									<%= f.fields_for :shippings do |s| %>					
+										<div class="majorpost-user-inspirer-holder pb-20">
+											<div class="row">
+												<div class="form-group">
+													<div class="control-label col-lg-4 no-padding pl-10" >
+														<%= s.country_select(:country, { include_blank: t('views.campaign.add_country'), except: ['AN'] }, { class: 'form-control' }) %>
+													</div>
+													<div class="col-lg-8 pl-5">
+														<div class="input-group">
+															<span class="input-group-addon"><%= currency_signs(@user.active_campaign.currency) %></span>
+															<%= s.text_field :amount, max: "500", class:"form-control", placeholder:"0" %>
+															<div class="input-group-btn">
+																<%= s.link_to_remove do %>
+																	<div class="btn bg-rainbow">
+																		<i class="ti-close"></i>
+																	</div>
+																<% end %>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									<% end %>
+									<!-- Shipping anywhere -->
+									<%= f.fields_for :shipping_anywhere do |sa| %>					
+										<div class="majorpost-user-inspirer-holder pb-20">
+											<div class="row">
+												<div class="form-group">
+													<div class="control-label col-lg-4 no-padding pl-10" >
+														<div class="btn-group-justified">
+															<div class="btn-group">
+																<li class="btn btn-default"><%= t 'views.campaign.anywhere'%></li>
+															</div>
+														</div>
+													</div>
+													<div class="col-lg-8 pl-5">
+														<div class="input-group">
+															<span class="input-group-addon"><%= currency_signs(@user.active_campaign.currency) %></span>
+															<%= sa.text_field :amount, max: "500", class:"form-control", placeholder:"0" %>
+															<%= sa.link_to_remove do %>
+																<div class="display-none remove_shipping_anywhere" >
+																</div>
+															<% end %>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									<% end %>
+									<%= f.link_to_add :shippings, :data => {:target => ".bifrost-fields-majorpost"} do %>
+										<div class="btn bg-rainbow" id="add_country_btn">
+											<%= t 'views.campaign.add_country'%>
+										</div>
+									<% end %>
+									<%= f.link_to_add :shipping_anywhere, :data => {:target => ".bifrost-fields-majorpost"} do %>
+										<div class="display-none" id="add_anywhere_btn">
+										</div>
+									<% end %>
+									<div class="btn bg-rainbow" id="add_anywhere_trigger">
+										<%= t 'views.campaign.ships_anywhere_in_the_world'%>
+									</div>
+									<div class="btn bg-rainbow" id="remove_anywhere_trigger">
+										<%= t 'views.campaign.remove_anywhere'%>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<!-- Estimated Delivery -->		
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.estimated_delivery' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<%= f.text_field :estimated_delivery, class:"form-control daterange-estimated-delivery", placeholder:t('views.campaign.current_goal_due')%>
+							</div>
+						</div>
+					</div>	
+					<div class="text-right">
+						<%= f.submit I18n.t('views.utilities.editor.publish'), :data => { :confirm => t('views.creator_studio.rewards.are_you_sure_to_publish_reward') }, class: "btn btn-blue", id:"new-reward-submit" %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<script type="text/javascript">
+
+	//Show the existing shipping if so
+	<% if @reward.shippings.count > 0 || @reward.shipping_anywhere %>
+		$('#shipping-countries').show();
+	<% end %>
+	//Hide ships everywhere if there is already ships everywhere
+	<% if @reward.shipping_anywhere %>
+		$('#add_anywhere_trigger').hide();
+	<% end %>
+	//Remove anywhere in the world
+	$('#add_anywhere_trigger').on('click', function(){
+		$('#add_anywhere_btn').click();
+		$('#add_anywhere_trigger').hide();
+		$('#remove_anywhere_trigger').show();
+	});
+	$('#anywhere_remove_here').on('click', function(){
+		$('#add_anywhere_btn').show();
+	});
+	$('#remove_anywhere_trigger').on('click', function(){
+		$('.remove_shipping_anywhere').click();
+		$('#remove_anywhere_trigger').hide();
+		$('#add_anywhere_trigger').show();
+	});
+	//Select country
+	$('#shipping-select').on('change', function(){
+		var shipping_select = $('#shipping-select').val();
+		if ( shipping_select == 'no'){
+			$('#shipping-countries').hide();
+		} 
+		if ( shipping_select == 'some') {
+				$('#shipping-countries').show();
+				$('#remove_anywhere_trigger').hide();
+
+			}
+		if ( shipping_select == 'anywhere') {
+			$('#shipping-countries').show();
+			$('#add_anywhere_trigger').click();
+		}
+	});
+	<% if @user.active_reward %>
+		//Date Picker for due
+	    $('.daterange').daterangepicker({ 
+	        singleDatePicker: true,
+	        "startDate": '<%= (@user.active_reward.due + 30.days).strftime('%m/%d/%Y') %>',
+	        "minDate": '<%= @user.active_reward.due.strftime('%m/%d/%Y') %>',
+	        "maxDate":'<%= (@user.active_reward.due + 90.days).strftime('%m/%d/%Y') %>',
+			locale: {
+			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+			},
+	    });
+	    //Date Picker for estimate delivery
+	    $('.daterange-estimated-delivery').daterangepicker({ 
+	        singleDatePicker: true,
+	        "startDate": '<%= (@user.active_reward.due + 30.days).strftime('%m/%d/%Y') %>',
+	        "minDate": '<%= @user.active_reward.due.strftime('%m/%d/%Y') %>',
+	        "maxDate": '<%= (@user.active_reward.due + 180.days).strftime('%m/%d/%Y') %>',
+			locale: {
+			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+			},
+	    });
+	<% else %>
+		//Date Picker for due
+	    $('.daterange').daterangepicker({ 
+	        singleDatePicker: true,
+	        "startDate": moment().add(30, 'days'),
+	        "minDate": moment().add(10, 'days'),
+	        "maxDate": moment().add(90, 'days'),
+			locale: {
+			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+			},
+	    });
+	    //Date Picker for estimate delivery
+	    $('.daterange-estimated-delivery').daterangepicker({ 
+	        singleDatePicker: true,
+	        "startDate": moment().add(30, 'days'),
+	        "minDate": moment().add(10, 'days'),
+	        "maxDate": moment().add(180, 'days'),
+			locale: {
+			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+			},
+	    });
+	<% end %>
+    //Reward Amount
+    $(".touchspin-reward-amount").TouchSpin({
+        min: 2,
+        max: 200,
+        step: 1,
+        prefix: '<%= currency_signs(@user.active_campaign.currency) %>'
+    });
+	//Description textarea count
+	function reward_description_textarea_count()
+	{	<% if I18n.locale == :zh %>
+			var max =88;
+		<% else %>
+			var max =175;
+		<% end %>
+		var text =document.getElementById("reward_text").value.length;
+		$('#c').show();
+		c.innerHTML=max-text;
+		if(text > 0)
+		{
+			btn=document.getElementById("btn");
+			btn.style.cursor="pointer";
+			btn.style.opacity=1;
+			btn.disabled=false;
+		}
+	}	
+	//Validate
+    var validator = $("#new-reward-form").validate({
+        ignore: 'input[type=hidden], .select2-input', // ignore hidden fields
+        errorClass: 'validation-error-label',
+        successClass: 'validation-valid-label',
+	    submitHandler: function(){
+	        $('#new-reward-holder').block({
+	            message: '<i class="icon-spinner2 spinner text-blue"></i>',
+	            overlayCSS: {
+	            	backgroundColor: '#fff',
+	                opacity: 0.4,
+	                cursor: 'wait'
+	            },
+	            css: {
+	                border: 0,
+	                padding: 0,
+	                backgroundColor: 'transparent'
+	            }
+	        }); 
+	        $('#new-reward-form').trigger('submit.rails');
+	    },        
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+
+            // Styled checkboxes, radios, bootstrap switch
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo( element.parent().parent().parent().parent() );
+                }
+                 else {
+                    error.appendTo( element.parent().parent().parent().parent().parent() );
+                }
+            }
+
+            // Unstyled checkboxes, radios
+            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                error.appendTo( element.parent().parent().parent() );
+            }
+
+            // Input with icons
+            else if (element.parents('div').hasClass('has-feedback')) {
+                error.appendTo( element.parent() );
+            }
+
+            // Inline checkboxes, radios
+            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            // Input group, styled file input
+            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                error.appendTo( element.parent().parent() );
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        validClass: "validation-valid-label",
+        rules: {
+            'reward[goal_title]':{
+            	required: true,
+            },
+            'reward[due]':{
+            	required: true,
+            },
+            'reward[title]':{
+            	required: true,
+            },
+            'reward[amount]':{
+            	required: true,
+            },
+            'reward[backers]':{
+            	required: true,
+            },
+            'reward[description]':{
+            	required: true,
+            },
+            'reward[shipping]':{
+            	required: true,
+            },
+            'reward[estimated_delivery]':{
+            	required: true,
+            }        
+        }
+    });	
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+    });	    	    
+</script>

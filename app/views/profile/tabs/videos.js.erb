@@ -1,0 +1,8 @@
+$("#video-pagination").append("<div class='added-video'><%= j render(:partial => 'profile/components/tab_videos', collection: @videos, :as => :video)%></div>");
+$('#video-pagination-old').remove();
+<% if @artworks.next_page %>
+  $('.video-pagination').append('<%= j will_paginate(@videos) %>');
+<% else %>
+  $('.video-pagination').remove();
+<% end %>	
+refreshUsercard('<%= j @popoverclass %>');

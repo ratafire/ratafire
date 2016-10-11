@@ -1,20 +1,34 @@
 class Payment::ConfirmPaymentsController < ApplicationController
 
-	before_filter :load_subscriber, only:[:create]
+	layout 'studio_fullwidth'
+
+	before_filter :load_subscriber, only:[:create, :thankyou]
 
 	#REST Methods -----------------------------------
 	# user_payment_confirm_payments POST
 	# /users/:user_id/payment/confirm_payments
 	def create
 		if @order = @subscriber.order
-			#Transact the order
-			transact_through_stripe
+			@order.update(
+				status: 'Started'
+			)
+			Resque.enqueue(Subscription::ConfirmPayment, @order.id)
+			redirect_to thankyou_user_payment_confirm_payments_path(@subscriber.id)
+		else
+			flash[:error] = t('errors.messages.not_saved')
 			redirect_to(:back)
 		end
 	end	
 
+	#noREST Methods -----------------------------------
+	# thankyou_user_payment_confirm_payments GET
+	# /users/:user_id/payment/confirm_payments/thankyou
+	def thankyou
+	end
+
 private
 
+	#This is a depriciated batched method
 	def transact_through_stripe
 		begin
 			response = Stripe::Charge.create(
@@ -25,7 +39,7 @@ private
 			)
 		rescue
 			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
-			redirect_to(:back)
+			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
 		end
 		if response.captured == true
 			#Record transaction
@@ -116,7 +130,7 @@ private
 			)
 		else
 			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
-			redirect_to(:back)
+			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
 		end
 	end
 

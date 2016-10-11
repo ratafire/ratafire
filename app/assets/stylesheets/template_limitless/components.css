@@ -13788,11 +13788,17 @@ label.display-block {
 .m-20 {
   margin: 20px!important;
 }
+.m-20- {
+  margin: -20px!important;
+}
 .m-40{
   margin: 40px!important;
 }
 .mt-3- {
   margin-top: -3px!important;
+}
+.mt-3 {
+  margin-top: 3px!important;
 }
 .mt-5 {
   margin-top: 5px!important;
@@ -13856,6 +13862,9 @@ label.display-block {
 }
 .ml-20 {
   margin-left: 20px!important;
+}
+.ml-20- {
+  margin-left: -20px!important;
 }
 .mr-5 {
   margin-right: 5px!important;
@@ -14243,8 +14252,8 @@ label.display-block {
 .no-resize {
   resize: none;
 }
-.border-radius-6{
-  border-radius: 6px;
+.border-radius-3{
+  border-radius: 3px;
 }
 .border-dotted{
   border: 1px dashed #eeeeee !important;
@@ -14274,18 +14283,24 @@ label.display-block {
 .cursor-default {
   cursor: default;
 }
+
+
 .masonry {
-  display: inline-block;
-  margin: .5em;
-  padding: 0; 
-  width:95%; 
+ -moz-column-count: 3;
+ -moz-column-gap: 20px;
+ -webkit-column-count: 3;
+ -webkit-column-gap: 20px;
+ column-count: 3;
+ column-gap: 20px;
+ width: 100%;
 }
-.masonry-25 {
-  -moz-column-width: 25em;
-  -webkit-column-width: 25em;
-  -moz-column-gap: .5em;
-  -webkit-column-gap: .5em;
+.masonry-item{
+ display: inline-block;
+ padding-bottom:  20px;
+ width:  100%; 
 }
+
+/* 2 columns */
 #error_explanation{
   color: #ffffff;
   z-index: 2000;

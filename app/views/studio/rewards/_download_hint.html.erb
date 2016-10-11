@@ -1,0 +1,12 @@
+<div class="row bg-grey-100 p-20 ml-20 mr-20" id="reward-download-hint">
+	<div class="col-md-10">
+		<%= t 'views.creator_studio.rewards.download_reward_hint' %>
+	</div>
+	<div class="col-md-2">
+		<%= link_to reward.reward_uploads.package.url do %>
+			<div class="btn bg-green">
+				<%= t 'views.creator_studio.rewards.download_reward' %>
+			</div>
+		<% end %>
+	</div>
+</div>

@@ -10,7 +10,7 @@
 				<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
 			<% end %>
 			<span class="text-grey">
-				<%= t 'mailer.payment.subscription.order.subject'%><%= link_to upcoming_user_studio_wallets_path(current_user.username) do %><span class="btn btn-blue btn-xs height-30 pl-20 pr-20 ml-5"><%= t 'mailer.payment.subscription.order.go' %></span><% end %>
+				<%= t 'mailer.payment.subscription.order.subject'%><% unless Order.find(notification.trackable_id).transacted %><%= link_to upcoming_user_studio_wallets_path(current_user.username) do %><span class="btn btn-blue btn-xs height-30 pl-20 pr-20 ml-5"><%= t 'mailer.payment.subscription.order.go' %></span><% end %><% end %>
 			</span>
 		</div>
 	</li>

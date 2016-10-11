@@ -1,0 +1,25 @@
+<% content_for :title do %>
+	<%= t 'mailer.payment.shipping_order.your_reward_is_ready_1' %><%= @reward_receiver.reward.title %><%= t 'mailer.payment.shipping_order.your_reward_is_ready_2' %><%= @reward_receiver.user.preferred_name %><%= t 'mailer.payment.shipping_order.ready_for_download' %>
+<% end %>
+<% content_for :subtitle do %>
+<% end %>
+<% content_for :image do %>
+	<% if @reward_receiver.reward.image.present? %>
+		<img src="<%= @reward_receiver.reward.image.url(:preview256)%>" style="display: block; width: 143px;" width="143" border="0" alt="section image">
+	<% else %>
+		<img src="<%= @reward_receiver.reward.campaign.image.url(:preview256)%>" style="display: block; width: 143px;" width="143" border="0" alt="section image">
+	<% end %>
+<% end %>
+<% content_for :line1 do %>
+	<%= @reward_receiver.reward.title %>
+<% end %>
+<% content_for :line2 do %>
+	<%= @reward_receiver.reward.description %>
+<% end %>
+<% content_for :price do %>
+<% end %>
+<% content_for :btn do %>
+	<%= link_to my_rewards_user_studio_rewards_path(@user.id), style:"color:#ffffff;text-decoration: none;" do %>
+		<%= t 'mailer.layout.view_on_ratafire' %>
+	<% end %>
+<% end %>

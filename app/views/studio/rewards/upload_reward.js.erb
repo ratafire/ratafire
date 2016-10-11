@@ -1,0 +1,5 @@
+<% if @reward_upload %>
+	$('#reward-upload-alert').removeClass('display-none');
+	$('#reward-upload-confirm-button').unblock();
+	$('#zip-progress-box').remove();
+<% end %>

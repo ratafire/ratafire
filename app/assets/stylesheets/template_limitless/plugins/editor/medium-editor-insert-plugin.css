@@ -99,6 +99,7 @@
   .medium-editor-insert-plugin.medium-editor-placeholder:after {
      }
   .medium-editor-insert-plugin .medium-insert-buttons {
+    z-index: 2000;
     position: absolute;
     color: #ddd;
     font-size: 0.9em; }

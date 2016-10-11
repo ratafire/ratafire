@@ -35,7 +35,7 @@
 				<div class="row mt-20">
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
-							<%= link_to user_payment_confirm_payments_path(@user.id), method: :post do %>
+							<%= link_to user_payment_confirm_payments_path(@user.id), remote: true,method: :post do %>
 								<div class="btn btn-blue btn-xlg">
 									<%= t 'views.creator_studio.upcoming.confirm_payment' %>
 								</div>

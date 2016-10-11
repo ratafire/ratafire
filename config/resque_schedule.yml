@@ -2,3 +2,11 @@ Subscription::SubscriptionConfirmation:
   cron: "10 0 21 * *"
 Subscription::Transfer:
   cron: "10 0 28 * *"
+Reward::RewardDue:
+  cron: "20 0 * * *"
+Reward::Deliverydue:
+  cron: "20 1 * * *"
+Campaign::CampaignDue:
+  cron: "20 2 * * *"
+Shipping::ShippingDue:
+  cron: "20 3 * * *"

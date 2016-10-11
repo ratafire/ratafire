@@ -1,0 +1,17 @@
+<span class="dropdown pull-right mt-3">
+	<a href="#" class="dropdown-toggle text-grey-200" data-toggle="dropdown">
+		<i class="ti-angle-down" style="font-size:11px;"></i>
+	</a>
+	<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
+		<li>
+			<%= link_to apply_user_studio_campaigns_path(campaign.user.username, campaign), :data => {turbolinks: "false"} do %>
+				<i class="ti-pencil"></i><%= t 'views.utilities.editor.edit' %>
+			<% end %>
+		</li>
+		<li>
+			<%= link_to delete_user_studio_campaigns_path(campaign.user.id, campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_delete_project')}, method: :delete do %>
+				<i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %>
+			<% end %>
+		</li>
+	</ul>
+</span>

@@ -4,6 +4,7 @@ class Content::MajorpostsController < ApplicationController
 
 	#Before filters
 	before_filter :load_majorpost, except: [:create]
+	before_filter :show_followed, only:[:show]
 
 	#REST Methods -----------------------------------
 
@@ -119,5 +120,11 @@ private
 	def majorpost_params
 		params.require(:majorpost).permit(:user_id,:title, :content,:post_type, :tag_list, :uuid, :published, :published_at, :paid_update, :composer, :artist, :genre)
 	end
+
+	def show_followed
+		if user_signed_in?
+			@followed = current_user.likeds.order("last_seen desc").page(params[:followed_update]).per_page(3)
+		end
+	end	
 
 end

@@ -1,3 +1,4 @@
+
 @font-face {font-family: "huaxia";
   src: url('/assets/huaxia/huaxia.eot?t=1459651819'); /* IE9*/
   src: url('/assets/huaxia/huaxia.eot?t=1459651819#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -31,6 +32,7 @@
 .huaxia-yangshengxiao:before { content: "\e60f"; }
 .huaxia-wenwanshoucang:before { content: "\e610"; }
 .huaxia-book:before { content: "\e672"; }
+.huaxia-friend:before { content: "\e679"; }
 .huaxia-tiananmen:before { content: "\e611"; }
 .huaxia-stars:before { content: "\e652"; }
 .huaxia-infenicon04:before { content: "\e612"; }
@@ -53,12 +55,13 @@
 .huaxia-shicai:before { content: "\e621"; }
 .huaxia-hulu1:before { content: "\e622"; }
 .huaxia-iconfontjxmc:before { content: "\e623"; }
-.huaxia-qianbao:before { content: "\e663"; }
 .huaxia-haoyouqingqiu:before { content: "\e669"; }
 .huaxia-guzhen1:before { content: "\e624"; }
 .huaxia-tubiaohu:before { content: "\e625"; }
 .huaxia-tubiaolong:before { content: "\e626"; }
+.huaxia-shui:before { content: "\e678"; }
 .huaxia-yun:before { content: "\e627"; }
+.huaxia-bofang:before { content: "\e668"; }
 .huaxia-zhongchou:before { content: "\e66a"; }
 .huaxia-5:before { content: "\e628"; }
 .huaxia-liwu:before { content: "\e676"; }
@@ -71,9 +74,8 @@
 .huaxia-guzhenminsu:before { content: "\e62c"; }
 .huaxia-guanzhu:before { content: "\e66b"; }
 .huaxia-lishiguji:before { content: "\e62d"; }
-.huaxia-icon:before { content: "\e664"; }
 .huaxia-unie640:before { content: "\e62e"; }
-.huaxia-kejizhongjiecn:before { content: "\e665"; }
+.huaxia-pay3:before { content: "\e664"; }
 .huaxia-aiswangluopinpaishu:before { content: "\e656"; }
 .huaxia-guanzhu1:before { content: "\e666"; }
 .huaxia-yuchengjiexiang:before { content: "\e62f"; }
@@ -90,6 +92,7 @@
 .huaxia-faxianxuanzhong:before { content: "\e65e"; }
 .huaxia-fanxiantongqian:before { content: "\e636"; }
 .huaxia-mudan:before { content: "\e637"; }
+.huaxia-wifi:before { content: "\e67a"; }
 .huaxia-guanxiangengxinshujudaoru:before { content: "\e659"; }
 .huaxia-hua:before { content: "\e638"; }
 .huaxia-fukuanxuanzhong:before { content: "\e65f"; }
@@ -109,12 +112,12 @@
 .huaxia-xiang:before { content: "\e643"; }
 .huaxia-10icon:before { content: "\e644"; }
 .huaxia-icon8:before { content: "\e645"; }
-.huaxia-shui:before { content: "\e674"; }
+.huaxia-pay2:before { content: "\e663"; }
+.huaxia-shui1:before { content: "\e674"; }
 .huaxia-yuanzifuwu:before { content: "\e65a"; }
 .huaxia-chilun2:before { content: "\e660"; }
 .huaxia-shan:before { content: "\e646"; }
 .huaxia-mian:before { content: "\e647"; }
-.huaxia-noupangzhouzeib674d2:before { content: "\e668"; }
 .huaxia-le01:before { content: "\e648"; }
 .huaxia-fu011:before { content: "\e649"; }
 .huaxia-wuxia:before { content: "\e64a"; }

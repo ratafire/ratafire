@@ -1,0 +1,2 @@
+$('#tag-holder-inner').remove();
+$('#tag-holder-outter').append("<%= j render(:partial => 'admin/tags/form_tags_update', locals: {user: @user, tag: @tag}) %>");

@@ -17,8 +17,12 @@ class Reward < ActiveRecord::Base
     #Has many
     has_many :shippings, class_name: "Shipping", dependent: :destroy
     accepts_nested_attributes_for :shippings, :allow_destroy => true   
+    has_many :reward_receivers
+    has_many :shipping_orders
+    #Has one
     has_one :shipping_anywhere, class_name: "ShippingAnywhere", dependent: :destroy
     accepts_nested_attributes_for :shipping_anywhere, limit: 1, :allow_destroy => true
+    has_one :reward_uploads, class_name: "RewardUpload"
 
     #----------------Translation----------------
 
@@ -35,6 +39,7 @@ class Reward < ActiveRecord::Base
             :thumbnail512 => ["512x512#",:jpg],
             :thumbnail128 => ["128x128#",:jpg],
             :thumbnail64 => ["64x64#",:jpg], 
+            :thumbnail40 => ["40x40#",:jpg]
         }, 
         :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
         :url =>  "/:class/uploads/:id/image/:style/:uuid_reward_filename",
@@ -54,7 +59,7 @@ class Reward < ActiveRecord::Base
                 ]
             },
             :size => { 
-                :in => 0..524288.kilobytes
+                :in => 0..51200.kilobytes
             }          
 
 

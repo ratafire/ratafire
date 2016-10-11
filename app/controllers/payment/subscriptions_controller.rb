@@ -3,6 +3,7 @@ class Payment::SubscriptionsController < ApplicationController
 	before_filter :load_subscriber, only:[:create, :unsub]
 	before_filter :load_reverse_subscriber, only:[:destroy]
 	before_filter :check_if_active_subscription, only: [:create]
+	before_filter :check_if_all_gone, only: [:create]
 	before_filter :connect_to_stripe, only:[:create]
 
 	#REST Methods -----------------------------------	
@@ -39,9 +40,6 @@ class Payment::SubscriptionsController < ApplicationController
 			#Do not charge the card
 			subscription_post_payment
 		end
-	rescue
-		flash[:error] = t('errors.messages.not_saved')
-		redirect_to(:back)
 	end
 
 	# user_payment_subscriptions DELETE
@@ -207,13 +205,14 @@ private
 				:amount => @subscription.amount.to_i*100,
 				:currency => "usd",
 				:customer => @subscriber.customer.customer_id,
-				:description => t('views.payment.backs.ratafire_payment')
+				:description => t('views.payment.backs.ratafire_payment'),
+				:destination => @subscribed.stripe_account.stripe_id
 			)
 		rescue
 			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
-			redirect_to(:back)	
+			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
 		end
-		if response.captured == true then
+		if response.try(:captured) == true then
 			@subscription.save
 			#Create transaction
 			@transaction = Transaction.prefill!(
@@ -242,7 +241,7 @@ private
 			subscription_post_payment
 		else
 			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
-			redirect_to(:back)	
+			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
 		end
 	end
 
@@ -260,6 +259,8 @@ private
 			send_notification_to_the_subscribed
 			#update subscription record
 			subscription_update_subscription_record
+			#Update campaign
+			subscription_update_active_campaign
 			#Update billing artist
 			subscription_update_billing_artist
 			#Make a follower
@@ -313,32 +314,101 @@ private
 	end
 
 	def subscription_create_receiver
-		if @shipping_address
+		if @subscribed.active_reward.shipping == 'no'
 			create_reward_receiver
 		else
-			if @shipping_address = ShippingAddress.find_by_user_id_and_country(@subscriber.id, params[:subscription][:shipping_country])
-				create_reward_receiver
+			if @shipping_address
+				create_reward_receiver_with_shipping
 			else
-				flash[:error] = t('errors.messages.not_saved')
-				redirect_to(:back)
+				if @shipping_address = ShippingAddress.find_by_user_id_and_country(@subscriber.id, params[:subscription][:shipping_country])
+					create_reward_receiver_with_shipping
+				else
+					flash[:error] = t('errors.messages.not_saved')
+					redirect_to(:back)
+				end
+			end
+		end
+	end
+
+	def create_reward_receiver_with_shipping
+		if @reward_receiver = RewardReceiver.find_by_reward_id_and_user_id(@subscribed.active_reward.id, @subscriber.id)
+			unless @reward_receiver.paid
+				if @transaction
+					@reward_receiver.update(
+						paid: true,
+						status: 'paid'
+					)
+					@subscription_record.credit -= @subscribed.active_reward.amount
+					@subscription_record.save
+				end
+			end
+		else
+			unless @shipping_address
+				@shipping_address = @subscriber.shipping_address
+			end
+			if @reward_receiver = RewardReceiver.create(
+				amount: @subscribed.active_reward.shippings.where(country: @shipping_address.country).first.amount,
+				user_id: @subscriber.id,
+				reward_id: @subscribed.active_reward.id,
+				subscription_id: @subscription.id,
+				campaign_id: @subscribed.active_campaign.id,
+				shipping_address_id: @shipping_address.id,
+				status: 'waiting_for_payment'
+			)
+				if @transaction
+					if @reward_receiver.amount > 0 
+						@reward_receiver.update(
+							paid: true,
+							status: 'paid'
+						)
+					else
+						if @reward_receiver.shipping_address
+							@reward_receiver.update(
+								paid: true,
+								status: 'ready_to_ship'
+							)
+						else
+							@reward_receiver.update(
+								paid: true,
+								status: 'paid'
+							)
+						end
+					end
+					@subscription_record.credit -= @subscribed.active_reward.amount
+					@subscription_record.save
+				end
 			end
 		end
 	end
 
 	def create_reward_receiver
-		if @reward_receiver = RewardReceiver.create(
-			user_id: @subscriber.id,
-			reward_id: @subscribed.active_reward.id,
-			subscription_id: @subscription.id,
-			campaign_id: @subscribed.active_campaign.id,
-			shipping_address_id: @shipping_address
-		)
-			if @transaction
-				@reward_receiver.update(
-					paid: true
-				)
-				@subscription_record.credit -= @subscribed.active_reward.amount
-				@subscription_record.save
+		if @reward_receiver = RewardReceiver.find_by_reward_id_and_user_id(@subscribed.active_reward.id, @subscriber.id)
+			unless @reward_receiver.paid
+				if @transaction
+					@reward_receiver.update(
+						paid: true,
+						status: 'paid'
+					)
+					@subscription_record.credit -= @subscribed.active_reward.amount
+					@subscription_record.save
+				end
+			end
+		else
+			if @reward_receiver = RewardReceiver.create(
+				user_id: @subscriber.id,
+				reward_id: @subscribed.active_reward.id,
+				subscription_id: @subscription.id,
+				campaign_id: @subscribed.active_campaign.id,
+				status: 'waiting_for_payment'				
+			)
+				if @transaction
+					@reward_receiver.update(
+						paid: true,
+						status: 'paid'
+					)
+					@subscription_record.credit -= @subscribed.active_reward.amount
+					@subscription_record.save
+				end
 			end
 		end
 	end
@@ -430,6 +500,18 @@ private
 		end
 		@subscription.subscription_record_id = @subscription_record.id
 		@subscription.save
+	end
+
+	def subscription_update_active_campaign
+		if @campaign = Campaign.find(@subscription.campaign_id)
+			if @transaction
+				@campaign.update(
+					accumulated_total: @campaign.accumulated_total+@transaction.total,
+					accumulated_receive: @campaign.accumulated_total+@transaction.receive,
+					accumulated_fee: @campaign.accumulated_fee+@transaction.fee
+				)
+			end
+		end
 	end
 
 	def subscription_update_billing_subscription
@@ -535,9 +617,9 @@ private
 				user_id: @subscribed.id,
 				billing_artist_id: @billing_artist.id,
 				method: 'Stripe',
-				collected_amount: @transfer.collected_amount+@subscription.amount,
-				collected_fee: @transfer.collected_fee+@transaction.fee,
-				collected_receive: @transfer.collected_receive+@transaction.receive,
+				collected_amount: @subscription.amount,
+				collected_fee: @transaction.fee,
+				collected_receive: @transaction.receive,
 			)
 			@transaction.update(
 				transfer_id: @transfer.id
@@ -557,6 +639,15 @@ private
 		if @subscribed.subscribed_by?(@subscriber.id) || @subscriber.subscribed_by?(@subscribed.id)
 			flash[:alert] = t('errors.messages.already_backed')
 			redirect_to(:back)
+		end
+	end
+
+	def check_if_all_gone
+		if params[:subscription][:get_reward]
+			if @subscribed.active_reward.backers > 0 && @subscribed.active_reward.reward_receivers.count >= @subscribed.active_reward.backers
+				flash[:alert] = t('errors.messages.all_gone')
+				redirect_to new_user_payment_backs_path(@subscribed.uid)
+			end
 		end
 	end
 

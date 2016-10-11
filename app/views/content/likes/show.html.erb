@@ -12,21 +12,24 @@
     <% end %>
 <% end %>
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
-	<!-- Cover area -->
-	<%= render partial:'profile/components/cover', locals: {user: @user} %>
-	<!-- Toolbar -->
-	<%= render partial:'profile/components/toolbar', locals: {user: @user}%>
-	<!-- Content Area -->
-	<div class="content" >
-		<!-- Activities -->
-		<div class="row masonry-25">
+<!-- Cover area -->
+<%= render partial:'profile/components/cover', locals: {user: @user} %>
+<!-- Toolbar -->
+<%= render partial:'profile/components/toolbar', locals: {user: @user}%>
+<!-- Content Area -->
+<div class="content" >
+	<!-- Activities -->
+	<div class="row pl-10 pr-10">
+		<div class="masonry">
 			<div id="like-pagination">
 				<%= render_activities(@activities, layout: :activity_liked) %>
 			</div>
-			<div class="like-pagination">
-				<div id="like-pagination-old">
-					<%= will_paginate(@activities) %>
-				</div>
+		</div>
+		
+		<div class="like-pagination">
+			<div id="like-pagination-old">
+				<%= will_paginate(@activities) %>
 			</div>
 		</div>
 	</div>
+</div>

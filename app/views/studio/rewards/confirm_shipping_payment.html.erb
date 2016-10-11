@@ -1,0 +1,62 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<div class="row">
+	<div class="col-lg-12 col-md-12">
+		<div class="panel panel-blue bg-white-transparent">
+			<div class="panel-body" id="transactions-panel-body">
+				<!-- Reward -->
+				<%= render partial:'studio/rewards/reward', locals: {reward: @reward}%>
+				<!-- Confirmation -->
+				<div class="row p-20">
+					<div class="col-md-8">
+						<!-- Ships to -->
+						<%= render partial:'studio/rewards/ships_to', locals: {shipping_address: @reward_receiver.shipping_address}%>
+						<%= link_to cancel_payment_user_payment_reward_receivers_path(shipping_address.user_id,shipping_address.id), method: :delete, :data => { :confirm => t('mailer.payment.shipping_order.cancel')} do %>
+								<div class="mt-10 btn btn-default"><%= t 'views.utilities.editor.cancel' %></div>
+						<% end %>
+					</div>
+					<div class="col-md-4">
+						<div class="row bg-grey-100 p-20">
+							<div class="col-md-6">
+								<%= t 'mailer.payment.backs.shipping_fee' %>
+							</div>
+							<div class="col-md-6">
+								<span class="text-black text-800 text-large"><%= currency_signs(@reward.currency) %><%= @shipping_order.amount %></span>
+							</div>
+						</div>
+						<div class="row mt-20">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<%= link_to confirm_payment_user_payment_reward_receivers_path(@user.id, @shipping_order.id), remote: true,method: :post, id:"confirm-shipping-payment" do %>
+										<div class="btn btn-blue btn-xlg">
+											<%= t 'views.creator_studio.upcoming.confirm_payment' %>
+										</div>
+									<% end %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('#confirm-shipping-payment').click(
+        $('#transactions-panel-body').block({
+            message: '<i class="icon-spinner2 spinner text-blue"></i>',
+            overlayCSS: {
+            	backgroundColor: '#fff',
+                opacity: 0.4,
+                cursor: 'wait'
+            },
+            css: {
+                border: 0,
+                padding: 0,
+                backgroundColor: 'transparent'
+            }
+        }); 
+	);	
+</script>

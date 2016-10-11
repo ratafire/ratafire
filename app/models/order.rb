@@ -35,6 +35,9 @@ class Order < ActiveRecord::Base
     rescue
     end    
 
+    def self.confirm_payment(order_id,subscriber_id)
+    end
+
 private
 
     def generate_uuid!

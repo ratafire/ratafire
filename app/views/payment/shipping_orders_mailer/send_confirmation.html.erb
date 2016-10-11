@@ -1,0 +1,27 @@
+<% content_for :title do %>
+	<%= t 'mailer.payment.shipping_order.your_reward_is_ready_1' %><%= @shipping_order.reward.title %><%= t 'mailer.payment.shipping_order.your_reward_is_ready_2' %><%= @shipping_order.user.preferred_name %><%= t 'mailer.payment.shipping_order.your_reward_is_ready_3' %>
+<% end %>
+<% content_for :subtitle do %>
+	<%= t 'mailer.payment.shipping_order.please_confirm_or_cancel' %>
+<% end %>
+<% content_for :image do %>
+	<% if @shipping_order.reward.image.present? %>
+		<img src="<%= @shipping_order.reward.image.url(:preview256)%>" style="display: block; width: 143px;" width="143" border="0" alt="section image">
+	<% else %>
+		<img src="<%= @shipping_order.reward.campaign.image.url(:preview256)%>" style="display: block; width: 143px;" width="143" border="0" alt="section image">
+	<% end %>
+<% end %>
+<% content_for :line1 do %>
+	<%= @shipping_order.reward.title %>
+<% end %>
+<% content_for :line2 do %>
+	<%= t 'mailer.payment.shipping_order.ships_to' %><%= @shipping_order.name %>,<%= @shipping_order.line1 %>, <%= @shipping_order.city %><% if @shipping_order.state %>, <%= @shipping_order.state %><% end %>, <%= @shipping_order.postal_code %>, <%= @shipping_order.country %>
+<% end %>
+<% content_for :price do %>
+	<%= t 'views.payment.backs.shipping_fee' %>: <%= currency_signs(@shipping_order.reward.currency) %><%= @shipping_order.amount %>
+<% end %>
+<% content_for :btn do %>
+	<%= link_to confirm_shipping_payment_user_studio_rewards_path(@shipping_order.user.id,@shipping_order.id), style:"color:#ffffff;text-decoration: none;" do %>
+		<%= t 'mailer.payment.shipping_order.confirm_or_cancel_on_ratafire' %>
+	<% end %>
+<% end %>

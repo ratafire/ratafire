@@ -1,0 +1,12 @@
+<div class="row bg-grey-100 p-20 ml-20 mr-20" id='reward-upload-hint'>
+	<div class="col-md-10">
+		<%= t 'views.creator_studio.rewards.upload_reward_hint' %>
+	</div>
+	<div class="col-md-2">
+		<%= link_to upload_reward_editor_user_studio_rewards_path(user.id,reward.id), remote: true do %>
+			<div class="btn btn-blue">
+				<%= t 'views.creator_studio.rewards.upload_reward' %>
+			</div>
+		<% end %>
+	</div>
+</div>

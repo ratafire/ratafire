@@ -1,11 +1,11 @@
-#artwork-progress-case, #audio-progress-case, #audio-image-progress-case, #video-progress-case, #video-image-progress-case{
+#artwork-progress-case, #audio-progress-case, #audio-image-progress-case, #video-progress-case, #video-image-progress-case, #reward-upload-progress-case{
   width:100%;
   height:100%;
   position:absolute;
   top:0;
   left: 0;    
 }
-#artwork-progress-box, #audio-progress-box, #video-progress-box{
+#artwork-progress-box, #audio-progress-box, #video-progress-box, #zip-progress-box{
   width:100%;
   height:100%;
   z-index:2000;

@@ -1,0 +1,24 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Content Area -->
+<div class="content mb-120">
+	<canvas id="canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;" ></canvas>
+	<%= render 'users/background'%>
+	<div class="page-header">
+		<div class="page-header-content text-center">
+			<div class="page-title text-grey">
+				<%= image_tag(@user.profilephoto.image.url(:thumbnail128),class:"img-circle mb-20 animated infinite bounce", id:"campaign-user-image")%>
+				<h2 class="text-thin text-white" id="application-text">
+					<p class="pb-20"><%= @user.preferred_name %><%= t "views.campaign.you_completed_project" %><%= @campaign.title%>!</p>
+					<p>
+						<%= link_to profile_url_path(@user.username) do %>
+							<span class="btn btn-blue btn-xlg"><i class="icon-enter mr-10"></i><%= t "views.utilities.editor.back" %></span>
+						<% end %>
+					</p>
+				</h2>
+			</div>
+		</div><!-- end .page-header-content-->
+	</div><!-- end .page-header-->	
+</div>

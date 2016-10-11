@@ -23,6 +23,8 @@ class Subscription < ActiveRecord::Base
 
 	belongs_to :subscribed_organization, class_name: "Organization"
 
+	belongs_to :campaign
+
 	#Has many
 	has_many :reward_receivers,
 		-> { where(reward_receivers:{:deleted => nil })}

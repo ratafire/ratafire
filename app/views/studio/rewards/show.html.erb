@@ -3,22 +3,29 @@
 <% provide(:title, @user.preferred_name) %>
 <!-- Page Specific JS -->
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-12 col-md-12">
 		<div class="panel panel-blue bg-white-transparent">
 			<div class="panel-body" id="transactions-panel-body">
 				<!-- Reward -->
-				<div class="row">
+				<div class="row p-20">
 					<div class="col-md-4">
-						<% if @reward.image.present? %>
-							<div class="thumb thumb-slide" id="about-profilephoto-holder">
-								<img src="<%= @reward.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
-							</div>
-						<% else %>
-							<!-- Show project image -->
-							<div class="thumb thumb-slide" id="reward-image-holder">
-								<img src="<%= @reward.campaign.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
-							</div>
-						<% end %>
+						<div id="active-campaign-reward">
+							<% if @reward.image.present? %>
+								<div class="thumb thumb-slide" id="about-profilephoto-holder">
+									<%= link_to upload_image_edit_user_studio_rewards_path(@user.id), remote: true do %>
+										<div class="medium-editor-toolbar-remove mr-5 mt-5">
+											<span class="ti-pencil-alt"></span>
+										</div>
+									<% end %>
+									<img src="<%= @reward.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+								</div>
+							<% else %>
+								<!-- Show project image -->
+								<div class="mt-20- ml-20-">
+									<%= render partial:'profile/components/add_reward_image', locals: {user: @user}%>
+								</div>
+							<% end %>
+						</div>
 					</div>
 					<div class='col-md-8'>
 						<h2 class="no-margin-top text-thin"><i class="huaxia huaxia-libao mr-5"></i> <%= @reward.title %></h2>
@@ -28,14 +35,30 @@
 								<div class="text-thin pb-10"><%= @reward.description %></div>
 							</div>
 							<div class="col-md-4">
+								<!-- Backers -->
+								<div class="text-grey-200"><%= t 'views.utilities.menu.backers' %></div>
+								<% if @reward.backers > 0 %>
+									<div><i class="ti-user"></i> <span ><%= @reward.reward_receivers.count %>/<%= @reward.backers %></span></div>
+								<% else %>
+									<div><i class="ti-user"></i> <span ><%= @reward.reward_receivers.count %></span></div>
+								<% end %>
+								<!-- Estimated delivery -->
 								<div class="text-grey-200"><%= t 'views.utilities.menu.estimated_delivery' %></div>
-								<div class="text-grwy-200"><%= @reward.estimated_delivery.strftime('%Y/%m/%d') %></div>
+								<div><%= @reward.estimated_delivery.strftime('%Y/%m/%d') %></div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<!-- Please upload reward -->
+				<% if @reward.shipping == 'no' %>
+					<% if @reward.uploaded %>
+						<%= render partial: "studio/rewards/download_hint", locals: {user: @user, reward: @reward} %>
+					<% else %>
+						<%= render partial: "studio/rewards/upload_hint", locals: {user: @user, reward: @reward} %>
+					<% end %>
+				<% end %>
 				<!-- Paid Receiver -->
-				<div class="row">
+				<div class="row p-20" id="reward-receivers-holder">
 					<%= render partial: "studio/wallets/receiver", locals: {user: @user, reward: @reward} %>
 				</div>
 			</div>

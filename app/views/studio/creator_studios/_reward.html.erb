@@ -14,8 +14,18 @@
 			<%= link_to show_user_studio_rewards_path(reward.user.username,reward.id) do %>
 				<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><i class="huaxia huaxia-libao mr-5"></i> <%= reward.title %></h5>
 			<% end %>
+			<!-- Amount -->
 			<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><%= t 'views.utilities.menu.support' %> <%= currency_signs(reward.campaign.currency) %><%= reward.amount.to_i %></h5>
-			<p class="text-grey-200"><i class="ti-user"></i> <span >0/10 <%= t 'views.utilities.menu.backers' %></span></p>
+			<!-- Backers -->
+			<% if reward.backers > 0 %>
+				<!-- Show limited backers -->
+				<p class="text-grey-200"><i class="ti-user"></i> <span ><%= reward.reward_receivers.count %>/<%= reward.backers %> <%= t 'views.utilities.menu.backers' %></span></p>
+			<% else %>
+				<!-- Show backer when there is more than 0 backer -->
+				<% if reward.reward_receivers.count > 0 %>
+					<p class="text-grey-200"><i class="ti-user"></i> <span ><%= reward.reward_receivers.count %>
+				<% end %>
+			<% end %>
 			<div class="text-grey mb-20"><%= reward.description %></div>
 			<div class="row">
 				<div class="col-md-6">

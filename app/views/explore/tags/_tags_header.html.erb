@@ -1,0 +1,26 @@
+<div class="page-header">
+	<div class="page-header-content">
+		<div class="page-title text-grey">
+			<h2 class="text-thin" id="tag-follow-holder">
+				<span class="mr-20"><img src="<%= @tag.tag_image.image.url(:thumbnail40)%>" class="img-circle img-lg mr-10"><%= @tag.name.titleize %></span>
+				<% if @following %>
+					<%= render partial: "explore/tags/unfollow_btn", locals: {tag: @tag} %>
+				<% else %>
+					<%= render partial: "explore/tags/follow_btn", locals: {tag: @tag} %>
+				<% end %>
+			</h2>
+		</div>
+		<div class="heading-elements">
+
+			<div class="heading-btn-group">
+				<!-- Payment settings -->
+				<div class="media">
+					<div class="media-left text-grey "><h6><%= @tag.taggings.where(:taggable_type => "User").count%> <%= t 'views.utilities.menu.followers'%></h6></div>
+					<div class="media-right">
+						<%= render partial: "explore/tags/follower_image", collection: @followers, :as => :user %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- end .page-header-content-->
+</div>

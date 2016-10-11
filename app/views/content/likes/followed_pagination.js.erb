@@ -1,3 +1,3 @@
-$('#sidebar-followed-updates').remove();
+$('.sidebar-followed-updates').remove();
 $('#sidebar-followed-updates-holder').append("<%= j render(:partial => 'profile/components/followed_updates', collection: @followed, :as => :user ) %>");
 $('.sidebar-followed-updates-pagination').remove();

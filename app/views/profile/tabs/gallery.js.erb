@@ -1,5 +1,5 @@
 $("#artwork-pagination").append("<div class='added-artwork'><%= j render(:partial => 'profile/components/tab_gallery', collection: @artworks, :as => :artwork)%></div>");
-$('#friend-pagination-old').remove();
+$('#artwork-pagination-old').remove();
 <% if @artworks.next_page %>
   $('.artwork-pagination').append('<%= j will_paginate(@artworks) %>');
 <% else %>

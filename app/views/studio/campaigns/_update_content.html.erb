@@ -1,0 +1,21 @@
+<div id="campaign-content">
+	<%= raw campaign.content %>		
+	<div class="pull-right">
+		<!-- Edit -->
+		<% if campaign.content_updated_at %>
+			<% unless (Time.now - 30.days) > campaign.content_updated_at %>
+				<%= link_to update_content_edit_user_studio_campaigns_path(@user.id, @campaign.id), remote: true do %>
+					<div class="btn btn-blue">
+						<i class="ti-pencil mr-5"></i><%= t 'views.utilities.editor.edit' %>
+					</div>
+				<% end %>
+			<% end %>
+		<% else %>
+			<%= link_to update_content_edit_user_studio_campaigns_path(@user.id, @campaign.id), remote: true do %>
+				<div class="btn btn-blue">
+					<i class="ti-pencil mr-5"></i><%= t 'views.utilities.editor.edit' %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</div>

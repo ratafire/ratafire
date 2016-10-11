@@ -1,0 +1,13 @@
+<script>
+// Initialize multiple switches
+var elem = document.querySelector('.switchery'),
+    init = new Switchery(elem, { color: '#8BC34A'});
+    elem.addEventListener('click', function() {
+        if (elem.checked){
+            $('#editor-submition').val('<%= t paid_update("Art") %>').removeClass('btn-blue').addClass('bg-green');
+        }
+        else {
+            $('#editor-submition').val('<%= t 'views.utilities.editor.post_update' %>').removeClass('bg-green').addClass('btn-blue');
+        }    
+    });
+</script>

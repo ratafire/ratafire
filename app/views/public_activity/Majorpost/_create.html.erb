@@ -19,7 +19,7 @@
 						</a>
 						<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
 							<!-- Edit -->
-							<li><a href="#"><i class="ti-pencil"></i> Edit</a></li>
+							<li><a href="#"><i class="ti-pencil"></i><%= t 'views.utilities.editor.edit' %></a></li>
 							<!-- Admin -->
 							<% if current_user.try(:admin) %>
 								<li class="dropdown-submenu" >
@@ -32,7 +32,7 @@
 								</li>
 							<% end %><!-- end if current_user.admin?-->
 							<!-- Delete -->
-							<li><%= link_to content_majorpost_path(activity.trackable), method: :delete,:remote => true do %><i class="ti-trash"></i> Delete<% end %></li>
+							<li><%= link_to content_majorpost_path(activity.trackable), method: :delete,:remote => true do %><i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %><% end %></li>
 						</ul>
 					</span>	
 				<% end %><!-- end if current_user == @user || current_user.admin? -->			

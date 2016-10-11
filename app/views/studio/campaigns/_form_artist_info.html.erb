@@ -98,12 +98,12 @@
 			<% if @user.tagline && @user.bio %>
 				<div class="label bg-rainbow mb-5 mr-5"><i class="fa fa-check-circle"></i> <%= t 'views.profile.settings.identity_verification.added' %></div> 
 				<div>
-					<%= link_to profile_url_path(@user.username) do %>
+					<%= link_to profile_settings_user_profile_settings_path(@user.username) do %>
 						<div class="btn bg-rainbow"><i class="icon-user-check mr-10"></i><%= t 'views.profile.settings.menu.view' %></div>
 					<% end %>
 				</div>
 			<% else %>
-				<%= link_to profile_url_path(@user.username) do %>
+				<%= link_to profile_settings_user_profile_settings_path(@user.username) do %>
 					<div class="btn bg-rainbow"><i class="icon-user-check mr-10"></i><%= t 'views.campaign.add_tagline_and_short_bio' %></div>
 				<% end %>
 			<% end %>

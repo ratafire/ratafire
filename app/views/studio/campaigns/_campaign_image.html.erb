@@ -1,0 +1,8 @@
+<div class="thumb thumb-slide" id="about-profilephoto-holder">
+	<%= link_to upload_image_edit_user_studio_campaigns_path(user.id, campaign.id), remote: true do %>
+		<div class="medium-editor-toolbar-remove mr-5 mt-5">
+			<span class="ti-pencil-alt"></span>
+		</div>	
+	<% end %>		
+	<img src="<%= @campaign.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+</div>

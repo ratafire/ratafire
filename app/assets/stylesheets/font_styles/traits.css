@@ -1,0 +1,137 @@
+
+@font-face {font-family: "traits";
+  src: url('/assets/traits/traits.eot?t=1459651819'); /* IE9*/
+  src: url('/assets/traits/traits.eot?t=1459651819#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/assets/traits/traits.woff?t=1459651819') format('woff'), /* chrome, firefox */
+  url('/assets/traits/traits.ttf?t=1459651819') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('/assets/traits/traits.svg?t=1459651819#traits') format('svg'); /* iOS 4.1- */
+}
+
+.traits {
+  font-family:"traits" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.traits-tanghulu:before { content: "\e600"; }
+.traits-meirongzhongyan:before { content: "\e601"; }
+.traits-taiji:before { content: "\e602"; }
+.traits-multipleimage:before { content: "\e66d"; }
+.traits-shufa:before { content: "\e603"; }
+.traits-goushengxiao:before { content: "\e604"; }
+.traits-houshengxiao:before { content: "\e605"; }
+.traits-hushengxiao:before { content: "\e606"; }
+.traits-longshengxiao:before { content: "\e607"; }
+.traits-mashengxiao:before { content: "\e608"; }
+.traits-sheshengxiao:before { content: "\e609"; }
+.traits-houshengxiao1:before { content: "\e60a"; }
+.traits-jishengxiao:before { content: "\e60b"; }
+.traits-niushengxiao:before { content: "\e60c"; }
+.traits-shushengxiao:before { content: "\e60d"; }
+.traits-tushengxiao:before { content: "\e60e"; }
+.traits-yangshengxiao:before { content: "\e60f"; }
+.traits-wenwanshoucang:before { content: "\e610"; }
+.traits-book:before { content: "\e672"; }
+.traits-friend:before { content: "\e679"; }
+.traits-tiananmen:before { content: "\e611"; }
+.traits-stars:before { content: "\e652"; }
+.traits-infenicon04:before { content: "\e612"; }
+.traits-zhongguojie:before { content: "\e613"; }
+.traits-kanglong:before { content: "\e614"; }
+.traits-tilong:before { content: "\e615"; }
+.traits-dao:before { content: "\e616"; }
+.traits-ding:before { content: "\e617"; }
+.traits-cai:before { content: "\e618"; }
+.traits-fu:before { content: "\e619"; }
+.traits-zhu:before { content: "\e61a"; }
+.traits-atom:before { content: "\e653"; }
+.traits-iconfont1212tuiguangjiazai01:before { content: "\e61b"; }
+.traits-china:before { content: "\e61c"; }
+.traits-guzhen:before { content: "\e61d"; }
+.traits-wangluokeji:before { content: "\e654"; }
+.traits-guzhao:before { content: "\e61e"; }
+.traits-guzhao1:before { content: "\e61f"; }
+.traits-dahai:before { content: "\e620"; }
+.traits-shicai:before { content: "\e621"; }
+.traits-hulu1:before { content: "\e622"; }
+.traits-iconfontjxmc:before { content: "\e623"; }
+.traits-haoyouqingqiu:before { content: "\e669"; }
+.traits-guzhen1:before { content: "\e624"; }
+.traits-tubiaohu:before { content: "\e625"; }
+.traits-tubiaolong:before { content: "\e626"; }
+.traits-shui:before { content: "\e678"; }
+.traits-yun:before { content: "\e627"; }
+.traits-zhongchou:before { content: "\e66a"; }
+.traits-5:before { content: "\e628"; }
+.traits-liwu:before { content: "\e676"; }
+.traits-wenhuayishu:before { content: "\e629"; }
+.traits-shicaida:before { content: "\e62a"; }
+.traits-planet:before { content: "\e655"; }
+.traits-link:before { content: "\e66c"; }
+.traits-share:before { content: "\e66e"; }
+.traits-zhongguoditu:before { content: "\e62b"; }
+.traits-guzhenminsu:before { content: "\e62c"; }
+.traits-guanzhu:before { content: "\e66b"; }
+.traits-lishiguji:before { content: "\e62d"; }
+.traits-unie640:before { content: "\e62e"; }
+.traits-pay3:before { content: "\e664"; }
+.traits-bofang:before { content: "\e665"; }
+.traits-aiswangluopinpaishu:before { content: "\e656"; }
+.traits-guanzhu1:before { content: "\e666"; }
+.traits-yuchengjiexiang:before { content: "\e62f"; }
+.traits-jiankangmeishijie:before { content: "\e630"; }
+.traits-pushi:before { content: "\e631"; }
+.traits-jiaocheng:before { content: "\e66f"; }
+.traits-yunmouzhuanhuan:before { content: "\e632"; }
+.traits-hekriconzhuijiazaolang03:before { content: "\e633"; }
+.traits-xiangyun:before { content: "\e634"; }
+.traits-xiangyuntuan:before { content: "\e635"; }
+.traits-find:before { content: "\e657"; }
+.traits-2b:before { content: "\e658"; }
+.traits-dachengshipianhao:before { content: "\e667"; }
+.traits-faxianxuanzhong:before { content: "\e65e"; }
+.traits-fanxiantongqian:before { content: "\e636"; }
+.traits-mudan:before { content: "\e637"; }
+.traits-wifi:before { content: "\e67a"; }
+.traits-guanxiangengxinshujudaoru:before { content: "\e659"; }
+.traits-hua:before { content: "\e638"; }
+.traits-fukuanxuanzhong:before { content: "\e65f"; }
+.traits-wen:before { content: "\e639"; }
+.traits-nmian01:before { content: "\e63a"; }
+.traits-libao:before { content: "\e677"; }
+.traits-tianhezuotianchong:before { content: "\e63b"; }
+.traits-fanchuanzuotianchong:before { content: "\e63c"; }
+.traits-qilinzuotianchong:before { content: "\e63d"; }
+.traits-music:before { content: "\e670"; }
+.traits-icon1612:before { content: "\e63e"; }
+.traits-zhuanshuhanyizhuanshufan:before { content: "\e63f"; }
+.traits-bagua:before { content: "\e640"; }
+.traits-guzhen01:before { content: "\e641"; }
+.traits-ny4:before { content: "\e673"; }
+.traits-fu01:before { content: "\e642"; }
+.traits-xiang:before { content: "\e643"; }
+.traits-10icon:before { content: "\e644"; }
+.traits-icon8:before { content: "\e645"; }
+.traits-pay2:before { content: "\e663"; }
+.traits-shui1:before { content: "\e674"; }
+.traits-yuanzifuwu:before { content: "\e65a"; }
+.traits-chilun2:before { content: "\e660"; }
+.traits-shan:before { content: "\e646"; }
+.traits-mian:before { content: "\e647"; }
+.traits-le01:before { content: "\e648"; }
+.traits-fu011:before { content: "\e649"; }
+.traits-wuxia:before { content: "\e64a"; }
+.traits-xiangzaiico-copy:before { content: "\e64b"; }
+.traits-zhongchou-copy:before { content: "\e65b"; }
+.traits-yuan:before { content: "\e65c"; }
+.traits-target:before { content: "\e675"; }
+.traits-kongxin17menpiaoguzhen:before { content: "\e64c"; }
+.traits-shixin18menpiaoguzhen:before { content: "\e64d"; }
+.traits-jucha2:before { content: "\e64e"; }
+.traits-lishi:before { content: "\e64f"; }
+.traits-faxian:before { content: "\e661"; }
+.traits-apppai:before { content: "\e65d"; }
+.traits-niao:before { content: "\e650"; }
+.traits-pen:before { content: "\e671"; }
+.traits-yu:before { content: "\e651"; }
+.traits-faxian2-copy:before { content: "\e662"; }

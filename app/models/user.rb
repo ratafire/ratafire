@@ -51,6 +51,12 @@ class User < ActiveRecord::Base
         "#{self.id}-#{self.profilephoto_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')}"
     end
 
+    #--- Tags ---
+    #has_many :followed_tags, foreign_key: "tag_id", class_name: "TagRelationship", dependent: :destroy
+    #has_many :tags, through: :saved_tags, source: :tag_followed
+    acts_as_tagger
+    acts_as_taggable
+
     #----------------Relationships----------------
 
     #--------User Info---------
@@ -124,6 +130,8 @@ class User < ActiveRecord::Base
     has_one :order, 
         -> { where(orders:{:deleted_at => nil, :transacted => nil})}
     has_many :transactions, foreign_key: "subscriber_id"
+    has_many :shipping_orders,
+        -> { where(shipping_orders:{:deleted_at => nil, :transacted => nil})}
     
     #--------Record Backers---------
     has_many :subscription_records, 
@@ -169,6 +177,8 @@ class User < ActiveRecord::Base
         has_one :active_reward,
         -> { where( rewards: { :active => true })}, class_name: "Reward"
     has_many :shipping_addresses
+    has_many :reward_receivers,
+        -> { where( reward_receivers: { :deleted => nil })}, class_name: "RewardReceiver"
 
     #--------Likes---------
     has_many :liked_campaigns

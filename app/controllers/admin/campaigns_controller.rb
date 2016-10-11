@@ -36,7 +36,8 @@ class Admin::CampaignsController < ApplicationController
 		@campaign.update(
 			status: "Approved",
 			published: true,
-			published_at: Time.now
+			published_at: Time.now,
+			due: @campaign.duration.years.from_now
 		)
 		@campaign.rewards.last.update(
 			active: true

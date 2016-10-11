@@ -1,0 +1,10 @@
+<%= link_to tag_path(tag.name), class:"sidebar-followed-tags" do %>
+	<div class="media-left pr-15 pl-8">
+		<img src="<%= tag.tag_image.image.url(:thumbnail40)%>" class="profile-thumb-holder cover-profilephoto-holder img-xxs ml-5- mt-5-" alt="">
+	</div>
+	<div class="media-body">
+		<div class="media-heading text-semibold">
+			<%= tag.name %>
+		</div>
+	</div>
+<% end %>

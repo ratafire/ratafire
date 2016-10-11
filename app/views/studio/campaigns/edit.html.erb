@@ -1,0 +1,36 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Content Area -->
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+		<!-- Campaign Header -->
+		<div class="panel panel-blue bg-white-transparent">
+			<div class="panel-body" id="campaign-edit-panel-body">
+				<%= render partial: "studio/campaigns/campaign_header", locals: {user: @user, campaign: @campaign} %>
+				
+			</div>
+		</div>
+		<!-- Campaign Header -->
+		<div class="panel panel-blue bg-white-transparent">
+			<div class="panel-body no-padding-bottom" id="campaign-update-video">
+				<%= render partial: "studio/campaigns/update_video", locals: {user: @user, campaign: @campaign} %>
+			</div>
+		</div>		
+		<!-- Campaign Long Description -->
+		<div class="panel panel-blue bg-white-transparent">
+			<div class="panel-body" id="campaign-edit-panel-body">
+				<div class="row">
+					<div class="col-md-12" id="campaign-content-holder-edit">
+						<%= render partial: "studio/campaigns/update_content", locals: {user: @user, campaign: @campaign} %>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+</div>
+<script type="text/javascript">
+    initiate_videojs();        	
+</script>

@@ -1,5 +1,5 @@
-<div class="masonry" >
-	<div class="panel">
+<div class="masonry-item" >
+	<div class="panel no-margin no-padding">
 		<!-- Campaign -->
 		<% if activity.trackable_type == "Campaign" %>
 			<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
@@ -122,7 +122,7 @@
 			<!-- Majorpost toolbar -->
 			<% if activity.trackable_type == "Majorpost" %>
 				<div class="pull-right">						
-					<span class="dropup">
+					<span class="dropdown">
 						<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
 							<i class="huaxia huaxia-share mr-10 text-medium">
 							</i>
@@ -215,8 +215,22 @@
 					<ul class="icons-list">	
 						<% unless current_user == activity.trackable.user %>
 							<li>
-								<%= link_to profile_url_path(activity.trackable.user.username) do %>
-									<div class="btn bg-rainbow-600 btn-float btn-float-lg btn-rounded pt-4 pr-10 pb-4 pl-10" ><i class="huaxia huaxia-shui"></i></div>
+								<% if user_signed_in? %>
+									<% unless current_user == activity.trackable.user %>
+										<% unless activity.trackable.user.subscribed_by?(current_user.id) || current_user.subscribed_by?(activity.trackable.user.id) %>
+											<% if activity.trackable.user.active_reward %>
+												<%= link_to new_user_payment_backs_path(activity.trackable.user.uid) do %>
+													<div class="btn bg-rainbow-600 btn-float btn-float-lg btn-rounded pt-4 pr-10 pb-4 pl-10" ><i class="huaxia huaxia-shui"></i></div>
+												<% end %>
+											<% end %>
+										<% end %>
+									<% end %>
+								<% else %>
+									<% if activity.trackable.user.active_reward %>
+										<%= link_to new_user_payment_backs_path(activity.trackable.user.uid) do %>
+											<div class="btn bg-rainbow-600 btn-float btn-float-lg btn-rounded pt-4 pr-10 pb-4 pl-10" ><i class="huaxia huaxia-shui"></i></div>
+										<% end %>
+									<% end %>
 								<% end %>
 							</li>
 						<% end %>

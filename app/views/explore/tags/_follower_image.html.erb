@@ -1,0 +1,3 @@
+<%= link_to profile_url_path(user.username) do %>
+	<img src="<%= user.profilephoto.image.url(:thumbnail40)%>" class="img-circle img-sm ml-5-">
+<% end %>

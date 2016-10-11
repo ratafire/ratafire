@@ -12,13 +12,22 @@ class Transaction < ActiveRecord::Base
 
     def self.prefill!(response,options = {})
 		@transaction = Transaction.new
-		@transaction.total = response.amount.to_f/100
-		@transaction.fee = options[:fee]
+		if @transaction.total == nil
+			@transaction.total = response.amount.to_f/100
+			@transaction.fee = options[:fee]
+		else
+			@transaction.total += response.amount.to_f/100
+			@transaction.fee += options[:fee]
+		end
 		@transaction.receive = response.amount.to_f/100 - options[:fee]
 		@transaction.subscriber_id = options[:subscriber_id]
 		@transaction.subscribed_id = options[:subscribed_id]
-		@transaction.subscription_id = options[:subscription_id]
+		@transaction.order_id = options[:order_id]
+		@transaction.shipping_order_id = options[:shipping_order_id]
+		@transaction.reward_id = options[:reward_id]
+		@transaction.transaction_type = options[:transaction_type]
 		@transaction.currency = options[:currency]
+		@transaction.subscription_id = options[:subscription_id]
 		@transaction.stripe_id = response.id
 		if response.status == "succeeded" then
 			@transaction.status = "Success"
@@ -41,6 +50,7 @@ class Transaction < ActiveRecord::Base
     #Belongs to
     belongs_to :user
     belongs_to :subscriber, class_name: "User"
+    belongs_to :order
 
     #Has many
     has_many :transaction_subsets, :foreign_key => 'transaction_id', class_name: "TransactionSubset"

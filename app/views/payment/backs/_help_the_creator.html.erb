@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-md-1 col-lg-1 text-center">
 				</div>
-				<div class="col-md-9 col-lg-9">
+				<div class="col-md-7 col-lg-8">
 					<div class="input-group">
 						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100"><%= currency_signs(user.active_campaign.currency) %></span>
 						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-just-want-to-help"%>
@@ -48,8 +48,12 @@
 						</div>
 					</div>	
 				</div>
-				<div class="col-md-2 col-lg-2" id="just-want-to-help-submit">
-					<%= f.submit I18n.t('views.payment.backs.continue'), class: "btn bg-rainbow-600 btn-lg" %>
+				<div class="col-md-4 col-lg-3" id="just-want-to-help-submit">
+					<div class="btn-group btn-group-justified">
+						<div class="btn-group">
+							<%= f.submit I18n.t('views.payment.backs.continue'), class: "btn bg-rainbow-600 btn-lg" %>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -75,6 +79,10 @@
 				</div>			
 				<div class="col-md-6">
 					<div class="text-blue-100 mt-10"><%= user.active_reward.description %></div>
+					<!-- All gone -->
+					<% if user.active_reward.backers > 0 && user.active_reward.reward_receivers.count >= user.active_reward.backers %>
+						<div class="mt-5"><span class="label label-blue"><%= t 'views.payment.backs.all_gone' %></span></div>
+					<% end %>
 				</div>
 				<div class="col-md-5">
 					<div class="text-blue-200 mt-10"><%= t 'views.utilities.menu.estimated_delivery' %>:</div>
@@ -112,7 +120,7 @@
 			<div class="row">
 				<div class="col-md-1 col-lg-1 text-center">
 				</div>
-				<div class="col-md-9 col-lg-9">
+				<div class="col-md-7 col-lg-8">
 					<div class="input-group">
 						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100"><%= currency_signs(user.active_campaign.currency) %></span>
 						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-get-reward"%>
@@ -144,8 +152,12 @@
 						</div>
 					</div>	
 				</div>
-				<div class="col-md-2 col-lg-2" id="get-reward-submit">
-					<%= f.submit I18n.t('views.payment.backs.continue'), class: "btn bg-rainbow-600 btn-lg" %>
+				<div class="col-md-4 col-lg-3" id="get-reward-submit">
+					<div class="btn-group btn-group-justified">
+						<div class="btn-group">
+							<%= f.submit I18n.t('views.payment.backs.continue'), class: "btn bg-rainbow-600 btn-lg" %>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -181,33 +193,6 @@
 			easing:'ease-in-out'
 		});	
     });
-    $('#panel-get-reward').on('click',function(){
-    	$('#radio-just-want-to-help').prop('checked',false).uniform('refresh');
-    	$('#radio-get-reward').prop('checked',true).uniform('refresh');
-    	$('#panel-body-just-want-to-help').hide();
-    	$('#panel-body-get-reward').show();
-    	$('#panel-just-want-to-help').removeClass('panel-reward-active');
-    	$('#panel-get-reward').addClass('panel-reward-active');
-    	$('#panel-just-want-to-help').addClass('border-blue-100');
-    	$('#panel-just-want-to-help').removeClass('border-blue');
-    	$('#panel-get-reward').removeClass('border-blue-100');
-    	$('#panel-get-reward').addClass('border-blue');
-    	$('#shipping-selector').show();  	
-    	<% if @subscription.shipping_country %>
-			if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val()) {
-		   		$('#get-reward-submit').unblock();
-			}	
-		<% else %>
-			if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 ) {
-		   		$('#get-reward-submit').unblock();
-			}	
-		<% end %>
-		$('#panel-get-reward').velocity('scroll',{
-			duration:500,
-			offset:-80,
-			easing:'ease-in-out'
-		});	  
-    });
     // Funding type switching button
     $('#per-creation-just-want-to-help').on('click',function(){
 		<% if user.active_campaign.funding_type == 'creation' %>
@@ -221,43 +206,6 @@
     	$('#funding-type-just-want-to-help-text').html('<%= t 'views.campaign.one_time' %> <span class="caret"></span>');
     	$('#funding-type-just-want-to-help').val('one_time');
     });
-    $('#per-creation-get-reward').on('click',function(){
-		<% if user.active_campaign.funding_type == 'creation' %>
-			$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_creation' %> <span class="caret"></span>');
-		<% else %>
-			$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_month' %> <span class="caret"></span>');
-		<% end %>
-    	$('#funding-type-get-reward').val('recurring');
-    });
-    $('#one-time-get-reward').on('click',function(){
-    	$('#funding-type-get-reward-text').html('<%= t 'views.campaign.one_time' %> <span class="caret"></span>');
-    	$('#funding-type-get-reward').val('one_time');
-    });    
-	$('#shipping-country-selector').on('change', function() {
-		if(this.value){
-			<% if @subscription.shipping_country %>
-				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200) {
-			   		$('#get-reward-submit').unblock();
-				}	
-			<% else %>
-				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %>) {
-			   		$('#get-reward-submit').unblock();
-				}	
-			<% end %>		
-			<% if Rails.env.production? %>
-				return $.getScript('https://ratafire.com/users/<%= user.id %>/payment/backs/country/'+this.value);
-			<% else %>
-				return $.getScript('http://localhost:3000/users/<%= user.id %>/payment/backs/country/'+this.value);
-			<% end %>
-		} else {
-			$('#shipping-fee').html('<%= t "views.payment.backs.free_shipping" %>');
-			$('#get-reward-submit').block({message: null,overlayCSS: {
-			    backgroundColor: '#fff',
-			    opacity: 0.4,
-			    cursor: 'not-allowed'
-			},});
-		}
-	});    
    //Block submit
    $('#just-want-to-help-submit').block({message: null,overlayCSS: {
 	    backgroundColor: '#fff',
@@ -275,37 +223,112 @@
 		    },});
    		}
    });
-   $('#get-reward-submit').block({message: null,overlayCSS: {
-	    backgroundColor: '#fff',
-	    opacity: 0.4,
-	    cursor: 'not-allowed'
-    },});   
-   $('#amount-get-reward').donetyping(function(){
-   		<% if @subscription.shipping_country %>
-	   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200 && $('#shipping-country-selector').val()){
-			   $('#get-reward-submit').unblock();
-	   		} else {
-			   $('#get-reward-submit').block({message: null,overlayCSS: {
+	// Block panel if all backer slots are taken
+	<% if user.active_reward.backers > 0 && user.active_reward.reward_receivers.count >= user.active_reward.backers %>
+	   $('#panel-get-reward').block({message: null,overlayCSS: {
+		    backgroundColor: '#fff',
+		    opacity: 0.4,
+		    cursor: 'not-allowed'
+	    },}); 
+	<% else %>
+	    $('#panel-get-reward').on('click',function(){
+	    	$('#radio-just-want-to-help').prop('checked',false).uniform('refresh');
+	    	$('#radio-get-reward').prop('checked',true).uniform('refresh');
+	    	$('#panel-body-just-want-to-help').hide();
+	    	$('#panel-body-get-reward').show();
+	    	$('#panel-just-want-to-help').removeClass('panel-reward-active');
+	    	$('#panel-get-reward').addClass('panel-reward-active');
+	    	$('#panel-just-want-to-help').addClass('border-blue-100');
+	    	$('#panel-just-want-to-help').removeClass('border-blue');
+	    	$('#panel-get-reward').removeClass('border-blue-100');
+	    	$('#panel-get-reward').addClass('border-blue');
+	    	$('#shipping-selector').show();  	
+	    	<% if @subscription.shipping_country %>
+				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val()) {
+			   		$('#get-reward-submit').unblock();
+				}	
+			<% else %>
+				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 ) {
+			   		$('#get-reward-submit').unblock();
+				}	
+			<% end %>
+			$('#panel-get-reward').velocity('scroll',{
+				duration:500,
+				offset:-80,
+				easing:'ease-in-out'
+			});	  
+	    });
+		// Get reward switch
+	    $('#per-creation-get-reward').on('click',function(){
+			<% if user.active_campaign.funding_type == 'creation' %>
+				$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_creation' %> <span class="caret"></span>');
+			<% else %>
+				$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_month' %> <span class="caret"></span>');
+			<% end %>
+	    	$('#funding-type-get-reward').val('recurring');
+	    });
+	    $('#one-time-get-reward').on('click',function(){
+	    	$('#funding-type-get-reward-text').html('<%= t 'views.campaign.one_time' %> <span class="caret"></span>');
+	    	$('#funding-type-get-reward').val('one_time');
+	    });    
+		$('#shipping-country-selector').on('change', function() {
+			if(this.value){
+				<% if @subscription.shipping_country %>
+					if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200) {
+				   		$('#get-reward-submit').unblock();
+					}	
+				<% else %>
+					if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %>) {
+				   		$('#get-reward-submit').unblock();
+					}	
+				<% end %>		
+				<% if Rails.env.production? %>
+					return $.getScript('https://ratafire.com/users/<%= user.id %>/payment/backs/country/'+this.value);
+				<% else %>
+					return $.getScript('http://localhost:3000/users/<%= user.id %>/payment/backs/country/'+this.value);
+				<% end %>
+			} else {
+				$('#shipping-fee').html('<%= t "views.payment.backs.free_shipping" %>');
+				$('#get-reward-submit').block({message: null,overlayCSS: {
 				    backgroundColor: '#fff',
 				    opacity: 0.4,
 				    cursor: 'not-allowed'
-			    },});
-	   		}
-	   	<% else %>
-	   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200){
-			   $('#get-reward-submit').unblock();
-	   		} else {
-			   $('#get-reward-submit').block({message: null,overlayCSS: {
-				    backgroundColor: '#fff',
-				    opacity: 0.4,
-				    cursor: 'not-allowed'
-			    },});
-	   		}
-	   	<% end %>
-   });
+				},});
+			}
+		});  
+	   $('#get-reward-submit').block({message: null,overlayCSS: {
+		    backgroundColor: '#fff',
+		    opacity: 0.4,
+		    cursor: 'not-allowed'
+	    },});   
+	   //Block submit
+	   $('#amount-get-reward').donetyping(function(){
+	   		<% if @subscription.shipping_country %>
+		   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200 && $('#shipping-country-selector').val()){
+				   $('#get-reward-submit').unblock();
+		   		} else {
+				   $('#get-reward-submit').block({message: null,overlayCSS: {
+					    backgroundColor: '#fff',
+					    opacity: 0.4,
+					    cursor: 'not-allowed'
+				    },});
+		   		}
+		   	<% else %>
+		   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200){
+				   $('#get-reward-submit').unblock();
+		   		} else {
+				   $('#get-reward-submit').block({message: null,overlayCSS: {
+					    backgroundColor: '#fff',
+					    opacity: 0.4,
+					    cursor: 'not-allowed'
+				    },});
+		   		}
+		   	<% end %>
+	   }); 
+	<% end %>
 	// Select panel if clicked
 	<% if @subscription.amount %>
-		<% if @subscription.shipping_country %>
+		<% if @subscription.get_reward %>
 			$('#panel-get-reward').click();
 			<% if @subscription.funding_type == 'one_time' %>
 				$('#one-time-get-reward').click();
@@ -322,5 +345,5 @@
 				$('#per-creation-just-want-to-help').click();
 			<% end %>
 		<% end %>
-	<% end %>       
+	<% end %>   
 </script>

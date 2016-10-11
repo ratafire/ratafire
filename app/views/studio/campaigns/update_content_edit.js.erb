@@ -1,0 +1,3 @@
+$('#campaign-content').remove();
+$('#campaign-content-holder-edit').append("<%= j render(:partial => 'studio/campaigns/campaign_content_editor', locals: {user: @user, campaign: @campaign}) %>");
+$("#campaign-content-holder-edit").velocity("scroll", {});

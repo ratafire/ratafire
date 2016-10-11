@@ -29,7 +29,7 @@ class Studio::WalletsController < ApplicationController
 	#upcoming_user_studio_wallets GET
 	#/users/:user_id/studio/wallet/upcoming
 	def upcoming
-		unless @user.order
+		unless @user.try(:order) && @user.try(:order).try(:status) != 'Started' 
 			redirect_to campaigns_user_studio_creator_studio_path(current_user.username)
 		end
 	end

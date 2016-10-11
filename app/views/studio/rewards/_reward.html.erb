@@ -1,0 +1,28 @@
+<div class="row p-20">
+	<div class="col-md-4">
+		<div id="active-campaign-reward">
+			<% if reward.image.present? %>
+				<div class="thumb thumb-slide" id="about-profilephoto-holder">
+					<img src="<%= reward.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+				</div>
+			<% else %>
+				<div class="thumb thumb-slide" id="about-profilephoto-holder">
+					<img src="<%= reward.campaign.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+				</div>
+			<% end %>
+		</div>
+	</div>
+	<div class='col-md-8'>
+		<h2 class="no-margin-top text-thin"><i class="huaxia huaxia-libao mr-5"></i> <%= reward.title %></h2>
+		<h5 class="no-margin-top text-thin"><%= t 'views.utilities.menu.support' %> <%= currency_signs(reward.campaign.currency) %><%= reward.amount.to_i %></h5>
+		<div class='row'>
+			<div class="col-md-8">
+				<div class="text-thin pb-10"><%= reward.description %></div>
+			</div>
+			<div class="col-md-4">
+				<div class="text-grey-200"><%= t 'views.utilities.menu.estimated_delivery' %></div>
+				<div class="text-grwy-200"><%= reward.estimated_delivery.strftime('%Y/%m/%d') %></div>
+			</div>
+		</div>
+	</div>
+</div>

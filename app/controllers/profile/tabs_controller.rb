@@ -4,9 +4,9 @@ class Profile::TabsController < ApplicationController
 
 	#Before filters
 	before_filter :load_user
-	before_filter :show_contacts, only:[:friends, :gallery]
-	before_filter :show_followed, only:[:friends, :gallery]
-	before_filter :show_liked, only:[:friends, :gallery]
+	before_filter :show_contacts, only:[:friends, :gallery, :videos]
+	before_filter :show_followed, only:[:friends, :gallery, :videos]
+	before_filter :show_liked, only:[:friends, :gallery, :videos]
 
 	#NoREST Methods -----------------------------------
 	
@@ -27,6 +27,10 @@ class Profile::TabsController < ApplicationController
 	#/users/:user_id/profile/tabs/gallery
 	def gallery
 		@artworks = @user.artwork.paginate(:page => params[:page], :per_page => 9)
+	end
+
+	def videos
+		@videos = @user.video.where(:deleted => nil).paginate(:page => params[:page], :per_page => 9)
 	end
 
 protected

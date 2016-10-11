@@ -4,28 +4,40 @@ class Studio::CampaignsController < ApplicationController
 
 	#Before filters
 	before_filter :load_user
-	before_filter :load_campaign, only:[:application,:update, :campaign_video,:campaign_video_image,:remove_campaign_video, :remove_campaign_image,:post_update, :submit_application, :display_read_all]
+	before_filter :load_campaign, only:[:edit, :application,:update, :campaign_video,:campaign_video_image,:remove_campaign_video, :remove_campaign_image,:post_update, :submit_application, :display_read_all, :upload_image, :upload_image_edit, :update_content_edit, :update_content_cancel, :mark_as_completed, :abandon, :completed, :delete]
 	before_filter :load_info, except:[:new, :create, :update,:apply]
 	before_filter :currency, only:[:update]
 	before_filter :only_confirmed
+    #Check who is responsible for the versioning
+    #before_filter :set_paper_trail_whodunnit #problematic
 
 	#After filter
 	after_filter :create_reward, only:[:create]
 
 	#REST Methods -----------------------------------
 
-	#new_user_studio_campaigns GET      
+	# new_user_studio_campaigns GET      
 	#/users/:user_id/studio/campaigns/new
 	def new
 		@campaign = Campaign.new()
 	end
 
-	#user_studio_campaigns POST
+	# user_studio_campaigns POST
 	#/users/:user_id/studio/campaigns
 	def create
 		if @campaign = @user.campaigns.create(campaign_params)
+			if @campaign.category
+				@campaign.category_list = @campaign.category
+				@campaign.save
+			end
 			redirect_to_application
 		end
+	end
+
+	# edit_user_studio_campaigns GET
+	#/users/:user_id/studio/campaigns/:campaign_id/edit
+	def edit
+		
 	end
 
 	#NoREST Methods -----------------------------------
@@ -40,81 +52,89 @@ class Studio::CampaignsController < ApplicationController
 	#/users/:user_id/studio/campaigns/:campaign_id/update
 	def update
 		#Build date object
-		params[:campaign][:rewards_attributes].values.each do |reward|
-			reward[:due] = DateTime.new(reward[:due].split('/')[2].to_i, reward[:due].split('/')[0].to_i, reward[:due].split('/')[1].to_i)
-			reward[:estimated_delivery] = DateTime.new(reward[:estimated_delivery].split('/')[2].to_i, reward[:estimated_delivery].split('/')[0].to_i, reward[:estimated_delivery].split('/')[1].to_i)
-		end
-		#Update Rewards
-		@campaign.rewards.first.update(
-			goal_title: params[:campaign][:rewards_attributes].values.first[:goal_title],
-			due: params[:campaign][:rewards_attributes].values.first[:due], 
-			title: params[:campaign][:rewards_attributes].values.first[:title], 
-			amount: params[:campaign][:rewards_attributes].values.first[:amount], 
-			description: params[:campaign][:rewards_attributes].values.first[:description], 
-			shipping: params[:campaign][:rewards_attributes].values.first[:shipping],
-			estimated_delivery: params[:campaign][:rewards_attributes].values.first[:estimated_delivery]
-			)			
-		#Update Shipping countries
-		if params[:campaign][:rewards_attributes].values.first[:shippings_attributes]
-			params[:campaign][:rewards_attributes].values.first[:shippings_attributes].values.each do |shipping|
-				if shipping[:_destroy] == "false" 		
-					if sp = Shipping.find_by_reward_id_and_country(@campaign.rewards.first.id,shipping[:country])
-						sp.update(
-							amount: shipping[:amount],
-							country: shipping[:country]
-						)
+		if params[:campaign][:rewards_attributes]
+			params[:campaign][:rewards_attributes].values.each do |reward|
+				reward[:due] = DateTime.new(reward[:due].split('/')[2].to_i, reward[:due].split('/')[0].to_i, reward[:due].split('/')[1].to_i)
+				reward[:estimated_delivery] = DateTime.new(reward[:estimated_delivery].split('/')[2].to_i, reward[:estimated_delivery].split('/')[0].to_i, reward[:estimated_delivery].split('/')[1].to_i)
+			end
+			#Update Rewards
+			@campaign.rewards.first.update(
+				goal_title: params[:campaign][:rewards_attributes].values.first[:goal_title],
+				due: params[:campaign][:rewards_attributes].values.first[:due], 
+				title: params[:campaign][:rewards_attributes].values.first[:title], 
+				amount: params[:campaign][:rewards_attributes].values.first[:amount], 
+				description: params[:campaign][:rewards_attributes].values.first[:description], 
+				shipping: params[:campaign][:rewards_attributes].values.first[:shipping],
+				estimated_delivery: params[:campaign][:rewards_attributes].values.first[:estimated_delivery]
+				)			
+			#Update Shipping countries
+			if params[:campaign][:rewards_attributes].values.first[:shippings_attributes]
+				params[:campaign][:rewards_attributes].values.first[:shippings_attributes].values.each do |shipping|
+					if shipping[:_destroy] == "false" 		
+						if sp = Shipping.find_by_reward_id_and_country(@campaign.rewards.first.id,shipping[:country])
+							sp.update(
+								amount: shipping[:amount],
+								country: shipping[:country]
+							)
+						else
+							Shipping.create(
+								user_id: @user.id,
+								campaign_id: @campaign.id,
+								reward_id: @campaign.rewards.first.id,
+								amount: shipping[:amount],
+								country: shipping[:country]
+							)
+						end
 					else
-						Shipping.create(
+						if sp = Shipping.find_by_reward_id_and_country(@campaign.rewards.first.id,shipping[:country])
+							sp.destroy
+						end
+					end
+				end 
+			end
+			if @campaign.rewards.first.shippings.count == 0
+				params[:campaign][:rewards_attributes].values.first[:shipping] == 'anywhere'
+			end
+			#Update Shipping shipping anywhere
+			if params[:campaign][:rewards_attributes].values.first[:shipping_anywhere_attributes]
+				if params[:campaign][:rewards_attributes].values.first[:shipping_anywhere_attributes][:_destroy] == "false"
+					if @campaign.rewards.first.shipping_anywhere 
+						unless @campaign.rewards.first.shipping_anywhere.amount == params[:campaign][:rewards_attributes].values.first[:shipping_anywhere_attributes][:amount]
+							@campaign.rewards.first.shipping_anywhere.update(
+								amount: params[:campaign][:rewards_attributes].values.first[:shipping_anywhere_attributes][:amount]
+							)
+						end
+					else
+						ShippingAnywhere.create(
 							user_id: @user.id,
 							campaign_id: @campaign.id,
 							reward_id: @campaign.rewards.first.id,
-							amount: shipping[:amount],
-							country: shipping[:country]
-						)
-					end
-				else
-					if sp = Shipping.find_by_reward_id_and_country(@campaign.rewards.first.id,shipping[:country])
-						sp.destroy
-					end
-				end
-			end 
-		end
-		if @campaign.rewards.first.shippings.count == 0
-			params[:campaign][:rewards_attributes].values.first[:shipping] == 'anywhere'
-		end
-		#Update Shipping shipping anywhere
-		if params[:campaign][:rewards_attributes].values.first[:shipping_anywhere_attributes]
-			if params[:campaign][:rewards_attributes].values.first[:shipping_anywhere_attributes][:_destroy] == "false"
-				if @campaign.rewards.first.shipping_anywhere 
-					unless @campaign.rewards.first.shipping_anywhere.amount == params[:campaign][:rewards_attributes].values.first[:shipping_anywhere_attributes][:amount]
-						@campaign.rewards.first.shipping_anywhere.update(
 							amount: params[:campaign][:rewards_attributes].values.first[:shipping_anywhere_attributes][:amount]
 						)
 					end
 				else
-					ShippingAnywhere.create(
-						user_id: @user.id,
-						campaign_id: @campaign.id,
-						reward_id: @campaign.rewards.first.id,
-						amount: params[:campaign][:rewards_attributes].values.first[:shipping_anywhere_attributes][:amount]
-					)
+					if @campaign.rewards.first.shipping_anywhere
+						@campaign.rewards.first.shipping_anywhere.destroy
+					end
 				end
 			else
-				if @campaign.rewards.first.shipping_anywhere
+				if @campaign.rewards.first.shipping_anywhere 
 					@campaign.rewards.first.shipping_anywhere.destroy
+					if params[:campaign][:rewards_attributes].values.first[:shipping] == 'anywhere'
+						params[:campaign][:rewards_attributes].values.first[:shipping] = 'no'
+					end
+				else
+					if @campaign.rewards.first.shippings.count == 0
+						params[:campaign][:rewards_attributes].values.first[:shipping] = 'no'
+					end
 				end
-			end
-		else
-			if @campaign.rewards.first.shipping_anywhere 
-				@campaign.rewards.first.shipping_anywhere.destroy
-				if params[:campaign][:rewards_attributes].values.first[:shipping] == 'anywhere'
-					params[:campaign][:rewards_attributes].values.first[:shipping] = 'no'
-				end
-			else
-				params[:campaign][:rewards_attributes].values.first[:shipping] = 'no'
 			end
 		end
 		@campaign.update(campaign_params)
+		if @campaign.sub_category
+			@campaign.sub_category_list = @campaign.sub_category
+			@campaign.save
+		end
 	end
 
 	#update_user_studio_campaigns PATCH
@@ -141,8 +161,19 @@ class Studio::CampaignsController < ApplicationController
 	#campaign_video_user_studio_campaigns POST
 	#/users/:user_id/studio/campaigns/:campaign_id/campaign_video
 	def campaign_video
-		@video = current_user.video.create(video_params)
-		@video.encode!
+		if @campaign.video
+			@previous_video = @campaign.video
+		end
+		if @video = current_user.video.create(video_params)
+			@video.encode!
+			#Remove previous video
+			if @previous_video
+				@previous_video.update(
+					deleted: true,
+					deleted_at: Time.now
+				)
+			end
+		end
 	end
 
 	#campaign_video_image_user_studio_campaigns POST
@@ -185,6 +216,64 @@ class Studio::CampaignsController < ApplicationController
 	#display_read_all_user_studio_campaigns GET
 	#/users/:user_id/studio/campaigns/:campaign_id/display_read_all
 	def display_read_all
+	end
+
+	#upload_image_user_studio_campaigns POST
+	#/users/:user_id/studio/campaigns/:campaign_id/upload_image
+	def upload_image
+		@campaign.update(campaign_params)
+		@campaign.set_upload_attributes
+		@campaign.transfer_and_cleanup
+	end
+
+	#upload_image_edit_user_studio_campaigns GET
+	def upload_image_edit
+	end
+
+	#update_content_edit_user_studio_campaigns GET
+	def update_content_edit
+		@upload_url = '/content/artworks/medium_editor_upload_artwork_campaign/'+@campaign.uuid
+	end
+
+	#update_content_cancel_user_studio_campaigns GET
+	def update_content_cancel
+	end
+
+	#mark_as_completed_user_studio_campaigns POST
+	def mark_as_completed
+		@campaign.update(
+			completed: true,
+			completed_at: Time.now
+		)
+		redirect_to completed_user_studio_campaigns_path(@user.id, @campaign.id)
+	end
+
+	#completed_user_studio_campaigns GET
+	def completed
+	end
+
+	#abandon_user_studio_campaigns POST
+	def abandon
+		@campaign.update(
+			abandoned: true,
+			abandoned_at: Time.now
+		)
+		flash['warning'] = I18n.t('views.campaign.you_abandoned_project') + @campaign.title
+		redirect_to campaigns_user_studio_creator_studio_path(@user.username)
+	end
+
+	def delete
+		if @campaign.video
+			@campaign.video.update(
+				deleted: true,
+				deleted_at: Time.now
+			)
+		end
+		@campaign.update(
+			deleted: true,
+			deleted_at: Time.now
+		)
+		redirect_to campaigns_user_studio_creator_studio_path(@user.username)
 	end
 
 protected
@@ -247,7 +336,7 @@ protected
 
 	def resolve_layout
 		case action_name
-		when "new","application"
+		when "new","application", "completed"
 		  "studio_fullwidth"
 		else
 		  "studio"
@@ -255,7 +344,7 @@ protected
 	end
 
 	def campaign_params
-		params.require(:campaign).permit(:user_id, :category, :title, :description, :sub_category, :tag_list, :country, :currency, :duration, :ratafirer, :estimated_delivery,:_destroy, :content, :image,:funding_type )
+		params.require(:campaign).permit(:user_id, :category, :title, :description, :sub_category, :tag_list, :country, :currency, :duration, :ratafirer, :estimated_delivery,:_destroy, :content, :image,:funding_type, :direct_upload_url, :content_updated_at )
 	end
 
 	def fetch_campaign_params

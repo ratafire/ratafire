@@ -9,7 +9,7 @@ class Majorpost < ActiveRecord::Base
     friendly_id :uuid
 
     #---------ActsasTaggable--------
-    acts_as_taggable
+    acts_as_taggable_on :tags, :categories, :sub_categories
 
     #--------Track activities--------
     include PublicActivity::Model

@@ -27,7 +27,9 @@ var elem = document.querySelector('.switchery'),
             $('#editor-submition').val('<%= t 'views.utilities.editor.post_update' %>').removeClass('bg-green').addClass('btn-blue').removeAttr("data-confirm");
         }    
     });
-if ($('#<%= @user.active_campaign.uuid %>-paid-creation').val() == true ){
-	$('#editor-submition').val('<%= t paid_update("Art") %>').removeClass('btn-blue').addClass('bg-green').attr("data-confirm","<%= t 'views.utilities.editor.are_you_sure_to_get_paid' %>");
-}
+<% if @user.active_campaign %>
+	if ($('#<%= @user.active_campaign.uuid %>-paid-creation').val() == true ){
+		$('#editor-submition').val('<%= t paid_update("Art") %>').removeClass('btn-blue').addClass('bg-green').attr("data-confirm","<%= t 'views.utilities.editor.are_you_sure_to_get_paid' %>");
+	}
+<% end %>
 </script>

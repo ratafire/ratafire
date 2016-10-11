@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160717042225) do
+ActiveRecord::Schema.define(version: 20160823041258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -410,12 +410,12 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.boolean  "published"
     t.datetime "published_at"
     t.datetime "expiration"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.string   "sub_category"
     t.string   "country"
     t.string   "city"
-    t.integer  "duration",                default: 1
+    t.integer  "duration",                                         default: 1
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -424,7 +424,7 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.string   "transcript_content_type"
     t.integer  "transcript_file_size"
     t.datetime "transcript_updated_at"
-    t.boolean  "ratafirer",               default: false
+    t.boolean  "ratafirer",                                        default: false
     t.boolean  "recipient"
     t.string   "locale"
     t.string   "currency"
@@ -434,6 +434,18 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.boolean  "abandoned"
     t.datetime "abandoned_at"
     t.datetime "applied_at"
+    t.datetime "due"
+    t.boolean  "expiration_queued"
+    t.boolean  "expired"
+    t.datetime "expired_at"
+    t.datetime "expiration_queued_at"
+    t.decimal  "accumulated_total",       precision: 10, scale: 2, default: 0.0
+    t.decimal  "accumulated_receive",     precision: 10, scale: 2, default: 0.0
+    t.decimal  "accumulated_fee",         precision: 10, scale: 2, default: 0.0
+    t.decimal  "accumulated_ratafire",    precision: 10, scale: 2, default: 0.0
+    t.string   "direct_upload_url"
+    t.boolean  "processed",                                        default: false, null: false
+    t.datetime "content_updated_at"
   end
 
   create_table "cards", id: :bigserial, force: :cascade do |t|
@@ -1367,6 +1379,7 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.datetime "updated_at",                                      null: false
     t.boolean  "transacted"
     t.datetime "transacted_at"
+    t.string   "status"
   end
 
   create_table "orders", id: :bigserial, force: :cascade do |t|
@@ -1887,14 +1900,15 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.integer  "subscription_record_id"
     t.boolean  "default"
     t.boolean  "shipping_paid"
-    t.boolean  "status"
+    t.string   "status"
     t.string   "tracking_number"
     t.string   "shipping_company"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.string   "uuid"
     t.string   "shipping_address_id"
-    t.boolean  "paid",                   default: false
+    t.boolean  "paid",                                            default: false
+    t.decimal  "amount",                 precision: 10, scale: 2, default: 0.0
   end
 
   create_table "reward_translations", force: :cascade do |t|
@@ -1909,23 +1923,42 @@ ActiveRecord::Schema.define(version: 20160717042225) do
   add_index "reward_translations", ["locale"], name: "index_reward_translations_on_locale", using: :btree
   add_index "reward_translations", ["reward_id"], name: "index_reward_translations_on_reward_id", using: :btree
 
+  create_table "reward_uploads", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "reward_id"
+    t.integer  "campaign_id"
+    t.string   "uuid"
+    t.integer  "count"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "package_file_name"
+    t.string   "package_content_type"
+    t.integer  "package_file_size"
+    t.datetime "package_updated_at"
+    t.string   "direct_upload_url"
+    t.boolean  "skip_everafter"
+    t.boolean  "processed",            default: false, null: false
+  end
+
   create_table "rewards", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "campaign_id"
-    t.decimal  "amount",               precision: 10, scale: 2
+    t.decimal  "amount",                                  precision: 10, scale: 2
     t.text     "description"
     t.string   "title"
     t.boolean  "limited"
     t.integer  "quantity"
     t.boolean  "deleted"
     t.datetime "deleted_at"
-    t.integer  "backers",                                       default: 0
+    t.integer  "backers",                                                          default: 0
     t.integer  "month"
     t.integer  "year"
     t.datetime "estimated_delivery"
     t.string   "shipping"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
+    t.datetime "created_at",                                                                       null: false
+    t.datetime "updated_at",                                                                       null: false
     t.string   "package_file_name"
     t.string   "package_content_type"
     t.integer  "package_file_size"
@@ -1935,16 +1968,26 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.boolean  "active"
-    t.boolean  "in_stock",                                      default: false
+    t.boolean  "in_stock",                                                         default: false
     t.string   "download_url"
     t.datetime "due"
-    t.decimal  "received",             precision: 10, scale: 2, default: 0.0
+    t.decimal  "received",                                precision: 10, scale: 2, default: 0.0
     t.string   "uuid"
     t.string   "goal_title"
-    t.decimal  "goal",                 precision: 10, scale: 2, default: 0.0
+    t.decimal  "goal",                                    precision: 10, scale: 2, default: 0.0
     t.boolean  "intro"
     t.string   "currency"
     t.string   "direct_upload_url"
+    t.boolean  "uploaded"
+    t.datetime "uploaded_at"
+    t.boolean  "expiration_queued"
+    t.boolean  "expired"
+    t.datetime "expired_at"
+    t.datetime "expiration_queued_at"
+    t.boolean  "estimated_delivery_expired"
+    t.boolean  "estimated_delivery_expired_at"
+    t.datetime "estimated_delivery_expiration_queued_at"
+    t.boolean  "estimated_delivery_expiration_queued"
   end
 
   create_table "secrets", id: :bigserial, force: :cascade do |t|
@@ -1997,6 +2040,38 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.datetime "deleted_at"
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
+  end
+
+  create_table "shipping_orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.decimal  "amount",               precision: 10, scale: 2, default: 0.0
+    t.boolean  "transacted"
+    t.datetime "transacted_at"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "count"
+    t.string   "uuid"
+    t.string   "status"
+    t.string   "currency"
+    t.string   "city"
+    t.string   "country"
+    t.string   "line1"
+    t.string   "line2"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "postal_code"
+    t.string   "state"
+    t.integer  "reward_id"
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.string   "reward_title"
+    t.integer  "reward_receiver_id"
+    t.string   "name"
+    t.datetime "due"
+    t.boolean  "expiration_queued"
+    t.boolean  "expired"
+    t.datetime "expired_at"
+    t.datetime "expiration_queued_at"
   end
 
   create_table "shippings", force: :cascade do |t|
@@ -2215,6 +2290,23 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.string   "campaign_funding_type"
   end
 
+  create_table "tag_images", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.string   "uuid"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.boolean  "processed",          default: false, null: false
+    t.string   "direct_upload_url"
+    t.text     "description"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "name"
+  end
+
   create_table "tag_relationships", id: :bigserial, force: :cascade do |t|
     t.integer  "user_id",    limit: 8
     t.integer  "tag_id",     limit: 8
@@ -2238,6 +2330,8 @@ ActiveRecord::Schema.define(version: 20160717042225) do
   create_table "tags", id: :bigserial, force: :cascade do |t|
     t.text    "name"
     t.integer "taggings_count", limit: 8, default: 0
+    t.text    "description"
+    t.string  "uuid"
   end
 
   add_index "tags", ["name"], name: "idx_17275_index_tags_on_name", unique: true, using: :btree
@@ -2358,6 +2452,9 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.integer  "transfer_id",             limit: 8
     t.integer  "user_id"
     t.string   "transaction_type"
+    t.integer  "order_id"
+    t.integer  "shipping_order_id"
+    t.integer  "reward_id"
   end
 
   create_table "transfer_subsets", force: :cascade do |t|
@@ -2609,6 +2706,17 @@ ActiveRecord::Schema.define(version: 20160717042225) do
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree
 
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+
   create_table "video_images", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "majorpost_id"
@@ -2667,6 +2775,8 @@ ActiveRecord::Schema.define(version: 20160717042225) do
     t.string   "uuid"
     t.integer  "campaign_id"
     t.string   "locale"
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
   end
 
   add_index "videos", ["processed"], name: "idx_17408_index_videos_on_processed", using: :btree

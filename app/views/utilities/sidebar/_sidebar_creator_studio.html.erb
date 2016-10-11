@@ -79,17 +79,26 @@
 							<i class="icon-gift"></i> <span><%= t 'views.creator_studio.menu.rewards'%></span>
 						<% end %>
 						<ul>
-							<li>
-								<a>
+							<li id="rewards-new-sidebarsubactive">
+								<%= link_to new_user_studio_rewards_path(current_user.username) do %>
 									<%= t 'views.creator_studio.rewards.new_reward'%>
-								</a>
-							</li>
-							<li id="creator_studios-rewards-sidebarsubactive">
-								<%= link_to rewards_user_studio_creator_studio_path(current_user.username) do %>
-									<%= t 'views.creator_studio.rewards.all_rewards'%>
 								<% end %>
 							</li>
+							<% if current_user.rewards.count > 0 %>
+								<li id="creator_studios-rewards-sidebarsubactive">
+									<%= link_to rewards_user_studio_creator_studio_path(current_user.username) do %>
+										<%= t 'views.creator_studio.rewards.all_rewards'%>
+									<% end %>
+								</li>
+							<% end %>
 							<li class="navigation-divider"></li>
+							<% if current_user.reward_receivers.count > 0 %>
+								<li id="rewards-my_rewards-sidebarsubactive">
+									<%= link_to my_rewards_user_studio_rewards_path(current_user.username) do %>
+										<%= t 'views.creator_studio.menu.my_rewards'%>
+									<% end %>
+								</li>
+							<% end %>
 							<li id="shipping_addresses-my_mailing_address-sidebarsubactive">
 								<%= link_to my_mailing_address_user_studio_shipping_addresses_path(current_user.username) do %>
 									<%= t 'views.creator_studio.rewards.my_mailing_address'%>
@@ -104,7 +113,7 @@
 						<ul>
 							<li id="creator_studios-notifications-sidebarsubactive">
 								<%= link_to notifications_user_studio_creator_studio_path(current_user.username) do %>
-									<%= t 'views.creator_studio.notifications.notifications'%>
+									<%= t 'views.creator_studio.community.notifications'%>
 								<% end %>
 							</li>
 						</ul>
@@ -112,7 +121,7 @@
 					<li>
 						<a href="#"><i class="icon-wallet"></i> <span><%= t 'views.creator_studio.menu.wallet'%></span></a>
 						<ul>
-							<% if current_user.order %>
+							<% if current_user.order && current_user.try(:order).try(:status) != 'Started' %>
 								<li id="wallets-upcoming-sidebaractive">
 									<%= link_to upcoming_user_studio_wallets_path(current_user.username) do %>
 										<%= t 'views.creator_studio.menu.upcoming'%>

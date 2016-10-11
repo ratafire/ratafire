@@ -1,0 +1,90 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+    <%= render 'utilities/sidebar/sidebar_admin'%>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="content">
+    <div class="row">
+        <!-- .col -->
+        <div class="col-md-4 pr-20 pl-20" id="aside">
+            <div class="wrapper bg b-b">
+              <h3 class="m-n font-thin"><%= t 'views.admin.content.tags.tags' %></h3>
+            </div>
+            <div class="wrapper" id="tag-holder-outter">
+                <div id="tag-holder-inner">
+                    <%= render partial:'admin/tags/form_tags', locals: {user: @user, tag: @tag}%>
+                </div>
+            </div>
+        </div>
+        <!-- /.col -->
+        <!-- .col -->
+        <div class="col col-md-8">
+            <div class="wrapper">
+                <div class="panel panel-blue">
+                    <div class="panel-heading">
+                        <h6 class="panel-title text-thin"><%= t 'views.admin.content.tags.tags' %></h6>
+                    </div>
+                    <table id="tags" class="table datatable-basic responsive no-wrap" data-source="<%= index_admin_tags_path(format: "json") %>">
+                        <thead>
+                          <tr>
+                            <th  style="width:3%"><%= t 'views.admin.culture.historical_quotes.id' %></th>
+                            <th  style="width:3%"></th>
+                            <th  style="width:15%"><%= t 'views.admin.content.tags.tag_name' %></th>
+                            <th  style="width:20%"><%= t 'views.admin.content.tags.description' %></th>
+                            <th  style="width:5%"><%= t 'views.admin.content.tags.tagged' %></th>
+                            <th  style="width:5%"><%= t 'views.admin.content.tags.followers' %></th>
+                            <th  style="width:10%"><%= t 'views.utilities.editor.edit' %></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- end.wrapper-->
+        <!-- /.col -->            
+        </div>
+    </div>
+</div>    
+<script type="text/javascript">
+
+    // Setting datatable defaults
+    $.extend( $.fn.dataTable.defaults, {
+        autoWidth: false,
+        columnDefs: [{ 
+            orderable: false,
+            width: '100px'
+        }],
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        language: {
+            search: '<span>Filter:</span> _INPUT_',
+            lengthMenu: '<span>Show:</span> _MENU_',
+            paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+        },
+        drawCallback: function () {
+            $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
+        },
+        preDrawCallback: function() {
+            $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
+        }
+    });
+    $('#tags').DataTable({
+        responsive: true,
+        sPaginationType: "full_numbers",
+        "language": {
+            "url": "/translation/dataTable/<%= I18n.locale %>.json"
+        },
+        bProcessing: true,
+        bServerSide: true,
+        sAjaxSource: $('#tags').data('source')
+    });
+    $(window).on('load page:render', function() { 
+        // Enable Select2 select for the length option
+        $('.dataTables_length select').select2({
+            minimumResultsForSearch: Infinity,
+            width: 'auto'
+        });    
+    });
+</script>

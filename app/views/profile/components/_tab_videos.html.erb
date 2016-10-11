@@ -1,0 +1,32 @@
+<div class="pb-20">
+	<% if video.external != "" && video.external != nil %>
+		<!-- External Video-->
+		<% if video.youtube_vimeo == true %>
+			<!-- Youtube Video -->
+			<div class="video-container mb-20">
+				<iframe src="https://www.youtube.com/embed/<%= video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+			</div>
+		<% else %>
+			<!-- Vimeo Video -->
+			<div class="video-container mb-20">
+				<iframe src="//player.vimeo.com/video/<%= video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+			</div>
+		<% end %>
+	<% else %>
+		<!-- Internal Video -->
+		<video oncontextmenu="return false;" id="<%= video.id %>_internal_video" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity  mb-20" controls
+	 		preload="none" width="auto" height="auto" poster="<% if video.video_image %><%= video.video_image.image(:preview800) %><% else %><% if video.encoded_state == 'finished' %><%= video.thumbnail(:preview800) %><% else %>/assets/editor/rainbow-blur3.jpg<% end %><% end %>"
+	 		data-setup='{}'>
+	  		<source src="<%= video.output_url_mp4 %>" type='video/mp4'>
+	  		<source src="<%= video.output_url %>" type='video/webm'>
+	  		<p class="vjs-no-js">
+	    		<%= t 'views.utilities.editor.view_video'%>
+	  		</p>
+		</video>	
+	<% end %>
+</div>
+<script type="text/javascript">
+    videojs("<%= video.id %>_internal_video", {}, function(){
+    // Player (this) is initialized and ready.
+    });
+</script>

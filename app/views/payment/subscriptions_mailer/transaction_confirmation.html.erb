@@ -8,7 +8,11 @@
 	<%= @subscriber.email %>
 <% end %>
 <% content_for :form do %>
-	<%= render partial: 'payment/subscriptions_mailer/transaction_form', collection: @transaction_subsets, :as => :transaction %>
+	<% if @transaction.transaction_type == 'Shipping' %>
+		<%= render partial: 'payment/subscriptions_mailer/transaction_shipping_form', locals: {transaction: @transaction} %>
+	<% else %>
+		<%= render partial: 'payment/subscriptions_mailer/transaction_form', collection: @transaction_subsets, :as => :transaction %>
+	<% end %>
 <% end %>
 <% content_for :total do %>
 	<%= currency_signs(@transaction.currency)%><%= @transaction.total %>

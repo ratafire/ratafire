@@ -166,7 +166,7 @@ $(function() {
         $("#campaign-wizard").trigger('submit.rails');
     }); 
     $('.stepy-navigator').prepend(
-                                '<button class=\"btn bg-green\">\
+                                '<%= link_to delete_user_studio_campaigns_path(@campaign.user.id, @campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_delete_project')}, method: :delete do %><span class="pull-left btn btn-default"><%= t 'views.utilities.editor.delete' %></span><% end %><button class=\"btn bg-green\">\
                             <%= t 'views.utilities.editor.save' %>\
                         </button>'
         );    
@@ -175,41 +175,7 @@ $(function() {
     //Profile editor
     initiate_profile_editor();
     //Video js
-    initiate_videojs();     
-
-    //Upload video
-    $('#s3_uploader_video').S3Uploader(
-      { 
-        remove_completed_progress_bar: false,
-        dropZone: $('#video-dropzone'),
-        progress_bar_target: $('#video-progress-case'),
-        additional_data: { "video[campaign_id]":$('#s3_uploader_video').data('campaign-id')},
-    },"video"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
-    $('#s3_uploader_video').bind('s3_upload_failed', function(e, content) {
-        return alert(content.filename + ' failed to upload');
-    });   
-    $('#s3_uploader_video').bind('s3_uploads_start', function(e, content) {
-        $('#audio-embed-block').hide();
-        $('#s3_direct_uploader_video').removeClass('mb-20');
-        turn_lights_on('#above-blockui');
-    });  
-    $('#s3_uploader_video').bind('s3_upload_complete', function(e, content) {
-        $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
-    });    
-    //Upload video image
-    $('#s3_uploader_video_image').S3Uploader(
-      { 
-        remove_completed_progress_bar: false,
-        dropZone: $('#video-image-dropzone'),
-        progress_bar_target: $('#video-image-progress-case'),
-        additional_data: { "video_image[campaign_id]":$('#s3_uploader_video').data('campaign-id')},
-    },"artwork"); //ratafire_file_type,content_temp_value,content_temp_video_value,tags_temp_video_value
-    $('#s3_uploader_video_image').bind('s3_upload_failed', function(e, content) {
-      return alert(content.filename + ' failed to upload');
-    });   
-    $('#s3_uploader_video_image').bind('s3_upload_complete', function(e, content) {
-      $('#progress-words').html("<i class=\"icon-spinner2 spinner text-white\"></i> Processing...meow");
-    });   
+    initiate_videojs();        
 
     $(document).on('load page:load', function(){
         //Price tag

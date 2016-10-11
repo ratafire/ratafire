@@ -6,3 +6,5 @@ $("html").velocity("scroll", {});
 	$('#apply-panel').prepend("<%= j render(:partial => 'studio/campaigns/wizard_video_preview', :locals => {:video => @campaign.video}) %>");
 	initiate_videojs();  
 <% end %>
+$('#campaign-content-editor-edit').remove();
+$('#campaign-content-holder-edit').append("<%= j render(:partial => 'studio/campaigns/update_content', locals: {user: @user, campaign: @campaign}) %>");

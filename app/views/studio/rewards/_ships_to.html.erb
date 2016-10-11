@@ -1,0 +1,9 @@
+<!-- Ships to -->
+<div class=""><%= t 'mailer.payment.shipping_order.ships_to'%>:</div>
+<div><%= shipping_address.name %></div>
+<div><%= shipping_address.line1 %>, <%= shipping_address.city %></div>
+<% if shipping_address.state %>
+	<div><%= shipping_address.state %></div>
+<% end %>
+<div><%= shipping_address.postal_code %></div>
+<div class="mt-10" style="width:200px;"><%= country_select("user", "country", { selected:shipping_address.country }, { class: 'form-control',disabled:"disabled" }) %></div>
