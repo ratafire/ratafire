@@ -35,12 +35,40 @@
 			<%= user.bio %>
 		</p>
 		<!-- Website -->
-		<% if user.website %>
+		<% if user.website && 1 == 0 %>
 	        <%= link_to user.website, target: "_blank" do %>
 	                <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
 	                    <i class="huaxia huaxia-link text-green-400"></i>
 	                </div> 
 	        <% end %> 
-	    <% end %> 
+	    <% end %> 	    
+	    <!-- Like User -->
+	    <div id='<%= user.uid %>-user-like-holder-about'>
+			<% if user_signed_in? %>
+				<% if current_user == user %>
+				    <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
+				        <i class="huaxia huaxia-guanzhu1 text-danger inline-block animated rubberBand"></i>
+				    </div>
+				<% else %>
+					<% if is_liker?(current_user.id, 'User', user.id) %>
+						<!-- current_user likes user -->
+						<!-- if friend -->
+						<% if current_user.is_friend?(user.id) %>
+							<%= render partial:'content/likes/unfriend_user_about', locals: {user: user} %>
+						<% else %>
+							<%= render partial:'content/likes/unlike_user_about', locals: {user: user} %>
+						<% end %>
+					<% else %>
+						<%= render partial:'content/likes/like_user_about', locals: {user: user} %>
+					<% end %>
+				<% end %>
+			<% else %>
+				<%= link_to new_user_registration_path do %>
+				    <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
+				        <i class="huaxia huaxia-guanzhu text-danger inline-block animated rubberBand"></i>
+				    </div>
+				<% end %>
+			<% end %>
+		</div>
 	</div><!-- end .panel-body -->
 </div>

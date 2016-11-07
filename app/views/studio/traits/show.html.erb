@@ -1,0 +1,378 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, @user.preferred_name) %>
+<!-- Page Specific JS -->
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="row">
+
+	<!-- Col 1 -->
+	<div class="col-lg-2 col-md-3 col-sm-4">
+		<!-- Concept Artist -->
+		<%= link_to create_user_studio_traits_path(@user.uid,1), method: :post, remote: true do %>
+			<div id="trait-1-outter" class="panel text-center bg-white-transparent nowrap">
+				<div class="panel-body">
+					<div id="trait-1-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-concept-artist text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.concept_artist' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Bookworm -->
+		<%= link_to create_user_studio_traits_path(@user.uid,7), method: :post, remote: true do %>
+			<div id="trait-7-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-7-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-bookworm text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.bookworm' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Geek -->
+		<%= link_to create_user_studio_traits_path(@user.uid,13), method: :post, remote: true do %>
+			<div id="trait-13-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-13-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-Geek text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.geek' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Vegetarian -->
+		<%= link_to create_user_studio_traits_path(@user.uid,19), method: :post, remote: true do %>
+			<div id="trait-19-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-19-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-vegetarian text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.vegetarian' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Resolute -->
+		<%= link_to create_user_studio_traits_path(@user.uid,25), method: :post, remote: true do %>
+			<div id="trait-25-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-25-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-resolute text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.resolute' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>				
+	</div>
+
+	<!-- Col 2 -->
+	<div class="col-lg-2 col-md-3 col-sm-4">
+		<!-- Gamer -->
+		<%= link_to create_user_studio_traits_path(@user.uid,2), method: :post, remote: true do %>
+			<div id="trait-2-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-2-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-gamer text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.gamer' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Knowledgeable -->
+		<%= link_to create_user_studio_traits_path(@user.uid,8), method: :post, remote: true do %>
+			<div id="trait-8-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-8-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-knowledgeable text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.knowledgeable' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Poet -->
+		<%= link_to create_user_studio_traits_path(@user.uid,14), method: :post, remote: true do %>
+			<div id="trait-14-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-14-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-poet text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.poet' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Eco-friendly -->
+		<%= link_to create_user_studio_traits_path(@user.uid,20), method: :post, remote: true do %>
+			<div id="trait-20-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-20-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-eco-friendly text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.eco_friendly' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Skeptic -->
+		<%= link_to create_user_studio_traits_path(@user.uid,26), method: :post, remote: true do %>
+			<div id="trait-26-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-26-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-skeptic text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.skeptic' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>						
+	</div>
+
+	<!-- Col 3 -->
+	<div class="col-lg-2 col-md-3 col-sm-4">
+		<!-- Artistic -->
+		<%= link_to create_user_studio_traits_path(@user.uid,3), method: :post, remote: true do %>
+			<div id="trait-3-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-3-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-artistic text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.artistic' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Ambitious -->
+		<%= link_to create_user_studio_traits_path(@user.uid,9), method: :post, remote: true do %>
+			<div id="trait-9-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-9-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-ambitious text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.ambitious' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Writer -->
+		<%= link_to create_user_studio_traits_path(@user.uid,15), method: :post, remote: true do %>
+			<div id="trait-15-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-15-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-writer text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.writer' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Spiritual -->
+		<%= link_to create_user_studio_traits_path(@user.uid,21), method: :post, remote: true do %>
+			<div id="trait-21-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-21-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-spiritual text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.spiritual' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>		
+		<!-- Gym-goer -->
+		<%= link_to create_user_studio_traits_path(@user.uid,27), method: :post, remote: true do %>
+			<div id="trait-27-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-27-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-gym-goer text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.gym_goer' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>							
+	</div>
+
+	<!-- Col 4 -->
+	<div class="col-lg-2 col-md-3 col-sm-4">
+		<!-- Computer Whiz -->
+		<%= link_to create_user_studio_traits_path(@user.uid,4), method: :post, remote: true do %>
+			<div id="trait-4-outter" class="panel bg-white-transparent text-center nowrap">
+				<div class="panel-body">
+					<div id="trait-4-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-computer-whiz text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.computer_whiz' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Composer -->
+		<%= link_to create_user_studio_traits_path(@user.uid,10), method: :post, remote: true do %>
+			<div id="trait-10-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-10-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-composer text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.composer' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>	
+		<!-- athletic -->
+		<%= link_to create_user_studio_traits_path(@user.uid,16), method: :post, remote: true do %>
+			<div id="trait-16-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-16-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-athletic text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.athletic' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>	
+		<!-- Traditionalist -->
+		<%= link_to create_user_studio_traits_path(@user.uid,22), method: :post, remote: true do %>
+			<div id="trait-22-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-22-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-traditionalist text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.traditionalist' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Pianist -->
+		<%= link_to create_user_studio_traits_path(@user.uid,28), method: :post, remote: true do %>
+			<div id="trait-28-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-28-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-pianist text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.pianist' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>					
+	</div>
+
+	<!-- Col 5 -->
+	<div class="col-lg-2 col-md-3 col-sm-4">
+		<!-- Musician -->
+		<%= link_to create_user_studio_traits_path(@user.uid,5), method: :post, remote: true do %>
+			<div id="trait-5-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-5-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-musician text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.musician' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Workaholic -->
+		<%= link_to create_user_studio_traits_path(@user.uid,11), method: :post, remote: true do %>
+			<div id="trait-11-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-11-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-workaholic text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.workaholic' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Outdoorsy -->
+		<%= link_to create_user_studio_traits_path(@user.uid,17), method: :post, remote: true do %>
+			<div id="trait-17-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-17-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-outdoorsy text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.outdoorsy' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>	
+		<!-- Foodie -->
+		<%= link_to create_user_studio_traits_path(@user.uid,23), method: :post, remote: true do %>
+			<div id="trait-23-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-23-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-foodie text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.foodie' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Conversationalist -->
+		<%= link_to create_user_studio_traits_path(@user.uid,29), method: :post, remote: true do %>
+			<div id="trait-29-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-29-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-conversationalist text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.conversationalist' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>					
+	</div>
+
+	<!-- Col 6 -->
+	<div class="col-lg-2 col-md-3 col-sm-4">
+		<!-- Avant Garde -->
+		<%= link_to create_user_studio_traits_path(@user.uid,6), method: :post, remote: true do %>
+			<div id="trait-avant-garde-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-avant-garde-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-avant-garde text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.avant_garde' %></div>
+					</div>
+				</div>
+			</div>	
+		<% end %>
+		<!-- Researcher -->
+		<%= link_to create_user_studio_traits_path(@user.uid,12), method: :post, remote: true do %>
+			<div id="trait-6-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-6-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-researcher text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.researcher' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Indoorsy -->
+		<%= link_to create_user_studio_traits_path(@user.uid,18), method: :post, remote: true do %>
+			<div id="trait-18-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-18-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-indoorsy text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.indoorsy' %></div>
+					</div>
+				</div>
+			</div>	
+		<% end %>
+		<!-- Animal Lover -->
+		<%= link_to create_user_studio_traits_path(@user.uid,24), method: :post, remote: true do %>
+			<div id="trait-24-outter" class="panel bg-white-transparent text-center nowrap">
+				<div class="panel-body">
+					<div id="trait-24-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-animal-lover text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.animal_lover' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<!-- Perfectionist -->
+		<%= link_to create_user_studio_traits_path(@user.uid,30), method: :post, remote: true do %>
+			<div id="trait-30-outter" class="panel bg-white-transparent text-center">
+				<div class="panel-body">
+					<div id="trait-30-inner" class="bg-rainbow text-rainbow">
+					    <div class="traits trait-perfectionist text-large"></div>
+					    <div class="mt-5"><%= t 'views.creator_studio.community.trait.perfectionist' %></div>
+					</div>
+				</div>
+			</div>
+		<% end %>					
+	</div>
+</div>
+<script type="text/javascript">
+	<% if @user.traits.count >= 1 %>
+		$('#trait-<%= @user.traits.last.id %>-outter').removeClass('bg-white-transparent');
+		$('#trait-<%= @user.traits.last.id %>-outter').addClass('bg-rainbow');
+		$('#trait-<%= @user.traits.last.id %>-inner').removeClass('bg-rainbow text-rainbow');
+		<% if @user.traits.count >= 2 %>
+			$('#trait-<%= @user.traits.last(2)[0].id %>-outter').removeClass('bg-white-transparent');
+			$('#trait-<%= @user.traits.last(2)[0].id %>-outter').addClass('bg-rainbow');
+			$('#trait-<%= @user.traits.last(2)[0].id %>-inner').removeClass('bg-rainbow text-rainbow');
+			<% if @user.traits.count == 3 %>
+				$('#trait-<%= @user.traits.last(3)[0].id %>-outter').removeClass('bg-white-transparent');
+				$('#trait-<%= @user.traits.last(3)[0].id %>-outter').addClass('bg-rainbow');
+				$('#trait-<%= @user.traits.last(3)[0].id %>-inner').removeClass('bg-rainbow text-rainbow');
+			<% end %>
+		<% end %>
+	<% end %>
+</script>

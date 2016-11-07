@@ -1,0 +1,37 @@
+<div class="page-header">
+	<div class="page-header-content">
+		<div class="page-title text-grey">
+			<h2 class="text-thin" id="tag-follow-holder">
+				<img src="/assets/default/categories/art_preview256.jpg" class="img-circle img-lg mr-10"><%= t 'views.utilities.menu.art' %>
+			</h2>
+		</div>
+
+		<div class="heading-elements">
+			<div class="heading-btn-group text-thin">
+				<%= render 'explore/categories/header_buttons_right'%>
+			</div>
+		</div>
+	</div>
+	<!-- Tabs -->
+	<div class="row">
+		<div class="col-md-12 pl-30 pr-30 mt-5-">
+			<%= render 'explore/categories/sub_category_buttons_art'%>
+		</div>								
+	</div>
+</div>
+<div class="content" >
+	<!-- Activities -->
+	<div class="row pl-10 pr-10">
+		<div class="masonry">
+			<div id="like-pagination">
+				<%= render_activities(@activities, layout: :activity_liked) %>
+			</div>
+		</div>
+		
+		<div class="like-pagination">
+			<div id="like-pagination-old">
+				<%= will_paginate(@activities) %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+	<%= link_to backed_user_studio_community_path(current_user.uid), class:"btn btn-link btn-float has-text" do %><i class="huaxia huaxia-shui inline-block animated_hover text-blue text-large" data-action="jello"></i><% end %>
+	<%= link_to followed_user_studio_community_path(current_user.uid), class:"btn btn-link btn-float has-text" do %><i class="huaxia huaxia-guanzhu1 animated_hover text-blue text-medium"  data-action="jello"></i><% end %>
+	<%= link_to backed_user_studio_community_path(current_user.uid), class:"btn btn-link btn-float has-text" do %><i class="huaxia huaxia-faxianxuanzhong animated_hover text-blue" data-action="jello"></i><% end %>
+<% else %>
+<% end %>

@@ -14,19 +14,8 @@
                 <i class="ti-menu"></i>
             </div>
             <!-- Module-group Left-->  
-            <div class="text-grey-100 module-group left" style="width:200px;">
-                <%= t 'views.utilities.menu.back_the_next_top' %><% unless I18n.locale == :zh %>&nbsp<% end %>
-                <div class="slidingVertical">
-                    <span class="text-grey-100"><%= t 'views.utilities.menu.artist' %></span>
-                    <span class="text-grey-100"><%= t 'views.utilities.menu.musician' %></span>
-                    <span class="text-grey-100"><%= t 'views.utilities.menu.game_designer' %></span>
-                    <span class="text-grey-100"><%= t 'views.utilities.menu.writer' %></span>
-                    <span class="text-grey-100"><%= t 'views.utilities.menu.film_maker' %></span>
-                    <span class="text-grey-100"><%= t 'views.utilities.menu.mathematician' %></span>
-                    <span class="text-grey-100"><%= t 'views.utilities.menu.scientist' %></span>
-                    <span class="text-grey-100"><%= t 'views.utilities.menu.scholar' %></span>
-                    <span class="text-grey-100"><%= t 'views.utilities.menu.engineer' %></span>
-                </div>  
+            <div class="text-grey-100 module-group left" style="width:200px;margin-left: -20px;">
+                <%= t 'views.home.join' %><%= number_to_human(User.count, :format => '%n%u', :units => { :thousand => 'k' }) %> <%= t 'views.home.creators_and_fans' %>
             </div>
             <!-- Module-group Right-->
             <div class="module-group right">

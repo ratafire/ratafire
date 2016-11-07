@@ -1,0 +1,17 @@
+<%= link_to art_category_path do %><span id="categories-art-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.menu.all' %></span><% end %>	
+<%= link_to art_a_new_field_path do %><span id="categories-art_a_new_field-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.a_new_field' %></span><% end %>
+<%= link_to art_concept_art_path do %><span id="categories-art_concept_art-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.concept_art' %></span><% end %>
+<%= link_to art_3d_model_path do %><span id="categories-art_3d_model-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.3D_model' %></span><% end %>
+<%= link_to art_drawing_path do %><span id="categories-art_drawing-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.drawing' %></span><% end %>
+<%= link_to art_painting_path do %><span id="categories-art_painting-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.painting' %></span><% end %>
+<%= link_to art_architecture_path do %><span id="categories-art_architecture-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.architecture' %></span><% end %>
+<%= link_to art_interior_design_path do %><span id="categories-art_interior_design-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.interior_design' %></span><% end %>
+<%= link_to art_photography_path do %><span id="categories-art_photography-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.photography' %></span><% end %>
+<%= link_to art_graphic_design_path do %><span id="categories-art_graphic_design-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.graphic_design' %></span><% end %>
+<%= link_to art_sculpting_path do %><span id="categories-art_sculpting-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.sculpting' %></span><% end %>
+<%= link_to art_jewelry_design_path do %><span id="categories-art_jewelry_design-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.art.jewelry_design' %></span><% end %>
+<% link_to art_other_path do %><span id="categories-art_other-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.other' %></span><% end %>
+<script type="text/javascript">
+	$('#<%= controller_name %>-<%= action_name %>-btn').removeClass('btn-default');
+	$('#<%= controller_name %>-<%= action_name %>-btn').addClass('btn-blue');
+</script>

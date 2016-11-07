@@ -1,10 +1,23 @@
 <!-- Signup Form -->
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name),:html => {:class => 'signup-form signup-form--signup signup-framed', :id => 'homepage-signup-form'}) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name),:html => {:class => 'signup-form signup-form--signup signup-framed text-thin', :id => 'homepage-signup-form'}) do |f| %>
     <!-- Form Indications -->
     <div class="text-center">
         <img alt=t('views.utilities.menu.ratafire') src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>.png" style="height:40px;" />
     </div>
-    <div class="text-center text-grey-transparent mt-20 mb-20" style="font-size:18px;"><%= t 'views.home.join' %> <%= number_to_human(User.count, :format => '%n%u', :units => { :thousand => 'k' }) %> <%= t 'views.home.creators_and_fans' %></div>
+    <div class="text-center text-grey-transparent mt-20 mb-20" style="font-size:18px;">
+        <span style="margin-left:-60px;" class="text-thin"><%= t 'views.utilities.menu.back_the_next_top' %></span><% unless I18n.locale == :zh %>&nbsp<% end %>
+        <div class="slidingVertical">
+            <span class="text-grey-100"><%= t 'views.utilities.menu.artist' %></span>
+            <span class="text-grey-100"><%= t 'views.utilities.menu.musician' %></span>
+            <span class="text-grey-100"><%= t 'views.utilities.menu.game_designer' %></span>
+            <span class="text-grey-100"><%= t 'views.utilities.menu.writer' %></span>
+            <span class="text-grey-100"><%= t 'views.utilities.menu.film_maker' %></span>
+            <span class="text-grey-100"><%= t 'views.utilities.menu.mathematician' %></span>
+            <span class="text-grey-100"><%= t 'views.utilities.menu.scientist' %></span>
+            <span class="text-grey-100"><%= t 'views.utilities.menu.scholar' %></span>
+            <span class="text-grey-100"><%= t 'views.utilities.menu.engineer' %></span>
+        </div>              
+    </div>    
     <% if I18n.locale == :zh %>
         <!-- Last Name -->
         <%= f.text_field :firstname,placeholder:t('views.profile.settings.profile_settings.last_name'), class:"signup-input", style:"width:50%;float:left;border-radius: 0.5rem 0 0 0;" %>
@@ -21,7 +34,7 @@
     <!-- Password -->
     <%= f.password_field :password,placeholder:t('views.profile.settings.account_settings.password'), autocomplete: "off", class:"signup-input"%>
     <!-- Submit -->
-    <%= f.submit t('views.utilities.btn.sign_up'), class:"signup-input signup-input--submit", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
+    <%= f.submit t('views.utilities.btn.sign_up'), class:"signup-input signup-input--submit text-uppercase", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
     <!-- Switch Form -->
     <% if controller_name == 'home' %>
         <label for="toggle--login" id="homepage-login" class="signup-text signup-text--small signup-text--centered"><%= t 'views.home.not_new_log_in' %></label>

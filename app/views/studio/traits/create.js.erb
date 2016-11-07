@@ -1,0 +1,20 @@
+<% if @user.traits.count >= 1 %>
+	$('#trait-<%= @user.traits.last.id %>-outter').removeClass('bg-white-transparent');
+	$('#trait-<%= @user.traits.last.id %>-outter').addClass('bg-rainbow');
+	$('#trait-<%= @user.traits.last.id %>-inner').removeClass('bg-rainbow text-rainbow');
+	<% if @user.traits.count >= 2 %>
+		$('#trait-<%= @user.traits.last(2)[0].id %>-outter').removeClass('bg-white-transparent');
+		$('#trait-<%= @user.traits.last(2)[0].id %>-outter').addClass('bg-rainbow');
+		$('#trait-<%= @user.traits.last(2)[0].id %>-inner').removeClass('bg-rainbow text-rainbow');
+		<% if @user.traits.count == 3 %>
+			$('#trait-<%= @user.traits.last(3)[0].id %>-outter').removeClass('bg-white-transparent');
+			$('#trait-<%= @user.traits.last(3)[0].id %>-outter').addClass('bg-rainbow');
+			$('#trait-<%= @user.traits.last(3)[0].id %>-inner').removeClass('bg-rainbow text-rainbow');
+		<% end %>
+	<% end %>
+<% end %>
+<% if @deleted_tarit_id %>
+	$('#trait-<%= @deleted_tarit_id %>-outter').removeClass('bg-rainbow');
+	$('#trait-<%= @deleted_tarit_id %>-outter').addClass('bg-white-transparent');
+	$('#trait-<%= @deleted_tarit_id %>-inner').addClass('bg-rainbow text-rainbow');
+<% end %>

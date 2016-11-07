@@ -1,0 +1,13 @@
+<%= link_to videos_category_path do %><span id="categories-videos-btn" class="btn btn-blue btn-xs mt-5"><%= t 'views.utilities.menu.all' %></span><% end %>
+<%= link_to videos_a_new_field_path do %><span id="categories-videos_a_new_field-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.a_new_field' %></span><% end %>
+<%= link_to videos_gaming_path do %><span id="categories-videos_gaming-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.videos.gaming' %></span><% end %>
+<%= link_to videos_cg_path do %><span id="categories-videos_cg-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.videos.cg' %></span><% end %>
+<%= link_to videos_animation_path do %><span id="categories-videos_animation-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.videos.animation' %></span><% end %>
+<%= link_to videos_movies_path do %><span id="categories-videos_movies-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.videos.movies' %></span><% end %>
+<%= link_to videos_documentary_path do %><span id="categories-videos_documentary-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.videos.documentary' %></span><% end %>
+<%= link_to videos_tutorial_path do %><span id="categories-videos_tutorial-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.videos.tutorial' %></span><% end %>
+<%= link_to videos_other_path do %><span id="categories-videos_other-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.other' %></span><% end %>
+<script type="text/javascript">
+	$('#<%= controller_name %>-<%= action_name %>-btn').removeClass('btn-default');
+	$('#<%= controller_name %>-<%= action_name %>-btn').addClass('btn-blue');
+</script>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823041258) do
+ActiveRecord::Schema.define(version: 20161106025737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 20160823041258) do
     t.boolean  "published",                default: true
     t.string   "locale"
     t.boolean  "read"
+    t.string   "category"
+    t.string   "sub_category"
   end
 
   add_index "activities", ["owner_id", "owner_type"], name: "idx_16401_index_activities_on_owner_id_and_owner_type", using: :btree
@@ -2370,6 +2372,29 @@ ActiveRecord::Schema.define(version: 20160823041258) do
     t.integer  "level_5_id",    limit: 8
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "trait_relationships", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "user_id"
+    t.integer  "trait_id"
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "traits", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "trait_id"
+    t.string   "trait_name"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "zh_cn"
+    t.string   "uuid"
+    t.string   "trait_code"
   end
 
   create_table "transaction_subsets", force: :cascade do |t|

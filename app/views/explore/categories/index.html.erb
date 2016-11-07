@@ -1,6 +1,6 @@
 <!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
 <!-- Page Title -->
-<% provide(:title, @category.name.titleize) %>
+<% provide(:title, t('views.utilities.menu.explore')) %>
 <!-- Sidebar -->
 <% content_for :sidebar do %>
 	<% if user_signed_in? %>
@@ -13,6 +13,175 @@
 <% end %>
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <!-- Content Area -->
-<div class="content">
+	<!-- Page header -->
+	<div class="page-header">
+		<div class="page-header-content">
+			<div class="page-title text-grey">
+				<h2 class="text-thin" id="tag-follow-holder">
+					<%= t 'views.utilities.menu.categories' %>
+				</h2>
+			</div>
+
+			<div class="heading-elements">
+				<div class="heading-btn-group text-thin">
+					<%= render 'explore/categories/header_buttons_right'%>
+				</div>
+			</div>
+		</div>
+
+		<div class="breadcrumb-line breadcrumb-line-component text-thin">
+			<ul class="breadcrumb">
+				<li><a href="index.html"><%= t 'views.utilities.menu.explore' %></a></li>
+				<li><a href="gallery_titles.html"><%= t 'views.utilities.menu.categories' %></a></li>
+			</ul>
+
+			<ul class="breadcrumb-elements">
+				<li><a href="#"><i class="ti-paint-bucket position-left text-grey-300"></i></a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- /page header -->
+
+
+	<!-- Content area -->
+	<div class="content">
+
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<%= link_to art_category_path do %>
+					<div class="thumbnail">
+						<div class="thumb">
+							<img src="/assets/default/categories/art_preview600.jpg" alt="">
+						</div>
+
+						<div class="caption">
+							<h6 class="no-margin"><%= t 'views.utilities.menu.art' %></h6>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<%= link_to music_category_path do %>
+					<div class="thumbnail">
+						<div class="thumb">
+							<img src="/assets/default/categories/music_preview600.jpg" alt="">
+						</div>
+
+						<div class="caption">
+							<h6 class="no-margin"><%= t 'views.utilities.menu.music' %></h6>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<%= link_to games_category_path do %>
+					<div class="thumbnail">
+						<div class="thumb">
+							<img src="/assets/default/categories/games_preview600.jpg" alt="">
+						</div>
+
+						<div class="caption">
+							<h6 class="no-margin"><%= t 'views.utilities.menu.games' %></h6>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<%= link_to writing_category_path do %>			
+					<div class="thumbnail">
+						<div class="thumb">
+							<img src="/assets/default/categories/writing_preview600.jpg" alt="">
+						</div>
+
+						<div class="caption">
+							<h6 class="no-margin"><%= t 'views.utilities.menu.writing' %></h6>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<%= link_to videos_category_path do %>					
+					<div class="thumbnail">
+						<div class="thumb">
+							<img src="/assets/default/categories/videos_preview600.jpg" alt="">
+						</div>
+
+						<div class="caption">
+							<h6 class="no-margin"><%= t 'views.utilities.menu.videos' %></h6>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="thumbnail developing_categories">
+					<div class="thumb">
+						<img src="/assets/default/categories/math_preview600.jpg" alt="">
+					</div>
+
+					<div class="caption">
+						<h6 class="no-margin"><%= t 'views.utilities.menu.math' %></h6>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="thumbnail developing_categories">
+					<div class="thumb">
+						<img src="/assets/default/categories/science_preview600.jpg" alt="">
+					</div>
+
+					<div class="caption">
+						<h6 class="no-margin"><%= t 'views.utilities.menu.science' %></h6>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="thumbnail developing_categories">
+					<div class="thumb">
+						<img src="/assets/default/categories/humanity_preview600.jpg" alt="">
+					</div>
+
+					<div class="caption">
+						<h6 class="no-margin"><%= t 'views.utilities.menu.humanity' %></h6>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="thumbnail developing_categories">
+					<div class="thumb">
+						<img src="/assets/default/categories/engineering_preview600.jpg" alt="">
+					</div>
+
+					<div class="caption">
+						<h6 class="no-margin"><%= t 'views.utilities.menu.engineering' %></h6>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- /image grid -->
+	</div>
+	<!-- /content area -->
+
+<script type="text/javascript">
+    $('.developing_categories').block({message: null,overlayCSS: {
+    	backgroundColor: '#fff',
+    	opacity: 0.4,
+    	cursor: 'not-allowed'
+    },});	
+</script>
 	
-</div>

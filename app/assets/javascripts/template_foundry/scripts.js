@@ -10,6 +10,9 @@ var mr_firstSectionHeight,
 $(document).ready(function() { 
     "use strict";
 
+    //Dropdown
+    $('.dropdown-toggle').dropdown();
+
     // Smooth scroll to inner links
     
     $('.inner-link').each(function(){

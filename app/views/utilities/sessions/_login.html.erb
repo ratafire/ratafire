@@ -1,5 +1,5 @@
 <!-- Login Form -->
-<%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {:class => 'signup-form signup-form--login signup-framed'}) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {:class => 'signup-form signup-form--login signup-framed text-thin'}) do |f| %>
     <!-- Form Indications -->
     <div class="text-center">
         <img alt=t('views.utilities.menu.ratafire') src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>.png" style="height:40px;" />
@@ -10,9 +10,9 @@
     <!-- Password -->
     <%= f.password_field :password,placeholder:t('views.profile.settings.account_settings.password'), autocomplete: "off", class:"signup-input"%>
     <!-- Submit -->
-    <%= f.submit t('views.utilities.btn.log_in'), class:"signup-input signup-input--submit", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
+    <%= f.submit t('views.utilities.btn.log_in'), class:"signup-input signup-input--submit text-uppercase", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
     <!-- Switch Form -->
     <% if controller_name == 'home' %>
-        <label for="toggle--signup" id="homepage-signup" class="signup-text signup-text--small signup-text--centered"><%= t 'views.home.new_sign_up' %></label>
+        <label for="toggle--signup" id="homepage-signup" class="signup-text signup-text--small signup-text--centered text-uppercase"><%= t 'views.home.new_sign_up' %></label>
     <% end %>
 <% end %><!-- end form_for resource -->

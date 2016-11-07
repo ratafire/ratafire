@@ -131,6 +131,8 @@ class Studio::CampaignsController < ApplicationController
 			end
 		end
 		@campaign.update(campaign_params)
+		#Update activity
+		update_campaign_activity
 		if @campaign.sub_category
 			@campaign.sub_category_list = @campaign.sub_category
 			@campaign.save
@@ -334,7 +336,7 @@ protected
 		redirect_to application_user_studio_campaigns_path(@user.id, @campaign.id)
 	end
 
-	def resolve_layout
+	def resolve_layoutœ
 		case action_name
 		when "new","application", "completed"
 		  "studio_fullwidth"
@@ -363,6 +365,17 @@ protected
 		unless @user.confirmed_at
 			redirect_to(:back)
 			flash[:error] = t('flash.user.email_not_confirmed')
+		end
+	end
+
+	def update_campaign_activity
+		if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@campaign.id,'Campaign')
+			@activity.update(
+				category: @majorpost.category,
+				sub_category: @majorpost.sub_category,
+				published: @campaign.published,
+				tag_list: @campaign.tag_list
+			)
 		end
 	end
 

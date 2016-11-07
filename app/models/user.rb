@@ -80,6 +80,11 @@ class User < ActiveRecord::Base
         :through => :inverse_friendships, 
         :source => :user        
 
+    #--------Traits---------
+    has_many :trait_relationships, :class_name => 'TraitRelationship'
+    has_many :traits, 
+        :through => :trait_relationships
+
     #--------Followers---------
     has_many :liked_users, foreign_key: "liked_id", class_name: "LikedUser"
     has_many :likers, through: :liked_users, source: :liker, class_name: 'User'

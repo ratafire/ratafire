@@ -1,0 +1,5 @@
+<%= link_to user_user_content_likes_path(current_user.id, user.id), remote: true,method: :delete, id:user.uid+'-user-liked' do %>
+    <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
+        <i class="huaxia huaxia-guanzhu1 text-danger inline-block animated rubberBand"></i>
+    </div>
+<% end %>

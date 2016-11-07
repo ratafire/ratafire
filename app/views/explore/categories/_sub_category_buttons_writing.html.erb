@@ -1,0 +1,13 @@
+<%= link_to writing_category_path do %><span id="categories-writing-btn" class="btn btn-blue btn-xs mt-5"><%= t 'views.utilities.menu.all' %></span><% end %>	
+<%= link_to writing_a_new_field_path do %><span id="categories-writing_a_new_field-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.a_new_field' %></span><% end %>
+<%= link_to writing_science_fiction_path do %><span id="categories-writing_science_fiction-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.writing.science_fiction' %></span><% end %>
+<%= link_to writing_fantasy_path do %><span id="categories-writing_fantasy-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.writing.fantasy' %></span><% end %>
+<%= link_to writing_review_path do %><span id="categories-writing_review-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.writing.review' %></span><% end %>
+<%= link_to writing_poetry_path do %><span id="categories-writing_poetry-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.writing.poetry' %></span><% end %>
+<%= link_to writing_non_fiction_path do %><span id="categories-writing_non_fiction-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.writing.non_fiction' %></span><% end %>
+<%= link_to writing_fiction_path do %><span id="categories-writing_fiction-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.writing.fiction' %></span><% end %>
+<%= link_to writing_other_path do %><span id="categories-writing_other-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.other' %></span><% end %>
+<script type="text/javascript">
+	$('#<%= controller_name %>-<%= action_name %>-btn').removeClass('btn-default');
+	$('#<%= controller_name %>-<%= action_name %>-btn').addClass('btn-blue');
+</script>

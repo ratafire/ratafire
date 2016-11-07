@@ -11,9 +11,24 @@
 		 	<% end %>
 		<div class="friendcardstats pr-15 pl-15 pb-15 text-grey-200">
 		    <div class="bg-rainbow text-rainbow">
-		    	<li><label>Foodie</label><i class="huaxia huaxia-mian"></i></li>
-				<li><label>Musician</label><i class="huaxia huaxia-music"></i></li>
-				<li><label>Explorer</label><i class="huaxia huaxia-faxian"></i></li>
+				<!-- First Slot -->
+				<% if user.traits.count >= 1 %>
+					<li><label><% if I18n.locale == :zh %><%= user.traits.last.zh_cn %><% else %><%= user.traits.last.trait_name %><% end %></label><i class="traits trait-<%= user.traits.last.trait_code %>"></i></li>
+				<% else %>
+					<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud"></i></li>
+				<% end %>
+			    <!-- Second Slot -->
+			    <% if user.traits.count >= 2 %>
+			    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(2)[0].zh_cn %><% else %><%= user.traits.last.trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(2)[0].trait_code %>"></i></li>
+			    <% else %>
+			    	<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-27cloud"></i></li>
+			    <% end %>
+			    <!-- Third Slot -->
+			    <% if user.traits.count == 3 %>
+			    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(3)[0].zh_cn %><% else %><%= user.traits.last.trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(3)[0].trait_code %>"></i></li>
+			    <% else %>
+			    	<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud2"></i></li>
+			    <% end %>
 			</div>
 			<div class="pt-5">
 				<%= truncate(user.bio, length: 140) %>

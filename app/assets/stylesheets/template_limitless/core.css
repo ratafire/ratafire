@@ -413,6 +413,9 @@ a.bg-danger:focus {
 .text-medium{
   font-size: 20px;
 }
+.text-medium-small{
+  font-size: 14px;
+}
 .text-black {
   font-weight: 900;
 }
@@ -2523,8 +2526,8 @@ select[multiple].input-group-xs > .input-group-btn > .btn {
 .nav-tabs.nav-tabs-solid > .active > a,
 .nav-tabs.nav-tabs-solid > .active > a:hover,
 .nav-tabs.nav-tabs-solid > .active > a:focus {
-  background-color: #2196f3;
-  border-color: #2196f3;
+  background-color: #36b8df;
+  border-color: #36b8df;
   color: #fff;
 }
 @media (min-width: 769px) {

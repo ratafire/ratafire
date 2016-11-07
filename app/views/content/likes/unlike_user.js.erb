@@ -1,3 +1,4 @@
 $('#<%=@liked.uid%>-user-liked').remove();
 $('#<%=@liked.uid%>-user-like-holder').append("<%= j render(:partial => 'content/likes/like_user', locals: {user:@liked}) %>");
 $('#<%=@liked.uid%>-user-like-holder-usercard').append("<%= j render(:partial => 'content/likes/like_user_usercard', locals: {user:@liked}) %>");
+$('#<%=@liked.uid%>-user-like-holder-about').append("<%= j render(:partial => 'content/likes/like_user_about', locals: {user:@liked}) %>");

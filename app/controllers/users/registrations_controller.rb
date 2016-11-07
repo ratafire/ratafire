@@ -54,7 +54,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 		  		skip_everafter: true
 		  	)			
 		  if resource.active_for_authentication?
-		    set_flash_message! :notice, :signed_up
+		    #set_flash_message! :notice, :signed_up ???this shows an error when user signs up
 		    sign_up(resource_name, resource)
 		    respond_with resource, location: after_sign_up_path_for(resource)
 		  else

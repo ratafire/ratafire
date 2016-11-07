@@ -130,6 +130,18 @@ Rails.application.routes.draw do
 				resource :notifications, only:[] do
 					get '/get_notifications', to: 'notifications#get_notifications', as: :get_notifications
 				end
+				#Community
+				resource :community, only: [] do
+					get 'backed', to: 'community#backed', as: :backed
+					get 'backers', to: 'community#backers', as: :backers
+					get 'followed', to: 'community#followed', as: :followed
+					get 'followers', to: 'community#followers', as: :followers
+				end
+				#Traits
+				resource :traits, only: [:show] do
+					post 'create/:trait_id', to: 'traits#create', as: :create
+					delete 'destroy/:trait_id', to: 'traits#destroy', as: :destroy
+				end
 				#shipping
 				#resources :shippings, shallow: true, only:[] do
 				#	post 'shipping/:user_id/:campaign_id/:reward_id/:amount/:country', to:'shippings#create_shipping',as: :create_shipping
@@ -239,7 +251,67 @@ Rails.application.routes.draw do
 			get 'tags/followed_pagination/get_them', to: 'explore/tags#followed_pagination', as: :followed_pagination
 
 		#Categories -----------------
-			get 'categories/:category', to: 'explore/categories#categories', as: :category
+			get 'explore/categories/art', to: 'explore/categories#art', as: :art_category
+			get 'explore/categories/music', to: 'explore/categories#music', as: :music_category
+			get 'explore/categories/games', to: 'explore/categories#games', as: :games_category
+			get 'explore/categories/writing', to: 'explore/categories#writing', as: :writing_category
+			get 'explore/categories/videos', to: 'explore/categories#videos', as: :videos_category
+
+			#Art
+			get 'explore/categories/art/a_new_field', to: 'explore/categories#art_a_new_field', as: :art_a_new_field
+			get 'explore/categories/art/concept_art', to: 'explore/categories#art_concept_art', as: :art_concept_art
+			get 'explore/categories/art/3D_model', to: 'explore/categories#art_3d_model', as: :art_3d_model
+			get 'explore/categories/art/drawing', to: 'explore/categories#art_drawing', as: :art_drawing
+			get 'explore/categories/art/painting', to: 'explore/categories#art_painting', as: :art_painting
+			get 'explore/categories/art/architecture', to: 'explore/categories#art_architecture', as: :art_architecture
+			get 'explore/categories/art/interior_design', to: 'explore/categories#art_interior_design', as: :art_interior_design
+			get 'explore/categories/art/photography', to: 'explore/categories#art_photography', as: :art_photography
+			get 'explore/categories/art/graphic_design', to: 'explore/categories#art_graphic_design', as: :art_graphic_design
+			get 'explore/categories/art/sculpting', to: 'explore/categories#art_sculpting', as: :art_sculpting
+			get 'explore/categories/art/jewelry_design', to: 'explore/categories#art_sculpting', as: :art_jewelry_design
+			get 'explore/categories/art/other', to: 'explore/categories#art_other', as: :art_other
+
+			#Music
+			get 'explore/categories/music/a_new_field', to: 'explore/categories#music_a_new_field', as: :music_a_new_field
+			get 'explore/categories/music/composition', to: 'explore/categories#composition', as: :music_composition
+			get 'explore/categories/music/soundtrack', to: 'explore/categories#music_soundtrack', as: :music_soundtrack
+			get 'explore/categories/music/rock', to: 'explore/categories#music_rock', as: :music_rock
+			get 'explore/categories/music/pop', to: 'explore/categories#music_pop', as: :music_pop
+			get 'explore/categories/music/cover', to: 'explore/categories#music_cover', as: :music_cover
+			get 'explore/categories/music/classical', to: 'explore/categories#music_classical', as: :music_classical
+			get 'explore/categories/music/other', to: 'explore/categories#music_other', as: :music_other
+
+			#Games
+			get 'explore/categories/games/a_new_field', to: 'explore/categories#games_a_new_field', as: :games_a_new_field
+			get 'explore/categories/games/rpg', to: 'explore/categories#games_rpg', as: :games_rpg
+			get 'explore/categories/games/strategy', to: 'explore/categories#games_strategy', as: :games_strategy
+			get 'explore/categories/games/simulation', to: 'explore/categories#games_simulation', as: :games_simulation
+			get 'explore/categories/games/mmo', to: 'explore/categories#games_mmo', as: :games_mmo
+			get 'explore/categories/games/action', to: 'explore/categories#games_action', as: :games_action
+			get 'explore/categories/games/sport', to: 'explore/categories#games_sport', as: :games_sport
+			get 'explore/categories/games/adventure', to: 'explore/categories#games_adventure', as: :games_adventure
+			get 'explore/categories/games/other', to: 'explore/categories#games_other', as: :games_other
+
+			#Writing
+			get 'explore/categories/writing/a_new_field', to: 'explore/categories#writing_a_new_field', as: :writing_a_new_field
+			get 'explore/categories/writing/review', to: 'explore/categories#writing_review', as: :writing_review
+			get 'explore/categories/writing/poetry', to: 'explore/categories#writing_poetry', as: :writing_poetry
+			get 'explore/categories/writing/fantasy', to: 'explore/categories#writing_fantasy', as: :writing_fantasy
+			get 'explore/categories/writing/science_fiction', to: 'explore/categories#writing_science_fiction', as: :writing_science_fiction
+			get 'explore/categories/writing/non_fiction', to: 'explore/categories#writing_non_fiction', as: :writing_non_fiction
+			get 'explore/categories/writing/fiction', to: 'explore/categories#writing_fiction', as: :writing_fiction
+			get 'explore/categories/writing/other', to: 'explore/categories#writing_other', as: :writing_other
+
+			#Videos
+			get 'explore/categories/videos/a_new_field', to: 'explore/categories#videos_a_new_field', as: :videos_a_new_field
+			get 'explore/categories/videos/gaming', to: 'explore/categories#videos_gaming', as: :videos_gaming
+			get 'explore/categories/videos/animation', to: 'explore/categories#videos_animation', as: :videos_animation
+			get 'explore/categories/videos/cg', to: 'explore/categories#videos_cg', as: :videos_cg
+			get 'explore/categories/videos/movies', to: 'explore/categories#videos_movies', as: :videos_movies
+			get 'explore/categories/videos/documentary', to: 'explore/categories#videos_documentary', as: :videos_documentary
+			get 'explore/categories/videos/tutorial', to: 'explore/categories#videos_tutorial', as: :videos_tutorial
+			get 'explore/categories/videos/other', to: 'explore/categories#videos_other', as: :videos_other			
+
 
 	#Explore -----------------------------------
 
@@ -249,6 +321,7 @@ Rails.application.routes.draw do
 				delete 'unfollow'
 			end
 			resources :categories, only:[:index] do
+				get 'art', to: 'explore/categories#art', as: :art
 			end
 		end 
 

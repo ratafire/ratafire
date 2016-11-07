@@ -2,9 +2,23 @@
 <!-- Page Title -->
 <% provide(:title) %>
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Main Nav bar -->
+<% content_for :main_navbar do %>
+	<% if user_signed_in?%>
+		<div id="main-navbar">
+	        <% if user_signed_in? %>
+	        	<!-- Signed-in Users-->
+	        	<%= render 'utilities/header/main_navbar_signed_in_users'%>
+	        <% else %>
+	        	<!-- Not signed-in Users-->
+	        	<%= render 'utilities/header/main_navbar_not_signed_in_users'%>
+	        <% end %>
+	    </div>
+	<% end %>
+<% end %>
 <!-- Section 1 -->
 <!-- Home Page Video -->
 
 <!-- Section 2 -->
 <!-- Sign Up-->
-<%= render 'static_pages/home/signup_section' %> 
+

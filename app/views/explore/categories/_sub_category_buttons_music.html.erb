@@ -1,0 +1,13 @@
+<%= link_to music_category_path do %><span id="categories-music-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.menu.all' %></span><% end %>	
+<%= link_to music_a_new_field_path do %><span id="categories-music_a_new_field-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.a_new_field' %></span><% end %>
+<%= link_to music_composition_path do %><span id="categories-music_composition-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.music.composition' %></span><% end %>
+<%= link_to music_soundtrack_path do %><span id="categories-music_soundtrack-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.music.soundtrack' %></span><% end %>
+<%= link_to music_rock_path do %><span id="categories-music_rock-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.music.rock' %></span><% end %>
+<%= link_to music_pop_path do %><span id="categories-music_pop-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.music.pop' %></span><% end %>
+<%= link_to music_cover_path do %><span id="categories-music_cover-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.music.cover' %></span><% end %>
+<%= link_to music_classical_path do %><span id="categories-music_classical-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.music.classical' %></span><% end %>
+<%= link_to music_other_path do %><span id="categories-music_other-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.other' %></span><% end %>
+<script type="text/javascript">
+	$('#<%= controller_name %>-<%= action_name %>-btn').removeClass('btn-default');
+	$('#<%= controller_name %>-<%= action_name %>-btn').addClass('btn-blue');
+</script>

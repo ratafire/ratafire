@@ -29,7 +29,43 @@
   margin-bottom: 0px !important;
   border-top: 1px solid rgba(0,0,0,0.02) !important;
   padding: 0 2rem !important;
+  font-family: 'Roboto', sans-serif;
+}
+.signup-input::-webkit-input-placeholder {
+  text-transform: uppercase;
+  /*font-weight: bold;*/
+  letter-spacing: 1px;
+  color: #a3a3a3;
+  font-size: 11px;
   font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+.signup-input:-moz-placeholder {
+  text-transform: uppercase;
+  /*font-weight: bold;*/
+  letter-spacing: 1px;
+  color: #a3a3a3;
+  font-size: 11px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+.signup-input::-moz-placeholder {
+  text-transform: uppercase;
+  /*font-weight: bold;*/
+  letter-spacing: 1px;
+  color: #a3a3a3;
+  font-size: 11px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+.signup-input:-ms-input-placeholder {
+  text-transform: uppercase;
+  /*font-weight: bold;*/
+  letter-spacing: 1px;
+  color: #a3a3a3;
+  font-size: 11px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
 }
 .signup-input:focus {
     outline: none !important;
@@ -81,7 +117,7 @@
     text-align: center;
 }
 .signup-text--border-right {
-    border-right: 1px solid rgba(255,255,255,0.5);
+
     margin-right: 0.75rem;
     padding-right: 0.75rem;
 }

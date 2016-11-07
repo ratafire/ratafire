@@ -5997,6 +5997,12 @@ footer.bg-dark a {
   font-size:32px;
   line-height:40px;
 }
+.text-medium{
+  font-size: 20px;
+}
+.text-medium-small{
+  font-size: 14px;
+}
 .text-black {
   font-weight: 900;
 }

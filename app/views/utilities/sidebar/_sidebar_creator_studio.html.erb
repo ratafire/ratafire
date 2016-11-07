@@ -111,6 +111,12 @@
 							<i class="icon-users"></i> <span><%= t 'views.creator_studio.menu.community'%></span>
 						<% end %>
 						<ul>
+							<li id="traits-show-sidebarsubactive">
+								<%= link_to user_studio_traits_path(current_user.username) do %>
+									<%= t 'views.creator_studio.community.traits'%>
+								<% end %>
+							</li>
+							<li class="navigation-divider"></li>						
 							<li id="creator_studios-notifications-sidebarsubactive">
 								<%= link_to notifications_user_studio_creator_studio_path(current_user.username) do %>
 									<%= t 'views.creator_studio.community.notifications'%>

@@ -1,0 +1,5 @@
+<%= link_to user_user_content_likes_path(current_user.id, user.id), remote: true, data: { confirm: t('views.utilities.btn.are_you_sure_to')+t('views.utilities.btn.unfriend')+'?'},method: :delete, id:user.uid+'-user-liked' do %>
+    <div class="center-block btn btn-float btn-rounded btn-float-lg btn-flat">
+        <i class="huaxia huaxia-haoyouqingqiu text-green-400 inline-block animated rubberBand"></i>
+    </div>
+<% end %>

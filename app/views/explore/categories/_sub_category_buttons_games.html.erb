@@ -1,0 +1,15 @@
+<%= link_to games_category_path do %><span id="categories-games-btn" class="btn btn-blue btn-xs mt-5"><%= t 'views.utilities.menu.all' %></span><% end %>	
+<%= link_to games_a_new_field_path do %><span id="categories-games_a_new_field-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.a_new_field' %></span><% end %>
+<%= link_to games_rpg_path do %><span id="categories-games_rpg-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.games.rpg' %></span><% end %>
+<% link_to games_strategy_path do %><span id="categories-games_strategy-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.games.strategy' %></span><% end %>
+<%= link_to games_simulation_path do %><span id="categories-games_simulation-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.games.simulation' %></span><% end %>
+<%= link_to games_mmo_path do %><span id="categories-games_mmo-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.games.mmo' %></span><% end %>
+<%= link_to games_action_path do %><span id="categories-games_action-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.games.action' %></span><% end %>
+<%= link_to games_sport_path do %><span id="categories-games_sport-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.games.sport' %></span><% end %>
+<%= link_to games_adventure_path do %><span id="categories-games_adventure-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.games.adventure' %></span><% end %>
+<%= link_to games_other_path do %><span id="categories-games_other-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.other' %></span><% end %>
+<span class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.other' %></span>
+<script type="text/javascript">
+	$('#<%= controller_name %>-<%= action_name %>-btn').removeClass('btn-default');
+	$('#<%= controller_name %>-<%= action_name %>-btn').addClass('btn-blue');
+</script>
