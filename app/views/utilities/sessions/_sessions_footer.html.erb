@@ -1,10 +1,26 @@
 <div class="signup-legal">
-    <a class="signup-text--small signup-text--border-right text-grey-100"><%= t 'views.utilities.menu.terms' %></a>
-    <a class="signup-text--small signup-text--border-right text-grey-100"><%= t 'views.utilities.menu.privacy' %></a>
-    <%= link_to new_password_path(resource_name), class:"signup-text--small text-grey-100", :data => {turbolinks: "false"} do %>
-    	<%= t 'views.profile.settings.account_settings.password_help' %>
- 	<% end %>	
+    <a class="signup-text--small signup-text--border-right text-grey-100">
+        <%= t 'ratafire_c' %>
+    </a>
+    <%= link_to "/site/terms", class:"signup-text--small signup-text--border-right text-grey-100", :data => {turbolinks: "false"} do %>
+        <%= t 'views.utilities.menu.terms' %>    
+    <% end %>
+    <%= link_to "/site/privacy", class:"signup-text--small signup-text--border-right text-grey-100", :data => {turbolinks: "false"} do %>
+        <%= t 'views.utilities.menu.privacy' %>    
+    <% end %>
+    <%= link_to new_password_path(resource_name), class:"signup-text--small signup-text--border-right text-grey-100", :data => {turbolinks: "false"} do %>
+        <%= t 'views.profile.settings.account_settings.password_help' %>    
+    <% end %>
+    <%= link_to new_user_confirmation_path, class:"signup-text--small signup-text--border-right text-grey-100", :data => {turbolinks: "false"} do %>
+        <%= t 'views.utilities.devise.resend_confirmation' %>
+    <% end %>
+    <%= link_to explore_categories_path, class:"signup-text--small signup-text--border-right text-grey-100 text-medium-small", :data => {turbolinks: "false"} do %>
+        <span class="huaxia huaxia-2b mr-5"></span><%= t 'views.utilities.menu.explore' %>
+    <% end %>
+    <%= link_to "/site/contact", class:"signup-text--small signup-text--border-right text-grey-100", :data => {turbolinks: "false"} do %>
+        <%= t 'views.utilities.menu.contact' %> 
+    <% end %>        
 </div>   
-<div style="position: absolute;bottom: 1.125rem; right: 2.125rem;">
-    <%= render partial:'utilities/language/language_switcher', locals: {switcher_type: 'up'}%> 
-</div>
+    <div style="position: absolute;bottom: 1.125rem; right: 2.125rem;z-index: 1000;">
+        <%= render partial:'utilities/language/language_switcher', locals: {switcher_type: 'up'}%> 
+    </div>

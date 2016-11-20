@@ -16,7 +16,7 @@ class Explore::TagsController < ApplicationController
 	# tag GET
 	# /tags/:tag
 	def tags
-		@activities = PublicActivity::Activity.order("created_at desc").where(:test => false, :abandoned => nil).tagged_with(params[:tag]).paginate(page: params[:page], :per_page => 5)
+		@activities = PublicActivity::Activity.order("created_at desc").where(:test => false, :abandoned => nil,trackable_type: ["Campaign","Majorpost"]).tagged_with(params[:tag]).paginate(page: params[:page], :per_page => 5)
 	end	
 
 	# explore_tag_follow POST

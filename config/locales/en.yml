@@ -454,7 +454,7 @@ en:
       are_you_sure_to_complete_project_1: "Are you sure to mark "
       are_you_sure_to_complete_project_2: " as completed?"
       are_you_sure_to_abandon_project_2: " as abandoned?"
-      are_you_sure_to_delete_project: "Are you sure to delete this project?"
+      are_you_sure_to_delete_project: "Are you sure to delete this project? This operation is irreversible."
     payment:
       backs:
         back: "Back "
@@ -655,6 +655,10 @@ en:
         you_can_confirm_your_email: "You can confirm your account email through the link below:"
         confirm_my_account: "Confirm my account"
         resend_confirmation_instructions: "Resend confirmation instructions"
+        resend_confirmation: "Resend Confirmation"
+        default_tagline: "Sits down at the fire of Ratatoskr"
+        sign_up_with_facebook: "Sign up with Facebook"
+        log_in_with_facebook: "Log in with Facebook"
       editor:
         text: "Text"
         image: "Image"

@@ -12,8 +12,9 @@ class TagImage < ActiveRecord::Base
     has_attached_file :image, 
         :styles => { 
             :preview800 => ["800", :jpg], 
-            :preview512 => ["512", :jpg],
-            :preview256 => ["256", :jpg], 
+            :preview512 => ["512x512", :jpg],
+            :preview256 => ["256x256", :jpg], 
+            :preview128 => ["128x128", :jpg], 
             :thumbnail800 => ["800x450#",:jpg],
             :thumbnail480p => ["640x360#",:jpg],
             :thumbnail512 => ["512x512#",:jpg],

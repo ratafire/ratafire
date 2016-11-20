@@ -1,0 +1,41 @@
+<div class="panel-reward panel">
+	<% if user.active_reward.image.present? %>
+		<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px 3px 0 0;">
+			<img src="<%= user.active_reward.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+		</div>
+	<% else %>
+		<% if current_user == @user %>
+			<%= render partial:'profile/components/add_reward_image', locals: {user: user}%>
+		<% else %>
+			<!-- Show project image -->
+			<div class="thumb  thumb-slide" id="reward-image-holder" style="border-radius: 3px 3px 0 0;">
+				<img src="<%= user.active_reward.campaign.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+			</div>
+		<% end %>
+	<% end %>
+	<div class="panel-body">
+		<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><i class="huaxia huaxia-libao mr-5"></i> <%= user.active_reward.title %></h5>
+		<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><%= t 'views.utilities.menu.support' %> <%= currency_signs(user.active_reward.campaign.currency) %><%= user.active_reward.amount.to_i %></h5>
+		<!-- Backers -->
+		<% if user.active_reward.backers > 0 %>
+			<!-- Show limited backers -->
+			<p class="text-grey-200"><i class="ti-user"></i> <span ><%= user.active_reward.reward_receivers.count %>/<%= user.active_reward.backers %> <%= t 'views.utilities.menu.backers' %><% if user.active_reward.backers > 0 && user.active_reward.reward_receivers.count >= user.active_reward.backers %><span class="label label-blue ml-5"><%= t 'views.payment.backs.all_gone' %></span><% end %></span></p>
+		<% else %>
+			<!-- Show backer when there is more than 0 backer -->
+			<% if user.active_reward.reward_receivers.count > 0 %>
+				<p class="text-grey-200"><i class="ti-user"></i> <span ><%= user.active_reward.reward_receivers.count %>
+			<% end %>
+		<% end %>
+		<div class="text-grey mb-20"><%= user.active_reward.description %></div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="text-grey-200"><%= t 'views.utilities.menu.estimated_delivery' %>:</div>
+				<div><%= user.active_reward.estimated_delivery.strftime('%Y/%m/%d') %></div>
+			</div>
+			<div class="col-md-6">
+				<div class="text-grey-200"><%= t 'views.utilities.menu.ships_to' %>:</div>
+				<div><%= t shipping(user.active_reward.shipping) %></div>
+			</div>
+		</div>
+	</div>	
+</div>

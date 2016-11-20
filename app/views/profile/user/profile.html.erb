@@ -38,23 +38,23 @@
 							<% if current_user == @user || current_user.try(:admin) %>
 								<%= render partial:'utilities/editor/editor', locals: {user: @user}%>
 							<% end %>	
-							<% if @activities.count > 0 %>
-								<!-- Posts -->
-								<div id="post-pagination">
-									<div class="post-pagination">
+							<!-- Posts -->
+							<div id="post-pagination">
+								<div class="post-pagination">
+									<% if @activities.count > 0 %>
 										<%= render_activities(@activities) %>
-									</div>
-									<!-- Paginate -->
-									<div class="post-will-paginate">
-										<%= will_paginate @activities %>
-									</div>
-								</div><!-- end #post-pagination-->
-							<% else %>
-								<!-- Welcome -->
-								<% if current_user == @user %>
-									<%= render partial:'profile/components/welcome', locals: {user: @user}%>	
-								<% end %>
-							<% end %>
+									<% else %>
+										<!-- Welcome -->
+										<% if current_user == @user %>
+											<%= render partial:'profile/components/welcome', locals: {user: @user}%>	
+										<% end %>
+									<% end %>
+								</div>
+								<!-- Paginate -->
+								<div class="post-will-paginate">
+									<%= will_paginate @activities %>
+								</div>
+							</div><!-- end #post-pagination-->							
 						</div>	
 					</div><!-- end .tab-content-->	
 				</div><!-- end .tabbable-->				

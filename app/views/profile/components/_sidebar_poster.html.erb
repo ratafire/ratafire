@@ -1,0 +1,17 @@
+<% if user.traits.count < 3 %>
+	<!-- Select your traits -->
+	<%= link_to user_studio_traits_path(current_user.username) do %>
+		<div class="panel">
+			<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+				<img src="/assets/default/sidebar_poster/select_your_traits_words_preview600_<%= I18n.locale %>.jpg" class="about-profilephoto-holder" alt="">
+			</div>
+		</div>
+	<% end %>
+<% else %>
+	<!-- Explore -->
+	<div class="panel">
+		<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+			<img src="/assets/default/sidebar_poster/explore_preview600_<%= I18n.locale %>.jpg" class="about-profilephoto-holder" alt="">
+		</div>
+	</div>
+<% end %>

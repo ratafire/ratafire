@@ -174,7 +174,7 @@ class User < ActiveRecord::Base
     #--------Campaign---------
     has_many :campaigns
         has_one :active_campaign,
-            -> { where( campaigns: { :status => "Approved", :abandoned => nil , :deleted_at => nil, :published => true, :completed => nil }) },
+            -> { where( campaigns: { :status => "Approved", :abandoned => nil , :deleted => nil,:deleted_at => nil, :published => true, :completed => nil }) },
             class_name: "Campaign"
 
     #--------Reward---------

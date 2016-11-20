@@ -1,0 +1,83 @@
+<% if I18n.locale == :zh %>
+	<div class="row">
+		<!-- Col 1 -->
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<!-- Concept art -->
+			<%= link_to tag_path(Tag.find_by_name("concept art")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("concept art").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("concept art").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+			<!-- Open source -->
+			<%= link_to tag_path(Tag.find_by_name("open source")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("open source").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("open source").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		<!-- Col 2 -->
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<!-- cover -->
+			<%= link_to tag_path(Tag.find_by_name("cover")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("cover").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("cover").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+			<!-- cg -->
+			<%= link_to tag_path(Tag.find_by_name("cg")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("cg").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("cg").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		<!-- Col 3 -->
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<!-- gaming -->
+			<%= link_to tag_path(Tag.find_by_name("gaming")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("gaming").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("gaming").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+			<!-- vr -->
+			<%= link_to tag_path(Tag.find_by_name("vr")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("vr").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("vr").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+<% else %>
+	<div class="row">
+
+	</div>
+<% end %>

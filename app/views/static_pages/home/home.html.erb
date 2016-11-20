@@ -1,24 +1,141 @@
+
 <!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
 <!-- Page Title -->
 <% provide(:title) %>
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
-<!-- Main Nav bar -->
-<% content_for :main_navbar do %>
-	<% if user_signed_in?%>
-		<div id="main-navbar">
-	        <% if user_signed_in? %>
-	        	<!-- Signed-in Users-->
-	        	<%= render 'utilities/header/main_navbar_signed_in_users'%>
-	        <% else %>
-	        	<!-- Not signed-in Users-->
-	        	<%= render 'utilities/header/main_navbar_not_signed_in_users'%>
-	        <% end %>
-	    </div>
-	<% end %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+    <% end %>
 <% end %>
-<!-- Section 1 -->
-<!-- Home Page Video -->
+<!-- Content Area -->
+<% if user_signed_in? %>
+	<div class="content" >
+		<div class="row" id="updates-area">
+			<!-- Feeds -->
+			<div class="col-xs-12 col-md-8" id="updates-main-area">
+				<div class="tabbable">
+					<div class="tab-content">
+						<!-- Updates -->
+						<div class="tab-pane fade in active" id="updates">
+							<!-- Campaign Read all -->
+							<div id="user-profile-project-read-all">
+							</div>
+							<!-- editor -->
+							<% if current_user == @user || current_user.try(:admin) %>
+								<%= render partial:'utilities/editor/editor', locals: {user: @user}%>
+							<% end %>	
+							<!-- Posts -->
+							<div id="post-pagination">
+								<div class="post-pagination">
+									<% if @activities.count > 0 %>
+										<%= render_activities(@activities) %>
+									<% else %>
+										<!-- Welcome -->
+										<% if current_user == @user %>
+											<%= render partial:'profile/components/welcome', locals: {user: @user}%>	
+										<% end %>
+									<% end %>
+								</div>
+								<!-- Paginate -->
+								<div class="post-will-paginate">
+									<%= will_paginate @activities %>
+								</div>
+							</div><!-- end #post-pagination-->							
+						</div>	
+					</div><!-- end .tab-content-->	
+				</div><!-- end .tabbable-->				
+			</div>
+			<!-- Side Area -->
+			<div class="col-xs-6 col-md-4 pr-20" id="side-area">
+				<div class="sidebar-fixed sidebar-detached-home">
+					<!-- Poster -->
+					<%= render partial:'profile/components/sidebar_poster', locals: {user: @user}%>
+					<!-- Recommended Tags -->
+					<%= render partial:'profile/components/recommended_tags', locals: {user: @user}%>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	$(function() {
+		// Resize sidebar on scroll
+	    // ------------------------------
+	    // Resize fixed sidebar vertically when bottom reached
+	    function resizeFixed() {
+	        $(window).on('load scroll', function() {
+	          if ($(window).scrollTop() > $(document).height() - $(window).height() - 70) {
+	            $('.sidebar-fixed').addClass('fixed-sidebar-space');
+	          }
+	          else {
+	            $('.sidebar-fixed').removeClass('fixed-sidebar-space');
+	          }
+	        });
+	    }
+	    // Nice scroll
+	    // ------------------------------
+		// Setup
+		function initScroll() {
+		    $(".sidebar-fixed .sidebar-content").niceScroll({
+		        mousescrollstep: 100,
+		        cursorcolor: '#ccc',
+		        cursorborder: '',
+		        cursorwidth: 3,
+		        hidecursordelay: 100,
+		        autohidemode: 'scroll',
+		        horizrailenabled: false,
+		        preservenativescrolling: false,
+		        railpadding: {
+		        	right: 0.5,
+		        	top: 1.5,
+		        	bottom: 1.5
+		        }
+		    });
+		}
+		// Resize
+		function resizeScroll() {
+			$('.sidebar-fixed .sidebar-content').getNiceScroll().resize();
+		}
+		// Remove
+		function removeScroll() {
+			$(".sidebar-fixed .sidebar-content").getNiceScroll().remove();
+			$(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
+		}
+	    // Affix detached sidebar
+	    // ------------------------------
+	    // Init nicescroll when sidebar affixed
+		$('.sidebar-fixed').on('affix.bs.affix', function() {
+			initScroll();
+			resizeFixed();
+		});
+	    // When effixed top, remove scrollbar and its data
+	    $('.sidebar-fixed').on('affix-top.bs.affix', function() {
+			removeScroll();
 
-<!-- Section 2 -->
-<!-- Sign Up-->
+	        $(".sidebar-fixed .sidebar-content").removeAttr('style').removeAttr('tabindex');
+	    });
+		// Attach BS affix component to the sidebar
+		$('.sidebar-fixed').affix({
+			offset: {
+				top: $('.sidebar-fixed').offset().top - 20 // top offset - computed line height
+			}
+		});
+	    // Remove affix and scrollbar on mobile
+	    $(window).on('resize', function() {
+	        setTimeout(function() {            
+	            if($(window).width() <= 768) {
 
+	                // Remove nicescroll on mobiles
+	                removeScroll();
+
+	                // Remove affix on mobile
+	                $(window).off('.affix')
+	                $('.sidebar-fixed').removeData('affix').removeClass('affix affix-top affix-bottom');
+	            }
+	        }, 100);
+	    }).resize();
+	});	
+</script>	
+<% end %>

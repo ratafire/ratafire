@@ -14,12 +14,17 @@ class UsersController < ActionController::Base
 		if @user.locale
 			I18n.locale = @user.locale
 		end
+		@previous_username = @user.username
+		params[:user][:username].downcase! if params[:user][:username]
 		if @user.update(user_params)
 			#flash["success"] = "Info updated."
 			@error = false
 		else
 			#flash["error"] = @user.errors.full_messages.to_sentence
 			@error = true
+		end
+		if @user.username != @previous_username
+			redirect_to profile_settings_user_profile_settings_path(@user.username)
 		end
 	end	
 
@@ -73,7 +78,7 @@ protected
 	end
 
 	def user_params
-		params.require(:user).permit(:tagline, :firstname, :lastname, :preferred_name, :bio, :country, :city, :locale, :website)
+		params.require(:user).permit(:tagline, :firstname, :lastname, :preferred_name, :bio, :country, :city, :locale, :website, :username)
 	end	
 
 end

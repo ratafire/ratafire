@@ -19,11 +19,11 @@ class Userinfo::ProfilephotosController < ApplicationController
 		@profilephoto.direct_upload_url = params[:profilephoto][:direct_upload_url]
 		@profilephoto.set_upload_attributes
 		@profilephoto.update(profilephoto_params)
-		if @profilephoto.transfer_and_cleanup
-			@user_update_profilephoto = true
-		else
-			flash[:error] = "Unable to update profile photo."
-		end
+		#if @profilephoto.transfer_and_cleanup
+		#	@user_update_profilephoto = true
+		#else
+		#	flash[:error] = "Unable to update profile photo."
+		#end
 	end
 
 	#userinfo_profilephoto DELETE

@@ -451,7 +451,7 @@ zh:
       are_you_sure_to_complete_project_1: "你确定要将"
       are_you_sure_to_complete_project_2: "标记为已完成？"
       are_you_sure_to_abandon_project_2: "标记为已放弃？"
-      are_you_sure_to_delete_project: "你确定要删除这个项目？"
+      are_you_sure_to_delete_project: "你确定要删除这个项目？此操作不可逆。"
     payment:
       backs:
         back: "支持"
@@ -652,6 +652,10 @@ zh:
         you_can_confirm_your_email: "请点击以下链接以验证注册邮箱："
         confirm_my_account: "验证注册邮箱"
         resend_confirmation_instructions: "重发验证邮件"
+        resend_confirmation: "重发验证"
+        default_tagline: "坐在小火堆旁"
+        sign_up_with_facebook: "用脸书注册"
+        log_in_with_facebook: "用脸书登录"
       editor:
         text: "文字"
         image: "图片"

@@ -265,16 +265,8 @@ class Studio::CampaignsController < ApplicationController
 	end
 
 	def delete
-		if @campaign.video
-			@campaign.video.update(
-				deleted: true,
-				deleted_at: Time.now
-			)
-		end
-		@campaign.update(
-			deleted: true,
-			deleted_at: Time.now
-		)
+		#Delete campaign
+		@campaign.destroy
 		redirect_to campaigns_user_studio_creator_studio_path(@user.username)
 	end
 
@@ -336,7 +328,7 @@ protected
 		redirect_to application_user_studio_campaigns_path(@user.id, @campaign.id)
 	end
 
-	def resolve_layoutœ
+	def resolve_layout
 		case action_name
 		when "new","application", "completed"
 		  "studio_fullwidth"
@@ -371,8 +363,8 @@ protected
 	def update_campaign_activity
 		if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@campaign.id,'Campaign')
 			@activity.update(
-				category: @majorpost.category,
-				sub_category: @majorpost.sub_category,
+				category: @campaign.category,
+				sub_category: @campaign.sub_category,
 				published: @campaign.published,
 				tag_list: @campaign.tag_list
 			)

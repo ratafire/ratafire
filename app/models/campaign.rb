@@ -36,7 +36,7 @@ class Campaign < ActiveRecord::Base
     has_many :artwork, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Artwork", dependent: :destroy
     has_many :rewards, class_name: "Reward", dependent: :destroy
     accepts_nested_attributes_for :rewards
-    has_many :shippings, class_name: "Shippings", dependent: :destroy
+    has_many :shippings, class_name: "Shipping", dependent: :destroy
     has_many :majorposts
     has_many :liked_campaigns
     has_many :likers, through: :liked_campaigns, source: :user

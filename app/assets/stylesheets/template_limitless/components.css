@@ -8173,6 +8173,10 @@ body > .jGrowl {
  *  Latest update: May 25, 2015
  *
  * ---------------------------------------------------------------------------- */
+.sidebar-detached-home.affix {
+  position: fixed;
+  margin-right:30px;
+}
 .sortable-placeholder {
   position: relative;
 }
@@ -13720,6 +13724,9 @@ a.plupload_disabled:focus {
 }
 .position-relative {
   position: relative;
+}
+.position-absolute {
+  position: absolute;
 }
 .position-static {
   position: static;
