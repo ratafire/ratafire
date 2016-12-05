@@ -30,17 +30,29 @@
 							<div id="user-profile-project-read-all">
 							</div>
 							<!-- Posts -->
-							<div id="post-pagination">
-								<div class="post-pagination">
+							<div>
 									<%= render partial:'content/majorposts/majorpost', locals: {majorpost: @majorpost} %>
-								</div>
 							</div><!-- end #post-pagination-->
+							<!-- Latest likers -->
+							<div class="mt-20 col-offset-64">
+								<div class="col-fixed-64">
+								</div>
+								<div id="post-pagination">
+									<div class="post-pagination">
+										<%= render partial:'profile/components/majorpost_likers', collection: @majorpost_likers, :as => :majorpost_liker %>
+									</div>
+									<!-- Paginate -->
+									<div class="post-will-paginate">
+										<%= will_paginate @majorpost_likers %>
+									</div>
+								</div><!-- end #post-pagination-->		
+							</div>
 						</div>	
 					</div><!-- end .tab-content-->	
 				</div><!-- end .tabbable-->				
 			</div>
 			<!-- Side Area -->
-			<div class="col-xs-6 col-md-4 pr-40" id="side-area">
+			<div class="col-xs-6 col-md-4 pr-40 pt-20" id="side-area">
 				<!-- Backers -->
 				<% if @contacts %>
 					<%= render partial:'profile/components/contacts', locals: {contacts: @contacts}%>	

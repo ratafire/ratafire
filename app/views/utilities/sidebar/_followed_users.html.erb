@@ -1,0 +1,11 @@
+<% if @followed.count > 0 %>
+	<li class="navigation-header"><span><%= t 'views.utilities.menu.followed' %></span> <i class="icon-menu" title="Main pages"></i></li>
+		<li class="media" id="sidebar-followed-updates-holder">
+			<%= render partial: 'profile/components/followed_updates', collection: @followed, :as => :user %>
+			<% if @followed.count > 3 %>
+				<%= link_to followed_pagination_user_content_likes_path(current_user), style:"padding: 2px 20px;min-height:0;", class:"sidebar-followed-updates-pagination", remote: true do %>
+					<div class="text-center"><i class="ti-angle-down"></i></div>
+				<% end %>
+			<% end %>
+		</li>
+<% end %>

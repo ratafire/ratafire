@@ -125,6 +125,9 @@ Rails.application.routes.draw do
 					get '/upload_reward_editor/:reward_id', to: 'rewards#upload_reward_editor', as: :upload_reward_editor
 					post '/upload_reward/:reward_id', to: 'rewards#upload_reward', as: :upload_reward
 					post '/confirm_upload_reward/:reward_id', to: 'rewards#confirm_upload_reward', as: :confirm_upload_reward
+					post '/end_early/:reward_id', to: 'rewards#end_early', as: :end_early
+					post '/make_active/:reward_id', to: 'rewards#make_active', as: :make_active
+					delete '/abandon/:reward_id', to: 'rewards#abandon', as: :abandon
 				end
 				#Notification
 				resource :notifications, only:[] do
@@ -136,6 +139,10 @@ Rails.application.routes.draw do
 					get 'backers', to: 'community#backers', as: :backers
 					get 'followed', to: 'community#followed', as: :followed
 					get 'followers', to: 'community#followers', as: :followers
+					get 'backed_datatable', to: 'community#backed_datatable', as: :backed_datatable
+					get 'backers_datatable', to: 'community#backers_datatable', as: :backers_datatable
+					get 'followed_datatable', to: 'community#followed_datatable', as: :followed_datatable
+					get 'followers_datatable', to: 'community#followers_datatable', as: :followers_datatable 
 				end
 				#Traits
 				resource :traits, only: [:show] do
@@ -193,6 +200,7 @@ Rails.application.routes.draw do
 					delete '/majorpost/:majorpost_id', to:'likes#unlike_majorpost', as: :unlike_majorpost
 					delete '/campaign/:campaign_id', to:'likes#unlike_campaign', as: :unlike_campaign
 					delete '/user/:user_id', to:'likes#unlike_user', as: :unlike_user
+					delete '/remove_liker/:user_id', to: 'likes#remove_liker', as: :remove_liker
 					get '/followed_pagination', to: 'likes#followed_pagination', as: :followed_pagination
 				end
 			end
@@ -220,6 +228,8 @@ Rails.application.routes.draw do
 			#Majorposts
 			resources :majorposts, only:[:create, :destroy, :show] do
 				get 'read_more'
+				post '/set_category/:category_id', to: 'majorposts#set_category', as: :set_category
+				post '/set_sub_category/:category_id/:sub_category_id', to: 'majorposts#set_sub_category', as: :set_sub_category
 			end
 				#Majorpost attachments
 				resources :artworks, only:[:create,:destroy] do
@@ -312,6 +322,8 @@ Rails.application.routes.draw do
 			get 'explore/categories/videos/tutorial', to: 'explore/categories#videos_tutorial', as: :videos_tutorial
 			get 'explore/categories/videos/other', to: 'explore/categories#videos_other', as: :videos_other			
 
+			#Back creators
+			get 'explore/back_creators/', to: 'explore/explore#back_creators', as: :back_creators
 
 	#Explore -----------------------------------
 
@@ -321,7 +333,11 @@ Rails.application.routes.draw do
 				delete 'unfollow'
 			end
 			resources :categories, only:[:index] do
-				get 'art', to: 'explore/categories#art', as: :art
+				get 'explore/categories/:category_id', to: 'categories#category', as: :category
+				get 'explore/categories/:category_id/:sub_category_id', to: 'categories#sub_category', as: :sub_category
+			end
+			resources :explore, only:[] do
+				get 'surprise_me', to: 'explore#surprise_me', as: :surprise_me
 			end
 		end 
 

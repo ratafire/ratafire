@@ -24,6 +24,24 @@
 				</div>
 			</div>
 		</div>		
+		<!-- Current Goal Amount -->
+		<div class="row">
+			<div class="col-md-3">
+				<div><%= t 'views.campaign.current_goal' %>: <span class="text-danger">*</span></div>
+			</div>
+			<div class="col-md-9">
+				<div class="form-group">
+					<% if @campaign.try(:rewards).try(:first).goal == 0 %>
+						<%= r.text_field :goal, value: nil, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
+					<% else %>
+						<%= r.text_field :goal, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
+					<% end %>
+					<span class="help-block">
+						<p><%= t 'views.campaign.goal_help' %></p>
+					</span>
+				</div>
+			</div>
+		</div>	
 		<!-- Current Goal Time -->
 		<div class="row">
 			<div class="col-md-3">
@@ -265,7 +283,7 @@
 	        min: 2,
 	        max: 200,
 	        step: 1,
-	        prefix: '<%= currency_signs(@campaign.currency) %>'
+	        prefix: '$'
 	    });
 		//Description textarea count
 		function reward_description_textarea_count()

@@ -1,0 +1,14 @@
+<!-- Select Your traits -->
+<li class="navigation-header"><span><%= t 'views.creator_studio.community.trait.select_traits' %></span> <i class="icon-menu" title="Main pages"></i></li>
+<div class="pl-20 pr-20">
+	<div class="panel-flat bg-darkglass">
+		<div class="panel-body">
+			<div class="mb-10">
+				<%= t 'views.creator_studio.community.trait.select_traits_help' %>
+			</div>
+			<%= link_to user_studio_traits_path(current_user.username), class:"btn btn-blue btn-xs" do %>
+				<%= t 'views.utilities.menu.learn_more' %>
+			<% end %>
+		</div>	
+	</div>	
+</div><!-- end find out more-->	

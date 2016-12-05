@@ -4,19 +4,19 @@ class Majorpost::MajorpostCleanup
 	def self.perform(majorpost_uuid)
 		time = Time.now
 		#Delete artwork
-		Array(Artwork.find_by_majorpost_uuid(majorpost_uuid)).each do |artwork|
+		Artwork.where(majorpost_uuid: majorpost_uuid).all.each do |artwork|
 			artwork.destroy
 		end 
 		#Delete link
-		Array(Link.find_by_majorpost_uuid(majorpost_uuid)).each do |link|
+		Link.where(majorpost_uuid: majorpost_uuid).all.each do |link|
 			link.destroy
 		end
 		#Delete audio
-		Array(Audio.find_by_majorpost_uuid(majorpost_uuid)).each do |audio|
+		Audio.where(majorpost_uuid: majorpost_uuid).all.each do |audio|
 			audio.destroy
 		end		
 		#Delete video
-		Array(Video.find_by_majorpost_uuid(majorpost_uuid)).each do |video|
+		Video.where(majorpost_uuid: majorpost_uuid).all.each do |video|
 			video.destroy
 		end	
 	end 

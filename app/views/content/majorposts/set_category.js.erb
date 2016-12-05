@@ -1,0 +1,19 @@
+$('#sub-category-dropdown-<%= @majorpost.uuid %>').remove();
+$("#sub-category-holder-<%= @majorpost.uuid %>").removeClass('disabled');
+<% if @majorpost.try(:category) == "Art" %>
+	$("#sub-category-holder-<%= @majorpost.uuid %>").append("<%= j render(:partial => 'utilities/editor/dropdown_art_sub_category', locals: {user: @user, activity: @activity }) %>");
+<% end %>
+<% if @majorpost.try(:category) == "Music" %>
+	$("#sub-category-holder-<%= @majorpost.uuid %>").append("<%= j render(:partial => 'utilities/editor/dropdown_music_sub_category', locals: {user: @user, activity: @activity }) %>");
+<% end %>
+<% if @majorpost.try(:category) == "Games" %>
+	$("#sub-category-holder-<%= @majorpost.uuid %>").append("<%= j render(:partial => 'utilities/editor/dropdown_games_sub_category', locals: {user: @user, activity: @activity }) %>");
+<% end %>
+<% if @majorpost.try(:category) == "Writing" %>
+	$("#sub-category-holder-<%= @majorpost.uuid %>").append("<%= j render(:partial => 'utilities/editor/dropdown_writing_sub_category', locals: {user: @user, activity: @activity }) %>");
+<% end %>
+<% if @majorpost.try(:category) == "Videos" %>
+	$("#sub-category-holder-<%= @majorpost.uuid %>").append("<%= j render(:partial => 'utilities/editor/dropdown_videos_sub_category', locals: {user: @user, activity: @activity }) %>");
+<% end %>
+$('#category-and-sub-category-holder-<%= @majorpost.uuid %>').html("");
+$('#category-and-sub-category-holder-<%= @majorpost.uuid %>').append("<%= j render(:partial => 'profile/components/category', locals: {category: @majorpost.category}) %>");

@@ -1,5 +1,5 @@
 <%= form_for @subscription, url: payment_user_payment_backs_path(user.uid), method: :get do |f| %>
-	<%= f.hidden_field :funding_type, value:'recurring', id:"funding-type-just-want-to-help"%>
+	<%= f.hidden_field :funding_type, value:'one_time', id:"funding-type-just-want-to-help"%>
 	<!-- Help creator -->
 	<div class="panel panel-reward bg-blue-100 border-blue-100 border-radius-6" id="panel-just-want-to-help">
 		<div class="panel-heading p-30 text-thin text-grey-800">
@@ -18,18 +18,21 @@
 				</div>
 				<div class="col-md-7 col-lg-8">
 					<div class="input-group">
-						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100"><%= currency_signs(user.active_campaign.currency) %></span>
+						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100">
+							<img src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;">
+						</span>
 						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-just-want-to-help"%>
 						<div class="input-group-btn dropup">
 							<button type="button" class="btn btn-default dropdown-toggle no-border no-border-radius-left border-radius-6 text-blue bg-blue-200" data-toggle="dropdown" aria-expanded="false" style="padding:10px;" id="funding-type-just-want-to-help-text">
-								<% if user.active_campaign.funding_type == 'creation' %>
-									<%= t 'views.campaign.per_creation' %>
-								<% else %>
-									<%= t 'views.campaign.per_month' %>
-								<% end %>
+								<%= t 'views.campaign.one_time' %>
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right text-grey" style="z-index:1000;">
+								<li>
+								 	<a id="one-time-just-want-to-help">
+								 		<%= t 'views.campaign.one_time' %>
+								 	</a>
+								</li>
 								<li>
 									<a id="per-creation-just-want-to-help">
 										<% if user.active_campaign.funding_type == 'creation' %>
@@ -38,11 +41,6 @@
 											<%= t 'views.campaign.per_month' %>
 										<% end %>
 									</a>
-								</li>
-								<li>
-								 	<a id="one-time-just-want-to-help">
-								 		<%= t 'views.campaign.one_time' %>
-								 	</a>
 								</li>
 							</ul>
 						</div>
@@ -60,7 +58,7 @@
 	</div>
 <% end %>	
 <%= form_for @subscription, url: payment_user_payment_backs_path(user.uid), method: :get do |f| %>
-	<%= f.hidden_field :funding_type, value:'recurring',id:"funding-type-get-reward"%>
+	<%= f.hidden_field :funding_type, value:'one_time',id:"funding-type-get-reward"%>
 	<!-- get reward -->
 	<div class="panel panel-reward bg-blue-100 border-blue-100 border-radius-6" id="panel-get-reward">
 		<div class="panel-heading p-30 text-thin text-grey-800">
@@ -122,18 +120,21 @@
 				</div>
 				<div class="col-md-7 col-lg-8">
 					<div class="input-group">
-						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100"><%= currency_signs(user.active_campaign.currency) %></span>
+						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100">
+							<img src="/assets/icon/fruity/hazel_nut_thumbnail64.png" style="height:24px;">
+						</span>
 						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-get-reward"%>
 						<div class="input-group-btn dropup">
 							<button type="button" class="btn btn-default dropdown-toggle no-border no-border-radius-left border-radius-6 text-blue bg-blue-200" data-toggle="dropdown" aria-expanded="false" style="padding:10px;" id="funding-type-get-reward-text">
-								<% if user.active_campaign.funding_type == 'creation' %>
-									<%= t 'views.campaign.per_creation' %>
-								<% else %>
-									<%= t 'views.campaign.per_month' %>
-								<% end %>
+								<%= t 'views.campaign.one_time' %>
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right" style="z-index:1000;">
+								<li>
+								 	<a id="one-time-get-reward">
+								 		<%= t 'views.campaign.one_time' %>
+								 	</a>
+								</li>
 								<li>
 									<a id="per-creation-get-reward">
 										<% if user.active_campaign.funding_type == 'creation' %>
@@ -142,11 +143,6 @@
 											<%= t 'views.campaign.per_month' %>
 										<% end %>
 									</a>
-								</li>
-								<li>
-								 	<a id="one-time-get-reward">
-								 		<%= t 'views.campaign.one_time' %>
-								 	</a>
 								</li>
 							</ul>
 						</div>
@@ -243,8 +239,8 @@
 	    	$('#panel-get-reward').removeClass('border-blue-100');
 	    	$('#panel-get-reward').addClass('border-blue');
 	    	$('#shipping-selector').show();  	
-	    	<% if @subscription.shipping_country %>
-				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val()) {
+	    	<% if @subscription.shipping_country || user.active_reward.shippings %>
+				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val() != "") {
 			   		$('#get-reward-submit').unblock();
 				}	
 			<% else %>
@@ -273,19 +269,19 @@
 	    });    
 		$('#shipping-country-selector').on('change', function() {
 			if(this.value){
-				<% if @subscription.shipping_country %>
-					if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200) {
+				<% if @subscription.shipping_country || user.active_reward.shippings %>
+					if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val() != "") {
 				   		$('#get-reward-submit').unblock();
 					}	
 				<% else %>
-					if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %>) {
+					if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200) {
 				   		$('#get-reward-submit').unblock();
 					}	
 				<% end %>		
 				<% if Rails.env.production? %>
-					return $.getScript('https://ratafire.com/users/<%= user.id %>/payment/backs/country/'+this.value);
+					return $.getScript('https://ratafire.com/users/<%= user.uid %>/payment/backs/country/'+this.value);
 				<% else %>
-					return $.getScript('http://localhost:3000/users/<%= user.id %>/payment/backs/country/'+this.value);
+					return $.getScript('http://localhost:3000/users/<%= user.uid %>/payment/backs/country/'+this.value);
 				<% end %>
 			} else {
 				$('#shipping-fee').html('<%= t "views.payment.backs.free_shipping" %>');
@@ -303,8 +299,8 @@
 	    },});   
 	   //Block submit
 	   $('#amount-get-reward').donetyping(function(){
-	   		<% if @subscription.shipping_country %>
-		   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200 && $('#shipping-country-selector').val()){
+	   		<% if @subscription.shipping_country || user.active_reward.shippings %>
+		   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200 && $('#shipping-country-selector').val() != "" ){
 				   $('#get-reward-submit').unblock();
 		   		} else {
 				   $('#get-reward-submit').block({message: null,overlayCSS: {

@@ -164,6 +164,10 @@ class User < ActiveRecord::Base
         -> { where(majorposts:{:deleted_at => nil, :paid_update => true, :published => true, :mark_as_paid => false})},
         foreign_key: "user_id",
         class_name: "Majorpost"
+    has_many :paid_updates,
+        -> { where(majorposts:{:deleted_at => nil, :paid_update => true, :published => true, :mark_as_paid => true})},
+        foreign_key: "user_id",
+        class_name: "Majorpost"
         has_many :artwork
         has_many :link
         has_many :audio

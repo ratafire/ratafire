@@ -2,9 +2,13 @@
 	<div class="panel">
 		<div class="panel-body">
 			<div class="row mb-20">
-				<div class="col-lg-12">
-					<h4><i class="ti-announcement mr-15"></i><%= reward.goal_title %></h4>
+				<div class="col-lg-12 text-grey-700">
+					<%= link_to show_user_studio_rewards_path(reward.user.username,reward.id),class:"text-grey-300" do %>
+						<h4><i class="ti-announcement mr-15"></i><%= reward.goal_title %></h4>
+					<% end %>
 					<span class="label bg-grey-100"><%= reward.campaign.title %></span>
+					<!-- Reward Status -->
+					<%= render partial: 'studio/creator_studios/reward_status', locals: {reward: reward} %>
 				</div>
 			</div>
 			<div class="row mb-20">
@@ -17,10 +21,15 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<!-- Progress Bar -->
-					<div class="progress" style="height:40px;border-radius:5px;clear:both;" data-popup="tooltip" title="20% <%= t 'views.utilities.menu.of' %> $500" data-placement="top">
+					<div class="progress" style="height:40px;border-radius:5px;clear:both;" data-popup="tooltip" title="<%= number_to_human(goals_count(reward.predicted_total,reward.goal)) %>% <%= t 'views.utilities.menu.of' %> $<%= number_to_human(reward.goal.to_i) %>" data-placement="top">
 
-						<div class="progress-bar bg-rainbow-800 active" style="width: 20%;padding:12px;overflow:hidden;"  >
-							<span style="font-size:1.8em;white-space: nowrap;">20% <%= t 'views.utilities.menu.of' %> $500</span>
+						<% if reward.predicted_total >= reward.goal %>
+							<div class="progress-bar bg-rainbow-800 active text-thin" style="width: 100%;padding:12px;overflow:hidden;"  >
+						<% else %>
+							<div class="progress-bar bg-rainbow-800 active text-thin" style="<%= number_to_human(goals_count(reward.predicted_total,reward.goal)) %>%;padding:12px;overflow:hidden;"  >
+						<% end %>
+
+							<span style="font-size:1.8em;white-space: nowrap;"><%= number_to_human(goals_count(reward.predicted_total,reward.goal)) %>% <%= t 'views.utilities.menu.of' %> <%= currency_signs(reward.currency) %><%= number_to_human(reward.goal.to_i) %></span>
 						</div>
 					</div>
 				</div>

@@ -33,12 +33,18 @@ class Admin::CampaignsController < ApplicationController
 	#approve_admin_campaigns GET
 	#/admin/campaigns/approve/:campaign_id
 	def approve
-		@campaign.update(
+		if @campaign.update(
 			status: "Approved",
 			published: true,
 			published_at: Time.now,
 			due: @campaign.duration.years.from_now
 		)
+			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@campaign.id,'Campaign')
+				@activity.update(
+					published: @campaign.published
+				)
+			end
+		end
 		@campaign.rewards.last.update(
 			active: true
 		)

@@ -96,14 +96,14 @@ private
                         image_tag(@reward.image.url(:thumbnail40), class:"border-radius-3"),
                         truncate(@reward.title, length: 50),
                         '<div class="label bg-orange">'+I18n.t('views.creator_studio.rewards.waiting_for_shipping_fee')+'</div>',
-                        link_to(raw('<div class="btn bg-green">'+I18n.t('mailer.payment.shipping_order.pay_shipping_fee')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_s+'</div>'),confirm_shipping_payment_user_studio_rewards_path(reward_receiver.user_id,reward_receiver.shipping_order.id))
+                        link_to(raw('<div class="btn bg-green">'+I18n.t('mailer.payment.shipping_order.pay_shipping_fee')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_i.to_s+'</div>'),confirm_shipping_payment_user_studio_rewards_path(reward_receiver.user_id,reward_receiver.shipping_order.id))
                       ]
                     else
                       [
                         image_tag(@reward.campaign.image.url(:thumbnail40), class:"border-radius-3"),
                         truncate(@reward.title, length: 50),
                         '<div class="label bg-orange">'+I18n.t('views.creator_studio.rewards.waiting_for_shipping_fee')+'</div>',
-                        link_to(raw('<div class="btn bg-green">'+I18n.t('mailer.payment.shipping_order.pay_shipping_fee')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_s+'</div>'),confirm_shipping_payment_user_studio_rewards_path(reward_receiver.user_id,reward_receiver.shipping_order.id))
+                        link_to(raw('<div class="btn bg-green">'+I18n.t('mailer.payment.shipping_order.pay_shipping_fee')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_i.to_s+'</div>'),confirm_shipping_payment_user_studio_rewards_path(reward_receiver.user_id,reward_receiver.shipping_order.id))
                       ]
                     end
                 when 'ready_to_ship'
@@ -124,19 +124,55 @@ private
                     end
                 when 'shipped'
                     if @reward.image.present?
-                      [
-                        image_tag(@reward.image.url(:thumbnail40), class:"border-radius-3"),
-                        truncate(@reward.title, length: 50),
-                        '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.shipped')+'</div>',
-                        ''
-                      ]
+                      if reward_receiver.shipping_company
+                        if reward_receiver.tracking_number
+                          [
+                            image_tag(@reward.image.url(:thumbnail40), class:"border-radius-3"),
+                            truncate(@reward.title, length: 50),
+                            '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.shipped')+'</div>',
+                            reward_receiver.shipping_company+' '+reward_receiver.tracking_number
+                          ]
+                        else
+                          [
+                            image_tag(@reward.image.url(:thumbnail40), class:"border-radius-3"),
+                            truncate(@reward.title, length: 50),
+                            '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.shipped')+'</div>',
+                            reward_receiver.shipping_company
+                          ]
+                        end
+                      else
+                        [
+                          image_tag(@reward.image.url(:thumbnail40), class:"border-radius-3"),
+                          truncate(@reward.title, length: 50),
+                          '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.shipped')+'</div>',
+                          ''
+                        ]
+                      end
                     else
-                      [
-                        image_tag(@reward.campaign.image.url(:thumbnail40), class:"border-radius-3"),
-                        truncate(@reward.title, length: 50),
-                        '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.shipped')+'</div>',
-                        ''
-                      ]
+                      if reward_receiver.shipping_company
+                        if reward_receiver.tracking_number
+                          [
+                            image_tag(@reward.campaign.image.url(:thumbnail40), class:"border-radius-3"),
+                            truncate(@reward.title, length: 50),
+                            '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.shipped')+'</div>',
+                            reward_receiver.shipping_company+' '+reward_receiver.tracking_number
+                          ]
+                        else
+                          [
+                            image_tag(@reward.campaign.image.url(:thumbnail40), class:"border-radius-3"),
+                            truncate(@reward.title, length: 50),
+                            '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.shipped')+'</div>',
+                            reward_receiver.shipping_company
+                          ]
+                        end
+                      else
+                          [
+                            image_tag(@reward.campaign.image.url(:thumbnail40), class:"border-radius-3"),
+                            truncate(@reward.title, length: 50),
+                            '<div class="label bg-green">'+I18n.t('views.creator_studio.rewards.shipped')+'</div>',
+                            ''
+                          ]
+                      end
                     end
                 end
             end
@@ -151,7 +187,7 @@ private
         reward_receiver = RewardReceiver.order("#{sort_column} #{sort_direction}").where(:user_id => @user.id, :deleted => nil)
         reward_receiver = reward_receiver.page(page).per_page(per_page)
         if params[:sSearch].present?
-          reward_receiver = reward_receiver.where("subscribed_id like :search", search: "%#{params[:sSearch]}%")
+          reward_receiver = reward_receiver.where("subscription_id like :search", search: "%#{params[:sSearch]}%")
         end
         reward_receiver
     end
@@ -165,7 +201,7 @@ private
     end
 
     def sort_column
-        columns = %w[user_id user_id status status]
+        columns = %w[subscription_id subscription_id status status]
         columns[params[:iSortCol_0].to_i]
     end
 

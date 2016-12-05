@@ -37,7 +37,15 @@ class Payment::BacksController < ApplicationController
 	# country_user_payment_backs GET
 	# /users/:user_id/payment/backs/country/:country_id
 	def country
-		@shipping_fee = @user.active_reward.shippings.where(:country => params[:country_id]).first.amount
+		if @user.active_reward.shippings.where(:country => params[:country_id]).first
+			@shipping_fee = @user.active_reward.shippings.where(:country => params[:country_id]).first.amount
+		else
+			if @user.active_reward.shipping_anywhere
+				@shipping_fee = @user.active_reward.shipping_anywhere.amount
+			else
+				@shipping_fee = 0
+			end
+		end
 	end
 
 	# payment_user_payment_backs GET

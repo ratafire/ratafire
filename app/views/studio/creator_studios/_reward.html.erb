@@ -1,42 +1,48 @@
-<div class="col-lg-3 col-sm-6">
-	<div class="panel-reward panel">
-		<% if reward.image.present? %>
-			<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px 3px 0 0;">
-				<img src="<%= reward.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
-			</div>
-		<% else %>
-			<!-- Show project image -->
-			<div class="thumb  thumb-slide" id="reward-image-holder" style="border-radius: 3px 3px 0 0;">
-				<img src="<%= reward.campaign.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
-			</div>
-		<% end %>
-		<div class="panel-body">
-			<%= link_to show_user_studio_rewards_path(reward.user.username,reward.id) do %>
-				<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><i class="huaxia huaxia-libao mr-5"></i> <%= reward.title %></h5>
-			<% end %>
-			<!-- Amount -->
-			<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><%= t 'views.utilities.menu.support' %> <%= currency_signs(reward.campaign.currency) %><%= reward.amount.to_i %></h5>
-			<!-- Backers -->
-			<% if reward.backers > 0 %>
-				<!-- Show limited backers -->
-				<p class="text-grey-200"><i class="ti-user"></i> <span ><%= reward.reward_receivers.count %>/<%= reward.backers %> <%= t 'views.utilities.menu.backers' %></span></p>
+<div class="col-lg-3 col-sm-6 col-md-4">
+	<%= link_to show_user_studio_rewards_path(reward.user.username,reward.id) do %>
+		<div class="panel-reward panel" style="height:550px;">
+			<% if reward.image.present? %>
+				<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px 3px 0 0;">
+					<img src="<%= reward.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+				</div>
 			<% else %>
-				<!-- Show backer when there is more than 0 backer -->
-				<% if reward.reward_receivers.count > 0 %>
-					<p class="text-grey-200"><i class="ti-user"></i> <span ><%= reward.reward_receivers.count %>
-				<% end %>
+				<!-- Show project image -->
+				<div class="thumb  thumb-slide" id="reward-image-holder" style="border-radius: 3px 3px 0 0;">
+					<img src="<%= reward.campaign.image.url(:thumbnail480p)%>" class="about-profilephoto-holder" alt="">
+				</div>
 			<% end %>
-			<div class="text-grey mb-20"><%= reward.description %></div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="text-grey-200"><%= t 'views.utilities.menu.estimated_delivery' %>:</div>
-					<div><%= reward.estimated_delivery.strftime('%Y/%m/%d') %></div>
+			<div class="panel-body">
+				<!-- Status -->
+				<div class="pb-10">
+					<!-- Reward status -->
+					<%= render partial: 'studio/creator_studios/reward_status', locals: {reward: reward} %>
 				</div>
-				<div class="col-md-6">
-					<div class="text-grey-200"><%= t 'views.utilities.menu.ships_to' %>:</div>
-					<div><%= t shipping(reward.shipping) %></div>
+				<!-- Title -->
+				<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><i class="huaxia huaxia-libao mr-5"></i> <%= truncate(reward.title, length: 50) %></h5>
+				<!-- Amount -->
+				<h5 class="no-margin-top"><span class="text-grey-100"><%= reward.amount.to_i %></span><span class="ml-5 mr-5 text-grey-100">x</span><img class="mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"></h5>
+				<!-- Backers -->
+				<% if reward.backers > 0 %>
+					<!-- Show limited backers -->
+					<p class="text-grey-200"><i class="ti-user"></i> <span ><%= number_to_human(reward.reward_receivers.count) %>/<%= number_to_human(reward.backers) %> <%= t 'views.utilities.menu.backers' %></span></p>
+				<% else %>
+					<!-- Show backer when there is more than 0 backer -->
+					<% if reward.reward_receivers.count > 0 %>
+						<p class="text-grey-200"><i class="ti-user"></i> <span ><%= number_to_human(reward.reward_receivers.count) %>
+					<% end %>
+				<% end %>
+				<div class="text-grey mb-20"><%= reward.description %></div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="text-grey-200"><%= t 'views.utilities.menu.estimated_delivery' %>:</div>
+						<div><%= reward.estimated_delivery.strftime('%Y/%m/%d') %></div>
+					</div>
+					<div class="col-md-6">
+						<div class="text-grey-200"><%= t 'views.utilities.menu.ships_to' %>:</div>
+						<div><%= t shipping(reward.shipping) %></div>
+					</div>
 				</div>
-			</div>
-		</div>	
-	</div>
+			</div>	
+		</div>
+	<% end %>
 </div>

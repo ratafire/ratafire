@@ -4,7 +4,7 @@ class Reward::RewardDue
 	@queue = :reward
 
 	def self.perform
-		Reward.where(deleted: nil, expired: nil, expiration_queued: nil).each do |reward|
+		Reward.where(deleted: nil, expired: nil, expiration_queued: nil, ended_early: nil).each do |reward|
 			#Check if the reward is due
 			if (reward.due.to_i - Time.now.to_i) < 86400
 				#Queue expiration

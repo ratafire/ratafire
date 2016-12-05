@@ -1,0 +1,10 @@
+//Add update
+$("#post-pagination").append("<div class='post-pagination'><%= j render(:partial => 'studio/creator_studios/campaign', collection: @campaigns, :as => :campaign ) %></div>");
+initiate_plugins('<%= j @popoverclass %>_video_class');
+refreshUsercard('<%= j @popoverclass %>');
+<% if @campaigns.next_page %>
+  $('.post-will-paginate').replaceWith('<div class="post-will-paginate"><%= j will_paginate(@campaigns) %></div>');
+  $(".post-will-paginate").hide();
+<% else %>
+  $('.post-will-paginate').remove();
+<% end %>

@@ -1,34 +1,34 @@
-<div>
+<div class="text-grey-700">
 	<h2 class="mt-40 mb-20"><i class="ti-announcement mr-15"></i><%= user.active_reward.goal_title %> <span class="label label-default"><%= t 'views.utilities.menu.current_goal' %></span></h2>
 	<!-- Countdown Script -->
-	<div class="countdown" id="counter-wrapper">
+	<div class="countdown text-grey-700" id="counter-wrapper">
 		<!-- Days -->
 		<div class="countdown_section_wrapper">
 			<div class="countdown_section">
-				<div class="countdown_amount days">00</div>
-				<div class="countdown_day"><span class="label label-blue"><%= t 'views.utilities.menu.days_to_go' %></span></div>
+				<div class="countdown_amount days text-grey-700">00</div>
+				<div class="countdown_day text-grey-700"><span class="label label-blue"><%= t 'views.utilities.menu.days_to_go' %></span></div>
 			</div>	
 		</div>	
 		<!-- Hours -->
 		<div class="countdown_section_wrapper">
 			<div class="countdown_section">
-				<div class="countdown_amount hours">00</div>
-				<div class="countdown_day"><%= t 'views.utilities.menu.hrs' %></div>
+				<div class="countdown_amount hours text-grey-700">00</div>
+				<div class="countdown_day text-grey-700"><%= t 'views.utilities.menu.hrs' %></div>
 			</div>	
 		</div>	
 		<!-- Min -->
 		<div class="countdown_section_wrapper">
 			<div class="countdown_section">
-				<div class="countdown_amount minutes">00</div>
-				<div class="countdown_day"><%= t 'views.utilities.menu.min' %></div>
+				<div class="countdown_amount minutes text-grey-700">00</div>
+				<div class="countdown_day text-grey-700"><%= t 'views.utilities.menu.min' %></div>
 			</div>	
 		</div>	
 		<!-- Sec -->
 		<div class="countdown_section_wrapper">
 			<div class="countdown_section">
 			<div class="countdown_section">
-				<div class="countdown_amount seconds">00</div>
-				<div class="countdown_day"><%= t 'views.utilities.menu.sec' %></div>
+				<div class="countdown_amount seconds text-grey-700">00</div>
+				<div class="countdown_day text-grey-700"><%= t 'views.utilities.menu.sec' %></div>
 			</div>	
 		</div>		
 	</div><!-- end. counter-wrapper -->
@@ -40,10 +40,15 @@
 	</script> 
 </div>
 <!-- Progress Bar -->
-<div class="progress" style="height:40px;border-radius:5px;clear:both;" data-popup="tooltip" title="20% <%= t 'views.utilities.menu.of' %> $500" data-placement="top">
+<div class="progress" style="height:40px;border-radius:5px;clear:both;" data-popup="tooltip" title="<%= number_to_human(goals_count(user.active_reward.predicted_total,user.active_reward.goal)) %>% <%= t 'views.utilities.menu.of' %> $<%= number_to_human(user.active_reward.goal.to_i) %>" data-placement="top">
 
-	<div class="progress-bar progress-bar-blue progress-bar-striped active" style="width: 20%;padding:12px;overflow:hidden;"  >
-		<span style="font-size:1.8em;white-space: nowrap;">20% <%= t 'views.utilities.menu.of' %> $500</span>
+	<% if user.active_reward.predicted_total >= user.active_reward.goal %>
+		<div class="progress-bar progress-bar-blue progress-bar-striped active text-thin" style="width: 100%;padding:12px;overflow:hidden;"  >
+	<% else %>
+		<div class="progress-bar progress-bar-blue progress-bar-striped active text-thin" style="width: <%= number_to_human(goals_count(user.active_reward.predicted_total,user.active_reward.goal)) %>%;padding:12px;overflow:hidden;"  >
+	<% end %>
+
+		<span style="font-size:1.8em;white-space: nowrap;"><%= number_to_human(goals_count(user.active_reward.predicted_total,user.active_reward.goal)) %>% <%= t 'views.utilities.menu.of' %> <%= number_to_human(user.active_reward.goal.to_i) %><img class="ml-5 mt-5-" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:20px;"></span>
 	</div>
 </div>
 <div class="mt-20"></div>	

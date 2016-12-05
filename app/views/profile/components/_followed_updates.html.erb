@@ -5,9 +5,9 @@
 	<div class="media-body">
 		<div class="media-heading text-semibold">
 			<%= user.preferred_name %>
-			<% if PublicActivity::Activity.where(owner_id: 1, deleted: false, trackable_type:["Majorpost"]).unread_by(current_user).count > 0 %>
+			<% if PublicActivity::Activity.where(owner_id: user.id, deleted: false, trackable_type:["Majorpost"]).unread_by(current_user).count > 0 %>
 				<span class="label text-grey-100 bg-transparent-dark pull-right">
-					<%= number_to_human(PublicActivity::Activity.where(owner_id: 1, deleted: false, trackable_type:["Majorpost"]).unread_by(current_user).count, :format => '%n%u', :units => { :thousand => 'k' }) %>
+					<%= number_to_human(PublicActivity::Activity.where(owner_id: user.id, deleted: false, trackable_type:["Majorpost"]).unread_by(current_user).count, :format => '%n%u', :units => { :thousand => 'k' }) %>
 				</span>
 			<% end %>
 		</div>

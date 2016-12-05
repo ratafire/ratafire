@@ -1,0 +1,12 @@
+<div class="row bg-grey-100 p-20 ml-20 mr-20 mb-20" id='reward-upload-hint'>
+	<div class="col-md-10">
+		<%= t 'views.creator_studio.rewards.new_reward_help'%>
+	</div>
+	<div class="col-md-2">
+		<%= link_to make_active_user_studio_rewards_path(user.uid,reward.id),method: :post do %>
+			<div class="btn bg-green">
+				<%= t 'views.creator_studio.rewards.make_active'%>
+			</div>
+		<% end %>
+	</div>
+</div>

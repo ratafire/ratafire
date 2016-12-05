@@ -23,6 +23,9 @@ class Payment::SubscriptionsController < ApplicationController
 			currency: 'usd',
 			campaign_funding_type: @subscribed.active_campaign.funding_type
 		)
+		if params[:subscription][:majorpost_id]
+			@subscription.majorpost_id = params[:subscription][:majorpost_id]
+		end
 		if params[:subscription][:upper_limit]
 			@subscription.upper_limit = params[:subscription][:upper_limit]
 		end
@@ -145,7 +148,7 @@ private
 			funding:  @customer.sources.first.funding,
 			customer_stripe_id:  @customer.id
 		)
-			if @user.card
+			if @subscriber.card
 				#retrieve old and new stripe 
 				@new_card = @customer.sources.retrieve(@card.card_stripe_id)
 				#Make new as default
@@ -154,7 +157,7 @@ private
 				#delete old
 				@old_card = @customer.sources.retrieve(@subscriber.card.card_stripe_id)
 				@old_card.delete
-				@user.card.destroy
+				@subscriber.card.destroy
 			end
 			@card.user_id = @subscriber.id
 			@card.save
@@ -208,9 +211,46 @@ private
 				:description => t('views.payment.backs.ratafire_payment'),
 				:destination => @subscribed.stripe_account.stripe_id
 			)
-		rescue
-			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
+		rescue Stripe::CardError => e
+			# Since it's a decline, Stripe::CardError will be caught
+			body = e.json_body
+			err  = body[:error]
+
+			puts "Status is: #{e.http_status}"
+			puts "Type is: #{err[:type]}"
+			puts "Code is: #{err[:code]}"
+			# param is '' in this case
+			puts "Param is: #{err[:param]}"
+			puts "Message is: #{err[:message]}"
+			#Show to the user
+			flash[:error] = "#{err[:message]}"
 			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
+		rescue Stripe::RateLimitError => e
+			# Too many requests made to the API too quickly
+  			flash[:error] = t('views.errors.messages.too_many_requests')
+  			redirect_to profile_url_path(@subscribed.username)
+		rescue Stripe::InvalidRequestError => e
+			# Invalid parameters were supplied to Stripe's API
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to profile_url_path(@subscribed.username)
+		rescue Stripe::AuthenticationError => e
+			# Authentication with Stripe's API failed
+			# (maybe you changed API keys recently)
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to profile_url_path(@subscribed.username)
+		rescue Stripe::APIConnectionError => e
+			# Network communication with Stripe failed
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to profile_url_path(@subscribed.username)
+		rescue Stripe::StripeError => e
+			# Display a very generic error to the user, and maybe send
+  			# yourself an email
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to profile_url_path(@subscribed.username)
+  		rescue 
+  			# General rescue
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to profile_url_path(@subscribed.username)
 		end
 		if response.try(:captured) == true then
 			@subscription.save
@@ -241,7 +281,7 @@ private
 			subscription_post_payment
 		else
 			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
-			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
+			#redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
 		end
 	end
 
@@ -261,12 +301,17 @@ private
 			subscription_update_subscription_record
 			#Update campaign
 			subscription_update_active_campaign
+			#Update Majorpost
+			subscription_update_active_majorpost
 			#Update billing artist
 			subscription_update_billing_artist
 			#Make a follower
 			subscription_add_follower
+			#Update reward
+			subscription_update_active_reward
 			#Create receiver
 			if @subscription.get_reward == 'on'
+				#Create reward receiver
 				subscription_create_receiver
 			end
 			#Create a find a transfer
@@ -276,6 +321,8 @@ private
 			#Unsubscribe the one time backer
 			if @subscription.funding_type == 'one_time'
 				Subscription.unsubscribe(reason_number:8, subscriber_id:@subscriber.id, subscribed_id: @subscribed_id)
+				if @transaction
+				end
 			else
 				#update billing_subscription
 				subscription_update_billing_subscription				
@@ -346,8 +393,18 @@ private
 			unless @shipping_address
 				@shipping_address = @subscriber.shipping_address
 			end
+			#Select shipping amount based on different situiations
+			if @subscribed.active_reward.shippings.where(country: @shipping_address.country).first
+				shipping_amount = @subscribed.active_reward.shippings.where(country: @shipping_address.country).first.amount
+			else
+				if @subscribed.active_reward.shipping_anywhere
+					shipping_amount = @subscribed.active_reward.shipping_anywhere.amount
+				else
+					shipping_amount = 0
+				end
+			end
 			if @reward_receiver = RewardReceiver.create(
-				amount: @subscribed.active_reward.shippings.where(country: @shipping_address.country).first.amount,
+				amount: shipping_amount,
 				user_id: @subscriber.id,
 				reward_id: @subscribed.active_reward.id,
 				subscription_id: @subscription.id,
@@ -508,7 +565,59 @@ private
 				@campaign.update(
 					accumulated_total: @campaign.accumulated_total+@transaction.total,
 					accumulated_receive: @campaign.accumulated_total+@transaction.receive,
-					accumulated_fee: @campaign.accumulated_fee+@transaction.fee
+					accumulated_fee: @campaign.accumulated_fee+@transaction.fee,
+					predicted_total: @campaign.predicted_total+@subscription.amount,
+					predicted_receive: @campaign.predicted_receive+@transaction.fee,
+					predicted_fee: @campaign.predicted_fee+@transaction.receive
+				)
+			else
+				@campaign.update(
+					predicted_total: @campaign.predicted_total+@subscription.amount,
+					recurring_total: @campaign.recurring_total+@subscription.amount
+				)
+			end
+		end
+	end
+
+	def subscription_update_active_majorpost
+		if params[:subscription][:majorpost_id] && @majorpost = Majorpost.find(@subscription.majorpost_id)
+			if @transaction
+				@majorpost.update(
+					accumulated_total: @majorpost.accumulated_total+@transaction.total,
+					accumulated_receive: @majorpost.accumulated_total+@transaction.receive,
+					accumulated_fee: @majorpost.accumulated_fee+@transaction.fee,
+					predicted_total: @majorpost.predicted_total+@subscription.amount,
+					predicted_receive: @majorpost.predicted_receive+@transaction.fee,
+					predicted_fee: @majorpost.predicted_fee+@transaction.receive
+				)
+			else
+				#Update latest paid update
+				if @majorpost 
+					@majorpost.update(
+						predicted_total: @majorpost.predicted_total+@subscription.amount,
+						recurring_total: @majorpost.recurring_total+@subscription.amount
+					)
+				end
+			end
+		end
+	end
+
+	def subscription_update_active_reward
+		if @reward = @subscribed.active_reward
+			if @transaction
+				#Update rewards
+				@reward.update(
+					accumulated_total: @reward.accumulated_total+@subscription.amount,
+					accumulated_receive: @reward.accumulated_receive+@transaction.fee,
+					accumulated_fee: @reward.accumulated_fee+@transaction.receive,
+					predicted_total: @reward.predicted_total+@subscription.amount,
+					predicted_receive: @reward.predicted_receive+@transaction.fee,
+					predicted_fee: @reward.predicted_fee+@transaction.receive
+				)
+			else
+				@reward.update(
+					predicted_total: @reward.predicted_total+@subscription.amount,
+					recurring_total: @reward.recurring_total+@subscription.amount
 				)
 			end
 		end

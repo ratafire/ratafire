@@ -1,0 +1,29 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, t('views.utilities.menu.explore')) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- Content Area -->
+<div class="content">
+	<!-- Updates -->
+	<div class="masonry">
+		<div id="like-pagination">
+			<%= render_activities(@activities, layout: :activity_liked) %>
+		</div>
+	</div>
+	
+	<div class="like-pagination">
+		<div id="like-pagination-old">
+			<%= will_paginate(@activities) %>
+		</div>
+	</div>
+</div>

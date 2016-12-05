@@ -37,9 +37,46 @@ private
 				:customer => @subscriber.customer.customer_id,
 				:description => t('views.payment.backs.ratafire_payment')
 			)
-		rescue
-			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
+		rescue Stripe::CardError => e
+			# Since it's a decline, Stripe::CardError will be caught
+			body = e.json_body
+			err  = body[:error]
+
+			puts "Status is: #{e.http_status}"
+			puts "Type is: #{err[:type]}"
+			puts "Code is: #{err[:code]}"
+			# param is '' in this case
+			puts "Param is: #{err[:param]}"
+			puts "Message is: #{err[:message]}"
+			#Show to the user
+			flash[:error] = "#{err[:message]}"
 			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
+		rescue Stripe::RateLimitError => e
+			# Too many requests made to the API too quickly
+  			flash[:error] = t('views.errors.messages.too_many_requests')
+  			redirect_to(:back)
+		rescue Stripe::InvalidRequestError => e
+			# Invalid parameters were supplied to Stripe's API
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to(:back)
+		rescue Stripe::AuthenticationError => e
+			# Authentication with Stripe's API failed
+			# (maybe you changed API keys recently)
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to(:back)
+		rescue Stripe::APIConnectionError => e
+			# Network communication with Stripe failed
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to(:back)
+		rescue Stripe::StripeError => e
+			# Display a very generic error to the user, and maybe send
+  			# yourself an email
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to(:back)
+  		rescue 
+  			# General rescue
+  			flash[:error] = t('views.errors.messages.not_saved')
+  			redirect_to(:back)
 		end
 		if response.captured == true
 			#Record transaction

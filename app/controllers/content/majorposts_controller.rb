@@ -4,6 +4,8 @@ class Content::MajorpostsController < ApplicationController
 
 	#Before filters
 	before_filter :load_majorpost, except: [:create]
+	before_filter :load_user, only:[:show, :set_category, :set_sub_category]
+	before_filter :show_contacts, only:[:show]
 	before_filter :show_followed, only:[:show]
 
 	#REST Methods -----------------------------------
@@ -44,13 +46,14 @@ class Content::MajorpostsController < ApplicationController
 	#content_majorpost GET
 	#/content/majorposts/:id
 	def show
-		@user = @majorpost.user
 		#Mark the activity as read
 		if user_signed_in?
 			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
 				@activity.mark_as_read! :for => current_user
 			end
 		end
+		@majorpost_likers = @majorpost.liked_majorposts.page(params[:page]).per_page(5)
+		@popoverclass = SecureRandom.hex(16)
 	end
 
 	#content_majorpost DELETE
@@ -79,7 +82,40 @@ class Content::MajorpostsController < ApplicationController
 	def read_more
 	end
 
+	#content_majorpost_set_category POST
+	def set_category
+		if @majorpost.update(
+			category: params[:category_id],
+			sub_category: nil
+		)
+			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
+				@activity.update(
+					category: @majorpost.category
+				)
+			end
+		end
+	end
+
+	#content_majorpost_set_sub_category POST
+	def set_sub_category
+		if @majorpost.update(
+			category: params[:category_id],
+			sub_category: params[:sub_category_id]
+		)
+			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
+				@activity.update(
+					category: @majorpost.category,
+					sub_category: @majorpost.sub_cateory
+				)
+			end
+		end
+	end
+
 private
+
+	def load_user
+		@user = @majorpost.user
+	end
 
 	def load_majorpost
 		unless @majorpost = Majorpost.find_by_uuid(params[:id])
@@ -128,5 +164,35 @@ private
 			@followed = current_user.likeds.order("last_seen desc").page(params[:followed_update]).per_page(3)
 		end
 	end	
+
+	def show_contacts
+		@popoverclass = SecureRandom.hex(16)
+		if @user.friends.count > 0
+			if @friends = @user.friends.order('last_seen desc')
+				@contacts = @friends
+			end
+		end
+		if @user.record_subscribers.count > 0
+			if @backers = @user.record_subscribers.order('last_seen desc')
+				if @contacts
+					@contacts += @backers
+				else
+					@contacts = @backers
+				end
+			end
+		end
+		if @user.record_subscribed.count > 0
+			if @backeds = @user.record_subscribed.order('last_seen desc')
+				if @contacts
+					@contacts += @backeds
+				else
+					@contacts = @backeds
+				end
+			end
+		end
+		if @contacts
+			@contacts = @contacts.sort_by(&:created_at).reverse.uniq.paginate(:per_page => 9)
+		end
+	end
 
 end

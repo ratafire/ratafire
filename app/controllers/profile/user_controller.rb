@@ -19,6 +19,8 @@ class Profile::UserController < ApplicationController
 				@activities.mark_as_read! :all, :for => current_user
 			end
 		end
+		#Latest updates
+		@latest_updates = Notification.order("created_at desc").where(notification_type:["subscribed_one_time","subscribed_recurring"], deleted: nil).page(params[:page]).per_page(3)
 	end
 
 protected

@@ -1,0 +1,15 @@
+<!-- Active -->
+<% if reward.active == true %>
+	<span class="label bg-green mr-5"><%= t 'views.creator_studio.rewards.active' %></span>
+<% end %>
+<% if reward.active == nil %>
+	<span class="label bg-grey-100 mr-5"><%= t 'views.creator_studio.rewards.inactive' %></span>
+<% end %>
+<!-- Expired -->
+<% if reward.expired == true %>
+	<span class="label bg-grey-100 mr-5"><%= t 'views.creator_studio.rewards.expired' %></span>
+<% end %>
+<!-- Ended Early -->
+<% if reward.ended_early == true %>
+	<span class="label bg-grey-100 mr-5"><%= t 'views.creator_studio.rewards.expired' %></span>
+<% end %>

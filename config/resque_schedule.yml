@@ -4,7 +4,7 @@ Subscription::Transfer:
   cron: "10 0 28 * *"
 Reward::RewardDue:
   cron: "20 0 * * *"
-Reward::Deliverydue:
+Reward::RewardDeliverydue:
   cron: "20 1 * * *"
 Campaign::CampaignDue:
   cron: "20 2 * * *"

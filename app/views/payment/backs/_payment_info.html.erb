@@ -4,11 +4,20 @@
         <%= f.hidden_field :funding_type, value: params[:subscription][:funding_type]%>
         <%= f.hidden_field :shipping_country, value: params[:subscription][:shipping_country] %>
         <%= f.hidden_field :get_reward, value: params[:subscription][:get_reward] %>
+        <% if params[:subscription][:majorpost_id] %>
+             <%= f.hidden_field :majorpost_id, value: params[:subscription][:majorpost_id] %>
+        <% else %>
+            <% if user.unpaid_updates.first %>
+                <%= f.hidden_field :majorpost_id, value: user.unpaid_updates.first.id %>
+            <% end %>
+        <% end %>
 		<div class="col-md-12 col-lg-12">
 			<h4 class="no-margin-top mb-20"><%= t 'views.payment.backs.payment_information' %></h4>
 			<div class="row">
 				<div class="col-md-12 col-lg-12">
 					<% if params[:subscription][:funding_type] == 'one_time' %>
+                        <%= t 'views.payment.backs.you_are_giving_1' %><%= user.preferred_name %>
+                        <%= t 'views.payment.backs.blank' %><%= params[:subscription][:amount] %><span class="ml-5 mr-5">x</span><img class="mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"><%= t 'views.payment.backs.hazelnut' %><%= t 'views.payment.backs.you_are_giving_2' %>
 						<%= t 'views.payment.backs.will_be_charged_now_1' %><%= currency_signs(user.active_campaign.currency) %><%= params[:subscription][:amount] %><%= t 'views.payment.backs.will_be_charged_now_2' %><%= user.preferred_name %><%= t 'views.payment.backs.screation'%><%= t 'views.payment.backs.will_be_charged_now_3' %>
 					<% else %>
 						<% if user.active_campaign.funding_type == 'creation' %>
@@ -22,7 +31,7 @@
 				</div>
 			</div>
             <!-- Upper limit -->
-            <% if user.active_campaign.funding_type == 'creation' %>
+            <% if user.active_campaign.funding_type == 'creation' && params[:subscription][:funding_type] == 'recurring' %>
                 <%= render partial: "payment/backs/form_upperlimit", locals: { f: f, user: @user } %>
             <% end %>
 			<!-- Add card -->

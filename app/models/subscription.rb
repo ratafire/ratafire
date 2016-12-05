@@ -24,6 +24,7 @@ class Subscription < ActiveRecord::Base
 	belongs_to :subscribed_organization, class_name: "Organization"
 
 	belongs_to :campaign
+	belongs_to :majorpost
 
 	#Has many
 	has_many :reward_receivers,
@@ -245,6 +246,10 @@ class Subscription < ActiveRecord::Base
 			#update subscription_record
 			if @subscription_record = SubscriptionRecord.find_by_subscriber_id_and_subscribed_id(@subscription.subscriber_id,@subscription.subscribed_id)
 				unless @subscription.funding_type == 'one_time'
+					#Real deletion
+					@subscription.update(
+						real_deleted: true
+					)
 					if @subscription_record.duration == nil then
 						@subscription_record.duration = @subscription.deleted_at - @subscription.created_at
 					else
@@ -253,11 +258,21 @@ class Subscription < ActiveRecord::Base
 					end	
 					valid_subscription = ((@subscription.deleted_at - @subscription.created_at)/1.day).to_i
 					if valid_subscription < 30 then
+						#Delete activity
 						PublicActivity::Activity.where(trackable_id: @subscription.id,trackable_type:'Subscription').each do |activity|
 							if activity != nil then 
 								activity.update(
 									deleted: true,
 									deleted_at: Time.now,
+								)
+							end
+						end
+						#Delete notification
+						if Notification.where(trackable_id: @subscription.id)
+							Notification.where(trackable_id: @subscription.id).all.each do |notification|
+								notification.update(
+									deleted: true,
+									deleted_at: Time.now
 								)
 							end
 						end
@@ -269,6 +284,25 @@ class Subscription < ActiveRecord::Base
 								deleted_at: Time.now
 							)
 						end
+					end
+					#Subtract the predicted for long term backers
+					@subscription.campaign.update(
+						predicted_total: @subscription.campaign.predicted_total-@subscription.amount,
+						recurring_total: @subscription.campaign.recurring_total-@subscription.amount
+					)
+					#Update latest paid update
+					if @subscription.majorpost
+						@subscription.majorpost.update(
+							predicted_total: @subscription.majorpost.predicted_total-@subscription.amount,
+							recurring_total: @subscription.majorpost.recurring_total-@subscription.amount
+						)
+					end
+					#Update rewards
+					if @subscribed.active_reward
+						@subscribed.active_reward.update(
+							predicted_total: @subscribed.active_reward.predicted_total-subscription.amount,
+							recurring_total: @subscribed.active_reward.recurring_total-@subscription.amount
+						)
 					end
 				end
 				@subscription_record.update(

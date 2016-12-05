@@ -63,9 +63,11 @@ class Studio::CampaignsController < ApplicationController
 				due: params[:campaign][:rewards_attributes].values.first[:due], 
 				title: params[:campaign][:rewards_attributes].values.first[:title], 
 				amount: params[:campaign][:rewards_attributes].values.first[:amount], 
+				goal: params[:campaign][:rewards_attributes].values.first[:goal],
 				description: params[:campaign][:rewards_attributes].values.first[:description], 
 				shipping: params[:campaign][:rewards_attributes].values.first[:shipping],
-				estimated_delivery: params[:campaign][:rewards_attributes].values.first[:estimated_delivery]
+				estimated_delivery: params[:campaign][:rewards_attributes].values.first[:estimated_delivery],
+				currency: @campaign.currency
 				)			
 			#Update Shipping countries
 			if params[:campaign][:rewards_attributes].values.first[:shippings_attributes]

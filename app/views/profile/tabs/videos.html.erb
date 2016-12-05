@@ -20,11 +20,9 @@
 	<div class="content" >
 		<!-- Activities -->
 		<div class="row pl-10 pr-10">
-			<div class="masonry">
-				<div id="video-pagination">
-					<%= render :partial => 'profile/components/tab_videos', collection: @videos, :as => :video %>
-				</div>
+			<div id="video-pagination">
 			</div>
+			<%= render :partial => 'profile/components/tab_videos', collection: @videos, :as => :video %>
 			<div class="video-pagination">
 				<div id="video-pagination-old">
 					<%= will_paginate(@videos) %>

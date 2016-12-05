@@ -64,7 +64,14 @@ class Payment::RewardReceiversController < ApplicationController
 	# /users/:user_id/payment/reward_receivers/:reward_receiver_id/request_shipping_fee
 	def request_shipping_fee
 		@reward = Reward.find(@reward_receiver.reward_id)
-		@amount = @reward.shippings.where(country: @reward_receiver.shipping_address.country).first.amount
+		#Select shipping amount based on different situiations
+		if @reward.shippings.where(country: @reward_receiver.shipping_address.country).first
+			@amount = @reward.shippings.where(country: @reward_receiver.shipping_address.country).first.amount
+		else
+			if @reward.shipping_anywhere
+				@amount = @reward.shipping_anywhere.amount
+			end
+		end
 		if @shipping_order = ShippingOrder.find_by_reward_receiver_id(@reward_receiver.id)
 		else
 			@shipping_order = ShippingOrder.create(
@@ -119,123 +126,170 @@ private
 		if @subscriber.try(:locale)
 			I18n.locale = @subscriber.locale
 		end	
-		#Pay through Stripe
-		begin
-			#Connect to Stripe
-			if Rails.env.production?
-				Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-			else
-				Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
-			end
-			response = Stripe::Charge.create(
-				amount: @shipping_order.amount.to_i*100,
-				currency: @shipping_order.reward.currency,
-				customer: @subscriber.customer.customer_id,
-				description: I18n.t('views.payment.backs.ratafire_payment'),
-				destination: @subscribed.stripe_account.stripe_id
-			)
-		rescue
-			@shipping_order.update(
-				status: 'Error'
-			)
-			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
-			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)	
-		end
-		if response.captured == true
-			#Record transaction
-			@transaction = Transaction.prefill!(
-				response,
-				:shipping_order_id => @shipping_order.id,
-				:subscriber_id => @subscriber.id,
-				:fee => @shipping_order.amount.to_f*0.029+0.30,
-				:transaction_method => "Stripe",
-				:currency => @shipping_order.reward.currency,
-				:subscribed_id => @subscribed.id,
-				:transaction_type => 'Shipping',
-				:reward_id => @shipping_order.reward.id
-			)
-			@transaction = Transaction.find_by_shipping_order_id(@shipping_order.id)
-			#Record transfer
-			if @subscribed.transfer != nil then
-				@transfer = @subscribed.transfer
-				@transfer.update(
-					user_id: @subscribed.id,
-					method: 'Stripe',
-					collected_amount: @transfer.collected_amount+@shipping_order.amount,
-					collected_fee: @transfer.collected_fee+@transaction.fee,
-					collected_receive: @transfer.collected_receive+@transaction.receive,
-				)
-				@transaction.update(
-					transfer_id: @transfer.id
-				)
-			else
-				@transfer = Transfer.create(
-					user_id: @subscribed.id,
-					method: 'Stripe',
-					collected_amount: @transfer.collected_amount+@shipping_order.amount,
-					collected_fee: @transfer.collected_fee+@transaction.fee,
-					collected_receive: @transfer.collected_receive+@transaction.receive,
-				)
-				@transaction.update(
-					transfer_id: @transfer.id
-				)			
-			end
-			#Subscription Record
-			@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
-			if @subscription_record == nil then	
-				@subscription_record = SubscriptionRecord.create(
-					subscriber_id: @subscription.subscriber_id,
-					subscribed_id: @subscription.subscribed_id,
-					accumulated_total: @shipping_order.amount,
-					accumulated_receive: ( @shipping_order.amount - @transaction.fee),
-					accumulated_fee: @transaction.fee
-				)
-			else
-				@subscription_record.update(
-					accumulated_total: @subscription_record.accumulated_total+@shipping_order.amount,
-					accumulated_receive: @subscription_record.accumulated_receive+( @shipping_order.amount - @transaction.fee),
-					accumulated_fee: @subscription_record.accumulated_fee+@transaction.fee
-				)
-			end	
-			#Get reward
-			@shipping_order.reward_receiver.update(
-				status: 'ready_to_ship'
-			)
-			#Subscription
-			@subscription.update(
-				accumulated_total: @subscription.accumulated_total+@shipping_order.amount,
-				accumulated_receive: @subscription.accumulated_receive+( @shipping_order.amount - @transaction.fee ),
-				accumulated_fee: @subscription.accumulated_fee+@transaction.fee,
-				subscription_record_id: @subscription_record.id
-			)
-			#Record shipping order
-			@shipping_order.update(
-				transacted: true,
-				transacted_at: Time.now
-			)
-			#Send email
-			Payment::SubscriptionsMailer.transaction_confirmation(transaction_id: @transaction.id).deliver_now
-			#Send notification to subscribed
-			Notification.create(
-				user_id: @subscriber.id,
-				trackable_id: @transaction.id,
-				trackable_type: "Transaction",
-				notification_type: "receipt"
-			)
-			redirect_to thankyou_user_payment_confirm_payments_path(@user.id)
+		#Connect to Stripe
+		if Rails.env.production?
+			Stripe.api_key = ENV['STRIPE_SECRET_KEY']
 		else
-			@shipping_order.update(
-				status: 'Error'
-			)		
-			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
-			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)			
+			Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 		end
-	rescue
+		if response = Stripe::Charge.create(
+			amount: @shipping_order.amount.to_i*100,
+			currency: @shipping_order.reward.currency,
+			customer: @subscriber.customer.customer_id,
+			description: I18n.t('views.payment.backs.ratafire_payment'),
+			destination: @subscribed.stripe_account.stripe_id
+		)
+			if response.captured == true
+				#Record transaction
+				@transaction = Transaction.prefill!(
+					response,
+					:shipping_order_id => @shipping_order.id,
+					:subscriber_id => @subscriber.id,
+					:fee => @shipping_order.amount.to_f*0.029+0.30,
+					:transaction_method => "Stripe",
+					:currency => @shipping_order.reward.currency,
+					:subscribed_id => @subscribed.id,
+					:transaction_type => 'Shipping',
+					:reward_id => @shipping_order.reward.id
+				)
+				@transaction = Transaction.find_by_shipping_order_id(@shipping_order.id)
+				#Record transfer
+				if @subscribed.transfer != nil then
+					@transfer = @subscribed.transfer
+					@transfer.update(
+						user_id: @subscribed.id,
+						method: 'Stripe',
+						collected_amount: @transfer.collected_amount+@shipping_order.amount,
+						collected_fee: @transfer.collected_fee+@transaction.fee,
+						collected_receive: @transfer.collected_receive+@transaction.receive,
+					)
+					@transaction.update(
+						transfer_id: @transfer.id
+					)
+				else
+					@transfer = Transfer.create(
+						user_id: @subscribed.id,
+						method: 'Stripe',
+						collected_amount: @transfer.collected_amount+@shipping_order.amount,
+						collected_fee: @transfer.collected_fee+@transaction.fee,
+						collected_receive: @transfer.collected_receive+@transaction.receive,
+					)
+					@transaction.update(
+						transfer_id: @transfer.id
+					)			
+				end
+				#Subscription Record
+				@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
+				if @subscription_record == nil then	
+					@subscription_record = SubscriptionRecord.create(
+						subscriber_id: @subscription.subscriber_id,
+						subscribed_id: @subscription.subscribed_id,
+						accumulated_total: @shipping_order.amount,
+						accumulated_receive: ( @shipping_order.amount - @transaction.fee),
+						accumulated_fee: @transaction.fee
+					)
+				else
+					@subscription_record.update(
+						accumulated_total: @subscription_record.accumulated_total+@shipping_order.amount,
+						accumulated_receive: @subscription_record.accumulated_receive+( @shipping_order.amount - @transaction.fee),
+						accumulated_fee: @subscription_record.accumulated_fee+@transaction.fee
+					)
+				end	
+				#Get reward
+				@shipping_order.reward_receiver.update(
+					status: 'ready_to_ship'
+				)
+				#Subscription
+				@subscription.update(
+					accumulated_total: @subscription.accumulated_total+@shipping_order.amount,
+					accumulated_receive: @subscription.accumulated_receive+( @shipping_order.amount - @transaction.fee ),
+					accumulated_fee: @subscription.accumulated_fee+@transaction.fee,
+					subscription_record_id: @subscription_record.id
+				)
+				#Record shipping order
+				@shipping_order.update(
+					transacted: true,
+					transacted_at: Time.now
+				)
+				#Send email
+				Payment::SubscriptionsMailer.transaction_confirmation(transaction_id: @transaction.id).deliver_now
+				#Send notification to subscribed
+				Notification.create(
+					user_id: @subscriber.id,
+					trackable_id: @transaction.id,
+					trackable_type: "Transaction",
+					notification_type: "receipt"
+				)
+				redirect_to thankyou_user_payment_confirm_payments_path(@user.id)
+			else
+				@shipping_order.update(
+					status: 'Error'
+				)		
+				flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
+				redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)			
+			end
+		end
+	rescue Stripe::CardError => e
+		# Since it's a decline, Stripe::CardError will be caught
+		body = e.json_body
+		err  = body[:error]
+
+		puts "Status is: #{e.http_status}"
+		puts "Type is: #{err[:type]}"
+		puts "Code is: #{err[:code]}"
+		# param is '' in this case
+		puts "Param is: #{err[:param]}"
+		puts "Message is: #{err[:message]}"
+		#Show to the user
 		@shipping_order.update(
 			status: 'Error'
 		)		
-		flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
-		redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)	
+		flash[:error] = "#{err[:message]}"
+		redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
+	rescue Stripe::RateLimitError => e
+		# Too many requests made to the API too quickly
+		@shipping_order.update(
+			status: 'Error'
+		)		
+		flash[:error] = t('views.errors.messages.too_many_requests')
+		redirect_to(:back)
+	rescue Stripe::InvalidRequestError => e
+		# Invalid parameters were supplied to Stripe's API
+		@shipping_order.update(
+			status: 'Error'
+		)		
+		flash[:error] = t('views.errors.messages.not_saved')
+		redirect_to(:back)
+	rescue Stripe::AuthenticationError => e
+		# Authentication with Stripe's API failed
+		# (maybe you changed API keys recently)
+		@shipping_order.update(
+			status: 'Error'
+		)		
+		flash[:error] = t('views.errors.messages.not_saved')
+		redirect_to(:back)
+	rescue Stripe::APIConnectionError => e
+		# Network communication with Stripe failed
+		@shipping_order.update(
+			status: 'Error'
+		)		
+		flash[:error] = t('views.errors.messages.not_saved')
+		redirect_to(:back)
+	rescue Stripe::StripeError => e
+		# Display a very generic error to the user, and maybe send
+		# yourself an email
+		@shipping_order.update(
+			status: 'Error'
+		)		
+		flash[:error] = t('views.errors.messages.not_saved')
+		redirect_to(:back)
+	rescue 
+		# General rescue
+		@shipping_order.update(
+			status: 'Error'
+		)		
+		flash[:error] = t('views.errors.messages.not_saved')
+		redirect_to(:back)
 	end
 
 	def reward_receiver_params

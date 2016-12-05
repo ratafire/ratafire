@@ -4,7 +4,7 @@ class LikedUser < ActiveRecord::Base
 
     #--------Track activities--------
     include PublicActivity::Model
-    tracked except: [:update, :destroy], 
+    tracked except: [:update, :destroy, :create], 
             owner: ->(controller, model) { controller && controller.current_user }    
 
 	#----------------Relationships----------------

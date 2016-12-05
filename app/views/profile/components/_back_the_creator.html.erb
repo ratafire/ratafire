@@ -1,10 +1,33 @@
 <!-- Backers -->
-<h1 class="number text-grey-700"><%= number_to_human(6243, :format => '%n%u', :units => { :thousand => 'k' }) %></h1>
+<h1 class="number text-grey-700"><%= number_to_human(user.active_campaign.subscribers.count, :format => '%n%u', :units => { :thousand => 'k' }) %></h1>
 <div class="label label-blue"><%= t 'views.utilities.menu.backers' %></div>
-<h1 class="number text-grey-700">80%</h1>
-<div class="label label-blue"><%= t 'views.utilities.menu.currently_funded' %></div>
-<h1 class="number text-grey-700"><%= days_to_current_goal(user.active_reward.due) %></h1>
-<div class="label label-blue"><%= t 'views.utilities.menu.days_to_current_goal' %></div>
+<% if user.active_reward %>
+	<!-- Currently funded % -->
+	<h1 class="number text-grey-700"><%= number_to_human(goals_count(user.active_reward.predicted_total,user.active_reward.goal)) %>%</h1>
+	<div class="label label-blue"><%= t 'views.utilities.menu.currently_funded' %></div>
+	<% if user.active_campaign.recurring_total > 0 %>
+		<!-- Amount per creation -->
+		<h1 class="number text-grey-700"><%= number_to_human(user.active_campaign.recurring_total) %>%</h1>
+		<div class="label label-blue"><% if user.active_campaign.funding_type == "creation" %><%= t 'views.creator_studio.campaign.per_creation' %><% else %><%= t 'views.creator_studio.campaign.per_month' %><% end %></div>
+	<% else %>
+		<!-- Days to current goal -->
+		<h1 class="number text-grey-700"><%= days_to_current_goal(user.active_reward.due) %></h1>
+		<div class="label label-blue"><%= t 'views.utilities.menu.days_to_current_goal' %></div>
+	<% end %>
+<% else %>
+	<!-- Majorpost count -->
+	<h1 class="number text-grey-700"><%= number_to_human(user.majorpost.count) %></h1>
+	<div class="label label-blue"><%= t 'views.admin.menu.posts' %></div>
+	<% if user.active_campaign.recurring_total > 0 %>
+		<!-- Amount per creation -->
+		<h1 class="number text-grey-700"><%= number_to_human(user.active_campaign.recurring_total) %>%</h1>
+		<div class="label label-blue"><% if user.active_campaign.funding_type == "creation" %><%= t 'views.creator_studio.campaign.per_creation' %><% else %><%= t 'views.creator_studio.campaign.per_month' %><% end %></div>
+	<% else %>
+		<!-- Likers count -->
+		<h1 class="number text-grey-700"><%= number_to_human(user.likers.count) %></h1>
+		<div class="label label-blue"><%= t 'views.utilities.menu.followers' %></div>
+	<% end %>
+<% end %>
 <div class="mt-20 mb-20">
 	<%= render partial:'profile/components/donation_button', locals: {user: user}%>
 </div>

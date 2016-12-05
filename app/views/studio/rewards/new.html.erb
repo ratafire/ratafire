@@ -29,6 +29,24 @@
 							</div>
 						</div>
 					</div>	
+					<!-- Current Goal Amount -->
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.current_goal' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<% if @reward.goal == 0 %>
+									<%= f.number_field :goal, value: nil, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
+								<% else %>
+									<%= f.number_field :goal, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
+								<% end %>
+								<span class="help-block">
+									<p><%= t 'views.campaign.goal_help' %></p>
+								</span>
+							</div>
+						</div>
+					</div>	
 					<!-- Current Goal Time -->
 					<div class="row">
 						<div class="col-md-3">
@@ -58,6 +76,17 @@
 							</div>
 						</div>
 					</div>	
+					<!-- Reward Image -->
+					<div class="row">
+						<div class="col-md-3">
+							<div><%= t 'views.campaign.reward_image' %>: <span class="text-danger">*</span></div>
+						</div>
+						<div class="col-md-9">
+							<div class="form-group">
+								<%= f.file_field :image, class:"input-sm form-control file-styled", type:"file", html: { multipart: false} %>
+							</div>
+						</div>
+					</div>
 					<!-- Reward Amount -->
 					<div class="row">
 						<div class="col-md-3">
@@ -188,6 +217,10 @@
 										<%= t 'views.campaign.remove_anywhere'%>
 									</div>
 								</div>
+								<!-- Help -->
+								<span class="help-block">
+									<%= t 'views.campaign.limited_to_help' %>
+								</span>
 							</div>
 						</div>
 					</div>	
@@ -413,5 +446,9 @@
     });	
     jQuery.extend(jQuery.validator.messages, {
         required: '<%= t 'views.form.validate.required' %>',
-    });	    	    
+    });	    
+    // Default file input style
+    $(".file-styled").uniform({
+        fileButtonClass: 'action btn btn-blue'
+    });        	    
 </script>

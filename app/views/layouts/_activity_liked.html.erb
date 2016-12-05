@@ -1,242 +1,264 @@
-<div class="masonry-item" >
-	<div class="panel no-margin no-padding">
-		<!-- Campaign -->
-		<% if activity.trackable_type == "Campaign" %>
-			<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
-				<img src="<%= activity.trackable.image.url(:thumbnail480p)%>" style="width:100%;" alt="">
-				<div class="caption-overflow">
-					<span>
-						<a href="<%= activity.trackable.image.url(:preview800)%>.jpg" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
-						<%= link_to profile_url_path(activity.trackable.user.username), class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
-							<i class="icon-link2"></i>
-						<% end %>
-					</span>
-				</div>
-			</div>
-		<% else %>
-			<% if activity.trackable_type == "Majorpost" %>
-				<!-- Image Post -->
-				<% if activity.trackable.artwork.count > 0 %>
-					<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
-						<img src="<%= activity.trackable.artwork.first.image.url(:preview512)%>" style="width:100%;" alt="">
-						<div class="caption-overflow">
-							<span>
-								<a href="<%= activity.trackable.artwork.first.image.url(:preview800)%>.jpg" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
-								<%= link_to content_majorpost_path(activity.trackable.uuid), class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
-									<i class="icon-link2"></i>
-								<% end %>
-							</span>
-						</div>
+<% if activity.trackable %>
+	<div class="masonry-item" >
+		<div class="panel no-margin no-padding">
+			<!-- Campaign -->
+			<% if activity.trackable_type == "Campaign" %>
+				<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
+					<img src="<%= activity.trackable.image.url(:thumbnail480p)%>" style="width:100%;" alt="">
+					<div class="caption-overflow">
+						<span>
+							<a href="<%= activity.trackable.image.url(:preview800)%>.jpg" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
+							<%= link_to profile_url_path(activity.trackable.user.username), class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
+								<i class="icon-link2"></i>
+							<% end %>
+						</span>
 					</div>
-				<% end %>
-				<!-- Audio Post -->
-				<% if activity.trackable.post_type == 'audio' && activity.trackable.audio then %>
-					<% if activity.trackable.audio.soundcloud != "" && activity.trackable.audio.soundcloud != nil %>
-						<!-- SoundCloud -->
+				</div>
+			<% else %>
+				<% if activity.trackable_type == "Majorpost" %>
+					<!-- Image Post -->
+					<% if activity.trackable.artwork.count > 0 %>
 						<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
-							<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/<%= activity.trackable.audio.soundcloud %>&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true">
-							</iframe>
+							<img src="<%= activity.trackable.artwork.first.image.url(:preview512)%>" style="width:100%;" alt="">
+							<div class="caption-overflow">
+								<span>
+									<a href="<%= activity.trackable.artwork.first.image.url(:preview800)%>.jpg" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
+									<%= link_to content_majorpost_path(activity.trackable.uuid), class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
+										<i class="icon-link2"></i>
+									<% end %>
+								</span>
+							</div>
 						</div>
+					<% end %>
+					<!-- Audio Post -->
+					<% if activity.trackable.post_type == 'audio' && activity.trackable.audio then %>
+						<% if activity.trackable.audio.soundcloud != "" && activity.trackable.audio.soundcloud != nil %>
+							<!-- SoundCloud -->
+							<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
+								<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/<%= activity.trackable.audio.soundcloud %>&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true">
+								</iframe>
+							</div>
+						<% else %>
+							<!-- Internal Audio -->
+							<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
+								<audio oncontextmenu="return false;" id="<%= activity.trackable.id %>_internal_audio" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity <%= @popoverclass %>_video_class" controls
+							 		preload="none" width="auto" height="auto" poster="<%= activity.trackable.audio.audio_image.image.url(:preview512)%>"
+							 		data-setup='{}'>
+							  		<source src="<%= activity.trackable.audio.audio.url %>" type='audio/mp3'/>
+							  		<p class="vjs-no-js">
+							    		<%= t 'views.utilities.editor.view_video'%>
+							  		</p>
+								</audio>	
+							</div>
+						<% end %>	
+					<% end %>
+				<% end %>
+				<!-- Video Post -->
+				<% if activity.trackable.post_type == 'video' then %>
+					<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
+						<!-- External Video-->
+						<% if activity.trackable.video.youtube_vimeo == true %>
+							<!-- Youtube Video -->
+							<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
+								<div class="video-container">
+									<iframe src="https://www.youtube.com/embed/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+								</div>
+							</div>
+						<% else %>
+							<!-- Vimeo Video -->
+							<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
+								<div class="video-container">
+									<iframe src="//player.vimeo.com/video/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
+								</div>
+							</div>
+						<% end %>
 					<% else %>
-						<!-- Internal Audio -->
+						<!-- Internal Video -->
 						<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
-							<audio oncontextmenu="return false;" id="<%= activity.trackable.id %>_internal_audio" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity <%= @popoverclass %>_video_class" controls
-						 		preload="none" width="auto" height="auto" poster="<%= activity.trackable.audio.audio_image.image.url(:preview512)%>"
+							<video oncontextmenu="return false;" id="<%= activity.trackable.id %>_internal_video" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity <%= @popoverclass %>_video_class" controls
+						 		preload="none" width="auto" height="auto" poster="<% if activity.trackable.video.video_image %><%= activity.trackable.video.video_image.image(:preview800) %><% else %><% if activity.trackable.video.encoded_state == 'finished' %><%= activity.trackable.video.thumbnail(:preview512) %><% else %>/assets/editor/rainbow-blur3.jpg<% end %><% end %>"
 						 		data-setup='{}'>
-						  		<source src="<%= activity.trackable.audio.audio.url %>" type='audio/mp3'/>
+						  		<source src="<%= activity.trackable.video.output_url_mp4 %>" type='video/mp4'>
+						  		<source src="<%= activity.trackable.video.output_url %>" type='video/webm'>
 						  		<p class="vjs-no-js">
 						    		<%= t 'views.utilities.editor.view_video'%>
 						  		</p>
-							</audio>	
-						</div>
-					<% end %>	
-				<% end %>
-			<% end %>
-			<!-- Video Post -->
-			<% if activity.trackable.post_type == 'video' then %>
-				<% if activity.trackable.video.external != "" && activity.trackable.video.external != nil %>
-					<!-- External Video-->
-					<% if activity.trackable.video.youtube_vimeo == true %>
-						<!-- Youtube Video -->
-						<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
-							<div class="video-container">
-								<iframe src="https://www.youtube.com/embed/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
-							</div>
-						</div>
-					<% else %>
-						<!-- Vimeo Video -->
-						<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
-							<div class="video-container">
-								<iframe src="//player.vimeo.com/video/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
-							</div>
+							</video>	
 						</div>
 					<% end %>
-				<% else %>
-					<!-- Internal Video -->
+				<% end %>
+				<!-- Link Post -->
+				<% if activity.trackable.post_type == 'link' then %>
 					<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
-						<video oncontextmenu="return false;" id="<%= activity.trackable.id %>_internal_video" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered video-js-activity <%= @popoverclass %>_video_class" controls
-					 		preload="none" width="auto" height="auto" poster="<% if activity.trackable.video.video_image %><%= activity.trackable.video.video_image.image(:preview800) %><% else %><% if activity.trackable.video.encoded_state == 'finished' %><%= activity.trackable.video.thumbnail(:preview512) %><% else %>/assets/editor/rainbow-blur3.jpg<% end %><% end %>"
-					 		data-setup='{}'>
-					  		<source src="<%= activity.trackable.video.output_url_mp4 %>" type='video/mp4'>
-					  		<source src="<%= activity.trackable.video.output_url %>" type='video/webm'>
-					  		<p class="vjs-no-js">
-					    		<%= t 'views.utilities.editor.view_video'%>
-					  		</p>
-						</video>	
+						<div class="linkPost">
+							<%= link_to activity.trackable.try(:link).try(:url), target:"_blank" do %>
+								<div class="insert_link">
+									<!-- Link Image -->
+									<% if activity.trackable.try(:link).try(:image_best) %>
+										<img src="<%= activity.trackable.try(:link).try(:image_best) %>" style="width:100%;">
+									<% end %>
+									<!-- Link Title -->
+									<div class="bg-rainbow-400">
+										<div class="panel-body">
+											<h2 class="text-light no-margin-top"><%= activity.trackable.try(:link).try(:title) %></h2>
+											<div class="text-light" style="margin-top:-10px;"><%= activity.trackable.try(:link).try(:description) %></div>
+										</div>	
+									</div>	
+								</div>
+							<% end %><!-- end link to external link -->
+						</div>	
 					</div>
 				<% end %>
 			<% end %>
-			<!-- Link Post -->
-			<% if activity.trackable.post_type == 'link' then %>
-				<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
-					<div class="linkPost">
-						<%= link_to activity.trackable.try(:link).try(:url), target:"_blank" do %>
-							<div class="insert_link">
-								<!-- Link Image -->
-								<% if activity.trackable.try(:link).try(:image_best) %>
-									<img src="<%= activity.trackable.try(:link).try(:image_best) %>" style="width:100%;">
-								<% end %>
-								<!-- Link Title -->
-								<div class="bg-rainbow-400">
-									<div class="panel-body">
-										<h2 class="text-light no-margin-top"><%= activity.trackable.try(:link).try(:title) %></h2>
-										<div class="text-light" style="margin-top:-10px;"><%= activity.trackable.try(:link).try(:description) %></div>
-									</div>	
-								</div>	
-							</div>
-						<% end %><!-- end link to external link -->
-					</div>	
-				</div>
-			<% end %>
-		<% end %>
-		<div class="panel-body">
-			<!-- Display Category -->
-			<% if activity.trackable.category %>
-				<div class="pb-10">
-					<span class="label <%= category_color(activity.trackable.category)%> mr-5"><%= t is_category(activity.trackable.category) %></span>
-					<% if activity.trackable.sub_category %>
-						<span class="label bg-grey-100"><%= activity.trackable.sub_category %></span>
-					<% end %>
-				</div>
-			<% end %>
-			<!-- Majorpost toolbar -->
-			<% if activity.trackable_type == "Majorpost" %>
-				<div class="pull-right">						
-					<span class="dropdown">
-						<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
-							<i class="huaxia huaxia-share mr-10 text-medium">
-							</i>
-						</a>
-						<ul id="majorpost-share-toolbar" class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
-							<% if I18n.locale == :zh %>
-								<li><div class="p-20"><%= raw RQRCode::QRCode.new( majorpost_fullurl(activity.trackable.uuid) , :size => 6, :level => :h ).as_html %></div></li>
-							<% else %>		
-								<li>
-									<a href="" class="ssk ssk-facebook" data-url="<%= majorpost_fullurl(activity.trackable.uuid)%>">
-										<i class="fa fa-facebook-square"></i><%= t 'views.settings.social_media_settings.facebook' %>
-									</a>
-								</li>
-								<li>
-									<a href="" class="ssk ssk-twitter" data-url="<%= majorpost_fullurl(activity.trackable.uuid)%>" data-text="<%= activity.trackable.title %> @ratafirer" >
-										<i class="fa fa-twitter-square"></i><%= t 'views.settings.social_media_settings.twitter' %>
-									</a>
-								</li>
-								<li>
-									<a href="" class="ssk ssk-tumblr" data-url="<%= majorpost_fullurl(activity.trackable.uuid)%>">
-										<i class="fa fa-tumblr-square"></i><%= t 'views.settings.social_media_settings.tumblr' %>
-									</a>
-								</li>
-							<% end %>
-							<li>
-								<a data-clipboard-text="<%= majorpost_fullurl(activity.trackable.uuid) %>" >
-									<i class="huaxia huaxia-link"></i><%= t 'views.utilities.menu.copy_link' %>
-								</a>
-							</li>
-						</ul>
-					</span>	
-					<span id="<%= activity.trackable.uuid %>-majorpost-like-holder">
-						<% if is_liker?(current_user.id, 'Majorpost', activity.trackable.id) %>
-							<%= render partial:'content/likes/unlike_majorpost', locals: {majorpost: activity.trackable} %>
-						<% else %>
-							<%= render partial:'content/likes/like_majorpost', locals: {majorpost: activity.trackable} %>
+			<div class="panel-body">
+				<!-- Display Category -->
+				<% if activity.trackable.category %>
+					<div class="pb-10">
+						<%= render partial: "profile/components/category", locals: {category: activity.trackable.category} %>
+						<% if activity.trackable.sub_category %>
+							<%= render partial: "profile/components/sub_category", locals: {category: activity.trackable.category, sub_category: activity.trackable.sub_category} %>
 						<% end %>
-					</span>
-				</div>	
-			<% end %>	
-			<!-- Project toolbar -->
-			<% if activity.trackable_type == "Campaign" %>
-				<div class="pull-right">
-					<span id="<%= activity.trackable.uuid %>-campaign-like-holder">
-						<% if is_liker?(current_user.id, 'Campaign', activity.trackable.id) %>
-							<%= render partial:'content/likes/unlike_campaign', locals: {campaign: activity.trackable} %>
-						<% else %>
-							<%= render partial:'content/likes/like_campaign', locals: {campaign: activity.trackable} %>
-						<% end %>
-					</span>
-				</div>
-			<% end %>
-			<!-- Title -->
-			<% if activity.trackable.title %>
+					</div>
+				<% end %>
+				<!-- Majorpost toolbar -->
 				<% if activity.trackable_type == "Majorpost" %>
-					<%= link_to content_majorpost_path(activity.trackable.uuid) do %>
-						<h5 class="no-margin-top text-grey"><%= activity.trackable.title %></h5>
-					<% end %>
-				<% else %>
-					<%= link_to profile_url_path(activity.trackable.user.username) do %>
-						<h5 class="no-margin-top text-grey"><%= activity.trackable.title %></h5>
+					<div class="pull-right">						
+						<span class="dropdown">
+							<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
+								<i class="huaxia huaxia-share mr-10 text-medium">
+								</i>
+							</a>
+							<ul id="majorpost-share-toolbar" class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
+								<% if I18n.locale == :zh %>
+									<li><div class="p-20"><%= raw RQRCode::QRCode.new( majorpost_fullurl(activity.trackable.uuid) , :size => 6, :level => :h ).as_html %></div></li>
+								<% else %>		
+									<li>
+										<a href="" class="ssk ssk-facebook" data-url="<%= majorpost_fullurl(activity.trackable.uuid)%>">
+											<i class="fa fa-facebook-square"></i><%= t 'views.settings.social_media_settings.facebook' %>
+										</a>
+									</li>
+									<li>
+										<a href="" class="ssk ssk-twitter" data-url="<%= majorpost_fullurl(activity.trackable.uuid)%>" data-text="<%= activity.trackable.title %> @ratafirer" >
+											<i class="fa fa-twitter-square"></i><%= t 'views.settings.social_media_settings.twitter' %>
+										</a>
+									</li>
+									<li>
+										<a href="" class="ssk ssk-tumblr" data-url="<%= majorpost_fullurl(activity.trackable.uuid)%>">
+											<i class="fa fa-tumblr-square"></i><%= t 'views.settings.social_media_settings.tumblr' %>
+										</a>
+									</li>
+								<% end %>
+								<li>
+									<a data-clipboard-text="<%= majorpost_fullurl(activity.trackable.uuid) %>" >
+										<i class="huaxia huaxia-link"></i><%= t 'views.utilities.menu.copy_link' %>
+									</a>
+								</li>
+							</ul>
+						</span>	
+						<span id="<%= activity.trackable.uuid %>-majorpost-like-holder">
+							<% if user_signed_in? %>
+								<% if is_liker?(current_user.id, 'Majorpost', activity.trackable.id) %>
+									<%= render partial:'content/likes/unlike_majorpost', locals: {majorpost: activity.trackable} %>
+								<% else %>
+									<%= render partial:'content/likes/like_majorpost', locals: {majorpost: activity.trackable} %>
+								<% end %>
+							<% else %>
+								<span id="<%= activity.trackable.uuid %>-majorpost-like-holder">
+									<%= link_to new_user_registration_path do %>
+										<i class="text-grey-300 huaxia huaxia-guanzhu text-medium inline-block animated rubberBand ml-10"></i>
+									<% end %>
+								</span>
+							<% end %>
+						</span>
+					</div>	
+				<% end %>	
+				<!-- Project toolbar -->
+				<% if activity.trackable_type == "Campaign" %>
+					<div class="pull-right">
+						<span id="<%= activity.trackable.uuid %>-campaign-like-holder">
+							<% if user_signed_in? %>
+								<% if is_liker?(current_user.id, 'Campaign', activity.trackable.id) %>
+									<%= render partial:'content/likes/unlike_campaign', locals: {campaign: activity.trackable} %>
+								<% else %>
+									<%= render partial:'content/likes/like_campaign', locals: {campaign: activity.trackable} %>
+								<% end %>
+							<% else %>
+								<span id="<%= activity.trackable.uuid %>-majorpost-like-holder">
+									<%= link_to new_user_registration_path do %>
+										<i class="text-grey-300 huaxia huaxia-guanzhu text-medium inline-block animated rubberBand ml-10"></i>
+									<% end %>
+								</span>
+							<% end %>
+						</span>
+					</div>
+				<% end %>
+				<!-- Title -->
+				<% if activity.trackable.title %>
+					<% if activity.trackable_type == "Majorpost" %>
+						<%= link_to content_majorpost_path(activity.trackable.uuid) do %>
+							<h5 class="no-margin-top text-grey"><%= activity.trackable.title %></h5>
+						<% end %>
+					<% else %>
+						<%= link_to profile_url_path(activity.trackable.user.username) do %>
+							<h5 class="no-margin-top text-grey"><%= activity.trackable.title %></h5>
+						<% end %>
 					<% end %>
 				<% end %>
-			<% end %>
-			<!-- Description -->
-			<% if activity.trackable.try(:description) %>
-				<div class="text-grey-300 text-thin">
-					<%= truncate(activity.trackable.description, length: 50) %>
-				</div>
-			<% end %>
-			<% if activity.trackable.try(:excerpt) %>
-				<div class="text-grey-300 text-thin">
-					<%= truncate(activity.trackable.excerpt, length: 50) %>
-				</div>
-			<% end %>
-			<!-- User profile -->
-			<div class="media">
-				<%= link_to profile_url_path(activity.trackable.user.username), class:"media-left pr-10" do %>
-					<img src="<%= activity.trackable.user.profilephoto.image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey"></i>' data-id="<%= activity.trackable.user.uid %>" data-placement="top" alt="">
+				<!-- Description -->
+				<% if activity.trackable.try(:description) %>
+					<div class="text-grey-300 text-thin">
+						<%= truncate(activity.trackable.description, length: 50) %>
+					</div>
 				<% end %>
-				<div class="media-body">
-					<%= link_to profile_url_path(activity.trackable.user.username) do %>
-						<span class="media-heading text-semibold"><%= activity.trackable.user.preferred_name %></span>
-						<div class="text-size-mini text-grey-100">
-							<%= activity.trackable.user.tagline %>
-						</div>
+				<% if activity.trackable.try(:excerpt) %>
+					<div class="text-grey-300 text-thin">
+						<%= truncate(activity.trackable.excerpt, length: 50) %>
+					</div>
+				<% end %>
+				<!-- User profile -->
+				<div class="media">
+					<%= link_to profile_url_path(activity.trackable.user.username), class:"media-left pr-10" do %>
+						<img src="<%= activity.trackable.user.profilephoto.image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey"></i>' data-id="<%= activity.trackable.user.uid %>" data-placement="top" alt="">
 					<% end %>
-				</div>
-				<div class="media-right media-middle">
-					<ul class="icons-list">	
-						<% unless current_user == activity.trackable.user %>
-							<li>
-								<% if user_signed_in? %>
-									<% unless current_user == activity.trackable.user %>
-										<% unless activity.trackable.user.subscribed_by?(current_user.id) || current_user.subscribed_by?(activity.trackable.user.id) %>
-											<% if activity.trackable.user.active_reward %>
-												<%= link_to new_user_payment_backs_path(activity.trackable.user.uid) do %>
-													<div class="btn bg-rainbow-600 btn-float btn-float-lg btn-rounded pt-4 pr-10 pb-4 pl-10" ><i class="huaxia huaxia-shui"></i></div>
+					<div class="media-body">
+						<%= link_to profile_url_path(activity.trackable.user.username) do %>
+							<span class="media-heading text-semibold"><%= activity.trackable.user.preferred_name %>
+								<% if activity.trackable.try(:paid_update) == true %>
+									<img src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:18px;" data-popup="tooltip" title="<%= t 'views.creator_studio.rewards.paid' %>" data-placement="top">
+								<% end %>
+							</span>				
+							<div class="text-size-mini text-grey-100">
+								<%= activity.trackable.user.tagline %>
+							</div>
+						<% end %>
+					</div>
+					<div class="media-right media-middle">
+						<ul class="icons-list">	
+							<% unless current_user == activity.trackable.user %>
+								<li>
+									<% if user_signed_in? %>
+										<% unless current_user == activity.trackable.user %>
+											<% unless activity.trackable.user.subscribed_by?(current_user.id) || current_user.subscribed_by?(activity.trackable.user.id) %>
+												<% if activity.trackable.user.active_reward %>
+													<%= link_to new_user_payment_backs_path(activity.trackable.user.uid, majorpost_id: activity.trackable.id) do %>
+														<div class="btn bg-rainbow-600 btn-float btn-float-lg btn-rounded pt-4 pr-10 pb-4 pl-10" ><i class="huaxia huaxia-ny4"></i></div>
+													<% end %>
 												<% end %>
 											<% end %>
 										<% end %>
-									<% end %>
-								<% else %>
-									<% if activity.trackable.user.active_reward %>
-										<%= link_to new_user_payment_backs_path(activity.trackable.user.uid) do %>
-											<div class="btn bg-rainbow-600 btn-float btn-float-lg btn-rounded pt-4 pr-10 pb-4 pl-10" ><i class="huaxia huaxia-shui"></i></div>
+									<% else %>
+										<% if activity.trackable.user.active_reward %>
+											<%= link_to new_user_payment_backs_path(activity.trackable.user.uid, majorpost_id: activity.trackable.id) do %>
+												<div class="btn bg-rainbow-600 btn-float btn-float-lg btn-rounded pt-4 pr-10 pb-4 pl-10" ><i class="huaxia huaxia-ny4"></i></div>
+											<% end %>
 										<% end %>
 									<% end %>
-								<% end %>
-							</li>
-						<% end %>
-					</ul>
+								</li>
+							<% end %>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+<% end %>

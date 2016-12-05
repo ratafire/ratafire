@@ -1,0 +1,119 @@
+<% if current_user == user || current_user.try(:admin) %>
+	<span class="dropdown pull-right mr-20">
+		<a href="#" class="dropdown-toggle text-grey-200" data-toggle="dropdown">
+			<i class="ti-angle-down" style="font-size:11px;">
+			</i>
+		</a>
+		<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:5000;">
+			<!-- Category -->
+			<li class="dropdown-submenu">
+				<a>
+					<i class="ti-pencil"></i><%= t 'views.utilities.editor.edit' %>	
+				</a>
+				<ul class="dropdown-menu bg-rainbow-600" style="z-index:35000;">
+					<li class="dropdown-submenu">
+						<!-- Category -->
+						<a>
+							<i class="ti-key"></i><%= t 'views.utilities.menu.category' %>	
+						</a>
+						<ul class="dropdown-menu bg-rainbow-600" style="z-index:35000;">
+							<!-- Art -->
+							<li>
+								<%= link_to content_majorpost_set_category_path(activity.trackable.uuid, 'Art'), method: :post, remote: true do %>
+									<%= t 'views.utilities.menu.art' %>
+								<% end %>
+							</li>
+							<!-- Music -->
+							<li>
+								<%= link_to content_majorpost_set_category_path(activity.trackable.uuid, 'Music'), method: :post, remote: true do %>
+									<%= t 'views.utilities.menu.music' %>
+								<% end %>
+							</li>
+							<!-- Games -->
+							<li>
+								<%= link_to content_majorpost_set_category_path(activity.trackable.uuid, 'Games'), method: :post, remote: true do %>
+									<%= t 'views.utilities.menu.games' %>
+								<% end %>
+							</li>
+							<!-- Writing -->
+							<li>
+								<%= link_to content_majorpost_set_category_path(activity.trackable.uuid, 'Writing'), method: :post, remote: true do %>
+									<%= t 'views.utilities.menu.writing' %>
+								<% end %>
+							</li>
+							<!-- Videos -->
+							<li>
+								<%= link_to content_majorpost_set_category_path(activity.trackable.uuid, 'Videos'), method: :post, remote: true do %>
+									<%= t 'views.utilities.menu.videos' %>
+								<% end %>
+							</li>
+							<li class="disabled">
+								<a>
+									<%= t 'views.utilities.menu.math' %>
+								</a>
+							</li>
+							<li class="disabled">
+								<a>
+									<%= t 'views.utilities.menu.science' %>
+								</a>
+							</li>
+							<li class="disabled">
+								<a>
+									<%= t 'views.utilities.menu.humanity' %>
+								</a>
+							</li>
+							<li class="disabled">
+								<a>
+									<%= t 'views.utilities.menu.engineering' %>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<% if activity.trackable.category %>
+						<li class="dropdown-submenu" id="sub-category-holder-<%= activity.trackable.uuid %>">
+					<% else %>
+						<li class="dropdown-submenu disabled" id="sub-category-holder-<%= activity.trackable.uuid %>">
+					<% end %>
+						<!-- Subcategory -->
+						<a>
+							<i class="ti-thought"></i><%= t 'views.creator_studio.campaign.sub_category' %>	
+						</a>
+						<!-- Art -->
+						<% if activity.trackable.category == "Art" %>
+							<%= render partial: "utilities/editor/dropdown_art_sub_category", locals: { user: user, activity: activity } %>
+						<% end %>
+						<!-- Music -->
+						<% if activity.trackable.category == "Music" %>
+							<%= render partial: "utilities/editor/dropdown_music_sub_category", locals: { user: user, activity: activity } %>
+						<% end %>
+						<!-- Games -->
+						<% if activity.trackable.category == "Games" %>
+							<%= render partial: "utilities/editor/dropdown_games_sub_category", locals: { user: user, activity: activity } %>
+						<% end %>
+						<!-- Writing -->
+						<% if activity.trackable.category == "Writing" %>
+							<%= render partial: "utilities/editor/dropdown_writing_sub_category", locals: { user: user, activity: activity } %>
+						<% end %>
+						<!-- Videos -->
+						<% if activity.trackable.category == "Videos" %>
+							<%= render partial: "utilities/editor/dropdown_videos_sub_category", locals: { user: user, activity: activity } %>
+						<% end %>
+					</li>
+				</ul>
+			</li>
+			<!-- Admin -->
+			<% if current_user.try(:admin) %>
+				<li class="dropdown-submenu" >
+					<a href="#"><i class="ti-crown"></i> Admin</a>
+					<ul class="dropdown-menu bg-rainbow-600">
+						<li><a href="#">Third level link</a></li>
+						<li><a href="#">Third level link</a></li>
+						<li><a href="#">Third level link</a></li>
+					</ul>
+				</li>
+			<% end %><!-- end if current_user.admin?-->
+			<!-- Delete -->
+			<li><%= link_to content_majorpost_path(activity.trackable), method: :delete,:remote => true do %><i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %><% end %></li>
+		</ul>
+	</span>	
+<% end %><!-- end if current_user == @user || current_user.admin? -->		

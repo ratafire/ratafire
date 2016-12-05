@@ -28,8 +28,11 @@
 						</div>
 					</div>
 					<div class='col-md-8'>
+						<!-- Edit btn -->
+						<%= render partial: "studio/creator_studios/reward_edit", locals: {user: @user, reward: @reward} %>
+						<!-- Title -->
 						<h2 class="no-margin-top text-thin"><i class="huaxia huaxia-libao mr-5"></i> <%= @reward.title %></h2>
-						<h5 class="no-margin-top text-thin"><%= t 'views.utilities.menu.support' %> <%= currency_signs(@reward.campaign.currency) %><%= @reward.amount.to_i %></h5>
+						<h5 class="no-margin-top text-thin text-grey-100"><%= @reward.amount.to_i %><span class="ml-5 mr-5 text-grey-100">x</span><img class="mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"></h5>
 						<div class='row'>
 							<div class="col-md-8">
 								<div class="text-thin pb-10"><%= @reward.description %></div>
@@ -49,6 +52,12 @@
 						</div>
 					</div>
 				</div>
+				<!-- Make Active -->
+				<% unless @user.active_reward %>
+					<% if @reward.active == nil %>
+						<%= render partial: "studio/rewards/make_active_hint", locals: {user: @user, reward: @reward} %>
+					<% end %>
+				<% end %>
 				<!-- Please upload reward -->
 				<% if @reward.shipping == 'no' %>
 					<% if @reward.uploaded %>

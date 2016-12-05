@@ -15,13 +15,15 @@ class Studio::CreatorStudiosController < ApplicationController
 	#campaigns_user_studio_creator_studio GET
 	#/users/:user_id/studio/creator_studio/campaigns
 	def campaigns
-		@campaigns = @user.campaigns.where(:deleted => nil).page(params[:page]).per_page(9)
+		@popoverclass = SecureRandom.hex(16)
+		@campaigns = @user.campaigns.where(:deleted => nil).page(params[:page]).per_page(8)
 	end	
 
 	#rewards_user_studio_creator_studio GET
 	#/users/:user_id/studio/creator_studio/rewards
 	def rewards
-		@rewards = @user.rewards.where(:deleted => nil).page(params[:page]).per_page(9)
+		@popoverclass = SecureRandom.hex(16)
+		@rewards = @user.rewards.where(:deleted => nil).page(params[:page]).per_page(8)
 	end	
 
 	#current_goal_user_studio_creator_studio GET

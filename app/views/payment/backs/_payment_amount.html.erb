@@ -1,6 +1,18 @@
 <div class="panel bg-blue-100 border-blue-100 border-radius-6">
 	<div class="panel-body border-radius-6">
 		<div class="text-blue-200"><%= t 'views.payment.backs.back_this_creator' %></div>
+		<!-- Digital good -->
+		<div class="mt-10 mb-10">
+			<span>
+				<img class="mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail64.png" style="height:40px;"><span class="ml-5"><%= t 'views.payment.backs.hazelnut' %></span><span class="ml-5 mr-5">x</span><%= params[:subscription][:amount] %>
+			</span>
+			<span class="pull-right">
+				<%= link_to new_user_payment_backs_path(user.uid, amount: params[:subscription][:amount], shipping_country: params[:subscription][:shipping_country], funding_type: params[:subscription][:funding_type], get_reward: params[:subscription][:get_reward]) do %>
+					<%= t 'views.utilities.editor.edit' %>
+				<% end %>
+			</span>
+		</div>
+		<!-- Money -->
 		<div>
 			<span class="text-bold" style="font-size:30px;">
 				<%= currency_signs(user.active_campaign.currency) %><%= params[:subscription][:amount] %>
@@ -14,11 +26,6 @@
 					<% end %>
 				<% else %>
 					<%= t 'views.campaign.one_time' %>
-				<% end %>
-			</span>
-			<span class="pull-right">
-				<%= link_to new_user_payment_backs_path(user.uid, amount: params[:subscription][:amount], shipping_country: params[:subscription][:shipping_country], funding_type: params[:subscription][:funding_type], get_reward: params[:subscription][:get_reward]) do %>
-					<%= t 'views.utilities.editor.edit' %>
 				<% end %>
 			</span>
 		</div>

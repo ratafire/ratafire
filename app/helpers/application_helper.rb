@@ -348,4 +348,24 @@ module ApplicationHelper
 		end
 	end	
 
+	#get a 0-100 number of the % of goals
+	def goals_count(a,b)
+		if a != nil && b != nil then
+			p = ((a.fdiv(b))*100).round(2).to_i
+			return p
+		else
+			return 0
+		end
+	end
+
+	#Vimeo Thumbnail
+	def vimeo_thumbnail(vimeo_id)
+		response = HTTParty.get("http://www.vimeo.com/api/v2/video/"+vimeo_id+".json")
+		url = response[0]["thumbnail_medium"]
+		if url.split("http://")[1] then
+			url = "https://"+url.split("http://")[1]
+		end
+		return url
+	end	
+
 end

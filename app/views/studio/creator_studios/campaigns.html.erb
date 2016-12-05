@@ -5,5 +5,12 @@
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <div class="row">
 	<!-- Campaigns -->
-	<%= render partial: "studio/creator_studios/campaign", collection: @campaigns, :as => :campaign %>
+	<div id="post-pagination">
+		<div class="post-pagination">
+			<%= render partial: "studio/creator_studios/campaign", collection: @campaigns, :as => :campaign %>
+		</div>
+	</div>
+	<div class="post-will-paginate">
+		<%= will_paginate @campaigns %>
+	</div>
 </div>

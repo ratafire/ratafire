@@ -4,6 +4,17 @@
 <!-- Page Specific JS -->
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <div class="row">
+	<!-- If no active reward -->
+	<% unless @user.active_reward %>
+		<%= render partial: "studio/creator_studios/no_active_reward", locals: {reward: @reward, user: @user } %>
+	<% end %>
 	<!-- Rewards -->
-	<%= render partial: "studio/creator_studios/reward", collection: @rewards, :as => :reward %>
+	<div id="post-pagination">
+		<div class="post-pagination">
+			<%= render partial: "studio/creator_studios/reward", collection: @rewards, :as => :reward %>
+		</div>
+	</div>
+	<div class="post-will-paginate">
+		<%= will_paginate @rewards %>
+	</div>
 </div>

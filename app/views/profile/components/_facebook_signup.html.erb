@@ -1,0 +1,6 @@
+<% if I18n.locale == :en %>
+    <%= link_to user_omniauth_authorize_path(:facebook, :signup => "true"), class:"btn btn-block btn-social btn-facebook mt-10 mb-20 text-thin", style:"border-radius: 0.5rem;" do %>
+        <span class="fa fa-facebook"></span>
+        <%= t 'views.utilities.devise.sign_up_with_facebook' %>
+    <% end %>
+<% end %> 

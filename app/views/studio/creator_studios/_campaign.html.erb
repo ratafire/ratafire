@@ -1,5 +1,5 @@
 <div class="col-lg-3 col-sm-6">
-	<div class="panel bg-white-transparent">
+	<div class="panel bg-white-transparent" style="height:390px;">
 		<div class="thumb thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px 3px 0 0;">
 			<img src="<%= campaign.image.url(:thumbnail480p)%>" style="width:100%;" alt="">
 			<div class="caption-overflow">
@@ -39,7 +39,7 @@
 				<% if campaign.published %>
 					<%= render partial:"studio/creator_studios/campaign_edit", locals: {campaign: campaign } %>
 					<%= link_to profile_url_path(campaign.user.username) do %>
-						<h5 class="no-margin-top text-grey"><%= campaign.title %></h5>
+						<h5 class="no-margin-top text-grey"><%= truncate(campaign.title, length: 50) %></h5>
 					<% end %>
 				<% else %>
 					<%= render partial:"studio/creator_studios/campaign_edit_draft", locals: {campaign: campaign } %>

@@ -4,6 +4,10 @@
 <!-- Page Specific JS -->
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <div class="row">
+	<!-- If no active reward -->
+	<% unless @user.active_reward %>
+		<%= render partial: "studio/creator_studios/no_current_goal", locals: {reward: @reward, user: @user } %>
+	<% end %>
 	<!-- Rewards -->
 	<%= render partial: "studio/creator_studios/current_goal", collection: @rewards, :as => :reward %>
 </div>

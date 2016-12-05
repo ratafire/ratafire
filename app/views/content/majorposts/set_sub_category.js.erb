@@ -1,0 +1,1 @@
+$('#category-and-sub-category-holder-<%= @majorpost.uuid %>').append("<%= j render(:partial => 'profile/components/sub_category', locals: {category: @majorpost.category, sub_category: @majorpost.sub_category}) %>");

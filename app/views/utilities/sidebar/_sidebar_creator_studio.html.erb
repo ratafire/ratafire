@@ -63,9 +63,9 @@
 						</a>
 						<ul>
 							<li>
-								<a>
+								<%= link_to new_user_studio_rewards_path(current_user.username), :data => {turbolinks: "false"} do %>
 									<%= t 'views.creator_studio.current_goal.new_current_goal'%>
-								</a>
+								<% end %>
 							</li>
 							<li id="creator_studios-current_goal-sidebarsubactive">
 								<%= link_to current_goal_user_studio_creator_studio_path(current_user.username), :data => {turbolinks: "false"} do %>
@@ -80,7 +80,7 @@
 						<% end %>
 						<ul>
 							<li id="rewards-new-sidebarsubactive">
-								<%= link_to new_user_studio_rewards_path(current_user.username) do %>
+								<%= link_to new_user_studio_rewards_path(current_user.username), :data => {turbolinks: "false"} do %>
 									<%= t 'views.creator_studio.rewards.new_reward'%>
 								<% end %>
 							</li>
@@ -116,7 +116,42 @@
 									<%= t 'views.creator_studio.community.traits'%>
 								<% end %>
 							</li>
-							<li class="navigation-divider"></li>						
+							<li class="navigation-divider"></li>
+							<% if current_user.likeds.count > 0 || current_user.likers.count > 0 || current_user.subscription_records.count > 0 || current_user.reverse_subscription_records.count > 0 %>
+								<!-- Following -->
+								<% if current_user.likeds.count > 0 %>
+									<li id="community-followed-sidebarsubactive">
+										<%= link_to followed_user_studio_community_path(current_user.username) do %>
+											<%= t 'views.utilities.menu.following'%>
+										<% end %>
+									</li>
+								<% end %>	
+								<!-- Followed -->
+								<% if current_user.likers.count > 0 %>
+									<li id="community-followers-sidebarsubactive">
+										<%= link_to followers_user_studio_community_path(current_user.username) do %>
+											<%= t 'views.utilities.menu.followers'%>
+										<% end %>
+									</li>
+								<% end %>
+								<!-- Backed -->
+								<% if current_user.reverse_subscription_records.count > 0 %>
+									<li id="community-backed-sidebarsubactive">
+										<%= link_to backed_user_studio_community_path(current_user.username) do %>
+											<%= t 'views.utilities.menu.backed'%>
+										<% end %>
+									</li>
+								<% end %>
+								<!-- Backers -->
+								<% if current_user.subscription_records.count > 0 %>
+									<li id="community-backers-sidebarsubactive">
+										<%= link_to backers_user_studio_community_path(current_user.username) do %>
+											<%= t 'views.utilities.menu.backers'%>
+										<% end %>
+									</li>
+								<% end %>
+								<li class="navigation-divider"></li>				
+							<% end %>
 							<li id="creator_studios-notifications-sidebarsubactive">
 								<%= link_to notifications_user_studio_creator_studio_path(current_user.username) do %>
 									<%= t 'views.creator_studio.community.notifications'%>
@@ -141,7 +176,7 @@
 									<% end %>
 								</li>
 							<% end %>
-							<% if current_user.transfer_transfered %>
+							<% if current_user.transfer_transfered.count > 0 %>
 								<li id="wallets-transfers-sidebaractive">
 									<%= link_to transfers_user_studio_wallets_path(current_user.username) do %>
 										<%= t 'views.creator_studio.transfer.transfers'%>

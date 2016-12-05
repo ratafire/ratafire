@@ -1,0 +1,8 @@
+<% if latest_updates.count > 0 %>
+	<%= render_activities(latest_updates, layout: :activity_latest_updates, locals: {user: user}) %>
+<% else %>
+	<%= link_to profile_url_path(user.username), class:"text-grey-300" do%>
+		<img class="mr-5" src="<%= user.profilephoto.image.url(:thumbnail40)%>" style="height:24px;">
+		<%= t 'views.utilities.follow.portal_to_your_profile_page' %>
+	<% end %>
+<% end %>

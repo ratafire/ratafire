@@ -10,32 +10,11 @@
 	<div class="panel panel-speech">
 			<!-- Post User -->
 			<div class="panel-user text-semibold text-size-small"><%= link_to activity.trackable.user.preferred_name, profile_url_path(activity.trackable.user.username),class:"text-grey-800" %>
+				<% if activity.trackable.paid_update == true %>
+					<img class="mr-15 pull-right" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:20px;" data-popup="tooltip" title="<%= t 'views.creator_studio.rewards.paid' %>" data-placement="top">
+				<% end %>
 				<!-- More -->
-				<% if current_user == @user || current_user.try(:admin) %>
-					<span class="dropdown pull-right mr-20">
-						<a href="#" class="dropdown-toggle text-grey-200" data-toggle="dropdown">
-							<i class="ti-angle-down" style="font-size:11px;">
-							</i>
-						</a>
-						<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
-							<!-- Edit -->
-							<li><a href="#"><i class="ti-pencil"></i><%= t 'views.utilities.editor.edit' %></a></li>
-							<!-- Admin -->
-							<% if current_user.try(:admin) %>
-								<li class="dropdown-submenu" >
-									<a href="#"><i class="ti-crown"></i> Admin</a>
-									<ul class="dropdown-menu bg-rainbow-600">
-										<li><a href="#">Third level link</a></li>
-										<li><a href="#">Third level link</a></li>
-										<li><a href="#">Third level link</a></li>
-									</ul>
-								</li>
-							<% end %><!-- end if current_user.admin?-->
-							<!-- Delete -->
-							<li><%= link_to content_majorpost_path(activity.trackable), method: :delete,:remote => true do %><i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %><% end %></li>
-						</ul>
-					</span>	
-				<% end %><!-- end if current_user == @user || current_user.admin? -->			
+				<%= render partial: "utilities/editor/editor_dropdown", locals: { user: @user, activity: activity } %>
 			</div>
 			<!-- Audio Post -->
 			<% if activity.trackable.post_type == 'audio' && activity.trackable.audio then %>	
@@ -118,7 +97,9 @@
 			<% end %><!-- end image post -->
 			<!-- Title for Text Post Only  -->
 			<% if ['text', 'audio','video'].include?(activity.trackable.post_type) %>
-				<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= activity.trackable.title %></div>
+				<%= link_to content_majorpost_path(activity.trackable.uuid), class:"text-grey-700" do %>
+					<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= activity.trackable.title %></div>
+				<% end %>
 			<% end %>
 			<!-- Content -->
 			<div class="panel-body pb-20">
@@ -189,9 +170,9 @@
 					</span>
 				<% else %>
 					<span id="<%= activity.trackable.uuid %>-majorpost-like-holder">
-						<%= link_to new_user_registration_path do %>
+						<a href="#login-popup" class="open-popup-link signup-open-popup" style="padding:0;">
 							<i class="text-grey-300 huaxia huaxia-guanzhu text-medium inline-block animated rubberBand ml-10"></i>
-						<% end %>
+						</a>
 					</span>
 				<% end %>
 			</div>	

@@ -1,0 +1,17 @@
+<% if Subscription.find(notification.trackable_id).funding_type == "one_time" %>
+	<!-- One time -->
+	<div class="text-grey-300 mb-20 mt-20">
+		<img class="mr-5" src="<%= Subscription.find(notification.trackable_id).subscriber.profilephoto.image.url(:thumbnail40)%>" style="height:24px;"><%= link_to profile_url_path(Subscription.find(notification.trackable_id).subscriber), class:"text-grey-300" do %>
+			<%= Subscription.find(notification.trackable_id).subscriber.preferred_name %>
+		<% end %><%= t 'views.payment.backs.backed' %>
+		<img class="ml-5 mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"><span class="ml-5"><%= t 'views.payment.backs.hazelnut' %></span><span class="ml-5 mr-5">x</span><%= Subscription.find(notification.trackable_id).amount.to_i.to_s %>
+	</div>
+<% else %>
+	<!-- Recurring -->
+	<div class="text-grey-300 mb-20 mt-20">
+		<img class="mr-5" src="<%= Subscription.find(notification.trackable_id).subscriber.profilephoto.image.url(:thumbnail40)%>" style="height:24px;"><%= link_to profile_url_path(Subscription.find(notification.trackable_id).subscriber), class:"text-grey-300" do %>
+			<%= Subscription.find(notification.trackable_id).subscriber.preferred_name %>
+		<% end %><%= t 'views.payment.backs.backed' %><% if Subscription.find(notification.trackable_id).campaign_funding_type == "creation" %><%= t 'views.payment.backs.per_creation' %><% else %><%= t 'views.payment.backs.per_month' %><% end %>
+		<img class="ml-5 mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"><span class="ml-5"><%= t 'views.payment.backs.hazelnut' %></span><span class="ml-5 mr-5">x</span><%= Subscription.find(notification.trackable_id).amount.to_i.to_s %>
+	</div>
+<% end %>

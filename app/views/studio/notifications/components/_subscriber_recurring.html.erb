@@ -9,7 +9,7 @@
 				<span class="text-semibold"><%= Subscription.find(notification.trackable_id).subscribed.preferred_name %></span>
 				<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
 			<% end %>
-			<span class="text-grey"><%= t 'mailer.payment.subscription.receipt.become_a_long_term_backer_1'%><%= Subscription.find(notification.trackable_id).subscribed.preferred_name %><%= t 'mailer.payment.subscription.receipt.become_a_one_time_backer_2'%><%= currency_signs(Subscription.find(notification.trackable_id).currency) %><%= Subscription.find(notification.trackable_id).amount %>
+			<span class="text-grey"><%= t 'mailer.payment.subscription.receipt.become_a_long_term_backer_1'%><%= Subscription.find(notification.trackable_id).subscribed.preferred_name %><%= t 'mailer.payment.subscription.receipt.become_a_one_time_backer_2'%><span class="text-grey-100"><%= Subscription.find(notification.trackable_id).amount.to_i.to_s %></span><span class="ml-5 mr-5 text-grey-100">x</span><img class="mr-5 mt-2-" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:20px;">
 				<span class="text-lowercase">
 					<% if Subscription.find(notification.trackable_id).campaign_funding_type == 'creation' %>
 						<%= t 'views.campaign.per_creation' %>

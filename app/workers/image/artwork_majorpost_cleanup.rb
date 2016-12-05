@@ -8,11 +8,11 @@ class Image::ArtworkMajorpostCleanup
 			post_images ||= Array.new
 			post_images = content.css('img').map{ |i| i['src'] }
 			@post_images ||= Array.new
-			Array(post_images).each do |p|
+			post_images.each do |p|
 				image_uuid = p.split("/").last
 				@post_image.push(image_uuid)
 			end
-			Array(Artwork.find_by_majorpost_uuid(majorpost_uuid)).each do |artwork|
+			Artwork.where(majorpost_uuid: majorpost_uuid).all.each do |artwork|
 				unless @post_image.index(artwork.uuid)
 					artwork.destroy
 				end

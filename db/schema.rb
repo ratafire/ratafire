@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106025737) do
+ActiveRecord::Schema.define(version: 20161204061054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -448,6 +448,11 @@ ActiveRecord::Schema.define(version: 20161106025737) do
     t.string   "direct_upload_url"
     t.boolean  "processed",                                        default: false, null: false
     t.datetime "content_updated_at"
+    t.decimal  "predicted_total",         precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_receive",       precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_fee",           precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_ratafire",      precision: 10, scale: 2, default: 0.0
+    t.decimal  "recurring_total",         precision: 10, scale: 2, default: 0.0
   end
 
   create_table "cards", id: :bigserial, force: :cascade do |t|
@@ -1257,38 +1262,48 @@ ActiveRecord::Schema.define(version: 20161106025737) do
     t.integer  "project_id",            limit: 8
     t.text     "title"
     t.text     "artwork_id"
-    t.boolean  "published",                       default: true
+    t.boolean  "published",                                                default: true
     t.integer  "video_id",              limit: 8
     t.text     "excerpt"
-    t.text     "edit_permission",                 default: "free"
-    t.boolean  "archived",                        default: false
+    t.text     "edit_permission",                                          default: "free"
+    t.boolean  "archived",                                                 default: false
     t.datetime "commented_at"
     t.datetime "deleted_at"
-    t.boolean  "deleted",                         default: false
+    t.boolean  "deleted",                                                  default: false
     t.boolean  "featured"
     t.text     "uuid"
-    t.boolean  "test",                            default: false
+    t.boolean  "test",                                                     default: false
     t.datetime "published_at"
-    t.boolean  "early_access",                    default: false
+    t.boolean  "early_access",                                             default: false
     t.integer  "audio_id",              limit: 8
     t.integer  "pdf_id",                limit: 8
     t.text     "category"
     t.text     "sub_category"
-    t.boolean  "post_to_facebook",                default: false
-    t.boolean  "post_to_facebook_page",           default: false
+    t.boolean  "post_to_facebook",                                         default: false
+    t.boolean  "post_to_facebook_page",                                    default: false
     t.text     "facebookupdate_id"
     t.boolean  "abandoned"
-    t.boolean  "featured_home",                   default: false
+    t.boolean  "featured_home",                                            default: false
     t.boolean  "listed"
     t.text     "license"
-    t.string   "post_type",                       default: "text"
-    t.boolean  "paid_update",                     default: false
+    t.string   "post_type",                                                default: "text"
+    t.boolean  "paid_update",                                              default: false
     t.string   "composer"
     t.string   "artist"
     t.string   "genre"
     t.string   "locale"
     t.integer  "campaign_id"
-    t.boolean  "mark_as_paid",                    default: false
+    t.boolean  "mark_as_paid",                                             default: false
+    t.decimal  "accumulated_total",               precision: 10, scale: 2, default: 0.0
+    t.decimal  "accumulated_receive",             precision: 10, scale: 2, default: 0.0
+    t.decimal  "accumulated_fee",                 precision: 10, scale: 2, default: 0.0
+    t.decimal  "accumulated_ratafire",            precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_total",                 precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_receive",               precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_fee",                   precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_ratafire",              precision: 10, scale: 2, default: 0.0
+    t.integer  "subscription_id"
+    t.decimal  "recurring_total",                 precision: 10, scale: 2, default: 0.0
   end
 
   create_table "masspay_batches", id: :bigserial, force: :cascade do |t|
@@ -1990,6 +2005,17 @@ ActiveRecord::Schema.define(version: 20161106025737) do
     t.boolean  "estimated_delivery_expired_at"
     t.datetime "estimated_delivery_expiration_queued_at"
     t.boolean  "estimated_delivery_expiration_queued"
+    t.decimal  "accumulated_total",                       precision: 10, scale: 2, default: 0.0
+    t.decimal  "accumulated_receive",                     precision: 10, scale: 2, default: 0.0
+    t.decimal  "accumulated_fee",                         precision: 10, scale: 2, default: 0.0
+    t.decimal  "accumulated_ratafire",                    precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_total",                         precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_receive",                       precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_fee",                           precision: 10, scale: 2, default: 0.0
+    t.decimal  "predicted_ratafire",                      precision: 10, scale: 2, default: 0.0
+    t.boolean  "ended_early"
+    t.datetime "ended_early_at"
+    t.decimal  "recurring_total",                         precision: 10, scale: 2, default: 0.0
   end
 
   create_table "secrets", id: :bigserial, force: :cascade do |t|
@@ -2290,6 +2316,8 @@ ActiveRecord::Schema.define(version: 20161106025737) do
     t.integer  "campaign_id"
     t.string   "currency"
     t.string   "campaign_funding_type"
+    t.integer  "majorpost_id"
+    t.boolean  "real_deleted"
   end
 
   create_table "tag_images", force: :cascade do |t|

@@ -41,11 +41,11 @@ class Campaign < ActiveRecord::Base
     has_many :liked_campaigns
     has_many :likers, through: :liked_campaigns, source: :user
     has_many :subscriptions, 
-        -> { where( subscriptions: { :deleted_at => nil, :activated => true }) },
+        -> { where( subscriptions: { :real_deleted => nil}) },
         class_name: "Subscription", 
         dependent: :destroy
     has_many :subscribers, 
-        -> { where( subscriptions: { :deleted_at => nil, :activated => true }) },
+        -> { where( subscriptions: { :real_deleted => nil}) },
         through: :subscriptions, 
         source: :subscriber
 

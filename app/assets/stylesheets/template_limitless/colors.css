@@ -49,6 +49,15 @@
   border-color: transparent;
   opacity:0.3;
 }
+.bg-rainbow-900{
+  background: url(/assets/editor/softblur3_meitu_1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;  
+  color: #ffffff;
+  border-color: transparent;
+  opacity:0.3;
+}
 .bg-rainbow-700{
   background: url(/assets/editor/rainbow-blur3.jpg);
   background-repeat: no-repeat;

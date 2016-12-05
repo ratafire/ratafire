@@ -10,7 +10,7 @@
 				<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
 			<% end %>
 			<span class="text-grey">
-				<span><%= t 'views.creator_studio.menu.current_goal'%>: <%= Transfer.find(notification.trackable_id).goal_title %><%= t 'views.creator_studio.rewards.is_due' %></span>
+				<span><%= t 'views.creator_studio.menu.current_goal'%>: <%= Reward.find(notification.trackable_id).goal_title %><%= t 'views.creator_studio.rewards.is_due' %></span>
 			</span>
 		</div>
 	</li>

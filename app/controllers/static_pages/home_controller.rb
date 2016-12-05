@@ -24,6 +24,8 @@ class StaticPages::HomeController < ApplicationController
 					@activities.mark_as_read! :all, :for => current_user
 				end
 			end
+			#Latest updates
+			@latest_updates = PublicActivity::Activity.order("created_at desc").where(owner_id: @user, owner_type: "User", :published => true,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(5)
 		end
 	end
 

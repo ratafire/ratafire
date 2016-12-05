@@ -27,6 +27,14 @@ class Majorpost < ActiveRecord::Base
     has_many :artwork, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Artwork", dependent: :destroy
     has_many :liked_majorposts
     has_many :likers, through: :liked_majorposts, source: :user
+    has_many :subscriptions, 
+        -> { where( subscriptions: { :real_deleted => nil}) },
+        class_name: "Subscription", 
+        dependent: :destroy
+    has_many :subscribers, 
+        -> { where( subscriptions: { :real_deleted => nil}) },
+        through: :subscriptions, 
+        source: :subscriber
 
     #Has one
     has_one :link, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Link",dependent: :destroy

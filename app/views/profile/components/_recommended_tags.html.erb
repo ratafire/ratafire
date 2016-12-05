@@ -2,6 +2,84 @@
 	<div class="row">
 		<!-- Col 1 -->
 		<div class="col-lg-4 col-md-4 col-sm-4">
+			<!-- 概念艺术 -->
+			<%= link_to tag_path(Tag.find_by_name("概念艺术")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("概念艺术").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("概念艺术").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+			<!-- 开源 -->
+			<%= link_to tag_path(Tag.find_by_name("开源")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("开源").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("开源").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		<!-- Col 2 -->
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<!-- 翻录 -->
+			<%= link_to tag_path(Tag.find_by_name("翻录")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("翻录").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("翻录").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+			<!-- cg -->
+			<%= link_to tag_path(Tag.find_by_name("cg")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("cg").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("cg").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		<!-- Col 3 -->
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<!-- 游戏 -->
+			<%= link_to tag_path(Tag.find_by_name("游戏")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("游戏").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("游戏").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+			<!-- vr -->
+			<%= link_to tag_path(Tag.find_by_name("vr")) do %>
+				<div class="panel">
+					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
+						<img src="<%= Tag.find_by_name("vr").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
+						<div class="panel-image-text text-size-mini position-absolute mt-20-">
+							<%= Tag.find_by_name("vr").name.titleize %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+<% else %>
+	<div class="row">
+		<!-- Col 1 -->
+		<div class="col-lg-4 col-md-4 col-sm-4">
 			<!-- Concept art -->
 			<%= link_to tag_path(Tag.find_by_name("concept art")) do %>
 				<div class="panel">
@@ -75,9 +153,5 @@
 				</div>
 			<% end %>
 		</div>
-	</div>
-<% else %>
-	<div class="row">
-
 	</div>
 <% end %>

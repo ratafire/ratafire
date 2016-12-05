@@ -96,6 +96,21 @@ class Content::LikesController < ApplicationController
 							friendship_init: @user.id
 						)
 					end
+					#Create activity
+					@activity = PublicActivity::Activity.create(
+						trackable_id: @liked_user.id,
+						trackable_type: "LikedUser",
+						owner_id: @user.id,
+						owner_type: "User",
+						key: "liked_user.create",
+						)
+					@activity = PublicActivity::Activity.create(
+						trackable_id: @liked_user.id,
+						trackable_type: "LikedUser",
+						owner_id: current_user.id,
+						owner_type: "User",
+						key: "liked_user.create",
+						)
 				end
 			end
 		end
@@ -117,7 +132,7 @@ class Content::LikesController < ApplicationController
 		end
 		#Update activity
 		if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(params[:majorpost_id],'Majorpost')
-			@activity.liker_list.remove(current_user.id)
+			@activity.liker_list.remove(current_user.id.to_s)
 			@activity.save
 		end
 	end
@@ -156,7 +171,7 @@ class Content::LikesController < ApplicationController
 		end
 		#Update activity
 		if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(params[:campaign_id],'Campaign')
-			@activity.liker_list.remove(current_user.id)
+			@activity.liker_list.remove(current_user.id.to_s)
 			@activity.save
 		end
 	end
@@ -165,7 +180,7 @@ class Content::LikesController < ApplicationController
 	#/users/:user_id/content/likes/campaign/:user_id
 	def unlike_user
 		#Unlike user as well
-		if @user = @user = User.find(params[:user_id])
+		if @user = User.find(params[:user_id])
 			if @liked_user = LikedUser.find_by_liked_id_and_liker_id(@user.id, current_user.id)
 				@liked = @liked_user.liked
 				#Activity of like user
@@ -184,6 +199,31 @@ class Content::LikesController < ApplicationController
 					@reverse_friendship.destroy
 				end
 			end
+		end
+	end
+
+	#remove_liker_user_content_likes DELETE
+	def remove_liker
+		if @user = User.find(params[:user_id])
+			if @liked_user = LikedUser.find_by_liked_id_and_liker_id(current_user.id,@user.id)
+				@liked = @liked_user.liked
+				#Activity of like user
+				if @liked_user_activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@liked_user.id,'LikedUser')
+					@liked_user_activity.update(
+						deleted: true,
+						deleted_at: Time.now
+					)
+				end
+				@liked_user.destroy
+				#Remove friendship
+				if @friendship = Friendship.find_by_user_id_and_friend_id(current_user.id, @user.id)
+					@friendship.destroy
+				end
+				if @reverse_friendship = Friendship.find_by_user_id_and_friend_id(@user.id, current_user.id)
+					@reverse_friendship.destroy
+				end
+			end
+			redirect_to(:back)
 		end
 	end
 

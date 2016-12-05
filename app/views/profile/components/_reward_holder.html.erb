@@ -15,15 +15,15 @@
 	<% end %>
 	<div class="panel-body">
 		<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><i class="huaxia huaxia-libao mr-5"></i> <%= user.active_reward.title %></h5>
-		<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><%= t 'views.utilities.menu.support' %> <%= currency_signs(user.active_reward.campaign.currency) %><%= user.active_reward.amount.to_i %></h5>
+		<h5 class="no-margin-top"><span class="text-grey-100"><%= user.active_reward.amount.to_i %></span><span class="ml-5 mr-5 text-grey-100">x</span><img class="mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"></h5>
 		<!-- Backers -->
 		<% if user.active_reward.backers > 0 %>
 			<!-- Show limited backers -->
-			<p class="text-grey-200"><i class="ti-user"></i> <span ><%= user.active_reward.reward_receivers.count %>/<%= user.active_reward.backers %> <%= t 'views.utilities.menu.backers' %><% if user.active_reward.backers > 0 && user.active_reward.reward_receivers.count >= user.active_reward.backers %><span class="label label-blue ml-5"><%= t 'views.payment.backs.all_gone' %></span><% end %></span></p>
+			<p class="text-grey-200"><i class="ti-user"></i> <span ><%= number_to_human(user.active_reward.reward_receivers.count) %>/<%= number_to_human(user.active_reward.backers) %> <%= t 'views.utilities.menu.backers' %><% if user.active_reward.backers > 0 && user.active_reward.reward_receivers.count >= user.active_reward.backers %><span class="label label-blue ml-5"><%= t 'views.payment.backs.all_gone' %></span><% end %></span></p>
 		<% else %>
 			<!-- Show backer when there is more than 0 backer -->
 			<% if user.active_reward.reward_receivers.count > 0 %>
-				<p class="text-grey-200"><i class="ti-user"></i> <span ><%= user.active_reward.reward_receivers.count %>
+				<p class="text-grey-200"><i class="ti-user"></i> <span ><%= number_to_human(user.active_reward.reward_receivers.count) %>
 			<% end %>
 		<% end %>
 		<div class="text-grey mb-20"><%= user.active_reward.description %></div>

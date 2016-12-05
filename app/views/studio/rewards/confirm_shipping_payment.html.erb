@@ -13,7 +13,7 @@
 					<div class="col-md-8">
 						<!-- Ships to -->
 						<%= render partial:'studio/rewards/ships_to', locals: {shipping_address: @reward_receiver.shipping_address}%>
-						<%= link_to cancel_payment_user_payment_reward_receivers_path(shipping_address.user_id,shipping_address.id), method: :delete, :data => { :confirm => t('mailer.payment.shipping_order.cancel')} do %>
+						<%= link_to cancel_payment_user_payment_reward_receivers_path(@reward_receiver.shipping_address.user_id,@reward_receiver.shipping_address.id), method: :delete, :data => { :confirm => t('mailer.payment.shipping_order.cancel')} do %>
 								<div class="mt-10 btn btn-default"><%= t 'views.utilities.editor.cancel' %></div>
 						<% end %>
 					</div>

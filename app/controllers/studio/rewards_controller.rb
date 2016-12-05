@@ -5,7 +5,7 @@ class Studio::RewardsController < ApplicationController
 	#Before filters
 	before_filter :authenticate_user!	
 	before_filter :load_user
-	before_filter :load_reward, only:[:upload_image, :remove_image, :show, :upload_reward_editor, :confirm_upload_reward, :upload_reward]
+	before_filter :load_reward, only:[:upload_image, :remove_image, :show, :upload_reward_editor, :confirm_upload_reward, :upload_reward, :end_early, :make_active,:abandon]
 	before_filter :correct_user
 
 	#REST Methods -----------------------------------
@@ -27,7 +27,8 @@ class Studio::RewardsController < ApplicationController
 			@reward = Reward.new(reward_params)
 			@reward.update(
 				user_id: @user.id,
-				campaign_id: @user.active_campaign.id
+				campaign_id: @user.active_campaign.id,
+				currency: @user.active_campaign.currency
 			)
 			#Update Shipping countries
 			if params[:reward][:shippings_attributes]
@@ -61,11 +62,11 @@ class Studio::RewardsController < ApplicationController
 			end
 			#Update Shipping shipping anywhere
 			if params[:reward][:shipping_anywhere_attributes]
-				if params[:reward][:shipping_anywhere_attributes].values.first[:_destroy] == "false"
+				if params[:reward][:shipping_anywhere_attributes][:_destroy] == "false"
 					if @reward.shipping_anywhere 
-						unless @reward.shipping_anywhere.amount == params[:reward][:shipping_anywhere_attributes].values.first[:amount]
+						unless @reward.shipping_anywhere.amount == params[:reward][:shipping_anywhere_attributes][:amount]
 							@reward.shipping_anywhere.update(
-								amount: params[:reward][:shipping_anywhere_attributes].values.first[:amount]
+								amount: params[:reward][:shipping_anywhere_attributes][:amount]
 							)
 						end
 					else
@@ -73,7 +74,7 @@ class Studio::RewardsController < ApplicationController
 							user_id: @user.id,
 							campaign_id: @campaign.id,
 							reward_id: @reward.id,
-							amount: params[:reward][:shipping_anywhere_attributes].values.first[:amount]
+							amount: params[:reward][:shipping_anywhere_attributes][:amount]
 						)
 					end
 				else
@@ -96,6 +97,12 @@ class Studio::RewardsController < ApplicationController
 						)
 					end
 				end
+			end
+			#Make the reward active if there is no active reward
+			unless @user.active_reward
+				@reward.update(
+					active: true
+				)
 			end
 		end
 		redirect_to rewards_user_studio_creator_studio_path(@user.username)
@@ -189,6 +196,31 @@ class Studio::RewardsController < ApplicationController
 		end
 	end
 
+	# end_early_user_studio_rewards POST 
+	# /users/:user_id/studio/rewards/end_early/:reward_id
+	def end_early
+		@reward.update(
+			ended_early: true,
+			ended_early_at: Time.now,
+			active: false
+		)
+		redirect_to rewards_user_studio_creator_studio_path(@user.username)
+	end
+
+	# make_active_user_studio_rewards POST 
+	def make_active
+		@reward.update(
+			active: true
+		)
+		redirect_to(:back)
+	end
+
+	# abandon_user_studio_rewards DELETE
+	def abandon
+		@reward.destroy
+		redirect_to rewards_user_studio_creator_studio_path(@user.username)
+	end
+
 protected
 
 	def load_user
@@ -205,7 +237,7 @@ protected
 	end
 
 	def reward_params
-		params.require(:reward).permit(:goal_title, :due, :title, :amount, :backers, :description, :shipping, :_destroy, :estimated_delivery, :image, :direct_upload_url)
+		params.require(:reward).permit(:goal_title, :due, :title, :amount, :backers, :description, :shipping, :_destroy, :estimated_delivery, :image, :direct_upload_url, :goal)
 	end
 
 	def correct_user

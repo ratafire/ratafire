@@ -78,6 +78,8 @@
 						<%= render partial:'profile/components/current_goal', locals: {user: @user}%>			
 						<!-- Donation Button -->
 						<%= render partial:'profile/components/donation_button', locals: {user: @user}%>
+						<!-- Latest updates -->
+						<%= render partial: "profile/components/latest_updates_profile", collection: @latest_updates, :as => :notification %>
 					</div><!-- end #sticker -->	
 				<% end %>
 			</div>	

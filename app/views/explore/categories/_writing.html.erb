@@ -2,7 +2,7 @@
 	<div class="page-header-content">
 		<div class="page-title text-grey">
 			<h2 class="text-thin" id="tag-follow-holder">
-				<img src="/assets/default/categories/writing_preview256.jpg" class="img-circle img-lg mr-10"><%= t 'views.utilities.menu.writing' %>
+				<img src="/assets/default/categories/writing_thumbnail256.jpg" class="img-circle img-lg mr-10"><%= t 'views.utilities.menu.writing' %>
 			</h2>
 		</div>
 
@@ -21,7 +21,7 @@
 </div>
 <div class="content" >
 	<!-- Activities -->
-	<div class="row pl-10 pr-10">
+	<div class="row pl-10 pr-10 pt-20">
 		<div class="masonry">
 			<div id="like-pagination">
 				<%= render_activities(@activities, layout: :activity_liked) %>

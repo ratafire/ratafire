@@ -12,28 +12,26 @@
 			<div class="category-content no-padding">
 				<ul class="navigation navigation-main navigation-accordion">
 					<!-- Explore -->
-					<li class="navigation-header"><span>Explore</span> <i class="icon-menu" title="Main pages"></i></li>
-					<li><a href="index.html"><i class="fa fa-binoculars"></i> <span>Discover</span></a></li>
-					<li><a href="index.html"><i class="fa fa-thumbs-up"></i> <span>Support creators</span></a></li>
-					<li><a href="index.html"><i class="fa fa-video-camera"></i> <span>Visit hangouts</span></a></li>
-					<!-- /Explore -->
+					<%= render 'utilities/sidebar/explore' %>
 					<!-- Collapsing Sidebar Content -->
-					<div class="sidebar-hide-toggle">
+
 						<!-- Followed Tags -->
-						<li class="navigation-header"><span>Followed Tags</span> <i class="icon-menu" title="Main pages"></i></li>
+						<%= render 'utilities/sidebar/followed_tags' %>
+						<!-- Followed Tags -->
+						<li class="navigation-header"><span><%= t 'views.utilities.menu.followed_tags' %></span> <i class="icon-menu" title="Main pages"></i></li>
 						<div class="pl-20 pr-20">
 							<div class="panel-flat bg-darkglass">
 								<div class="panel-body">
 									<div class="mb-10">
-										You can now follow the topics you are interested in!
+										<%= t 'views.utilities.menu.followed_tags_help' %>
 									</div>
 									<a class="btn btn-blue btn-xs open-popup-link signup-open-popup" href="#login-popup">
-										Learn more
+										<%= t 'views.utilities.menu.learn_more' %>
 									</a>
 								</div>	
 							</div>	
 						</div><!-- end find out more-->						
-					</div><!-- end .sidebar-hide-toggle -->	
+
 				</ul>
 			</div><!-- end .category-content-->						
 		</div>

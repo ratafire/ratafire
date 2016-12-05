@@ -14,13 +14,13 @@
 	<% end %>
     <!-- Second Slot -->
     <% if user.traits.count >= 2 %>
-    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(2)[0].zh_cn %><% else %><%= user.traits.last.trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(2)[0].trait_code %>"></i></li>
+    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(2)[0].zh_cn %><% else %><%= user.traits.last(2)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(2)[0].trait_code %>"></i></li>
     <% else %>
     	<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-27cloud"></i></li>
     <% end %>
     <!-- Third Slot -->
     <% if user.traits.count == 3 %>
-    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(3)[0].zh_cn %><% else %><%= user.traits.last.trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(3)[0].trait_code %>"></i></li>
+    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(3)[0].zh_cn %><% else %><%= user.traits.last(3)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(3)[0].trait_code %>"></i></li>
     <% else %>
     	<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud2"></i></li>
     <% end %>

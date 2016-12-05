@@ -1,0 +1,19 @@
+$("#like-pagination").append("<div class='like-pagination'><%= j render_activities(@activities) %></div>");
+initiate_plugins('<%= j @popoverclass %>_video_class');
+refreshUsercard('<%= j @popoverclass %>');
+<% if @activities.next_page %>
+  $('.like-will-paginate').replaceWith('<div class="like-will-paginate"><%= j will_paginate(@activities) %></div>');
+  $(".like-will-paginate").hide();
+<% else %>
+  $('.like-will-paginate').remove();
+<% end %>
+$(window).scroll(function() {
+    //like
+    if ($('.like-will-paginate').length) {
+      var url = $('.like-will-paginate .next_page').attr('href');
+      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 1500) {
+        $('.like-will-paginate').html("<i class=\"icon-spinner2 spinner text-blue\"></i>");
+        return $.getScript(url);        
+      }
+    }           
+});

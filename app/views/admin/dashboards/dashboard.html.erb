@@ -5,3 +5,69 @@
 <% content_for :sidebar do %>
     <%= render 'utilities/sidebar/sidebar_admin'%>
 <% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+	<div class="content" >
+		<div class="row" id="updates-area">
+			<!-- Feeds -->
+			<div class="col-xs-12 col-md-8" id="updates-main-area">
+				<div class="tabbable">
+					<div class="tab-content">
+						<!-- Updates -->
+						<div class="tab-pane fade in active" id="updates">
+							<!-- Campaign Read all -->
+							<div id="user-profile-project-read-all">
+							</div>
+							<!-- Posts -->
+							<div id="like-pagination">
+								<div class="like-pagination">
+									<%= render_activities(@activities) %>
+								</div>
+								<!-- Paginate -->
+								<div class="like-will-paginate">
+									<%= will_paginate @activities %>
+								</div>
+							</div><!-- end #post-pagination-->							
+						</div>	
+					</div><!-- end .tab-content-->	
+				</div><!-- end .tabbable-->				
+			</div>
+			<!-- Side Area -->
+			<div class="col-xs-6 col-md-4 pr-20" id="side-area">
+				<!-- Users  -->
+				<div class="panel">
+					<div class="panel-body">
+						<h3 class="no-margin"><%= number_to_human(User.count) %></h3>
+						<span class="label bg-rainbow-600"><%= t 'views.admin.menu.users' %></span>
+					</div>
+				</div>
+				<!-- Projects  -->
+				<div class="panel">
+					<div class="panel-body">
+						<h3 class="no-margin"><%= number_to_human(Campaign.where(:published => true, :status => "Approved").count) %></h3>
+						<span class="label bg-rainbow-600"><%= t 'views.admin.menu.projects' %></span>
+					</div>
+				</div>
+				<!-- Posts -->
+				<div class="panel">
+					<div class="panel-body">
+						<h3 class="no-margin"><%= number_to_human(Majorpost.where(:published => true, :deleted => false).count) %></h3>
+						<span class="label bg-rainbow-600"><%= t 'views.admin.menu.posts' %></span>
+					</div>
+				</div>
+				<!-- Tags -->
+				<div class="panel">
+					<div class="panel-body">
+						<h3 class="no-margin"><%= number_to_human(Tag.count) %></h3>
+						<span class="label bg-rainbow-600"><%= t 'views.creator_studio.campaign.tags' %></span>
+					</div>
+				</div>
+				<!-- Transactions -->
+				<div class="panel">
+					<div class="panel-body">
+						<h3 class="no-margin"><%= number_to_human(Transaction.where(:status => 'Success').count) %></h3>
+						<span class="label bg-rainbow-600"><%= t 'views.admin.menu.transactions' %></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

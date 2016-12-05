@@ -15,8 +15,8 @@
 <!-- About the Project -->
 <div class="mb-40 text-size-large mb-40 text-light">
 	<div class="">
-		<span class="label <%= category_color(user.active_campaign.category)%> mr-5"><%= t is_category(user.active_campaign.category)%></span>
-		<span class="label bg-grey-100"><%= t is_sub_category(user.active_campaign.sub_category) %></span>
+		<%= render partial: "profile/components/category", locals: {category: user.active_campaign.category} %>
+		<%= render partial: "profile/components/sub_category", locals: {category: user.active_campaign.category, sub_category: user.active_campaign.sub_category} %>
 		<%= user.active_campaign.description %>
 	</div>
 </div>	

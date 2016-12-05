@@ -1,0 +1,63 @@
+<% if activity.trackable && activity.trackable_type == "LikedUser" %>
+	<!-- Followe user -->
+	<% if activity.trackable.liker == user %>
+		<!-- Liker -->
+		<div class="text-grey-300 mb-20">
+			<%= t 'views.utilities.follow.you_followed' %><img class="ml-5 mr-5" src="<%= activity.trackable.liked.profilephoto.image.url(:thumbnail40)%>" style="height:24px;">
+			<%= link_to profile_url_path(activity.trackable.liked.username), class:"text-grey-300" do %>
+				<%= activity.trackable.liked.preferred_name %>
+			<% end %>
+		</div>
+	<% else %>
+		<!-- Liked -->
+		<div class="text-grey-300 mb-20">
+			<img class="mr-5" src="<%= activity.trackable.liker.profilephoto.image.url(:thumbnail40)%>" style="height:24px;">
+			<%= link_to profile_url_path(activity.trackable.liker), class:"text-grey-300" do %>
+				<%= activity.trackable.liker.preferred_name %>
+			<% end %><%= t 'views.utilities.follow.followed_you' %>
+		</div>
+	<% end %>
+<% else %>
+	<% if activity.trackable_type == "Subscription" %>
+		<!-- Back -->
+		<% if activity.trackable.subscriber == user %>
+			<!-- Backer -->
+			<% if activity.trackable.funding_type == "one_time" %>
+				<!-- One time -->
+				<div class="text-grey-300 mb-20">
+					<%= t 'views.payment.backs.you_gave' %><img class="ml-5 mr-5" src="<%= activity.trackable.subscribed.profilephoto.image.url(:thumbnail40)%>" style="height:24px;">
+					<%= link_to profile_url_path(activity.trackable.subscribed.username), class:"text-grey-300" do %>
+						<%= activity.trackable.subscribed.preferred_name %>
+					<% end %><img class="ml-5 mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"><span class="ml-5"><%= t 'views.payment.backs.hazelnut' %></span><span class="ml-5 mr-5">x</span><%= activity.trackable.amount.to_i.to_s %>
+				</div>
+			<% else %>
+				<!-- Recurring -->
+				<div class="text-grey-300 mb-20">
+					<%= t 'views.payment.backs.you_gave' %><img class="ml-5 mr-5" src="<%= activity.trackable.subscribed.profilephoto.image.url(:thumbnail40)%>" style="height:24px;">
+					<%= link_to profile_url_path(activity.trackable.subscribed.username), class:"text-grey-300" do %>
+						<%= activity.trackable.subscribed.preferred_name %><% if activity.trackable.campaign_funding_type == "creation" %><%= t 'views.payment.backs.per_creation' %><% else %><%= t 'views.payment.backs.per_month' %><% end %>
+					<% end %><img class="ml-5 mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"><span class="ml-5"><%= t 'views.payment.backs.hazelnut' %></span><span class="ml-5 mr-5">x</span><%= activity.trackable.amount.to_i.to_s %>
+				</div>
+			<% end %>
+		<% else %>
+			<!-- Backer -->
+			<% if activity.trackable.funding_type == "one_time" %>
+				<!-- One time -->
+				<div class="text-grey-300 mb-20">
+					<img class="mr-5" src="<%= activity.trackable.subscriber.profilephoto.image.url(:thumbnail40)%>" style="height:24px;"><%= link_to profile_url_path(activity.trackable.subscriber.username), class:"text-grey-300" do %>
+						<%= activity.trackable.subscriber.preferred_name %>
+					<% end %><%= t 'views.payment.backs.backed' %>
+					<img class="ml-5 mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"><span class="ml-5"><%= t 'views.payment.backs.hazelnut' %></span><span class="ml-5 mr-5">x</span><%= activity.trackable.amount.to_i.to_s %>
+				</div>
+			<% else %>
+				<!-- Recurring -->
+				<div class="text-grey-300 mb-20">
+					<img class="mr-5" src="<%= activity.trackable.subscriber.profilephoto.image.url(:thumbnail40)%>" style="height:24px;"><%= link_to profile_url_path(activity.trackable.subscriber.username), class:"text-grey-300" do %>
+						<%= activity.trackable.subscriber.preferred_name %>
+					<% end %><%= t 'views.payment.backs.backed' %><% if activity.trackable.campaign_funding_type == "creation" %><%= t 'views.payment.backs.per_creation' %><% else %><%= t 'views.payment.backs.per_month' %><% end %>
+					<img class="ml-5 mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"><span class="ml-5"><%= t 'views.payment.backs.hazelnut' %></span><span class="ml-5 mr-5">x</span><%= activity.trackable.amount.to_i.to_s %>
+				</div>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

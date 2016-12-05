@@ -22,7 +22,7 @@ class Reward < ActiveRecord::Base
     #Has one
     has_one :shipping_anywhere, class_name: "ShippingAnywhere", dependent: :destroy
     accepts_nested_attributes_for :shipping_anywhere, limit: 1, :allow_destroy => true
-    has_one :reward_uploads, class_name: "RewardUpload"
+    has_one :reward_uploads, class_name: "RewardUpload", dependent: :destroy
 
     #----------------Translation----------------
 

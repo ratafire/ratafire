@@ -22,7 +22,7 @@
 		<p class="navbar-text no-padding col-sm-4 col-md-5 col-lg-6">
 			<span class="input-group pt-7">
 				<input type="text" class="form-control height-30 masthead-search-terms-border no-border-radius">
-				<span class="input-group-btn height-30">
+				<span class="input-group-btn height-30" >
 					<span class="btn btn-default pt-3 height-30" type="button" style="width:66px;">
 						<i class="fa fa-search text-grey-300"></i>
 					</span>
@@ -40,6 +40,16 @@
 								<span class="btn-group pt-7">
 									<span class="btn btn-default btn-xs height-30 text-grey-300"><%= t 'views.utilities.menu.become_a_creator' %></span>
 								</span>
+							<% end %>
+						<% else %>
+							<!-- With an active campaign -->
+							<% unless current_user.active_reward %>
+								<!-- Without an active reward -->
+								<%= link_to new_user_studio_rewards_path(current_user.username), :data => {turbolinks: "false"} do %>
+									<span class="btn-group pt-7">
+										<span class="btn btn-default btn-xs height-30 text-grey-300"><%= t 'views.creator_studio.rewards.resume_fan_funding' %></span>
+									</span>
+								<% end %>
 							<% end %>
 						<% end %>
 					<% else %>

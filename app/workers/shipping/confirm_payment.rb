@@ -59,16 +59,17 @@ class Shipping::ConfirmPayment
 					transfer_id: @transfer.id
 				)
 			else
-				@transfer = Transfer.create(
+				if @transfer = Transfer.create(
 					user_id: @subscribed.id,
 					method: 'Stripe',
 					collected_amount: @transfer.collected_amount+@shipping_order.amount,
 					collected_fee: @transfer.collected_fee+@transaction.fee,
 					collected_receive: @transfer.collected_receive+@transaction.receive,
 				)
-				@transaction.update(
-					transfer_id: @transfer.id
-				)			
+					@transaction.update(
+						transfer_id: @transfer.id
+					)		
+				end	
 			end
 			#Subscription Record
 			@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)

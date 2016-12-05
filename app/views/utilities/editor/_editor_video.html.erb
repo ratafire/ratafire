@@ -89,14 +89,8 @@
 					<% end %>
 				</div>		
 				<div class="pull-right">
-					<div class="checkbox checkbox-switchery switchery-xs pull-left mr-10" data-popup="tooltip" title="Get paid for this creation" data-placement="top">
-						<label>
-							<%= f.check_box :paid_update, checked: false,class:"switchery"%>
-						</label>
-					</div>
-					<div class='pull-left' id="editor-submition-block">
-						<%= f.submit t('views.utilities.editor.post_update'), class: "btn btn-blue btn-xs", id:"editor-submition" %>
-					</div>
+					<!-- Paid update -->
+					<%= render partial: "utilities/editor/paid_creation", locals: { f: f } %>
 				</div>
 			</div>	
 		<% end %><!-- end #image-editor-form-->	
