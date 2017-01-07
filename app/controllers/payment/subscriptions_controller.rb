@@ -4,6 +4,7 @@ class Payment::SubscriptionsController < ApplicationController
 	before_filter :load_reverse_subscriber, only:[:destroy]
 	before_filter :check_if_active_subscription, only: [:create]
 	before_filter :check_if_all_gone, only: [:create]
+	before_filter :check_if_reward_receiver, only: [:create]
 	before_filter :connect_to_stripe, only:[:create]
 
 	#REST Methods -----------------------------------	
@@ -32,9 +33,6 @@ class Payment::SubscriptionsController < ApplicationController
 		if params[:subscription][:cards_attributes]
 			add_card
 		end
-		if params[:subscription][:shipping_addresses_attributes]
-			add_shipping_address
-		end
 		#Charge if charge
 		if @subscription.funding_type == 'one_time'
 			#Charge the card now
@@ -43,6 +41,46 @@ class Payment::SubscriptionsController < ApplicationController
 			#Do not charge the card
 			subscription_post_payment
 		end
+	rescue Stripe::CardError => e
+		# Since it's a decline, Stripe::CardError will be caught
+		body = e.json_body
+		err  = body[:error]
+
+		puts "Status is: #{e.http_status}"
+		puts "Type is: #{err[:type]}"
+		puts "Code is: #{err[:code]}"
+		# param is '' in this case
+		puts "Param is: #{err[:param]}"
+		puts "Message is: #{err[:message]}"
+		#Show to the user
+		flash[:error] = "#{err[:message]}"
+		redirect_to how_i_pay_user_studio_wallets_path(@subscriber.username)
+	rescue Stripe::RateLimitError => e
+		# Too many requests made to the API too quickly
+		flash[:error] = t('errors.messages.too_many_requests')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue Stripe::InvalidRequestError => e
+		# Invalid parameters were supplied to Stripe's API
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue Stripe::AuthenticationError => e
+		# Authentication with Stripe's API failed
+		# (maybe you changed API keys recently)
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue Stripe::APIConnectionError => e
+		# Network communication with Stripe failed
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue Stripe::StripeError => e
+		# Display a very generic error to the user, and maybe send
+		# yourself an email
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue 
+		# General rescue
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
 	end
 
 	# user_payment_subscriptions DELETE
@@ -91,7 +129,6 @@ private
 
 	def add_card
 		@card = Card.new(
-			user_id: @subscriber.id,
 			name: params[:subscription][:cards_attributes].values.first[:name],
 			exp_year: params[:subscription][:cards_attributes].values.first[:exp_year],
 			exp_month: params[:subscription][:cards_attributes].values.first[:exp_month],
@@ -155,20 +192,16 @@ private
 				@customer.default_source = @new_card.id
 				@customer.save
 				#delete old
-				@old_card = @customer.sources.retrieve(@subscriber.card.card_stripe_id)
-				@old_card.delete
+				if @old_card = @customer.sources.retrieve(@subscriber.card.card_stripe_id)
+					@old_card.delete
+				end
 				@subscriber.card.destroy
 			end
 			@card.user_id = @subscriber.id
 			@card.save
-			#render js
 		else
 			redirect_to(:back)
 		end
-	rescue
-		@subscriber.card.destroy
-		@card.user_id = @subscriber.id
-		@card.save
 	end	
 
 	def add_shipping_address
@@ -203,7 +236,7 @@ private
 	end	
 
 	def subscribe_through_stripe
-		begin
+		if @subscriber.customer
 			response = Stripe::Charge.create(
 				:amount => @subscription.amount.to_i*100,
 				:currency => "usd",
@@ -211,48 +244,16 @@ private
 				:description => t('views.payment.backs.ratafire_payment'),
 				:destination => @subscribed.stripe_account.stripe_id
 			)
-		rescue Stripe::CardError => e
-			# Since it's a decline, Stripe::CardError will be caught
-			body = e.json_body
-			err  = body[:error]
-
-			puts "Status is: #{e.http_status}"
-			puts "Type is: #{err[:type]}"
-			puts "Code is: #{err[:code]}"
-			# param is '' in this case
-			puts "Param is: #{err[:param]}"
-			puts "Message is: #{err[:message]}"
-			#Show to the user
-			flash[:error] = "#{err[:message]}"
-			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
-		rescue Stripe::RateLimitError => e
-			# Too many requests made to the API too quickly
-  			flash[:error] = t('views.errors.messages.too_many_requests')
-  			redirect_to profile_url_path(@subscribed.username)
-		rescue Stripe::InvalidRequestError => e
-			# Invalid parameters were supplied to Stripe's API
-  			flash[:error] = t('views.errors.messages.not_saved')
-  			redirect_to profile_url_path(@subscribed.username)
-		rescue Stripe::AuthenticationError => e
-			# Authentication with Stripe's API failed
-			# (maybe you changed API keys recently)
-  			flash[:error] = t('views.errors.messages.not_saved')
-  			redirect_to profile_url_path(@subscribed.username)
-		rescue Stripe::APIConnectionError => e
-			# Network communication with Stripe failed
-  			flash[:error] = t('views.errors.messages.not_saved')
-  			redirect_to profile_url_path(@subscribed.username)
-		rescue Stripe::StripeError => e
-			# Display a very generic error to the user, and maybe send
-  			# yourself an email
-  			flash[:error] = t('views.errors.messages.not_saved')
-  			redirect_to profile_url_path(@subscribed.username)
-  		rescue 
-  			# General rescue
-  			flash[:error] = t('views.errors.messages.not_saved')
-  			redirect_to profile_url_path(@subscribed.username)
+		else
+			response = Stripe::Charge.create(
+				:amount => @subscription.amount.to_i*100,
+				:currency => "usd",
+				:customer => @customer.id,
+				:description => t('views.payment.backs.ratafire_payment'),
+				:destination => @subscribed.stripe_account.stripe_id
+			)			
 		end
-		if response.try(:captured) == true then
+		if response.try(:captured) == true && response.try(:status) == "succeeded"
 			@subscription.save
 			#Create transaction
 			@transaction = Transaction.prefill!(
@@ -263,6 +264,7 @@ private
 			:subscribed_id => @subscribed.id,
 			:supporter_switch => @subscription.supporter_switch,
 			:fee => @subscription.amount.to_f*0.029+0.30,
+			:transaction_type => 'Back',
 			:transaction_method => "Stripe",
 			:currency => "usd"
 			)
@@ -282,11 +284,16 @@ private
 		else
 			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
 			#redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
+			redirect_to how_i_pay_user_studio_wallets_path(@subscriber.username)
 		end
 	end
 
 	def subscription_post_payment
 		if @subscription.save
+			#Add shipping address
+			if params[:subscription][:shipping_addresses_attributes]
+				add_shipping_address
+			end
 			#Create activity
 			subscription_update_activity
 			#Mailing the sucess confirmation email to the subscriber
@@ -314,10 +321,6 @@ private
 				#Create reward receiver
 				subscription_create_receiver
 			end
-			#Create a find a transfer
-			if @transaction
-				subscription_create_or_find_a_transfer
-			end
 			#Unsubscribe the one time backer
 			if @subscription.funding_type == 'one_time'
 				Subscription.unsubscribe(reason_number:8, subscriber_id:@subscriber.id, subscribed_id: @subscribed_id)
@@ -335,7 +338,6 @@ private
 			flash['error'] = @subscription.errors.full_messages
 			redirect_to(:back)
 		end
-	#rescue
 	end
 
 	def subscription_update_user_display_amount
@@ -707,35 +709,6 @@ private
 		end
 	end
 
-	def subscription_create_or_find_a_transfer
-		if @subscribed.transfer != nil then
-			@transfer = @subscribed.transfer
-			@transfer.update(
-				user_id: @subscribed.id,
-				billing_artist_id: @billing_artist.id,
-				method: 'Stripe',
-				collected_amount: @transfer.collected_amount+@subscription.amount,
-				collected_fee: @transfer.collected_fee+@transaction.fee,
-				collected_receive: @transfer.collected_receive+@transaction.receive,
-			)
-			@transaction.update(
-				transfer_id: @transfer.id
-			)
-		else
-			@transfer = Transfer.create(
-				user_id: @subscribed.id,
-				billing_artist_id: @billing_artist.id,
-				method: 'Stripe',
-				collected_amount: @subscription.amount,
-				collected_fee: @transaction.fee,
-				collected_receive: @transaction.receive,
-			)
-			@transaction.update(
-				transfer_id: @transfer.id
-			)			
-		end		
-	end
-
 	def connect_to_stripe
 		if Rails.env.production?
 			Stripe.api_key = ENV['STRIPE_SECRET_KEY']
@@ -752,9 +725,18 @@ private
 	end
 
 	def check_if_all_gone
-		if params[:subscription][:get_reward]
+		if params[:subscription][:get_reward] == 'on'
 			if @subscribed.active_reward.backers > 0 && @subscribed.active_reward.reward_receivers.count >= @subscribed.active_reward.backers
 				flash[:alert] = t('errors.messages.all_gone')
+				redirect_to new_user_payment_backs_path(@subscribed.uid)
+			end
+		end
+	end
+
+	def check_if_reward_receiver
+		if params[:subscription][:get_reward] == 'on'
+			if @subscribed.active_reward.try(:reward_receivers).where(:user_id => @subscriber.id).count > 0
+				flash[:alert] = t('errors.messages.had_it')
 				redirect_to new_user_payment_backs_path(@subscribed.uid)
 			end
 		end

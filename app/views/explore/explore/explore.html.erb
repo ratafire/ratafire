@@ -1,0 +1,62 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, t('views.utilities.menu.explore')) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
+<!-- Content Area -->
+<div class="content" >
+	<div class="row" id="updates-area">
+		<!-- Feeds -->
+		<div class="col-xs-12 col-md-8" id="updates-main-area">
+			<div class="tabbable">
+				<div class="tab-content">
+					<!-- Updates -->
+					<div class="tab-pane fade in active" id="updates">
+						<!-- Campaign Read all -->
+						<div id="user-profile-project-read-all">
+						</div>
+						<!-- Video -->
+						<div class="thumbnail">
+							<div class="video-container">
+								<iframe allowfullscreen="" frameborder="0" mozallowfullscreen="" src="https://player.vimeo.com/video/126945693?title=0&amp;byline=0&amp;portrait=0" webkitallowfullscreen=""></iframe>
+							</div>
+						</div>
+						<!-- Posts -->
+						<div id="post-pagination">
+							<div class="post-pagination">
+								<%= render_activities(@activities) %>
+							</div>
+							<!-- Paginate -->
+							<div class="post-will-paginate">
+								<%= will_paginate @activities %>
+							</div>
+						</div><!-- end #post-pagination-->							
+					</div>	
+				</div><!-- end .tab-content-->	
+			</div><!-- end .tabbable-->				
+		</div>
+		<!-- Side Area -->
+		<div class="col-xs-6 col-md-4 pr-20" id="side-area">
+			<div class="sidebar-fixed sidebar-detached-home">
+				<div class="sidebar-detached-content">
+					<!-- Poster -->
+					<%= render partial:'profile/components/sidebar_poster', locals: {user: @user}%>
+					<!-- Recommended Tags -->
+					<%= render partial:'profile/components/recommended_tags', locals: {user: @user}%>
+					<!-- Latest Updates -->
+					<% if @latest_updates && user_signed_in? %>
+						<%= render partial:'profile/components/latest_updates', locals: {user: @user, latest_updates: @latest_updates}%>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

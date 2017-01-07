@@ -16,4 +16,14 @@ class Payment::OrdersMailer < ActionMailer::Base
 		mail to: @subscriber.email, subject: subject
 	end
 
+	def recurring_payment_failed(options = {})
+		@order = Order.find(options[:order_id])
+		@subscriber = User.find(@order.user_id)
+		if @subscriber.locale
+			I18n.locale = @subscriber.locale
+		end	
+		subject = t('mailer.payment.subscription.receipt.payment_failed')
+		mail to: @subscriber.email, subject: subject
+	end
+
 end

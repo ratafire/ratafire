@@ -8183,6 +8183,7 @@ body > .jGrowl {
   margin-right:30px;
   max-height: 100%;
   overflow: auto;
+  overflow-x: hidden;
 }
 .sortable-placeholder {
   position: relative;

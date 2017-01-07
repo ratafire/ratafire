@@ -7,6 +7,9 @@ class Payment::BacksController < ApplicationController
 	before_filter :not_current_user, only:[:new, :payment]
 	before_filter :show_contacts, only:[:new]
 	before_filter :show_followed, only:[:new, :payment]
+	before_filter :check_if_active_subscription, only: [:payment]
+	before_filter :check_if_all_gone, only:[:payment]
+	before_filter :check_if_reward_receiver, only:[:payment]
 
 	#REST Methods -----------------------------------
 
@@ -113,6 +116,31 @@ protected
 			if current_user == @user
 				flash[:alert] = t('errors.messages.back_yourself') + t('errors.messages.arrow_to_the_knee')
 				redirect_to(:back)
+			end
+		end
+	end
+
+	def check_if_active_subscription
+		if @user.subscribed_by?(current_user.id) || current_user.subscribed_by?(@user.id)
+			flash[:alert] = t('errors.messages.already_backed')
+			redirect_to(:back)
+		end
+	end
+
+	def check_if_all_gone
+		if params[:subscription][:get_reward] == 'on'
+			if @user.active_reward.backers > 0 && @user.active_reward.reward_receivers.count >= @user.active_reward.backers
+				flash[:alert] = t('errors.messages.all_gone')
+				redirect_to profile_url_path(@user.username)
+			end
+		end
+	end
+
+	def check_if_reward_receiver
+		if params[:subscription][:get_reward] == 'on'
+			if @user.active_reward.try(:reward_receivers).where(:user_id => current_user.id).count > 0
+				flash[:alert] = t('errors.messages.had_it')
+				redirect_to profile_url_path(@user.username)
 			end
 		end
 	end

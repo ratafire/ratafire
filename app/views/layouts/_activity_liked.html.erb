@@ -218,7 +218,7 @@
 				<!-- User profile -->
 				<div class="media">
 					<%= link_to profile_url_path(activity.trackable.user.username), class:"media-left pr-10" do %>
-						<img src="<%= activity.trackable.user.profilephoto.image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey"></i>' data-id="<%= activity.trackable.user.uid %>" data-placement="top" alt="">
+						<img src="<%= activity.trackable.user.profilephoto.image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey"></i>' data-id="<%= activity.trackable.user.uid %>" data-placement="right" >
 					<% end %>
 					<div class="media-body">
 						<%= link_to profile_url_path(activity.trackable.user.username) do %>

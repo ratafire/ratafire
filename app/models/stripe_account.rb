@@ -34,6 +34,10 @@ class StripeAccount < ActiveRecord::Base
     		tos_acceptance_ip: stripe_account.tos_acceptance.ip,
     		first_name: stripe_account.legal_entity.first_name,
     		last_name: stripe_account.legal_entity.last_name,
+            verification_details: stripe_account.legal_entity.verification.details,
+            verification_details_code: stripe_account.legal_entity.verification.details_code,
+            verification_document: stripe_account.legal_entity.verification.document,
+            verification_status: stripe_account.legal_entity.verification.status
     	)
     end
 
@@ -58,7 +62,11 @@ class StripeAccount < ActiveRecord::Base
     		tos_acceptance_date: stripe_account.tos_acceptance.date,
     		tos_acceptance_ip: stripe_account.tos_acceptance.ip,
     		first_name: stripe_account.legal_entity.first_name,
-    		last_name: stripe_account.legal_entity.last_name
+    		last_name: stripe_account.legal_entity.last_name,
+            verification_details: stripe_account.legal_entity.verification.details,
+            verification_details_code: stripe_account.legal_entity.verification.details_code,
+            verification_document: stripe_account.legal_entity.verification.document,
+            verification_status: stripe_account.legal_entity.verification.status
     	)
         return user_stripe_account
     end    

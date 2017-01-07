@@ -12,11 +12,13 @@ class Profile::IdentityVerificationsController < ApplicationController
 	#/users/:user_id/profile/identity_verifications(.:format)
 	def create
 		if @user.identity_verification
-			@identity_verification = @user.identity_verification.write_attribute(identity_verification_params)
+			@user.identity_verification.destroy
+			@identity_verification = IdentityVerification.new(identity_verification_params)
 		else
 			@identity_verification = IdentityVerification.new(identity_verification_params)
 		end
-		if @identity_verification.country == 'US'
+		verify_birthday
+		if @identity_verification.country == 'US' && Rails.env.production?
 			@ssn = Identified::SSN.new(@identity_verification.ssn.gsub(/(\d{3})(\d{2})(\d{3})/, '\1-\2-\3'))
 			if @ssn.valid?
 				process_identity_verification
@@ -29,7 +31,23 @@ class Profile::IdentityVerificationsController < ApplicationController
 		end
 	end
 
+	#noREST Methods -----------------------------------	
+
+	# resend_identity_verification_user_profile_identity_verifications GET
+	# /users/:user_id/profile/identity_verifications/resend_identity_verification
+	def resend_identity_verification
+		@identity_verification = IdentityVerification.new
+	end
+
 protected
+
+	def verify_birthday
+		unless @identity_verification.birthday.split('-')[2].to_i <= 31 && @identity_verification.birthday.split('-')[1].to_i <= 12 && @identity_verification.birthday.split('-')[0].to_i <= Time.now.year.to_i
+			redirect_to(:back)
+			flash[:error] = t('errors.messages.not_saved')
+			@identity_verification.destroy
+		end
+	end
 
 	def process_identity_verification
 		begin
@@ -111,8 +129,12 @@ protected
 				@stripe.legal_entity.verification.document = @stripe_file.id
 				@stripe.save
 			end
-			if @user.campaigns.count > 0 
-				redirect_to apply_user_studio_campaigns_path(@user.username, @user.campaigns.first)
+			if @user.campaigns.any?
+				if @user.active_campaign
+					redirect_to(:back)
+				else
+					redirect_to apply_user_studio_campaigns_path(@user.username, @user.campaigns.first)
+				end
 			else
 				redirect_to(:back)
 			end

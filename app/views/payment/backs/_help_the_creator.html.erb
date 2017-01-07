@@ -227,100 +227,109 @@
 		    cursor: 'not-allowed'
 	    },}); 
 	<% else %>
-	    $('#panel-get-reward').on('click',function(){
-	    	$('#radio-just-want-to-help').prop('checked',false).uniform('refresh');
-	    	$('#radio-get-reward').prop('checked',true).uniform('refresh');
-	    	$('#panel-body-just-want-to-help').hide();
-	    	$('#panel-body-get-reward').show();
-	    	$('#panel-just-want-to-help').removeClass('panel-reward-active');
-	    	$('#panel-get-reward').addClass('panel-reward-active');
-	    	$('#panel-just-want-to-help').addClass('border-blue-100');
-	    	$('#panel-just-want-to-help').removeClass('border-blue');
-	    	$('#panel-get-reward').removeClass('border-blue-100');
-	    	$('#panel-get-reward').addClass('border-blue');
-	    	$('#shipping-selector').show();  	
-	    	<% if @subscription.shipping_country || user.active_reward.shippings %>
-				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val() != "") {
-			   		$('#get-reward-submit').unblock();
-				}	
-			<% else %>
-				if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 ) {
-			   		$('#get-reward-submit').unblock();
-				}	
-			<% end %>
-			$('#panel-get-reward').velocity('scroll',{
-				duration:500,
-				offset:-80,
-				easing:'ease-in-out'
-			});	  
-	    });
-		// Get reward switch
-	    $('#per-creation-get-reward').on('click',function(){
-			<% if user.active_campaign.funding_type == 'creation' %>
-				$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_creation' %> <span class="caret"></span>');
-			<% else %>
-				$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_month' %> <span class="caret"></span>');
-			<% end %>
-	    	$('#funding-type-get-reward').val('recurring');
-	    });
-	    $('#one-time-get-reward').on('click',function(){
-	    	$('#funding-type-get-reward-text').html('<%= t 'views.campaign.one_time' %> <span class="caret"></span>');
-	    	$('#funding-type-get-reward').val('one_time');
-	    });    
-		$('#shipping-country-selector').on('change', function() {
-			if(this.value){
-				<% if @subscription.shipping_country || user.active_reward.shippings %>
+		//Block panel if user has had this reward 
+		<% if user_signed_in? && user.active_reward.try(:reward_receivers).where(:user_id => current_user.id).count > 0 %>
+		   $('#panel-get-reward').block({message: null,overlayCSS: {
+			    backgroundColor: '#fff',
+			    opacity: 0.4,
+			    cursor: 'not-allowed'
+		    },}); 
+		<% else %>
+		    $('#panel-get-reward').on('click',function(){
+		    	$('#radio-just-want-to-help').prop('checked',false).uniform('refresh');
+		    	$('#radio-get-reward').prop('checked',true).uniform('refresh');
+		    	$('#panel-body-just-want-to-help').hide();
+		    	$('#panel-body-get-reward').show();
+		    	$('#panel-just-want-to-help').removeClass('panel-reward-active');
+		    	$('#panel-get-reward').addClass('panel-reward-active');
+		    	$('#panel-just-want-to-help').addClass('border-blue-100');
+		    	$('#panel-just-want-to-help').removeClass('border-blue');
+		    	$('#panel-get-reward').removeClass('border-blue-100');
+		    	$('#panel-get-reward').addClass('border-blue');
+		    	$('#shipping-selector').show();  	
+		    	<% if @subscription.shipping_country || user.active_reward.shippings %>
 					if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val() != "") {
 				   		$('#get-reward-submit').unblock();
 					}	
 				<% else %>
-					if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200) {
+					if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 ) {
 				   		$('#get-reward-submit').unblock();
 					}	
-				<% end %>		
-				<% if Rails.env.production? %>
-					return $.getScript('https://ratafire.com/users/<%= user.uid %>/payment/backs/country/'+this.value);
-				<% else %>
-					return $.getScript('http://localhost:3000/users/<%= user.uid %>/payment/backs/country/'+this.value);
 				<% end %>
-			} else {
-				$('#shipping-fee').html('<%= t "views.payment.backs.free_shipping" %>');
-				$('#get-reward-submit').block({message: null,overlayCSS: {
-				    backgroundColor: '#fff',
-				    opacity: 0.4,
-				    cursor: 'not-allowed'
-				},});
-			}
-		});  
-	   $('#get-reward-submit').block({message: null,overlayCSS: {
-		    backgroundColor: '#fff',
-		    opacity: 0.4,
-		    cursor: 'not-allowed'
-	    },});   
-	   //Block submit
-	   $('#amount-get-reward').donetyping(function(){
-	   		<% if @subscription.shipping_country || user.active_reward.shippings %>
-		   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200 && $('#shipping-country-selector').val() != "" ){
-				   $('#get-reward-submit').unblock();
-		   		} else {
-				   $('#get-reward-submit').block({message: null,overlayCSS: {
+				$('#panel-get-reward').velocity('scroll',{
+					duration:500,
+					offset:-80,
+					easing:'ease-in-out'
+				});	  
+		    });
+			// Get reward switch
+		    $('#per-creation-get-reward').on('click',function(){
+				<% if user.active_campaign.funding_type == 'creation' %>
+					$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_creation' %> <span class="caret"></span>');
+				<% else %>
+					$('#funding-type-get-reward-text').html('<%= t 'views.campaign.per_month' %> <span class="caret"></span>');
+				<% end %>
+		    	$('#funding-type-get-reward').val('recurring');
+		    });
+		    $('#one-time-get-reward').on('click',function(){
+		    	$('#funding-type-get-reward-text').html('<%= t 'views.campaign.one_time' %> <span class="caret"></span>');
+		    	$('#funding-type-get-reward').val('one_time');
+		    });    
+			$('#shipping-country-selector').on('change', function() {
+				if(this.value){
+					<% if @subscription.shipping_country || user.active_reward.shippings %>
+						if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200 && $('#shipping-country-selector').val() != "") {
+					   		$('#get-reward-submit').unblock();
+						}	
+					<% else %>
+						if ($('#amount-get-reward').val() >= <%= user.active_reward.amount.to_i %> && $('#amount-get-reward').val() < 200) {
+					   		$('#get-reward-submit').unblock();
+						}	
+					<% end %>		
+					<% if Rails.env.production? %>
+						return $.getScript('https://ratafire.com/users/<%= user.uid %>/payment/backs/country/'+this.value);
+					<% else %>
+						return $.getScript('http://localhost:3000/users/<%= user.uid %>/payment/backs/country/'+this.value);
+					<% end %>
+				} else {
+					$('#shipping-fee').html('<%= t "views.payment.backs.free_shipping" %>');
+					$('#get-reward-submit').block({message: null,overlayCSS: {
 					    backgroundColor: '#fff',
 					    opacity: 0.4,
 					    cursor: 'not-allowed'
-				    },});
-		   		}
-		   	<% else %>
-		   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200){
-				   $('#get-reward-submit').unblock();
-		   		} else {
-				   $('#get-reward-submit').block({message: null,overlayCSS: {
-					    backgroundColor: '#fff',
-					    opacity: 0.4,
-					    cursor: 'not-allowed'
-				    },});
-		   		}
-		   	<% end %>
-	   }); 
+					},});
+				}
+			});  
+		   $('#get-reward-submit').block({message: null,overlayCSS: {
+			    backgroundColor: '#fff',
+			    opacity: 0.4,
+			    cursor: 'not-allowed'
+		    },});   
+		   //Block submit
+		   $('#amount-get-reward').donetyping(function(){
+		   		<% if @subscription.shipping_country || user.active_reward.shippings %>
+			   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200 && $('#shipping-country-selector').val() != "" ){
+					   $('#get-reward-submit').unblock();
+			   		} else {
+					   $('#get-reward-submit').block({message: null,overlayCSS: {
+						    backgroundColor: '#fff',
+						    opacity: 0.4,
+						    cursor: 'not-allowed'
+					    },});
+			   		}
+			   	<% else %>
+			   		if(this.value >= <%= user.active_reward.amount.to_i %> && this.value < 200){
+					   $('#get-reward-submit').unblock();
+			   		} else {
+					   $('#get-reward-submit').block({message: null,overlayCSS: {
+						    backgroundColor: '#fff',
+						    opacity: 0.4,
+						    cursor: 'not-allowed'
+					    },});
+			   		}
+			   	<% end %>
+		   }); 
+		<% end %>
 	<% end %>
 	// Select panel if clicked
 	<% if @subscription.amount %>

@@ -35,10 +35,18 @@
 				<div class="row mt-20">
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
-							<%= link_to user_payment_confirm_payments_path(@user.id), remote: true,method: :post do %>
-								<div class="btn btn-blue btn-xlg">
-									<%= t 'views.creator_studio.upcoming.confirm_payment' %>
-								</div>
+							<% if @user.card %>
+								<%= link_to user_payment_confirm_payments_path(@user.id), remote: true,method: :post do %>
+									<div class="btn btn-blue btn-xlg">
+										<%= t 'views.creator_studio.upcoming.confirm_payment' %>
+									</div>
+								<% end %>
+							<% else %>
+								<%= link_to how_i_pay_user_studio_wallets_path(@user.username) do %>
+									<div class="btn bg-green btn-xlg">
+										<%= t 'views.creator_studio.menu.how_i_pay'%>
+									</div>
+								<% end %>
 							<% end %>
 						</div>
 					</div>

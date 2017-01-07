@@ -1,0 +1,141 @@
+<div class="row" class="current-balance-holder" id='current-balance-holder'>
+	<div class="col-lg-8 col-md-8 col-sm-12">
+		<!-- Current Balance -->
+		<div>
+			<table>
+				<tr>
+					<th><span class="label bg-green"><%= t 'views.creator_studio.transfer.available' %></span></th>
+					<th><span class="label bg-grey-100"><%= t 'views.creator_studio.transfer.pending' %></span></th>
+				</tr>
+				<tr>
+					<th><span class="text-large mr-10"><%= number_to_currency(@balance.available[0].amount/100) %></span></th>
+					<th><span class="text-large mr-10 text-grey-100"><%= number_to_currency(@balance.pending[0].amount/100) %></span></th>
+				</tr>
+			</table>
+		</div>
+		<!-- Account Info -->
+		<div class="mt-20">
+			<div class="label bg-blue"><%= t 'views.creator_studio.transfer.account_status' %></div>
+            <% if @account.legal_entity.verification.status == "unverified" %>
+    			<div class="text-large">
+    				<%= @account_status %>
+    			</div>
+                <%= link_to identity_verification_user_profile_settings_path(user.username), class:"btn btn-default mt-10" do %>
+                    <%= t 'views.profile.settings.menu.identity_verification' %>
+                <% end %>
+            <% end %>
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-4 col-sm-12" id="transfer-holder">
+		<%= form_for @transfer, url: user_payment_transfers_path(user.id), method: :post, :html => {id:"transfer-form"} do |f| %>
+			<div class="bg-grey-100 p-20 mb-20" ><%= t 'views.creator_studio.transfer.make_transfer_help' %></div>
+			<div>
+				<div class="form-group">
+					<%= f.number_field :amount, class:"form-control touchspin-prefix", placeholder:"100.00", id:'transfer-amount' %>
+				</div>
+			</div>
+			<div class="input-group btn-group-justified">
+				<div class="btn-group" id="transfer-submit-btn-holder">
+					<%= f.submit I18n.t('views.creator_studio.transfer.make_transfer'), class:"btn bg-green", id:"transfer-submit-btn" %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>
+<script type="text/javascript">
+    //Block Identity Verification
+    <% if @account_status == "Unverified" %>
+       $('#transfer-holder').block({message: null,overlayCSS: {
+            backgroundColor: '#fff',
+            opacity: 0.4,
+            cursor: 'not-allowed'
+        },});
+    <% end %>
+	//Decimal of money input
+    $(".touchspin-prefix").TouchSpin({
+        min: 10,
+        max: <%= @balance.available[0].amount/100 %>,
+        step: 0.1,
+        decimals: 2,
+        prefix: '$'
+    });
+
+	//Block the panel if submitted transfer
+    var validator = $("#transfer-form").validate({
+        ignore: 'input[type=hidden], .select2-input', // ignore hidden fields
+        errorClass: 'validation-error-label',
+        successClass: 'validation-valid-label',
+	    submitHandler: function(){
+	        $('#current-balance-holder').block({
+	            message: '<i class="icon-spinner2 spinner text-blue"></i>',
+	            overlayCSS: {
+	            	backgroundColor: '#fff',
+	                opacity: 0.4,
+	                cursor: 'wait'
+	            },
+	            css: {
+	                border: 0,
+	                padding: 0,
+	                backgroundColor: 'transparent'
+	            }
+	        }); 
+	        $('#transfer-form').trigger('submit.rails');
+	    },        
+        highlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+        unhighlight: function(element, errorClass) {
+            $(element).removeClass(errorClass);
+        },
+
+        // Different components require proper error label placement
+        errorPlacement: function(error, element) {
+
+            // Styled checkboxes, radios, bootstrap switch
+            if (element.parents('div').hasClass("checker") || element.parents('div').hasClass("choice") || element.parent().hasClass('bootstrap-switch-container') ) {
+                if(element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                    error.appendTo( element.parent().parent().parent().parent() );
+                }
+                 else {
+                    error.appendTo( element.parent().parent().parent().parent().parent() );
+                }
+            }
+
+            // Unstyled checkboxes, radios
+            else if (element.parents('div').hasClass('checkbox') || element.parents('div').hasClass('radio')) {
+                error.appendTo( element.parent().parent().parent() );
+            }
+
+            // Input with icons
+            else if (element.parents('div').hasClass('has-feedback')) {
+                error.appendTo( element.parent() );
+            }
+
+            // Inline checkboxes, radios
+            else if (element.parents('label').hasClass('checkbox-inline') || element.parents('label').hasClass('radio-inline')) {
+                error.appendTo( element.parent().parent() );
+            }
+
+            // Input group, styled file input
+            else if (element.parent().hasClass('uploader') || element.parents().hasClass('input-group')) {
+                error.appendTo( element.parent().parent() );
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        validClass: "validation-valid-label",
+        rules: {
+            'transfer[amount]': {
+            	min: 10,
+            	max: <%= @balance.available[0].amount/100 %>,
+            	required: true
+            },
+        }
+    });	
+    jQuery.extend(jQuery.validator.messages, {
+        required: '<%= t 'views.form.validate.required' %>',
+        max: jQuery.validator.format("<%= t 'views.form.validate.max' %>{0}"),
+        min: jQuery.validator.format("<%= t 'views.form.validate.min' %>{0}"),
+    });	
+</script>

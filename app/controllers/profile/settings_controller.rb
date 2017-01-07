@@ -5,6 +5,7 @@ class Profile::SettingsController < ApplicationController
 	#Before filters
 	before_filter :load_user
 	before_filter :show_followed
+	before_filter :connect_to_stripe, only: [:identity_verification]
 	
 	#profile_settings_user_profile_settings GET
 	#/users/:user_id/profile/settings/profile_settings
@@ -35,6 +36,21 @@ class Profile::SettingsController < ApplicationController
 	#/users/:user_id/profile/settings/identity_verification
 	def identity_verification
 		@identity_verification = IdentityVerification.new
+		if @stripe_account = StripeAccount.find_by_user_id(@user.id)
+			begin
+				@account = Stripe::Account.retrieve(@stripe_account.stripe_id)
+				#Sent out account status 
+				case @account.legal_entity.verification.status
+					when 'verified'
+						@account_status = I18n.t('views.creator_studio.transfer.verified')
+					when 'unverified'
+						@account_status = I18n.t('views.creator_studio.transfer.unverified')
+					when 'pending' 
+						@account_status = I18n.t('views.creator_studio.transfer.pending')
+				end
+			rescue
+			end
+		end
 	end
 
 protected
@@ -49,5 +65,13 @@ protected
 			@followed = current_user.likeds.order("last_seen desc").page(params[:followed_update]).per_page(3)
 		end
 	end
+
+	def connect_to_stripe
+		if Rails.env.production?
+			Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+		else
+			Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
+		end
+	end		
 
 end

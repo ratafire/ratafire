@@ -1,6 +1,6 @@
 <!-- Show upload form -->
 <div id="add-reward-image">
-	<%= s3_uploader_form callback_url: upload_image_user_studio_rewards_path(user.id, user.active_reward.id),
+	<%= s3_uploader_form callback_url: upload_image_user_studio_rewards_path(user.id, reward.id),
 		callback_method: 'POST',
 		id: "s3_uploader_reward_image",
 		callback_param: "reward[direct_upload_url]",

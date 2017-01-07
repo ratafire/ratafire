@@ -4,9 +4,9 @@ class Explore::ExploreController < ApplicationController
 
 	#Before filters
 	before_filter :load_user, except: [:surprise_me]
-	before_filter :show_contacts, only:[:back_creators]
-	before_filter :show_followed, only:[:back_creators]
-	before_filter :show_liked, only:[:back_creators]
+	before_filter :show_contacts, only:[:back_creators, :explore]
+	before_filter :show_followed, only:[:back_creators, :explore]
+	before_filter :show_liked, only:[:back_creators, :explore]
 	# explore_explore_surprise_me GET 
 	# /explore/explore/:explore_id/surprise_me
 	def surprise_me
@@ -30,8 +30,14 @@ class Explore::ExploreController < ApplicationController
 		#		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Campaign"], category: params[:category_id], sub_category: params[:sub_category_id]).page(params[:page]).per_page(1)
 		#	end
 		#end
-		@popoverclass = SecureRandom.hex(16)
 		@showcategory = true
+	end
+
+	# explore_path GET
+	# explore
+	def explore
+		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Majorpost","Campaign"], :featured_home => true).page(params[:page]).per_page(5)
+		@latest_updates = PublicActivity::Activity.order("created_at desc").where(owner_id: @user, owner_type: "User", :published => true,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(5)
 	end
 
 private
@@ -44,31 +50,33 @@ private
 
 	def show_contacts
 		@popoverclass = SecureRandom.hex(16)
-		if @user.friends.count > 0
-			if @friends = @user.friends.order('last_seen desc')
-				@contacts = @friends
-			end
-		end
-		if @user.record_subscribers.count > 0
-			if @backers = @user.record_subscribers.order('last_seen desc')
-				if @contacts
-					@contacts += @backers
-				else
-					@contacts = @backers
+		if user_signed_in?
+			if @user.friends.count > 0
+				if @friends = @user.friends.order('last_seen desc')
+					@contacts = @friends
 				end
 			end
-		end
-		if @user.record_subscribed.count > 0
-			if @backeds = @user.record_subscribed.order('last_seen desc')
-				if @contacts
-					@contacts += @backeds
-				else
-					@contacts = @backeds
+			if @user.record_subscribers.count > 0
+				if @backers = @user.record_subscribers.order('last_seen desc')
+					if @contacts
+						@contacts += @backers
+					else
+						@contacts = @backers
+					end
 				end
 			end
-		end
-		if @contacts
-			@contacts = @contacts.sort_by(&:created_at).reverse.uniq.paginate(:per_page => 9)
+			if @user.record_subscribed.count > 0
+				if @backeds = @user.record_subscribed.order('last_seen desc')
+					if @contacts
+						@contacts += @backeds
+					else
+						@contacts = @backeds
+					end
+				end
+			end
+			if @contacts
+				@contacts = @contacts.sort_by(&:created_at).reverse.uniq.paginate(:per_page => 9)
+			end
 		end
 	end
 
@@ -79,7 +87,9 @@ private
 	end
 
 	def show_liked
-		@liked = PublicActivity::Activity.order("created_at desc").tagged_with(@user.id.to_s, :on => :liker, :any => true, :test => false, :deleted => nil).first
+		if user_signed_in?
+			@liked = PublicActivity::Activity.order("created_at desc").tagged_with(@user.id.to_s, :on => :liker, :any => true, :test => false, :deleted => nil).first
+		end
 	end	
 
 end

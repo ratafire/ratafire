@@ -5,22 +5,31 @@
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <div class="row">
 	<div class="col-lg-12">
+		<!-- Current Balance -->
 		<div class="panel panel-blue bg-white-transparent">
 			<div class="panel-heading">
-				<h6 class="panel-title text-thin"><i class="ti-receipt mr-10"></i><%= t 'views.creator_studio.transfer.transfers'%></h6>
+				<h6 class="panel-title text-thin"><i class="ti-wallet mr-10"></i><%= t 'views.creator_studio.transfer.current_balance' %></h6>
 				<div class="heading-elements">
 		    	</div>
 			</div>
-			<div class="panel-body" id="transactions-panel-body">
-				<div id="transactions-pagination">
-					<%= render partial: "studio/wallets/transfer", collection: @transfers, :as => :transfer %>
-				</div>
-				<div class="transactions-pagination">
-					<div id="transactions-pagination-old">
-						<%= will_paginate(@transfers) %>
-					</div>
-				</div>
+			<div class="panel-body">
+				<!-- Current Balance -->
+				<%= render partial: "studio/wallets/current_balance", locals: { user: @user } %>
 			</div>
 		</div>
+		<!-- Transfers -->
+		<% if @user.transfers.any? %>
+			<div class="panel panel-blue bg-white-transparent">
+				<div class="panel-heading">
+					<h6 class="panel-title text-thin"><i class="ti-receipt mr-10"></i><%= t 'views.creator_studio.transfer.transfers'%></h6>
+					<div class="heading-elements">
+			    	</div>
+				</div>
+				<div class="panel-body" id="transactions-panel-body">
+					<!-- Transfers Datatable -->
+					<%= render partial: "studio/wallets/transfer_datatable", locals: { user: @user } %>
+				</div>
+			</div>
+		<% end %>
 	</div>
 </div>

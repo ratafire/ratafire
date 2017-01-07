@@ -106,18 +106,6 @@ class Subscription < ActiveRecord::Base
 		 						description: I18n.t('mailer.payment.subscription.receipt.support')+@subscription.subscribed.preferred_name,
 		 						updates: @creation_count
 		 					)
-		 					#Create or find transfer
-		 					if @transfer = @subscribed.transfer
-		 						@transfer = @transfer.update(
-		 							ordered_amount: @transfer.ordered_amount+@subscription.amount
-		 						)
-		 					else
-		 						@transfer = Transfer.create(
-		 							user_id: @subscribed.id,
-		 							billing_artist_id: @subscribed.billing_artist.id,
-		 							ordered_amount: @subscription.amount
-		 						)
-		 					end
 		 				end
 	 				else
 	 					if @order = Order.create(
@@ -137,18 +125,6 @@ class Subscription < ActiveRecord::Base
 		 						description: I18n.t('mailer.payment.subscription.receipt.support')+@subscription.subscribed.preferred_name,
 		 						updates: @subscribed.unpaid_updates.count
 		 					)
-		 					#Create or find transfer
-		 					if @transfer = @subscribed.transfer
-		 						@transfer = @transfer.update(
-		 							ordered_amount: @transfer.ordered_amount+@subscription.amount
-		 						)
-		 					else
-		 						@transfer = Transfer.create(
-		 							user_id: @subscribed.id,
-		 							billing_artist_id: @subscribed.billing_artist.id,
-		 							ordered_amount: @subscription.amount
-		 						)
-		 					end
 	 					end
 	 				end
 	 			else
@@ -170,18 +146,6 @@ class Subscription < ActiveRecord::Base
 			 						subscription_id: @subscription.id,
 			 						currency: @subscription.currency,
 			 					)
-			 					#Create or find transfer
-			 					if @transfer = @subscribed.transfer
-			 						@transfer = @transfer.update(
-			 							ordered_amount: @transfer.ordered_amount+@subscription.amount
-			 						)
-			 					else
-			 						@transfer = Transfer.create(
-			 							user_id: @subscribed.id,
-			 							billing_artist_id: @subscribed.billing_artist.id,
-			 							ordered_amount: @subscription.amount
-			 						)
-			 					end
 			 				end
 		 				else
 		 					if @order = Order.create(
@@ -198,18 +162,6 @@ class Subscription < ActiveRecord::Base
 			 						subscription_id: @subscription.id,
 			 						currency: @subscription.currency,
 			 					)
-			 					#Create or find transfer
-			 					if @transfer = @subscribed.transfer
-			 						@transfer = @transfer.update(
-			 							ordered_amount: @transfer.ordered_amount+@subscription.amount
-			 						)
-			 					else
-			 						@transfer = Transfer.create(
-			 							user_id: @subscribed.id,
-			 							billing_artist_id: @subscribed.billing_artist.id,
-			 							ordered_amount: @subscription.amount
-			 						)
-			 					end
 		 					end
 		 				end
 	 				end
@@ -278,7 +230,7 @@ class Subscription < ActiveRecord::Base
 						end
 					end
 					if @subscription.reward_receivers
-						@subscription.reward_receivers.where(:paid => false, :status => nil, :deleted => nil).each do |reward_receiver|
+						@subscription.reward_receivers.where(:paid => false, :deleted => nil).each do |reward_receiver|
 							reward_receiver.update(
 								deleted: true,
 								deleted_at: Time.now
@@ -300,7 +252,7 @@ class Subscription < ActiveRecord::Base
 					#Update rewards
 					if @subscribed.active_reward
 						@subscribed.active_reward.update(
-							predicted_total: @subscribed.active_reward.predicted_total-subscription.amount,
+							predicted_total: @subscribed.active_reward.predicted_total-@subscription.amount,
 							recurring_total: @subscribed.active_reward.recurring_total-@subscription.amount
 						)
 					end
@@ -340,16 +292,10 @@ class Subscription < ActiveRecord::Base
 					end
 				end
 			end	
-			#Remove transfer if any
-			if @transfer = @subscribed.transfer
-				if @subscribed.transfer.ordered_amount != 0 
-					@transfer.update(
-						ordered_amount: @transfer.ordered_amount - @subscription.amount
-					)
-				end
-			end	
 		end
-	rescue
+ 	end
+
+ 	def self.unsubscribe_failed_payment(options = {})
  	end
 
 private

@@ -12,7 +12,44 @@ class Payment::CardsController < ActionController::Base
 		@card = Card.new(card_params)
 		@card.last4 = @card.card_number.to_s.split(//).last(4).join("").to_s
 		add_a_card
-	rescue
+	rescue Stripe::CardError => e
+		# Since it's a decline, Stripe::CardError will be caught
+		body = e.json_body
+		err  = body[:error]
+
+		puts "Status is: #{e.http_status}"
+		puts "Type is: #{err[:type]}"
+		puts "Code is: #{err[:code]}"
+		# param is '' in this case
+		puts "Param is: #{err[:param]}"
+		puts "Message is: #{err[:message]}"
+		#Show to the user
+		flash[:error] = "#{err[:message]}"
+		redirect_to(:back)
+	rescue Stripe::RateLimitError => e
+		# Too many requests made to the API too quickly
+		flash[:error] = t('errors.messages.too_many_requests')
+		redirect_to(:back)
+	rescue Stripe::InvalidRequestError => e
+		# Invalid parameters were supplied to Stripe's API
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to(:back)
+	rescue Stripe::AuthenticationError => e
+		# Authentication with Stripe's API failed
+		# (maybe you changed API keys recently)
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to(:back)
+	rescue Stripe::APIConnectionError => e
+		# Network communication with Stripe failed
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to(:back)
+	rescue Stripe::StripeError => e
+		# Display a very generic error to the user, and maybe send
+		# yourself an email
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to(:back)
+	rescue 
+		# General rescue
 		redirect_to(:back)
 		flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
 	end
@@ -34,7 +71,10 @@ class Payment::CardsController < ActionController::Base
 		#Retrieve stripe customer
 		@customer = Stripe::Customer.retrieve(@user.customer.customer_id)
 		#Delete the card on stripe
-		@customer.sources.retrieve(@card.card_stripe_id).delete
+		#@customer.sources.retrieve(@card.card_stripe_id).delete
+		@customer.sources.each do |source|
+			source.delete
+		end
 		#Delete the card
 		@card.destroy
 		#Create a new card

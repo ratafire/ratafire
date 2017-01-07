@@ -130,7 +130,7 @@ private
   						:ip => request.remote_ip
   						},
   					:transfer_schedule => {
-						    :interval => "weekly"
+						    :interval => "manual"
 						},	
 					)
 						if @bank_account.country == 'US'

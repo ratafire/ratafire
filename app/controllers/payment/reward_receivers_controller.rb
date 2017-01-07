@@ -139,7 +139,7 @@ private
 			description: I18n.t('views.payment.backs.ratafire_payment'),
 			destination: @subscribed.stripe_account.stripe_id
 		)
-			if response.captured == true
+			if response.try(:captured) == true && response.try(:status) == "succeeded"
 				#Record transaction
 				@transaction = Transaction.prefill!(
 					response,
@@ -149,35 +149,11 @@ private
 					:transaction_method => "Stripe",
 					:currency => @shipping_order.reward.currency,
 					:subscribed_id => @subscribed.id,
+					:transaction_method => "Stripe",
 					:transaction_type => 'Shipping',
 					:reward_id => @shipping_order.reward.id
 				)
 				@transaction = Transaction.find_by_shipping_order_id(@shipping_order.id)
-				#Record transfer
-				if @subscribed.transfer != nil then
-					@transfer = @subscribed.transfer
-					@transfer.update(
-						user_id: @subscribed.id,
-						method: 'Stripe',
-						collected_amount: @transfer.collected_amount+@shipping_order.amount,
-						collected_fee: @transfer.collected_fee+@transaction.fee,
-						collected_receive: @transfer.collected_receive+@transaction.receive,
-					)
-					@transaction.update(
-						transfer_id: @transfer.id
-					)
-				else
-					@transfer = Transfer.create(
-						user_id: @subscribed.id,
-						method: 'Stripe',
-						collected_amount: @transfer.collected_amount+@shipping_order.amount,
-						collected_fee: @transfer.collected_fee+@transaction.fee,
-						collected_receive: @transfer.collected_receive+@transaction.receive,
-					)
-					@transaction.update(
-						transfer_id: @transfer.id
-					)			
-				end
 				#Subscription Record
 				@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
 				if @subscription_record == nil then	
@@ -245,7 +221,7 @@ private
 			status: 'Error'
 		)		
 		flash[:error] = "#{err[:message]}"
-		redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
+		redirect_to how_i_pay_user_studio_wallets_path(@subscriber.username)
 	rescue Stripe::RateLimitError => e
 		# Too many requests made to the API too quickly
 		@shipping_order.update(

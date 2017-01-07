@@ -101,7 +101,17 @@
 								<i class="huaxia huaxia-faxianxuanzhong"></i> <span class="btn btn-blue btn-xs"><%= t 'views.utilities.menu.creator_studio' %></span>
 							<% end %>
 						</li>
-						<li class="divider"></li>						
+						<li class="divider"></li>	
+						<% if current_user.order && current_user.try(:order).try(:status) != 'Started' %>
+							<li>
+								<%= link_to upcoming_user_studio_wallets_path(current_user.username) do %>
+									<i class="fa fa-credit-card"></i><%= t 'views.creator_studio.menu.upcoming'%>
+									<span class="badge bg-warning ml-5">
+										1
+									</span>
+								<% end %>
+							</li>	
+						<% end %>					
 						<li>
 							<%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
 								<i class="fa fa-cog"></i><%= t 'views.utilities.menu.profile_settings' %>
@@ -112,7 +122,7 @@
 							<li>
 								<%= link_to dashboard_user_admin_dashboard_path(current_user.id),:data => {turbolinks: "false"} do %>
 									<i class="huaxia huaxia-tilong"></i><%= t 'views.utilities.menu.war_room' %>
-	                            	<% if Campaign.where(:status => "Pending").count > 0 %>
+	                            	<% if Campaign.where(:status => "Pending").any? %>
 	                                	<span class="badge bg-warning"><%= Campaign.where(:status => "Pending").count %></span>
 	                            	<% end %>
 								<% end %>

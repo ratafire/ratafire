@@ -18,22 +18,20 @@ class Subscription::ConfirmPayment
 					else
 						Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 					end
-					begin
-						response = Stripe::Charge.create(
-							amount: order_subset.amount.to_i*100,
-							currency: @subscription.currency,
-							customer: @subscriber.customer.customer_id,
-							description: I18n.t('views.payment.backs.ratafire_payment'),
-							destination: @subscribed.stripe_account.stripe_id
-						)
-					rescue
-						#Order subset error unsubscribe
+					response = Stripe::Charge.create(
+						amount: order_subset.amount.to_i*100,
+						currency: @subscription.currency,
+						customer: @subscriber.customer.customer_id,
+						description: I18n.t('views.payment.backs.ratafire_payment'),
+						destination: @subscribed.stripe_account.stripe_id
+					)
+					if response.try(:captured) == true && response.try(:status) != "failed"
+						#Update order subset
 						order_subset.update(
-							status: 'Error'
+							status: 'Success',
+							transacted: true,
+							transacted_at: Time.now
 						)
-						Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
-					end
-					if response.captured == true
 						#Record transaction
 						if @transaction = Transaction.find_by_order_id(@order.id)
 							@transaction.update(
@@ -48,7 +46,8 @@ class Subscription::ConfirmPayment
 								:fee => order_subset.amount.to_f*0.029+0.30,
 								:transaction_method => "Stripe",
 								:currency => "usd",
-								:subscribed_id => @subscribed.id
+								:subscribed_id => @subscribed.id,
+								:order_subset_id => order_subset.id
 							)
 						end
 						@fee = order_subset.amount.to_f*0.029+0.30
@@ -140,31 +139,65 @@ class Subscription::ConfirmPayment
 						order_subset.update(
 							status: 'Error'
 						)
-						Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
-					end
-				end			
+						@order.update(
+							status: 'Error'
+						)
+						#Unsubscribe
+						#Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
+					end	
+				rescue
+					#Order subset error unsubscribe
+					order_subset.update(
+						status: 'Error'
+					)
+					@order.update(
+						status: 'Error'
+					)
+					#Unsubscribe
+					#Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
+				end
 			end
-			#Record order
-			@order.update(
-				transacted: true,
-				transacted_at: Time.now
-			)
-			#Billing Subscription
-			@billing_subscription = @subscriber.billing_subscription
-			@billing_subscription.update(
-				accumulated_total: @billing_subscription.accumulated_total+@transaction.total,
-				accumulated_payment_fee: @billing_subscription.accumulated_payment_fee+@transaction.fee,
-				accumulated_receive: @billing_subscription.accumulated_receive+@transaction.receive
-			)	
-			#Send email to subscribed
-			if @transaction = Transaction.find_by_order_id(@order.id)
-				Payment::SubscriptionsMailer.transaction_confirmation(transaction_id: @transaction.id).deliver_now
-				#Send notification to subscribed
+			if @order.status != 'Error'
+				#Record order
+				@order.update(
+					transacted: true,
+					transacted_at: Time.now,
+					status: "Success"
+				)
+				#Billing Subscription
+				@billing_subscription = @subscriber.billing_subscription
+				@billing_subscription.update(
+					accumulated_total: @billing_subscription.accumulated_total+@transaction.total,
+					accumulated_payment_fee: @billing_subscription.accumulated_payment_fee+@transaction.fee,
+					accumulated_receive: @billing_subscription.accumulated_receive+@transaction.receive
+				)	
+				#Send email to subscriber
+				if @transaction = Transaction.find_by_order_id(@order.id)
+					Payment::SubscriptionsMailer.transaction_confirmation(transaction_id: @transaction.id).deliver_now
+					#Send notification to subscriber
+					Notification.create(
+						user_id: @subscriber.id,
+						trackable_id: @transaction.id,
+						trackable_type: "Transaction",
+						notification_type: "receipt"
+					)
+				end
+			else
+				#Order status is Error
+				#Recount order amount
+				@order.amount = 0
+				@order.order_subsets.each do |order_subset|
+					@order.amount+= order_subset.amount
+				end
+				@order.save
+				#Send email to subscriber
+				Payment::OrdersMailer.recurring_payment_failed(order_id: @order.id).deliver_now
+				#Send notification to subscriber
 				Notification.create(
 					user_id: @subscriber.id,
-					trackable_id: @transaction.id,
-					trackable_type: "Transaction",
-					notification_type: "receipt"
+					trackable_id: @order.id,
+					trackable_type: "Order",
+					notification_type: "payment_failed"
 				)
 			end
 		end

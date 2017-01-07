@@ -1,0 +1,8 @@
+//Add update
+$("#post-pagination").append("<div class='post-pagination'><%= j render(:partial => 'studio/wallets/transfer', collection: @transfers, :as => :transfer ) %></div>");
+<% if @transfers.next_page %>
+  $('.post-will-paginate').replaceWith('<div class="post-will-paginate"><%= j will_paginate(@transfers) %></div>');
+  $(".post-will-paginate").hide();
+<% else %>
+  $('.post-will-paginate').remove();
+<% end %>

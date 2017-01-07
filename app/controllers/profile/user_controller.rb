@@ -9,6 +9,7 @@ class Profile::UserController < ApplicationController
 	before_filter :show_contacts, only:[:profile]
 	before_filter :show_followed, only:[:profile]
 	before_filter :show_liked, only:[:profile]
+	before_filter :profile_meta, only:[:profile]
 
 	protect_from_forgery :except => [:update_profile]
 
@@ -29,6 +30,65 @@ protected
 		#Load user by username due to FriendlyID
 		@user = User.find_by_username(params[:username])
 	end	
+
+	def profile_meta
+		if @user.active_campaign
+			#Normal meta tag
+			set_meta_tags title: I18n.t('ratafire') + ' - ' + @user.active_campaign.title + ' - ' + @user.preferred_name,
+						  description: @user.active_campaign.description,
+						  image_src: @user.active_campaign.image.url(:thumbnail800),
+						  author: @user.preferred_name
+			#Open Graph Object
+			set_meta_tags og: {
+				title:    I18n.t('ratafire') + ' - ' + @user.active_campaign.title + ' - ' + @user.preferred_name,
+				type:     'website',
+				image:    @user.active_campaign.image.url(:thumbnail800),
+				author: @user.preferred_name
+			}
+			#Twitter Card
+			set_meta_tags twitter: {
+				card:  "summary_large_image",
+				site: "ratafire.com",
+				creator: @user.preferred_name,
+				title: @user.active_campaign.title,
+				description: @user.active_campaign.description,
+				image: @user.active_campaign.image.url(:thumbnail800),
+				author: @user.preferred_name
+			}
+		else
+			if @user.bio
+				#Normal meta tag
+				set_meta_tags title: I18n.t('ratafire') + ' - ' + @user.preferred_name,
+							  description: @user.bio,
+							  image_src: @user.profilephoto.image.url(:original),
+							  author: @user.preferred_name
+				#Twitter Card
+				set_meta_tags twitter: {
+					card:  "summary",
+					site: "ratafire.com",
+					title: I18n.t('ratafire') + ' - ' + @user.preferred_name,
+					description: @user.bio,
+					image: @user.profilephoto.image.url(:thumbnail256),
+					author: @user.preferred_name
+				}
+			else
+				#Normal meta tag
+				set_meta_tags title: I18n.t('ratafire') + ' - ' + @user.preferred_name,
+				              description: @user.tagline,
+				              image_src: @user.profilephoto.image.url(:original),
+				              author: @user.preferred_name
+				#Twitter Card
+				set_meta_tags twitter: {
+					card:  "summary",
+					site: "ratafire.com",
+					title: I18n.t('ratafire') + ' - ' + @user.preferred_name,
+					description: @user.tagline,
+					image: @user.profilephoto.image.url(:thumbnail256),
+					author: @user.preferred_name
+				}
+			end
+		end
+	end
 
 	def user_params
 		params.require(:user).permit(:profilephoto)

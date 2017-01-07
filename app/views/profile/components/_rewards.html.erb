@@ -15,5 +15,16 @@
 		    opacity: 0.4,
 		    cursor: 'not-allowed'
 	    },}); 
+	<% else %>
+		//Block panel if user has had this reward
+		<% if user_signed_in? %>
+			<% if user.active_reward.try(:reward_receivers).where(:user_id => current_user.id).count > 0 %>
+			   $('#active-campaign-reward').block({message: null,overlayCSS: {
+				    backgroundColor: '#fff',
+				    opacity: 0.4,
+				    cursor: 'not-allowed'
+			    },}); 
+			<% end %>
+		<% end %>
 	<% end %>
 </script>

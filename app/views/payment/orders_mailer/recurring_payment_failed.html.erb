@@ -1,0 +1,23 @@
+<% content_for :uuid do %>
+	<%= @order.uuid %>
+<% end %>
+<% content_for :date do %>
+	<%= @order.created_at.strftime("%d/%m/%Y") %>
+<% end %>
+<% content_for :email do %>
+	<%= @subscriber.email %>
+<% end %>
+<% content_for :form do %>
+	<div style="margin:20px;">
+		<%= t 'mailer.payment.subscription.receipt.payment_failed_help' %>
+	</div>
+	<%= render partial: 'payment/subscriptions_mailer/transaction_form', collection: @order_subsets, :as => :transaction %>
+<% end %>
+<% content_for :total do %>
+	<%= currency_signs(@order.currency)%><%= @order.amount %>
+<% end %>
+<% content_for :link do %>
+	<%= link_to how_i_pay_user_studio_wallets_path(@order.user.username),style:"color:#fff;text-decoration:none;" do %>
+		<%= t 'mailer.payment.subscription.receipt.update_payment_method' %>
+	<% end %>
+<% end %>

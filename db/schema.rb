@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161204061054) do
+ActiveRecord::Schema.define(version: 20161215002926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1055,6 +1055,8 @@ ActiveRecord::Schema.define(version: 20161204061054) do
     t.string   "passport_last4"
     t.string   "drivers_license_last4"
     t.string   "uuid"
+    t.string   "stripe_status"
+    t.boolean  "active"
   end
 
   create_table "impressions", force: :cascade do |t|
@@ -2508,6 +2510,8 @@ ActiveRecord::Schema.define(version: 20161204061054) do
     t.integer  "order_id"
     t.integer  "shipping_order_id"
     t.integer  "reward_id"
+    t.integer  "updates",                                                    default: 0
+    t.integer  "order_subset_id"
   end
 
   create_table "transfer_subsets", force: :cascade do |t|

@@ -94,22 +94,22 @@ class User < ActiveRecord::Base
 
     #--------Subscriptions---------
     has_many :subscriptions, 
-        -> { where( subscriptions: { :deleted_at => nil, :activated => true }) },
+        -> { where( subscriptions: { :deleted_at => nil, :activated => true, :real_deleted => nil }) },
         foreign_key: "subscribed_id", 
         class_name: "Subscription", 
         dependent: :destroy
     has_many :subscribers, 
-        -> { where( subscriptions: { :deleted_at => nil, :activated => true }) },
+        -> { where( subscriptions: { :deleted_at => nil, :activated => true, :real_deleted => nil }) },
         through: :subscriptions, 
         source: :subscriber
 
     has_many :reverse_subscriptions, 
-        -> { where( subscriptions: { :deleted_at => nil, :activated => true }) },
+        -> { where( subscriptions: { :deleted_at => nil, :activated => true, :real_deleted => nil }) },
         foreign_key: "subscriber_id", 
         class_name: "Subscription", 
         dependent: :destroy
     has_many :subscribed, 
-        -> { where( subscriptions: { :deleted_at => nil, :activated => true }) },
+        -> { where( subscriptions: { :deleted_at => nil, :activated => true, :real_deleted => nil }) },
         through: :reverse_subscriptions, 
         source: :subscribed
 
@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
         -> { where(billing_subscriptions:{:deleted => nil})}
     has_one :billing_artist, 
         -> { where(billing_artists:{:deleted => nil})}
-    has_one :transfer, 
+    has_many :transfers, 
         -> { where(transfers:{:deleted_at => nil , :transfered => nil, :on_hold => nil})}
     has_many :transfer_transfered,
         -> { where(transfers:{:deleted_at => nil , :transfered => true })},

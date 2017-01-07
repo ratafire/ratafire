@@ -13,7 +13,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	def update
 	    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
 	    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-
+	    if resource.encrypted_password.blank?
+	    	resource.password = params[:user][:password]
+	    	resource.password_confirmation = params[:user][:password]
+	    	resource.save
+	    	sign_in resource_name, resource, bypass: true
+	    end
 	    resource_updated = update_resource(resource, account_update_params)
 	    yield resource if block_given?
 	    if resource_updated

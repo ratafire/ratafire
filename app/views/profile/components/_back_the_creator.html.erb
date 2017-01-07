@@ -1,5 +1,5 @@
 <!-- Backers -->
-<h1 class="number text-grey-700"><%= number_to_human(user.active_campaign.subscribers.count, :format => '%n%u', :units => { :thousand => 'k' }) %></h1>
+<h1 class="number text-grey-700"><%= number_to_human(user.active_campaign.subscribers.count('DISTINCT subscriber_id')) %></h1>
 <div class="label label-blue"><%= t 'views.utilities.menu.backers' %></div>
 <% if user.active_reward %>
 	<!-- Currently funded % -->
@@ -7,7 +7,7 @@
 	<div class="label label-blue"><%= t 'views.utilities.menu.currently_funded' %></div>
 	<% if user.active_campaign.recurring_total > 0 %>
 		<!-- Amount per creation -->
-		<h1 class="number text-grey-700"><%= number_to_human(user.active_campaign.recurring_total) %>%</h1>
+		<h1 class="number text-grey-700"><%= number_to_human(user.active_campaign.recurring_total) %><img class="ml-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"></h1>
 		<div class="label label-blue"><% if user.active_campaign.funding_type == "creation" %><%= t 'views.creator_studio.campaign.per_creation' %><% else %><%= t 'views.creator_studio.campaign.per_month' %><% end %></div>
 	<% else %>
 		<!-- Days to current goal -->
@@ -20,7 +20,7 @@
 	<div class="label label-blue"><%= t 'views.admin.menu.posts' %></div>
 	<% if user.active_campaign.recurring_total > 0 %>
 		<!-- Amount per creation -->
-		<h1 class="number text-grey-700"><%= number_to_human(user.active_campaign.recurring_total) %>%</h1>
+		<h1 class="number text-grey-700"><%= number_to_human(user.active_campaign.recurring_total) %><img class="ml-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"></h1>
 		<div class="label label-blue"><% if user.active_campaign.funding_type == "creation" %><%= t 'views.creator_studio.campaign.per_creation' %><% else %><%= t 'views.creator_studio.campaign.per_month' %><% end %></div>
 	<% else %>
 		<!-- Likers count -->

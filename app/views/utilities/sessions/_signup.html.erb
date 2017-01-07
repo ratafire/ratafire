@@ -34,10 +34,12 @@
     <!-- Password -->
     <%= f.password_field :password,placeholder:t('views.profile.settings.account_settings.password'), autocomplete: "off", class:"signup-input"%>
     <!-- Submit -->
-    <%= f.submit t('views.utilities.btn.sign_up'), class:"signup-input signup-input--submit text-uppercase", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
+    <div id="signup-submit-btn">
+        <%= f.submit t('views.utilities.btn.sign_up'), class:"signup-input signup-input--submit text-uppercase", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
+    </div>
     <!-- Social Signup -->
     <% if I18n.locale == :en %>
-        <%= link_to user_omniauth_authorize_path(:facebook, :signup => "true"), class:"btn btn-block btn-social btn-facebook mt-20 text-thin", style:"border-radius: 0.5rem;" do %>
+        <%= link_to user_omniauth_authorize_path(:facebook, :signup => "true"), class:"btn btn-block btn-social btn-facebook mt-20 text-thin", id:"facebook-btn", style:"border-radius: 0.5rem;" do %>
             <span class="fa fa-facebook"></span>
             <%= t 'views.utilities.devise.sign_up_with_facebook' %>
         <% end %>

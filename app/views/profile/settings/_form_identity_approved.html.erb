@@ -5,7 +5,38 @@
 	</div>
 	<div class="panel-body" id="identity-verification-panel-body">
 		<div class="error-messages"></div>
-		<!-- Edit email-->
+		<% if @account_status %>
+			<fieldset>
+				<legend class="text-semibold">
+					<i class="ti-flag position-left"></i>
+					<%= t 'views.profile.settings.identity_verification.status' %>
+					<!--<a class="control-arrow" data-toggle="collapse" data-target="#demo1">
+						<i class="icon-circle-down2"></i>
+					</a>-->
+				</legend>
+				<div class="collapse in" id="demo1">
+					<!-- Birthday -->
+					<div class="row mb-20">
+						<div class="col-lg-8 col-md-8 col-sm-12">
+							<div class="label bg-blue"><%= t 'views.creator_studio.transfer.account_status' %></div>
+							<div class="text-large"><%= @account_status %></div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<% if @account.try(:legal_entity).try(:verification).try(:status) == "unverified" && @user.try(:identity_verification).try(:status) == "Approved" %>
+								<div class="bg-grey-100 p-20 mb-20" ><%= t 'views.profile.settings.identity_verification.resend_verification_help' %></div>
+								<div class="input-group btn-group-justified">
+									<div class="btn-group">
+										<%= link_to resend_identity_verification_user_profile_identity_verifications_path(user.username), remote: true do %>
+											<div class="btn btn-blue"><%= t 'views.profile.settings.identity_verification.resend_verification' %></div>
+										<% end %>
+									</div>
+								</div>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		<% end %>
 		<fieldset>
 			<legend class="text-semibold">
 				<i class="ti-user position-left"></i>
@@ -20,14 +51,14 @@
 					<div class="row">
 						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.last_name' %>:</label>
 						<div class="col-lg-11">
-							<%= @user.identity_verification.last_name %>
+							<%= identity_verification.last_name %>
 						</div>
 					</div>
 					<!-- First Name -->
 					<div class="row">
 						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.first_name' %>:</label>
 						<div class="col-lg-11">
-							<%= @user.identity_verification.first_name %>
+							<%= identity_verification.first_name %>
 						</div>
 					</div>
 				<% else %>
@@ -35,14 +66,14 @@
 					<div class="row">
 						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.first_name' %>:</label>
 						<div class="col-lg-11">
-							<%= @user.identity_verification.first_name %>
+							<%= identity_verification.first_name %>
 						</div>
 					</div>
 					<!-- Last Name -->
 					<div class="row">
 						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.last_name' %>:</label>
 						<div class="col-lg-11">
-							<%= @user.identity_verification.last_name %>
+							<%= identity_verification.last_name %>
 						</div>
 					</div>
 				<% end %>
@@ -50,7 +81,7 @@
 				<div class="row">
 					<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.birthday' %>:</label>
 					<div class="col-lg-11">
-						<%= @user.identity_verification.birthday %>
+						<%= identity_verification.birthday %>
 					</div>
 				</div>
 			</div>
@@ -66,24 +97,24 @@
 				<div class="row">
 					<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.country' %>:</label>
 					<div class="col-lg-11">
-						<%= @user.identity_verification.country %>
+						<%= identity_verification.country %>
 					</div>
 				</div>	
-				<% if @user.identity_verification.verification_type == 'ssn' %>
+				<% if identity_verification.verification_type == 'ssn' %>
 					<!-- SSN -->
 					<div class="row" id="ssn-holder">
 						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.ssn' %>:</label>
 						<div class="col-lg-11">
-							*****<%= @user.identity_verification.ssn_last4 %>
+							*****<%= identity_verification.ssn_last4 %>
 						</div>
 					</div>
 				<% else %>
-					<% if @user.identity_verification.verification_type == 'passport' %>
+					<% if identity_verification.verification_type == 'passport' %>
 					<!-- Passport number -->
 					<div class="row" id="passport-holder">
 						<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.passport_number' %>:</label>
 						<div class="col-lg-11">
-							***<%= @user.identity_verification.passport_last4 %>
+							***<%= identity_verification.passport_last4 %>
 						</div>
 					</div>
 					<% else %>
@@ -91,7 +122,7 @@
 						<div class="row" id="id-card-holder">
 							<label class="col-lg-1 control-label"><%= t 'views.profile.settings.identity_verification.id_card_number' %>:</label>
 							<div class="col-lg-11">
-								***<%= @user.identity_verification.id_card_last4 %>
+								***<%= identity_verification.id_card_last4 %>
 							</div>
 						</div>
 					<% end %>

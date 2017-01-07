@@ -4,8 +4,11 @@ Rails.application.routes.draw do
 	root 'static_pages/home#home'
 
 	#Blog
-	get '(*path)' => 'application#blog', :constraints => {subdomain: 'blog'}
-	get '/blog' => redirect("https://ratafire.com/blog/")	
+	get '(*path)' => 'application#blog', :constraints => {subdomain: 'site'}
+	get '/site' => redirect("https://ratafire.com/site/")	
+
+	#Stripe
+	mount StripeEvent::Engine, at: '/stripe_chashuibiao'
 
 	#User -----------------------------------
 
@@ -59,6 +62,7 @@ Rails.application.routes.draw do
 				end
 				#Identity Verification
 				resource :identity_verifications, only:[:create] do
+					get 'resend_identity_verification', to: 'identity_verifications#resend_identity_verification', as: :resend_identity_verification
 				end
 			end	
 
@@ -189,6 +193,10 @@ Rails.application.routes.draw do
 					get '/:reward_receiver_id/ship_reward', to: 'reward_receivers#ship_reward', as: :ship_reward	
 					post '/:reward_receiver_id/ship_reward_now', to: 'reward_receivers#ship_reward_now', as: :ship_reward_now 
 				end	
+				#Transfer
+				resource :transfers, only:[:create] do 
+					get '/transfer_datatable', to: 'transfers#transfer_datatable', as: :tansfer_datatable
+				end
 			end
 
 			#content
@@ -261,6 +269,8 @@ Rails.application.routes.draw do
 			get 'tags/followed_pagination/get_them', to: 'explore/tags#followed_pagination', as: :followed_pagination
 
 		#Categories -----------------
+			get 'explore/ratafire', to: 'explore/explore#explore', as: :explore
+
 			get 'explore/categories/art', to: 'explore/categories#art', as: :art_category
 			get 'explore/categories/music', to: 'explore/categories#music', as: :music_category
 			get 'explore/categories/games', to: 'explore/categories#games', as: :games_category

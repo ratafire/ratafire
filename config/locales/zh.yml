@@ -32,6 +32,7 @@ zh:
         username: "用户名"
         password_confirmation: "密码确认"  
   ratafire: "火栗"
+  tagline: "支持互联网新一代顶级创作者"
   ratafire_c: "© 2016 火栗"
   views:
     home:
@@ -200,6 +201,9 @@ zh:
           approved: "通过"
           submitted: "已提交" 
           added: "已添加"
+          status: "状态"
+          resend_verification_help: "如果你的账号显示'未确认'，而你又无法将收入转入你的银行账号。请点击重新认证身份。"
+          resend_identity_verification: "重新认证身份"
     creator_studio:
       menu:
         creator_studio: "工作室"
@@ -210,7 +214,7 @@ zh:
         my_rewards: "我的奖励"
         community: "社交"
         wallet: "钱包"
-        upcoming: "预告"
+        upcoming: "应付款项"
         receipts: "收据"
         how_i_pay: "付款方式"
         how_i_get_paid: "收款方式"
@@ -339,10 +343,37 @@ zh:
         confirm_payment: "确认付款"
         name: "姓名"
         upcoming_payment: "将要到期款项"
+        thank_you_line1: "感谢你的付款！"
+        date: "日期"
       receipt:
         receipt: "收据"
       transfer:
         transfers: "已转账"
+        current_balance: "账面平衡"
+        available: "可转账"
+        pending: "处理中"
+        make_transfer: "转出"
+        make_transfer_help: "以下操作将把款项转入你的银行账号。如果转账一直不成功，请更新你的银行账号和个人信息。"
+        amount: "金额"
+        account_status: "账号状态"
+        verified: "已认证"
+        pending: "认证中"
+        unverified: "未认证"
+        account_closed: "银行账户已关闭。"
+        account_frozen: "银行账户已冻结"
+        bank_account_restricted: "银行账户无法接收这类转账，或者不接受这种数额的转账。这通常说明此银行账号是存款或者非借记账号。"
+        bank_ownership_changed: "银行已无效，因为此分行所有权已更改。"
+        could_not_process: "银行无法执行这次转账。"
+        debit_not_authorized: "此银行账号不允许信用转账。Stripe需要银行账号既能存储又能信用转账。"
+        insufficient_funds: "你的Stripe账号余额不足。"
+        invalid_account_number: "Routing号码看起来正确，但银行账号无效。"
+        invalid_currency: "转账失败因为银行账号无法接收这种货币。"
+        no_account: "找不到银行账户。"
+        unsupported_card: "银行不再接收这张卡的转账。"
+        paid: "已转账"
+        in_transit: "转账中"
+        canceled: "已取消"
+        failed: "失败"
     campaign:
       upload_project_image: "上传项目图片"
       upload_project_image_help: "请为你的项目上传一张大图"
@@ -552,7 +583,7 @@ zh:
         faq: "常见问题"
         press: "媒体"
         language: "中文"
-        back_the_next_top: "支持互联网新一代顶级"
+        back_the_next_top: "支持新一代互联网顶级"
         artist: "艺术家 "
         musician: "音乐人 "
         game_designer: "游戏设计师 "
@@ -823,6 +854,8 @@ zh:
         maxlength_2: "个字符"
         digits: "请输入数字"
         creditcard: "请输入信用卡号"
+        min: "必须大于"
+        max: "必须小于"
       uniform:
         choose_file: "选择文件"
         no_file_selected: "尚未选择文件"
@@ -833,11 +866,11 @@ zh:
       view_on_ratafire: "到火栗上查看"
       notification: "通知"
       receipt: "收据"
-      ratafire_postal_code: "10012 "
-      ratafire_address: "68 West 3rd st, 5FE "
+      ratafire_postal_code: "07310 "
+      ratafire_address: "401 Washington Blvd, 2906"
       ratafire_country: "United States "
-      ratafire_state: "NY "
-      ratafire_city: "New york "
+      ratafire_state: "NJ "
+      ratafire_city: "Jersey City " 
       invoice: "预账单"
     studio:
       campaigns:
@@ -872,6 +905,9 @@ zh:
           become_a_one_time_backed_1: "成为了你的单次支持者，支持了"
           become_a_long_term_backed_1: "成为了你的长期支持者，"
           payment_amount: "付款总额"
+          payment_failed: "付款失败"
+          payment_failed_help: "付款失败，请更新付款方式，并在当月28号前重新确认付款。"
+          update_payment_method: "更新付款方式"
         order:
           order_date: "日期"
           id: "单号"
@@ -882,8 +918,8 @@ zh:
           go: "去确认页"
       transfer:
         transfer_sent: "火栗转账"
-        line1: "你本月的火栗收入已转账。到账时间大约为2日以后。"
-        line2: "本月金额："
+        line1: "你的火栗收入已转账。到账时间大约为2日以后。"
+        line2: "金额："
       shipping_order:
         ships_to: "寄送到"
         subject: "请确认你的邮费付款："
@@ -896,6 +932,8 @@ zh:
         cancel: "你确定不要这个奖励？我们会返还与奖励等值的火币。"
         pay_shipping_fee: "支付运费"
         ready_for_download: "可以下载了"
+        shipping_payment_failed: "邮费付款失败"
+        shipping_payment_failed_help: "你的邮费付款失败。请更新支付方式并重新确认付款."
   flash:
     user:
       email_not_confirmed: "你必须验证邮箱。"
@@ -918,6 +956,7 @@ zh:
       back_yourself: "你尝试支持自己，"
       already_backed: "你已经长期支持"
       all_gone: "这项奖励已送完。"
+      had_it: "你已经获得过这个奖励。"
       arrow_to_the_knee: "直到你膝盖中了一箭。"
       updated: "已更新！"
       not_matched: "不匹配"
@@ -929,8 +968,8 @@ zh:
         format: "%n%u"
         units:
           unit: ""
-          thousand: K
-          million: M
-          billion: B
-          trillion: T
-          quadrillion: Q
+          thousand: k
+          million: m
+          billion: b
+          trillion: t
+          quadrillion: q

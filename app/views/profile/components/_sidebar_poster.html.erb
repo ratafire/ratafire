@@ -1,4 +1,4 @@
-<% if user.traits.count < 3 %>
+<% if user_signed_in? && user.traits.count < 3 %>
 	<!-- Select your traits -->
 	<%= link_to user_studio_traits_path(current_user.username) do %>
 		<div class="panel">

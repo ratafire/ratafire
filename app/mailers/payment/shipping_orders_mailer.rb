@@ -25,4 +25,15 @@ class Payment::ShippingOrdersMailer < ActionMailer::Base
 		mail to: @user.email, subject: subject
 	end
 
+	def shipping_payment_failed(options = {})
+		@shipping_order = ShippingOrder.find(options[:shipping_order_id])
+		@reward_receiver = @shipping_order.reward_receiver
+		@user = User.find(@shipping_order.user_id)
+		if @user.locale
+			I18n.locale = @user.locale
+		end
+		subject = t('mailer.payment.shipping_order.shipping_payment_failed')+' :'+@shipping_order.reward.title
+		mail to: @user.email, subject: subject
+	end
+
 end

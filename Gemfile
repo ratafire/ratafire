@@ -107,7 +107,10 @@ gem 'paper_trail'
 #gem 'videojs_rails',:git => "git://github.com/ratafire/videojs_rails.git"
 #Video Encoder
 gem 'httparty' #for Zencoder
-gem 'zencoder-fetcher' #only for development
+
+#video Info
+gem 'video_info'
+
 
 #------------Audio------------
 #Get soundcloud id
@@ -146,7 +149,12 @@ gem 'acts_as_votable', '~> 0.10.0'
 
 
 #------------Grab meta info from link------------
+#Inspect meta tags from other sites
 gem 'metainspector'
+
+#Set site meta
+gem 'meta-tags'
+
 #------------Location------------
 gem 'country_select'
 
@@ -177,7 +185,7 @@ gem 'mailboxer'
 
 #Stripe
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
-
+gem 'stripe_event'
 #Paypal
 #gem 'paypal-sdk-rest'
 #gem 'paypal-sdk-merchant'
@@ -199,6 +207,9 @@ gem 'sprockets', '3.6.3'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'zencoder-fetcher' #only for development
+  # Webhook
+  gem 'ultrahook'
 end
 
 group :development do

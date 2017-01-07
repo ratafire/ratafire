@@ -24,20 +24,22 @@
 		<%= render partial: "profile/settings/tabs", locals: {user: @user} %>
 
 		<!-- Tab content -->
-		<div class="tab-content">
+		<div class="tab-content" id="identity-verification-holder-outer">
 			<!-- Account Settings -->
 				<!-- Password -->
-				<% unless @user.try(:identity_verification) %>
-					<%= render partial: "profile/settings/form_identity", locals: {user: @user} %>
-				<% else %>
-					<% if @user.try(:identity_verification).try(:status) == 'Approved' %>
-						<!-- Approved -->
-						<%= render partial: "profile/settings/form_identity_approved", locals: {user: @user} %>
+				<div id="identity-verification-holder">
+					<% unless @user.identity_verification %>
+						<%= render partial: "profile/settings/form_identity", locals: {user: @user} %>
 					<% else %>
-						<!-- Pending -->
-						<%= render partial: "profile/settings/form_identity_pending", locals: {user: @user} %>
+						<% if @user.try(:identity_verification).try(:status) == 'Approved' %>
+							<!-- Approved -->
+							<%= render partial: "profile/settings/form_identity_approved", locals: {user: @user, identity_verification: @user.identity_verification } %>
+						<% else %>
+							<!-- Pending -->
+							<%= render partial: "profile/settings/form_identity_pending", locals: {user: @user, identity_verification: @user.identity_verification } %>
+						<% end %>
 					<% end %>
-				<% end %>
+				</div>
 			<!-- Social Media Connections -->			
 		</div><!-- end .tab-content-->
 

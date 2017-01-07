@@ -37,7 +37,7 @@ class Explore::TagsController < ApplicationController
 	def followed_pagination
 	end
 
-private
+protected
 
 	def load_tag
 		unless @tag = ActsAsTaggableOn::Tag.find_by_name(params[:tag])

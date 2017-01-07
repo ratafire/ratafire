@@ -7,6 +7,7 @@ class Content::MajorpostsController < ApplicationController
 	before_filter :load_user, only:[:show, :set_category, :set_sub_category]
 	before_filter :show_contacts, only:[:show]
 	before_filter :show_followed, only:[:show]
+	before_filter :meta_majorpost, only:[:show]
 
 	#REST Methods -----------------------------------
 
@@ -122,6 +123,224 @@ private
 			unless @majorpost = Majorpost.find_by_uuid(params[:majorpost_id])
 			end
 		end
+	end
+
+	def meta_majorpost
+		case @majorpost.post_type
+		when "video"
+			#Normal meta tag
+			if @majorpost.video.external != "" && @majorpost.video.external != nil 
+				if @majorpost.video.youtube_vimeo == true
+					#Youtube
+					if youtube = VideoInfo.new('https://youtube.com/watch?v='+@majorpost.video.external)
+						#Normal meta tag
+						set_meta_tags title: I18n.t('ratafire') + ' - ' + @majorpost.title + ' - ' + @user.preferred_name,
+									  description: @majorpost.excerpt,
+									  image_src: youtube.thumbnail_large,
+									  video: 'https://youtube.com/' + @majorpost.video.external
+						#Open Graph Object
+						set_meta_tags og: {
+							title: @majorpost.title,
+							type:     'video.movie',
+							url:      'https://youtube.com/watch?v='+@majorpost.video.external,
+							video:    'https://youtube.com/watch?v='+@majorpost.video.external,
+							author: @user.preferred_name
+						}
+						#Twitter Card
+						set_meta_tags twitter: {
+							card:  "player",
+							player: 'https://youtube.com/watch?v='+@majorpost.video.external,
+							creator: @user.preferred_name,
+							title: @majorpost.title,
+							description: @majorpost.excerpt,
+							image: youtube.thumbnail_large,
+							author: @user.preferred_name
+						}
+					end
+				else
+					#Vimeo
+					if vimeo = VideoInfo.new('https://vimeo.com/'+@majorpost.video.external)
+						#Normal meta tag
+						set_meta_tags title: I18n.t('ratafire') + ' - ' + @majorpost.title + ' - ' + @user.preferred_name,
+									  description: @majorpost.excerpt,
+									  image_src: youtube.thumbnail_large,
+									  video: 'https://vimeo.com/' + @majorpost.video.external,
+									  author: @user.preferred_name
+						#Open Graph Object
+						set_meta_tags og: {
+							title: @majorpost.title,
+							type:     'video.movie',
+							url:      'https://vimeo.com/'+@majorpost.video.external,
+							video:    'https://vimeo.com/'+@majorpost.video.external,
+							author: @user.preferred_name
+						}
+						#Twitter Card
+						set_meta_tags twitter: {
+							card:  "player",
+							player: 'https://vimeo.com/'+@majorpost.video.external,
+							creator: @user.preferred_name,
+							title: @majorpost.title,
+							description: @majorpost.excerpt,
+							image: youtube.thumbnail_large,
+							author: @user.preferred_name
+						}
+					end
+				end
+			else
+				#Internal Video
+				#Normal meta tag
+				set_meta_tags title: I18n.t('ratafire') + ' - ' + @majorpost.title + ' - ' + @user.preferred_name,
+							  description: @majorpost.excerpt,
+							  image_src: @majorpost.video.thumbnail(:preview800),
+							  author: @user.preferred_name
+				#Open Graph Object
+				set_meta_tags og: {
+					title: @majorpost.title,
+					type:     'website',
+					image: @majorpost.video.thumbnail(:preview800),
+					description: @majorpost.excerpt,
+					author: @user.preferred_name
+				}
+				#Twitter Card
+				set_meta_tags twitter: {
+					card:  "summary_large_image",
+					site: "ratafire.com",
+					creator: @user.preferred_name,
+					title: @majorpost.title,
+					description: @majorpost.excerpt,
+					image: @majorpost.video.thumbnail(:preview800),
+					author: @user.preferred_name
+				}
+			end
+		when 'image', 'text'
+			if @majorpost.artwork.any?
+				#Normal meta tag
+				set_meta_tags title: I18n.t('ratafire') + ' - ' + @majorpost.title + ' - ' + @user.preferred_name,
+							  description: @majorpost.excerpt,
+							  image_src: @majorpost.artwork.first.image.url(:preview800),
+							  author: @user.preferred_name
+				#Open Graph Object
+				set_meta_tags og: {
+					title: @majorpost.title,
+					type:     'website',
+					image: @majorpost.artwork.first.image.url(:preview800),
+					author: @user.preferred_name
+				}
+				#Twitter Card
+				set_meta_tags twitter: {
+					card:  "summary_large_image",
+					site: "ratafire.com",
+					creator: @user.preferred_name,
+					title: @majorpost.title,
+					description: @majorpost.excerpt,
+					image: @majorpost.artwork.first.image.url(:preview800),
+					author: @user.preferred_name
+				}
+			else
+				#Normal meta tag
+				set_meta_tags title: I18n.t('ratafire') + ' - ' + @majorpost.title + ' - ' + @user.preferred_name,
+							  description: @majorpost.excerpt,
+							  image_src: @user.profilephoto.image.url(:original),
+							  author: @user.preferred_name
+				#Twitter Card
+				set_meta_tags twitter: {
+					card:  "summary",
+					site: "ratafire.com",
+					creator: @user.preferred_name,
+					title: @majorpost.title,
+					description: @majorpost.excerpt,
+					image: @user.profilephoto.image.url(:thumbnail256),
+					author: @user.preferred_name
+				}
+			end
+		when 'audio'
+			if @majorpost.audio.soundcloud != "" && @majorpost.audio.soundcloud != nil
+				#Soundcloud
+				#Normal meta tag
+				set_meta_tags title: I18n.t('ratafire') + ' - ' + @majorpost.title + ' - ' + @user.preferred_name,
+							  description: @majorpost.excerpt,
+							  image_src: @majorpost.audio.soundcloud_image,
+							  author: @user.preferred_name
+				#Open Graph Object
+				set_meta_tags og: {
+					title: @majorpost.title,
+					type:     'website',
+					url: 'https://soundcloud.com/'+@majorpost.soundcloud,
+					author: @user.preferred_name
+				}
+				#Twitter Card
+				set_meta_tags twitter: {
+					card:  "summary_large_image",
+					site: "ratafire.com",
+					creator: @user.preferred_name,
+					title: @majorpost.title,
+					description: @majorpost.excerpt,
+					image: @majorpost.audio.soundcloud_image,
+					author: @user.preferred_name
+				}
+			else
+				#Normal meta tag
+				set_meta_tags title: I18n.t('ratafire') + ' - ' + @majorpost.title + ' - ' + @user.preferred_name,
+							  description: @majorpost.excerpt,
+							  image_src: @majorpost.audio.audio_image.image.url(:preview800),
+							  author: @user.preferred_name
+				#Open Graph Object
+				set_meta_tags og: {
+					title: @majorpost.title,
+					type:     'website',
+					image: @majorpost.audio.audio_image.image.url(:preview800),
+					author: @user.preferred_name
+				}
+				#Twitter Card
+				set_meta_tags twitter: {
+					card:  "summary_large_image",
+					site: "ratafire.com",
+					creator: @user.preferred_name,
+					title: @majorpost.title,
+					description: @majorpost.excerpt,
+					image: @majorpost.audio.audio_image.image.url(:preview800),
+					author: @user.preferred_name
+				}
+			end
+		when 'link'
+			#Normal meta tag
+			set_meta_tags title: I18n.t('ratafire') + ' - ' + @majorpost.title + ' - ' + @user.preferred_name,
+						  description: @majorpost.excerpt,
+						  image_src: @majorpost.try(:link).try(:image_best),
+						  author: @user.preferred_name
+			#Open Graph Object
+			set_meta_tags og: {
+				title: @majorpost.title,
+				type:     'website',
+				url: @majorpost.try(:link).try(:url),
+				author: @user.preferred_name
+			}
+			if @majorpost.try(:link).try(:image_best)
+				#Twitter Card
+				set_meta_tags twitter: {
+					card:  "summary_large_image",
+					site: "ratafire.com",
+					creator: @user.preferred_name,
+					title: @majorpost.title,
+					description: @majorpost.excerpt,
+					image: @majorpost.try(:link).try(:image_best),
+					author: @user.preferred_name
+				}
+			else
+				#Twitter Card
+				set_meta_tags twitter: {
+					card:  "summary",
+					site: "ratafire.com",
+					creator: @user.preferred_name,
+					title: @majorpost.title,
+					description: @majorpost.excerpt,
+					image: @user.profilephoto.image.url(:thumbnail256),
+					author: @user.preferred_name
+				}
+			end
+		end
+	rescue
+		#Because the video info maybe nil
 	end
 
 	def update_majorpost_activity

@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
     #After filters
 	# Devise login location remember
     before_filter :store_current_location, :unless => :devise_controller?
+    before_filter :meta_default
 
   	def after_sign_in_path_for(resource)
        if request.referrer == 'users/sign_up'
@@ -71,5 +72,27 @@ private
     def extract_locale_from_accept_language_header
         locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first rescue I18n.default_locale
     end    
+
+    def meta_default
+        #Normal meta tag
+        set_meta_tags title: I18n.t('ratafire'),
+                      description: I18n.t('tagline'),
+                      image_src: 'https://ratafire.com/assets/logo/screenshot.jpg'
+        #Open Graph Object
+        set_meta_tags og: {
+            title:    I18n.t('ratafire'),
+            description: I18n.t('tagline'),
+            type:     'website',
+            image:    'https://ratafire.com/assets/logo/screenshot.jpg'
+        }
+        #Twitter Card
+        set_meta_tags twitter: {
+            card:  "summary_large_image",
+            site: "ratafire.com",
+            title: I18n.t('ratafire'),
+            description: I18n.t('tagline'),
+            image: 'https://ratafire.com/assets/logo/screenshot.jpg'
+        }
+    end
 
 end

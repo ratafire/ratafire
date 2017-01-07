@@ -217,6 +217,22 @@ module ApplicationHelper
 		end
 	end
 
+	#Get transfer color
+	def transfer_color(transfer_status)
+		case transfer_status
+		when 'paid'
+			return 'bg-green'
+		when 'pending'
+			return 'bg-orange'
+		when 'in_transit'
+			return 'bg-blue'
+		when 'canceled'
+			return 'bg-grey-100'
+		when 'failed'
+			return 'bg-pink'
+		end
+	end
+
 	#Get paid for this creation
 	def get_paid_for_this(category)
 		case category
@@ -367,5 +383,49 @@ module ApplicationHelper
 		end
 		return url
 	end	
+
+	#Transfer failues
+	def transfer_failure_codes(failure_code)
+		case failure_code
+		when 'account_closed'
+			return 'views.creator_studio.account_closed'
+		when 'account_frozen'
+			return 'views.creator_studio.account_frozen'
+		when 'bank_account_restricted'
+			return 'views.creator_studio.bank_account_restricted'
+		when 'bank_ownership_changed'
+			return 'views.creator_studio.bank_ownership_changed'
+		when 'could_not_process'
+			return 'views.creator_studio.could_not_process'
+		when 'debit_not_authorized'
+			return 'views.creator_studio.debit_not_authorized'
+		when 'insufficient_funds'
+			return 'views.creator_studio.insufficient_funds'
+		when 'invalid_account_number'
+			return 'views.creator_studio.invalid_account_number'
+		when 'invalid_currency'
+			return 'views.creator_studio.invalid_currency'
+		when 'no_account'
+			return 'views.creator_studio.no_account'
+		when 'unsupported_card'
+			return 'views.creator_studio.unsupported_card'
+		end
+	end
+
+	#Transfer status
+	def transfer_status(transfer_status)
+		case transfer_status
+		when 'paid'
+			return 'views.creator_studio.transfer.paid'
+		when 'pending'
+			return 'views.creator_studio.transfer.pending'
+		when 'in_transit'
+			return 'views.creator_studio.transfer.in_transit'
+		when 'canceled'
+			return 'views.creator_studio.transfer.canceled'
+		when 'failed'
+			return 'views.creator_studio.transfer.failed'
+		end
+	end
 
 end

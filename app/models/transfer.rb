@@ -12,7 +12,7 @@ class Transfer < ActiveRecord::Base
 
 	#----------------Methods----------------
 
-	def self.make_transfer(transfer_id)
+	def self.make_transfer(transfer_id, stripe_account_id)
 		if @transfer = Transfer.find(transfer_id)
 			if @transfer.user.stripe_account
 				#Connect to stripe
@@ -23,10 +23,15 @@ class Transfer < ActiveRecord::Base
 				end	
 				#Make transfer
 				if response = Stripe::Transfer.create(
-					amount: transfer.collected_amount*100,
-					currency: "usd",
-					destination: @transfer.user.stripe_account.stripe_id,
-					description: I18n.t('ratafire')
+					{
+						amount: @transfer.amount*100,
+						currency: "usd",
+						destination: "default_for_currency",
+						description: I18n.t('ratafire')
+					},
+					{ 
+						stripe_account: stripe_account_id
+					}
 				)
 					@transfer.update(
 						stripe_transfer_id: response.id,
@@ -35,18 +40,18 @@ class Transfer < ActiveRecord::Base
 						currency: response.currency,
 						description: response.description,
 						destination: response.destination,
-						destination_payment: response.destination_payment,
+
 						failure_code: response.failure_code,
 						failure_message: response.failure_message,
 						source_transaction: response.source_transaction,
 						source_type: response.source_type,
 						statement_descriptor: response.statement_descriptor,
 						status: response.status,
+						transfered_at: Time.now
 					)
 					if @transfer.status == "paid"
 						@transfer.update(
 							transfered: true,
-							transfered_at: Time.now
 						)
 						#Send email
 						Payment::TransferMailer.transfer_sent(transfer_id: @transfer.id).deliver_now
@@ -58,21 +63,28 @@ class Transfer < ActiveRecord::Base
 							notification_type: "Transfer"
 						)
 					else
-						@transfer.update(
-							status: "Error"
-						)
+						#When the transfer is not paid
 					end
 				end
 			else
 				@transfer.update(
-					status: "Error"
+					status: "canceled"
 				)
 			end
 		end
 	rescue
-		if @transfer
+		@transfer.update(
+			status: "canceled"
+		)
+	end
+
+	def self.update_transfer(response)
+		if @transfer = Transfer.find_by_stripe_transfer_id(response.id)
 			@transfer.update(
-				status: "Error"
+				failure_code: response.failure_code,
+				failure_message: response.failure_message,
+				statement_descriptor: response.statement_descriptor,
+				status: response.status,
 			)
 		end
 	end

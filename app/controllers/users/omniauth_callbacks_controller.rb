@@ -8,7 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		#Params :signup :login
 		params = request.env["omniauth.params"]
 		#Sign up with Facebook
-		if params["signup"] == "true"
+		if params["login"] == "true"
 			if user_signed_in?
 				redirect_to(:back)
 			else
@@ -16,68 +16,96 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				if facebook = Facebook.find_by_uid(request.env['omniauth.auth'].uid)
 					if @user = facebook.user
 						sign_in(:user, @user)
-						redirect_to(:back)
+						redirect_to root_path
 					else
-						redirect_to new_user_session_path
+						redirect_to(:back)
 					end
 				else
-					redirect_to new_user_session_path
+					redirect_to(:back)
 				end
 			end
 		end
-		#Sign in with Facebook
-		if params["login"] == "true"
-			if user_signed_in?
+		#Sign up with Facebook
+		if params["signup"] == "true"
+			if user_signed_in? || @user = User.find_by_email(request.env['omniauth.auth'].info.email)
 				redirect_to(:back)
 			else
 				#When the user doesn't exist
 				@user = User.new
+		        begin
+		            uid = SecureRandom.hex(16)
+		        end while User.find_by_uid(uid).present?
+		        @user.uid = uid
+				@user.skip_confirmation!
 				@user.save(:validate => false)
-				if facebook = Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id)
-					@user.update_column(
-						fullname: facebook.name,
-						email: facebook.email,
-						confirmed_at: Time.now
-						)
-					#Add extra info
-					if facebook.bio != nil then 
-						@user.update_column(:bio,facebook.bio.truncate(210))
-					else
-						if facebook.school != nil then
-							if facebook.concentration != nil then
-								bio = facebook.concentration + ", "+facebook.school
-								@user.update_column(:bio,bio.truncate(210))
-							else
-								bio = facebook.school
-								@user.update_column(:bio,bio.truncate(210))
+				if Facebook.facebook_signup_oauth(request.env['omniauth.auth'], @user.id)
+					if @facebook = Facebook.find_by_uid(request.env['omniauth.auth'].uid)
+					  	@profilephoto = Profilephoto.create(
+					  		user_id: @user.id,
+					  		user_uid: @user.uid,
+					  		skip_everafter: true
+					  	)
+					  	@profilecover = Profilecover.create(
+					  		user_id: @user.id,
+					  		user_uid: @user.uid,
+					  		skip_everafter: true
+					  	)		
+					  	@user.skip_confirmation!
+					  	@user.update_column(:email, @facebook.email)
+					  	@user.update_column(:fullname, @facebook.name)
+					  	@user.update(
+					  		confirmed_at: Time.now,
+					  		firstname: @facebook.first_name,
+					  		lastname: @facebook.last_name,
+					  		preferred_name: @facebook.name
+					  	)
+					  	if @user.fullname
+					  		split = @user.fullname.split(' ', 2)
+					  		@user.firstname = split.first
+					  		@user.lastname = split.last
+					  	end
+					  	@user.skip_confirmation!
+					  	@user.save(:validate => false)
+						#Add extra info
+						if @facebook.bio != nil then 
+							@user.update_column(:bio,@facebook.bio.truncate(210))
+						else
+							if @facebook.school != nil then
+								if @facebook.concentration != nil then
+									bio = @facebook.concentration + ", "+@facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								else
+									bio = @facebook.school
+									@user.update_column(:bio,bio.truncate(210))
+								end
 							end
 						end
-					end
-					if facebook.locale != nil then
-						@user.update_column(:location,facebook.locale)
-					end
-					if facebook.concentration != nil then
-						@user.update_column(:tagline, facebook.concentration.truncate(42))
-					else
-						if facebook.school != nil then
-							@user.update_column(:tagline, facebook.school.truncate(42))
+						if @facebook.locale != nil then
+							@user.update_column(:location,@facebook.locale)
 						end
-					end
-					if facebook.website != nil then
-						@user.update_column(:website, facebook.website.truncate(100))
-					end
-					#Avatar
-					if facebook.image != nil then 
-						@user.profilephoto.image_from_url(facebook.image)
-						@user.profilephoto.save
+						if @facebook.concentration != nil then
+							@user.update_column(:tagline, @facebook.concentration.truncate(42))
+						else
+							if @facebook.school != nil then
+								@user.update_column(:tagline, @facebook.school.truncate(42))
+							end
+						end
+						if @facebook.website != nil then
+							@user.update_column(:website, @facebook.website.truncate(100))
+						end
+						#Avatar
+						if @facebook.image != nil then 
+							@profilephoto.image_from_url(@facebook.image)
+							@profilephoto.save
+						end
 					end
 					#Sign in and redirect
 					sign_in(:user, @user)
-					redirect_to(:back)
+					redirect_to root_path
 				else
 					#Destroy the user
 					@user.destroy
-					redirect_to(:back)
+					redirect_to new_user_registration_path
 				end
 			end
 		end
@@ -153,5 +181,14 @@ private
 	def redirect_to_settings
 		redirect_to social_media_settings_user_profile_settings_path(@user.username)
 	end
+
+	def user_params
+		params.require(:user).permit(:username, :email, :uid, :fullname, :firstname, :lastname)
+	end
+
+	def facebook_params
+		params.require(:facebook).permit(:uid, :name, :image, :first_name, :last_name, :link, :first_name, :last_name, :link, :username, :gener, :locale, :user_birthday, :bio, :website)
+	end
+	
 
 end

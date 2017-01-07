@@ -4,12 +4,14 @@ class Subscription::SubscriptionConfirmation
 
 	def self.perform
 		#Create order
-		BillingSubscription.where(activated: true).all.each do |billing|
+		BillingSubscription.where(activated: true, deleted: nil).all.each do |billing|
 			#Create orders
 			begin
 				if @subscriber = User.find(billing.user_id)
 					@subscriber.reverse_subscriptions.each do |subscription|
-						Subscription.create_order(subscription.id)
+						if subscription.deleted == false && subscription.real_deleted == nil
+							Subscription.create_order(subscription.id)
+						end
 					end
 					#Send out order confirmation
 					if @subscriber.order != nil

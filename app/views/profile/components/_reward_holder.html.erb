@@ -5,7 +5,7 @@
 		</div>
 	<% else %>
 		<% if current_user == @user %>
-			<%= render partial:'profile/components/add_reward_image', locals: {user: user}%>
+			<%= render partial:'profile/components/add_reward_image', locals: {user: user, reward: user.active_reward}%>
 		<% else %>
 			<!-- Show project image -->
 			<div class="thumb  thumb-slide" id="reward-image-holder" style="border-radius: 3px 3px 0 0;">

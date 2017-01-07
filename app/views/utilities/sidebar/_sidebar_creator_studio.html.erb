@@ -76,7 +76,13 @@
 					</li>
 					<li id="creator_studios-rewards-sidebaractive">
 						<%= link_to rewards_user_studio_creator_studio_path(current_user.username) do %>
-							<i class="icon-gift"></i> <span><%= t 'views.creator_studio.menu.rewards'%></span>
+							<i class="icon-gift"></i> 
+							<span><%= t 'views.creator_studio.menu.rewards'%></span>
+							<% if current_user.shipping_orders.any? %>
+								<span class="badge bg-warning">
+									<%= current_user.shipping_orders.count %>
+								</span>
+							<% end %>
 						<% end %>
 						<ul>
 							<li id="rewards-new-sidebarsubactive">
@@ -96,6 +102,11 @@
 								<li id="rewards-my_rewards-sidebarsubactive">
 									<%= link_to my_rewards_user_studio_rewards_path(current_user.username) do %>
 										<%= t 'views.creator_studio.menu.my_rewards'%>
+										<% if current_user.shipping_orders.any? %>
+											<span class="badge bg-warning">
+												<%= current_user.shipping_orders.count %>
+											</span>
+										<% end %>
 									<% end %>
 								</li>
 							<% end %>
@@ -160,30 +171,43 @@
 						</ul>
 					</li>
 					<li>
-						<a href="#"><i class="icon-wallet"></i> <span><%= t 'views.creator_studio.menu.wallet'%></span></a>
+						<a href="#">
+							<i class="icon-wallet"></i> 
+							<span>
+								<%= t 'views.creator_studio.menu.wallet'%>
+							</span>
+							<% if current_user.order && current_user.try(:order).try(:status) != 'Started' %>
+								<span class="badge bg-warning">
+									1
+								</span>
+							<% end %>
+						</a>
 						<ul>
 							<% if current_user.order && current_user.try(:order).try(:status) != 'Started' %>
 								<li id="wallets-upcoming-sidebaractive">
 									<%= link_to upcoming_user_studio_wallets_path(current_user.username) do %>
 										<%= t 'views.creator_studio.menu.upcoming'%>
+										<span class="badge bg-warning">
+											1
+										</span>
 									<% end %>
 								</li>
 							<% end %>
-							<% if current_user.transactions %>
+							<% if current_user.transactions.any? %>
 								<li id="wallets-receipts-sidebaractive">
 									<%= link_to receipts_user_studio_wallets_path(current_user.username) do %>
 										<%= t 'views.creator_studio.menu.receipts'%>
 									<% end %>
 								</li>
 							<% end %>
-							<% if current_user.transfer_transfered.count > 0 %>
+							<% if current_user.billing_artist %>
 								<li id="wallets-transfers-sidebaractive">
 									<%= link_to transfers_user_studio_wallets_path(current_user.username) do %>
 										<%= t 'views.creator_studio.transfer.transfers'%>
 									<% end %>
 								</li>
+								<li class="navigation-divider"></li>
 							<% end %>
-							<li class="navigation-divider"></li>
 							<li id="wallets-how_i_pay-sidebaractive">
 								<%= link_to how_i_pay_user_studio_wallets_path(current_user.username) do %>
 									<%= t 'views.creator_studio.menu.how_i_pay'%>

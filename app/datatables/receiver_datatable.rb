@@ -103,7 +103,7 @@ private
     end
 
     def fetch_reward_receiver
-        reward_receiver = RewardReceiver.order("#{sort_column} #{sort_direction}").where(:reward_id => @reward.id)
+        reward_receiver = RewardReceiver.order("#{sort_column} #{sort_direction}").where(:reward_id => @reward.id, :deleted => nil)
         reward_receiver = reward_receiver.page(page).per_page(per_page)
         if params[:sSearch].present?
           reward_receiver = reward_receiver.where("subscribed_id like :search", search: "%#{params[:sSearch]}%")

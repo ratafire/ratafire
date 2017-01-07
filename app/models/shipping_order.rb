@@ -11,6 +11,11 @@ class ShippingOrder < ActiveRecord::Base
     belongs_to :reward_receiver
     belongs_to :user
 
+    #----------------Methods----------------
+
+    def self.transaction_failed(shipping_order_id)
+    end
+
 private
 
     def generate_uuid!

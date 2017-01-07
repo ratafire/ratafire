@@ -78,7 +78,7 @@ private
   			flash[:error] = t('views.errors.messages.not_saved')
   			redirect_to(:back)
 		end
-		if response.captured == true
+		if response.try(:captured) == true && response.try(:status) == "succeeded"
 			#Record transaction
 			@transaction = Transaction.prefill!(
 				response,
@@ -86,6 +86,7 @@ private
 				:subscriber_id => @subscriber.id,
 				:fee => @order.amount.to_f*0.029+0.30,
 				:transaction_method => "Stripe",
+				:transaction_type => 'Subscription',
 				:currency => "usd"
 			)
 			#Record transfer

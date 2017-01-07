@@ -39,11 +39,49 @@ class Transaction < ActiveRecord::Base
 		@transaction.customer_stripe_id = response.source.customer 
 		@transaction.description = response.description
 		@transaction.card_stripe_id = response.source.id
+		@transaction.failure_code = response.failure_code
+		@transaction.failure_message = response.failure_message
 		@transaction.save
 		@transaction.method = options[:transaction_method]
 		@transaction.fee = options[:fee].to_f
 		@transaction.receive = @transaction.total - @transaction.fee
 		return @transaction
+    end
+
+    def self.failed_transaction(response)
+    	#Update transaction
+    	if @transaction = Transaction.find_by_stripe_id(response.id)
+    		#Set the transaction as failed
+    		@transaction.update(
+    			status: response.status,
+    			failure_code: response.failure_code,
+    			failure_message: response.failure_message
+    		)
+    		@transaction.transaction_subsets.all.each do |transaction_subset|
+    			transaction_subset.update(
+    				deleted: true,
+    				deleted_at: Time.now
+    			)
+    		end
+    		#Specific cases
+    		case @transaction.transaction_type
+    		#One time payment
+	    	when 'Back'
+	    		#Unsubscribe
+	    		Subscription.unsubscribe_failed_payment(reason_number: 3, subscription_id: @transaction.subscription_id)
+	    	#Long term payment
+	    	when 'Subscription'
+	    		#Find order
+	    		@order_subset = OrderSubset.find(@transaction.order_subset_id)
+	    		@order_subset.update(
+	    			status: 'failed'
+	    		)
+	    		Subscription.unsubscribe_failed_payment(reason_number: 3, subscription_id: @order_subset.subscription_id)
+	    	#Shipping fee
+	    	when 'Shipping'
+	    		ShippingOrder.transaction_failed(@transaction.shipping_order_id)
+	    	end
+    	end
     end
 
     #----------------Relationships----------------

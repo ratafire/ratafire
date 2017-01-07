@@ -88,7 +88,7 @@
 		<!-- Update Holder-->
 		<div id="<%= activity.trackable.id %>_update_holder">	
 			<!-- Image Post -->
-			<% if activity.trackable.artwork.count > 0 %>
+			<% if activity.trackable.artwork.any? %>
 				<div class="imagePost">
 					<div class="photoset-grid-lightbox" data-layout="1" style="visibility: hidden;">
 					  	<img src="<%= activity.trackable.artwork.first.image.url(:preview800) %>" data-highres="<%= activity.trackable.artwork.first.image.url(:original) %>">
@@ -96,7 +96,7 @@
 				</div>			
 			<% end %><!-- end image post -->
 			<!-- Title for Text Post Only  -->
-			<% if ['text', 'audio','video'].include?(activity.trackable.post_type) %>
+			<% if ['text', 'audio','video', 'image'].include?(activity.trackable.post_type) && activity.trackable.title != nil %>
 				<%= link_to content_majorpost_path(activity.trackable.uuid), class:"text-grey-700" do %>
 					<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= activity.trackable.title %></div>
 				<% end %>

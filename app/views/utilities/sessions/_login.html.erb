@@ -13,7 +13,7 @@
     <%= f.submit t('views.utilities.btn.log_in'), class:"signup-input signup-input--submit text-uppercase", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
     <!-- Social Signup -->
     <% if I18n.locale == :en %>
-        <%= link_to user_omniauth_authorize_path(:facebook, :login => "true"), class:"btn btn-block btn-social btn-facebook mt-20 text-thin", style:"border-radius: 0.5rem;" do %>
+        <%= link_to user_omniauth_authorize_path(:facebook, :login => "true"), class:"btn btn-block btn-social btn-facebook mt-20 text-thin", id:"login-facebook-btn", style:"border-radius: 0.5rem;" do %>
             <span class="fa fa-facebook"></span>
             <%= t 'views.utilities.devise.log_in_with_facebook' %>
         <% end %>

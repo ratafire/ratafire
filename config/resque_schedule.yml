@@ -1,6 +1,6 @@
 Subscription::SubscriptionConfirmation:
   cron: "10 0 21 * *"
-Subscription::Transfer:
+Order::OrderDue:
   cron: "10 0 28 * *"
 Reward::RewardDue:
   cron: "20 0 * * *"

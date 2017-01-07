@@ -37,3 +37,9 @@
 <% if notification.notification_type == "estimated_delivery_due" %>
 	<%= render partial:'studio/notifications/components/estimated_delivery_due', locals: {notification: notification} %>
 <% end %>
+<% if notification.notification_type == "payment_failed" %>
+	<%= render partial:'studio/notifications/components/payment_failed', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "shipping_payment_failed" %>
+	<%= render partial:'studio/notifications/components/shipping_payment_failed', locals: {notification: notification} %>
+<% end %>
