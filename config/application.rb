@@ -17,6 +17,8 @@ module Ratafire3
 		config.autoload_paths << Rails.root.join('lib')
 		#Fall back for localization
 		config.i18n.fallbacks = true
+		# config/application.rb
+		config.assets.initialize_on_precompile = false
 		#Add application helper to mailers
 		config.to_prepare do
 		  ActionMailer::Base.helper "application"
