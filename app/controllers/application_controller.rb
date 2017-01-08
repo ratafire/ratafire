@@ -24,6 +24,10 @@ class ApplicationController < ActionController::Base
     #Include current_user in PublichActivities
     include PublicActivity::StoreController
 
+    def site
+        redirect_to "https://ratafire.com/site#{request.fullpath.gsub('/site','')}", :status => :moved_permanently
+    end    
+
 private
 
     def store_current_location

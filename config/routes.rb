@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 	root 'static_pages/home#home'
 
 	#Blog
-	get '(*path)' => 'application#blog', :constraints => {subdomain: 'site'}
-	#get '/site' => redirect("https://ratafire.com/site/")	
+	get '(*path)' => 'application#site', :constraints => {subdomain: 'site'}
+	get '/site' => redirect("https://ratafire.com/site/")	
 
 	#Stripe
 	mount StripeEvent::Engine, at: '/stripe_chashuibiao'

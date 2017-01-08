@@ -167,10 +167,6 @@ gem 'globalize-versioning'
 #Identify language
 gem 'cld'
 
-#------------------------ Data Table ------------------------
-
-gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
-
 #------------------------ Search ------------------------
 
 #------------------------ Mailer ------------------------
