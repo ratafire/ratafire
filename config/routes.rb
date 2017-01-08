@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
 	#Blog
 	get '(*path)' => 'application#site', :constraints => {subdomain: 'site'}
-	#get '/site' => redirect("https://ratafire.com/site/")	
+	get '/site' => redirect("https://ratafire.com/site/")	
 
 	#Stripe
 	mount StripeEvent::Engine, at: '/stripe_chashuibiao'

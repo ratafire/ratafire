@@ -10,6 +10,7 @@ use Rack::Rewrite do
 end
 
 use Rack::ReverseProxy do
-  reverse_proxy /^\/blog(\/.*)$/, 'http://ratafire.flywheelsites.com$1', :username => 'flywheel', :password => 'skynettie', :timeout => 1000, :preserve_host => true
+  reverse_proxy /^\/site(\/.*)$/, 'http://ratafire.flywheelsites.com$1', :username => 'flywheel', :password => 'skynettie', :timeout => 1000, :preserve_host => true
 end
+
 run Rails.application
