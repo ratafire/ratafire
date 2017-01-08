@@ -98,6 +98,8 @@ ADMIN_EMAIL: fariliang@ratafire.com
 
 REDISTOGO_URL: redis://redistogo:53d2be2ee7004bf82485df6812a9cd6b@crestfish.redistogo.com:11593/
 
+DEVISE_SECRET_KEY: d04529d8e241a5fddc3a8cbcb7f78f0ffc61fa79b43ca6ee9a0a277ad0df032c349188b60a5b2de398e05f6747934b6acec2625f3b73f1e80d198f8883da6a1f
+
 SSN_KEY: p(\xFA\v8~\xA8\xBE\xAF\xA9\xE2\x16)\xF2\xD4\x1CV\xE8\xC1\xAD\xF5\x81A\xAFA\x0E`\x9C\xE7\xCA\xD7u
 ID_CARD_KEY: \xA3\xA6\xC9\xFE\xAFo\a\xE2<\xBC\xAE\t-\x89\xBA\x12\x144o\x13\xEEf\xBF\xBCY\xE9M\xD0\x15R\xCC\x00
 PASSPORT_KEY: \xE68@\xD8\x02A\x8E\xF2|\x15?\xA6\xD7\xDC\xC0\xD0_EsS].7\xF6\xD5\xAF\xBA\xC0\x9Bo6E
