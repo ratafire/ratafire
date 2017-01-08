@@ -430,7 +430,7 @@
   .sidebar-fixed-expanded .sidebar-fixed.sidebar-main {
     position: fixed;
     display: block;
-    height: 10¡0%;
+    height: 100%;
     z-index: 1001;
   }
   .sidebar-fixed-expanded .sidebar-fixed.sidebar-main .sidebar-content {
