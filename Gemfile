@@ -51,7 +51,8 @@ gem 'rack-reverse-proxy', :require => 'rack/reverse_proxy'
 gem 'rack-rewrite'
 # Show application.yml
 gem "figaro"
-
+#Heroku Rails 4 logging bug
+gem 'rails_12factor'
 #------------------------ UI ------------------------
 
 gem 'autoprefixer-rails'
