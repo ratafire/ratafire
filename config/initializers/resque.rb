@@ -5,7 +5,7 @@ require 'resque/scheduler/server'
 #Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
 if Rails.env.production?
 #	redis_config = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
-	Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
+	Resque.redis = ENV["REDISTOGO_URL"]
 #	Resque.redis = YAML.load_file("#{Rails.root}/config/redis.yml")[Rails.env]
 else
 	Resque.redis = 'localhost:6379'
