@@ -7,4 +7,5 @@
 //= require s3_direct_upload
 //= require ahoy
 //= require jquery_nested_form
+//= require_tree ./datatables
 //= require_tree ./template_limitless
