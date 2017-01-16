@@ -12,4 +12,5 @@
 //= require_tree ./validation
 //= require_tree ./editor
 //= require_tree ./selects
+//= require_tree ./popup
 //= require_tree ./template_limitless
