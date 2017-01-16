@@ -26,7 +26,8 @@ class RewardUpload < ActiveRecord::Base
     	:path => "/:class/uploads/:id/image/:style/:uuid_reward_upload_filename.:extension",
     	:bucket => "Ratafire_production",
     	:storage => :s3,
-    	:s3_region => 'us-east-1'
+    	:s3_region => 'us-east-1',
+        :s3_permissions => "private"
 
     validates_attachment :package, 
         :content_type => { 

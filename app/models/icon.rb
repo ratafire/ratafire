@@ -8,7 +8,8 @@ class Icon < ActiveRecord::Base
       :path => "/:class/uploads/:id/:style/:escaped_filename",
       :bucket => "Ratafire_production",
       :storage => :s3,
-      :s3_region => 'us-east-1'
+      :s3_region => 'us-east-1',
+      :s3_permissions => "private"
     # Escape the file name
     Paperclip.interpolates :escaped_filename do |attachment, style|
         attachment.instance.normalized_video_file_name

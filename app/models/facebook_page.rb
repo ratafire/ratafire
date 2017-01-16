@@ -29,7 +29,8 @@ class FacebookPage < ActiveRecord::Base
     :path => "/:class/uploads/:id/:style/:escaped_filename2",
     :storage => :s3,
     :s3_region => 'us-east-1',
-    :s3_credentials => "#{Rails.root}/config/s3_profile.yml"
+    :s3_credentials => "#{Rails.root}/config/s3_profile.yml",
+    :s3_permissions => "private"
 
     validates_attachment :facebookprofile, 
         :content_type => { 

@@ -78,7 +78,8 @@ class Video < ActiveRecord::Base
             }, 
         :bucket => "Ratafire_production",
         :storage => :s3,
-        :s3_region => 'us-east-1'
+        :s3_region => 'us-east-1',
+        :s3_permissions => "private"
 
     validates_attachment :thumbnail, 
     	:content_type => { 
