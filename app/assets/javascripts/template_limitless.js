@@ -9,6 +9,7 @@
 //= require fancybox.min
 //= require clipboard.min
 //= require jquery.sticky
+//= require_tree ./s3_direct_upload
 //= require_tree ./datatables
 //= require_tree ./validation
 //= require_tree ./editor
