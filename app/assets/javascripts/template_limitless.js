@@ -6,7 +6,7 @@
 //= require confirmation.js
 //= require ahoy
 //= require jquery_nested_form
-//= require s3_direct_upload.js.coffee
+//= require s3_direct_upload.js
 //= require_tree ./datatables
 //= require_tree ./selects
 //= require_tree ./template_limitless
