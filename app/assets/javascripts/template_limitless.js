@@ -6,6 +6,8 @@
 //= require confirmation.js
 //= require ahoy
 //= require jquery_nested_form
+//= require fancybox.min
 //= require_tree ./datatables
+//= require_tree ./editor
 //= require_tree ./selects
 //= require_tree ./template_limitless
