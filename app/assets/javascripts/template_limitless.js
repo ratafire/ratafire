@@ -8,6 +8,7 @@
 //= require jquery_nested_form
 //= require fancybox.min
 //= require clipboard.min
+//= require jquery.sticky
 //= require_tree ./datatables
 //= require_tree ./validation
 //= require_tree ./editor
