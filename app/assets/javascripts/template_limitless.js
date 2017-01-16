@@ -12,7 +12,6 @@
 //= require_tree ./s3_direct_upload
 //= require_tree ./datatables
 //= require_tree ./validation
-//= require_tree ./editor
 //= require_tree ./selects
 //= require_tree ./popup
 //= require_tree ./loaders

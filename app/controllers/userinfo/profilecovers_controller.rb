@@ -21,8 +21,6 @@ class Userinfo::ProfilecoversController < ApplicationController
 		@profilecover.update(profilecover_params)
 		if @profilecover.transfer_and_cleanup
 			@user_update_profilecover = true
-		else
-			flash[:error] = "Unable to update profile photo."
 		end
 	end
 

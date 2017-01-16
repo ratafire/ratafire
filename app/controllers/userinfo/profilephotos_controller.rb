@@ -21,8 +21,6 @@ class Userinfo::ProfilephotosController < ApplicationController
 		@profilephoto.update(profilephoto_params)
 		if @profilephoto.transfer_and_cleanup
 			@user_update_profilephoto = true
-		else
-			flash[:error] = "Unable to update profile photo."
 		end
 	end
 
