@@ -2,10 +2,6 @@
 	<!-- User thumbnail -->
 	<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px 3px 0 0;">
 		<img src="<%= user.profilephoto.image.url(:thumbnail512)%>" class="about-profilephoto-holder" alt="">
-		<!-- Upload Panel -->
-		<% if current_user == @user || current_user.try(:admin) %>
-			<%= render partial:'profile/components/upload_user_photo', locals: { profilephoto: @user.profilephoto, user: @user}%>
-		<% end %>
 	</div>	
 	<div class="panel-body text-center">
 		<!-- Username -->
