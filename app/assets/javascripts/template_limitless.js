@@ -3,13 +3,13 @@
 //= require turbolinks
 //= require jquery-ui.min
 //= require bootstrap.min
+//= require nicescroll.min
 //= require confirmation.js
 //= require ahoy
 //= require jquery_nested_form
 //= require fancybox.min
 //= require clipboard.min
 //= require jquery.sticky
-//= require nicescroll.min
 //= require_tree ./s3_direct_upload
 //= require_tree ./datatables
 //= require_tree ./validation
