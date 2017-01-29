@@ -619,9 +619,10 @@ $(function() {
         refreshUsercard('usercard');  
         initiate_videojs();     
         initiate_profile_editor();
+    });
+    $(document).on('ready', function(){
         document_ready_plugins();
     });
-
         
     // ========================================
     //
@@ -629,6 +630,6 @@ $(function() {
     //
     // ========================================
 
-
+    
 
 });

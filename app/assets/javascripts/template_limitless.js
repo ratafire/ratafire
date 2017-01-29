@@ -20,3 +20,4 @@
 //= require_tree ./loaders
 //= require_tree ./forms
 //= require_tree ./template_limitless
+//= require app
