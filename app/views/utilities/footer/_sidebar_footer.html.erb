@@ -1,11 +1,7 @@
 <!-- Footer -->
 <div class="footer text-size-mini text-grey">
-	<span class="mr-10"><%= t 'views.utilities.menu.about' %></span> 
-	<span class="mr-10"><%= t 'views.utilities.menu.blog' %></span> 
-	<span class="mr-10"><%= t 'views.utilities.menu.terms' %></span> 
-	<span class="mr-10"><%= t 'views.utilities.menu.privacy' %></span>
-	<span class="mr-10"><%= t 'views.utilities.menu.pricing' %></span>
-	<span class="mr-10"><%= t 'views.utilities.menu.faq' %></span>
-	<span class="mr-10"><%= t 'views.utilities.menu.press' %></span>
+	<span class="mr-10"><%= link_to "/site/terms", class:"text-grey" do %><%= t 'views.utilities.menu.terms' %><% end %></span> 
+	<span class="mr-10"><%= link_to "/site/privacy", class:"text-grey" do %><%= t 'views.utilities.menu.privacy' %><% end %></span>
+	<span class="mr-10"><%= link_to "/site/faq", class:"text-grey" do %><%= t 'views.utilities.menu.faq' %><% end %></span>
 	<%= render partial:'utilities/language/language_switcher', locals: {switcher_type: 'up'}%>
 </div>	
