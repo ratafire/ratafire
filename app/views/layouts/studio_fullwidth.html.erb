@@ -30,7 +30,11 @@
 					<div class="content-wrapper">
 						<!-- Content area -->
 						<%= yield %>
-
+						<script type="text/javascript">
+						    $(document).on('ready', function(){
+						        document_ready_plugins();
+						    });
+						</script>
 					</div><!-- end .content-wrapper -->
 				</div><!-- end .page-content-->
 			</div><!-- end .page-container -->	
