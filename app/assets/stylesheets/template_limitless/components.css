@@ -118,11 +118,10 @@
 *
 * ---------------------------------------------------------------------------- */
 .footer {
-  position: absolute;
+
   bottom: 0px;
   padding: 10px 20px 5px 20px;
   color:rgba(0,0,0,0.4);
-  background:rgba(0,0,0,0.04);  
 }
 .footer-fixed {
   position: fixed;
