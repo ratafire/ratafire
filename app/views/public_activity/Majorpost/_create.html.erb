@@ -11,7 +11,7 @@
 			<!-- Post User -->
 			<div class="panel-user text-semibold text-size-small"><%= link_to activity.trackable.user.preferred_name, profile_url_path(activity.trackable.user.username),class:"text-grey-800" %>
 				<% if activity.trackable.paid_update == true %>
-					<img class="mr-15 pull-right" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:20px;" data-popup="tooltip" title="<%= t 'views.creator_studio.rewards.paid' %>" data-placement="top">
+					<img class="mr-15 pull-right" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:20px;">
 				<% end %>
 				<!-- More -->
 				<%= render partial: "utilities/editor/editor_dropdown", locals: { user: @user, activity: activity } %>

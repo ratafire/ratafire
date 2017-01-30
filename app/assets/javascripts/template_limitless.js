@@ -12,6 +12,7 @@
 //= require jquery.sticky
 //= require jquery.magnific-popup.min
 //= require_tree ./s3_direct_upload
+//= require_tree ./velocity
 //= require_tree ./datatables
 //= require_tree ./validation
 //= require_tree ./editor

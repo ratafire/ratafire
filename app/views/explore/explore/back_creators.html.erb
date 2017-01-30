@@ -11,6 +11,12 @@
     	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
     <% end %>
 <% end %>
+<script type="text/javascript">
+	$(document).on('ready', function(){
+		$('#sidebar-followed-tags-holder, #sidebar-category-header').remove();
+		$('.navigation').prepend("<%= j render(:partial => 'utilities/sidebar/categories') %>");
+	});
+</script>
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <!-- Content Area -->
 <div class="content">

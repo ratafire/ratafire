@@ -428,6 +428,7 @@ function document_ready_plugins(random_id){
         	bottom: 1.5
         }
     });      
+    
 
 }
 

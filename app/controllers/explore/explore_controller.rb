@@ -16,7 +16,7 @@ class Explore::ExploreController < ApplicationController
 	# explore_explore_back_creators GET
 	# explore/back_creators/:category_id/:sub_category_id
 	def back_creators
-		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Campaign"]).page(params[:page]).per_page(1)
+		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true, :status => "Approved",trackable_type: ["Campaign"]).page(params[:page]).per_page(1)
 		#if params[:category_id] == "default"
 		#	if params[:sub_category_id] == "default"
 		#		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Campaign"]).page(params[:page]).per_page(1)

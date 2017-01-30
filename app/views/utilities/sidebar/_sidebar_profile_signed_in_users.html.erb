@@ -1,3 +1,6 @@
+<script type="text/javascript">
+	$('#sidebar-followed-tags-holder, #sidebar-category-header').remove();	
+</script>
 <div class="sidebar sidebar-main sidebar-fixed" id="sidebar-content" data-turbolinks-permanent>
 	<div class="sidebar-content">
 		<!-- Main navigation -->
@@ -20,10 +23,7 @@
 			<!-- Sidebar content no padding-->
 			<div class="category-content no-padding">
 				<ul class="navigation navigation-main navigation-accordion">
-					<!-- Show Category bar -->
-					<% if @showcategory == true %>
-						<%= render 'utilities/sidebar/categories' %>
-					<% end %>
+
 					<!-- Explore -->
 					<%= render 'utilities/sidebar/explore', locals: {user: @user} %>
 					<!-- Followed Users -->
