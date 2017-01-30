@@ -11,6 +11,7 @@
  *= require_self
 
 *= require jquery-ui.min
+*= require formvalidation.min
 *= require animate.min
 *= require_tree ./template_limitless
 *= require_directory ./font_styles

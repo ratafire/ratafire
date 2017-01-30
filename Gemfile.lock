@@ -566,6 +566,7 @@ DEPENDENCIES
   impressionist
   jbuilder (~> 2.0)
   jquery-fileupload-rails!
+  jquery-rails
   koala (~> 2.0)
   letsrate!
   mailboxer
