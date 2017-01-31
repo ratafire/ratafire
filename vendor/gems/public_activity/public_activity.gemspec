@@ -4,11 +4,12 @@ require 'public_activity/version'
 
 Gem::Specification.new do |s|
   s.name = 'public_activity'
+  s.license = 'MIT'
   s.version = PublicActivity::VERSION
   s.platform = Gem::Platform::RUBY
   s.authors = ["Piotrek Okoński", "Kuba Okoński"]
   s.email = "piotrek@okonski.org"
-  s.homepage = 'https://github.com/pokonski/public_activity'
+  s.homepage = 'https://github.com/chaps-io/public_activity'
   s.summary = "Easy activity tracking for ActiveRecord models"
   s.description = "Easy activity tracking for your ActiveRecord models. Provides Activity model with details about actions performed by your users, like adding comments, responding etc."
 
@@ -40,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sqlite3', '~> 1.3.7'
   s.add_development_dependency 'mocha', '~> 0.13.0'
   s.add_development_dependency 'simplecov', '~> 0.7.0'
-  s.add_development_dependency 'minitest', '< 5.0.0'
+  s.add_development_dependency 'minitest', '~> 4.7.5'
   s.add_development_dependency 'redcarpet'
   s.add_development_dependency 'yard', '~> 0.8'
   s.add_development_dependency 'pry'

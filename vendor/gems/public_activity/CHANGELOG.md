@@ -2,7 +2,7 @@
 
 ## 2.0 (unreleased)
 
-This change brings a lot of API changes and improvements.
+This version brings a lot of API changes and improvements.
 
 * More better documentation!
 * Added ability to customize root path for directory in which partials/layouts are kept (defaults set to `app/views/public_activity` and `app/views/layouts` respectively) and can be customized like this:
@@ -15,6 +15,12 @@ This change brings a lot of API changes and improvements.
 * Configuration of instance variables for tracked models is now removed. From now on use `create_activity` instead of `activity`.
 * `a` and `p` shortcut variables are removed in activity partials. Use `activity` and `parameters` instead.
 
+* Configurable fallbacks for activity partials. See [#148](https://github.com/pokonski/public_activity/pull/148) (thanks to [Chris Shorrock](https://github.com/shorrockin))
+
+## 1.4.2
+
+* Fix bug with migrations not having an extension in ActiveRecord >= 4.0.0
+>>>>>>> 1-4-stable
 
 ## 1.4.1
 

@@ -19,6 +19,7 @@ module PublicActivity
   autoload :Creation,     'public_activity/actions/creation.rb'
   autoload :Deactivatable,'public_activity/roles/deactivatable.rb'
   autoload :Destruction,  'public_activity/actions/destruction.rb'
+  autoload :Model
   autoload :Renderable
   autoload :Tracked,      'public_activity/roles/tracked.rb'
   autoload :Update,       'public_activity/actions/update.rb'
@@ -42,7 +43,20 @@ module PublicActivity
   # Returns PublicActivity's configuration object.
   # @since 0.5.0
   def self.config
-    @@config ||= PublicActivity::Config.instance
+    @config ||= PublicActivity::Config.new
+  end
+
+  # Lets you set global configuration options.
+  #
+  # All available options and their defaults are in the example below:
+  # @example Initializer for Rails
+  #   PublicActivity.configure do |config|
+  #     config.orm         = :active_record
+  #     config.enabled     = false
+  #     config.table_name  = "activities"
+  #   end
+  def self.configure(&block)
+    yield(config) if block_given?
   end
 
   # Method used to choose which ORM to load
@@ -51,17 +65,6 @@ module PublicActivity
     orm = PublicActivity.config.orm
     require "public_activity/orm/#{orm.to_s}"
     "PublicActivity::ORM::#{orm.to_s.classify}::#{model}".constantize
-  end
-
-  # Module to be included in ActiveRecord models. Adds required functionality.
-  module Model
-    extend ActiveSupport::Concern
-    included do
-      include Common
-      include Deactivatable
-      include Tracked
-      include Activist  # optional associations by recipient|owner
-    end
   end
 end
 
