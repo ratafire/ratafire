@@ -346,6 +346,7 @@ private
 	def update_majorpost_activity
 		if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
 			@activity.update(
+				key: 'post.create',
 				category: @majorpost.category,
 				sub_category: @majorpost.sub_category,
 				published: @majorpost.published,
