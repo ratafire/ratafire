@@ -42,7 +42,7 @@
 							<div id="post-pagination">
 								<div class="post-pagination">
 									<% if @activities.count > 0 %>
-										<%= render_activities(@activities) %>
+										<%= render_activities(@activities, layout: :activity_majorpost) %>
 									<% else %>
 										<!-- Welcome -->
 										<% if current_user == @user %>
@@ -52,7 +52,7 @@
 								</div>
 								<!-- Paginate -->
 								<div class="post-will-paginate">
-									<%= will_paginate (@activities, layout: :activity_majorpost) %>
+									<%= will_paginate @activities %>
 								</div>
 							</div><!-- end #post-pagination-->							
 						</div>	
