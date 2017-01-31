@@ -45,9 +45,7 @@
 										<%= render_activities(@activities) %>
 									<% else %>
 										<!-- Welcome -->
-										<% if current_user == @user %>
-											<%= render partial:'profile/components/welcome', locals: {user: @user}%>	
-										<% end %>
+
 									<% end %>
 								</div>
 								<!-- Paginate -->
