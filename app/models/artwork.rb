@@ -41,9 +41,9 @@ class Artwork < ActiveRecord::Base
             :thumbnail64 => ["64x64#",:jpg], 
         }, 
         :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
-        :url =>  "/:class/uploads/:id/:style/:uuid_filename",
+        :url =>  "/:class/uploads/:id/:style/:uuid_artwork_filename",
         #If s3
-        :path => "/:class/uploads/:id/:style/:uuid_filename",
+        :path => "/:class/uploads/:id/:style/:uuid_artwork_filename",
         :bucket => "Ratafire_production",
         :storage => :s3,
         :s3_region => 'us-east-1',
@@ -64,7 +64,7 @@ class Artwork < ActiveRecord::Base
 
 
     # Make a uuid filename for the file
-    Paperclip.interpolates :uuid_filename do |attachment, style|
+    Paperclip.interpolates :uuid_artwork_filename do |attachment, style|
         attachment.instance.artwork_uuid_to_filename
     end
 
