@@ -71,7 +71,7 @@ gem 'resque_mailer' #For mailing in resque
 
 #------------Updates------------
 #Activity feed
-gem 'public_activity'#, :path => 'vendor/gems/public_activity' # models/activity.rb acts_as_taggable_on :liker
+gem 'public_activity', :path => 'vendor/gems/public_activity' # models/activity.rb acts_as_taggable_on :liker
 
 #------------Url Redirections------------
 gem 'friendly_id'

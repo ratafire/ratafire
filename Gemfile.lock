@@ -90,6 +90,15 @@ PATH
     nested_form (0.3.2)
 
 PATH
+  remote: vendor/gems/public_activity
+  specs:
+    public_activity (2.0)
+      actionpack (>= 3.0.0)
+      activerecord (>= 3.0)
+      i18n (>= 0.5.0)
+      railties (>= 3.0.0)
+
+PATH
   remote: vendor/gems/ratyrate
   specs:
     letsrate (1.0.7)
@@ -368,11 +377,6 @@ GEM
     paperclip-ghostscript (0.1.0)
       paperclip
     pg (0.19.0)
-    public_activity (1.5.0)
-      actionpack (>= 3.0.0)
-      activerecord (>= 3.0)
-      i18n (>= 0.5.0)
-      railties (>= 3.0.0)
     public_suffix (2.0.5)
     rack (1.6.5)
     rack-attack (5.0.1)
@@ -590,7 +594,7 @@ DEPENDENCIES
   paperclip!
   paperclip-ghostscript
   pg
-  public_activity
+  public_activity!
   rack-reverse-proxy
   rack-rewrite
   rails (= 4.2.5)
