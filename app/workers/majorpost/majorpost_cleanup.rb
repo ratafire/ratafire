@@ -2,7 +2,6 @@ class Majorpost::MajorpostCleanup
 	#delete artwork, link, audio, video after a majorpost is deleted
 	@queue = :majorpost
 	def self.perform(majorpost_uuid)
-		time = Time.now
 		#Delete artwork
 		Artwork.where(majorpost_uuid: majorpost_uuid).all.each do |artwork|
 			artwork.destroy

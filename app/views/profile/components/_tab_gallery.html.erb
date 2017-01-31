@@ -3,7 +3,7 @@
 		<img src="<%= artwork.image.url(:preview512)%>" style="width:100%;" alt="">
 		<div class="caption-overflow">			
 			<span>
-				<% if artwork.try(:majorpost) %>
+				<% if artwork.try(:majorpost).try(:title) %>
 					<% if artwork.majorpost.deleted_at == nil %>
 						<div class="pb-20 pl-20 pr-20">
 							<%= truncate(artwork.majorpost.title, length: 50) %>

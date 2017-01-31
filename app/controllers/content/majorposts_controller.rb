@@ -73,7 +73,7 @@ class Content::MajorpostsController < ApplicationController
 				)
 		end
 		#Delete Artwork Links Audios Videos
-		Resque.enqueue(Majorpost::MajorpostCleanup, params[:majorpost_uuid])
+		Resque.enqueue(Majorpost::MajorpostCleanup, @majorpost.uuid)
 	end	
 
 	#NoREST Methods -----------------------------------
