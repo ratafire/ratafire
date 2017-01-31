@@ -15,7 +15,7 @@ class Majorpost < ActiveRecord::Base
     include PublicActivity::Model
     tracked except: [:update, :destroy], 
             owner: ->(controller, model) { controller && controller.current_user },
-            key: :post
+            key: 'post'
 
     #----------------Relationships----------------
     #Belongs to
