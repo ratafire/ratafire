@@ -11,4 +11,4 @@ Campaign::CampaignDue:
 Shipping::ShippingDue:
   cron: "20 3 * * *"
 Test::Scheduler:
-  cron: "1 * * * *"
+  cron: "*/1 * * * *"
