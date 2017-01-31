@@ -45,12 +45,14 @@
 										<%= render_activities(@activities) %>
 									<% else %>
 										<!-- Welcome -->
-
+										<% if current_user == @user %>
+											<%= render partial:'profile/components/welcome', locals: {user: @user}%>	
+										<% end %>
 									<% end %>
 								</div>
 								<!-- Paginate -->
 								<div class="post-will-paginate">
-									<%= will_paginate @activities %>
+									<%= will_paginate (@activities, layout: :activity_majorpost) %>
 								</div>
 							</div><!-- end #post-pagination-->							
 						</div>	
