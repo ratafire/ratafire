@@ -64,6 +64,7 @@ gem 'jquery-rails'
 gem 'redis', '3.2.1' #For running Resque
 #Resque
 gem 'resque', '1.25.2',:require => "resque/server" #for background tasks, important
+gem 'unicorn'
 gem 'resque-scheduler'#For scheduled workers
 gem 'resque_mailer' #For mailing in resque
 
