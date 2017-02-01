@@ -7,7 +7,6 @@
 					<img src="<%= activity.trackable.image.url(:thumbnail480p)%>" style="width:100%;" alt="">
 					<div class="caption-overflow">
 						<span>
-							<a href="<%= activity.trackable.image.url(:preview800)%>.jpg" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
 							<%= link_to profile_url_path(activity.trackable.user.username), class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
 								<i class="icon-link2"></i>
 							<% end %>
