@@ -14,7 +14,7 @@ class Profile::UserController < ApplicationController
 	protect_from_forgery :except => [:update_profile]
 
 	def profile
-		if @activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @user, owner_type: "User", :published => true,trackable_type: ["Majorpost"]).page(params[:page]).per_page(5)
+		if @activities = PublicActivity::Activity.order("created_at desc").where(owner_id: @user, owner_type: "User", :published => true,trackable_type: ["Majorpost"]).page(params[:page]).per_page(3)
 			#Mark activity as read
 			if user_signed_in? && @user != current_user
 				@activities.mark_as_read! :all, :for => current_user

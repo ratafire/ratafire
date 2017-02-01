@@ -5,7 +5,7 @@
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, :class => 'signup-form signup-form--signup signup-framed' }) do |f| %>
         <%= f.hidden_field :reset_password_token %>
         <div class="text-center">
-            <img alt=t('views.utilities.menu.ratafire') src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>.png" style="height:40px;" />
+            <img alt=t('views.utilities.menu.ratafire') src="https://ratafire.com/assets/logo/ratafire_light_blue_<%= I18n.locale %>.png" style="height:40px;" />
         </div>
         <div class="text-center text-grey-transparent mt-20 mb-20" style="font-size:18px;"><%= t 'views.utilities.devise.reset_your_password' %></div>
         <%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: t('views.profile.settings.account_settings.new_password'), class:"signup-input", style:"border-radius: 0.5rem 0.5rem 0 0;"%>

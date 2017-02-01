@@ -1,17 +1,19 @@
-<ul class="media-list dropdown-content-body <% unless notification.is_read %>bg-grey-100<% end %>">
-	<li class="media">
-		<div class="media-left">
-			<img src="/assets/logo/logoicon_water_large_flat.jpg" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
-		</div>
+<% if Transfer.find(notification.trackable_id) %>
+	<ul class="media-list dropdown-content-body <% unless notification.is_read %>bg-grey-100<% end %>">
+		<li class="media">
+			<div class="media-left">
+				<img src="/assets/logo/logoicon_water_large_flat.jpg" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
+			</div>
 
-		<div class="media-body">
-			<%= link_to show_user_studio_rewards_path(current_user.id,notification.id), class:"media-heading" do %>
-				<span class="text-semibold"><%= t 'ratafire'%></span>
-				<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
-			<% end %>
-			<span class="text-grey">
-				<span><%= t 'views.campaign.reward'%>: <%= Transfer.find(notification.trackable_id).title %><%= t 'views.creator_studio.rewards.is_due' %></span>
-			</span>
-		</div>
-	</li>
-</ul>
+			<div class="media-body">
+				<%= link_to show_user_studio_rewards_path(current_user.id,notification.id), class:"media-heading" do %>
+					<span class="text-semibold"><%= t 'ratafire'%></span>
+					<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
+				<% end %>
+				<span class="text-grey">
+					<span><%= t 'views.campaign.reward'%>: <%= Transfer.find(notification.trackable_id).title %><%= t 'views.creator_studio.rewards.is_due' %></span>
+				</span>
+			</div>
+		</li>
+	</ul>
+<% end %>

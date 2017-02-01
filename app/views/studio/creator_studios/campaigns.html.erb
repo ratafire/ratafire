@@ -4,13 +4,24 @@
 <!-- Page Specific JS -->
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <div class="row">
-	<!-- Campaigns -->
-	<div id="post-pagination">
-		<div class="post-pagination">
-			<%= render partial: "studio/creator_studios/campaign", collection: @campaigns, :as => :campaign %>
+	<% if @campaigns.any? %>
+		<!-- Campaigns -->
+		<div id="post-pagination">
+			<div class="post-pagination">
+				<%= render partial: "studio/creator_studios/campaign", collection: @campaigns, :as => :campaign %>
+			</div>
 		</div>
-	</div>
-	<div class="post-will-paginate">
-		<%= will_paginate @campaigns %>
-	</div>
+		<div class="post-will-paginate">
+			<%= will_paginate @campaigns %>
+		</div>
+	<% else %>
+		<div class="text-center col-md-12 col-lg-12 col-xs-12 pt-100">
+			<%= link_to new_user_studio_campaigns_path(current_user.username), :data => {turbolinks: "false"},class:"text-black" do %>
+				<%= image_tag(@user.profilephoto.image.url(:thumbnail128),class:"img-circle mb-20 animated infinite bounce", id:"campaign-user-image")%>
+				<p>
+					<div class="btn btn-default text-grey-300"><i class="icon-enter mr-10"></i><%= t 'views.utilities.menu.become_a_creator' %></div>
+				</p>
+			<% end %>
+		</div>
+	<% end %>
 </div>

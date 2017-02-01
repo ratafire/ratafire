@@ -646,6 +646,7 @@ en:
         copy_link: "Copy link"
         download: "Download"
         all: "All"
+        is_new_to_ratafire: " is new to Ratafire!"
       category:
         other: "Other"
         a_new_field: "A New Field"
@@ -696,7 +697,7 @@ en:
         unfriend: "unfriend"
         unsupport: "unsupport"
         remove_backer: "remove backer"
-        unfollow: "unfollow"
+        unfollow: "Unfollow"
         are_you_sure_to: "Are your sure to "
       tooltip:
         coming_soon: "Coming soon"
