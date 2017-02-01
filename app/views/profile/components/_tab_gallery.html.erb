@@ -9,11 +9,9 @@
 					</div>
 				<% else %>
 					<% if Campaign.find_by_uuid(artwork.campaign_uuid) %>
-						<% if artwork.campaign.deleted_at == nil %>
-							<div class="pb-20 pl-20 pr-20">
-								<%= truncate(Campaign.find_by_uuid(artwork.campaign_uuid).title, length: 50) %>
-							</div>
-						<% end %>
+						<div class="pb-20 pl-20 pr-20">
+							<%= truncate(Campaign.find_by_uuid(artwork.campaign_uuid).title, length: 50) %>
+						</div>
 					<% end %>
 				<% end %>
 				<!-- Link to Majorpost -->
