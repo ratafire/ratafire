@@ -22,7 +22,6 @@
 							<img src="<%= activity.trackable.artwork.first.image.url(:preview512)%>" style="width:100%;" alt="">
 							<div class="caption-overflow">
 								<span>
-									<a href="<%= activity.trackable.artwork.first.image.url(:preview800)%>.jpg" data-popup="lightbox" class="btn border-white text-white btn-flat btn-icon btn-rounded"><i class="icon-plus3"></i></a>
 									<%= link_to content_majorpost_path(activity.trackable.uuid), class:"btn border-white text-white btn-flat btn-icon btn-rounded ml-5" do %>
 										<i class="icon-link2"></i>
 									<% end %>

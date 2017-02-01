@@ -1,3 +1,7 @@
+<script type="text/javascript">
+	$('#sidebar-followed-tags-holder, #sidebar-category-header').remove();
+	$('.navigation').prepend("<%= j render(:partial => 'utilities/sidebar/categories') %>");
+</script>
 <div class="page-header">
 	<div class="page-header-content">
 		<div class="page-title text-grey">

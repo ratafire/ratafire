@@ -13,9 +13,9 @@ class Payment::BankAccountsController < ActionController::Base
 		@bank_account.last4 = @bank_account.account_number.to_s.split(//).last(4).join("").to_s
 		#Check if the user has entered a correct US postal code
 		check_us_postal_code_and_create_bank_account
-	rescue
-		flash[:error] = t('errors.messages.not_ssaved')
-		redirect_to(:back)
+	# rescue
+	# 	flash[:error] = t('errors.messages.not_ssaved')
+	# 	redirect_to(:back)
 	end
 
 	# user_payment_bank_accounts PATCH
@@ -76,85 +76,81 @@ private
 	end
 
 	def create_bank_account_through_stripe
-		begin
-			#Create stripe token
-			if @stripe_token = Stripe::Token.create(
-				    :bank_account => {
-				    :country => @bank_account.country,
-				    :account_holder_name => @bank_account.first_name + " " + @bank_account.last_name,
-				    :account_holder_type => "individual",
-				    :routing_number => @bank_account.routing_number,
-				    :account_number => @bank_account.account_number,
-				    :default_for_currency => true
-				  	},
-				)
-				if @user.stripe_account
-					#Update user stripe account
-					if @stripe_account = Stripe::Account.retrieve(@user.stripe_account.stripe_id)
-						#Update stripe account
-						@stripe_account.legal_entity.address.city = @bank_account.city
-						@stripe_account.legal_entity.address.country = @bank_account.country
-						@stripe_account.legal_entity.address.line1 = @bank_account.line1
-						if @bank_account.country == 'US'
-							@stripe_account.legal_entity.address.state = @bank_account.state
-						end
-						@stripe_account.legal_entity.address.postal_code = @bank_account.postal_code
-						@stripe_account.save
-						if @stripe_account.external_accounts.create(:external_account => @stripe_token.id)
-							#Save bank account and redirect
-							update_bank_account
-						else
-							redirect_to(:back)
-						end
+		#Create stripe token
+		if @stripe_token = Stripe::Token.create(
+			    :bank_account => {
+			    :country => @bank_account.country,
+			    :account_holder_name => @bank_account.first_name + " " + @bank_account.last_name,
+			    :account_holder_type => "individual",
+			    :routing_number => @bank_account.routing_number,
+			    :account_number => @bank_account.account_number,
+			    :default_for_currency => true
+			  	},
+			)
+			if @user.stripe_account
+				#Update user stripe account
+				if @stripe_account = Stripe::Account.retrieve(@user.stripe_account.stripe_id)
+					#Update stripe account
+					@stripe_account.legal_entity.address.city = @bank_account.city
+					@stripe_account.legal_entity.address.country = @bank_account.country
+					@stripe_account.legal_entity.address.line1 = @bank_account.line1
+					if @bank_account.country == 'US'
+						@stripe_account.legal_entity.address.state = @bank_account.state
+					end
+					@stripe_account.legal_entity.address.postal_code = @bank_account.postal_code
+					@stripe_account.save
+					if @stripe_account.external_accounts.create(:external_account => @stripe_token.id)
+						#Save bank account and redirect
+						update_bank_account
 					else
 						redirect_to(:back)
 					end
 				else
+					redirect_to(:back)
+				end
+			else
+				#Create user stripe account
+				if @stripe_account = Stripe::Account.create(
+						:managed => true,
+						:country => @bank_account.country,
+						:legal_entity => {
+							:type => 'individual',
+							:first_name => @bank_account.first_name,
+							:last_name => @bank_account.last_name,
+							:address => {
+								:city => @bank_account.city,
+								:country => @bank_account.country,
+								:line1 => @bank_account.line1,
+								:postal_code => @bank_account.postal_code
+							}
+						},
+					:tos_acceptance => {
+						:date => Time.now.to_time.to_i,
+						:ip => request.remote_ip
+						},
+					:transfer_schedule => {
+					    :interval => "manual"
+					},	
+				)
+					if @bank_account.country == 'US'
+						@stripe_account.legal_entity.address.state = @bank_account.state
+						@stripe_account.save
+					end
 					#Create user stripe account
-					if @stripe_account = Stripe::Account.create(
-  						:managed => true,
-  						:country => @bank_account.country,
-  						:legal_entity => {
-  							:type => 'individual',
-  							:first_name => @bank_account.first_name,
-  							:last_name => @bank_account.last_name,
-  							:address => {
-  								:city => @bank_account.city,
-  								:country => @bank_account.country,
-  								:line1 => @bank_account.line1,
-  								:postal_code => @bank_account.postal_code
-  							}
-  						},
-  					:tos_acceptance => {
-  						:date => Time.now.to_time.to_i,
-  						:ip => request.remote_ip
-  						},
-  					:transfer_schedule => {
-						    :interval => "manual"
-						},	
-					)
-						if @bank_account.country == 'US'
-							@stripe_account.legal_entity.address.state = @bank_account.state
-							@stripe_account.save
-						end
-						#Create user stripe account
-						@user_stripe_account = StripeAccount.stripe_account_create(@stripe_account, @user.id)						
+					@user_stripe_account = StripeAccount.stripe_account_create(@stripe_account, @user.id)						
+					#Save bank account and redirect
+					if @stripe_account.external_accounts.create(:external_account => @stripe_token.id)
 						#Save bank account and redirect
-						if @stripe_account.external_accounts.create(:external_account => @stripe_token.id)
-							#Save bank account and redirect
-							@stripe_account = Stripe::Account.retrieve(@stripe_account.id)
-							update_bank_account
-						else
-							redirect_to(:back)
-						end
+						@stripe_account = Stripe::Account.retrieve(@stripe_account.id)
+						update_bank_account
 					else
 						redirect_to(:back)
 					end
+				else
+					redirect_to(:back)
 				end
-			else
-				redirect_to(:back)
 			end
-		rescue
+		else
 			redirect_to(:back)
 		end
 	end
