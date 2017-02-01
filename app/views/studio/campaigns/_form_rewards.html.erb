@@ -144,7 +144,7 @@
 										</div>
 										<div class="col-lg-8 pl-5">
 											<div class="input-group">
-												<span class="input-group-addon" id="reward-currency"><%= currency_signs(@campaign.currency) %></span>
+												<span class="input-group-addon" id="reward-currency">$</span>
 												<%= s.text_field :amount, max: "500", class:"form-control", placeholder:"0" %>
 												<div class="input-group-btn">
 													<%= s.link_to_remove do %>
@@ -173,7 +173,7 @@
 										</div>
 										<div class="col-lg-8 pl-5">
 											<div class="input-group">
-												<span class="input-group-addon"><%= currency_signs(@campaign.currency) %></span>
+												<span class="input-group-addon">$</span>
 												<%= sa.text_field :amount, max: "500", class:"form-control", placeholder:"0" %>
 												<%= sa.link_to_remove do %>
 													<div class="display-none remove_shipping_anywhere" >
