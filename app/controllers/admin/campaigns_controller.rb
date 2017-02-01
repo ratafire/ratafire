@@ -41,7 +41,8 @@ class Admin::CampaignsController < ApplicationController
 		)
 			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@campaign.id,'Campaign')
 				@activity.update(
-					published: true
+					published: true,
+					status: "Approved"
 				)
 			end
 		end
