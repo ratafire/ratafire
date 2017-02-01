@@ -11,6 +11,7 @@
 //= require clipboard.min
 //= require jquery.sticky
 //= require jquery.magnific-popup.min
+//= require_tree ./core
 //= require_tree ./s3_direct_upload
 //= require_tree ./velocity
 //= require_tree ./moment
@@ -28,4 +29,3 @@
 //= require_tree ./loaders
 //= require_tree ./forms
 //= require_tree ./template_limitless
-//= require app
