@@ -115,7 +115,7 @@ function initiate_text_editor(upload_url,subscribe){
 	            placeholder: 'Paste a YouTube, Vimeo, Facebook, Twitter or Instagram link and press Enter', // (string) Placeholder displayed when entering URL to embed
 	            captions: false, // (boolean) Enable captions
 	            captionPlaceholder: 'Type caption (optional)', // (string) Caption placeholder
-	            oembedProxy: 'https://medium.iframe.ly/api/oembed?iframe=1', // (string/null) URL to oEmbed proxy endpoint, such as Iframely, Embedly or your own. You are welcome to use "http://medium.iframe.ly/api/oembed?iframe=1" for your dev and testing needs, courtesy of Iframely. *Null* will make the plugin use pre-defined set of embed rules without making server calls.
+	            oembedProxy: '//iframe.ly/api/oembed?api_key=12bc2af7bd7aa88c092437', // (string/null) URL to oEmbed proxy endpoint, such as Iframely, Embedly or your own. You are welcome to use "http://medium.iframe.ly/api/oembed?iframe=1" for your dev and testing needs, courtesy of Iframely. *Null* will make the plugin use pre-defined set of embed rules without making server calls.
 	            styles: { // (object) Available embeds styles configuration
 	            },
 	            actions: { // (object) Actions for an optional second toolbar
