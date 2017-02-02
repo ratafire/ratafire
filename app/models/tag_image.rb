@@ -30,7 +30,8 @@ class TagImage < ActiveRecord::Base
         :path => "/:class/uploads/:id/image/:style/:uuid_tag_filename",
         :bucket => "Ratafire_production",
         :storage => :s3,
-        :s3_region => 'us-east-1'
+        :s3_region => 'us-east-1',
+        :s3_permissions => "private"
 
         validates_attachment :image, 
             :content_type => { 
