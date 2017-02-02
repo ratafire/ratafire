@@ -778,7 +778,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         defaults = {
             label: '<span class="fa fa-youtube-play"></span>',
             placeholder: 'Paste a YouTube, Vimeo, Facebook, Twitter or Instagram link and press Enter',
-            oembedProxy: 'https://medium.iframe.ly/api/oembed?iframe=1',
+            oembedProxy: '//iframe.ly/api/oembed?api_key=12bc2af7bd7aa88c092437',
             captions: true,
             captionPlaceholder: 'Type caption (optional)',
             styles: {
