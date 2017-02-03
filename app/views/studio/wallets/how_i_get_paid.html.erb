@@ -13,11 +13,7 @@
 		<% if @user.bank_account %>
 			<%= render partial: "studio/wallets/bank_account", locals: {user: @user, bank_account: @bank_account} %>
 		<% else %>
-			<% if @user.try(:identity_verification).try(:status) != nil %>
-				<%= render partial: "studio/wallets/add_bank_account", locals: {user: @user, bank_account: @bank_account} %>
-			<% else %>
-				<%= render partial: "studio/wallets/verify_identity", locals: {user: @user} %>
-			<% end %>
+			<%= render partial: "studio/wallets/add_bank_account", locals: {user: @user, bank_account: @bank_account} %>
 		<% end %>
 	</div>
 </div>

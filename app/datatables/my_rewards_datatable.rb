@@ -1,6 +1,6 @@
 class MyRewardsDatatable
 
-    delegate :params, :t, :link_to, :truncate, :image_tag, :currency_signs,:raw,:confirm_shipping_payment_user_studio_rewards_path, :profile_url_path, :is_category, to: :@view
+    delegate :params, :t, :link_to, :truncate, :image_tag, :currency_signs,:raw,:confirm_shipping_payment_user_studio_rewards_path, :profile_url_path, :is_category, :number_to_currency, to: :@view
 
     def initialize(view)
     	@view = view
@@ -96,14 +96,14 @@ private
                         image_tag(@reward.image.url(:thumbnail40), class:"border-radius-3"),
                         truncate(@reward.title, length: 50),
                         '<div class="label bg-orange">'+I18n.t('views.creator_studio.rewards.waiting_for_shipping_fee')+'</div>',
-                        link_to(raw('<div class="btn bg-green">'+I18n.t('mailer.payment.shipping_order.pay_shipping_fee')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_i.to_s+'</div>'),confirm_shipping_payment_user_studio_rewards_path(reward_receiver.user_id,reward_receiver.shipping_order.id))
+                        link_to(raw('<div class="btn bg-green">'+I18n.t('mailer.payment.shipping_order.pay_shipping_fee')+' '+number_to_currency(reward_receiver.amount, unit: currency_signs(@reward.currency) )+'</div>'),confirm_shipping_payment_user_studio_rewards_path(reward_receiver.user_id,reward_receiver.shipping_order.id))
                       ]
                     else
                       [
                         image_tag(@reward.campaign.image.url(:thumbnail40), class:"border-radius-3"),
                         truncate(@reward.title, length: 50),
                         '<div class="label bg-orange">'+I18n.t('views.creator_studio.rewards.waiting_for_shipping_fee')+'</div>',
-                        link_to(raw('<div class="btn bg-green">'+I18n.t('mailer.payment.shipping_order.pay_shipping_fee')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_i.to_s+'</div>'),confirm_shipping_payment_user_studio_rewards_path(reward_receiver.user_id,reward_receiver.shipping_order.id))
+                        link_to(raw('<div class="btn bg-green">'+I18n.t('mailer.payment.shipping_order.pay_shipping_fee')+' '+number_to_currency(reward_receiver.amount, unit: currency_signs(@reward.currency) )+'</div>'),confirm_shipping_payment_user_studio_rewards_path(reward_receiver.user_id,reward_receiver.shipping_order.id))
                       ]
                     end
                 when 'ready_to_ship'

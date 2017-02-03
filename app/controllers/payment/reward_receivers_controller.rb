@@ -132,12 +132,16 @@ private
 		else
 			Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 		end
+		#Calculate application fee
+		@application_fee = ((@shipping_order.amount*0.029+0.3+(@shipping_order.amount-(@shipping_order.amount*0.029+0.3))*0.0005)*100).to_i+1
+		#Charge
 		if response = Stripe::Charge.create(
 			amount: @shipping_order.amount.to_i*100,
 			currency: @shipping_order.reward.currency,
 			customer: @subscriber.customer.customer_id,
 			description: I18n.t('views.payment.backs.ratafire_payment'),
-			destination: @subscribed.stripe_account.stripe_id
+			destination: @subscribed.stripe_account.stripe_id,
+			application_fee: @application_fee
 		)
 			if response.try(:captured) == true && response.try(:status) == "succeeded"
 				#Record transaction

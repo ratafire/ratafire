@@ -8,8 +8,8 @@
 					<th><span class="label bg-grey-100"><%= t 'views.creator_studio.transfer.pending' %></span></th>
 				</tr>
 				<tr>
-					<th><span class="text-large mr-10"><%= number_to_currency(@balance.available[0].amount/100) %></span></th>
-					<th><span class="text-large mr-10 text-grey-100"><%= number_to_currency(@balance.pending[0].amount/100) %></span></th>
+					<th><span class="text-large mr-10"><%= number_to_currency(@balance.available[0].amount/100.00) %></span></th>
+					<th><span class="text-large mr-10 text-grey-100"><%= number_to_currency(@balance.pending[0].amount/100.00) %></span></th>
 				</tr>
 			</table>
 		</div>

@@ -4,7 +4,7 @@
 	<li id="settings-privacy_settings-settingstabactive"><a data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="bottom" ><%= t 'views.profile.settings.menu.security_&_privacy' %></a></li>
 	<li id="settings-language_settings-settingstabactive"><%= link_to t('views.profile.settings.menu.language'),language_settings_user_profile_settings_path(@user.username) %></li>
 	<li id='settings-account_settings-settingstabactive'><%= link_to t('views.profile.settings.menu.account'),account_settings_user_profile_settings_path(@user.username) %></li>
-	<li id='settings-account_settings-settingstabactive'><%= link_to t('views.profile.settings.menu.identity_verification'),identity_verification_user_profile_settings_path(@user.username) %></li>
+	<li id='settings-account_settings-settingstabactive'><%= link_to t('views.profile.settings.menu.identity_verification'),identity_verification_user_profile_settings_path(@user.username), data: { no_turbolink: true } %></li>
 </ul><!-- end .nav-->
 <script type="text/javascript">
     //Add active to specific sidebar selection

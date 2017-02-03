@@ -1,5 +1,5 @@
 class UpcomingDatatable
-    delegate :params, :t, :link_to, :image_tag, :category_color,:currency_signs, :unsub_user_payment_subscriptions_path,:raw,:profile_url_path, :is_category, to: :@view
+    delegate :params, :t, :link_to, :image_tag, :category_color,:currency_signs, :number_to_currency, :unsub_user_payment_subscriptions_path,:raw,:profile_url_path, :is_category, to: :@view
 
     def initialize(view)
     	@view = view
@@ -26,7 +26,7 @@ private
             link_to(User.find(order_subset.subscribed_id).try(:active_campaign).try(:title), profile_url_path(User.find(order_subset.subscribed_id).username),target:"_blank"),
             '<span class="label '+ category_color(User.find(order_subset.subscribed_id).active_campaign.category)+'">'+I18n.t(is_category(User.find(order_subset.subscribed_id).active_campaign.category))+'</span>',
             order_subset.updates,
-            currency_signs(User.find(order_subset.subscribed_id).active_campaign.currency)+order_subset.amount.to_s,
+            number_to_currency(order_subset.amount, unit: currency_signs(User.find(order_subset.subscribed_id).active_campaign.currency)),
             link_to(raw('<i class="ti-close"></i>'),unsub_user_payment_subscriptions_path(User.find(order_subset.subscribed_id).uid),method: :delete, data: { confirm: I18n.t('views.utilities.btn.are_you_sure_to')+I18n.t('views.utilities.btn.unsupport')+'?'})
           ]
         end

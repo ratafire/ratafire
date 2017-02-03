@@ -9,6 +9,9 @@ class Shipping < ActiveRecord::Base
     belongs_to :reward  
     belongs_to :campaign
 
+    #Validations
+    validates :country, presence: true
+
 private
 
     def generate_uuid!

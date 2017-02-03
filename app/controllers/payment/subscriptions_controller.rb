@@ -236,13 +236,17 @@ private
 	end	
 
 	def subscribe_through_stripe
+		#Calculate application fee
+		@application_fee = ((@subscription.amount*0.029+0.3+(@subscription.amount-(@subscription.amount*0.029+0.3))*0.0005)*100).to_i+1
+		#Charge
 		if @subscriber.customer
 			response = Stripe::Charge.create(
 				:amount => @subscription.amount.to_i*100,
 				:currency => "usd",
 				:customer => @subscriber.customer.customer_id,
 				:description => t('views.payment.backs.ratafire_payment'),
-				:destination => @subscribed.stripe_account.stripe_id
+				:destination => @subscribed.stripe_account.stripe_id,
+				:application_fee => @application_fee
 			)
 		else
 			response = Stripe::Charge.create(
@@ -250,7 +254,8 @@ private
 				:currency => "usd",
 				:customer => @customer.id,
 				:description => t('views.payment.backs.ratafire_payment'),
-				:destination => @subscribed.stripe_account.stripe_id
+				:destination => @subscribed.stripe_account.stripe_id,
+				:application_fee => @application_fee
 			)			
 		end
 		if response.try(:captured) == true && response.try(:status) == "succeeded"

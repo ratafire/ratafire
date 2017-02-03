@@ -1,6 +1,6 @@
 class TransferDatatable
 
-    delegate :params, :t, :link_to, :image_tag,:currency_signs, :raw, :is_category, :strftime, :transfer_color, :transfer_status, to: :@view
+    delegate :params, :t, :link_to, :image_tag,:currency_signs,:number_to_currency, :raw, :is_category, :strftime, :transfer_color, :transfer_status, to: :@view
 
     def initialize(view)
     	@view = view
@@ -23,7 +23,7 @@ private
             [
                 '<span class="bg-grey-100 pl-5 pr-5">'+transfer.uuid+"</span>",
                 transfer.created_at.strftime('%Y/%m/%d'),
-                currency_signs(transfer.currency)+transfer.amount.to_s,
+                number_to_currency(transfer.amount, unit: currency_signs(transfer.currency)),
                 '<span class="label '+transfer_color(transfer.status)+'">'+I18n.t(transfer_status(transfer.status))+'</span>',
             ]
         end

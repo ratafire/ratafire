@@ -1,6 +1,6 @@
 class ReceiverDatatable
 
-    delegate :params, :t, :link_to, :image_tag,:currency_signs, :request_shipping_fee_user_payment_reward_receivers_path,:ship_reward_user_payment_reward_receivers_path,:raw,:profile_url_path, :is_category, to: :@view
+    delegate :params, :t, :link_to, :image_tag,:currency_signs, :request_shipping_fee_user_payment_reward_receivers_path,:ship_reward_user_payment_reward_receivers_path,:raw,:profile_url_path, :is_category, :number_to_currency, to: :@view
 
     def initialize(view)
     	@view = view
@@ -59,14 +59,14 @@ private
                     link_to(image_tag(User.find(reward_receiver.user_id).profilephoto.image.url(:thumbnail40)), profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
                     link_to(User.find(reward_receiver.user_id).preferred_name, profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
                     '<div class="label bg-blue">'+I18n.t('views.creator_studio.rewards.paid')+'</div>',
-                    link_to(raw('<div class="btn btn-blue">'+I18n.t('views.creator_studio.rewards.request_shipping_fee')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_i.to_s+'</div>'), request_shipping_fee_user_payment_reward_receivers_path(reward_receiver.user_id,reward_receiver.id))
+                    link_to(raw('<div class="btn btn-blue">'+I18n.t('views.creator_studio.rewards.request_shipping_fee')+' '+number_to_currency(reward_receiver.amount, unit: currency_signs(@reward.currency) )+'</div>'), request_shipping_fee_user_payment_reward_receivers_path(reward_receiver.user_id,reward_receiver.id))
                   ]
                 when 'ready_to_ship'
                   [
                     link_to(image_tag(User.find(reward_receiver.user_id).profilephoto.image.url(:thumbnail40)), profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
                     link_to(User.find(reward_receiver.user_id).preferred_name, profile_url_path(User.find(reward_receiver.user_id).username),target:"_blank"),
                     '<div class="label bg-purple">'+I18n.t('views.creator_studio.rewards.ready_to_ship')+'</div>',
-                    link_to(raw('<div class="btn bg-green">'+I18n.t('views.creator_studio.rewards.ship')+' '+currency_signs(@reward.currency)+reward_receiver.amount.to_i.to_s+'</div>'), ship_reward_user_payment_reward_receivers_path(reward_receiver.user_id,reward_receiver.id))
+                    link_to(raw('<div class="btn bg-green">'+I18n.t('views.creator_studio.rewards.ship')+' '+number_to_currency(reward_receiver.amount, unit: currency_signs(@reward.currency) )+'</div>'), ship_reward_user_payment_reward_receivers_path(reward_receiver.user_id,reward_receiver.id))
                   ]
                 when 'shipped'
                   if reward_receiver.shipping_company

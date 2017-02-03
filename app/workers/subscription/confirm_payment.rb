@@ -18,12 +18,16 @@ class Subscription::ConfirmPayment
 					else
 						Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 					end
+					#Calculate application fee
+					@application_fee = ((order_subset.amount*0.029+0.3+(order_subset.amount-(order_subset.amount*0.029+0.3))*0.0005)*100).to_i+1
+					#Charge
 					response = Stripe::Charge.create(
 						amount: order_subset.amount.to_i*100,
 						currency: @subscription.currency,
 						customer: @subscriber.customer.customer_id,
 						description: I18n.t('views.payment.backs.ratafire_payment'),
-						destination: @subscribed.stripe_account.stripe_id
+						destination: @subscribed.stripe_account.stripe_id,
+						application_fee: @application_fee
 					)
 					if response.try(:captured) == true && response.try(:status) != "failed"
 						#Update order subset

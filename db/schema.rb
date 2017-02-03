@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215002926) do
+ActiveRecord::Schema.define(version: 20170203212933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2567,7 +2567,7 @@ ActiveRecord::Schema.define(version: 20161215002926) do
     t.datetime "deleted_at"
     t.decimal  "fee",                                     precision: 10
     t.decimal  "receive",                                 precision: 10
-    t.decimal  "amount",                                  precision: 10
+    t.decimal  "amount",                                  precision: 10, scale: 2, default: 0.0
     t.decimal  "ordered_amount",                          precision: 10, scale: 2, default: 0.0
     t.decimal  "collected_amount",                        precision: 10, scale: 2, default: 0.0
     t.decimal  "collected_fee",                           precision: 10, scale: 2, default: 0.0

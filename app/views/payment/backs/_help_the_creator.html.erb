@@ -105,7 +105,7 @@
 					<div class="col-md-5">
 						<div class="text-blue-200"><%= t 'views.payment.backs.shipping_fee' %></div>
 						<% if @subscription.shipping_country %>
-							<div id="shipping-fee"><%= currency_signs(user.active_campaign.currency) %><%= user.active_reward.shippings.where(:country => @subscription.shipping_country).first.amount.to_i %></div>
+							<div id="shipping-fee"><%= number_to_currency(user.active_reward.shippings.where(:country => @subscription.shipping_country).first.amount, unit:"$") %></div>
 						<% else %>
 							<div id="shipping-fee"><%= t 'views.payment.backs.free_shipping' %></div>
 						<% end %>
