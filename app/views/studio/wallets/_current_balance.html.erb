@@ -15,7 +15,6 @@
 		</div>
 		<!-- Account Info -->
 		<div class="mt-20">
-            <%= @account.legal_entity.verification.status %>
             <% if @account.legal_entity.verification.status == "unverified" %>
                 <div class="label bg-blue"><%= t 'views.creator_studio.transfer.account_status' %></div>
     			<div class="text-large">
