@@ -19,7 +19,7 @@ class Subscription::ConfirmPayment
 						Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 					end
 					#Calculate application fee
-					@application_fee = ((order_subset.amount*0.029+0.3+(order_subset.amount-(order_subset.amount*0.029+0.3))*0.0005)*100).to_i+1
+					@application_fee = ((order_subset.amount.to_i*0.029+0.3+(order_subset.amount.to_i-(order_subset.amount.to_i*0.029+0.3))*0.0005)*100).to_i+1
 					#Charge
 					response = Stripe::Charge.create(
 						amount: order_subset.amount.to_i*100,
@@ -161,7 +161,7 @@ class Subscription::ConfirmPayment
 					#Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
 				end
 			end
-			if @order.status != 'Error'
+			if @order.status != 'Error' && @transaction
 				#Record order
 				@order.update(
 					transacted: true,
