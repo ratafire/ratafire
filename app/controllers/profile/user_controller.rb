@@ -21,7 +21,7 @@ class Profile::UserController < ApplicationController
 			end
 		end
 		#Latest updates
-		@latest_updates = Notification.order("created_at desc").where(notification_type:["subscribed_one_time","subscribed_recurring"], deleted: nil).page(params[:page]).per_page(3)
+		@latest_updates = Notification.order("created_at desc").where(notification_type:["subscribed_one_time","subscribed_recurring"], deleted: nil, user_id: @user.id).page(params[:page]).per_page(3)
 	end
 
 protected
