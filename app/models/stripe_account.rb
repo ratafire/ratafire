@@ -37,7 +37,8 @@ class StripeAccount < ActiveRecord::Base
             verification_details: stripe_account.legal_entity.verification.details,
             verification_details_code: stripe_account.legal_entity.verification.details_code,
             verification_document: stripe_account.legal_entity.verification.document,
-            verification_status: stripe_account.legal_entity.verification.status
+            verification_status: stripe_account.legal_entity.verification.status,
+            transfer_schedule_interval: stripe_account.transfer_schedule.interval
     	)
     end
 
@@ -66,7 +67,8 @@ class StripeAccount < ActiveRecord::Base
             verification_details: stripe_account.legal_entity.verification.details,
             verification_details_code: stripe_account.legal_entity.verification.details_code,
             verification_document: stripe_account.legal_entity.verification.document,
-            verification_status: stripe_account.legal_entity.verification.status
+            verification_status: stripe_account.legal_entity.verification.status,
+            transfer_schedule_interval: stripe_account.transfer_schedule.interval
     	)
         return user_stripe_account
     end    

@@ -136,6 +136,10 @@ private
 						@stripe_account.legal_entity.address.state = @bank_account.state
 						@stripe_account.save
 					end
+					if @stripe_account.transfer_schedule.interval != "manual"
+						@stripe_account.transfer_schedule.interval = "manual"
+						@stripe_account.save
+					end
 					#Create user stripe account
 					@user_stripe_account = StripeAccount.stripe_account_create(@stripe_account, @user.id)						
 					#Save bank account and redirect

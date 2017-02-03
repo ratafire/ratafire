@@ -30,6 +30,10 @@ StripeEvent.configure do |events|
 	#end
 
 	#Transfer
+	events.subscribe 'transfer.created' do |event|
+		Transfer.create_transfer(event.data.object)
+	end
+
 	events.subscribe 'transfer.updated' do |event|
 		Transfer.update_transfer(event.data.object)
 	end

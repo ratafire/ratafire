@@ -78,6 +78,34 @@ class Transfer < ActiveRecord::Base
 		)
 	end
 
+	def self.create_transfer(response)
+		unless @transfer = Transfer.find_by_stripe_transfer_id(response.id)
+			if @stripe_account = StripeAccount.find_by_stripe_id(response.destination)
+				@transfer = Transfer.create(
+					user_id: @stripe_account.user_id,
+					amount: response.amount/100,
+					status: response.status
+				)
+				if @transfer.status == "paid"
+					@transfer.update(
+						transfered: true,
+					)
+					#Send email
+					Payment::TransferMailer.transfer_sent(transfer_id: @transfer.id).deliver_now
+					#Send notification
+					Notification.create(
+						user_id: @transfer.user.id,
+						trackable_id: @transfer.id,
+						trackable_type: "Transfer",
+						notification_type: "Transfer"
+					)
+				else
+					#When the transfer is not paid
+				end
+			end
+		end
+	end
+
 	def self.update_transfer(response)
 		if @transfer = Transfer.find_by_stripe_transfer_id(response.id)
 			@transfer.update(
@@ -86,6 +114,22 @@ class Transfer < ActiveRecord::Base
 				statement_descriptor: response.statement_descriptor,
 				status: response.status,
 			)
+			if @transfer.status == "paid"
+				@transfer.update(
+					transfered: true,
+				)
+				#Send email
+				Payment::TransferMailer.transfer_sent(transfer_id: @transfer.id).deliver_now
+				#Send notification
+				Notification.create(
+					user_id: @transfer.user.id,
+					trackable_id: @transfer.id,
+					trackable_type: "Transfer",
+					notification_type: "Transfer"
+				)
+			else
+				#When the transfer is not paid
+			end
 		end
 	end
 

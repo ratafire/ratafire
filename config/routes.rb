@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 	get '/site' => redirect("https://ratafire.com/site/")	
 
 	#Stripe
-	mount StripeEvent::Engine, at: '/stripe_chashuibiao'
+	mount StripeEvent::Engine, at: '/stripe/kaimen/stripe_chashuibiao'
 
 	#User -----------------------------------
 
@@ -196,6 +196,7 @@ Rails.application.routes.draw do
 				#Transfer
 				resource :transfers, only:[:create] do 
 					get '/transfer_datatable', to: 'transfers#transfer_datatable', as: :tansfer_datatable
+					post '/transfer_schedule', to: "transfers#transfer_schedule", as: :transfer_schedule
 				end
 			end
 

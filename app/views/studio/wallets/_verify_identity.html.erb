@@ -1,0 +1,13 @@
+<div class="row bg-grey-100 p-20 m-5" id="current-bank-account-holder">
+	<div class="col-lg-10">
+		<%= t 'views.profile.settings.identity_verification.please_verify_your_identity' %>
+	</div>
+	<div class="col-lg-2 text-right">
+		<%= link_to identity_verification_user_profile_settings_path(user.username) do %>
+			<div class="btn bg-green btn-xs">
+				<b><i class="icon-pencil position-left"></i></b>
+				<%= t'views.profile.settings.identity_verification.verify_identity' %>
+			</div>
+		<% end %>
+	</div>
+</div>
