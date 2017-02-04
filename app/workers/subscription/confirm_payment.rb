@@ -67,15 +67,6 @@ class Subscription::ConfirmPayment
 							amount: order_subset.amount,
 							description: I18n.t('mailer.payment.subscription.receipt.support') + @subscribed.preferred_name
 						)
-						#Record transfer
-						if @subscribed.try(:transfer).try(:ordered_amount) != 0
-							@transfer = @subscribed.transfer
-							@transfer.update(
-								collected_receive: transfer.collected_receive+( order_subset.amount - @fee),
-								collected_amount: transfer.collected_amount+order_subset.amount,
-								collected_fee: transfer.collected_fee+@fee
-							)
-						end
 						#Subscription Record
 						@subscription_record = SubscriptionRecord.find(@subscription.subscription_record_id)
 						if @subscription_record == nil then	
@@ -94,7 +85,7 @@ class Subscription::ConfirmPayment
 								accumulated_receive: @subscription_record.accumulated_receive+( @subscription.amount - @fee),
 								accumulated_fee: @subscription_record.accumulated_fee+@fee,
 								counter: @subscription_record.counter+1,
-								credit: @subscription.credit+@subscription.amount
+								credit: @subscription_record.credit+@subscription.amount
 							)
 						end
 						#Campaign
@@ -106,7 +97,7 @@ class Subscription::ConfirmPayment
 							)
 						end
 						#Get reward
-						if @reward_receiver.find_by_subscription_id(@subscription.id)
+						if @reward_receiver = RewardReceiver.find_by_subscription_id(@subscription.id)
 							if @reward_receiver.status == 'waiting_for_payment'
 								if @reward_receiver.amount > 0 
 									@reward_receiver.update(
@@ -149,16 +140,16 @@ class Subscription::ConfirmPayment
 						#Unsubscribe
 						#Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
 					end	
-				# rescue
-				# 	#Order subset error unsubscribe
-				# 	order_subset.update(
-				# 		status: 'Error'
-				# 	)
-				# 	@order.update(
-				# 		status: 'Error'
-				# 	)
-				# 	#Unsubscribe
-				# 	#Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
+				rescue
+					#Order subset error unsubscribe
+					order_subset.update(
+						status: 'Error'
+					)
+					@order.update(
+						status: 'Error'
+					)
+					#Unsubscribe
+					#Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
 				end
 			end
 			if @order.status != 'Error' && @transaction
