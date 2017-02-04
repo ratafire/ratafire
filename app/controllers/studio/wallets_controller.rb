@@ -7,7 +7,7 @@ class Studio::WalletsController < ApplicationController
 	before_filter :correct_user	
 	before_filter :connect_to_stripe, only: [:transfers]
 
-	#how_i_get_paid_user_studio_wallets GET
+	#how_i_pay_user_studio_wallets GET
 	#/users/:user_id/studio/wallet/how_i_pay
 	def how_i_pay
 		if @user.card

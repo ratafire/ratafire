@@ -16,7 +16,7 @@
 	<td align="center" height="50" valign="middle" style="color: #686b74; font-size: 14px; font-family: 'Montserrat', sans-serif; mso-line-height-rule: exactly; line-height: 26px; border-right: solid 1px #f1f1f1;" class="text_color">
 		<div class="editable_text" style=" line-height: 22px;">
 			<span class="text_container">
-				<%= currency_signs(transaction.currency) %><%= transaction.amount %>
+				<%= number_to_currency(transaction.amount, unit: currency_signs(transaction.currency)) %>
 			</span>
 		</div>
 	</td>

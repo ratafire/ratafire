@@ -20,7 +20,7 @@
 <% content_for :price do %>
 <% end %>
 <% content_for :btn do %>
-	<%= link_to how_i_pay_user_studio_wallets_path(@order.user.username),style:"color:#fff;text-decoration:none;" do %>
+	<%= link_to how_i_pay_user_studio_wallets_path(user_id: @order.user.username, only_path: false, host: 'ratafire.com'),style:"color:#fff;text-decoration:none;" do %>
 		<%= t 'mailer.payment.subscription.receipt.update_payment_method' %>
 	<% end %>
 <% end %>

@@ -14,7 +14,7 @@
 	<%= currency_signs(@order.currency)%><%= @order.amount %>
 <% end %>
 <% content_for :link do %>
-	<%= link_to upcoming_user_studio_wallets_path(@order.user.username),style:"color:#fff;text-decoration:none;" do %>
+	<%= link_to upcoming_user_studio_wallets_path(user_id: @order.user.username, only_path: false, host: 'ratafire.com'),style:"color:#fff;text-decoration:none;" do %>
 		<%= t 'mailer.payment.subscription.order.edit_or_confirm_on_ratafire' %>
 	<% end %>
 <% end %>

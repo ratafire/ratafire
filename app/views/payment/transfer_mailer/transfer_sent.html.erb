@@ -5,7 +5,7 @@
 	<%= @line2 %>
 <% end %>
 <% content_for :link do %>
-	<%= link_to profile_url_path(@transfer.user.username), style:"color:#ffffff;text-decoration: none;" do %>
+	<%= link_to profile_url_path(username: @transfer.user.username, only_path: false, host: 'ratafire.com'), style:"color:#ffffff;text-decoration: none;" do %>
 		<%= @link %>
 	<% end %>
 <% end %>

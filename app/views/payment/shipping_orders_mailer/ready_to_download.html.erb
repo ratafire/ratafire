@@ -19,7 +19,7 @@
 <% content_for :price do %>
 <% end %>
 <% content_for :btn do %>
-	<%= link_to my_rewards_user_studio_rewards_path(@user.id), style:"color:#ffffff;text-decoration: none;" do %>
+	<%= link_to my_rewards_user_studio_rewards_path(user_id: @user.id, only_path: false, host: 'ratafire.com'), style:"color:#ffffff;text-decoration: none;" do %>
 		<%= t 'mailer.layout.view_on_ratafire' %>
 	<% end %>
 <% end %>

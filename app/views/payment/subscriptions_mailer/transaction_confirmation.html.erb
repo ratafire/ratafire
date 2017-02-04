@@ -15,5 +15,5 @@
 	<% end %>
 <% end %>
 <% content_for :total do %>
-	<%= currency_signs(@transaction.currency)%><%= @transaction.total %>
+	<%= number_to_currency(@transaction.total, unit: currency_signs(@transaction.currency)) %>
 <% end %>
