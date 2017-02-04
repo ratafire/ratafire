@@ -257,6 +257,7 @@ GEM
       activerecord (>= 3.2.0, < 5)
       globalize (>= 3.0.4, < 6)
       paper_trail (>= 3.0.0, < 5)
+    google-analytics-rails (1.1.0)
     hashie (3.4.6)
     httmultiparty (0.3.16)
       httparty (>= 0.7.3)
@@ -566,6 +567,7 @@ DEPENDENCIES
   globalize
   globalize-accessors
   globalize-versioning
+  google-analytics-rails
   httparty
   identified
   impressionist

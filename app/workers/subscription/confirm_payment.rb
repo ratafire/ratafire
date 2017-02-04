@@ -149,16 +149,16 @@ class Subscription::ConfirmPayment
 						#Unsubscribe
 						#Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
 					end	
-				rescue
-					#Order subset error unsubscribe
-					order_subset.update(
-						status: 'Error'
-					)
-					@order.update(
-						status: 'Error'
-					)
-					#Unsubscribe
-					#Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
+				# rescue
+				# 	#Order subset error unsubscribe
+				# 	order_subset.update(
+				# 		status: 'Error'
+				# 	)
+				# 	@order.update(
+				# 		status: 'Error'
+				# 	)
+				# 	#Unsubscribe
+				# 	#Subscription.unsubscribe(reason_number: 3, subscriber_id:@subscriber.id, subscribed_id: @subscribed.id)
 				end
 			end
 			if @order.status != 'Error' && @transaction

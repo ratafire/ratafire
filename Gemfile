@@ -53,6 +53,8 @@ gem 'rack-rewrite'
 gem "figaro"
 #Heroku Rails 4 logging bug
 gem 'rails_12factor'
+#Add analytics 
+gem 'google-analytics-rails'
 #------------------------ UI ------------------------
 
 gem 'autoprefixer-rails'

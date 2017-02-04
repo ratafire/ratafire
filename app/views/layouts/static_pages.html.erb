@@ -6,6 +6,7 @@
 		<%= stylesheet_link_tag 'template_foundry', media: 'all', 'data-turbolinks-track' => true %>
 		<!-- Javascript -->
 		<%= javascript_include_tag 'template_foundry', 'data-turbolinks-track' => true %>
+		<%= analytics_init if GoogleAnalytics.valid_tracker? %>
 		<%= csrf_meta_tags %>
 		<!-- Webfonts-->
 		<%= render 'utilities/fonts/webfonts'%>

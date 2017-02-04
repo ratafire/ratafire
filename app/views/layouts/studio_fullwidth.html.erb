@@ -7,6 +7,7 @@
 		<%= stylesheet_link_tag 'template_limitless_layouts/layout3', 'data-turbolinks-track' => "reload" %>
 		<%= javascript_include_tag 'template_limitless' %>
 		<%= javascript_include_tag 'page_specific/creator_studio', 'data-turbolinks-track' => "reload"  %>
+		<%= analytics_init if GoogleAnalytics.valid_tracker? %>
 		<%= csrf_meta_tags %>		
 		<!-- Webfonts-->
 		<%= render 'utilities/fonts/webfonts'%>
