@@ -1,14 +1,22 @@
-<section id="homepage-sign-up" class="cover image-bg fullscreen" >
-    <!-- Starfield Animation -->
-    <div class="stars"></div>
-    <div class="stars"></div>
-    <div class="stars"></div>
-    <div class="stars"></div>
-    <div class="stars"></div>   
-    <!-- Starfield Background -->
-    <div class="background-image-holder" style="background-size: cover;height: 100%;background:url(/assets/static_pages/starfield_small3.jpg) no-repeat center center fixed;">
+<section id="homepage-sign-up" class="cover fullscreen" >
 
-    </div> 
+    <% unless browser.firefox? %>
+        <!-- Starfield Animation -->
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="stars"></div>   
+
+        <!-- Starfield Background -->
+        <div class="background-image-holder" style="background-size: cover;height: 100%;background:url(/assets/static_pages/starfield_small3.jpg) no-repeat center center fixed;">
+
+        </div>  
+    <% else %>
+        <canvas id="canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;" ></canvas>    
+        <%= render 'users/background'%>           
+    <% end %>
+
     <!-- Signup Form Section -->
     <input style="display:none;" type="radio" checked id="toggle--signup" name="toggle" class="ghost" />
     <input style="display:none;" type="radio" id="toggle--login" name="toggle" class="signup-ghost" />
@@ -16,8 +24,6 @@
     <%= render 'utilities/sessions/signup'%>
     <!-- Login Form -->
     <%= render 'utilities/sessions/login'%>  
-    <!-- Legal -->
-    <%= render 'users/background'%>
     <!-- Legal -->
     <%= render partial:'utilities/sessions/sessions_footer', locals: {switcher_type: 'up'}%>
 </section>  

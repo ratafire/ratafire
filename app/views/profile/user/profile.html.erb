@@ -41,7 +41,7 @@
 							<!-- Posts -->
 							<div id="post-pagination">
 								<div class="post-pagination">
-									<% if @activities.count > 0 %>
+									<% if @activities.any? %>
 										<%= render_activities(@activities, layout: :activity_majorpost) %>
 									<% else %>
 										<!-- Welcome -->

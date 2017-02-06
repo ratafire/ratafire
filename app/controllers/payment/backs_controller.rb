@@ -7,7 +7,6 @@ class Payment::BacksController < ApplicationController
 	before_filter :not_current_user, only:[:new, :payment]
 	before_filter :show_contacts, only:[:new]
 	before_filter :show_followed, only:[:new, :payment]
-	before_filter :check_if_active_subscription, only: [:payment]
 	before_filter :check_if_all_gone, only:[:payment]
 	before_filter :check_if_reward_receiver, only:[:payment]
 
@@ -54,6 +53,9 @@ class Payment::BacksController < ApplicationController
 	# payment_user_payment_backs GET
 	# /users/:user_id/payment/backs/payment
 	def payment
+		if user_signed_in?
+			check_if_active_subscription
+		end
 		@subscription = Subscription.new(subscription_params)
 		@card = @subscription.cards.new()
 		@shipping_address = @subscription.shipping_addresses.new()

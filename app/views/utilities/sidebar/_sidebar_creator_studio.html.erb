@@ -168,6 +168,13 @@
 									<%= t 'views.creator_studio.community.notifications'%>
 								<% end %>
 							</li>
+							<% if current_user.active_campaign %>
+								<li id="community-ratafire_buttons-sidebarsubactive">
+									<%= link_to ratafire_buttons_user_studio_community_path(current_user.username) do %>
+										<%= t 'views.creator_studio.community.ratafire_buttons.ratafire_buttons'%>
+									<% end %>
+								</li>
+							<% end %>
 						</ul>
 					</li>
 					<li>

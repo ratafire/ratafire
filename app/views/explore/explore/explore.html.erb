@@ -29,6 +29,15 @@
 								<iframe allowfullscreen="" frameborder="0" mozallowfullscreen="" src="https://www.youtube.com/embed/bWL6xR8ieE0" webkitallowfullscreen=""></iframe>
 							</div>
 						</div>
+						<% unless @activities.any? %>
+							<!-- Latest Updates -->
+							<div class="text-center pt-10">
+								<%= render_activities(@site_activity, layout: :activity_site_updates) %>
+								<%= link_to explore_explore_surprise_me_path(1) do %>
+									<%= image_tag('/assets/icon/flat_design_galaxy/planet.png', class:"animated_hover",data:{action: 'rotateIn'}) %>
+								<% end %>
+							</div>
+						<% end %>
 						<!-- Posts -->
 						<div id="post-pagination">
 							<div class="post-pagination">
@@ -51,9 +60,8 @@
 					<%= render partial:'profile/components/sidebar_poster', locals: {user: @user}%>
 					<!-- Recommended Tags -->
 					<%= render partial:'profile/components/recommended_tags', locals: {user: @user}%>
-					<!-- Latest Updates -->
-					<% if @latest_updates && user_signed_in? %>
-						<%= render partial:'profile/components/latest_updates', locals: {user: @user, latest_updates: @latest_updates}%>
+					<% if @activities.any? %>
+						<%= render_activities(@site_activity, layout: :activity_site_updates) %>
 					<% end %>
 				</div>
 			</div>

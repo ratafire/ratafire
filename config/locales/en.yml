@@ -307,6 +307,8 @@ en:
           conversationalist: "Conversationalist"
           perfectionist: "Perfectionist"
           unknown: "Unknown"
+        ratafire_buttons:
+          ratafire_buttons: "Ratafire buttons"
       how_i_pay:
         card: "Card"
         card_info: "Debit or credit card info "
@@ -392,7 +394,7 @@ en:
       what_are_you_creating: "What are you creating?"
       i_am_an: "I am an "
       team: "Team"
-      individual: "individual"
+      individual: "creator"
       I_am_creating: ", I am creating"
       select_a_category: "Select a category"
       become_an: "Become an " 
@@ -526,7 +528,7 @@ en:
         choose_your_reward: ", and choose your reward!"
         continue: "Continue"
         all_gone: "All gone"
-        no_thanks: "No thanks, I just want to back this "
+        no_thanks: "I just want to back this "
         creator: "creator."
         or_more: " or more"
         ships_to: "Ships to"
@@ -566,7 +568,7 @@ en:
         learn_more: "Learn more"
         surprise_me: "Surprise me"
         followed: "Followed"
-        followers: "followers"
+        followers: "Followers"
         followed_tags: "Followed tags"
         followed_tags_help: "You can now follow the topics you are interested in!"
         recommended_tags: "Recommended tags"
@@ -592,6 +594,7 @@ en:
         terms: "Terms"
         privacy: "Privacy"
         pricing: "Pricing"
+        creator_guidelines: "Creator guidelines"
         faq: "FAQ"
         press: "Press"
         language: "English"
@@ -812,6 +815,7 @@ en:
         followed_you: "is following you."
         likes_this_update: "likes this update."
         portal_to_your_profile_page: "Portal to your profile page."
+        followed: "followed"
     admin:
       menu:
         content: "Content"

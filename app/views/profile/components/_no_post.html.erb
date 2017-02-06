@@ -1,3 +1,6 @@
 <div class="col-md-12 col-lg-12 col-xs-12 text-center text-grey-300 pt-20">
-	<%= user.preferred_name %><%= t 'views.utilities.menu.is_new_to_ratafire' %>
+	<%= render_activities(@site_activity, layout: :activity_site_updates) %>
+	<%= link_to explore_explore_surprise_me_path(1) do %>
+		<%= image_tag('/assets/icon/flat_design_galaxy/planet.png', class:"animated_hover",data:{action: 'rotateIn'}) %>
+	<% end %>
 </div>

@@ -6077,9 +6077,16 @@ h6.panel-title,
   background-position:2px 2px;
   background-repeat: no-repeat;
   float: left; 
-  display: flex;    
+  display:flex;
 }
-.panel-image:before{
+.moz-panel-image {
+  width: 33.3%;
+  background-size: contain;
+  background-position:2px 2px;
+  background-repeat: no-repeat;
+  float: left; 
+}
+.panel-image:before, .moz-panel-image:before{
   content: "";
   display: block;
   padding-top: 100%;
@@ -6098,6 +6105,22 @@ h6.panel-title,
   width: 100%;
   line-height: 1em;
   text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+}
+.moz-panel-image-text {
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: bottom;
+  word-wrap: break-word;
+  margin-top: -33.3%;
+  display: inline-block;
+  align-self: flex-end; 
+  padding-left: 5px;
+  width: 100%;
+  line-height: 1em;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+  padding-top:8px;
+  position: absolute;
 }
 .panel-align:before {
   position: absolute;

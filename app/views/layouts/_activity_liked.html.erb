@@ -237,7 +237,7 @@
 									<% if user_signed_in? %>
 										<% unless current_user == activity.trackable.user %>
 											<% unless activity.trackable.user.subscribed_by?(current_user.id) || current_user.subscribed_by?(activity.trackable.user.id) %>
-												<% if activity.trackable.user.active_reward %>
+												<% if activity.trackable.user.active_campaign && activity.trackable.user.active_reward %>
 													<%= link_to new_user_payment_backs_path(activity.trackable.user.uid, majorpost_id: activity.trackable.id) do %>
 														<div class="btn bg-rainbow-600 btn-float btn-float-lg btn-rounded pt-4 pr-10 pb-4 pl-10" ><i class="huaxia huaxia-ny4"></i></div>
 													<% end %>

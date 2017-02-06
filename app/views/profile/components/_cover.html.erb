@@ -71,7 +71,7 @@
 	<div class="media">
 		<div class="media-left">
 			<!-- Profile Image -->
-			<%= link_to profile_url_path(user),class:"profile-thumb" do %>
+			<%= link_to profile_url_path(user.username),class:"profile-thumb" do %>
 				<div class="thumb  thumb-slide thumb-shadow-radius" id="cover-profilephoto-holder">
 					<img src="<%= user.profilephoto.image.url(:thumbnail128)%>" class="profile-thumb-holder cover-profilephoto-holder" alt="<%= user.preferred_name %>">
 					<!-- Upload Panel -->

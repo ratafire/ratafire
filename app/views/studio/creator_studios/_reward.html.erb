@@ -18,7 +18,11 @@
 					<%= render partial: 'studio/creator_studios/reward_status', locals: {reward: reward} %>
 				</div>
 				<!-- Title -->
-				<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><i class="huaxia huaxia-libao mr-5"></i> <%= truncate(reward.title, length: 50) %></h5>
+				<% if browser.chrome? %>
+					<h5 class="no-margin-top bg-rainbow-600 text-rainbow"><i class="huaxia huaxia-libao mr-5"></i> <%= truncate(reward.title, length: 50) %></h5>
+				<% else %>
+					<h5 class="no-margin-top bg-rainbow-600 text-grey-300"><i class="huaxia huaxia-libao mr-5"></i> <%= truncate(reward.title, length: 50) %></h5>
+				<% end %>
 				<!-- Amount -->
 				<h5 class="no-margin-top"><span class="text-grey-100"><%= reward.amount.to_i %></span><span class="ml-5 mr-5 text-grey-100">x</span><img class="mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"></h5>
 				<!-- Backers -->

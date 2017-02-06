@@ -58,7 +58,7 @@
   width: 88px;
   border-radius: 5px;
   z-index: 20;
-  position: absolute;
+  position: relative;
   border: 1px solid #e5e6e9 #dfe0e4 #d0d1d5;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 
@@ -99,7 +99,7 @@
   width: inherit;
   float:left;
   bottom: 0;
-  margin-top: 115px;
+  margin-top: 15px;
   z-index: 20;
   font-size:12px;
 }

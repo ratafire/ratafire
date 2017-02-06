@@ -1,23 +1,41 @@
-<div id="fpc_corner-box">
-    <div id="fpc_page-tip"></div>
-    <div id="fpc_corner-contents">
-    	<div id="fpc_corner-button">
-		    <!-- Direct Upload -->
-		    <%= s3_uploader_form callback_url: userinfo_profilecover_path(profilecover),
-				callback_method: 'PATCH',
-				id: "s3_uploader_profilecover",
-				callback_param: "profilecover[direct_upload_url]",
-				expiration: 24.hours.from_now.utc.iso8601,
-				max_file_size: 2.megabytes,:remote => true,
-		        data: {user_uid: user.uid} do %>
-					<%= file_field_tag :file, multiple: false, class:"btn-upload",style:"z-index:100;" %>
-			<% end %>     		
-    		<div class="text-right" style="font-size:20px;">
-    			<i class="ti-camera"></i>
-    		</div>
-    		<div class="text-right">
-    			<%= t 'views.utilities.menu.change_cover' %>
-    		</div>   		
-    	</div>
+<% if browser.chrome? %>
+    <div id="fpc_corner-box">
+        <div id="fpc_page-tip"></div>
+        <div id="fpc_corner-contents">
+        	<div id="fpc_corner-button">
+    		    <!-- Direct Upload -->
+    		    <%= s3_uploader_form callback_url: userinfo_profilecover_path(profilecover),
+    				callback_method: 'PATCH',
+    				id: "s3_uploader_profilecover",
+    				callback_param: "profilecover[direct_upload_url]",
+    				expiration: 24.hours.from_now.utc.iso8601,
+    				max_file_size: 2.megabytes,:remote => true,
+    		        data: {user_uid: user.uid} do %>
+    					<%= file_field_tag :file, multiple: false, class:"btn-upload",style:"z-index:100;" %>
+    			<% end %>     		
+        		<div class="text-right" style="font-size:20px;">
+        			<i class="ti-camera"></i>
+        		</div>
+        		<div class="text-right">
+        			<%= t 'views.utilities.menu.change_cover' %>
+        		</div>   		
+        	</div>
+        </div>
     </div>
-</div>
+<% else %>
+    <div id="fpc_corner-button">
+        <!-- Direct Upload -->
+        <%= s3_uploader_form callback_url: userinfo_profilecover_path(profilecover),
+            callback_method: 'PATCH',
+            id: "s3_uploader_profilecover",
+            callback_param: "profilecover[direct_upload_url]",
+            expiration: 24.hours.from_now.utc.iso8601,
+            max_file_size: 2.megabytes,:remote => true,
+            data: {user_uid: user.uid} do %>
+                <%= file_field_tag :file, multiple: false, class:"btn-upload",style:"z-index:100;" %>
+        <% end %>           
+        <div class="text-right mt-15 mr-15" style="font-size:20px;">
+            <i class="ti-camera"></i>
+        </div>    
+    </div>
+<% end %>

@@ -5,24 +5,28 @@
     <div class="text-white text-thin text-shadow usercardbio"><%= truncate(user.preferred_name,length: 28) %></div>
     <div class="text-white text-thin text-shadow"><%= truncate(user.tagline, length: 70)%></div>
 </div>
+<% if browser.chrome? %>
 <ul class="usercardstats bg-rainbow text-rainbow">
+<% else %>
+<ul class="usercardstats text-grey-300">
+<% end %>
 	<!-- First Slot -->
 	<% if user.traits.count >= 1 %>
-		<li><label><% if I18n.locale == :zh %><%= user.traits.last.zh_cn %><% else %><%= user.traits.last.trait_name %><% end %></label><i class="traits trait-<%= user.traits.last.trait_code %>"></i></li>
+		<li><label class="text-grey-300" ><% if I18n.locale == :zh %><%= user.traits.last.zh_cn %><% else %><%= user.traits.last.trait_name %><% end %></label><i class="traits trait-<%= user.traits.last.trait_code %> text-grey-300"></i></li>
 	<% else %>
-		<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud"></i></li>
+		<li><label class="text-grey-300" ><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud text-grey-300"></i></li>
 	<% end %>
     <!-- Second Slot -->
     <% if user.traits.count >= 2 %>
-    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(2)[0].zh_cn %><% else %><%= user.traits.last(2)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(2)[0].trait_code %>"></i></li>
+    	<li><label class="text-grey-300" ><% if I18n.locale == :zh %><%= user.traits.last(2)[0].zh_cn %><% else %><%= user.traits.last(2)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(2)[0].trait_code %> text-grey-300"></i></li>
     <% else %>
-    	<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-27cloud"></i></li>
+    	<li><label class="text-grey-300" ><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-27cloud text-grey-300"></i></li>
     <% end %>
     <!-- Third Slot -->
     <% if user.traits.count == 3 %>
-    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(3)[0].zh_cn %><% else %><%= user.traits.last(3)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(3)[0].trait_code %>"></i></li>
+    	<li><label class="text-grey-300" ><% if I18n.locale == :zh %><%= user.traits.last(3)[0].zh_cn %><% else %><%= user.traits.last(3)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(3)[0].trait_code %> text-grey-300"></i></li>
     <% else %>
-    	<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud2"></i></li>
+    	<li><label class="text-grey-300" ><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud2 text-grey-300"></i></li>
     <% end %>
 </ul>
 <div class="usercarddata bg-rainbow text-size-small btn-group btn-group-justified text-white">

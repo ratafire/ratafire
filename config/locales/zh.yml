@@ -306,6 +306,8 @@ zh:
           conversationalist: "谈判家"
           perfectionist: "完美主义"
           unknown: "未知"          
+        ratafire_buttons:
+          ratafire_buttons: "火栗按钮"
       how_i_pay:
         card: "卡"
         card_info: "借记或信用卡信息"
@@ -524,7 +526,7 @@ zh:
         choose_your_reward: "，并给自己选个奖励！"
         continue: "下一步"
         all_gone: "已送完"
-        no_thanks: "谢谢，我不需要奖励。我只是单纯地想支持这个"
+        no_thanks: "我只是单纯地想支持这个"
         creator: "创作者。"
         or_more: "或更多"
         ships_to: "选择送达国家"
@@ -590,6 +592,7 @@ zh:
         terms: "条款"
         privacy: "隐私"
         pricing: "定价"
+        creator_guidelines: "创作者守则"
         faq: "常见问题"
         press: "媒体"
         language: "中文"
@@ -810,6 +813,7 @@ zh:
         followed_you: "关注了你。"
         likes_this_update: "喜欢这个更新。"
         portal_to_your_profile_page: "你的主页传送门。"
+        followed: "关注了"
     admin:
       menu:
         content: "内容"

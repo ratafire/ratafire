@@ -143,6 +143,7 @@ Rails.application.routes.draw do
 					get 'backers', to: 'community#backers', as: :backers
 					get 'followed', to: 'community#followed', as: :followed
 					get 'followers', to: 'community#followers', as: :followers
+					get 'ratafire_buttons', to: 'community#ratafire_buttons', as: :ratafire_buttons
 					get 'backed_datatable', to: 'community#backed_datatable', as: :backed_datatable
 					get 'backers_datatable', to: 'community#backers_datatable', as: :backers_datatable
 					get 'followed_datatable', to: 'community#followed_datatable', as: :followed_datatable

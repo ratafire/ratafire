@@ -25,7 +25,7 @@ class StaticPages::HomeController < ApplicationController
 				end
 			end
 			#Latest updates
-			@latest_updates = PublicActivity::Activity.order("created_at desc").where(owner_id: @user, owner_type: "User", :published => true,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(5)
+			@latest_updates = PublicActivity::Activity.order("created_at desc").where(owner_id: @user.id, owner_type: "User", :published => true,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(5)
 		end
 	end
 

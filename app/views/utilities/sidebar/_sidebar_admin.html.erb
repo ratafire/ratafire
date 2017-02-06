@@ -59,12 +59,14 @@
                         </ul>
                     </li>
                     <!-- Development -->
-                    <li class="navigation-header"><span><%= t 'views.admin.menu.development' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.development' %>"></i></li>
-                    <li>
-                        <%= link_to resque_path, target: '_blank' do %>
-                            <i class="huaxia huaxia-tanghulu"></i> <span><%= t 'views.admin.development.delayed_jobs' %></span>
-                        <% end %>
-                    </li>
+                    <% if current_user.id == 1 %>
+                        <li class="navigation-header"><span><%= t 'views.admin.menu.development' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.development' %>"></i></li>
+                        <li>
+                            <%= link_to resque_path, target: '_blank' do %>
+                                <i class="huaxia huaxia-tanghulu"></i> <span><%= t 'views.admin.development.delayed_jobs' %></span>
+                            <% end %>
+                        </li>
+                    <% end %>
                 </ul>
             </div><!-- end .category-content-->         
         </div>

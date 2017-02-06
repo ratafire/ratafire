@@ -1,39 +1,47 @@
 <div class="col-lg-4 col-sm-6 no-padding tab-friends-holder">
 	<div class="friendcard-profile">
-			<div class="friendcardcover-overlay"></div>
-			<div class="friendcardcover" style="background-image: url('<%= user.profilecover.image.url(:preview600) %>')"></div>
 			<%= link_to profile_url_path(user.username) do %>
-				<img class="friendcardavatar animated bounceIn" src="<%= user.profilephoto.image.url(:thumbnail128) %>">
 				<div class="friendcardname animated fadeIn pr-20">
 					    <div class="text-white text-thin text-shadow friendcardbio"><%= truncate(user.preferred_name,length: 28) %></div>
 					    <div class="friendcardtagline text-white text-thin text-shadow"><%= truncate(user.tagline, length: 70)%></div>
 				</div>
+				<img class="friendcardavatar animated bounceIn" src="<%= user.profilephoto.image.url(:thumbnail128) %>">
 		 	<% end %>
+			<div class="friendcardcover-overlay"></div>
+			<div class="friendcardcover" style="background-image: url('<%= user.profilecover.image.url(:preview600) %>')"></div>
 		<div class="friendcardstats pr-15 pl-15 pb-15 text-grey-200">
-		    <div class="bg-rainbow text-rainbow">
-				<!-- First Slot -->
-				<% if user.traits.count >= 1 %>
-					<li><label><% if I18n.locale == :zh %><%= user.traits.last.zh_cn %><% else %><%= user.traits.last.trait_name %><% end %></label><i class="traits trait-<%= user.traits.last.trait_code %>"></i></li>
-				<% else %>
-					<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud"></i></li>
-				<% end %>
-			    <!-- Second Slot -->
-			    <% if user.traits.count >= 2 %>
-			    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(2)[0].zh_cn %><% else %><%= user.traits.last(2)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(2)[0].trait_code %>"></i></li>
-			    <% else %>
-			    	<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-27cloud"></i></li>
-			    <% end %>
-			    <!-- Third Slot -->
-			    <% if user.traits.count == 3 %>
-			    	<li><label><% if I18n.locale == :zh %><%= user.traits.last(3)[0].zh_cn %><% else %><%= user.traits.last(3)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(3)[0].trait_code %>"></i></li>
-			    <% else %>
-			    	<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud2"></i></li>
-			    <% end %>
-			</div>
+			<% if browser.chrome? %>
+			    <div class="bg-rainbow text-rainbow">
+			<% else %>
+				<div class="text-grey-100">
+			<% end %>
+					<!-- First Slot -->
+					<% if user.traits.count >= 1 %>
+						<li><label class="text-grey-200"><% if I18n.locale == :zh %><%= user.traits.last.zh_cn %><% else %><%= user.traits.last.trait_name %><% end %></label><i class="traits trait-<%= user.traits.last.trait_code %> text-grey-100"></i></li>
+					<% else %>
+						<li><label><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud text-grey-200"></i></li>
+					<% end %>
+				    <!-- Second Slot -->
+				    <% if user.traits.count >= 2 %>
+				    	<li><label class="text-grey-200"><% if I18n.locale == :zh %><%= user.traits.last(2)[0].zh_cn %><% else %><%= user.traits.last(2)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(2)[0].trait_code %> text-grey-200"></i></li>
+				    <% else %>
+				    	<li><label class="text-grey-200"><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-27cloud text-grey-200"></i></li>
+				    <% end %>
+				    <!-- Third Slot -->
+				    <% if user.traits.count == 3 %>
+				    	<li><label class="text-grey-200"><% if I18n.locale == :zh %><%= user.traits.last(3)[0].zh_cn %><% else %><%= user.traits.last(3)[0].trait_name %><% end %></label><i class="traits trait-<%= user.traits.last(3)[0].trait_code %> text-grey-200"></i></li>
+				    <% else %>
+				    	<li><label class="text-grey-200"><%= t 'views.creator_studio.community.trait.unknown' %></label><i class="traits trait-cloud2 text-grey-200"></i></li>
+				    <% end %>
+				</div>
 			<div class="pt-5">
-				<%= truncate(user.bio, length: 140) %>
+				<% if user.bio %>
+					<%= truncate(user.bio, length: 140) %>
+				<% else %>
+					<%= user.tagline %>
+				<% end %>
 			</div>
-			<span class="text-grey-300">
+			<span class="text-grey-300 pt-5">
 				<% if user.try(:majorpost).try(:first) %>
 			    	Last update <%= time_ago_in_words(user.majorpost.first.created_at) %> ago
 			    <% else %>

@@ -146,7 +146,7 @@
 			<div class="pull-right">
 				<span class="dropup">
 					<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
-						<i class="huaxia huaxia-share mr-10 text-medium">
+						<i class="huaxia huaxia-share text-medium">
 						</i>
 					</a>
 					<ul id="majorpost-share-toolbar" class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
@@ -176,8 +176,12 @@
 						</li>
 					</ul>
 				</span>				
-				<!-- Repost 
-				<i class="ti-loop mr-10" data-popup="tooltip" title="Repost" data-placement="bottom"></i>-->
+				<!-- Back -->
+				<%= link_to new_user_payment_backs_path(majorpost.user.uid, majorpost_id: majorpost.id) do %>
+					<span>
+						<i class="text-grey-300 huaxia huaxia-shui1 text-medium inline-block ml-10"></i>
+					</span>
+				<% end %>
 				<!-- Like -->
 				<% if user_signed_in? %>
 					<span id="<%= majorpost.uuid %>-majorpost-like-holder">

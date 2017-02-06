@@ -31,6 +31,11 @@ class Studio::CommunityController < ApplicationController
 	def followers
 	end
 
+	#ratafire_buttons_user_studio_community GET
+	#/users/:user_id/studio/community/ratafire_buttons
+	def ratafire_buttons
+	end
+
 	#backed_datatable_user_studio_community GET
 	#/users/:user_id/studio/community/backed_datatable
 	def backed_datatable

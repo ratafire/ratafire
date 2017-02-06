@@ -1,5 +1,13 @@
-<% if @deleted_tarit_id %>
-	$('#trait-<%= @deleted_tarit_id %>-outter').removeClass('bg-rainbow');
-	$('#trait-<%= @deleted_tarit_id %>-outter').addClass('bg-white-transparent');
-	$('#trait-<%= @deleted_tarit_id %>-inner').addClass('bg-rainbow text-rainbow');
+<% if browser.chrome? %>
+	<% if @deleted_tarit_id %>
+		$('#trait-<%= @deleted_tarit_id %>-outter').removeClass('bg-rainbow');
+		$('#trait-<%= @deleted_tarit_id %>-outter').addClass('bg-white-transparent');
+		$('#trait-<%= @deleted_tarit_id %>-inner').addClass('bg-rainbow text-rainbow');
+	<% end %>
+<% else %>
+	<% if @deleted_tarit_id %>
+		$('#trait-<%= @deleted_tarit_id %>-outter').removeClass('bg-rainbow');
+		$('#trait-<%= @deleted_tarit_id %>-outter').addClass('bg-white-transparent');
+		$('#trait-<%= @deleted_tarit_id %>-inner').addClass('text-grey-300');
+	<% end %>
 <% end %>

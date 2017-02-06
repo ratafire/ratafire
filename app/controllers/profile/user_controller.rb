@@ -22,6 +22,10 @@ class Profile::UserController < ApplicationController
 		end
 		#Latest updates
 		@latest_updates = Notification.order("created_at desc").where(notification_type:["subscribed_one_time","subscribed_recurring"], deleted: nil, user_id: @user.id).page(params[:page]).per_page(3)
+		#if without post
+		unless @activities.any?
+			@site_activity = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(16)
+		end
 	end
 
 protected

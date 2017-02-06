@@ -46,11 +46,23 @@
 				<% if current_user.subscribed_by?(user.id) %>
 					<%= render partial:'payment/subscriptions/destroy_subscription_usercard', locals: {user: user} %>
 				<% else %>
-					<span class="btn btn-xs"> 
-						<span id="<%= user.uid%>-user-subscription-holder-inner">
-							<i class="huaxia huaxia-ny4 inline-block animated rubberBand"></i>
-						</span>
-					</span>
+					<% if user.active_campaign && user.active_reward %>
+						<%= link_to new_user_payment_backs_path(user.uid) do %>
+							<span class="btn btn-xs"> 
+								<span id="<%= user.uid%>-user-subscription-holder-inner">
+									<i class="huaxia huaxia-ny4 inline-block animated rubberBand"></i>
+								</span>
+							</span>
+						<% end %>
+					<% else %>
+						<%= link_to profile_url_path(user.username) do %>
+							<span class="btn btn-xs"> 
+								<span id="<%= user.uid%>-user-subscription-holder-inner">
+									<i class="huaxia huaxia-ny4 inline-block animated rubberBand"></i>
+								</span>
+							</span>
+						<% end %>
+					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>
