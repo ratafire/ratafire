@@ -14,7 +14,7 @@ class Content::LikesController < ApplicationController
 	#/users/:user_id/content/likes
 	def show
 		@popoverclass = SecureRandom.hex(16)
-		@activities = PublicActivity::Activity.order("created_at desc").tagged_with(@user.id.to_s, :on => :liker, :any => true, :test => false, :deleted => nil).paginate(page: params[:page], :per_page => 5)
+		@activities = PublicActivity::Activity.order("created_at desc").tagged_with(@user.id.to_s, :on => :liker, :any => true, :test => false, :deleted => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	#NoREST Methods -----------------------------------

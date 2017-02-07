@@ -159,10 +159,12 @@
 					</ul>
 				</span>				
 				<!-- Back -->
-				<%= link_to new_user_payment_backs_path(activity.trackable.user.uid, majorpost_id: activity.trackable.id) do %>
-					<span id="<%= activity.trackable.uuid %>-majorpost-back-holder">
-						<i class="text-grey-300 huaxia huaxia-shui1 text-medium inline-block ml-10"></i>
-					</span>
+				<% if activity.trackable.user.active_campaign && activity.trackable.user.active_reward %>
+					<%= link_to new_user_payment_backs_path(activity.trackable.user.uid, majorpost_id: activity.trackable.id) do %>
+						<span id="<%= activity.trackable.uuid %>-majorpost-back-holder">
+							<i class="text-grey-300 huaxia huaxia-shui1 text-medium inline-block ml-10"></i>
+						</span>
+					<% end %>
 				<% end %>
 				<!-- Like -->
 				<% if user_signed_in? %>

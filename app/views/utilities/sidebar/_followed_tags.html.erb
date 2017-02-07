@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
 	<% if current_user.tags.count > 0 %>
 		<li class="navigation-header"><span><%= t 'views.utilities.menu.followed_tags' %></span> <i class="icon-menu" title="Main pages"></i></li>
-			<li class="media" id="sidebar-followed-tags-holder">
+			<li class="media" id="sidebar-followed-tags-holder-o">
 				<%= render partial: 'profile/components/followed_tags', collection: current_user.tags[0..2], :as => :tag %>
 				<% if current_user.tags.count > 3 %>
 					<%= link_to followed_pagination_path, style:"padding: 2px 20px;min-height:0;", class:"sidebar-followed-tags-pagination", remote: true do %>

@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
 	$('.sidebar-followed-tags').remove();
-	$('#sidebar-followed-tags-holder').append("<%= j render(:partial => 'profile/components/followed_tags', collection: current_user.tags, :as => :tag) %>");
+	$('#sidebar-followed-tags-holder-o').append("<%= j render(:partial => 'profile/components/followed_tags', collection: current_user.tags, :as => :tag) %>");
 	$('.sidebar-followed-tags-pagination').remove();
 <% end %>

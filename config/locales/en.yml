@@ -309,6 +309,8 @@ en:
           unknown: "Unknown"
         ratafire_buttons:
           ratafire_buttons: "Ratafire buttons"
+          ratafire_button_help: "You can put a Ratafire fan funding button on your personal site. Click a button to get the code."
+          back_this_creator: "Back this Creator"
       how_i_pay:
         card: "Card"
         card_info: "Debit or credit card info "

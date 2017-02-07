@@ -308,6 +308,8 @@ zh:
           unknown: "未知"          
         ratafire_buttons:
           ratafire_buttons: "火栗按钮"
+          ratafire_button_help: "你可以将火栗按钮放到你的个人网站上。点击一个按钮以获取代码。"
+          back_this_creator: "支持创作者"
       how_i_pay:
         card: "卡"
         card_info: "借记或信用卡信息"
