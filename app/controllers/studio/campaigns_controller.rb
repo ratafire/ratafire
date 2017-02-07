@@ -260,6 +260,14 @@ class Studio::CampaignsController < ApplicationController
 				completed: true
 			)
 		end
+		#End all rewards
+		@campaign.rewards.where(:deleted => nil, :ended_early => nil).all.each do |reward|
+			reward.update(
+				ended_early: true,
+				ended_early_at: Time.now,
+				active: false
+			)
+		end		
 		redirect_to completed_user_studio_campaigns_path(@user.id, @campaign.id)
 	end
 
@@ -279,11 +287,23 @@ class Studio::CampaignsController < ApplicationController
 				abandoned: true
 			)
 		end
+		#End all rewards
+		@campaign.rewards.where(:deleted => nil, :ended_early => nil).all.each do |reward|
+			reward.update(
+				ended_early: true,
+				ended_early_at: Time.now,
+				active: false
+			)
+		end
 		flash['warning'] = I18n.t('views.campaign.you_abandoned_project') + @campaign.title
 		redirect_to campaigns_user_studio_creator_studio_path(@user.username)
 	end
 
 	def delete
+		#Delete campaign
+		@campaign.rewards.all.each do |reward|
+			reward.destroy
+		end
 		#Delete campaign
 		@campaign.destroy
 		redirect_to campaigns_user_studio_creator_studio_path(@user.username)
