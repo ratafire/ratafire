@@ -6,6 +6,6 @@
 		<%= transfer.created_at.strftime('%Y/%m/%d')%>
 	</div>
 	<div class="col-md-2">
-		<%= currency_signs(transfer.currency)%><%= transfer.amount %>
+		<%= number_to_currency(transfer.amount, unit: currency_signs(transfer.currency)) %>
 	</div>
 </div>

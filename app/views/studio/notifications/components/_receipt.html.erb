@@ -10,7 +10,7 @@
 				<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
 			<% end %>
 			<span class="text-grey">
-				<span><%= t 'mailer.payment.subscription.receipt.payment_amount'%><%= currency_signs(Transaction.find(notification.trackable_id).currency) %><%= Transaction.find(notification.trackable_id).total %></span>
+				<span><%= t 'mailer.payment.subscription.receipt.payment_amount'%><%= currency_signs(Transaction.find(notification.trackable_id).total, unit: currency_signs(Transaction.find(notification.trackable_id).currency)) %></span>
 			</span>
 		</div>
 	</li>
