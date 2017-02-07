@@ -4,8 +4,8 @@
 			<h2 class="text-thin" id="tag-follow-holder">
 				<span class="mr-20">
 					<img src="<%= @tag.tag_image.image.url(:thumbnail40)%>" class="img-circle img-lg mr-10">
-					<% if tag.name.length <= 3 %>
-						<%= @tag.name.capitalize %>
+					<% if @tag.name.length <= 3 %>
+						<%= @tag.name.upcase %>
 					<% else %>
 						<%= @tag.name.titleize %>
 					<% end %>
