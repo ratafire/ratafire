@@ -156,6 +156,11 @@ class Studio::CampaignsController < ApplicationController
 	def apply
 		if @campaign = Campaign.find(params[:campaign_id])
 			if @campaign.try(:published)
+				if @campaign.try(:abandoned) || @campaign.try(:completed)
+					redirect_to_application
+				else
+					redirect_to(:back)
+				end
 			else
 				redirect_to_application
 			end
