@@ -1,0 +1,4 @@
+<%= link_to remove_admin_majorposts_path(majorpost.id, 'set_test'), remote: true, method: :delete do  %>
+	<i class="ti-check" id="<%= majorpost.uuid %>-test-check"></i>
+	<%= t 'views.admin.editor.set_hide' %>
+<% end %>

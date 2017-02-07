@@ -389,6 +389,12 @@ Rails.application.routes.draw do
 			get '/:id', to: 'historical_quotes#edit', as: :edit
 			patch '/:id', to: 'historical_quotes#update', as: :update
 		end
+		resource :majorposts, only:[] do
+			post '/set_featured/:majorpost_id', to: 'majorposts#set_featured', as: :set_featured
+			post '/set_homepage_featured/:majorpost_id', to: 'majorposts#set_homepage_featured', as: :set_homepage_featured
+			post '/set_test/:majorpost_id', to: 'majorposts#set_test', as: :set_test
+			delete '/remove/:majorpost_id/:option', to: 'majorposts#remove', as: :remove
+		end
 	end
 
 	#Payment -----------------------------------

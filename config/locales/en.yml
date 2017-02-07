@@ -864,6 +864,10 @@ en:
           category: "Category"
       development:
         delayed_jobs: "Delayed jobs"
+      editor:
+        set_featured: "Set featured"
+        set_homepage_featured: "Set homepage featured"
+        set_hide: "Hide"
     form:
       validate:
         required: "Required"

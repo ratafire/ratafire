@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203212933) do
+ActiveRecord::Schema.define(version: 20170207050339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170203212933) do
     t.boolean  "read"
     t.string   "category"
     t.string   "sub_category"
+    t.boolean  "completed"
   end
 
   add_index "activities", ["owner_id", "owner_type"], name: "idx_16401_index_activities_on_owner_id_and_owner_type", using: :btree

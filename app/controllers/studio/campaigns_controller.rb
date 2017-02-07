@@ -249,6 +249,12 @@ class Studio::CampaignsController < ApplicationController
 			completed: true,
 			completed_at: Time.now
 		)
+		#Mark activity as completed
+		if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@campaign.id,'Campaign')
+			@activity.update(
+				completed: true
+			)
+		end
 		redirect_to completed_user_studio_campaigns_path(@user.id, @campaign.id)
 	end
 
@@ -262,6 +268,12 @@ class Studio::CampaignsController < ApplicationController
 			abandoned: true,
 			abandoned_at: Time.now
 		)
+		#Mark activity as abandoned
+		if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@campaign.id,'Campaign')
+			@activity.update(
+				abandoned: true
+			)
+		end
 		flash['warning'] = I18n.t('views.campaign.you_abandoned_project') + @campaign.title
 		redirect_to campaigns_user_studio_creator_studio_path(@user.username)
 	end

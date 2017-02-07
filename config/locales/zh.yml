@@ -862,6 +862,10 @@ zh:
           category: "类别"
       development:
         delayed_jobs: "非并发程序"
+      editor:
+        set_featured: "推荐"
+        set_homepage_featured: "主页推荐"
+        set_hide: "隐藏"
     form:
       validate:
         required: "必填"

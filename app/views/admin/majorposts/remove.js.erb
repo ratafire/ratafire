@@ -1,0 +1,9 @@
+<% if @option == 'set_featured' %>
+	$('#<%= @majorpost.uuid %>-featured-holder').html("<%= j render(:partial => 'admin/majorposts/set_featured_false', locals: {majorpost: @majorpost}) %>");
+<% end %>
+<% if @option == 'set_homepage_featured' %>
+	$('#<%= @majorpost.uuid %>-featured-home-holder').html("<%= j render(:partial => 'admin/majorposts/set_homepage_featured_false', locals: {majorpost: @majorpost}) %>");
+<% end %>
+<% if @option == 'set_test' %>
+	$('#<%= @majorpost.uuid %>-test-holder').html("<%= j render(:partial => 'admin/majorposts/set_test_false', locals: {majorpost: @majorpost}) %>");
+<% end %>
