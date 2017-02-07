@@ -16,7 +16,7 @@ class Explore::ExploreController < ApplicationController
 	# explore_explore_back_creators GET
 	# explore/back_creators/:category_id/:sub_category_id
 	def back_creators
-		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :status => 'Approved', :published => true, trackable_type: ["Campaign"]).page(params[:page]).per_page(6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :status => 'Approved', :published => true, :abandoned => nil,trackable_type: ["Campaign"]).page(params[:page]).per_page(6)
 		#if params[:category_id] == "default"
 		#	if params[:sub_category_id] == "default"
 		#		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Campaign"]).page(params[:page]).per_page(1)
@@ -36,8 +36,8 @@ class Explore::ExploreController < ApplicationController
 	# explore_path GET
 	# explore
 	def explore
-		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Majorpost","Campaign"], :featured_home => true).page(params[:page]).per_page(5)
-		@site_activity = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(10)
+		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,:abandoned => nil,trackable_type: ["Majorpost","Campaign"], :featured_home => true).page(params[:page]).per_page(5)
+		@site_activity = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,:abandoned => nil,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(10)
 	end
 
 private
