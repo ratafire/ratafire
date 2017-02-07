@@ -23,6 +23,18 @@
 			<%= t 'views.utilities.category.videos.cg' %>
 		<% end %>
 	</li>
+	<!-- Fashion -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(activity.trackable.uuid, 'Videos', 'Fashion'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.videos.fashion' %>
+		<% end %>
+	</li>
+	<!-- Beauty -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(activity.trackable.uuid, 'Videos', 'Beauty'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.videos.beauty' %>
+		<% end %>
+	</li>		
 	<!-- Movies -->
 	<li>
 		<%= link_to content_majorpost_set_sub_category_path(activity.trackable.uuid, 'Videos', 'Movies'), method: :post, remote: true do %>

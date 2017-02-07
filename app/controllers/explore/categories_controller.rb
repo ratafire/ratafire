@@ -49,6 +49,10 @@ class Explore::CategoriesController < ApplicationController
 				redirect_to art_painting_path
 			when 'Architecture'
 				redirect_to art_architecture_path
+			when 'Fashion'
+				redirect_to art_fashion_path
+			when 'Painting'
+				redirect_to art_painting_path								
 			when 'Interior Design'
 				redirect_to art_interior_design_path
 			when 'Photography'
@@ -129,6 +133,10 @@ class Explore::CategoriesController < ApplicationController
 				redirect_to videos_animation_path
 			when 'CG'
 				redirect_to videos_cg_path
+			when 'Fashion'
+				redirect_to videos_fashion_path
+			when 'Beauty'
+				redirect_to videos_beauty_path
 			when 'Movies'
 				redirect_to videos_movies_path
 			when 'Documentary'
@@ -174,6 +182,16 @@ class Explore::CategoriesController < ApplicationController
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.painting'))
 		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Painting", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
+
+	def art_fashion
+		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.fashion'))
+		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Fashion", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+	end
+
+	def art_beauty
+		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.beauty'))
+		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Beauty", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+	end		
 
 	def art_architecture
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.architecture'))
@@ -382,6 +400,16 @@ class Explore::CategoriesController < ApplicationController
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.animation'))
 		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Animation", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end	
+
+	def videos_fashion
+		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.fashion'))
+		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Fashion", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+	end	
+
+	def videos_beauty
+		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.beauty'))
+		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Beauty", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+	end			
 
 	def videos_movies
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.movies'))

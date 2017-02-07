@@ -285,6 +285,8 @@ Rails.application.routes.draw do
 			get 'explore/categories/art/3D_model', to: 'explore/categories#art_3d_model', as: :art_3d_model
 			get 'explore/categories/art/drawing', to: 'explore/categories#art_drawing', as: :art_drawing
 			get 'explore/categories/art/painting', to: 'explore/categories#art_painting', as: :art_painting
+			get 'explore/categories/art/fashion', to: 'explore/categories#art_fashion', as: :art_fashion
+			get 'explore/categories/art/beauty', to: 'explore/categories#art_beauty', as: :art_beauty				
 			get 'explore/categories/art/architecture', to: 'explore/categories#art_architecture', as: :art_architecture
 			get 'explore/categories/art/interior_design', to: 'explore/categories#art_interior_design', as: :art_interior_design
 			get 'explore/categories/art/photography', to: 'explore/categories#art_photography', as: :art_photography
@@ -329,6 +331,8 @@ Rails.application.routes.draw do
 			get 'explore/categories/videos/gaming', to: 'explore/categories#videos_gaming', as: :videos_gaming
 			get 'explore/categories/videos/animation', to: 'explore/categories#videos_animation', as: :videos_animation
 			get 'explore/categories/videos/cg', to: 'explore/categories#videos_cg', as: :videos_cg
+			get 'explore/categories/videos/fashion', to: 'explore/categories#videos_fashion', as: :videos_fashion
+			get 'explore/categories/videos/beauty', to: 'explore/categories#videos_beauty', as: :videos_beauty					
 			get 'explore/categories/videos/movies', to: 'explore/categories#videos_movies', as: :videos_movies
 			get 'explore/categories/videos/documentary', to: 'explore/categories#videos_documentary', as: :videos_documentary
 			get 'explore/categories/videos/tutorial', to: 'explore/categories#videos_tutorial', as: :videos_tutorial

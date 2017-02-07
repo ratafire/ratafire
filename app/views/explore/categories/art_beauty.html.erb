@@ -1,0 +1,14 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, t('views.utilities.menu.art')+" - "+t('views.utilities.category.art.beauty')) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
+<%= render 'explore/categories/art'%>

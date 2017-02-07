@@ -2,7 +2,14 @@
 	<div class="page-header-content">
 		<div class="page-title text-grey">
 			<h2 class="text-thin" id="tag-follow-holder">
-				<span class="mr-20"><img src="<%= @tag.tag_image.image.url(:thumbnail40)%>" class="img-circle img-lg mr-10"><%= @tag.name.titleize %></span>
+				<span class="mr-20">
+					<img src="<%= @tag.tag_image.image.url(:thumbnail40)%>" class="img-circle img-lg mr-10">
+					<% if tag.name.length <= 3 %>
+						<%= @tag.name.capitalize %>
+					<% else %>
+						<%= @tag.name.titleize %>
+					<% end %>
+				</span>
 				<% if @following %>
 					<%= render partial: "explore/tags/unfollow_btn", locals: {tag: @tag} %>
 				<% else %>

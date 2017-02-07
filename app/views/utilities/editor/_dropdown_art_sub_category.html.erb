@@ -29,6 +29,18 @@
 			<%= t 'views.utilities.category.art.painting' %>
 		<% end %>
 	</li>
+	<!-- Fashion -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(activity.trackable.uuid, 'Art', 'Fashion'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.fashion' %>
+		<% end %>
+	</li>
+	<!-- Beauty -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(activity.trackable.uuid, 'Art', 'Beauty'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.beauty' %>
+		<% end %>
+	</li>		
 	<!-- Architecture -->
 	<li>
 		<%= link_to content_majorpost_set_sub_category_path(activity.trackable.uuid, 'Art', 'Architecture'), method: :post, remote: true do %>
