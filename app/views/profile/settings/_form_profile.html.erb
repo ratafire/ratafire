@@ -113,7 +113,7 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.profile_settings.country' %>:</label>
 						<div class="col-lg-9">
-							<%= f.country_select(:country, { except: ['AN']}, { class: 'simple-select-search mb-20' }) %>
+							<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'), except: ['AN']}, { class: 'simple-select-search mb-20' }) %>
 						</div>
 					</div>
 					<!-- City -->

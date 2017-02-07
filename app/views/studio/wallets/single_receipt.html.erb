@@ -1,6 +1,6 @@
 <!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
 <!-- Page Title -->
-<% provide(:title, @user.preferred_name) %>
+<% provide(:title, sanitize(@user.preferred_name)) %>
 <!-- Page Specific JS -->
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <div class="row">

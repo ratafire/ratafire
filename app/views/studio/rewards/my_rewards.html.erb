@@ -1,6 +1,6 @@
 <!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
 <!-- Page Title -->
-<% provide(:title, @user.preferred_name) %>
+<% provide(:title, sanitize(@user.preferred_name)) %>
 <div class="row">
 	<div class="col-lg-12 col-md-12">
 		<div class="panel panel-blue">

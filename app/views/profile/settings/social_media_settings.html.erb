@@ -1,6 +1,6 @@
 <!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
 <!-- Page Title -->
-<% provide(:title, @user.preferred_name) %>
+<% provide(:title, sanitize(@user.preferred_name)) %>
 <!-- Page Specific JS -->
 <%= javascript_include_tag 'page_specific/settings', 'data-turbolinks-track' => "reload"  %>
 <script>
