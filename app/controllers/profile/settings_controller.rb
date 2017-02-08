@@ -3,7 +3,9 @@ class Profile::SettingsController < ApplicationController
 	layout 'profile'
 
 	#Before filters
+	before_filter :authenticate_user!	
 	before_filter :load_user
+	before_filter :correct_user	
 	before_filter :show_followed
 	before_filter :connect_to_stripe, only: [:identity_verification]
 	
@@ -73,5 +75,16 @@ protected
 			Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 		end
 	end		
+
+	def correct_user
+		if current_user != @user 
+			if @user.admin
+			else
+				redirect_to root_path
+			end
+		else
+			
+		end
+	end
 
 end
