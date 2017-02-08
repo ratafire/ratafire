@@ -980,6 +980,7 @@ en:
       confirmation: "doesn't match %{attribute}"   
       not_found: "not found"
       not_saved: "Something went wrong"   
+      not_saved_profile: "Something went wrong. Only a-z and numbers are allowed in username."  
       postal_code: "Postal code is wrong"
       back_yourself: "You tried to back yourself, "
       already_backed: "You are already a long term backer of "

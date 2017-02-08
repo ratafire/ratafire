@@ -978,6 +978,7 @@ zh:
       confirmation: "不匹配%{attribute}"  
       not_found: "不存在"
       not_saved: "出错啦"     
+      not_saved_profile: "出错啦。用户名中只允许a-z和数字。"        
       postal_code: "邮编错误"
       back_yourself: "你尝试支持自己，"
       already_backed: "你已经长期支持"

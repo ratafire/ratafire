@@ -19,12 +19,12 @@ class UsersController < ActionController::Base
 		if @user.update(user_params)
 			#flash["success"] = "Info updated."
 			@error = false
+			if @user.username != @previous_username
+				redirect_to profile_settings_user_profile_settings_path(@user.username)
+			end			
 		else
 			#flash["error"] = @user.errors.full_messages.to_sentence
 			@error = true
-		end
-		if @user.username != @previous_username
-			redirect_to profile_settings_user_profile_settings_path(@user.username)
 		end
 	end	
 
