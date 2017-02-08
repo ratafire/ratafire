@@ -8,15 +8,28 @@
 				<i class="ti-pencil"></i><%= t 'views.utilities.editor.edit' %>
 			<% end %>
 		</li>
-		<li>
-			<%= link_to mark_as_completed_user_studio_campaigns_path(campaign.user.id, campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_complete_project_1')+campaign.title+ t('views.campaign.are_you_sure_to_complete_project_2')}, method: :post do %>
-				<i class="ti-check-box"></i><%= t 'views.utilities.editor.mark_as_completed' %>
-			<% end %>
-		</li>
-		<li>
-			<%= link_to abandon_user_studio_campaigns_path(campaign.user.id, campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_complete_project_1')+campaign.title+ t('views.campaign.are_you_sure_to_abandon_project_2')}, method: :post do %>
-				<i class="ti-trash"></i><%= t 'views.utilities.editor.abandon' %>
-			<% end %>
-		</li>
+		<% if browser.platform.windows7? && browser.chrome? %>
+			<li>
+				<%= link_to mark_as_completed_user_studio_campaigns_path(campaign.user.id, campaign.id), method: :post do %>
+					<i class="ti-check-box"></i><%= t 'views.utilities.editor.mark_as_completed' %>
+				<% end %>
+			</li>
+			<li>
+				<%= link_to abandon_user_studio_campaigns_path(campaign.user.id, campaign.id), method: :post do %>
+					<i class="ti-trash"></i><%= t 'views.utilities.editor.abandon' %>
+				<% end %>
+			</li>
+		<% else %>
+			<li>
+				<%= link_to mark_as_completed_user_studio_campaigns_path(campaign.user.id, campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_complete_project_1')+campaign.title+ t('views.campaign.are_you_sure_to_complete_project_2')}, method: :post do %>
+					<i class="ti-check-box"></i><%= t 'views.utilities.editor.mark_as_completed' %>
+				<% end %>
+			</li>
+			<li>
+				<%= link_to abandon_user_studio_campaigns_path(campaign.user.id, campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_complete_project_1')+campaign.title+ t('views.campaign.are_you_sure_to_abandon_project_2')}, method: :post do %>
+					<i class="ti-trash"></i><%= t 'views.utilities.editor.abandon' %>
+				<% end %>
+			</li>		
+		<% end %>
 	</ul>
 </span>

@@ -10,7 +10,11 @@
 				</div>
 			<% end %>
 			<!-- Mark as completed -->
-			<%= f.submit I18n.t('views.utilities.editor.save'), :data => { :confirm => t('views.campaign.please_confirm_your_content_update') }, remote: true, class:"btn bg-green", id:"editor-submition-block" %>
+			<% if browser.platform.windows7? && browser.chrome? %>
+				<%= f.submit I18n.t('views.utilities.editor.save'), remote: true, class:"btn bg-green", id:"editor-submition-block" %>
+			<% else %>
+				<%= f.submit I18n.t('views.utilities.editor.save'), :data => { :confirm => t('views.campaign.please_confirm_your_content_update') }, remote: true, class:"btn bg-green", id:"editor-submition-block" %>
+			<% end %>
 		</div>
 	<% end %>
 </div>

@@ -6,21 +6,40 @@
 			</div>
 		</a>
 		<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
-			<!-- End early -->
-			<% if reward.active == true %>
-				<li>
-					<%= link_to end_early_user_studio_rewards_path(current_user.uid, reward.id), :data => { :confirm => t('views.creator_studio.rewards.are_you_sure_to_end_reward_early_1')+reward.title+ t('views.creator_studio.rewards.are_you_sure_to_end_reward_early_2')}, method: :post do %>
-						<i class="ti-alarm-clock"></i><%= t 'views.creator_studio.rewards.end_early' %>
-					<% end %>
-				</li>
-			<% end %>
-			<!-- Abandon -->
-			<% if reward.active == nil %>
-				<li>
-					<%= link_to abandon_user_studio_rewards_path(current_user.uid, reward.id), :data => { :confirm => t('views.creator_studio.rewards.are_you_sure_to_abandon_this_reward')}, method: :delete do %>
-						<i class="ti-trash"></i><%= t 'views.utilities.editor.abandon' %>
-					<% end %>
-				</li>
+			<% if browser.platform.windows7? && browser.chrome? %>
+				<!-- End early -->
+				<% if reward.active == true %>
+					<li>
+						<%= link_to end_early_user_studio_rewards_path(current_user.uid, reward.id), method: :post do %>
+							<i class="ti-alarm-clock"></i><%= t 'views.creator_studio.rewards.end_early' %>
+						<% end %>
+					</li>
+				<% end %>
+				<!-- Abandon -->
+				<% if reward.active == nil %>
+					<li>
+						<%= link_to abandon_user_studio_rewards_path(current_user.uid, reward.id), method: :delete do %>
+							<i class="ti-trash"></i><%= t 'views.utilities.editor.abandon' %>
+						<% end %>
+					</li>
+				<% end %>
+			<% else %>
+				<!-- End early -->
+				<% if reward.active == true %>
+					<li>
+						<%= link_to end_early_user_studio_rewards_path(current_user.uid, reward.id), :data => { :confirm => t('views.creator_studio.rewards.are_you_sure_to_end_reward_early_1')+reward.title+ t('views.creator_studio.rewards.are_you_sure_to_end_reward_early_2')}, method: :post do %>
+							<i class="ti-alarm-clock"></i><%= t 'views.creator_studio.rewards.end_early' %>
+						<% end %>
+					</li>
+				<% end %>
+				<!-- Abandon -->
+				<% if reward.active == nil %>
+					<li>
+						<%= link_to abandon_user_studio_rewards_path(current_user.uid, reward.id), :data => { :confirm => t('views.creator_studio.rewards.are_you_sure_to_abandon_this_reward')}, method: :delete do %>
+							<i class="ti-trash"></i><%= t 'views.utilities.editor.abandon' %>
+						<% end %>
+					</li>
+				<% end %>
 			<% end %>
 		</ul>
 	</span>

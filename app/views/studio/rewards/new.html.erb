@@ -236,7 +236,11 @@
 						</div>
 					</div>	
 					<div class="text-right">
-						<%= f.submit I18n.t('views.utilities.editor.publish'), :data => { :confirm => t('views.creator_studio.rewards.are_you_sure_to_publish_reward') }, class: "btn btn-blue", id:"new-reward-submit" %>
+						<% if browser.platform.windows7? && browser.chrome? %>
+							<%= f.submit I18n.t('views.utilities.editor.publish'), class: "btn btn-blue", id:"new-reward-submit" %>
+						<% else %>
+							<%= f.submit I18n.t('views.utilities.editor.publish'), :data => { :confirm => t('views.creator_studio.rewards.are_you_sure_to_publish_reward') }, class: "btn btn-blue", id:"new-reward-submit" %>
+						<% end %>
 					</div>
 				<% end %>
 			</div>

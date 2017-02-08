@@ -9,8 +9,14 @@
 			<% end %>
 		</li>
 		<li>
-			<%= link_to delete_user_studio_campaigns_path(campaign.user.id, campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_delete_project')}, method: :delete do %>
-				<i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %>
+			<% if browser.platform.windows7? && browser.chrome? %>
+				<%= link_to delete_user_studio_campaigns_path(campaign.user.id, campaign.id), method: :delete do %>
+					<i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %>
+				<% end %>
+			<% else %>
+				<%= link_to delete_user_studio_campaigns_path(campaign.user.id, campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_delete_project')}, method: :delete do %>
+					<i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %>
+				<% end %>
 			<% end %>
 		</li>
 	</ul>

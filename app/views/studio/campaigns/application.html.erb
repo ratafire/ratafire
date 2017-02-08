@@ -97,7 +97,11 @@
 						<!-- About You -->
 						<%= render partial: "studio/campaigns/form_artist_info", locals: { f: f } %>
 
-						<%= link_to I18n.t('views.utilities.editor.submit_btn'), submit_application_user_studio_campaigns_path(@user.id, @campaign.id), :data => { :confirm => t('views.campaign.please_confirm_your_application_submission') }, remote: true, class:"btn btn-blue stepy-finish" %>
+						<% if browser.platform.windows7? && browser.chrome? %>
+							<%= link_to I18n.t('views.utilities.editor.submit_btn'), submit_application_user_studio_campaigns_path(@user.id, @campaign.id), remote: true, class:"btn btn-blue stepy-finish" %>
+						<% else %>
+							<%= link_to I18n.t('views.utilities.editor.submit_btn'), submit_application_user_studio_campaigns_path(@user.id, @campaign.id), :data => { :confirm => t('views.campaign.please_confirm_your_application_submission') }, remote: true, class:"btn btn-blue stepy-finish" %>
+						<% end %>
 					
 					<% end %>
 	            </div>

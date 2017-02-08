@@ -17,8 +17,14 @@
         </div>
         <!-- Cancel -->
         <% if tag.name %>
-            <%= link_to destroy_admin_tags_path(tag.id),method: :delete, :data => { :confirm => t('errors.messages.are_you_sure') } do %>
-                <div class="btn btn-default btn-sm"><%= t 'views.utilities.editor.delete' %></div>
+            <% if browser.platform.windows7? && browser.chrome? %>
+                <%= link_to destroy_admin_tags_path(tag.id),method: :delete do %>
+                    <div class="btn btn-default btn-sm"><%= t 'views.utilities.editor.delete' %></div>
+                <% end %>
+            <% else %>
+                <%= link_to destroy_admin_tags_path(tag.id),method: :delete, :data => { :confirm => t('errors.messages.are_you_sure') } do %>
+                    <div class="btn btn-default btn-sm"><%= t 'views.utilities.editor.delete' %></div>
+                <% end %>
             <% end %>
         <% end %>
         <%= link_to user_admin_tags_path(current_user.id) do %>
