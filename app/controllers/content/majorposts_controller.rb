@@ -91,7 +91,8 @@ class Content::MajorpostsController < ApplicationController
 		)
 			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
 				@activity.update(
-					category: @majorpost.category
+					category: params[:category_id],
+					sub_category: nil
 				)
 			end
 		end
@@ -105,8 +106,8 @@ class Content::MajorpostsController < ApplicationController
 		)
 			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
 				@activity.update(
-					category: @majorpost.category,
-					sub_category: @majorpost.sub_cateory
+					category: params[:category_id],
+					sub_category: params[:sub_category_id]
 				)
 			end
 		end
