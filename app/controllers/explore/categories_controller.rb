@@ -437,6 +437,7 @@ private
 		if user_signed_in?
 			@user = current_user
 		end
+		@popoverclass = SecureRandom.hex(16)
 	end
 
 	def meta_category(options = {})
