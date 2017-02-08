@@ -1,12 +1,12 @@
 function initiate_profile_editor(){
 	// Initialize select
-	$(".simple-select").select2({
+	$("select.simple-select").select2({
 		minimumResultsForSearch: Infinity,
 	});
-	$(".simple-select-search").select2({
+	$("select.simple-select-search").select2({
 	});
 	// Initialize Editor Tags
-	$(".editor-tags").select2({
+	$("select.editor-tags").select2({
 		containerCssClass : "form-detransparent",
 	    width: '100%',
 	    tags: []

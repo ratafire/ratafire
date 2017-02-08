@@ -133,7 +133,7 @@ function initiate_text_editor(upload_url,subscribe){
 	    }   
 	});
 	// Initialize Editor Tags
-	$(".editor-tags").select2({
+	$("select.editor-tags").select2({
 	    width: '100%',
 	    tags: []
 	});

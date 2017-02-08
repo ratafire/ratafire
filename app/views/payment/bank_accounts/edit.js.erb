@@ -1,5 +1,5 @@
 $('#current-bank-account-holder').remove();
 $('#add-bank-account-panel-body').append("<%= j render(:partial => 'studio/wallets/add_bank_account', :locals => {user: @user, bank_account: @bank_account}) %>");
-$(".simple-select-search").select2({});
+$("select.simple-select-search").select2({});
 $('#routing-number').val(null);
 $('#account-number').val(null);

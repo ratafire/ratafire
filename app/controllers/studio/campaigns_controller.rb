@@ -157,7 +157,7 @@ class Studio::CampaignsController < ApplicationController
 		if @campaign = Campaign.find(params[:campaign_id])
 			if @campaign.try(:published)
 				if @campaign.try(:abandoned) || @campaign.try(:completed)
-					redirect_to_application
+					redirect_to new_user_studio_campaigns_path(@user.username)
 				else
 					redirect_to(:back)
 				end
