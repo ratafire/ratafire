@@ -19,15 +19,27 @@ private
 
   def data
 	users.map do |user|
-	  [
-	  	user.id,
-	  	link_to(image_tag(user.profilephoto.image.url(:thumbnail40)), profile_url_path(user.username),target:"_blank"),
-		link_to(user.fullname,profile_url_path(user.username),target:"_blank"),
-		user.email,
-		user.tagline,
-		user.majorpost.count,
-		user.active_campaign.any?
-	  ]
+		if user.active_campaign
+			[
+			user.id,
+			link_to(image_tag(user.profilephoto.image.url(:thumbnail40)), profile_url_path(user.username),target:"_blank"),
+			link_to(user.fullname,profile_url_path(user.username),target:"_blank"),
+			user.email,
+			user.tagline,
+			user.majorpost.count,
+			t('views.admin.content.projects.approve')
+			]
+		else
+			[
+			user.id,
+			link_to(image_tag(user.profilephoto.image.url(:thumbnail40)), profile_url_path(user.username),target:"_blank"),
+			link_to(user.fullname,profile_url_path(user.username),target:"_blank"),
+			user.email,
+			user.tagline,
+			user.majorpost.count,
+			''
+			]			
+		end
 	end
   end
 
