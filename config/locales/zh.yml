@@ -835,6 +835,7 @@ zh:
         transactions: "交易"
       users:
         creator: "创作者"
+        fullname: "名字"
       content:
         projects:
           pending_projects: "待审项目"

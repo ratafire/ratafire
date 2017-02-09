@@ -837,6 +837,7 @@ en:
         transactions: "Transactions"
       users:
         creator: "Creator"
+        fullname: "Fullname"
       content:
         projects:
           pending_projects: "Pending projects"
