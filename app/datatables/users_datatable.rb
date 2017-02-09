@@ -26,7 +26,7 @@ private
 		user.email,
 		user.tagline,
 		user.majorpost.count,
-		user.active_campaign
+		user.active_campaign.any?
 	  ]
 	end
   end
