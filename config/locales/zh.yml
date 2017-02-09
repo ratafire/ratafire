@@ -833,6 +833,8 @@ zh:
         users: "用户"
         posts: "帖子"
         transactions: "交易"
+      users:
+        creator: "创作者"
       content:
         projects:
           pending_projects: "待审项目"

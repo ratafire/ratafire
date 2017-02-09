@@ -7,6 +7,7 @@ class Admin::DashboardsController < ApplicationController
 	#Before filters
 	before_filter :authenticate_user!
 	before_filter :load_user
+	before_filter :is_admin?
 
 	#NoREST Methods -----------------------------------
 	#dashboard_user_admin_dashboard GET
@@ -27,5 +28,11 @@ private
 			end
 		end
 	end	
+
+	def is_admin?
+		if current_user.admin != true
+			redirect_to root_path
+		end
+	end
 
 end

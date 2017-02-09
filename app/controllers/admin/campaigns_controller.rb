@@ -5,6 +5,7 @@ class Admin::CampaignsController < ApplicationController
 	#Before filters
 	before_filter :load_user, only:[:show]
 	before_filter :load_campaign, only: [:review, :approve, :disapprove]
+	before_filter :is_admin?	
 
 	#REST Methods -----------------------------------
 
@@ -45,6 +46,10 @@ class Admin::CampaignsController < ApplicationController
 					status: "Approved"
 				)
 			end
+			if @campaign.user.update(
+				creator: true,
+				creator_at: Time.now
+			)
 		end
 		@campaign.rewards.last.update(
 			active: true
@@ -91,6 +96,12 @@ private
 			unless @user = User.find_by_username(params[:user_id])
 				@user = User.find(params[:user_id])
 			end
+		end
+	end	
+
+	def is_admin?
+		if current_user.admin != true
+			redirect_to root_path
 		end
 	end	
 

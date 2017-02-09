@@ -25,6 +25,7 @@
                     <!-- Main -->
                     <li class="navigation-header"><span><%= t 'views.admin.menu.main' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.main' %>"></i></li>
                     <li id="dashboards-dashboard-sidebaractive"><%= link_to dashboard_user_admin_dashboard_path(current_user.id) do %><i class="icon-newspaper"></i> <span><%= t 'views.admin.menu.dashboard' %></span><% end %></li>
+                    <li id="users-show-sidebaractive"><%= link_to admin_users_path do %><i class="icon-users"></i> <span><%= t 'views.admin.menu.users' %></span><% end %></li>                    
                     <!-- Content -->
                     <li class="navigation-header"><span><%= t 'views.admin.menu.content' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.content' %>"></i></li>
                     <!-- Projects -->

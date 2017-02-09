@@ -399,6 +399,9 @@ Rails.application.routes.draw do
 			post '/set_test/:majorpost_id', to: 'majorposts#set_test', as: :set_test
 			delete '/remove/:majorpost_id/:option', to: 'majorposts#remove', as: :remove
 		end
+		resource :users, only: [:show] do
+			get '/index', to: 'users#index', as: :index
+		end
 	end
 
 	#Payment -----------------------------------

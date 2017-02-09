@@ -835,6 +835,8 @@ en:
         users: "Users"
         posts: "Posts"
         transactions: "Transactions"
+      users:
+        creator: "Creator"
       content:
         projects:
           pending_projects: "Pending projects"

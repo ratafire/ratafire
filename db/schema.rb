@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207050339) do
+ActiveRecord::Schema.define(version: 20170209054417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2760,6 +2760,8 @@ ActiveRecord::Schema.define(version: 20170207050339) do
     t.datetime "last_seen"
     t.boolean  "subscription_inactive"
     t.datetime "subscription_inactive_at"
+    t.boolean  "creator"
+    t.datetime "creator_at"
   end
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree

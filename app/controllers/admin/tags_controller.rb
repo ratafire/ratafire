@@ -4,6 +4,7 @@ class Admin::TagsController < ApplicationController
 
 	before_filter :load_user, except:[:index, :edit, :update, :destroy]
 	before_filter :load_tag, only:[:edit, :update, :destroy]
+	before_filter :is_admin?
 
 	#REST Methods -----------------------------------
 
@@ -45,7 +46,7 @@ class Admin::TagsController < ApplicationController
 		@user = current_user
 	end
 
-	#user_admin_tags POST
+	#user_admin_tags GET
 	#/users/:user_id/admin/tags
 	def show
 		@tag = Tag.new
@@ -88,5 +89,11 @@ private
 	def tag_params
 		params.require(:tag).permit(:tag_id, :name, :description, :direct_upload_url)
 	end
+
+	def is_admin?
+		if current_user.admin != true
+			redirect_to root_path
+		end
+	end	
 
 end

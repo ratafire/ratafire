@@ -7,6 +7,7 @@ class Admin::HistoricalQuotesController < ApplicationController
 	#Before filters
 	before_filter :load_user, except:[:index, :edit, :update]
 	before_filter :load_historical_quote, only:[:update, :edit]
+	before_filter :is_admin?
 
 	#REST Methods -----------------------------------
 
@@ -73,6 +74,12 @@ private
 
 	def historical_quote_params
 		params.require(:historical_quote).permit(:user_id,:quote, :author, :source, :chapter, :page, :original_language, :uuid)
+	end	
+
+	def is_admin?
+		if current_user.admin != true
+			redirect_to root_path
+		end
 	end	
 
 end

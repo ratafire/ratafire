@@ -1,5 +1,5 @@
 $('#current-card-holder').remove();
 $('#add-card-panel-body').append("<%= j render(:partial => 'studio/wallets/add_card', :locals => {user: @user, card: @card}) %>");
-$("select.simple-select-search").select2({});
+$(".simple-select-search").select2({});
 $('#card-number').val(null);
 $('#cvc').val(null);

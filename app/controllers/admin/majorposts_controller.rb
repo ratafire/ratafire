@@ -2,6 +2,7 @@ class Admin::MajorpostsController < ApplicationController
 
 	#Before filters
 	before_filter :load_majorpost
+	before_filter :is_admin?	
 
 	#NoREST Methods -----------------------------------	
 
@@ -62,5 +63,11 @@ protected
 	def load_majorpost
 		@majorpost = Majorpost.find(params[:majorpost_id])
 	end
+
+	def is_admin?
+		if current_user.admin != true
+			redirect_to root_path
+		end
+	end	
 
 end
