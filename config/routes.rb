@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 	get '/site' => redirect("https://ratafire.com/site/")	
 
 	#Stripe
-	mount StripeEvent::Engine, at: '/stripe/kaimen/stripe_chashuibiao'
+	mount StripeEvent::Engine, at: '/stripe_chashuibiao'
 
 	#User -----------------------------------
 
