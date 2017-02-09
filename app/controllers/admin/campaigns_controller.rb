@@ -46,7 +46,7 @@ class Admin::CampaignsController < ApplicationController
 					status: "Approved"
 				)
 			end
-			if @campaign.user.update(
+			@campaign.user.update(
 				creator: true,
 				creator_at: Time.now
 			)
