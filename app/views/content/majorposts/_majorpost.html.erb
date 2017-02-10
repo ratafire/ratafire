@@ -11,7 +11,7 @@
 			<!-- Post User -->
 			<div class="panel-user text-semibold text-size-small"><%= link_to majorpost.user.preferred_name, profile_url_path(majorpost.user.username),class:"text-grey-800" %>
 				<!-- More -->
-				<%= render partial: "utilities/editor/editor_dropdown_majorpost", locals: { user: majorpost.user, majorpost: majorpost } %>
+				<%= render partial: "utilities/editor/editor_dropdown", locals: { user: majorpost.user, activity: @activity } %>
 			</div>
 			<!-- Audio Post -->
 			<% if majorpost.post_type == 'audio' && majorpost.audio then %>	
