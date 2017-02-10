@@ -155,280 +155,280 @@ class Explore::CategoriesController < ApplicationController
 	# /explore/categories/:category_id/art
 	def art
 		meta_category(:category => I18n.t('views.utilities.menu.art'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_a_new_field
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.a_new_field'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_concept_art
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.concept_art'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Concept Art", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Concept Art", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_3d_model
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.3D_model'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "3D Models", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "3D Models", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_drawing
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.drawing'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Drawing", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Drawing", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_painting
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.painting'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Painting", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Painting", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_fashion
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.fashion'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Fashion", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Fashion", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_beauty
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.beauty'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Beauty", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Beauty", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end		
 
 	def art_architecture
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.architecture'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Architecture", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Architecture", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_interior_design
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.interior_design'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Interior Design", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Interior Design", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_photography
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.photography'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Photography", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Photography", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_graphic_design
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.graphic_design'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Graphic Design", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Graphic Design", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_sculpting
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.sculpting'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Sculpting", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Sculpting", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_jewelry_design
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.art.jewelry_design'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Jewelry Design", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Jewelry Design", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def art_other
 		meta_category(:category => I18n.t('views.utilities.menu.art'), :sub_category => I18n.t('views.utilities.category.other'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Art", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	#Music
 
 	def music
 		meta_category(:category => I18n.t('views.utilities.menu.music'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def music_a_new_field
 		meta_category(:category => I18n.t('views.utilities.menu.music'), :sub_category => I18n.t('views.utilities.category.a_new_field'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def music_composition
 		meta_category(:category => I18n.t('views.utilities.menu.music'), :sub_category => I18n.t('views.utilities.category.music.composition'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Composition", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Composition", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def music_soundtrack
 		meta_category(:category => I18n.t('views.utilities.menu.music'), :sub_category => I18n.t('views.utilities.category.music.soundtrack'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Soundtrack", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Soundtrack", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def music_rock
 		meta_category(:category => I18n.t('views.utilities.menu.music'), :sub_category => I18n.t('views.utilities.category.music.rock'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Rock", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Rock", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def music_pop
 		meta_category(:category => I18n.t('views.utilities.menu.music'), :sub_category => I18n.t('views.utilities.category.music.pop'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Pop", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Pop", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def music_cover
 		meta_category(:category => I18n.t('views.utilities.menu.music'), :sub_category => I18n.t('views.utilities.category.music.cover'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Cover", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Cover", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def music_classical
 		meta_category(:category => I18n.t('views.utilities.menu.music'), :sub_category => I18n.t('views.utilities.category.music.classical'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Classical", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Classical", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def music_other
 		meta_category(:category => I18n.t('views.utilities.menu.music'), :sub_category => I18n.t('views.utilities.category.other'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Music", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	#Games
 
 	def games
 		meta_category(:category => I18n.t('views.utilities.menu.games'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def games_a_new_field
 		meta_category(:category => I18n.t('views.utilities.menu.games'), :sub_category => I18n.t('views.utilities.category.a_new_field'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def games_rpg
 		meta_category(:category => I18n.t('views.utilities.menu.games'), :sub_category => I18n.t('views.utilities.category.games.rpg'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Composition", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Composition", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def games_strategy
 		meta_category(:category => I18n.t(v'iews.utilities.menu.games'), :sub_category => I18n.t('views.utilities.category.games.strategy'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Strategy", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Strategy", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def games_simulation
 		meta_category(:category => I18n.t('views.utilities.menu.games'), :sub_category => I18n.t('views.utilities.category.games.simulation'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Simulation", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Simulation", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def games_mmo
 		meta_category(:category => I18n.t('views.utilities.menu.games'), :sub_category => I18n.t('views.utilities.category.games.mmo'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "MMO", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "MMO", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def games_action
 		meta_category(:category => I18n.t('views.utilities.menu.games'), :sub_category => I18n.t('views.utilities.category.games.action'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Action", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Action", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def games_sport
 		meta_category(:category => I18n.t('views.utilities.menu.games'), :sub_category => I18n.t('views.utilities.category.games.sport'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Sport", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Sport", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def games_adventure
 		meta_category(:category => I18n.t('views.utilities.menu.games'), :sub_category => I18n.t('views.utilities.category.games.adventure'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Adventure", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Adventure", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def games_other
 		meta_category(:category => I18n.t('views.utilities.menu.games'), :sub_category => I18n.t('views.utilities.category.other'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Games", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	#Writing
 
 	def writing
 		meta_category(:category => I18n.t('views.utilities.menu.writing'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def writing_a_new_field
 		meta_category(:category => I18n.t('views.utilities.menu.writing'), :sub_category => I18n.t('views.utilities.category.a_new_field'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def writing_science_fiction
 		meta_category(:category => I18n.t('views.utilities.menu.writing'), :sub_category => I18n.t('views.utilities.category.writing.science_fiction'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Science Fiction", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Science Fiction", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def writing_fantasy
 		meta_category(:category => I18n.t('views.utilities.menu.writing'), :sub_category => I18n.t('views.utilities.category.writing.fantasy'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Fantasy", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Fantasy", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def writing_review
 		meta_category(:category => I18n.t('views.utilities.menu.writing'), :sub_category => I18n.t('views.utilities.category.writing.review'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Review", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Review", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def writing_poetry
 		meta_category(:category => I18n.t('views.utilities.menu.writing'), :sub_category => I18n.t('views.utilities.category.writing.poetry'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Poetry", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Poetry", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def writing_non_fiction
 		meta_category(:category => I18n.t('views.utilities.menu.writing'), :sub_category => I18n.t('views.utilities.category.writing.non_fiction'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Non-fiction", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Non-fiction", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def writing_fiction
 		meta_category(:category => I18n.t('views.utilities.menu.writing'), :sub_category => I18n.t('views.utilities.category.writing.fiction'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Fiction", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Fiction", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def writing_other
 		meta_category(:category => I18n.t('views.utilities.menu.writing'), :sub_category => I18n.t('views.utilities.category.other'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Writing", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	#Videos
 
 	def videos
 		meta_category(:category => I18n.t('views.utilities.menu.videos'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def videos_a_new_field
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.a_new_field'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "A New Field", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def videos_gaming
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.gaming'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Gaming", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Gaming", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def videos_cg
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.cg'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "CG", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "CG", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def videos_animation
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.animation'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Animation", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Animation", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end	
 
 	def videos_fashion
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.fashion'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Fashion", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Fashion", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end	
 
 	def videos_beauty
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.beauty'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Beauty", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Beauty", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end			
 
 	def videos_movies
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.movies'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Movies", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Movies", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def videos_documentary
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.documentary'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Documentary", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Documentary", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def videos_tutorial
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.tutorial'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Tutorial", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Tutorial", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 	def videos_other
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.other'))
-		@activities = PublicActivity::Activity.order("commented_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
 private

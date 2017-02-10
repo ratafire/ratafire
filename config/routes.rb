@@ -397,6 +397,7 @@ Rails.application.routes.draw do
 			post '/set_featured/:majorpost_id', to: 'majorposts#set_featured', as: :set_featured
 			post '/set_homepage_featured/:majorpost_id', to: 'majorposts#set_homepage_featured', as: :set_homepage_featured
 			post '/set_test/:majorpost_id', to: 'majorposts#set_test', as: :set_test
+			post '/set_reviewed/:majorpost_id', to: 'majorposts#set_reviewed', as: :set_reviewed
 			delete '/remove/:majorpost_id/:option', to: 'majorposts#remove', as: :remove
 		end
 		resource :users, only: [:show] do

@@ -36,6 +36,16 @@ class Admin::MajorpostsController < ApplicationController
 		end
 	end
 
+	# set_reviewed_admin_majorposts POST
+	# /admin/majorposts/set_reviewed/:majorpost_id
+	def set_reviewed
+		if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@majorpost.id,'Majorpost')
+			@activity.update(
+				reviewed: true
+			)
+		end
+	end
+
 	# remove_admin_majorposts DELETE
 	# /admin/majorposts/set_test/:majorpost_id/:option
 	def remove
@@ -53,6 +63,10 @@ class Admin::MajorpostsController < ApplicationController
 			when 'set_test'
 				@activity.update(
 					test: false
+				)
+			when 'set_reviewed'
+				@activity.update(
+					reviewed: false
 				)
 			end
 		end

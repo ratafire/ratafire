@@ -7,3 +7,6 @@
 <% if @option == 'set_test' %>
 	$('#<%= @majorpost.uuid %>-test-holder').html("<%= j render(:partial => 'admin/majorposts/set_test_false', locals: {majorpost: @majorpost}) %>");
 <% end %>
+<% if @option == 'set_reviewed' %>
+	$('#<%= @majorpost.uuid %>-reviewed-holder').html("<%= j render(:partial => 'admin/majorposts/set_reviewed_false', locals: {majorpost: @majorpost}) %>");
+<% end %>

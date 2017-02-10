@@ -1,5 +1,5 @@
 <div class="text-grey-200 mb-20">
-	<%= link_to profile_url_path(User.find(majorpost_liker.user_id)),class:"text-grey-200" do %>
+	<%= link_to profile_url_path(User.find(majorpost_liker.user_id).username),class:"text-grey-200" do %>
 		<span class="usercard <%= @popoverclass %>" data-content='<i class="icon-spinner2 spinner text-grey-200"></i>' data-id="<%= User.find(majorpost_liker.user_id).uid %>" data-placement="right">
 			<img src="<%= User.find(majorpost_liker.user_id).profilephoto.image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm mr-5" alt=""><%= User.find(majorpost_liker.user_id).preferred_name %>
 		</span>

@@ -874,6 +874,7 @@ en:
       editor:
         set_featured: "Set featured"
         set_homepage_featured: "Set homepage featured"
+        set_reviewed: "Mark as reviewed"
         set_hide: "Hide"
     form:
       validate:

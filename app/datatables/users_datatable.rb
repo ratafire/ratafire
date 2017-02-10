@@ -1,6 +1,6 @@
 class UsersDatatable
 
-  delegate :params, :h, :link_to, :time_ago_in_words, :profile_url_path, :truncate,:image_tag, to: :@view
+  delegate :params, :h, :link_to, :time_ago_in_words, :profile_url_path, :truncate,:image_tag, :t, to: :@view
 
 	def initialize(view)
 		@view = view
