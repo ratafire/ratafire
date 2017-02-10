@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				<div class="text-grey-200"><%= t 'views.utilities.menu.total_support' %></div>
-				<div><span ><%= currency_signs(campaign.currency)%><%= campaign.accumulated_total %></span></div>
+				<div><span ><%= number_to_currency(campaign.accumulated_total, unit: currency_signs(campaign.currency)) %></span></div>
 			</div>
 		</div>
 	</div>

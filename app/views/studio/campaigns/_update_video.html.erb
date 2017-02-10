@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-12" id="apply-panel">
+	<div class="col-md-12 pb-20" id="apply-panel">
 		<% if @campaign.video %>
 			<%= render partial: 'studio/campaigns/wizard_video_preview',:locals => {:video => @campaign.video, :campaign => @campaign } %>
 		<% else %>
