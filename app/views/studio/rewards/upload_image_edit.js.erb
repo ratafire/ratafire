@@ -1,2 +1,2 @@
 $('#about-profilephoto-holder').remove();
-$('#active-campaign-reward').append("<%= j render(:partial => 'profile/components/add_reward_image', :locals => {:user => @user}) %>");
+$('#active-campaign-reward').append("<%= j render(:partial => 'profile/components/add_reward_image', :locals => {:user => @user, :reward => @reward}) %>");

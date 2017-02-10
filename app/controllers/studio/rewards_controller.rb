@@ -5,7 +5,7 @@ class Studio::RewardsController < ApplicationController
 	#Before filters
 	before_filter :authenticate_user!	
 	before_filter :load_user
-	before_filter :load_reward, only:[:upload_image, :remove_image, :show, :upload_reward_editor, :confirm_upload_reward, :upload_reward, :end_early, :make_active,:abandon]
+	before_filter :load_reward, only:[:upload_image, :remove_image, :show, :upload_reward_editor, :confirm_upload_reward, :upload_reward, :end_early,:upload_image_edit, :make_active,:abandon]
 	before_filter :correct_user
 
 	#REST Methods -----------------------------------

@@ -122,7 +122,7 @@ Rails.application.routes.draw do
 					delete ':reward_id/remove_image', to: 'rewards#remove_image', as: :remove_image
 					get '/show/:reward_id', to: 'rewards#show', as: :show
 					get '/receiver_datatable/:reward_id', to: 'rewards#receiver_datable', as: :receiver_datatable
-					get '/upload_image_edit/edit/edit', to: 'rewards#upload_image_edit', as: :upload_image_edit
+					get '/upload_image_edit/:reward_id/edit/edit', to: 'rewards#upload_image_edit', as: :upload_image_edit
 					get 'my_rewards'
 					get 'my_rewards_datatable'
 					get '/confirm_shipping_payment/:shipping_order_id', to: 'rewards#confirm_shipping_payment', as: :confirm_shipping_payment
