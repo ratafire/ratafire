@@ -19,15 +19,15 @@ class Explore::CategoriesController < ApplicationController
 	def category
 		case params[:category_id]
 		when 'Art'
-			redirect_to explore_category_art_path(params[:category_id])
+			redirect_to art_category_path
 		when 'Music'
-			redirect_to explore_category_music_path(params[:category_id])
+			redirect_to music_category_path
 		when 'Games'
-			redirect_to explore_category_games_path(params[:category_id])
+			redirect_to games_category_path
 		when 'Writing'
-			redirect_to explore_category_writing_path(params[:category_id])
+			redirect_to writing_category_path 
 		when 'Videos'
-			redirect_to explore_category_videos_path(params[:category_id])
+			redirect_to videos_category_path
 		end
 	end
 
