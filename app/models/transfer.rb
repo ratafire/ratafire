@@ -84,7 +84,8 @@ class Transfer < ActiveRecord::Base
 				@transfer = Transfer.create(
 					user_id: @stripe_account.user_id,
 					amount: response.amount/100,
-					status: response.status
+					status: response.status,
+					stripe_transfer_id: response.id
 				)
 				if @transfer.status == "paid"
 					@transfer.update(
@@ -100,7 +101,11 @@ class Transfer < ActiveRecord::Base
 						notification_type: "Transfer"
 					)
 				else
-					#When the transfer is not paid
+					if @transfer.status == "failed"
+						@transfer.update(
+							transfered: false,
+						)
+					end
 				end
 			end
 		end
@@ -113,6 +118,7 @@ class Transfer < ActiveRecord::Base
 				failure_message: response.failure_message,
 				statement_descriptor: response.statement_descriptor,
 				status: response.status,
+				stripe_transfer_id: response.id
 			)
 			if @transfer.status == "paid"
 				@transfer.update(
@@ -128,7 +134,11 @@ class Transfer < ActiveRecord::Base
 					notification_type: "Transfer"
 				)
 			else
-				#When the transfer is not paid
+				if @transfer.status == "failed"
+					@transfer.update(
+						transfered: false,
+					)
+				end
 			end
 		end
 	end

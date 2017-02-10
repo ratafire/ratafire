@@ -9,11 +9,11 @@ end
 StripeEvent.configure do |events|
 
 	#Account
-	events.subscribe 'account.updated' do |event|
-		if @stripe_account = StripeAccount.find_by_stripe_id(event.data.object.id)
-			StripeAccount.stripe_account_update(event.data.object, @stripe_account.user_id)
-		end
-	end
+	# events.subscribe 'account.updated' do |event|
+	# 	if @stripe_account = StripeAccount.find_by_stripe_id(event.data.object.id)
+	# 		StripeAccount.stripe_account_update(event.data.object, @stripe_account.user_id)
+	# 	end
+	# end
 
 	#Charge
 	#events.subscribe 'charge.failed' do |event|
@@ -30,12 +30,34 @@ StripeEvent.configure do |events|
 	#end
 
 	#Transfer
-	events.subscribe 'transfer.created' do |event|
-		Transfer.create_transfer(event.data.object)
-	end
+	# events.subscribe 'transfer.created' do |event|
+	# 	Transfer.create_transfer(event.data.object)
+	# end
 
-	events.subscribe 'transfer.updated' do |event|
-		Transfer.update_transfer(event.data.object)
+	# events.subscribe 'transfer.updated' do |event|
+	# 	Transfer.update_transfer(event.data.object)
+	# end
+
+	# events.subscribe 'transfer.paid' do |event|
+	# 	Transfer.update_transfer(event.data.object)
+	# end	
+
+	# events.subscribe 'transfer.failed' do |event|
+	# 	Transfer.update_transfer(event.data.object)
+	# end		
+
+	events.all do |event|
+		if event.data.object == 'transfer'
+			if @transfer = Transfer.find_by_stripe_transfer_id(event.data.object.id)
+				Transfer.update_transfer(event.data.object)
+			else
+				Transfer.create_transfer(event.data.object)
+			end
+		else
+			if @stripe_account = StripeAccount.find_by_stripe_id(event.data.object.id)
+				StripeAccount.stripe_account_update(event.data.object, @stripe_account.user_id)
+			end
+		end
 	end
 
 	#events.all do |event|
