@@ -1,0 +1,50 @@
+<ul class="dropdown-menu bg-rainbow-600" style="z-index:35000;" id="sub-category-dropdown-<%= majorpost.uuid%>">
+	<!-- A New Field -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Music', 'A New Field'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.a_new_field' %>
+		<% end %>
+	</li>
+	<!-- Composition -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Music', 'Composition'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.music.composition' %>
+		<% end %>
+	</li>
+	<!-- Soundtrack -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Music', 'Soundtrack'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.music.soundtrack' %>
+		<% end %>
+	</li>
+	<!-- Rock -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Music', 'Rock'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.music.rock' %>
+		<% end %>
+	</li>
+	<!-- Pop -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Music', 'Pop'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.music.pop' %>
+		<% end %>
+	</li>
+	<!-- Cover -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Music', 'Cover'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.music.cover' %>
+		<% end %>
+	</li>
+	<!-- Classical -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Music', 'Classical'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.music.classical' %>
+		<% end %>
+	</li>
+	<!-- Other -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Music', 'Other'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.other' %>
+		<% end %>
+	</li>
+</ul>

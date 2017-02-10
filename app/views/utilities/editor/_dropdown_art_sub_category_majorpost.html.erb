@@ -1,0 +1,86 @@
+<ul class="dropdown-menu bg-rainbow-600" style="z-index:35000;" id="sub-category-dropdown-<%= majorpost.uuid%>">
+	<!-- A New Field -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'A New Field'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.a_new_field' %>
+		<% end %>
+	</li>
+	<!-- Concept Art -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Concept Art'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.concept_art' %>
+		<% end %>
+	</li>	
+	<!-- 3D Models -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', '3D Models'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.3D_model' %>
+		<% end %>
+	</li>	
+	<!-- Drawing -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Drawing'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.drawing' %>
+		<% end %>
+	</li>	
+	<!-- Painting -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Painting'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.painting' %>
+		<% end %>
+	</li>
+	<!-- Fashion -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Fashion'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.fashion' %>
+		<% end %>
+	</li>
+	<!-- Beauty -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Beauty'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.beauty' %>
+		<% end %>
+	</li>		
+	<!-- Architecture -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Architecture'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.architecture' %>
+		<% end %>
+	</li>
+	<!-- Interior Design -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Interior Design'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.interior_design' %>
+		<% end %>
+	</li>
+	<!-- Photography -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Photography'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.photography' %>
+		<% end %>
+	</li>
+	<!-- Graphic Design -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Graphic Design'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.graphic_design' %>
+		<% end %>
+	</li>
+	<!-- Sculpting -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Sculpting'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.sculpting' %>
+		<% end %>
+	</li>
+	<!-- Jewelry Design -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Jewelry Design'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.art.jewelry_design' %>
+		<% end %>
+	</li>
+	<!-- Other -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(majorpost.uuid, 'Art', 'Other'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.other' %>
+		<% end %>
+	</li>
+</ul>

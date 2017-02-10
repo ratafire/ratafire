@@ -80,23 +80,23 @@
 						</a>
 						<!-- Art -->
 						<% if majorpost.category == "Art" %>
-							<%= render partial: "utilities/editor/dropdown_art_sub_category", locals: { user: user, activity: activity } %>
+							<%= render partial: "utilities/editor/dropdown_art_sub_category", locals: { user: user, majorpost: majorpost } %>
 						<% end %>
 						<!-- Music -->
 						<% if majorpost.category == "Music" %>
-							<%= render partial: "utilities/editor/dropdown_music_sub_category", locals: { user: user, activity: activity } %>
+							<%= render partial: "utilities/editor/dropdown_music_sub_category", locals: { user: user, majorpost: majorpost } %>
 						<% end %>
 						<!-- Games -->
 						<% if majorpost.category == "Games" %>
-							<%= render partial: "utilities/editor/dropdown_games_sub_category", locals: { user: user, activity: activity } %>
+							<%= render partial: "utilities/editor/dropdown_games_sub_category", locals: { user: user, majorpost: majorpost } %>
 						<% end %>
 						<!-- Writing -->
 						<% if majorpost.category == "Writing" %>
-							<%= render partial: "utilities/editor/dropdown_writing_sub_category", locals: { user: user, activity: activity } %>
+							<%= render partial: "utilities/editor/dropdown_writing_sub_category", locals: { user: user, majorpost: majorpost } %>
 						<% end %>
 						<!-- Videos -->
 						<% if majorpost.category == "Videos" %>
-							<%= render partial: "utilities/editor/dropdown_videos_sub_category", locals: { user: user, activity: activity } %>
+							<%= render partial: "utilities/editor/dropdown_videos_sub_category", locals: { user: user, majorpost: majorpost } %>
 						<% end %>
 					</li>
 				</ul>
