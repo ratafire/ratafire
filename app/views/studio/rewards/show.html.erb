@@ -12,7 +12,7 @@
 						<div id="active-campaign-reward">
 							<% if @reward.image.present? %>
 								<div class="thumb thumb-slide" id="about-profilephoto-holder">
-									<%= link_to upload_image_edit_user_studio_rewards_path(@user.id), remote: true do %>
+									<%= link_to upload_image_edit_user_studio_rewards_path(@user.id, @reward.id), remote: true do %>
 										<div class="medium-editor-toolbar-remove mr-5 mt-5">
 											<span class="ti-pencil-alt"></span>
 										</div>
