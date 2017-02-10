@@ -11,31 +11,7 @@
 			<!-- Post User -->
 			<div class="panel-user text-semibold text-size-small"><%= link_to majorpost.user.preferred_name, profile_url_path(majorpost.user.username),class:"text-grey-800" %>
 				<!-- More -->
-				<% if current_user == @user || current_user.try(:admin) %>
-					<span class="dropdown pull-right mr-20">
-						<a href="#" class="dropdown-toggle text-grey-200" data-toggle="dropdown">
-							<i class="ti-angle-down" style="font-size:11px;">
-							</i>
-						</a>
-						<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
-							<!-- Edit -->
-							<li><a href="#"><i class="ti-pencil"></i> Edit</a></li>
-							<!-- Admin -->
-							<% if current_user.try(:admin) %>
-								<li class="dropdown-submenu" >
-									<a href="#"><i class="ti-crown"></i> Admin</a>
-									<ul class="dropdown-menu bg-rainbow-600">
-										<li><a href="#">Third level link</a></li>
-										<li><a href="#">Third level link</a></li>
-										<li><a href="#">Third level link</a></li>
-									</ul>
-								</li>
-							<% end %><!-- end if current_user.admin?-->
-							<!-- Delete -->
-							<li><%= link_to content_majorpost_path(majorpost), method: :delete,:remote => true do %><i class="ti-trash"></i> Delete<% end %></li>
-						</ul>
-					</span>	
-				<% end %><!-- end if current_user == @user || current_user.admin? -->			
+				<%= render partial: "utilities/editor/editor_dropdown", locals: { user: majorpost.user, activity: majorpost } %>
 			</div>
 			<!-- Audio Post -->
 			<% if majorpost.post_type == 'audio' && majorpost.audio then %>	
