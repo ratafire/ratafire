@@ -14,7 +14,7 @@ class Admin::DashboardsController < ApplicationController
 	#/users/:user_id/admin/dashboard/dashboard
 	def dashboard
 		@popoverclass = SecureRandom.hex(16)
-		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Majorpost"], :sub_category => nil, :test => nil, :reviewed => nil).page(params[:page]).per_page(1)
+		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Majorpost"], :sub_category => nil, :test => false, :reviewed => nil).page(params[:page]).per_page(1)
 	end
 
 
