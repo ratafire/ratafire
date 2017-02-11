@@ -14,7 +14,7 @@ class Payment::BankAccountsController < ActionController::Base
 		#Check if the user has entered a correct US postal code
 		check_us_postal_code_and_create_bank_account
 	rescue
-	 	flash[:error] = t('errors.messages.not_ssaved')
+	 	flash[:error] = t('errors.messages.not_saved')
 	 	redirect_to(:back)
 	end
 

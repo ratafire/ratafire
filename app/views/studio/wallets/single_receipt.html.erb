@@ -27,7 +27,7 @@
 								<%= t 'mailer.payment.subscription.receipt.total' %>
 							</div>
 							<div class="col-md-6">
-								<span class="text-black text-800 text-large"><%= currency_signs(@transaction.currency) %><%= @transaction.total %></span>
+								<span class="text-black text-800 text-large"><%= number_to_currency(@transaction.total, unit: currency_signs(@transaction.currency)) %></span>
 							</div>
 						</div>
 					</div>
