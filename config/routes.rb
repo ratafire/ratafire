@@ -240,6 +240,8 @@ Rails.application.routes.draw do
 				get 'read_more'
 				post '/set_category/:category_id', to: 'majorposts#set_category', as: :set_category
 				post '/set_sub_category/:category_id/:sub_category_id', to: 'majorposts#set_sub_category', as: :set_sub_category
+				post '/set_as_backers_only', to: 'majorposts#set_as_backers_only', as: :set_as_backers_only
+				post '/set_as_public', to: 'majorposts#set_as_public', as: :set_as_public
 			end
 				#Majorpost attachments
 				resources :artworks, only:[:create,:destroy] do

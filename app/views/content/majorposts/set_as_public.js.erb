@@ -1,0 +1,2 @@
+$('#backer-public-switch').html("<%= j render(:partial => 'content/majorposts/set_as_backers_only', locals: {majorpost: @majorpost}) %>");
+$('#<%= @majorpost.id %>_read_all_button').html("<%= j render(:partial => 'content/majorposts/read_all', locals: {majorpost: @majorpost}) %>");

@@ -10,3 +10,5 @@ Campaign::CampaignDue:
   cron: "20 2 * * *"
 Shipping::ShippingDue:
   cron: "20 3 * * *"
+Stripe::Events:
+  cron: "0,30 * * * *"

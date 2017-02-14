@@ -81,6 +81,29 @@ class Content::MajorpostsController < ApplicationController
 	#content_majorpost_read_more GET
 	#/content/majorposts/:majorpost_id/read_more
 	def read_more
+		if @majorpost.backers_only == true
+			if user_signed_in? 
+				unless current_user == @majorpost.user
+					if @majorpost.user.subscribed_by?(current_user.id)
+						@read_more = true
+					else
+						if @subscription = Subscription.where(subscriber_id: current_user.id, subscribed_id: @majorpost.user.id, funding_type: 'one_time').last
+							if (Time.now - @subscription.created_at) <= 604800
+								@read_more = true
+							else
+								# read_more is false
+							end
+						end
+					end
+				else
+					@read_more = true
+				end
+			else
+				# reead_more is false
+			end
+		else
+			@read_more = true
+		end
 	end
 
 	#content_majorpost_set_category POST
@@ -111,6 +134,20 @@ class Content::MajorpostsController < ApplicationController
 				)
 			end
 		end
+	end
+
+	#content_majorpost_set_as_backers_only POST
+	def set_as_backers_only
+		@majorpost.update(
+			backers_only: true
+		)
+	end
+
+	#content_majorpost_set_as_public POST
+	def set_as_public
+		@majorpost.update(
+			backers_only: nil
+		)
 	end
 
 private

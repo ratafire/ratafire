@@ -119,9 +119,11 @@
 		<!-- Tools -->
 		<div class="panel-footer panel-footer-transparent" style="padding:0 20px 15px 0;">
 			<div class="pull-left" id="<%= activity.trackable.id %>_read_all_button">
-				<%= link_to content_majorpost_read_more_path(activity.trackable),remote: true do %>
-					<div class="ml-20 btn btn-xs bg-grey-100 btn-rounded"><%= t 'views.utilities.menu.read_all' %></div>
-				<% end %>
+				<% if activity.trackable.backers_only %>
+					<%= render partial:'content/majorposts/insert_keystone', locals: {majorpost: activity.trackable} %>
+				<% else %>
+					<%= render partial:'content/majorposts/read_all', locals: {majorpost: activity.trackable} %>
+				<% end %>		
 			</div>
 			<!-- Share -->
 			<div class="pull-right">

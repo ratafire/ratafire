@@ -99,6 +99,17 @@
 							<%= render partial: "utilities/editor/dropdown_videos_sub_category", locals: { user: user, activity: activity } %>
 						<% end %>
 					</li>
+					<% if current_user.active_campaign || current_user.try(:admin) %>
+						<% if activity.trackable.backers_only == true %>
+							<li id="backer-public-switch">
+								<%= render partial: "content/majorposts/set_as_public", locals: { majorpost: activity.trackable } %>
+							</li>									
+						<% else %>
+							<li id="backer-public-switch">
+								<%= render partial: "content/majorposts/set_as_backers_only", locals: { majorpost: activity.trackable } %>
+							</li>	
+						<% end %>
+					<% end %>				
 				</ul>
 			</li>
 			<!-- Admin -->

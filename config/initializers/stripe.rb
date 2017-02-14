@@ -47,7 +47,7 @@ StripeEvent.configure do |events|
 	# end		
 
 	events.all do |event|
-		if event.data.object == 'transfer'
+		if event.data.object.object == 'transfer'
 			if @transfer = Transfer.find_by_stripe_transfer_id(event.data.object.id)
 				Transfer.update_transfer(event.data.object)
 			else

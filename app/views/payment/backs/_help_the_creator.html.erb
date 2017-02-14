@@ -8,7 +8,9 @@
 					<input type="radio" name="subscription[get_reward_false]" class="control-info" id="radio-just-want-to-help">
 				</div>
 				<div class="col-md-11 col-lg-11">
-					<h4 class="panel-title text-blue text-300"><%= t 'views.payment.backs.no_thanks' %><%= t 'views.payment.backs.creator' %></h4>
+					<h4 class="panel-title text-blue text-300">
+						<%= t 'views.payment.backs.no_thanks' %><%= t 'views.payment.backs.creator' %>
+					</h4>				
 				</div>
 			</div>
 		</div>
@@ -21,7 +23,7 @@
 						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100">
 							<img src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;">
 						</span>
-						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-just-want-to-help"%>
+						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-just-want-to-help", placeholder: "5"%>
 						<div class="input-group-btn dropup">
 							<button type="button" class="btn btn-default dropdown-toggle no-border no-border-radius-left border-radius-6 text-blue bg-blue-200" data-toggle="dropdown" aria-expanded="false" style="padding:10px;" id="funding-type-just-want-to-help-text">
 								<%= t 'views.campaign.one_time' %>
@@ -123,7 +125,7 @@
 						<span class="input-group-addon no-border-radius-right border-radius-6 text-blue bg-blue-100">
 							<img src="/assets/icon/fruity/hazel_nut_thumbnail64.png" style="height:24px;">
 						</span>
-						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-get-reward"%>
+						<%= f.number_field :amount, class:"form-control border-blue-100", max:'200', min:'1', style:"border-radius:6px !important;padding:19px 12px;font-weight:800;font-size:16px;color:#000;", id:"amount-get-reward", placeholder: "5"%>
 						<div class="input-group-btn dropup">
 							<button type="button" class="btn btn-default dropdown-toggle no-border no-border-radius-left border-radius-6 text-blue bg-blue-200" data-toggle="dropdown" aria-expanded="false" style="padding:10px;" id="funding-type-get-reward-text">
 								<%= t 'views.campaign.one_time' %>

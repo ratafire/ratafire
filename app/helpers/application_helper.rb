@@ -136,8 +136,6 @@ module ApplicationHelper
 			return 'views.utilities.category.art.graphic_design'
 		when 'Sculpting'
 			return 'views.utilities.category.art.sculpting'
-		when 'Jewelry Design'
-			return 'views.utilities.category.art.jewelry_design'
 			#Music
 		when 'Composition'
 			return 'views.utilities.category.music.composition'

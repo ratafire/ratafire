@@ -10,7 +10,7 @@
 				<a>
 					<i class="ti-pencil"></i><%= t 'views.utilities.editor.edit' %>	
 				</a>
-				<ul class="dropdown-menu bg-rainbow-600" style="z-index:35000;">
+				<ul class="dropdown-menu bg-rainbow-600" style="z-index:35000;">					
 					<li class="dropdown-submenu">
 						<!-- Category -->
 						<a>
@@ -97,8 +97,19 @@
 						<!-- Videos -->
 						<% if majorpost.category == "Videos" %>
 							<%= render partial: "utilities/editor/dropdown_videos_sub_category", locals: { user: user, majorpost: majorpost } %>
-						<% end %>
+						<% end %>					
 					</li>
+					<% if current_user.active_campaign || current_user.try(:admin) %>
+						<% if activity.trackable.backers_only == true %>
+							<li id="backer-public-switch">
+								<%= render partial: "content/majorposts/set_as_public", locals: { majorpost: majorpost } %>
+							</li>	
+						<% else %>
+							<li id="backer-public-switch">
+								<%= render partial: "content/majorposts/set_as_backers_only", locals: { majorpost: majorpost } %>
+							</li>	
+						<% end %>
+					<% end %>	
 				</ul>
 			</li>
 			<!-- Admin -->

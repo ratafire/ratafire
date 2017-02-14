@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209054417) do
+ActiveRecord::Schema.define(version: 20170214004407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1307,6 +1307,7 @@ ActiveRecord::Schema.define(version: 20170209054417) do
     t.decimal  "predicted_ratafire",              precision: 10, scale: 2, default: 0.0
     t.integer  "subscription_id"
     t.decimal  "recurring_total",                 precision: 10, scale: 2, default: 0.0
+    t.boolean  "backers_only"
   end
 
   create_table "masspay_batches", id: :bigserial, force: :cascade do |t|
