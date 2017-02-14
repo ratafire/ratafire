@@ -15,7 +15,7 @@ class Stripe::Events
 		#Retrive events
 		if @events = Stripe::Event.list('created[gte]' => @timestamp)
 			#Deal with each event
-			@events.data.all.each do |event|
+			@events.data.each do |event|
 				case event.data.object.object
 				when 'transfer'
 					if @transfer = Transfer.find_by_stripe_transfer_id(event.data.object.id)
