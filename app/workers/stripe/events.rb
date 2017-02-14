@@ -11,7 +11,7 @@ class Stripe::Events
 			Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 		end
 		#Set the timestamp 
-		@timestamp = (Time.now - 20.days).to_i
+		@timestamp = (Time.now - 40.minutes).to_i
 		#Retrive events
 		if @events = Stripe::Event.list('created[gte]' => @timestamp)
 			#Deal with each event

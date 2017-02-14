@@ -91,15 +91,15 @@ class Transfer < ActiveRecord::Base
 					@transfer.update(
 						transfered: true,
 					)
-					#Send email
-					Payment::TransferMailer.transfer_sent(transfer_id: @transfer.id).deliver_now
-					#Send notification
-					Notification.create(
-						user_id: @transfer.user.id,
-						trackable_id: @transfer.id,
-						trackable_type: "Transfer",
-						notification_type: "Transfer"
-					)
+					# #Send email
+					# Payment::TransferMailer.transfer_sent(transfer_id: @transfer.id).deliver_now
+					# #Send notification
+					# Notification.create(
+					# 	user_id: @transfer.user.id,
+					# 	trackable_id: @transfer.id,
+					# 	trackable_type: "Transfer",
+					# 	notification_type: "Transfer"
+					# )
 				else
 					if @transfer.status == "failed"
 						@transfer.update(
@@ -124,15 +124,15 @@ class Transfer < ActiveRecord::Base
 				@transfer.update(
 					transfered: true,
 				)
-				#Send email
-				Payment::TransferMailer.transfer_sent(transfer_id: @transfer.id).deliver_now
-				#Send notification
-				Notification.create(
-					user_id: @transfer.user.id,
-					trackable_id: @transfer.id,
-					trackable_type: "Transfer",
-					notification_type: "Transfer"
-				)
+				# #Send email
+				# Payment::TransferMailer.transfer_sent(transfer_id: @transfer.id).deliver_now
+				# #Send notification
+				# Notification.create(
+				# 	user_id: @transfer.user.id,
+				# 	trackable_id: @transfer.id,
+				# 	trackable_type: "Transfer",
+				# 	notification_type: "Transfer"
+				# )
 			else
 				if @transfer.status == "failed"
 					@transfer.update(
