@@ -85,7 +85,8 @@ class Transfer < ActiveRecord::Base
 					user_id: @stripe_account.user_id,
 					amount: response.amount/100,
 					status: response.status,
-					stripe_transfer_id: response.id
+					stripe_transfer_id: response.id,
+					currency: response.currency
 				)
 				if @transfer.status == "paid"
 					@transfer.update(
@@ -118,7 +119,8 @@ class Transfer < ActiveRecord::Base
 				failure_message: response.failure_message,
 				statement_descriptor: response.statement_descriptor,
 				status: response.status,
-				stripe_transfer_id: response.id
+				stripe_transfer_id: response.id,
+				currency: response.currency				
 			)
 			if @transfer.status == "paid"
 				@transfer.update(

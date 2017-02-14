@@ -99,7 +99,7 @@
 							<%= render partial: "utilities/editor/dropdown_videos_sub_category", locals: { user: user, majorpost: majorpost } %>
 						<% end %>					
 					</li>
-					<% if current_user.active_campaign || current_user.try(:admin) %>
+					<% if current_user.try(:active_campaign) || current_user.try(:admin) %>
 						<% if activity.trackable.backers_only == true %>
 							<li id="backer-public-switch">
 								<%= render partial: "content/majorposts/set_as_public", locals: { majorpost: majorpost } %>
