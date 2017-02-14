@@ -1,2 +1,2 @@
-$('#backer-public-switch').html("<%= j render(:partial => 'content/majorposts/set_as_public', locals: {majorpost: @majorpost}) %>");
+$('#<%= @majorpost.id %>backer-public-switch').html("<%= j render(:partial => 'content/majorposts/set_as_public', locals: {majorpost: @majorpost}) %>");
 $('#<%= @majorpost.id %>_read_all_button').html("<%= j render(:partial => 'content/majorposts/insert_keystone', locals: {majorpost: @majorpost}) %>");

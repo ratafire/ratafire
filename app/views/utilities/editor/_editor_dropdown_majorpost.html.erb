@@ -100,12 +100,12 @@
 						<% end %>					
 					</li>
 					<% if current_user.try(:active_campaign) || current_user.try(:admin) %>
-						<% if activity.trackable.backers_only == true %>
-							<li id="backer-public-switch">
+						<% if majorpost.backers_only == true %>
+							<li id="<%= majorpost.id %>backer-public-switch">
 								<%= render partial: "content/majorposts/set_as_public", locals: { majorpost: majorpost } %>
 							</li>	
 						<% else %>
-							<li id="backer-public-switch">
+							<li id="<%= majorpost.id %>backer-public-switch">
 								<%= render partial: "content/majorposts/set_as_backers_only", locals: { majorpost: majorpost } %>
 							</li>	
 						<% end %>
