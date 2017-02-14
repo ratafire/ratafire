@@ -125,7 +125,7 @@ class User < ActiveRecord::Base
     has_one :billing_artist, 
         -> { where(billing_artists:{:deleted => nil})}
     has_many :transfers, 
-        -> { where(transfers:{:deleted_at => nil , :transfered => nil, :on_hold => nil})}
+        -> { where(transfers:{:deleted_at => nil})}
     has_many :transfer_transfered,
         -> { where(transfers:{:deleted_at => nil , :transfered => true })},
         class_name: "Transfer", foreign_key: "user_id"
