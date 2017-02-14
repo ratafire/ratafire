@@ -630,7 +630,7 @@ en:
         days_to_current_goal: "Days to current goal"
         change_cover: "Change Cover"
         category: "Category"
-        set_as_backers_only: "Set as backers only"
+        set_as_backers_only: "Set as backers read all"
         set_as_public: "Set as public"
         art: "Art"
         music: "Music"
