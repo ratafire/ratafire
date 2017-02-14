@@ -16,17 +16,21 @@ class Stripe::Events
 		if @events = Stripe::Event.list('created[gte]' => @timestamp)
 			#Deal with each event
 			@events.data.each do |event|
-				case event.data.object.object
-				when 'transfer'
-					if @transfer = Transfer.find_by_stripe_transfer_id(event.data.object.id)
-						Transfer.update_transfer(event.data.object)
+				begin
+					case event.data.object.object
+					when 'transfer'
+						if @transfer = Transfer.find_by_stripe_transfer_id(event.data.object.id)
+							Transfer.update_transfer(event.data.object)
+						else
+							Transfer.create_transfer(event.data.object)
+						end
+					when 'balance'
 					else
-						Transfer.create_transfer(event.data.object)
+						if @stripe_account = StripeAccount.find_by_stripe_id(event.data.object.id)
+							StripeAccount.stripe_account_update(event.data.object, @stripe_account.user_id)
+						end
 					end
-				else
-					if @stripe_account = StripeAccount.find_by_stripe_id(event.data.object.id)
-						StripeAccount.stripe_account_update(event.data.object, @stripe_account.user_id)
-					end
+				rescue
 				end
 			end
 		end
