@@ -164,10 +164,10 @@ private
 
 	def update_bank_account
 		if @bank_account.update(
-				currency: @stripe_account.external_accounts.last.currency,
-				status: @stripe_account.external_accounts.last.status,
-				bank_name: @stripe_account.external_accounts.last.bank_name,
-				stripe_id: @stripe_account.external_accounts.last.id
+				currency: @stripe_account.external_accounts.first.currency,
+				status: @stripe_account.external_accounts.first.status,
+				bank_name: @stripe_account.external_accounts.first.bank_name,
+				stripe_id: @stripe_account.external_accounts.first.id
 			)
 			if @user.bank_account
 				#retrieve old and new stripe 
