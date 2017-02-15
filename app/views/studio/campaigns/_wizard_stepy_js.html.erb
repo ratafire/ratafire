@@ -165,15 +165,20 @@ $(function() {
         //submit form
         $("#campaign-wizard").trigger('submit.rails');
     }); 
+    //Submit form
+    $('.save-button').click(function(){
+        //submit form
+        $("#campaign-wizard").trigger('submit.rails');
+    });     
     <% if browser.platform.windows7? && browser.chrome? %>
         $('.stepy-navigator').prepend(
-                                    '<%= link_to delete_user_studio_campaigns_path(@campaign.user.id, @campaign.id), method: :delete do %><span class="pull-left btn btn-default"><%= t 'views.utilities.editor.delete' %></span><% end %><button class=\"btn bg-green\">\
+                                    '<%= link_to delete_user_studio_campaigns_path(@campaign.user.id, @campaign.id), method: :delete do %><span class="pull-left btn btn-default"><%= t 'views.utilities.editor.delete' %></span><% end %><button class=\"btn bg-green save-button\" >\
                                 <%= t 'views.utilities.editor.save' %>\
                             </button>'
             );    
     <% else %>
         $('.stepy-navigator').prepend(
-                                    '<%= link_to delete_user_studio_campaigns_path(@campaign.user.id, @campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_delete_project')}, method: :delete do %><span class="pull-left btn btn-default"><%= t 'views.utilities.editor.delete' %></span><% end %><button class=\"btn bg-green\">\
+                                    '<%= link_to delete_user_studio_campaigns_path(@campaign.user.id, @campaign.id), :data => { :confirm => t('views.campaign.are_you_sure_to_delete_project')}, method: :delete do %><span class="pull-left btn btn-default"><%= t 'views.utilities.editor.delete' %></span><% end %><button class=\"btn bg-green save-button\" >\
                                 <%= t 'views.utilities.editor.save' %>\
                             </button>'
             );    
