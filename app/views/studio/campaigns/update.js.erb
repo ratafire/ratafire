@@ -10,3 +10,7 @@ $('#campaign-content-editor-edit').remove();
 $('#campaign-content-holder-edit').append("<%= j render(:partial => 'studio/campaigns/update_content', locals: {user: @user, campaign: @campaign}) %>");
 $('#reward-currency').append("<%= currency_signs(@campaign.currency) %>");
 $('.input-group-addon').html('$');
+$('.save-button').click(function(){
+    //submit form
+    $("#campaign-wizard").trigger('submit.rails');
+});     
