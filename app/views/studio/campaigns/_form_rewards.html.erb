@@ -32,7 +32,7 @@
 			<div class="col-md-9">
 				<div class="form-group">
 					<% if @campaign.try(:rewards).try(:first).goal == 0 %>
-						<%= r.text_field :goal, value: nil, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
+						<%= r.text_field :goal, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
 					<% else %>
 						<%= r.text_field :goal, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
 					<% end %>
