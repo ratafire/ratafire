@@ -91,7 +91,7 @@
 
 		<div class="col-md-9">
 			<div class="form-group">
-				<%= f.text_field :tag_list, type:"hidden", placeholder:"#"+t('views.campaign.tags'),class:"editor-tags text-grey-200 text-thin select-xs select required" %>
+				<%= f.text_field :tag_list, type:"hidden", placeholder:"#"+t('views.campaign.tags'),class:"editor-tags text-grey-200 text-thin select-xs select required", value: f.object.tag_list.to_s %>
 				<span class="help-block">
 				</span>
 			</div>

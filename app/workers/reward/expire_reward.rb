@@ -22,5 +22,4 @@ class Reward::ExpireReward
 			end
 		end
 	end
-
 end

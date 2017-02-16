@@ -35,12 +35,11 @@
 							<div><%= t 'views.campaign.current_goal' %>: <span class="text-danger">*</span></div>
 						</div>
 						<div class="col-md-9">
-							<div class="form-group">
-								<% if @reward.goal == 0 %>
-									<%= f.number_field :goal, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
-								<% else %>
-									<%= f.number_field :goal, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
-								<% end %>
+							<div class="form-group has-feedback has-feedback-left">
+								<%= f.number_field :goal, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
+								<div class="form-control-feedback">
+									$
+								</div>
 								<span class="help-block">
 									<p><%= t 'views.campaign.goal_help' %></p>
 								</span>

@@ -1,4 +1,3 @@
-<!-- Rewards -->
 <fieldset title="2">
 	<legend class=""><%= t 'views.campaign.rewards' %></legend>
 	<!-- Topic -->
@@ -30,12 +29,11 @@
 				<div><%= t 'views.campaign.current_goal' %>: <span class="text-danger">*</span></div>
 			</div>
 			<div class="col-md-9">
-				<div class="form-group">
-					<% if @campaign.try(:rewards).try(:first).goal == 0 %>
-						<%= r.text_field :goal, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
-					<% else %>
-						<%= r.text_field :goal, class:"form-control", placeholder:t('views.campaign.goal_placeholder')%>
-					<% end %>
+				<div class="form-group has-feedback has-feedback-left">
+					<%= r.number_field :goal, class:"form-control",step:1, placeholder:t('views.campaign.goal_placeholder')%>
+					<div class="form-control-feedback">
+						$
+					</div>
 					<span class="help-block">
 						<p><%= t 'views.campaign.goal_help' %></p>
 					</span>
@@ -49,7 +47,7 @@
 			</div>
 			<div class="col-md-9">
 				<div class="form-group">
-					<%= r.text_field :due, class:"form-control daterange required", placeholder:t('views.campaign.current_goal_due')%>
+					<%= r.text_field :due, class:"form-control daterange-goal-due required", placeholder:t('views.campaign.current_goal_due')%>
 					<span class="help-block">
 						<%= t 'views.campaign.current_goal_due_help' %>
 					</span>
@@ -258,26 +256,52 @@
 				$('#add_anywhere_trigger').click();
 			}
 		});
-		//Date Picker for due
-	    $('.daterange').daterangepicker({ 
-	        singleDatePicker: true,
-	        "startDate": moment().add(30, 'days'),
-	        "minDate": moment().add(10, 'days'),
-	        "maxDate": moment().add(90, 'days'),
-			locale: {
-			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
-			},
-	    });
-	    //Date Picker for estimate delivery
-	    $('.daterange-estimated-delivery').daterangepicker({ 
-	        singleDatePicker: true,
-	        "startDate": moment().add(30, 'days'),
-	        "minDate": moment().add(10, 'days'),
-	        "maxDate": moment().add(180, 'days'),
-			locale: {
-			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
-			},
-	    });
+		<% if @campaign.rewards.first.due != nil %>
+			//Date Picker for due
+		    $('.daterange-goal-due').daterangepicker({ 
+		        singleDatePicker: true,
+		        "startDate": '<%= @campaign.rewards.first.due.strftime("%m/%d/%Y") %>',
+		        "minDate": moment().add(10, 'days'),
+		        "maxDate": moment().add(90, 'days'),
+				locale: {
+				monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+				},
+		    });
+		<% else %>
+			//Date Picker for due
+		    $('.daterange-goal-due').daterangepicker({ 
+		        singleDatePicker: true,
+		        "startDate": moment().add(30, 'days'),
+		        "minDate": moment().add(10, 'days'),
+		        "maxDate": moment().add(90, 'days'),
+				locale: {
+				monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+				},
+		    });
+		<% end %>
+		<% if @campaign.rewards.first.estimated_delivery != nil %>
+		    //Date Picker for estimate delivery
+		    $('.daterange-estimated-delivery').daterangepicker({ 
+		        singleDatePicker: true,
+		        "startDate": '<%= @campaign.rewards.first.estimated_delivery.strftime("%m/%d/%Y") %>',
+		        "minDate": moment().add(10, 'days'),
+		        "maxDate": moment().add(180, 'days'),
+				locale: {
+				monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+				},
+		    });
+		<% else %>
+		    //Date Picker for estimate delivery
+		    $('.daterange-estimated-delivery').daterangepicker({ 
+		        singleDatePicker: true,
+		        "startDate": moment().add(30, 'days'),
+		        "minDate": moment().add(10, 'days'),
+		        "maxDate": moment().add(180, 'days'),
+				locale: {
+				monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
+				},
+		    });
+		<% end %>
 	    //Reward Amount
 	    $(".touchspin-reward-amount").TouchSpin({
 	        max: 200,
