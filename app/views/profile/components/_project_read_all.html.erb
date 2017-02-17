@@ -18,14 +18,42 @@
 						</i>
 					</a>
 					<ul id="majorpost-share-toolbar" class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
-						<li><div class="p-20"><%= raw RQRCode::QRCode.new( 'https://github.com/whomwah/rqrcode', :size => 4, :level => :h ).as_html %></div></li>		
-						<li><a href="#"><i class="huaxia huaxia-link"></i> Link</a></li>
+						<% if I18n.locale == :zh %>
+							<li><div class="p-20"><%= raw RQRCode::QRCode.new( 'https://ratafire.com'+@user.username, :size => 6, :level => :h ).as_html %></div></li>
+						<% else %>		
+							<li>
+								<a href="" class="ssk ssk-facebook" data-url="https://ratafire.com/<%= @user.username %>">
+									<i class="fa fa-facebook-square"></i><%= t 'views.settings.social_media_settings.facebook' %>
+								</a>
+							</li>
+							<li>
+								<a href="" class="ssk ssk-twitter" data-url="https://ratafire.com/<%= @user.username %>" data-text="<%= @user.active_campaign.title %> @ratafirer" >
+									<i class="fa fa-twitter-square"></i><%= t 'views.settings.social_media_settings.twitter' %>
+								</a>
+							</li>
+							<li>
+								<a href="" class="ssk ssk-tumblr" data-url="https://ratafire.com/<%= @user.username %>">
+									<i class="fa fa-tumblr-square"></i><%= t 'views.settings.social_media_settings.tumblr' %>
+								</a>
+							</li>
+						<% end %>
+						<li>
+							<a data-clipboard-text="https://ratafire.com/<%= @user.username %>" >
+								<i class="huaxia huaxia-link"></i><%= t 'views.utilities.menu.copy_link' %>
+							</a>
+						</li>
 					</ul>
 				</span>				
 				<!-- Repost 
 				<i class="ti-loop mr-10" data-popup="tooltip" title="Repost" data-placement="bottom"></i>-->
 				<!-- Like -->
-				<i class="huaxia huaxia-guanzhu text-medium"></i>
+				<% if @user.active_campaign && @user.active_reward %>
+					<%= link_to new_user_payment_backs_path(@user.uid) do %>
+						<span>
+							<i class="text-grey-300 huaxia huaxia-shui1 text-medium inline-block"></i>
+						</span>
+					<% end %>
+				<% end %>
 			</div>	
 		</div>			
 	</div>

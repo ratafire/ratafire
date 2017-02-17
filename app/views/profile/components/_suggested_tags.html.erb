@@ -2,7 +2,7 @@
 <li class="media" id="sidebar-suggested-tags-holder">
 	<% if I18n.locale == :zh %>
 		<!-- 概念艺术 -->
-		<%= link_to tag_path(Tag.find_by_name("概念艺术")), class:"sidebar-recommended-tags" do %>
+		<%= link_to tag_path(Tag.find_by_name("概念艺术").name), class:"sidebar-recommended-tags" do %>
 			<div class="media-left pr-15 pl-8">
 				<img src="<%= Tag.find_by_name("概念艺术").tag_image.image.url(:thumbnail40) %>" class="profile-thumb-holder cover-profilephoto-holder img-xxs ml-5- mt-5-" alt="">
 			</div>
@@ -13,7 +13,7 @@
 			</div>
 		<% end %>
 		<!-- 游戏 -->
-		<%= link_to tag_path(Tag.find_by_name("游戏")), class:"sidebar-recommended-tags" do %>
+		<%= link_to tag_path(Tag.find_by_name("游戏").name), class:"sidebar-recommended-tags" do %>
 			<div class="media-left pr-15 pl-8">
 				<img src="<%= Tag.find_by_name("游戏").tag_image.image.url(:thumbnail40) %>" class="profile-thumb-holder cover-profilephoto-holder img-xxs ml-5- mt-5-" alt="">
 			</div>
@@ -24,7 +24,7 @@
 			</div>
 		<% end %>
 		<!-- 翻录 -->
-		<%= link_to tag_path(Tag.find_by_name("翻录")), class:"sidebar-recommended-tags" do %>
+		<%= link_to tag_path(Tag.find_by_name("翻录").name), class:"sidebar-recommended-tags" do %>
 			<div class="media-left pr-15 pl-8">
 				<img src="<%= Tag.find_by_name("翻录").tag_image.image.url(:thumbnail40) %>" class="profile-thumb-holder cover-profilephoto-holder img-xxs ml-5- mt-5-" alt="">
 			</div>
@@ -36,7 +36,7 @@
 		<% end %>
 	<% else %>
 		<!-- Concept Art -->
-		<%= link_to tag_path(Tag.find_by_name("concept art")), class:"sidebar-recommended-tags" do %>
+		<%= link_to tag_path(Tag.find_by_name("concept art").name), class:"sidebar-recommended-tags" do %>
 			<div class="media-left pr-15 pl-8">
 				<img src="<%= Tag.find_by_name("concept art").tag_image.image.url(:thumbnail40) %>" class="profile-thumb-holder cover-profilephoto-holder img-xxs ml-5- mt-5-" alt="">
 			</div>
@@ -47,7 +47,7 @@
 			</div>
 		<% end %>
 		<!-- Gaming -->
-		<%= link_to tag_path(Tag.find_by_name("gaming")), class:"sidebar-recommended-tags" do %>
+		<%= link_to tag_path(Tag.find_by_name("gaming").name), class:"sidebar-recommended-tags" do %>
 			<div class="media-left pr-15 pl-8">
 				<img src="<%= Tag.find_by_name("gaming").tag_image.image.url(:thumbnail40) %>" class="profile-thumb-holder cover-profilephoto-holder img-xxs ml-5- mt-5-" alt="">
 			</div>
@@ -58,7 +58,7 @@
 			</div>
 		<% end %>
 		<!-- Cover -->
-		<%= link_to tag_path(Tag.find_by_name("cover")), class:"sidebar-recommended-tags" do %>
+		<%= link_to tag_path(Tag.find_by_name("cover").name), class:"sidebar-recommended-tags" do %>
 			<div class="media-left pr-15 pl-8">
 				<img src="<%= Tag.find_by_name("cover").tag_image.image.url(:thumbnail40) %>" class="profile-thumb-holder cover-profilephoto-holder img-xxs ml-5- mt-5-" alt="">
 			</div>

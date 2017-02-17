@@ -3,7 +3,7 @@
 		<!-- Col 1 -->
 		<div class="col-lg-4 col-md-4 col-sm-4">
 			<!-- 概念艺术 -->
-			<%= link_to tag_path(Tag.find_by_name("概念艺术")) do %>
+			<%= link_to tag_path(Tag.find_by_name("概念艺术").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("概念艺术").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -14,7 +14,7 @@
 				</div>
 			<% end %>
 			<!-- 开源 -->
-			<%= link_to tag_path(Tag.find_by_name("开源")) do %>
+			<%= link_to tag_path(Tag.find_by_name("开源").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("开源").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -28,7 +28,7 @@
 		<!-- Col 2 -->
 		<div class="col-lg-4 col-md-4 col-sm-4">
 			<!-- 翻录 -->
-			<%= link_to tag_path(Tag.find_by_name("翻录")) do %>
+			<%= link_to tag_path(Tag.find_by_name("翻录").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("翻录").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -39,7 +39,7 @@
 				</div>
 			<% end %>
 			<!-- cg -->
-			<%= link_to tag_path(Tag.find_by_name("cg")) do %>
+			<%= link_to tag_path(Tag.find_by_name("cg").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("cg").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -53,7 +53,7 @@
 		<!-- Col 3 -->
 		<div class="col-lg-4 col-md-4 col-sm-4">
 			<!-- 游戏 -->
-			<%= link_to tag_path(Tag.find_by_name("游戏")) do %>
+			<%= link_to tag_path(Tag.find_by_name("游戏").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("游戏").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -64,7 +64,7 @@
 				</div>
 			<% end %>
 			<!-- vr -->
-			<%= link_to tag_path(Tag.find_by_name("vr")) do %>
+			<%= link_to tag_path(Tag.find_by_name("vr").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("vr").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -81,7 +81,7 @@
 		<!-- Col 1 -->
 		<div class="col-lg-4 col-md-4 col-sm-4">
 			<!-- Concept art -->
-			<%= link_to tag_path(Tag.find_by_name("concept art")) do %>
+			<%= link_to tag_path(Tag.find_by_name("concept art").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("concept art").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -92,7 +92,7 @@
 				</div>
 			<% end %>
 			<!-- Open source -->
-			<%= link_to tag_path(Tag.find_by_name("open source")) do %>
+			<%= link_to tag_path(Tag.find_by_name("open source").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("open source").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -106,7 +106,7 @@
 		<!-- Col 2 -->
 		<div class="col-lg-4 col-md-4 col-sm-4">
 			<!-- cover -->
-			<%= link_to tag_path(Tag.find_by_name("cover")) do %>
+			<%= link_to tag_path(Tag.find_by_name("cover").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("cover").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -117,7 +117,7 @@
 				</div>
 			<% end %>
 			<!-- cg -->
-			<%= link_to tag_path(Tag.find_by_name("cg")) do %>
+			<%= link_to tag_path(Tag.find_by_name("cg").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("cg").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -131,7 +131,7 @@
 		<!-- Col 3 -->
 		<div class="col-lg-4 col-md-4 col-sm-4">
 			<!-- gaming -->
-			<%= link_to tag_path(Tag.find_by_name("gaming")) do %>
+			<%= link_to tag_path(Tag.find_by_name("gaming").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("gaming").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
@@ -142,7 +142,7 @@
 				</div>
 			<% end %>
 			<!-- vr -->
-			<%= link_to tag_path(Tag.find_by_name("vr")) do %>
+			<%= link_to tag_path(Tag.find_by_name("vr").name) do %>
 				<div class="panel">
 					<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px;">
 						<img src="<%= Tag.find_by_name("vr").tag_image.image.url(:preview128) %>" class="about-profilephoto-holder" alt="">
