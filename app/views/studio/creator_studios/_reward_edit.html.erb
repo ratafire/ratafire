@@ -16,12 +16,18 @@
 					</li>
 				<% end %>
 				<!-- Abandon -->
-				<% if reward.active == nil %>
+				<% if reward.active == nil && reward.campaign.status == "Approved" %>
 					<li>
 						<%= link_to abandon_user_studio_rewards_path(current_user.uid, reward.id), method: :delete do %>
 							<i class="ti-trash"></i><%= t 'views.utilities.editor.abandon' %>
 						<% end %>
 					</li>
+				<% else %>
+					<li>
+						<a>
+							lol
+						</a>
+					</li>					
 				<% end %>
 			<% else %>
 				<!-- End early -->
@@ -33,11 +39,17 @@
 					</li>
 				<% end %>
 				<!-- Abandon -->
-				<% if reward.active == nil %>
+				<% if reward.active == nil && reward.campaign.status == "Approved" %>
 					<li>
 						<%= link_to abandon_user_studio_rewards_path(current_user.uid, reward.id), :data => { :confirm => t('views.creator_studio.rewards.are_you_sure_to_abandon_this_reward')}, method: :delete do %>
 							<i class="ti-trash"></i><%= t 'views.utilities.editor.abandon' %>
 						<% end %>
+					</li>
+				<% else %>
+					<li>
+						<a>
+							lol
+						</a>
 					</li>
 				<% end %>
 			<% end %>

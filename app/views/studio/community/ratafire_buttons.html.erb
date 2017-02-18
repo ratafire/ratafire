@@ -19,11 +19,17 @@
     </div>
 </div>
 <script type="text/javascript">
+    // $( "#ratafire-button-round" ).click(function() {
+    //     $('#ratafire-button-input').val("\<a style=\"padding: 10px 10px 10px 10px;border-radius:100px;white-space:normal;position:relative;background: url(https://ratafire.com/assets/editor/rainbow-blur4.jpg);background-repeat: no-repeat;background-size: cover;background-attachment: fixed;color:#ffffff;border-color: transparent;display: inline-block;margin-bottom: 0;font-weight: normal;text-align: center;vertical-align: middle;touch-action:manipulation;cursor: pointer;border: 1px solid transparent;font-size:13px;line-height:1.5384616;user-select:none;box-sizing: border-box;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);\" href=\"https://ratafire.com/<%= @user.username %>\"><img src=\"https://ratafire.com/assets/ratafire_buttons/ratafire.png\" height=\"25px;\"></a>");
+    // });
+    // $( "#ratafire-button-back" ).click(function() {
+    //     $('#ratafire-button-input').val("\<a style=\"border-radius: 2px;position: relative;background: url(https://ratafire.com/assets/editor/rainbow-blur4.jpg);background-repeat: no-repeat;background-size: cover;background-attachment: fixed;color:#ffffff;border-color: transparent;display: inline-block;font-weight: normal;text-align: center;vertical-align: middle;touch-action:manipulation;cursor:pointer;border:1px solid transparent;white-space: nowrap;padding: 7px 12px;font-size: 13px;line-height: 1.5384616;user-select:none;box-sizing: border-box;\" href=\"https://ratafire.com/<%= @user.username %>\"><img src=\"https://ratafire.com/assets/ratafire_buttons/ratafire.png\" height=\"16px;\" style=\"margin: -3px 5px 0 0;\"><%= t 'views.creator_studio.community.ratafire_buttons.back_this_creator'%></a>");
+    // });
     $( "#ratafire-button-round" ).click(function() {
-        $('#ratafire-button-input').val("\<a style=\"padding: 10px 10px 10px 10px;border-radius:100px;white-space:normal;position:relative;background: url(https://ratafire.com/assets/editor/rainbow-blur4.jpg);background-repeat: no-repeat;background-size: cover;background-attachment: fixed;color:#ffffff;border-color: transparent;display: inline-block;margin-bottom: 0;font-weight: normal;text-align: center;vertical-align: middle;touch-action:manipulation;cursor: pointer;border: 1px solid transparent;font-size:13px;line-height:1.5384616;user-select:none;box-sizing: border-box;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);\" href=\"https://ratafire.com/<%= @user.username %>\"><img src=\"https://ratafire.com/assets/ratafire_buttons/ratafire.png\" height=\"25px;\"></a>");
+        $('#ratafire-button-input').val("\<a href=\"https://ratafire.com/<%= @user.username %>\"><img src=\"https://ratafire.com/assets/ratafire_buttons/ratafire_back_this_creator_round.png\"></a>");
     });
     $( "#ratafire-button-back" ).click(function() {
-        $('#ratafire-button-input').val("\<a style=\"border-radius: 2px;position: relative;background: url(https://ratafire.com/assets/editor/rainbow-blur4.jpg);background-repeat: no-repeat;background-size: cover;background-attachment: fixed;color:#ffffff;border-color: transparent;display: inline-block;font-weight: normal;text-align: center;vertical-align: middle;touch-action:manipulation;cursor:pointer;border:1px solid transparent;white-space: nowrap;padding: 7px 12px;font-size: 13px;line-height: 1.5384616;user-select:none;box-sizing: border-box;\" href=\"https://ratafire.com/<%= @user.username %>\"><img src=\"https://ratafire.com/assets/ratafire_buttons/ratafire.png\" height=\"16px;\" style=\"margin: -3px 5px 0 0;\"><%= t 'views.creator_studio.community.ratafire_buttons.back_this_creator'%></a>");
-    });
+        $('#ratafire-button-input').val("\<a href=\"https://ratafire.com/<%= @user.username %>\"><img src=\"https://ratafire.com/assets/ratafire_buttons/ratafire_back_this_creator.png\"></a>");
+    });    
 </script>
 

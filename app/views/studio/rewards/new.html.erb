@@ -287,13 +287,13 @@
 			$('#add_anywhere_trigger').click();
 		}
 	});
-	<% if @user.active_reward %>
+	<% if @reward.due != nil %>
 		//Date Picker for due
 	    $('.daterange').daterangepicker({ 
 	        singleDatePicker: true,
-	        "startDate": '<%= (@user.active_reward.due + 30.days).strftime('%m/%d/%Y') %>',
-	        "minDate": '<%= @user.active_reward.due.strftime('%m/%d/%Y') %>',
-	        "maxDate":'<%= (@user.active_reward.due + 90.days).strftime('%m/%d/%Y') %>',
+	        "startDate": '<%= (@reward.due + 30.days).strftime('%m/%d/%Y') %>',
+	        "minDate": '<%= @reward.due.strftime('%m/%d/%Y') %>',
+	        "maxDate":'<%= (@reward.due + 90.days).strftime('%m/%d/%Y') %>',
 			locale: {
 			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
 			},
@@ -301,9 +301,9 @@
 	    //Date Picker for estimate delivery
 	    $('.daterange-estimated-delivery').daterangepicker({ 
 	        singleDatePicker: true,
-	        "startDate": '<%= (@user.active_reward.due + 30.days).strftime('%m/%d/%Y') %>',
-	        "minDate": '<%= @user.active_reward.due.strftime('%m/%d/%Y') %>',
-	        "maxDate": '<%= (@user.active_reward.due + 180.days).strftime('%m/%d/%Y') %>',
+	        "startDate": '<%= (@reward.due + 30.days).strftime('%m/%d/%Y') %>',
+	        "minDate": '<%= @reward.due.strftime('%m/%d/%Y') %>',
+	        "maxDate": '<%= (@reward.due + 180.days).strftime('%m/%d/%Y') %>',
 			locale: {
 			monthNames: ['<%= t 'views.utilities.daterangepicker.jan' %>', '<%= t 'views.utilities.daterangepicker.feb' %>', '<%= t 'views.utilities.daterangepicker.mar' %>', '<%= t 'views.utilities.daterangepicker.apr' %>', '<%= t 'views.utilities.daterangepicker.may' %>', '<%= t 'views.utilities.daterangepicker.jun' %>', '<%= t 'views.utilities.daterangepicker.jul' %>', '<%= t 'views.utilities.daterangepicker.aug' %>', '<%= t 'views.utilities.daterangepicker.sep' %>', '<%= t 'views.utilities.daterangepicker.oct' %>', '<%= t 'views.utilities.daterangepicker.nov' %>', '<%= t 'views.utilities.daterangepicker.dec' %>']
 			},
