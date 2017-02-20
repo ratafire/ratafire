@@ -3,6 +3,7 @@ class Payment::SubscriptionsController < ApplicationController
 	before_filter :load_subscriber, only:[:create, :unsub]
 	before_filter :load_reverse_subscriber, only:[:destroy]
 	before_filter :check_if_active_subscription, only: [:create]
+	before_filter :check_if_spam, only: [:create]
 	before_filter :check_if_all_gone, only: [:create]
 	before_filter :check_if_reward_receiver, only: [:create]
 	before_filter :connect_to_stripe, only:[:create]
@@ -745,6 +746,31 @@ private
 				redirect_to new_user_payment_backs_path(@subscribed.uid)
 			end
 		end
+	end
+
+	def check_if_spam
+		#One time funding
+		if params[:subscription][:funding_type] == 'one_time'
+			if @one_time_history = Subscription.where(funding_type: 'one_time', subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
+				@days = ((Time.now - @one_time_history.created_at)/1.day).round
+				if @days <= 3 then
+					@indays = 3-@days
+					flash[:alert] = t('errors.messages.wait_3_days')
+					redirect_to profile_url_path(@subscribed.username)
+				end
+			end
+		end
+		#Recurring
+		if params[:subscription][:funding_type] == 'recurring'
+			if @recurring_history = Subscription.where(funding_type: 'recurring', real_deleted: true, subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
+				@days = ((Time.now - @recurring_history.deleted_at)/1.day).round
+				if @days <= 15 then
+					@indays = 15-@days
+					flash[:alert] = t('errors.messages.wait_15_days')
+					redirect_to profile_url_path(@subscribed.username)
+				end
+			end
+		end		
 	end
 
 end

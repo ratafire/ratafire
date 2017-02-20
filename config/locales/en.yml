@@ -995,6 +995,8 @@ en:
       already_backed: "You are already a long term backer of "
       all_gone: "This reward is all gone."
       had_it: "You had this reward."
+      wait_3_days: "Please wait 3 days before becoming a one time backer of this creator again."
+      wait_15_days: "Please wait 15 days before becoming a long term backer of this creator again."
       arrow_to_the_knee: "until you took an arrow to the knee."
       updated: "Updated!"
       one_shipping_address_per_country: "One mailing address per country"

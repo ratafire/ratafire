@@ -993,6 +993,8 @@ zh:
       already_backed: "你已经长期支持"
       all_gone: "这项奖励已送完。"
       had_it: "你已经获得过这个奖励。"
+      wait_3_days: "请等3天再赞赏同一个创作者。"
+      wait_15_days: "请等15天再长期赞赏同一个创作者。"
       arrow_to_the_knee: "直到你膝盖中了一箭。"
       updated: "已更新！"
       not_matched: "不匹配"

@@ -28,7 +28,7 @@
         <% end %>    	
 		<!-- About -->
 		<p class="mt-10">
-			<%= user.bio %>
+			<%= user.bio %><% if user.website %><a href="<%= user.website %>" class="text-grey-300 ml-5"><%= user.website.sub(/^https?\:\/\//, '').sub(/^www./,'') %></a><% end %>
 		</p>
 		<!-- Website -->
 		<% if user.website && 1 == 0 %>
