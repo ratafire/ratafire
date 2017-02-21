@@ -177,6 +177,9 @@ GEM
       railties (>= 3.2)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bonsai-elasticsearch-rails (0.2.0)
+      elasticsearch-model (~> 0)
+      elasticsearch-rails (~> 0)
     browser (2.3.0)
     builder (3.2.3)
     byebug (9.0.6)
@@ -219,6 +222,23 @@ GEM
       rails (>= 3.0.4)
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
+    elasticsearch (5.0.3)
+      elasticsearch-api (= 5.0.3)
+      elasticsearch-transport (= 5.0.3)
+    elasticsearch-api (5.0.3)
+      multi_json
+    elasticsearch-model (0.1.9)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-model-globalize (0.0.3)
+      activerecord
+      elasticsearch-model
+      globalize
+    elasticsearch-rails (0.1.9)
+    elasticsearch-transport (5.0.3)
+      faraday
+      multi_json
     encryptor (3.0.0)
     errbase (0.0.3)
     erubis (2.7.0)
@@ -553,6 +573,7 @@ DEPENDENCIES
   aws-s3
   aws-sdk (< 2.0)
   best_in_place (~> 3.0.1)
+  bonsai-elasticsearch-rails
   browser
   byebug
   cld
@@ -561,6 +582,9 @@ DEPENDENCIES
   delayed_paperclip!
   devise (= 3.5.10)
   devise_lastseenable
+  elasticsearch-model
+  elasticsearch-model-globalize
+  elasticsearch-rails
   figaro
   formvalidation-rails
   friendly_id

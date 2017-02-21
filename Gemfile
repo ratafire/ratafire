@@ -171,6 +171,10 @@ gem 'globalize-versioning'
 gem 'cld'
 
 #------------------------ Search ------------------------
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model-globalize'
+gem 'bonsai-elasticsearch-rails', group: :production
 
 #------------------------ Mailer ------------------------
 #Outside mailing service

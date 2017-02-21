@@ -10,5 +10,7 @@ Campaign::CampaignDue:
   cron: "20 2 * * *"
 Shipping::ShippingDue:
   cron: "20 3 * * *"
+Admin::Keystone:
+  cron: "20 4 * * *"
 Stripe::Events:
   cron: "0,30 * * * *"
