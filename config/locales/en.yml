@@ -567,6 +567,7 @@ en:
         ratafire: "Ratafire"
         contact: "Contact"
         fan_funding_for_creators: "Fan Funding for Creators"
+        its_fan_funding_its_a_world: "It's fan funding, it's a world"
         categories: "Categories"
         sub_categories: "Sub categories"
         learn_more: "Learn more"
@@ -1003,6 +1004,7 @@ en:
       not_matched: "don't match"   
       are_you_sure: "Are you sure?"   
       too_many_requests: "Sorry, the server is taking too many requests. Please try again."
+      enter_name: "Please enter first name, last name, email and password."
   number:
     human:
       decimal_units:

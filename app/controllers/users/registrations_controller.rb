@@ -77,6 +77,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 			set_minimum_password_length
 			respond_with resource
 		end
+	rescue
+	 	flash[:error] = t('errors.messages.enter_name')
+	 	redirect_to(:back)
 	end	
 
 	#NoREST Methods -----------------------------------

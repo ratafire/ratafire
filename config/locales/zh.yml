@@ -565,6 +565,7 @@ zh:
         ratafire: "火栗"
         contact: "联系我们"
         fan_funding_for_creators: "粉丝赞赏"
+        its_fan_funding_its_a_world: "这是粉丝赞赏，这是一个世界"        
         categories: "分类"
         sub_categories: "小分类"
         learn_more: "了解更多"
@@ -1000,6 +1001,7 @@ zh:
       not_matched: "不匹配"
       are_you_sure: "你确定吗？"
       too_many_requests: "对不起，服务器繁忙。请重试。"
+      enter_name: "请输入姓名，邮箱和密码。"
   number:
     human:
       decimal_units:
