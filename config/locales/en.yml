@@ -908,6 +908,16 @@ en:
       uniform:
         choose_file: "Choose File"
         no_file_selected: "No file selected"
+  story:
+    welcome:
+      welcome_story_1: "You have travelled through "
+      worlds: "worlds"      
+      welcome_story_2: " before waking up in "
+      hazeleaf_garden: "Hazeleaf Garden"
+      welcome_story_3: "There is a "
+      squirrel: "squirrel"
+      welcome_story_4: " by the fire, roasting "
+      hazelnuts: "hazelnuts"
   mailer:
     layout:
       email_settings: "Email settings"

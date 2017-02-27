@@ -46,7 +46,7 @@
 									<% else %>
 										<!-- Welcome -->
 										<% if current_user == @user %>
-											<%= render partial:'profile/components/welcome', locals: {user: @user}%>	
+											<%= render partial:'profile/components/welcome_story', locals: {user: @user}%>	
 										<% else %>
 											<%= render partial:'profile/components/no_post', locals: {user: @user}%>
 										<% end %>
