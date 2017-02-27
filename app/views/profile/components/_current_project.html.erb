@@ -17,7 +17,7 @@
 	<div class="">
 		<%= render partial: "profile/components/category", locals: {category: user.active_campaign.category} %>
 		<%= render partial: "profile/components/sub_category", locals: {category: user.active_campaign.category, sub_category: user.active_campaign.sub_category} %>
-		<%= user.active_campaign.description %> <%= user.active_campaign.description %>
+		<%= user.active_campaign.description %>
 		<%= link_to display_read_all_user_studio_campaigns_path(user.id, user.active_campaign), remote: true do %>
 			<div class="mr-10 btn btn-xs label bg-grey-100"><%= t 'views.utilities.menu.read_all' %><i class="ti-angle-down ml-5"></i></div>
 		<% end %>
