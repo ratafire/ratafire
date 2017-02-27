@@ -14,15 +14,58 @@
 <script type="text/javascript">
 	$('#sidebar-followed-tags-holder, #sidebar-category-header').remove();
 	$('.navigation').prepend("<%= j render(:partial => 'utilities/sidebar/categories') %>");
+	//Starfield
+	$( document ).ready(function() {
+		$('#art-thumbnail').mouseenter(function() {
+			$('#art-thumb').append(
+				"<div id=\"art-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+			);
+		});
+		$('#art-thumbnail').mouseleave(function() {
+			$('#art-starfield').remove();
+		});
+		$('#music-thumbnail').mouseenter(function() {
+			$('#music-thumb').append(
+				"<div id=\"music-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+			);
+		});
+		$('#music-thumbnail').mouseleave(function() {
+			$('#music-starfield').remove();
+		});
+		$('#games-thumbnail').mouseenter(function() {
+			$('#games-thumb').append(
+				"<div id=\"games-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+			);
+		});
+		$('#games-thumbnail').mouseleave(function() {
+			$('#games-starfield').remove();
+		});	
+		$('#writing-thumbnail').mouseenter(function() {
+			$('#writing-thumb').append(
+				"<div id=\"writing-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+			);
+		});
+		$('#writing-thumbnail').mouseleave(function() {
+			$('#writing-starfield').remove();
+		});	
+		$('#videos-thumbnail').mouseenter(function() {
+			$('#videos-thumb').append(
+				"<div id=\"videos-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+			);
+		});
+		$('#videos-thumbnail').mouseleave(function() {
+			$('#videos-starfield').remove();
+		});									
+	});
 </script>
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <!-- Content Area -->
-	<!-- Page header -->
+	<!-- Page header 
 	<div class="page-header">
 		<div class="page-header-content">
 			<div class="page-title text-grey">
 				<h2 class="text-thin" id="tag-follow-holder">
-					<%= t 'views.utilities.menu.fan_funding_for_creators' %>
+					<%= t 'views.utilities.menu.world_map' %>
 				</h2>
 			</div>
 
@@ -33,17 +76,8 @@
 			</div>
 		</div>
 
-		<div class="breadcrumb-line breadcrumb-line-component text-thin">
-			<ul class="breadcrumb">
-				<li><a href="index.html"><%= t 'views.utilities.menu.explore' %></a></li>
-				<li><a href="gallery_titles.html"><%= t 'views.utilities.menu.categories' %></a></li>
-			</ul>
 
-			<ul class="breadcrumb-elements">
-				<li><a href="#"><i class="ti-paint-bucket position-left text-grey-300"></i></a></li>
-			</ul>
-		</div>
-	</div>
+	</div>-->
 	<!-- /page header -->
 
 
@@ -51,10 +85,10 @@
 	<div class="content">
 
 		<div class="row">
-			<div class="col-lg-4 col-md-4 col-sm-6">
+			<div class="col-lg-4 col-md-4 col-sm-6">		  			  			  
 				<%= link_to art_category_path do %>
-					<div class="thumbnail">
-						<div class="thumb">
+					<div class="thumbnail" id="art-thumbnail">
+						<div class="thumb" id="art-thumb">
 							<img src="/assets/default/categories/art_preview600.jpg" alt="">
 						</div>
 
@@ -62,13 +96,13 @@
 							<h6 class="no-margin"><%= t 'views.utilities.menu.art' %></h6>
 						</div>
 					</div>
-				<% end %>
+				<% end %>			
 			</div>
 
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<%= link_to music_category_path do %>
-					<div class="thumbnail">
-						<div class="thumb">
+					<div class="thumbnail" id="music-thumbnail">
+						<div class="thumb" id="music-thumb">
 							<img src="/assets/default/categories/music_preview600.jpg" alt="">
 						</div>
 
@@ -81,8 +115,8 @@
 
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<%= link_to games_category_path do %>
-					<div class="thumbnail">
-						<div class="thumb">
+					<div class="thumbnail" id="games-thumbnail">
+						<div class="thumb" id="games-thumb" >
 							<img src="/assets/default/categories/games_preview600.jpg" alt="">
 						</div>
 
@@ -98,8 +132,8 @@
 		<div class="row">
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<%= link_to writing_category_path do %>			
-					<div class="thumbnail">
-						<div class="thumb">
+					<div class="thumbnail" id="writing-thumbnail">
+						<div class="thumb" id="writing-thumb">
 							<img src="/assets/default/categories/writing_preview600.jpg" alt="">
 						</div>
 
@@ -112,8 +146,8 @@
 
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<%= link_to videos_category_path do %>					
-					<div class="thumbnail">
-						<div class="thumb">
+					<div class="thumbnail" id="videos-thumbnail">
+						<div class="thumb" id="videos-thumb">
 							<img src="/assets/default/categories/videos_preview600.jpg" alt="">
 						</div>
 

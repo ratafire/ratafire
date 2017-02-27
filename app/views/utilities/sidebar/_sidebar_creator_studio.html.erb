@@ -42,7 +42,7 @@
 					</li>-->
 					<li id="creator_studios-campaigns-sidebaractive">
 						<%= link_to campaigns_user_studio_creator_studio_path(current_user.username) do %>
-							<i class="icon-cloud"></i> <span><%= t 'views.creator_studio.menu.projects'%></span>
+							<i class="ti-light-bulb"></i> <span><%= t 'views.creator_studio.menu.projects'%></span>
 						<% end %>
 						<ul>
 							<li>
@@ -62,11 +62,13 @@
 							<i class="ti-announcement"></i> <span><%= t 'views.creator_studio.menu.current_goal'%></span>
 						</a>
 						<ul>
-							<li>
-								<%= link_to new_user_studio_rewards_path(current_user.username), :data => {turbolinks: "false"} do %>
-									<%= t 'views.creator_studio.current_goal.new_current_goal'%>
-								<% end %>
-							</li>
+							<% if current_user.active_campaign %>
+								<li>
+									<%= link_to new_user_studio_rewards_path(current_user.username), :data => {turbolinks: "false"} do %>
+										<%= t 'views.creator_studio.current_goal.new_current_goal'%>
+									<% end %>
+								</li>
+							<% end %>
 							<li id="creator_studios-current_goal-sidebarsubactive">
 								<%= link_to current_goal_user_studio_creator_studio_path(current_user.username), :data => {turbolinks: "false"} do %>
 									<%= t 'views.creator_studio.current_goal.all_current_goals'%>
@@ -74,10 +76,23 @@
 							</li>
 						</ul>
 					</li>
+					<li id="creator_studios-character_progression-sidebaractive">
+						<%= link_to rewards_user_studio_creator_studio_path(current_user.username) do %>
+							<i class="ti-infinite"></i> 
+							<span><%= t 'views.creator_studio.menu.character_progression'%></span>
+						<% end %>
+						<ul>
+							<li id="traits-show-sidebarsubactive">
+								<%= link_to user_studio_traits_path(current_user.username) do %>
+									<%= t 'views.creator_studio.community.traits'%>
+								<% end %>
+							</li>
+						</ul>
+					</li>					
 					<li id="creator_studios-rewards-sidebaractive">
 						<%= link_to rewards_user_studio_creator_studio_path(current_user.username) do %>
-							<i class="icon-gift"></i> 
-							<span><%= t 'views.creator_studio.menu.rewards'%></span>
+							<i class="ti-package"></i> 
+							<span><%= t 'views.creator_studio.menu.inventory'%></span>
 							<% if current_user.shipping_orders.any? %>
 								<span class="badge bg-warning">
 									<%= current_user.shipping_orders.count %>
@@ -85,11 +100,13 @@
 							<% end %>
 						<% end %>
 						<ul>
-							<li id="rewards-new-sidebarsubactive">
-								<%= link_to new_user_studio_rewards_path(current_user.username), :data => {turbolinks: "false"} do %>
-									<%= t 'views.creator_studio.rewards.new_reward'%>
-								<% end %>
-							</li>
+							<% if current_user.active_campaign %>
+								<li id="rewards-new-sidebarsubactive">
+									<%= link_to new_user_studio_rewards_path(current_user.username), :data => {turbolinks: "false"} do %>
+										<%= t 'views.creator_studio.rewards.new_reward'%>
+									<% end %>
+								</li>
+							<% end %>
 							<% if current_user.rewards.count > 0 %>
 								<li id="creator_studios-rewards-sidebarsubactive">
 									<%= link_to rewards_user_studio_creator_studio_path(current_user.username) do %>
@@ -122,12 +139,6 @@
 							<i class="icon-users"></i> <span><%= t 'views.creator_studio.menu.community'%></span>
 						<% end %>
 						<ul>
-							<li id="traits-show-sidebarsubactive">
-								<%= link_to user_studio_traits_path(current_user.username) do %>
-									<%= t 'views.creator_studio.community.traits'%>
-								<% end %>
-							</li>
-							<li class="navigation-divider"></li>
 							<% if current_user.likeds.count > 0 || current_user.likers.count > 0 || current_user.subscription_records.count > 0 || current_user.reverse_subscription_records.count > 0 %>
 								<!-- Following -->
 								<% if current_user.likeds.count > 0 %>
@@ -179,9 +190,9 @@
 					</li>
 					<li>
 						<a href="#">
-							<i class="icon-wallet"></i> 
+							<i class="ti-shield"></i> 
 							<span>
-								<%= t 'views.creator_studio.menu.wallet'%>
+								<%= t 'views.creator_studio.menu.bank'%>
 							</span>
 							<% if current_user.order && current_user.try(:order).try(:status) != 'Started' %>
 								<span class="badge bg-warning">

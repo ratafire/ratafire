@@ -1,15 +1,17 @@
-<ul class="media-list dropdown-content-body <% unless notification.is_read %>bg-grey-100<% end %>">
-	<li class="media">
-		<div class="media-left">
-			<img src="<%= Campaign.find(notification.trackable_id).image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
-		</div>
+<% if Campaign.find(notification.trackable_id) %>
+	<ul class="media-list dropdown-content-body <% unless notification.is_read %>bg-grey-100<% end %>">
+		<li class="media">
+			<div class="media-left">
+				<img src="<%= Campaign.find(notification.trackable_id).image.url(:thumbnail64)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
+			</div>
 
-		<div class="media-body">
-			<%= link_to profile_url_path(notification.user.username), class:"media-heading" do %>
-				<span class="text-semibold"><%= Campaign.find(notification.trackable_id).title %></span>
-				<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
-			<% end %>
-			<span class="text-grey"><%= t 'mailer.studio.campaigns.review.your_project'%><%= Campaign.find(notification.trackable_id).title %><%= t 'mailer.studio.campaigns.review.is_not_approved'%></span>
-		</div>
-	</li>
-</ul>
+			<div class="media-body">
+				<%= link_to profile_url_path(notification.user.username), class:"media-heading" do %>
+					<span class="text-semibold"><%= Campaign.find(notification.trackable_id).title %></span>
+					<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
+				<% end %>
+				<span class="text-grey"><%= t 'mailer.studio.campaigns.review.your_project'%><%= Campaign.find(notification.trackable_id).title %><%= t 'mailer.studio.campaigns.review.is_not_approved'%></span>
+			</div>
+		</li>
+	</ul>
+<% end %>

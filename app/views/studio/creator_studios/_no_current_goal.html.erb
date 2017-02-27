@@ -3,10 +3,12 @@
 		<div class="panel-body">
 			<h5 class="no-margin-top text-thin"><%= t 'views.creator_studio.rewards.new_current_goal_help'%></h5>
 			<!-- New Reward -->
-			<%= link_to new_user_studio_rewards_path(current_user.username), :data => {turbolinks: "false"} do %>
-				<div class="btn btn-blue text-white">
-					<%= t 'views.creator_studio.current_goal.new_current_goal'%>
-				</div>
+			<% if current_user.active_campaign %>
+				<%= link_to new_user_studio_rewards_path(current_user.username), :data => {turbolinks: "false"} do %>
+					<div class="btn btn-blue text-white">
+						<%= t 'views.creator_studio.current_goal.new_current_goal'%>
+					</div>
+				<% end %>
 			<% end %>
 		</div>
 	</div>

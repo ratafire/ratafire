@@ -1,11 +1,11 @@
 <%= link_to explore_tag_unfollow_path(tag.id), remote: true,method: :delete, id:"tag-unfollow" do %>
-	<span class="btn btn-blue" id="tag-follow-text"><%= t 'views.utilities.menu.following'%></span>
+	<span class="btn btn-blue" id="tag-follow-text"><%= t 'views.utilities.menu.hopped'%></span>
 <% end %>
 <script type="text/javascript">
 	$('#tag-unfollow').on("mouseenter", function(){
-		$('#tag-follow-text').html('<%= t 'views.utilities.btn.unfollow'%>');
+		$('#tag-follow-text').html('<%= t 'views.utilities.btn.leave'%>');
 	});
 	$('#tag-unfollow').on("mouseleave", function(){
-		$('#tag-follow-text').html('<%= t 'views.utilities.menu.following'%>');
+		$('#tag-follow-text').html('<%= t 'views.utilities.menu.hopped'%>');
 	});
 </script>

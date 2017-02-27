@@ -22,7 +22,7 @@
 			<div class="heading-btn-group">
 				<!-- Payment settings -->
 				<div class="media">
-					<div class="media-left text-grey "><h6><%= @tag.taggings.where(:taggable_type => "User").count%> <%= t 'views.utilities.menu.followers'%></h6></div>
+					<div class="media-left text-grey "><h6><%= @tag.taggings.where(:taggable_type => "User").count%> <%= t 'views.utilities.menu.hopped'%></h6></div>
 					<div class="media-right">
 						<%= render partial: "explore/tags/follower_image", collection: @followers, :as => :user %>
 					</div>
