@@ -15,48 +15,50 @@
 	$('#sidebar-followed-tags-holder, #sidebar-category-header').remove();
 	$('.navigation').prepend("<%= j render(:partial => 'utilities/sidebar/categories') %>");
 	//Starfield
-	$( document ).ready(function() {
-		$('#art-thumbnail').mouseenter(function() {
-			$('#art-thumb').append(
-				"<div id=\"art-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
-			);
+	<% unless browser.firefox? %>
+		$( document ).ready(function() {
+			$('#art-thumbnail').mouseenter(function() {
+				$('#art-thumb').append(
+					"<div id=\"art-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+				);
+			});
+			$('#art-thumbnail').mouseleave(function() {
+				$('#art-starfield').remove();
+			});
+			$('#music-thumbnail').mouseenter(function() {
+				$('#music-thumb').append(
+					"<div id=\"music-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+				);
+			});
+			$('#music-thumbnail').mouseleave(function() {
+				$('#music-starfield').remove();
+			});
+			$('#games-thumbnail').mouseenter(function() {
+				$('#games-thumb').append(
+					"<div id=\"games-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+				);
+			});
+			$('#games-thumbnail').mouseleave(function() {
+				$('#games-starfield').remove();
+			});	
+			$('#writing-thumbnail').mouseenter(function() {
+				$('#writing-thumb').append(
+					"<div id=\"writing-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+				);
+			});
+			$('#writing-thumbnail').mouseleave(function() {
+				$('#writing-starfield').remove();
+			});	
+			$('#videos-thumbnail').mouseenter(function() {
+				$('#videos-thumb').append(
+					"<div id=\"videos-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+				);
+			});
+			$('#videos-thumbnail').mouseleave(function() {
+				$('#videos-starfield').remove();
+			});									
 		});
-		$('#art-thumbnail').mouseleave(function() {
-			$('#art-starfield').remove();
-		});
-		$('#music-thumbnail').mouseenter(function() {
-			$('#music-thumb').append(
-				"<div id=\"music-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
-			);
-		});
-		$('#music-thumbnail').mouseleave(function() {
-			$('#music-starfield').remove();
-		});
-		$('#games-thumbnail').mouseenter(function() {
-			$('#games-thumb').append(
-				"<div id=\"games-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
-			);
-		});
-		$('#games-thumbnail').mouseleave(function() {
-			$('#games-starfield').remove();
-		});	
-		$('#writing-thumbnail').mouseenter(function() {
-			$('#writing-thumb').append(
-				"<div id=\"writing-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
-			);
-		});
-		$('#writing-thumbnail').mouseleave(function() {
-			$('#writing-starfield').remove();
-		});	
-		$('#videos-thumbnail').mouseenter(function() {
-			$('#videos-thumb').append(
-				"<div id=\"videos-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
-			);
-		});
-		$('#videos-thumbnail').mouseleave(function() {
-			$('#videos-starfield').remove();
-		});									
-	});
+	<% end %>
 </script>
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 <!-- Content Area -->
