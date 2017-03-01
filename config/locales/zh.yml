@@ -568,7 +568,7 @@ zh:
         ratafire: "火栗"
         contact: "联系我们"
         fan_funding_for_creators: "粉丝赞赏"
-        its_fan_funding_its_a_world: "这是粉丝赞赏，这是一个世界"        
+        a_fan_funding_world_unlike_any_other: "一个独一无二的赞赏世界"     
         categories: "分类"
         sub_categories: "小分类"
         world_map: "冒险地图"
@@ -584,6 +584,7 @@ zh:
         explore_tree_holes: "探索树洞"
         discover: "探索发现"
         explore: "探索发现"
+        game_guide: "游戏手册"
         back_creators: "支持创作者"
         hazeleaf_garden: "榛叶松园"
         watch_live_streams: "看直播"
@@ -906,6 +907,16 @@ zh:
       uniform:
         choose_file: "选择文件"
         no_file_selected: "尚未选择文件"
+  story:
+    welcome:
+      welcome_story_1: "你已行走于许多个"
+      worlds: "世界"      
+      welcome_story_2: "直到醒于"
+      hazeleaf_garden: "榛叶松园"
+      welcome_story_3: "小火堆旁坐着一只"
+      squirrel: "松鼠"
+      welcome_story_4: "正在烤"
+      hazelnuts: "栗子"
   mailer:
     layout:
       email_settings: "邮件设定"
