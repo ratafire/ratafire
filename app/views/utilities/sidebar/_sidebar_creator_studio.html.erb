@@ -136,7 +136,7 @@
 					</li>
 					<li id="creator_studios-notifications-sidebaractive">
 						<%= link_to notifications_user_studio_creator_studio_path(current_user.username) do %>
-							<i class="icon-users"></i> <span><%= t 'views.creator_studio.menu.community'%></span>
+							<i class="ti-comments"></i> <span><%= t 'views.creator_studio.menu.community'%></span>
 						<% end %>
 						<ul>
 							<% if current_user.likeds.count > 0 || current_user.likers.count > 0 || current_user.subscription_records.count > 0 || current_user.reverse_subscription_records.count > 0 %>
