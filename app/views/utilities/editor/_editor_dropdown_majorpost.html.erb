@@ -173,7 +173,9 @@
 				</li>
 			<% end %><!-- end if current_user.admin?-->
 			<!-- Delete -->
-			<li><%= link_to content_majorpost_path(majorpost), method: :delete,:remote => true do %><i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %><% end %></li>
+			<% unless majorpost.paid_update || current_user.try(:admin) %>
+				<li><%= link_to content_majorpost_path(majorpost), method: :delete,:remote => true do %><i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %><% end %></li>
+			<% end %>
 		</ul>
 	</span>	
 <% end %><!-- end if current_user == @user || current_user.admin? -->		
