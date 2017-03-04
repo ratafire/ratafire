@@ -91,7 +91,7 @@
 					</li>					
 					<li id="creator_studios-rewards-sidebaractive">
 						<%= link_to rewards_user_studio_creator_studio_path(current_user.username) do %>
-							<i class="ti-package"></i> 
+							<i class="ti-bag"></i> 
 							<span><%= t 'views.creator_studio.menu.inventory'%></span>
 							<% if current_user.shipping_orders.any? %>
 								<span class="badge bg-warning">
@@ -114,8 +114,8 @@
 									<% end %>
 								</li>
 							<% end %>
-							<li class="navigation-divider"></li>
 							<% if current_user.reward_receivers.count > 0 %>
+							<li class="navigation-divider"></li>
 								<li id="rewards-my_rewards-sidebarsubactive">
 									<%= link_to my_rewards_user_studio_rewards_path(current_user.username) do %>
 										<%= t 'views.creator_studio.menu.my_rewards'%>

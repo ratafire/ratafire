@@ -15,7 +15,7 @@ class Payment::BankAccountsController < ActionController::Base
 		check_us_postal_code_and_create_bank_account
 	rescue
 	 	flash[:error] = t('errors.messages.not_saved')
-	 	redirect_to(:back)
+	 	redirect_to(:back)		
 	end
 
 	# user_payment_bank_accounts PATCH
@@ -148,7 +148,7 @@ private
 					#Save bank account and redirect
 					if @stripe_account.external_accounts.create(:external_account => @stripe_token.id)
 						#Save bank account and redirect
-						@stripe_account = Stripe::Account.retrieve(@stripe_account.id)
+						@stripe_account = Stripe::Account.retrieve(@user_stripe_account.stripe_id)
 						update_bank_account
 					else
 						redirect_to(:back)
