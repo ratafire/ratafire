@@ -106,6 +106,9 @@ class Studio::RewardsController < ApplicationController
 			end
 		end
 		redirect_to rewards_user_studio_creator_studio_path(@user.username)
+	rescue
+	 	flash[:error] = t('errors.messages.not_saved')
+	 	redirect_to(:back)				
 	end
 
 	#show_user_studio_rewards GET

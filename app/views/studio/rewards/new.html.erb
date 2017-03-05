@@ -424,6 +424,10 @@
             'reward[goal_title]':{
             	required: true,
             },
+            'reward[goal]':{
+            	required: true,
+            	digits: true,
+            },            
             'reward[due]':{
             	required: true,
             },
@@ -432,6 +436,7 @@
             },
             'reward[amount]':{
             	required: true,
+            	digits: true,
             },
             'reward[backers]':{
             	required: true,
@@ -449,6 +454,7 @@
     });	
     jQuery.extend(jQuery.validator.messages, {
         required: '<%= t 'views.form.validate.required' %>',
+        digits: '<%= t 'views.form.validate.digits' %>',
     });	    
     // Default file input style
     $(".file-styled").uniform({
