@@ -44,6 +44,9 @@
 					<div class="mb-40">
 						<%= render partial:'profile/components/contacts', locals: {contacts: @contacts}%>	
 					</div>
+				<% else %>
+					<div class="mt-40-">
+					</div>
 				<% end %>
 				<!-- Goal -->
 				<% if @user.active_reward %>
