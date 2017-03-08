@@ -40,12 +40,12 @@
 					<!-- External Video-->
 					<% if activity.trackable.video.youtube_vimeo == true %>
 						<!-- Youtube Video -->
-						<div class="video-container mb-20">
+						<div class="video-container mb-20" id="<%= activity.trackable.id %>-video-container">
 							<iframe src="https://www.youtube.com/embed/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
 						</div>
 					<% else %>
 						<!-- Vimeo Video -->
-						<div class="video-container mb-20">
+						<div class="video-container mb-20" id="<%= activity.trackable.id %>-video-container">
 							<iframe src="//player.vimeo.com/video/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
 						</div>
 					<% end %>
