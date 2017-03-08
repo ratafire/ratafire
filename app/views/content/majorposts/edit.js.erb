@@ -1,0 +1,29 @@
+$('#<%= @majorpost.id %>_content_holder').html('');
+$('#<%= @majorpost.id %>_content_holder').append("<%= j render(:partial => 'utilities/editor/editor_edit', :locals => {:majorpost => @majorpost, :user => @majorpost.user}) %>");
+$('#<%= @majorpost.id %>_panel_footer').remove();
+//Initiate editor js
+initiate_text_editor('<%= @upload_url %>','subscribe');
+<% if @majorpost.post_type == 'audio' %>
+	initiate_audio_editor_edit();
+	jQuery.extend(jQuery.validator.messages, {
+	    required: '<%= t 'views.form.validate.required' %>',
+	});	
+<% else %>
+	<% if @majorpost.post_type == 'video' %>
+		initiate_video_editor_edit();
+		jQuery.extend(jQuery.validator.messages, {
+		    required: '<%= t 'views.form.validate.required' %>',
+		});	
+		$('#<%= @majorpost.id %>-video-container').removeClass('mb-20');
+	<% else %>
+		initiate_editor();
+	<% end %>
+<% end %>
+turn_lights_off('#<%= @majorpost.id %>_holder');
+$('#<%= @majorpost.id %>_editor_dropdown').click();
+$('#<%= @majorpost.id %>_holder').velocity('scroll',{
+	duration:500,
+	offset:-80,
+	easing:'ease-in-out'
+});	
+$('#editor-submition-block').unblock();

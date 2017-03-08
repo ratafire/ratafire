@@ -8176,7 +8176,7 @@ body > .jGrowl {
 .sidebar-detached-home.affix {
   position: fixed;
   margin-right:30px;
-  z-index: 2000;
+  /*z-index: 2000;*/
 }
 .sidebar-fixed .sidebar-detached-content {
   position: fixed;

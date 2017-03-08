@@ -3,9 +3,14 @@
 		<%= f.hidden_field :uuid, :value => majorpost.uuid %>
 		<div class="panel-body pb-5">
 			<!-- Title -->
-			<%= f.text_field :title, class:"mb-10 form-control input-title form-transparent", placeholder:t('views.utilities.editor.title') %>
+			<%= f.text_field :title, class:"mb-10 form-control input-title form-transparent audio-title", id:"audio-title", placeholder:t('views.utilities.editor.title') %>
 			<!-- Content -->
 			<div id="majorpost_content_textarea_holder">
+				<% if majorpost.post_type == 'audio' %>
+					<%= f.text_field :composer, class:"form-control form-transparent", placeholder:t('views.utilities.editor.composer'), id: "audio-composer"%>
+					<%= f.text_field :artist, class:"form-control form-transparent", placeholder:t('views.utilities.editor.artist'), id: "audio-artist"%>
+					<%= f.text_field :genre, class:"mb-10 form-control form-transparent", placeholder:t('views.utilities.editor.genre'), id: "audio-genre"%>
+				<% end %>
 				<%= f.text_area :content, type:"hidden",class:"medium-editor-textarea editable-textarea form-transparent", data:{placeholder: t('views.utilities.editor.write_something')},id:"majorpost_content_textarea" %>
 			</div>				
 			<div id="editor-text-word-count"></div>
@@ -16,7 +21,7 @@
 		</div>	
 		<div class="panel-footer pt-10 pb-10">
 			<div class="pull-left">
-				<%= link_to remove_user_editor_editor_text_path(user.id, majorpost.uuid), method: :get, remote: :true do %>
+				<%= link_to content_majorpost_cancel_edit_path(majorpost.uuid), method: :get, remote: :true do %>
 					<div class="btn bg-slate-300 btn-xs">
 						<%= t 'views.utilities.editor.cancel' %>
 					</div>	
@@ -24,8 +29,9 @@
 			</div>	
 			<div class="pull-right">
 				<div class="pull-left cursor-pointer fa fa-lightbulb-o text-grey-100 mt-10 hidden" data-popup="tooltip" title="Focus" data-placement="top"></div>
-				<!-- Paid update -->
-				<%= render partial: "utilities/editor/paid_creation", locals: { f: f, user: user } %>
+				<div class='pull-left' id="editor-submition-block">
+					<%= f.submit t('views.utilities.editor.edit'), class: "btn btn-blue btn-xs", id:"editor-submition" %>
+				</div>	
 			</div>
 		</div>	
 	<% end %><!-- end #text-editor-form-->

@@ -1,0 +1,22 @@
+<div id="<%= majorpost.id %>_content_holder">
+	<!-- Title for Text Post Only  -->
+	<% if ['text', 'audio','video', 'image'].include?(majorpost.post_type) && majorpost.title != nil %>
+		<%= link_to content_majorpost_path(majorpost.uuid), class:"text-grey-700" do %>
+			<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= majorpost.title %></div>
+		<% end %>
+	<% end %>
+	<!-- Content -->
+	<div class="panel-body pb-20">
+		<!-- Content -->	
+			<!-- Audio info -->
+		<% if majorpost.post_type == 'audio' && majorpost.audio %>
+			<% if majorpost.audio.composer != ""%><div class="pb-5"><span class="label label-blue">Composer</span> <%= majorpost.audio.composer %></div><% end %>
+			<% if majorpost.audio.artist != "" %><div class="pb-5"><span class="label label-blue">Artist</span> <%= majorpost.audio.artist %></div><% end %>
+			<% if majorpost.audio.genre != "" %><div class="pb-5"><span class="label label-blue">Genre</span> <%= majorpost.audio.genre %></div><% end %>
+		<% end %>				
+		<div class="panel-content">
+			<!-- normal content -->
+			<%= majorpost.excerpt %>
+		</div><!-- end .panel-content-->			
+	</div><!-- end .panel-body -->
+</div>

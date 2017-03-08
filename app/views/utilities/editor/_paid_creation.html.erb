@@ -1,7 +1,7 @@
-<% if @user.active_campaign %>
+<% if user.active_campaign %>
 	<div class="checkbox checkbox-switchery switchery-xs pull-left mr-10 ml-20" data-popup="tooltip" title="<%= t get_paid_for_this(@user.active_campaign.category) %>" data-placement="top">
 		<label>
-			<%= f.check_box :paid_update, checked: true,class:"switchery", id:@user.active_campaign.uuid+'-paid-creation'%>
+			<%= f.check_box :paid_update, checked: true,class:"switchery", id:user.active_campaign.uuid+'-paid-creation'%>
 		</label>
 	</div>
 <% else %>
@@ -29,7 +29,7 @@ var elem = document.querySelector('.switchery'),
             $('#editor-submition').val('<%= t 'views.utilities.editor.post_update' %>').removeClass('bg-green').addClass('btn-blue').removeAttr("data-confirm");
         }    
     });
-<% if @user.active_campaign %>
+<% if user.active_campaign %>
 	if ($('#<%= @user.active_campaign.uuid %>-paid-creation').val() == true ){
 		$('#editor-submition').val('<%= t paid_update("Art") %>').removeClass('btn-blue').addClass('bg-green').attr("data-confirm","<%= t 'views.utilities.editor.are_you_sure_to_get_paid' %>");
 	}

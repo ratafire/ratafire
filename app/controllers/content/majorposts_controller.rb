@@ -44,6 +44,10 @@ class Content::MajorpostsController < ApplicationController
 		#Check whether the artworks are in the content of the majorpost, if not, delete them
 	end
 
+	def update
+		@majorpost.update(majorpost_params)
+	end
+
 	#content_majorpost GET
 	#/content/majorposts/:id
 	def show
@@ -148,6 +152,16 @@ class Content::MajorpostsController < ApplicationController
 		@majorpost.update(
 			backers_only: nil
 		)
+	end
+
+	#content_majorpost_edit GET
+	#/content/majorposts/:majorpost_id/edit
+	def edit
+		@upload_url = '/content/artworks/medium_editor_upload_artwork/'+@majorpost.uuid
+	end
+
+	#content_majorpost_cancel_edit GET
+	def cancel_edit
 	end
 
 private

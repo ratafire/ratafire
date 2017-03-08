@@ -7,7 +7,7 @@
 		<% end %>
 	</div>			
 	<!-- Post Panel -->
-	<div class="panel panel-speech">
+	<div class="panel panel-speech" id="<%= activity.trackable.id %>_body_holder">
 			<!-- Post User -->
 			<div class="panel-user text-semibold text-size-small"><%= link_to activity.trackable.user.preferred_name, profile_url_path(activity.trackable.user.username),class:"text-grey-800" %>
 				<% if activity.trackable.paid_update == true %>
@@ -40,12 +40,12 @@
 					<!-- External Video-->
 					<% if activity.trackable.video.youtube_vimeo == true %>
 						<!-- Youtube Video -->
-						<div class="video-container mb-20">
+						<div class="video-container mb-20" id="<%= activity.trackable.id %>-video-container">
 							<iframe src="https://www.youtube.com/embed/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
 						</div>
 					<% else %>
 						<!-- Vimeo Video -->
-						<div class="video-container mb-20">
+						<div class="video-container mb-20" id="<%= activity.trackable.id %>-video-container">
 							<iframe src="//player.vimeo.com/video/<%= activity.trackable.video.external %>" frameborder="0" allowfullscreen width="100%" height='auto'></iframe>
 						</div>
 					<% end %>
@@ -95,29 +95,31 @@
 					</div>				
 				</div>			
 			<% end %><!-- end image post -->
-			<!-- Title for Text Post Only  -->
-			<% if ['text', 'audio','video', 'image'].include?(activity.trackable.post_type) && activity.trackable.title != nil %>
-				<%= link_to content_majorpost_path(activity.trackable.uuid), class:"text-grey-700" do %>
-					<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= activity.trackable.title %></div>
+			<div id="<%= activity.trackable.id %>_content_holder">
+				<!-- Title for Text Post Only  -->
+				<% if ['text', 'audio','video', 'image'].include?(activity.trackable.post_type) && activity.trackable.title != nil %>
+					<%= link_to content_majorpost_path(activity.trackable.uuid), class:"text-grey-700" do %>
+						<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= activity.trackable.title %></div>
+					<% end %>
 				<% end %>
-			<% end %>
-			<!-- Content -->
-			<div class="panel-body pb-20">
-				<!-- Content -->	
-					<!-- Audio info -->
-				<% if activity.trackable.post_type == 'audio' && activity.trackable.audio %>
-					<% if activity.trackable.audio.composer != ""%><div class="pb-5"><span class="label label-blue">Composer</span> <%= activity.trackable.audio.composer %></div><% end %>
-					<% if activity.trackable.audio.artist != "" %><div class="pb-5"><span class="label label-blue">Artist</span> <%= activity.trackable.audio.artist %></div><% end %>
-					<% if activity.trackable.audio.genre != "" %><div class="pb-5"><span class="label label-blue">Genre</span> <%= activity.trackable.audio.genre %></div><% end %>
-				<% end %>				
-				<div class="panel-content">
-					<!-- normal content -->
-					<%= activity.trackable.excerpt %>
-				</div><!-- end .panel-content-->			
-			</div><!-- end .panel-body -->
+				<!-- Content -->
+				<div class="panel-body pb-20">
+					<!-- Content -->	
+						<!-- Audio info -->
+					<% if activity.trackable.post_type == 'audio' && activity.trackable.audio %>
+						<% if activity.trackable.audio.composer != ""%><div class="pb-5"><span class="label label-blue">Composer</span> <%= activity.trackable.audio.composer %></div><% end %>
+						<% if activity.trackable.audio.artist != "" %><div class="pb-5"><span class="label label-blue">Artist</span> <%= activity.trackable.audio.artist %></div><% end %>
+						<% if activity.trackable.audio.genre != "" %><div class="pb-5"><span class="label label-blue">Genre</span> <%= activity.trackable.audio.genre %></div><% end %>
+					<% end %>				
+					<div class="panel-content">
+						<!-- normal content -->
+						<%= activity.trackable.excerpt %>
+					</div><!-- end .panel-content-->			
+				</div><!-- end .panel-body -->
+			</div>
 		</div>
 		<!-- Tools -->
-		<div class="panel-footer panel-footer-transparent" style="padding:0 20px 15px 0;">
+		<div class="panel-footer panel-footer-transparent" style="padding:0 20px 15px 0;" id="<%= activity.trackable.id %>_panel_footer">
 			<div class="pull-left" id="<%= activity.trackable.id %>_read_all_button">
 				<% if activity.trackable.backers_only %>
 					<%= render partial:'content/majorposts/insert_keystone', locals: {majorpost: activity.trackable} %>

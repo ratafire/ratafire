@@ -1,6 +1,7 @@
 <% if @read_more %>
 	$('#<%= @majorpost.id %>_read_all_button').remove();
 	$('#<%= @majorpost.id %>_update_holder').remove();
+	$('#<%= @majorpost.id %>_content_holder').remove();	
 	$('#<%= @majorpost.id %>_update_holder_read_all').append("<%= j render(:partial => 'content/majorposts/majorpost_read_more', locals: {majorpost: @majorpost}) %>");
 	$('#<%= @majorpost.id %>_holder').velocity('scroll',{
 		duration:500,

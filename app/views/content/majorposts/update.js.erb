@@ -1,0 +1,7 @@
+turn_lights_on('#<%= @majorpost.id %>_holder');
+$('#<%= @majorpost.id %>_content_holder').remove();
+$('#<%= @majorpost.id %>_body_holder').append("<%= j render(:partial => 'content/majorposts/majorpost_content', :locals => {:majorpost => @majorpost, :user => @majorpost.user}) %>");
+$('#<%= @majorpost.id %>_body_holder').append("<%= j render(:partial => 'content/majorposts/majorpost_footer', :locals => {:majorpost => @majorpost, :user => @majorpost.user}) %>");
+<% if @majorpost.post_type == 'video' %>
+	$('#<%= @majorpost.id %>-video-container').addClass('mb-20');
+<% end %>

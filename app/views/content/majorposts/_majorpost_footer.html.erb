@@ -1,0 +1,68 @@
+<div class="panel-footer panel-footer-transparent" style="padding:0 20px 15px 0;" id="<%= majorpost.id %>_panel_footer">
+	<div class="pull-left" id="<%= majorpost.id %>_read_all_button">
+		<% if majorpost.backers_only %>
+			<%= render partial:'content/majorposts/insert_keystone', locals: {majorpost: majorpost} %>
+		<% else %>
+			<%= render partial:'content/majorposts/read_all', locals: {majorpost: majorpost} %>
+		<% end %>		
+	</div>
+	<!-- Share -->
+	<div class="pull-right">
+		<span class="dropup">
+			<a href="#" class="dropdown-toggle text-grey-300" data-toggle="dropdown">
+				<i class="huaxia huaxia-share text-medium">
+				</i>
+			</a>
+			<ul id="majorpost-share-toolbar" class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:1000;">
+				<% if I18n.locale == :zh %>
+					<li><div class="p-20"><%= raw RQRCode::QRCode.new( majorpost_fullurl(majorpost.uuid) , :size => 6, :level => :h ).as_html %></div></li>
+				<% else %>		
+					<li>
+						<a href="" class="ssk ssk-facebook" data-url="<%= majorpost_fullurl(majorpost.uuid)%>">
+							<i class="fa fa-facebook-square"></i><%= t 'views.settings.social_media_settings.facebook' %>
+						</a>
+					</li>
+					<li>
+						<a href="" class="ssk ssk-twitter" data-url="<%= majorpost_fullurl(majorpost.uuid)%>" data-text="<%= majorpost.title %> @ratafirer" >
+							<i class="fa fa-twitter-square"></i><%= t 'views.settings.social_media_settings.twitter' %>
+						</a>
+					</li>
+					<li>
+						<a href="" class="ssk ssk-tumblr" data-url="<%= majorpost_fullurl(majorpost.uuid)%>">
+							<i class="fa fa-tumblr-square"></i><%= t 'views.settings.social_media_settings.tumblr' %>
+						</a>
+					</li>
+				<% end %>
+				<li>
+					<a data-clipboard-text="<%= majorpost_fullurl(majorpost.uuid) %>" >
+						<i class="huaxia huaxia-link"></i><%= t 'views.utilities.menu.copy_link' %>
+					</a>
+				</li>
+			</ul>
+		</span>				
+		<!-- Back -->
+		<% if majorpost.user.active_campaign && majorpost.user.active_reward %>
+			<%= link_to new_user_payment_backs_path(majorpost.user.uid, majorpost_id: majorpost.id) do %>
+				<span id="<%= majorpost.uuid %>-majorpost-back-holder">
+					<i class="text-grey-300 huaxia huaxia-shui1 text-medium inline-block ml-10"></i>
+				</span>
+			<% end %>
+		<% end %>
+		<!-- Like -->
+		<% if user_signed_in? %>
+			<span id="<%= majorpost.uuid %>-majorpost-like-holder">
+				<% if is_liker?(current_user.id, 'Majorpost', majorpost.id) %>
+					<%= render partial:'content/likes/unlike_majorpost', locals: {majorpost: majorpost} %>
+				<% else %>
+					<%= render partial:'content/likes/like_majorpost', locals: {majorpost: majorpost} %>
+				<% end %>
+			</span>
+		<% else %>
+			<span id="<%= majorpost.uuid %>-majorpost-like-holder">
+				<a href="#login-popup" class="open-popup-link signup-open-popup" style="padding:0;">
+					<i class="text-grey-300 huaxia huaxia-guanzhu text-medium inline-block animated rubberBand ml-10"></i>
+				</a>
+			</span>
+		<% end %>
+	</div>	
+</div>		
