@@ -12,7 +12,7 @@
 						<% end %>
 					</li>		
 			<% else %>
-				<% unless activity.trackable.paid_update %>
+				<% unless activity.trackable.mark_as_paid == true %>
 					<li>
 						<%= link_to content_majorpost_edit_path(activity.trackable.uuid), method: :get, :remote => true do %>
 							<i class="ti-pencil"></i><%= t 'views.utilities.editor.edit' %>

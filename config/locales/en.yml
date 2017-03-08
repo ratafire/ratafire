@@ -786,7 +786,7 @@ en:
         get_paid_for_this_research: "Get paid for this research"
         get_paid_for_this_development: "Get paid for this development"
         get_paid: "Get paid"
-        are_you_sure_to_get_paid: "Are you sure to mark this post as paid? You need at least one paid update per month to receive support from long term backers."
+        are_you_sure_to_get_paid: "Are you sure to mark this post as a paid update? You need at least one paid update per month to receive support from long term backers."
         paid_update: "Paid Creation"
         paid_research: "Paid Research"
         paid_development: "Paid Development"

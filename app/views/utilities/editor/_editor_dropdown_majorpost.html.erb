@@ -12,7 +12,7 @@
 					<% end %>
 				</li>
 			<% else %>
-				<% unless majorpost.paid_update %>
+				<% unless majorpost.mark_as_paid == true %>
 					<li>
 						<%= link_to content_majorpost_edit_path(majorpost.uuid), method: :get, :remote => true do %>
 							<i class="ti-pencil"><%= t 'views.utilities.editor.edit' %>
