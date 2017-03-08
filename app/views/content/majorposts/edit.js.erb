@@ -17,7 +17,7 @@ initiate_text_editor('<%= @upload_url %>','subscribe');
 		$('#<%= @majorpost.id %>-video-container').removeClass('mb-20');
 	<% else %>
 		<% if @majorpost.post_type == 'text' %>
-			$('#<%= activity.trackable.id %>_content_holder').addClass('mt-20-');
+			$('#<%= @majorpost.id %>_content_holder').addClass('mt-20-');
 		<% end %>
 		initiate_editor();
 	<% end %>

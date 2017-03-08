@@ -6,5 +6,5 @@ $('#<%= @majorpost.id %>_body_holder').append("<%= j render(:partial => 'content
 	$('#<%= @majorpost.id %>-video-container').addClass('mb-20');
 <% end %>
 <% if @majorpost.post_type == 'text' %>
-	$('#<%= activity.trackable.id %>_content_holder').removeClass('mt-20-');
+	$('#<%= @majorpost.id %>_content_holder').removeClass('mt-20-');
 <% end %>
