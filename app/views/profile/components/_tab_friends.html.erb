@@ -4,6 +4,7 @@
 				<div class="friendcardname animated fadeIn pr-20">
 					    <div class="text-white text-thin text-shadow friendcardbio"><%= truncate(user.preferred_name,length: 28) %></div>
 					    <div class="friendcardtagline text-white text-thin text-shadow"><%= truncate(user.tagline, length: 70)%></div>
+					    <span class="text-thin label bg-rainbow text-size-mini mt-5"><span class="text-lowercase">lvl </span><%= user.level %></span>
 				</div>
 				<img class="friendcardavatar animated bounceIn" src="<%= user.profilephoto.image.url(:thumbnail128) %>">
 		 	<% end %>

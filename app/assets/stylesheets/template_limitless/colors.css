@@ -2541,6 +2541,11 @@
 .text-orange:focus {
   color: #ff9800 !important;
 }
+.text-orange-200,
+.text-orange-200:hover,
+.text-orange-200:focus {
+  color: #ffd700 !important;
+}
 .text-orange-300,
 .text-orange-300:hover,
 .text-orange-300:focus {

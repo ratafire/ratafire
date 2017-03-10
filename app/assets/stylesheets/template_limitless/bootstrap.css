@@ -6979,6 +6979,9 @@ button.close {
 .text-shadow{
   text-shadow:0 0 3px rgba(0, 0, 0, 0.8);
 }
+.text-shadow-blue{
+  text-shadow:0 3px 4px rgba(174, 226, 242, 0.3);
+}
 .box-shadow{
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);

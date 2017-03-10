@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_merit
+
 
     #----------------Utilities----------------
 
@@ -319,6 +321,9 @@ class User < ActiveRecord::Base
     def remember_me
         true
     end    
+
+    #--------Scoring--------
+
 
 private
 

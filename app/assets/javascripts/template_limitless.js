@@ -28,4 +28,5 @@
 //= require_tree ./popup
 //= require_tree ./loaders
 //= require_tree ./forms
+//= require_tree ./noty
 //= require_tree ./template_limitless

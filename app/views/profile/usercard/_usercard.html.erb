@@ -4,6 +4,7 @@
 <div class="usercardname animated fadeIn">
     <div class="text-white text-thin text-shadow usercardbio"><%= truncate(user.preferred_name,length: 28) %></div>
     <div class="text-white text-thin text-shadow"><%= truncate(user.tagline, length: 70)%></div>
+    <span class="text-thin label bg-rainbow text-size-mini"><span class="text-lowercase">lvl </span><%= user.level %></span>
 </div>
 <% if browser.chrome? %>
 <ul class="usercardstats bg-rainbow text-rainbow">

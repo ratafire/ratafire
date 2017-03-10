@@ -43,3 +43,6 @@
 <% if notification.notification_type == "shipping_payment_failed" %>
 	<%= render partial:'studio/notifications/components/shipping_payment_failed', locals: {notification: notification} %>
 <% end %>
+<% if notification.notification_type == "level_up" %>
+	<%= render partial:'studio/notifications/components/level_up', locals: {notification: notification} %>
+<% end %>

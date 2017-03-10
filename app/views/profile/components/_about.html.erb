@@ -1,7 +1,19 @@
-<div class="panel">
+<div class="panel" id="<%= user.id %>-about">
 	<!-- User thumbnail -->
 	<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px 3px 0 0;">
 		<img src="<%= user.profilephoto.image.url(:thumbnail512)%>" class="about-profilephoto-holder" alt="">
+	</div>	
+	<!-- Progress bar -->
+	<div class="progress no-border-radius progress-xxs text-center" id="<%= user.id %>-xp-bar">
+		<% if user.level == 1 %>
+			<div class="progress-bar bg-rainbow-600" style="width: <%= goals_count(@user.points,LevelXp.find(@user.level).xp_to_levelup) %>%;">
+				<div style="position:absolute;width:100%;" class="text-center text-shadow">XP <%= number_with_delimiter(@user.points) %>/<%= number_with_delimiter(LevelXp.find(@user.level).xp_to_levelup) %></div>
+			</div>		
+		<% else %>
+			<div class="progress-bar bg-rainbow-600" style="width: <%= goals_count(@user.points-LevelXp.find(@user.level-1).total_xp_required,LevelXp.find(@user.level).xp_to_levelup) %>%;">
+				<div style="position:absolute;width:100%;" class="text-center text-shadow">XP <%= number_with_delimiter(@user.points-LevelXp.find(@user.level-1).total_xp_required) %>/<%= number_with_delimiter(LevelXp.find(@user.level).xp_to_levelup) %></div>
+			</div>
+		<% end %>
 	</div>	
 	<div class="panel-body text-center">
 		<!-- Username -->
@@ -68,3 +80,11 @@
 		</div>
 	</div><!-- end .panel-body -->
 </div>
+<script type="text/javascript">
+	$('#<%= user.id %>-about').mouseenter(function(){
+		$('#<%= user.id %>-xp-bar').removeClass('progress-xxs');
+	});
+	$('#<%= user.id %>-about').mouseleave(function(){
+		$('#<%= user.id %>-xp-bar').addClass('progress-xxs');
+	});	
+</script>

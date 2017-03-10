@@ -565,6 +565,9 @@ en:
         backed: " backed"
         per_creation: " per creation"
         per_month: " per month"
+    game:
+      level: "Level"
+      you_have_reached_level: "You've reached level "
     utilities:
       menu:
         ratafire: "Ratafire"

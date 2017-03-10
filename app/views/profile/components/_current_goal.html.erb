@@ -45,7 +45,7 @@
 	<% if user.active_reward.predicted_total >= user.active_reward.goal %>
 		<div class="progress-bar progress-bar-blue progress-bar-striped active text-thin" style="width: 100%;padding:12px;overflow:hidden;"  >
 	<% else %>
-		<div class="progress-bar progress-bar-blue progress-bar-striped active text-thin" style="width: <%= number_to_human(goals_count(user.active_reward.predicted_total,user.active_reward.goal)) %>%;padding:12px;overflow:hidden;"  >
+		<div class="progress-bar progress-bar-blue progress-bar-striped active text-thin" style="width: <%= goals_count(user.active_reward.predicted_total,user.active_reward.goal) %>%;padding:12px;overflow:hidden;"  >
 	<% end %>
 
 		<span style="font-size:1.8em;white-space: nowrap;"><%= number_to_human(goals_count(user.active_reward.predicted_total,user.active_reward.goal)) %>% <%= t 'views.utilities.menu.of' %> <%= number_to_human(user.active_reward.goal.to_i) %><img class="ml-5 mt-5-" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:20px;"></span>

@@ -162,6 +162,11 @@ gem 'meta-tags'
 #------------Location------------
 gem 'country_select'
 
+#------------------------ Gaming ------------------------
+
+#------------Leveling------------
+gem 'merit'
+
 #------------------------ Internationalization ------------------------
 #Translation for models
 gem 'globalize'

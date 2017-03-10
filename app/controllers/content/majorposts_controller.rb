@@ -36,11 +36,14 @@ class Content::MajorpostsController < ApplicationController
 			update_majorpost_audio
 			#Cleanup artwork
 			Resque.enqueue(Image::ArtworkMajorpostCleanup, params[:majorpost_uuid])
+			#Add score
+			add_score('majorpost', current_user)
 		else
 			flash[:error] = @majorpost.errors.full_messages.to_sentence
 		end	
 		#Create a popover random class for js unique refresh
 		@popoverclass = SecureRandom.hex(16)
+		@user = User.find(@majorpost.user_id)
 		#Check whether the artworks are in the content of the majorpost, if not, delete them
 	end
 
@@ -78,6 +81,8 @@ class Content::MajorpostsController < ApplicationController
 		end
 		#Delete Artwork Links Audios Videos
 		Resque.enqueue(Majorpost::MajorpostCleanup, @majorpost.uuid)
+		#Remove score
+		remove_score('majorpost', current_user)		
 	end	
 
 	#NoREST Methods -----------------------------------
@@ -466,5 +471,73 @@ private
 			@contacts = @contacts.sort_by(&:created_at).reverse.uniq.paginate(:per_page => 9)
 		end
 	end
+
+    def add_score(event, user)
+        if user.level <= 60
+            if @level_xp = LevelXp.find(user.level)
+                case event
+                when "majorpost"
+                    user.add_points(@level_xp.majorpost, category: event)
+                end
+                #Check level
+                i = user.level
+                while user.points >= LevelXp.find(i).total_xp_required
+                    i += 1
+                    real_level = i
+                end
+                if real_level
+                    if real_level > user.level
+                        #level up user
+                        user.update(
+                            level: real_level
+                        )
+                        Notification.create(
+                            user_id: user.id,
+                            trackable_id: user.level,
+                            trackable_type: "Level",
+                            notification_type: "level_up"
+                        )
+                        @levelup = true
+                    end
+                end
+            end
+        end
+    end    
+
+    def remove_score(event, user)
+        if user.level <= 60
+            if @level_xp = LevelXp.find(user.level)
+                case event
+                when "majorpost"
+                    user.add_points(-@level_xp.majorpost, category: event)
+                end
+                #Check level
+                i = user.level
+                unless i == 1
+	                while user.points < LevelXp.find(i-1).total_xp_required
+	                    i -= 1
+	                    real_level = i
+	                   	if i == 1
+	                   		break
+	                   	end
+	                end
+	            end
+                if real_level
+                    if real_level < user.level
+                        #level down user
+                        user.update(
+                            level: real_level
+                        )
+                        #Delete notifications
+                        Notification.where(user_id: user.id, notification_type: "level_up").each do |notification|
+                            if notification.trackable_id > real_level
+                                notification.destroy
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end    
 
 end

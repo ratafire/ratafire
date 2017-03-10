@@ -563,6 +563,8 @@ zh:
         backed: "支持了"
         per_creation: "每件创作"
         per_month: "每月"
+    game:
+      level: "等级"
     utilities:
       menu:
         ratafire: "火栗"

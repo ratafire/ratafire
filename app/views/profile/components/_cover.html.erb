@@ -85,6 +85,7 @@
 			<%= link_to profile_url_path(user.username) do %>
 				<!-- Username -->
     			<h1 style="margin-top:2px;" class="text-white"><%= truncate(user.preferred_name,length: 50)%><small class="display-block" style="margin-left:1px;"><%= user.tagline %></small></h1>
+                <div class="label bg-rainbow-800"><span class="text-lowercase">lvl </span><span id="<%= user.id %>-level-cover"><%= user.level %></span></div>
     		<% end %>
 		</div><!-- end .media-body-->
 	</div>
