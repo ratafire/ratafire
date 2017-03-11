@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309231331) do
+ActiveRecord::Schema.define(version: 20170310232155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1122,6 +1122,9 @@ ActiveRecord::Schema.define(version: 20170309231331) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "total_xp_required"
+    t.integer  "quest_sm"
+    t.integer  "quest"
+    t.integer  "quest_lg"
   end
 
   create_table "liked_activities", id: :bigserial, force: :cascade do |t|

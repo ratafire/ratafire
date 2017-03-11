@@ -47,6 +47,8 @@ class Payment::RewardReceiversController < ApplicationController
 		)
 		#Send email
 		#Send notification
+		#Add xp
+		@user.add_score("ship_reward")
 		end
 		redirect_to show_user_studio_rewards_path(@reward_receiver.reward.user_id,@reward_receiver.reward_id)
 	end

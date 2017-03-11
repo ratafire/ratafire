@@ -2,3 +2,33 @@ $('#<%=@liked_user.liked.uid%>-user-like').remove();
 $('#<%=@liked_user.liked.uid%>-user-like-holder').append("<%= j render(:partial => 'content/likes/unlike_user', locals: {user:@liked_user.liked}) %>");
 $('#<%=@liked_user.liked.uid%>-user-like-holder-usercard').append("<%= j render(:partial => 'content/likes/unlike_user_usercard', locals: {user:@liked_user.liked}) %>");
 $('#<%=@liked_user.liked.uid%>-user-like-holder-about').append("<%= j render(:partial => 'content/likes/unlike_user_about', locals: {user:@liked_user.liked}) %>");
+<% if @level_xp_liker %>
+	var xp = noty({
+		layout: 'center',
+	    template: '<div class="text-center"><div class="btn bg-rainbow-600 noty_text text-medium text-thin"></div></div>',	
+		text: 'XP <%= number_with_delimiter((@level_xp_liker.get_follower/2).to_i)%>',
+		addClass: 'noty-xp',
+		timeout: 800,
+		animation: {
+			open: 'animated zoomInUp',
+			close: 'animated fadeOutUp',
+			easing: 'swing',
+			speed: 500
+		}
+	});
+<% end %>
+<% if @levelup_liker %>
+	var levelup = noty({
+		layout: 'center',
+	    template: '<div class="text-center"><div class="btn bg-rainbow-600 noty_text text-giant text-thin pl-20 pr-20 pt-10 pb-10"></div></div>',	
+		text: '<%= t "views.game.level" %> <%= current_user.level %>',
+		addClass: 'noty-xp',
+		timeout: 2000,
+		animation: {
+			open: 'animated zoomInUp',
+			close: 'animated fadeOutUp',
+			easing: 'swing',
+			speed: 500
+		}
+	});
+<% end %>

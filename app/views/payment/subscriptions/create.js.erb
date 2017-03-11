@@ -1,10 +1,8 @@
-$('#<%=@like.campaign.uuid%>-campaign-like').remove();
-$('#<%=@like.campaign.uuid%>-campaign-like-holder').append("<%= j render(:partial => 'content/likes/unlike_campaign', locals: {campaign:@like.campaign}) %>");
-<% if @level_xp_liker %>
+<% if @level_xp_subscriber %>
 	var xp = noty({
 		layout: 'center',
 	    template: '<div class="text-center"><div class="btn bg-rainbow-600 noty_text text-medium text-thin"></div></div>',	
-		text: 'XP <%= number_with_delimiter((@level_xp_liker.get_follower/2).to_i)%>',
+		text: 'XP <%= number_with_delimiter(@level_xp_subscriber.get_backer)%>',
 		addClass: 'noty-xp',
 		timeout: 800,
 		animation: {
@@ -15,11 +13,11 @@ $('#<%=@like.campaign.uuid%>-campaign-like-holder').append("<%= j render(:partia
 		}
 	});
 <% end %>
-<% if @levelup_liker %>
+<% if @levelup_subscriber %>
 	var levelup = noty({
 		layout: 'center',
 	    template: '<div class="text-center"><div class="btn bg-rainbow-600 noty_text text-giant text-thin pl-20 pr-20 pt-10 pb-10"></div></div>',	
-		text: '<%= t "views.game.level" %> <%= current_user.level %>',
+		text: '<%= t "views.game.level" %> <%= @subscriber.level %>',
 		addClass: 'noty-xp',
 		timeout: 2000,
 		animation: {
@@ -30,3 +28,4 @@ $('#<%=@like.campaign.uuid%>-campaign-like-holder').append("<%= j render(:partia
 		}
 	});
 <% end %>
+$(window.location.replace("/<%= @subscribed.username %>"));

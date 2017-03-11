@@ -129,6 +129,58 @@ class Subscription::ConfirmPayment
 							counter: @subscription.counter+1,
 							subscription_record_id: @subscription_record.id
 						)
+						#Add score
+						#Add score to @subscriber
+						if @subscriber.try(:level) <= 60
+							if @level_xp_subscriber = LevelXp.find(@subscriber.level)
+								@subscriber.add_points((@level_xp_subscriber.get_follower/2).to_i, category: 'subscriber_recurring')
+							end
+							#Check level
+							i = @subscriber.level
+							while @subscriber.points >= LevelXp.find(i).total_xp_required
+								i += 1
+								@subscriber_real_level = i
+							end
+							if @subscriber_real_level
+								if @subscriber_real_level > @subscriber.level
+									@subscriber.update(
+										level: @subscriber_real_level
+									)
+				                    Notification.create(
+				                        user_id: @subscriber.id,
+				                        trackable_id: @subscriber.level,
+				                        trackable_type: "Level",
+				                        notification_type: "level_up"
+				                    )
+				                    @levelup_subscriber = true
+								end
+							end
+						end
+						#Add score to @subscribed
+						if @subscribed.try(:level) <= 60
+							if @level_xp_subscribed = LevelXp.find(@subscribed.level)
+								@subscribed.add_points(@level_xp_subscribed.get_follower, category: 'subscribed_recurring')
+							end
+							#Check level
+							i = @subscribed.level
+							while @subscribed.points >= LevelXp.find(i).total_xp_required
+								i += 1
+								@subscribed_real_level = i
+							end
+							if @subscribed_real_level
+								if @subscribed_real_level > @subscribed.level 
+									@subscribed.update(
+										level: @subscribed_real_level
+									)
+				                    Notification.create(
+				                        user_id: @subscribed.id,
+				                        trackable_id: @subscribed.level,
+				                        trackable_type: "Level",
+				                        notification_type: "level_up"
+				                    )
+								end
+							end
+						end
 					else
 						#Order error unsubscribe
 						order_subset.update(

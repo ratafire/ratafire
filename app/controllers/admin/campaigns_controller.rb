@@ -64,6 +64,8 @@ class Admin::CampaignsController < ApplicationController
 			trackable_type: "Campaign",
 			notification_type: "project_approved"
 		)
+		#add score
+		@campaign.user.add_score("quest_lg")
 	end
 
 	#disapprove_admin_campaigns GET

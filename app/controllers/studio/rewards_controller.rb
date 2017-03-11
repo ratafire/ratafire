@@ -103,6 +103,8 @@ class Studio::RewardsController < ApplicationController
 				@reward.update(
 					active: true
 				)
+				#Add xp
+				@user.add_score("quest")
 			end
 		end
 		redirect_to rewards_user_studio_creator_studio_path(@user.username)
@@ -124,12 +126,16 @@ class Studio::RewardsController < ApplicationController
 		@reward.update(reward_params)
 		@reward.set_upload_attributes
 		@reward.transfer_and_cleanup
+		#Add xp
+		@user.add_score("quest_sm")
 	end
 
 	#remove_image_user_studio_rewards DELETE
 	#/users/:user_id/studio/campaigns/:reward_id/update
 	def remove_image
 		@reward.image.destroy
+		#Add xp
+		@user.remove_score("quest_sm")
 	end
 
 	#receiver_datatable_user_studio_rewards GET
@@ -193,6 +199,8 @@ class Studio::RewardsController < ApplicationController
 			)
 			#Resque change receivers to uploaded
 			Resque.enqueue(Reward::DownloadReady, @reward.id)
+			#Add xp
+			@user.add_score("quest")
 			redirect_to(:back)
 		else
 			redirect_to(:back)
@@ -215,6 +223,8 @@ class Studio::RewardsController < ApplicationController
 		@reward.update(
 			active: true
 		)
+		#Add xp
+		@user.add_score("quest")		
 		redirect_to(:back)
 	end
 

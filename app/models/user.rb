@@ -324,6 +324,93 @@ class User < ActiveRecord::Base
 
     #--------Scoring--------
 
+    def add_score(event)
+        #Add score to @user
+        if self.try(:level) <= 60
+            case event
+            when "quest_sm"
+                if level_xp = LevelXp.find(self.level)
+                    self.add_points(level_xp.quest_sm, category: 'quest_sm')
+                end
+            when "quest"
+                if level_xp = LevelXp.find(self.level)
+                    self.add_points(level_xp.quest, category: 'quest')
+                end
+            when "quest_lg"
+                if level_xp = LevelXp.find(self.level)
+                    self.add_points(level_xp.quest_lg, category: 'quest_lg')
+                end
+            when "ship_reward"
+                if level_xp = LevelXp.find(self.level)
+                    self.add_points(level_xp.get_backer, category: 'ship_reward')
+                end
+            end
+            #Check level
+            i = self.level
+            while self.points >= LevelXp.find(i).total_xp_required
+                i += 1
+                user_real_level = i
+            end
+            if user_real_level
+                if user_real_level > self.level
+                    self.update(
+                        level: user_real_level
+                    )
+                    Notification.create(
+                        user_id: self.id,
+                        trackable_id: self.level,
+                        trackable_type: "Level",
+                        notification_type: "level_up"
+                    )
+                end
+            end
+        end
+    end
+
+    def remove_score(event)
+        if self.level <= 60
+            if level_xp = LevelXp.find(self.level)
+                case event
+                when "quest_sm"
+                    self.add_points(-level_xp.quest_sm, category: 'quest_sm')
+                when "quest"
+                    self.add_points(-level_xp.quest, category: 'quest_sm')
+                when "quest_lg"
+                    self.add_points(-level_xp.quest_lg, category: 'quest_sm')
+                when "ship_reward"
+                    if level_xp = LevelXp.find(self.level)
+                        self.add_points(-level_xp.get_backer, category: 'ship_reward')
+                    end                    
+                end
+                #Check level
+                i = self.level
+                unless i == 1
+                    while self.points < LevelXp.find(i-1).total_xp_required
+                        i -= 1
+                        real_level = i
+                        if i == 1
+                            break
+                        end
+                    end
+                end
+                if real_level
+                    if real_level < self.level
+                        #level down self
+                        self.update(
+                            level: real_level
+                        )
+                        #Delete notifications
+                        Notification.where(user_id: self.id, notification_type: "level_up").each do |notification|
+                            if notification.trackable_id > real_level
+                                notification.destroy
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
 
 private
 

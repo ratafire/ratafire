@@ -332,6 +332,8 @@ private
 				Subscription.unsubscribe(reason_number:8, subscriber_id:@subscriber.id, subscribed_id: @subscribed_id)
 				if @transaction
 				end
+				#Add score
+				add_score(@subscribed, @subscriber)
 			else
 				#update billing_subscription
 				subscription_update_billing_subscription				
@@ -749,28 +751,84 @@ private
 	end
 
 	def check_if_spam
-		#One time funding
-		if params[:subscription][:funding_type] == 'one_time'
-			if @one_time_history = Subscription.where(funding_type: 'one_time', subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
-				@days = ((Time.now - @one_time_history.created_at)/1.day).round
-				if @days <= 3 then
-					@indays = 3-@days
-					flash[:alert] = t('errors.messages.wait_3_days')
-					redirect_to profile_url_path(@subscribed.username)
+		if Rails.env.production?
+			#One time funding
+			if params[:subscription][:funding_type] == 'one_time'
+				if @one_time_history = Subscription.where(funding_type: 'one_time', subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
+					@days = ((Time.now - @one_time_history.created_at)/1.day).round
+					if @days <= 3 then
+						@indays = 3-@days
+						flash[:alert] = t('errors.messages.wait_3_days')
+						redirect_to profile_url_path(@subscribed.username)
+					end
+				end
+			end
+			#Recurring
+			if params[:subscription][:funding_type] == 'recurring'
+				if @recurring_history = Subscription.where(funding_type: 'recurring', real_deleted: true, subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
+					@days = ((Time.now - @recurring_history.deleted_at)/1.day).round
+					if @days <= 15 then
+						@indays = 15-@days
+						flash[:alert] = t('errors.messages.wait_15_days')
+						redirect_to profile_url_path(@subscribed.username)
+					end
+				end
+			end	
+		end	
+	end
+
+	def add_score(subscribed, subscriber)
+		#Add score to subscriber
+		if subscriber.try(:level) <= 60
+			if @level_xp_subscriber = LevelXp.find(subscriber.level)
+				subscriber.add_points(@level_xp_subscriber.get_backer, category: 'subscriber')
+			end
+			#Check level
+			i = subscriber.level
+			while subscriber.points >= LevelXp.find(i).total_xp_required
+				i += 1
+				subscriber_real_level = i
+			end
+			if subscriber_real_level
+				if subscriber_real_level > subscriber.level
+					subscriber.update(
+						level: subscriber_real_level
+					)
+                    Notification.create(
+                        user_id: subscriber.id,
+                        trackable_id: subscriber.level,
+                        trackable_type: "Level",
+                        notification_type: "level_up"
+                    )
+                    @levelup_subscriber = true
 				end
 			end
 		end
-		#Recurring
-		if params[:subscription][:funding_type] == 'recurring'
-			if @recurring_history = Subscription.where(funding_type: 'recurring', real_deleted: true, subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
-				@days = ((Time.now - @recurring_history.deleted_at)/1.day).round
-				if @days <= 15 then
-					@indays = 15-@days
-					flash[:alert] = t('errors.messages.wait_15_days')
-					redirect_to profile_url_path(@subscribed.username)
+		#Add score to subscribed
+		if subscribed.try(:level) <= 60
+			if @level_xp_subscribed = LevelXp.find(subscribed.level)
+				subscribed.add_points(@level_xp_subscribed.get_backer, category: 'subscribed')
+			end
+			#Check level
+			i = subscribed.level
+			while subscribed.points >= LevelXp.find(i).total_xp_required
+				i += 1
+				subscribed_real_level = i
+			end
+			if subscribed_real_level
+				if subscribed_real_level > subscribed.level 
+					subscribed.update(
+						level: subscribed_real_level
+					)
+                    Notification.create(
+                        user_id: subscribed.id,
+                        trackable_id: subscribed.level,
+                        trackable_type: "Level",
+                        notification_type: "level_up"
+                    )
 				end
 			end
-		end		
+		end
 	end
 
 end

@@ -477,7 +477,19 @@ private
             if @level_xp = LevelXp.find(user.level)
                 case event
                 when "majorpost"
-                    user.add_points(@level_xp.majorpost, category: event)
+                	if @majorpost.post_type == 'image' || @majorpost.post_type == 'video' || @majorpost.post_type == 'audio'
+	             		if @majorpost.paid_update
+	             			user.add_points(@level_xp.paid_post+@level_xp.post_media, category: event)
+	             		else
+	             			user.add_points(@level_xp.majorpost+@level_xp.post_media, category: event)
+	             		end
+                	else
+	             		if @majorpost.paid_update
+	             			user.add_points(@level_xp.paid_post, category: event)
+	             		else
+	             			user.add_points(@level_xp.majorpost, category: event)
+	             		end
+	             	end
                 end
                 #Check level
                 i = user.level
@@ -509,7 +521,19 @@ private
             if @level_xp = LevelXp.find(user.level)
                 case event
                 when "majorpost"
-                    user.add_points(-@level_xp.majorpost, category: event)
+                	if @majorpost.post_type == 'image' || @majorpost.post_type == 'video' || @majorpost.post_type == 'audio'
+ 	                	if @majorpost.paid_update
+	                		user.add_points(-@level_xp.paid_post-@level_up.post_media, category: event)
+	                	else
+	                    	user.add_points(-@level_xp.majorpost-@level_up.post_media, category: event)
+	                    end               		
+                	else
+	                	if @majorpost.paid_update
+	                		user.add_points(-@level_xp.paid_post, category: event)
+	                	else
+	                    	user.add_points(-@level_xp.majorpost, category: event)
+	                    end
+	                end
                 end
                 #Check level
                 i = user.level

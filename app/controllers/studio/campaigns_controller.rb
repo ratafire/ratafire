@@ -268,6 +268,8 @@ class Studio::CampaignsController < ApplicationController
 				active: false
 			)
 		end		
+		#Add xp
+		@campaign.user.add_score("quest_lg")			
 		redirect_to completed_user_studio_campaigns_path(@user.id, @campaign.id)
 	end
 

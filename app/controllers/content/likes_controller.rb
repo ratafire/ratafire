@@ -3,7 +3,7 @@ class Content::LikesController < ApplicationController
 	layout 'profile'
 
 	#Before filters
-	before_filter :load_user, only:[:show]
+	before_filter :load_user
 	before_filter :show_contacts, only:[:show]
 	before_filter :show_followed, only:[:show]
 	before_filter :show_liked, only:[:show]
@@ -32,6 +32,7 @@ class Content::LikesController < ApplicationController
 			@activity.liker_list.add(current_user.id)
 			@activity.save
 		end
+		add_score(@user,current_user)
 	end
 
 	#campaign_user_content_likes GET
@@ -71,6 +72,7 @@ class Content::LikesController < ApplicationController
 			@activity.liker_list.add(current_user.id)
 			@activity.save
 		end
+		add_score(@user,current_user)
 	end
 
 	#user_user_content_likes GET
@@ -114,6 +116,7 @@ class Content::LikesController < ApplicationController
 				end
 			end
 		end
+		add_score(@user,current_user)
 	end
 
 	#majorpost_user_content_likes DELETE
@@ -135,6 +138,7 @@ class Content::LikesController < ApplicationController
 			@activity.liker_list.remove(current_user.id.to_s)
 			@activity.save
 		end
+		remove_score(@user, current_user)
 	end
 
 	#campaign_user_content_likes DELETE
@@ -174,6 +178,7 @@ class Content::LikesController < ApplicationController
 			@activity.liker_list.remove(current_user.id.to_s)
 			@activity.save
 		end
+		remove_score(@user, current_user)
 	end
 
 	#user_user_content_likes DELETE
@@ -200,6 +205,7 @@ class Content::LikesController < ApplicationController
 				end
 			end
 		end
+		remove_score(@user, current_user)
 	end
 
 	#remove_liker_user_content_likes DELETE
@@ -225,6 +231,7 @@ class Content::LikesController < ApplicationController
 			end
 			redirect_to(:back)
 		end
+		remove_score(current_user, @user)
 	end
 
 	#followed_pagination_user_content_likes GET
@@ -283,5 +290,124 @@ protected
 	def show_liked
 		@liked = PublicActivity::Activity.order("created_at desc").tagged_with(@user.id.to_s, :on => :liker, :any => true, :test => false, :deleted => nil).first
 	end	
+
+	def add_score(liked,liker)
+		#Add score to liker
+		if liker.try(:level) <= 60
+			if @level_xp_liker = LevelXp.find(liker.level)
+				liker.add_points((@level_xp_liker.get_follower/2).to_i, category: 'liker')
+			end
+			#Check level
+			i = liker.level
+			while liker.points >= LevelXp.find(i).total_xp_required
+				i += 1
+				liker_real_level = i
+			end
+			if liker_real_level
+				if liker_real_level > liker.level
+					liker.update(
+						level: liker_real_level
+					)
+                    Notification.create(
+                        user_id: liker.id,
+                        trackable_id: liker.level,
+                        trackable_type: "Level",
+                        notification_type: "level_up"
+                    )
+                    @levelup_liker = true
+				end
+			end
+		end
+		#Add score to liked
+		if liked.try(:level) <= 60
+			if @level_xp_liked = LevelXp.find(liked.level)
+				liked.add_points(@level_xp_liked.get_follower, category: 'liked')
+			end
+			#Check level
+			i = liked.level
+			while liked.points >= LevelXp.find(i).total_xp_required
+				i += 1
+				liked_real_level = i
+			end
+			if liked_real_level
+				if liked_real_level > liked.level 
+					liked.update(
+						level: liked_real_level
+					)
+                    Notification.create(
+                        user_id: liked.id,
+                        trackable_id: liked.level,
+                        trackable_type: "Level",
+                        notification_type: "level_up"
+                    )
+				end
+			end
+		end
+	end
+
+	def remove_score(liked, liker)
+		#Remove score from liker
+		if liker.level <= 60
+			if @level_xp_liker = LevelXp.find(liker.level)
+				liked.add_points(-(@level_xp_liker.get_follower/2).to_i, category: 'liker')
+			end
+			#Check level 
+			i = liker.level
+			unless i == 1
+				while liker.points < LevelXp.find(i-1).total_xp_required
+					i -= 1
+					liker_real_level = i
+					if i == 1
+						break
+					end
+				end
+			end
+			if liker_real_level
+				if liker_real_level < liker.level
+					#level down user
+					liker.update(
+						level: liker_real_level
+					)
+					#Delete notifications
+                    Notification.where(user_id: liker.id, notification_type: "level_up").each do |notification|
+                        if notification.trackable_id > liker_real_level
+                            notification.destroy
+                        end
+                    end
+				end
+			end
+		end
+		#Remove score from liked
+		if liked.level <= 60
+			if @level_xp_liked = LevelXp.find(liked.level)
+				liked.add_points(-(@level_xp_liked.get_follower/2).to_i, category: 'liker')
+			end
+			#Check level 
+			i = liked.level
+			unless i == 1
+				while liked.points < LevelXp.find(i-1).total_xp_required
+					i -= 1
+					liked_real_level = i
+					if i == 1
+						break
+					end
+				end
+			end
+			if liked_real_level
+				if liked_real_level < liked.level
+					#level down user
+					liked.update(
+						level: liked_real_level
+					)
+					#Delete notifications
+                    Notification.where(user_id: liked.id, notification_type: "level_up").each do |notification|
+                        if notification.trackable_id > liked_real_level
+                            notification.destroy
+                        end
+                    end
+				end
+			end
+		end
+	end
 
 end

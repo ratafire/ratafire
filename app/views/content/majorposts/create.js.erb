@@ -39,12 +39,12 @@ $('.dropdown-toggle').dropdown();
 			speed: 500
 		}
 	});
-	$('html').append(
-		"<div id=\"fullscreen-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
-	);
-	$('#fullscreen-starfield').delay(4000).fadeOut(300, function(){
-	   $(this).remove();
-	});
+	// $('html').append(
+	// 	"<div id=\"fullscreen-starfield\"><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div><div class=\"stars\"></div></div>"	
+	// );
+	// $('#fullscreen-starfield').delay(4000).fadeOut(300, function(){
+	//    $(this).remove();
+	// });
 <% end %>
 $('#<%= @user.id %>-level-cover').html('<%= @user.level %>');
 $('#<%= @user.id %>-xp-bar').html('<%= j render(:partial => "profile/components/xp_bar", :locals => {:user => @user}) %>');
