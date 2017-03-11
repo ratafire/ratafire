@@ -131,7 +131,7 @@ class Subscription::ConfirmPayment
 						)
 						#Add score
 						#Add score to @subscriber
-						if @subscriber.try(:level) <= 60
+						if @subscriber.try(:level) <= 59
 							if @level_xp_subscriber = LevelXp.find(@subscriber.level)
 								@subscriber.add_points((@level_xp_subscriber.get_follower/2).to_i, category: 'subscriber_recurring')
 							end
@@ -157,7 +157,7 @@ class Subscription::ConfirmPayment
 							end
 						end
 						#Add score to @subscribed
-						if @subscribed.try(:level) <= 60
+						if @subscribed.try(:level) <= 59
 							if @level_xp_subscribed = LevelXp.find(@subscribed.level)
 								@subscribed.add_points(@level_xp_subscribed.get_follower, category: 'subscribed_recurring')
 							end

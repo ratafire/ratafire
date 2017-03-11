@@ -293,7 +293,7 @@ protected
 
 	def add_score(liked,liker)
 		#Add score to liker
-		if liker.try(:level) <= 60
+		if liker.try(:level) <= 59
 			if @level_xp_liker = LevelXp.find(liker.level)
 				liker.add_points((@level_xp_liker.get_follower/2).to_i, category: 'liker')
 			end
@@ -319,7 +319,7 @@ protected
 			end
 		end
 		#Add score to liked
-		if liked.try(:level) <= 60
+		if liked.try(:level) <= 59
 			if @level_xp_liked = LevelXp.find(liked.level)
 				liked.add_points(@level_xp_liked.get_follower, category: 'liked')
 			end
@@ -347,7 +347,7 @@ protected
 
 	def remove_score(liked, liker)
 		#Remove score from liker
-		if liker.level <= 60
+		if liker.level <= 59
 			if @level_xp_liker = LevelXp.find(liker.level)
 				liked.add_points(-(@level_xp_liker.get_follower/2).to_i, category: 'liker')
 			end
@@ -378,7 +378,7 @@ protected
 			end
 		end
 		#Remove score from liked
-		if liked.level <= 60
+		if liked.level <= 59
 			if @level_xp_liked = LevelXp.find(liked.level)
 				liked.add_points(-(@level_xp_liked.get_follower/2).to_i, category: 'liker')
 			end

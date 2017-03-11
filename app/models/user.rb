@@ -326,7 +326,7 @@ class User < ActiveRecord::Base
 
     def add_score(event)
         #Add score to @user
-        if self.try(:level) <= 60
+        if self.try(:level) <= 59
             case event
             when "quest_sm"
                 if level_xp = LevelXp.find(self.level)
@@ -368,7 +368,7 @@ class User < ActiveRecord::Base
     end
 
     def remove_score(event)
-        if self.level <= 60
+        if self.level <= 59
             if level_xp = LevelXp.find(self.level)
                 case event
                 when "quest_sm"

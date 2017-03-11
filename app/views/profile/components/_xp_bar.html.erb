@@ -1,9 +1,11 @@
-<% if user.level == 1 %>
-	<div class="progress-bar bg-rainbow-600" style="width: <%= goals_count(user.points,LevelXp.find(user.level).xp_to_levelup) %>%;">
-		<div style="position:absolute;width:100%;" class="text-center text-shadow">XP <%= number_with_delimiter(user.points) %>/<%= number_with_delimiter(LevelXp.find(user.level).xp_to_levelup) %></div>
-	</div>
-<% else %>
-	<div class="progress-bar bg-rainbow-600" style="width: <%= goals_count(user.points-LevelXp.find(user.level-1).total_xp_required,LevelXp.find(user.level).xp_to_levelup) %>%;">
-		<div style="position:absolute;width:100%;" class="text-center text-shadow">XP <%= number_with_delimiter(user.points-LevelXp.find(user.level-1).total_xp_required) %>/<%= number_with_delimiter(LevelXp.find(user.level).xp_to_levelup) %></div>
-	</div>
+<% if user.level <= 59 %>
+	<% if user.level == 1 %>
+		<div class="progress-bar bg-rainbow-600" style="width: <%= goals_count(user.points,LevelXp.find(user.level).xp_to_levelup) %>%;">
+			<div style="position:absolute;width:100%;" class="text-center text-shadow">XP <%= number_with_delimiter(user.points) %>/<%= number_with_delimiter(LevelXp.find(user.level).xp_to_levelup) %></div>
+		</div>
+	<% else %>
+		<div class="progress-bar bg-rainbow-600" style="width: <%= goals_count(user.points-LevelXp.find(user.level-1).total_xp_required,LevelXp.find(user.level).xp_to_levelup) %>%;">
+			<div style="position:absolute;width:100%;" class="text-center text-shadow">XP <%= number_with_delimiter(user.points-LevelXp.find(user.level-1).total_xp_required) %>/<%= number_with_delimiter(LevelXp.find(user.level).xp_to_levelup) %></div>
+		</div>
+	<% end %>
 <% end %>

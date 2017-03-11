@@ -779,7 +779,7 @@ private
 
 	def add_score(subscribed, subscriber)
 		#Add score to subscriber
-		if subscriber.try(:level) <= 60
+		if subscriber.try(:level) <= 59
 			if @level_xp_subscriber = LevelXp.find(subscriber.level)
 				subscriber.add_points(@level_xp_subscriber.get_backer, category: 'subscriber')
 			end
@@ -805,7 +805,7 @@ private
 			end
 		end
 		#Add score to subscribed
-		if subscribed.try(:level) <= 60
+		if subscribed.try(:level) <= 59
 			if @level_xp_subscribed = LevelXp.find(subscribed.level)
 				subscribed.add_points(@level_xp_subscribed.get_backer, category: 'subscribed')
 			end
