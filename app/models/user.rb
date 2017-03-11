@@ -368,7 +368,7 @@ class User < ActiveRecord::Base
     end
 
     def remove_score(event)
-        if self.level <= 59
+        if self.level <= 60
             if level_xp = LevelXp.find(self.level)
                 case event
                 when "quest_sm"

@@ -517,7 +517,7 @@ private
     end    
 
     def remove_score(event, user)
-        if user.level <= 59
+        if user.level <= 60
             if @level_xp = LevelXp.find(user.level)
                 case event
                 when "majorpost"

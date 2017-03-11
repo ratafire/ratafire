@@ -347,7 +347,7 @@ protected
 
 	def remove_score(liked, liker)
 		#Remove score from liker
-		if liker.level <= 59
+		if liker.level <= 60
 			if @level_xp_liker = LevelXp.find(liker.level)
 				liked.add_points(-(@level_xp_liker.get_follower/2).to_i, category: 'liker')
 			end
@@ -378,7 +378,7 @@ protected
 			end
 		end
 		#Remove score from liked
-		if liked.level <= 59
+		if liked.level <= 60
 			if @level_xp_liked = LevelXp.find(liked.level)
 				liked.add_points(-(@level_xp_liked.get_follower/2).to_i, category: 'liker')
 			end
