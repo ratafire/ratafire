@@ -37,7 +37,7 @@ class Content::MajorpostsController < ApplicationController
 			#Cleanup artwork
 			Resque.enqueue(Image::ArtworkMajorpostCleanup, params[:majorpost_uuid])
 			#Add score
-			add_score('majorpost', current_user)
+			# add_score('majorpost', current_user)
 		else
 			flash[:error] = @majorpost.errors.full_messages.to_sentence
 		end	
