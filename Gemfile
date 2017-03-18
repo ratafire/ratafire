@@ -4,6 +4,7 @@ ruby "2.2.2"
 #Signups and sessions
 gem 'devise', '3.5.10'
 gem 'devise_lastseenable'
+gem 'devise_invitable'
 
 #Social Media
 gem 'omniauth'
@@ -184,6 +185,8 @@ gem 'bonsai-elasticsearch-rails', group: :production
 #------------------------ Mailer ------------------------
 #Outside mailing service
 gem 'sendgrid'
+#An unsubscribe page
+gem "mailkick"
 
 #------------------------ Message System ------------------------
 #Messaging

@@ -36,7 +36,7 @@
 				<!-- Users  -->
 				<div class="panel">
 					<div class="panel-body">
-						<h3 class="no-margin"><%= number_to_human(User.count) %></h3>
+						<h3 class="no-margin"><%= number_to_human(User.where(invitation_token: nil).count) %></h3>
 						<span class="label bg-rainbow-600"><%= t 'views.admin.menu.users' %></span>
 					</div>
 				</div>

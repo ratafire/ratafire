@@ -1,0 +1,18 @@
+<div class="content min-height-100vh">
+    <canvas id="canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;" ></canvas>
+    <%= render 'users/background'%>
+
+	<h2><%= t "devise.invitations.new.header" %></h2>
+
+	<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+	  <%= devise_error_messages! %>
+
+	<% resource.class.invite_key_fields.each do |field| -%>
+	  <p><%= f.label field %><br />
+	  <%= f.text_field field %></p>
+	<% end -%>
+
+	  <p><%= f.submit t("devise.invitations.new.submit_button") %></p>
+	<% end %>
+
+</div>

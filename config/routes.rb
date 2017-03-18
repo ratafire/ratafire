@@ -161,6 +161,10 @@ Rails.application.routes.draw do
 				#	delete 'shipping/:shipping_id', to:'shippings#delete_shipping', as: :delete_shipping
 				#	delete 'shipping_anywhere/:shipping_anywhere_id', to:'shippings#delete_shipping_anywhere', as: :delete_shipping_anywhere
 				#end
+				resource :recruits, only: [:show, :create] do
+					post 'accept_invitation', to: 'recruits#accept_invitation', as: :accept_invitation
+					get 'recruited_datatable', to: 'recruits#recruited_datatable', as: :recruited_datatable
+				end
 			end
 
 			#payment
@@ -219,7 +223,7 @@ Rails.application.routes.draw do
 
 	
 
-		devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks",registrations: 'users/registrations', sessions: "users/sessions" }
+		devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks",registrations: 'users/registrations', sessions: "users/sessions", invitations: 'users/invitations' }
 		#Profile Page
 		get '/:username' => 'profile/user#profile', :as => 'profile_url'
 		#User cards ajax
@@ -406,6 +410,9 @@ Rails.application.routes.draw do
 		end
 		resource :users, only: [:show] do
 			get '/index', to: 'users#index', as: :index
+		end
+		resource :emails, only: [:show, :create] do
+			get '/index', to: 'emails#index', as: :index
 		end
 	end
 

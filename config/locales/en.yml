@@ -314,6 +314,14 @@ en:
           ratafire_buttons: "Ratafire buttons"
           ratafire_button_help: "You can put a Ratafire fan funding button on your personal site. Click a button to get the code."
           back_this_creator: "Back this Creator"
+        recruit_a_friend:
+          recruit_a_friend: "Recruit a friend"
+          recruit_help_1: "Recruit a friend and you can get "
+          recruit_help_2: " your friend can get "
+          invite: "Invite"
+          has_invited_you: " has invited you"
+          invited: "Invited"
+          recruited: "Recruited"
       how_i_pay:
         card: "Card"
         card_info: "Debit or credit card info "
@@ -856,6 +864,7 @@ en:
         users: "Users"
         posts: "Posts"
         transactions: "Transactions"
+        social: "Social"
       users:
         creator: "Creator"
         fullname: "Fullname"
@@ -897,6 +906,10 @@ en:
         set_homepage_featured: "Set homepage featured"
         set_reviewed: "Mark as reviewed"
         set_hide: "Hide"
+      social:
+        emails: "Emails"
+        send_email: "Send email"
+        subject: "Subject"
     form:
       validate:
         required: "Required"

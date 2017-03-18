@@ -37,45 +37,79 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 	# POST /resource
 	def create
-		build_resource(sign_up_params)
-		if I18n.locale == :zh
-			resource.fullname = params[:user][:lastname] + params[:user][:firstname]
-			resource.preferred_name = params[:user][:lastname] + params[:user][:firstname]
-			resource.tagline = I18n.t 'views.utilities.devise.default_tagline'
+		if user = User.find_by_email(params[:user][:email])
+			if user.invitation_token
+				begin
+	            	user.uid = SecureRandom.hex(16)
+	        	end while User.find_by_uid(user.uid).present?	
+				user.update(
+					preferred_name: params[:user][:lastname] + params[:user][:firstname],
+					fullname: params[:user][:lastname] + params[:user][:firstname],
+					firstname: params[:user][:firstname],
+					lastname: params[:user][:lastname],
+					password: params[:user][:password],
+					invitation_accepted_at: Time.now,
+					invitation_token: nil,
+					tagline: I18n.t('views.utilities.devise.default_tagline')
+				)
+			  	Profilephoto.create(
+			  		user_id: user.id,
+			  		user_uid: user.uid,
+			  		skip_everafter: true
+			  	)
+			  	Profilecover.create(
+			  		user_id: user.id,
+			  		user_uid: user.uid,
+			  		skip_everafter: true
+			  	)
+			  	user.add_score("quest_sm")
+			  	if inviter = User.find(user.invited_by_id)
+			  		inviter.add_score("quest")
+			  	end
+				sign_in(user, scope: :user)
+				redirect_to profile_url_path(user.username)			
+			end
 		else
-			resource.fullname = params[:user][:firstname] + ' ' + params[:user][:lastname]
-			resource.preferred_name = params[:user][:firstname] + ' ' + params[:user][:lastname]
-			resource.tagline = I18n.t 'views.utilities.devise.default_tagline'
-		end
-		resource.save
-		#Update important column
-		resource.update_column(:fullname,resource.fullname)
-		resource.update_column(:preferred_name,resource.preferred_name)
-		yield resource if block_given?
-		if resource.persisted?
-		  	Profilephoto.create(
-		  		user_id: resource.id,
-		  		user_uid: resource.uid,
-		  		skip_everafter: true
-		  	)
-		  	Profilecover.create(
-		  		user_id: resource.id,
-		  		user_uid: resource.uid,
-		  		skip_everafter: true
-		  	)			
-		  if resource.active_for_authentication?
-		    #set_flash_message! :notice, :signed_up ???this shows an error when user signs up
-		    sign_up(resource_name, resource)
-		    respond_with resource, location: after_sign_up_path_for(resource)
-		  else
-		    set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
-		    expire_data_after_sign_in!
-		    respond_with resource, location: after_sign_up_path_for(resource)
-		  end
-		else
-			clean_up_passwords resource
-			set_minimum_password_length
-			respond_with resource
+			build_resource(sign_up_params)
+			if I18n.locale == :zh
+				resource.fullname = params[:user][:lastname] + params[:user][:firstname]
+				resource.preferred_name = params[:user][:lastname] + params[:user][:firstname]
+				resource.tagline = I18n.t 'views.utilities.devise.default_tagline'
+			else
+				resource.fullname = params[:user][:firstname] + ' ' + params[:user][:lastname]
+				resource.preferred_name = params[:user][:firstname] + ' ' + params[:user][:lastname]
+				resource.tagline = I18n.t 'views.utilities.devise.default_tagline'
+			end
+			resource.save
+			#Update important column
+			resource.update_column(:fullname,resource.fullname)
+			resource.update_column(:preferred_name,resource.preferred_name)
+			yield resource if block_given?
+			if resource.persisted?
+			  	Profilephoto.create(
+			  		user_id: resource.id,
+			  		user_uid: resource.uid,
+			  		skip_everafter: true
+			  	)
+			  	Profilecover.create(
+			  		user_id: resource.id,
+			  		user_uid: resource.uid,
+			  		skip_everafter: true
+			  	)			
+			  if resource.active_for_authentication?
+			    #set_flash_message! :notice, :signed_up ???this shows an error when user signs up
+			    sign_up(resource_name, resource)
+			    respond_with resource, location: after_sign_up_path_for(resource)
+			  else
+			    set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+			    expire_data_after_sign_in!
+			    respond_with resource, location: after_sign_up_path_for(resource)
+			  end
+			else
+				clean_up_passwords resource
+				set_minimum_password_length
+				respond_with resource
+			end
 		end
 	rescue
 	 	flash[:error] = t('errors.messages.enter_name')

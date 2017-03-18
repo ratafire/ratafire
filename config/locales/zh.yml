@@ -313,6 +313,14 @@ zh:
           ratafire_buttons: "火栗按钮"
           ratafire_button_help: "你可以将火栗按钮放到你的个人网站上。点击一个按钮以获取代码。"
           back_this_creator: "支持创作者"
+        recruit_a_friend:
+          recruit_a_friend: "召唤战友"
+          recruit_help_1: "召唤一个战友你就可以获得"
+          recruit_help_2: "你的战友可以获得"    
+          invite: "召唤"    
+          has_invited_you: "召唤你"  
+          invited: "已召唤"
+          recruited: "已响应"
       how_i_pay:
         card: "卡"
         card_info: "借记或信用卡信息"
@@ -565,6 +573,7 @@ zh:
         per_month: "每月"
     game:
       level: "等级"
+      you_have_reached_level: "你已到达等级"      
     utilities:
       menu:
         ratafire: "火栗"
@@ -853,6 +862,7 @@ zh:
         users: "用户"
         posts: "帖子"
         transactions: "交易"
+        social: "社交"
       users:
         creator: "创作者"
         fullname: "名字"
@@ -894,6 +904,10 @@ zh:
         set_homepage_featured: "主页推荐"
         set_reviewed: "已阅"
         set_hide: "隐藏"
+      social:
+        emails: "邮件"
+        send_email: "发邮件"
+        subject: "标题"
     form:
       validate:
         required: "必填"

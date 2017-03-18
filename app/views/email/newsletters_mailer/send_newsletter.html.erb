@@ -1,0 +1,17 @@
+<% if @user.try(:preferred_name) %>
+	<div>
+		Hi <%= @user.preferred_name %>,
+	</div>
+<% else %>
+	<% if @user.try(:fullname) %>
+		<div>
+			Hi <%= @user.fullname %>,
+		</div>
+	<% end %>
+<% end %>
+<div style="margin-top:20px;">
+	<%= raw @email.content %>
+</div>
+<div style="margin-top:40px;color:#cccccc;">
+	<%= link_to "Unsubscribe", mailkick_unsubscribe_url %>
+</div>

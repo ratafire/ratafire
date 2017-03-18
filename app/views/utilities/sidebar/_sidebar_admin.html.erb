@@ -51,6 +51,20 @@
                             <li id="tags-show-sidebaractive"><%= link_to user_admin_tags_path(current_user.id) do %><%= t 'views.admin.content.tags.manage_tags' %><% end %></li>
                         </ul>
                     </li>
+                    <% if current_user.id == 1 %>
+                        <!-- Social -->
+                        <li class="navigation-header"><span><%= t 'views.admin.menu.social' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.social' %>"></i></li>
+                        <!-- Email -->
+                        <li>
+                            <a>
+                                <i class="icon-envelop"></i> 
+                                <span><%= t 'views.admin.social.emails' %></span>
+                            </a>
+                            <ul>
+                                <li id="emails-show-sidebaractive"><%= link_to admin_emails_path(current_user.id) do %><%= t 'views.admin.social.send_email' %><% end %></li>
+                            </ul>
+                        </li>
+                    <% end %>
                     <!-- Competitor -->
                     <% if current_user.id == 1 %>
                         <li class="navigation-header"><span><%= t 'views.admin.menu.competitor' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.competitor' %>"></i></li>

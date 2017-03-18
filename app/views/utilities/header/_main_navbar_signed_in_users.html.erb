@@ -101,6 +101,11 @@
 								<i class="huaxia huaxia-faxianxuanzhong"></i> <span class="btn btn-blue btn-xs"><%= t 'views.utilities.menu.creator_studio' %></span>
 							<% end %>
 						</li>
+						<li>
+							<%= link_to user_studio_recruits_path(current_user.username) do %>
+								<i class="fa fa-shield"></i><%= t 'views.creator_studio.community.recruit_a_friend.recruit_a_friend' %>
+							<% end %>
+						</li>							
 						<li class="divider"></li>	
 						<% if current_user.order && current_user.try(:order).try(:status) != 'Started' %>
 							<li>
@@ -116,7 +121,7 @@
 							<%= link_to profile_settings_user_profile_settings_path(current_user.username) do %>
 								<i class="fa fa-cog"></i><%= t 'views.utilities.menu.profile_settings' %>
 							<% end %>
-						</li>				
+						</li>			
 						<% if current_user.try(:admin) %>	
 							<li class="divider"></li>						
 							<li>

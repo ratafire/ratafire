@@ -160,7 +160,7 @@
 							<div class="editable_text" style="line-height: 30px;">
 								<span class="text_container">
 	        					
-	        						<%= t 'views.utilities.devise.welcome_to_ratafire' %>
+	        						<%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %>
 	        					
 								</span>
 							</div>
@@ -179,7 +179,14 @@
 											<!-- ======= section text ======= -->
 											<span class="text_container">
 				        					
-				        						<%= t 'views.utilities.devise.you_can_confirm_your_email' %>
+				        						
+												<%= t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %>
+
+												<% if @resource.invitation_due_at %>
+ 	 												<%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %>
+												<% end %>
+
+												<%= t("devise.mailer.invitation_instructions.ignore").html_safe %>
 				        					
 											</span>
 										</div>
@@ -205,7 +212,7 @@
 	                					
 		                    			<div class="editable_text" style="line-height: 24px;">
 		                    				<span class="text_container">
-			                    				<%= link_to t('views.utilities.devise.confirm_my_account'), confirmation_url(@resource, confirmation_token: @token),style:"color: #ffffff; text-decoration: none;", class:"text_container" %>
+			                    				<%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token),style:"color: #ffffff; text-decoration: none;" %>
 		                    				</span>
 		                    			</div>
 		                    		</td>

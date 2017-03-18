@@ -57,30 +57,30 @@
 <div class="profile-cover">
 	<!-- Profile Cover Overlay -->
 	<div class="profile-cover-overlay"></div>
-	<div id="fpc_effect-back">
-		<div id="fpc_box">
-			<div id="fpc_content">
-				<%= render :partial => 'userinfo/profilecovers/profilecovers_preview', locals: {profilecover: @user.profilecover}%>
-			</div>
-			<!-- Upload Cover Panel -->
-			<% if current_user == @user || current_user.try(:admin) %>
-				<%= render partial:'profile/components/upload_user_cover', locals: {profilecover: @user.profilecover,user: @user}%>
-			<% end %>
-		</div>
-	</div>
-	<div class="media">
-		<div class="media-left">
-			<!-- Profile Image -->
-			<%= link_to profile_url_path(user.username),class:"profile-thumb" do %>
-				<div class="thumb  thumb-slide thumb-shadow-radius" id="cover-profilephoto-holder">
-					<img src="<%= user.profilephoto.image.url(:thumbnail128)%>" class="profile-thumb-holder cover-profilephoto-holder" alt="<%= user.preferred_name %>">
-					<!-- Upload Panel -->
-					<% if current_user == @user || current_user.try(:admin) %>
-						<%= render partial:'profile/components/upload_user_photo', locals: {profilephoto: @user.profilephoto,user: @user}%>
-					<% end %>
-				</div>
-			<% end %>
-		</div><!-- end .media-left-->
+    <div id="fpc_effect-back">
+        <div id="fpc_box">
+            <div id="fpc_content">
+                <%= render :partial => 'userinfo/profilecovers/profilecovers_preview', locals: {profilecover: user.profilecover}%>
+            </div>
+            <!-- Upload Cover Panel -->
+            <% if current_user == user || current_user.try(:admin) %>
+                <%= render partial:'profile/components/upload_user_cover', locals: {profilecover: user.profilecover,user: user}%>
+            <% end %>
+        </div>
+    </div>
+    <div class="media">
+        <div class="media-left">
+            <!-- Profile Image -->
+            <%= link_to profile_url_path(user.username),class:"profile-thumb" do %>
+                <div class="thumb  thumb-slide thumb-shadow-radius" id="cover-profilephoto-holder">
+                    <img src="<%= user.profilephoto.image.url(:thumbnail128)%>" class="profile-thumb-holder cover-profilephoto-holder" alt="<%= user.preferred_name %>">
+                    <!-- Upload Panel -->
+                    <% if current_user == user || current_user.try(:admin) %>
+                        <%= render partial:'profile/components/upload_user_photo', locals: {profilephoto: user.profilephoto,user: user}%>
+                    <% end %>
+                </div>
+            <% end %>
+        </div><!-- end .media-left-->
 		<div class="media-body">
 			<%= link_to profile_url_path(user.username) do %>
 				<!-- Username -->

@@ -1,0 +1,66 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+
+<% content_for :sidebar do %>
+	<% if user_signed_in? %>
+		<!-- Signed-in Users-->
+		<%= render 'utilities/sidebar/sidebar_profile_signed_in_users'%>
+	<% else %>
+		<!-- Not signed-in Users-->	
+    	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
+    <% end %>
+<% end %>
+
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+	<!-- Cover area -->
+	<%= render partial:'profile/components/cover', locals: {user: User.find(@user.invited_by_id)} %>
+	<!-- Toolbar -->
+	<%= render partial:'profile/components/toolbar', locals: {user: User.find(@user.invited_by_id)}%>
+
+<% unless browser.device.mobile? %>
+	<canvas id="canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index: -2;" ></canvas>
+	<%= render 'studio/campaigns/wizard_background_art'%>
+<% end %>
+
+<div class="row">
+	<div class="col-md-12 col-lg-12">
+		<% unless browser.device.mobile? %>
+			<h1 class="animated bounceIn mb-10 text-center text-300 text-white mt-40 text-thin" style="font-size:2.3em;"><%= User.find(@user.invited_by_id).preferred_name %><%= t 'views.creator_studio.community.recruit_a_friend.has_invited_you' %></h1>
+		<% else %>
+			<h1 class="animated bounceIn mb-10 text-center text-300 mt-40 text-thin text-grey" style="font-size:2.3em;"><%= User.find(@user.invited_by_id).preferred_name %><%= t 'views.creator_studio.community.recruit_a_friend.has_invited_you' %></h1>
+		<% end %>
+		<div class="mt-40" style="width: 300px;margin: 0 auto;" >
+			<%= form_for @user, :url => accept_invitation_user_studio_recruits_path(@user.id), :html => { :method => :post } do |f| %>
+				<%= devise_error_messages! %>
+				<%= f.hidden_field :invitation_token %>
+
+			    <% if I18n.locale == :zh %>
+			        <!-- Last Name -->
+			        <%= f.text_field :firstname,placeholder:t('views.profile.settings.profile_settings.last_name'), class:"signup-input", style:"width:50%;float:left;border-radius: 0.5rem 0 0 0;" %>
+			        <!-- First Name -->
+			        <%= f.text_field :lastname,placeholder:t('views.profile.settings.profile_settings.first_name'), class:"signup-input", style:"width:50%;border-radius: 0 0.5rem 0 0;" %>
+			    <% else %>
+			        <!-- First Name -->
+			        <%= f.text_field :firstname,placeholder:t('views.profile.settings.profile_settings.first_name'), class:"signup-input", style:"width:50%;float:left;border-radius: 0.5rem 0 0 0;" %>
+			        <!-- Last Name -->
+			        <%= f.text_field :lastname,placeholder:t('views.profile.settings.profile_settings.last_name'), class:"signup-input", style:"width:50%;border-radius: 0 0.5rem 0 0;" %>
+			    <% end %>
+			    <!-- Email -->
+			    <%= f.email_field :email,placeholder:t('views.profile.settings.profile_settings.your_email'), class:"signup-input",readonly:"readonly" %>
+			    <!-- Password -->
+			    <%= f.password_field :password,placeholder:t('views.profile.settings.account_settings.password'), autocomplete: "off", class:"signup-input"%>
+			    <!-- Submit -->
+			    <div id="signup-submit-btn">
+			        <%= f.submit t('views.utilities.btn.sign_up'), class:"signup-input signup-input--submit text-uppercase", style:"border-radius: 0 0 0.5rem 0.5rem !important;"%>
+			    </div>
+			    <!-- Social Signup -->
+			    <% if I18n.locale == :en %>
+			        <%= link_to user_omniauth_authorize_path(:facebook, :signup => "true"), class:"btn btn-block btn-social btn-facebook mt-20 text-thin", id:"facebook-btn", style:"border-radius: 0.5rem;" do %>
+			            <span class="fa fa-facebook"></span>
+			            <%= t 'views.utilities.devise.sign_up_with_facebook' %>
+			        <% end %>
+			    <% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
+

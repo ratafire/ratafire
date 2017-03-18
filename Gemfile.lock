@@ -218,6 +218,9 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise_invitable (1.6.1)
+      actionmailer (>= 3.2.6)
+      devise (>= 3.2.0)
     devise_lastseenable (0.0.6)
       devise
       rails (>= 3.0.4)
@@ -315,6 +318,9 @@ GEM
     mailboxer (0.14.0)
       carrierwave (>= 0.5.8)
       rails (>= 4.2.0)
+    mailkick (0.1.6)
+      activesupport
+      safely_block (>= 0.1.1)
     merit (2.4.0)
       ambry (~> 1.0.0)
     meta-tags (2.4.0)
@@ -584,6 +590,7 @@ DEPENDENCIES
   country_select
   delayed_paperclip!
   devise (= 3.5.10)
+  devise_invitable
   devise_lastseenable
   elasticsearch-model
   elasticsearch-model-globalize
@@ -604,6 +611,7 @@ DEPENDENCIES
   koala (~> 2.0)
   letsrate!
   mailboxer
+  mailkick
   merit
   meta-tags
   metainspector

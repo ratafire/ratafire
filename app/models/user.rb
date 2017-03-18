@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_merit
+
 
 
     #----------------Utilities----------------
@@ -8,8 +8,16 @@ class User < ActiveRecord::Base
     before_validation :generate_uuid!, :on => :create
     before_create :generate_username, :on => :create    
 
-	#--------Devise--------
-  	devise :database_authenticatable, 
+    #--------Merit--------
+
+    has_merit
+
+    #--------Mailkick--------
+
+    mailkick_user
+	
+    #--------Devise--------
+  	devise :invitable, :database_authenticatable, 
   		:registerable,
         :recoverable, 
         :rememberable, 
@@ -18,6 +26,7 @@ class User < ActiveRecord::Base
         :confirmable, 
         :omniauthable, 
         :lastseenable,
+        :invitable,
         :omniauth_providers => [
         	:facebook, 
         	:twitter, 

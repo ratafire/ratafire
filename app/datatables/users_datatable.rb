@@ -48,7 +48,7 @@ private
   end
 
   def fetch_users
-	users = User.order("#{sort_column} #{sort_direction}")
+	users = User.where(invitation_token: nil).order("#{sort_column} #{sort_direction}")
 	users = users.page(page).per_page(per_page)
 	if params[:sSearch].present?
 		users = users.where("fullname like :search or username like :search or email like :search or website like :search", search: "%#{params[:sSearch]}%")

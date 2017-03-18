@@ -39,7 +39,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 					end
 				else
 					#When the user doesn't exist
-					@user = User.new
+					if @user = User.find_by_email(request.env['omniauth.auth'].info.email)
+						if @user.invitation_token
+						else
+							redirect_to(:back)
+						end
+					else
+						@user = User.new
+					end
 			        begin
 			            uid = SecureRandom.hex(16)
 			        end while User.find_by_uid(uid).present?
@@ -108,8 +115,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 							end
 						end
 						#Sign in and redirect
-						sign_in(:user, @user)
-						redirect_to root_path
+						sign_in(@user, scope: :user)
+						redirect_to profile_url_path(@user.username)	
 					else
 						#Destroy the user
 						@user.destroy

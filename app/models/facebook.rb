@@ -95,7 +95,22 @@ class Facebook < ActiveRecord::Base
 
 	def self.facebook_signup_oauth(auth, user_id) 
 		#If this user does not exist
-		if User.find_by_email(auth.info.email) == nil
+		if user = User.find_by_email(auth.info.email)
+			if user.invitation_token
+	        	user.update(
+					invitation_accepted_at: Time.now,
+					invitation_token: nil,
+	        	)
+	        	user.add_score("quest_sm")
+			  	if inviter = User.find(user.invited_by_id)
+			  		inviter.add_score("quest")
+			  	end
+				proceed = true
+			end
+		else
+			proceed = true
+		end
+		if proceed
 			if Facebook.find_by_uid(auth.uid) == nil
 				@facebook = Facebook.new
 				@facebook.uid = auth.uid

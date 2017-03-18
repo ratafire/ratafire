@@ -1,0 +1,66 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, sanitize(@user.preferred_name)) %>
+<!-- Sidebar -->
+<% content_for :sidebar do %>
+    <%= render 'utilities/sidebar/sidebar_admin'%>
+<% end %>
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+
+<div class="content">
+    <div class="row">
+    	<div class="col-md-12 col-lg-12">
+	    	<!-- Send email -->
+	    	<div class="panel panel-blue">
+	            <div class="panel-heading">
+	                <h6 class="panel-title text-thin"><%= t 'views.admin.social.send_email' %> <%= User.count %></h6>
+	            </div>
+	            <div class="panel-body">
+	            	<!-- Subject -->
+	            	<%= form_for [@email], url: admin_emails_path do |f| %>
+	            		<!-- Title -->
+					    <div class="form-group">
+					        <%= f.text_field :title, class:"no-resize input-sm form-control", placeholder: t('views.admin.social.subject')%>
+					    </div>
+					    <!-- Content -->
+					    <div class="form-group">
+					    	<%= f.text_area :content, class:"summernote", style:"height:600px;" %>
+					    </div>
+					    <%= f.submit t('views.utilities.editor.submit_btn'), class: "btn btn-sm bg-blue pull-right",:data => { :confirm => t('errors.messages.are_you_sure') }, id:"editor-submition" %>
+	            	<% end %>
+	            </div>
+	    	</div>
+	    </div>
+    </div>
+</div>
+<script type="text/javascript">
+	<% if I18n.locale == :zh %>
+	    // Control editor height
+	    $('.summernote').summernote({
+	        height: 400,
+			toolbar: [
+			// [groupName, [list of button]]
+			['style', ['bold', 'italic', 'underline', 'clear']],
+			['fontsize', ['fontsize']],
+			['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			]
+	    });
+	<% end %>
+	<% if I18n.locale == :en %>
+	    // Control editor height
+	    $('.summernote').summernote({
+	        height: 400,
+			toolbar: [
+			// [groupName, [list of button]]
+			['style', ['bold', 'italic', 'underline', 'clear']],
+			['fontsize', ['fontsize']],
+			['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			]
+	    });	
+	<% end %>
+</script>
