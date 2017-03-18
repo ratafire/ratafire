@@ -6,6 +6,7 @@
 //= require nicescroll.min
 //= require confirmation.js
 //= require ahoy
+//= require summernote.min
 //= require jquery_nested_form
 //= require fancybox.min
 //= require clipboard.min
