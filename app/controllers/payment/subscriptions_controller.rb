@@ -322,6 +322,8 @@ private
 			subscription_add_follower
 			#Update reward
 			subscription_update_active_reward
+			#Post to streamlabs
+			post_to_streamlabs
 			#Create receiver
 			if @subscription.get_reward == 'on'
 				#Create reward receiver
@@ -629,6 +631,46 @@ private
 					predicted_total: @reward.predicted_total+@subscription.amount,
 					recurring_total: @reward.recurring_total+@subscription.amount
 				)
+			end
+		end
+	end
+
+	def post_to_streamlabs
+		if @subscribed.streamlab
+			if @transaction
+				#one time
+				@subscribed.streamlab.post_alert(
+					transaction_id: @transaction.id, 
+					amount: @subscription.amount.to_i, 
+					currency: @subscription.currency, 
+					subscriber_id: @subscriber.id,
+					email: @subscriber.email,
+					name: @subscriber.preferred_name,
+					alert_type: 'donation'
+				)
+			else
+				#subscription
+				if @subscription.campaign_funding_type == 'creation'
+					#per creation
+					@subscribed.streamlab.post_alert(
+						amount: @subscription.amount.to_i, 
+						currency: @subscription.currency, 
+						subscriber_id: @subscriber.id,
+						subscription_type: 'per_creation',
+						name: @subscriber.preferred_name,
+						alert_type: 'subscription'
+					)
+				else
+					#per month
+					@subscribed.streamlab.post_alert(
+						amount: @subscription.amount.to_i, 
+						currency: @subscription.currency, 
+						subscriber_id: @subscriber.id,
+						subscription_type: 'per_month',
+						name: @subscriber.preferred_name,
+						alert_type: 'subscription'
+					)
+				end
 			end
 		end
 	end

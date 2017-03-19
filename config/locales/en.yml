@@ -79,6 +79,14 @@ en:
           city_placeholder: "Your city"
           short_bio: "Short bio"
           short_bio_placeholder: "Your short bio"
+        streaming_settings:
+          live_stream: "Live Stream"
+          streamlabs: "Streamlabs"
+          streamlabs_tagline: "Streamlabs provides in-stream popup alerts"
+          streamlabs_help: "When connects to Streamlabs, backer and follower alerts on Ratafire will be posted onto your stream in real time."
+          becomes_a_follower: " is now following!"
+          becomes_a_long_term_backer: " became a long term backer for "
+          backed: " backed "
         social_media_settings: 
           connect_with: "Connect with "
           sites_you_may_often_use: "Sites you may frequent"

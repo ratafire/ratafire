@@ -261,6 +261,11 @@ class User < ActiveRecord::Base
     #--------Baidu---------
     has_one :baidu,
         -> { where( baidus: { :deleted_at => nil}) }
+    #--------Streamlab---------
+    has_one :streamlab,
+        -> { where( streamlabs: { :deleted_at => nil}) }
+    has_many :stream_alerts,
+        -> { where( streamlabs: { :deleted_at => nil}) }        
 
     #----------------Admin----------------
     has_many :historical_quotes

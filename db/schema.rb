@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170318015620) do
+ActiveRecord::Schema.define(version: 20170319052106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2248,6 +2248,44 @@ ActiveRecord::Schema.define(version: 20170318015620) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.boolean  "expires"
+    t.string   "refresh_token"
+  end
+
+  create_table "stream_alerts", force: :cascade do |t|
+    t.string   "uuid"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "alert_type"
+    t.string   "image_href"
+    t.string   "sound_href"
+    t.string   "message"
+    t.integer  "duration"
+    t.string   "special_text_color"
+    t.integer  "user_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "stringlab_id"
+    t.integer  "transaction_id"
+    t.integer  "subscriber_id"
+    t.integer  "amount"
+    t.string   "currency"
+    t.integer  "subscription_id"
+    t.string   "status"
+    t.integer  "streamlab_id"
+  end
+
+  create_table "streamlabs", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "user_id"
+    t.string   "streamlab_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.text     "test"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "access_token"
+    t.integer  "expires_in"
+    t.string   "token_type"
     t.string   "refresh_token"
   end
 

@@ -56,6 +56,7 @@ gem "figaro"
 gem 'rails_12factor'
 #Add analytics 
 gem 'google-analytics-rails'
+
 #------------------------ UI ------------------------
 
 gem 'autoprefixer-rails'

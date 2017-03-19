@@ -2,7 +2,7 @@
 <ul class="nav nav-tabs nav-tabs-bottom">
 	<li id="settings-profile_settings-settingstabactive"><%= link_to t('views.profile.settings.menu.profile'),profile_settings_user_profile_settings_path(@user.username) %></li>
 	<li id="settings-privacy_settings-settingstabactive"><a data-popup="tooltip" title='<%= t 'views.utilities.tooltip.coming_soon' %>' data-placement="bottom" ><%= t 'views.profile.settings.menu.security_&_privacy' %></a></li>
-	<li id="settings-language_settings-settingstabactive"><%= link_to t('views.profile.settings.menu.language'),language_settings_user_profile_settings_path(@user.username) %></li>
+	<li id="settings-streaming_settings-settingstabactive"><%= link_to t('views.profile.settings.streaming_settings.live_stream'),streaming_settings_user_profile_settings_path(@user.username) %></li>	
 	<li id='settings-account_settings-settingstabactive'><%= link_to t('views.profile.settings.menu.account'),account_settings_user_profile_settings_path(@user.username) %></li>
 	<li id='settings-account_settings-settingstabactive'><%= link_to t('views.profile.settings.menu.identity_verification'),identity_verification_user_profile_settings_path(@user.username), data: { no_turbolink: true } %></li>
 </ul><!-- end .nav-->

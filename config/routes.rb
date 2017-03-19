@@ -59,6 +59,7 @@ Rails.application.routes.draw do
 					get 'account_settings'
 					get 'notification_settings'
 					get 'identity_verification'
+					get 'streaming_settings'
 				end
 				#Identity Verification
 				resource :identity_verifications, only:[:create] do
@@ -364,6 +365,13 @@ Rails.application.routes.draw do
 				get 'surprise_me', to: 'explore#surprise_me', as: :surprise_me
 			end
 		end 
+
+	#Connection -----------------------------------
+	namespace :connection do
+		resource :streamlabs, only:[:create, :destroy] do
+			get '/callback', to: 'streamlabs#callback', as: :callback
+		end
+	end
 
 	#International -----------------------------------
 		namespace :global do

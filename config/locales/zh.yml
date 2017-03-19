@@ -80,6 +80,14 @@ zh:
           city_placeholder: "你住在哪个城市？"
           short_bio: "简介"
           short_bio_placeholder: "介绍你自己！"
+        streaming_settings:
+          live_stream: "直播"
+          streamlabs: "Streamlabs"
+          streamlabs_tagline: "Streamlabs提供直播内提示"
+          streamlabs_help: "连接到Streamlabs你就可以让你的火栗赞赏和关注信息直接显示在你的直播里"
+          becomes_a_follower: "关注了！"
+          becomes_a_long_term_backer: "长期赞赏"
+          backed: "赞赏"
         social_media_settings: 
           connect_with: "绑定"
           sites_you_may_often_use: "猜你常用这些应用"

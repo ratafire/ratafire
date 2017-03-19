@@ -1,0 +1,30 @@
+<!-- Github -->
+<div class="panel panel-default panel-default">
+	<div class="panel-heading p-20 text-grey text-thin" id="github-heading">
+		<h4 class="panel-title"><%= t 'views.profile.settings.streaming_settings.streamlabs' %></h4>
+		<span><%= t 'views.profile.settings.streaming_settings.streamlabs_tagline' %></span>
+<% unless user.streamlab %>
+	<!-- Without Streamlab -->
+		<div class="heading-elements">
+			<%= link_to connection_streamlabs_path, method: :post, class:"btn btn-block btn-social btn-streamlabs mb-10" do %>
+			    <span class="fa fa-twitch"></span> <%= t 'views.profile.settings.social_media_settings.connect_with' %><%= t 'views.profile.settings.streaming_settings.streamlabs' %>
+			<% end %>
+		</div>
+	</div><!-- end panel-heading-->
+	<div class="panel-body">
+		<%= t 'views.profile.settings.streaming_settings.streamlabs_help' %>
+	</div>
+<% else %>
+	<!-- With Streamlab -->
+	<div class="heading-elements" id="github-disconnect">
+		<%= link_to connection_streamlabs_path, method: :delete, class:"btn btn-block btn-social btn-default mb-10" do %>
+		    <span class="fa fa-twitch "></span> <%= t 'views.profile.settings.social_media_settings.disconnect' %>
+		<% end %>
+	</div>
+	</div><!-- end panel-heading-->
+	<!-- Hidden github Body -->
+	<div class="panel-body" id="streamlabs-body">
+		<%= t 'views.profile.settings.streaming_settings.streamlabs_help' %>
+	</div>
+<% end %>
+</div>

@@ -14,6 +14,11 @@ class Profile::SettingsController < ApplicationController
 	def profile_settings
 	end
 
+	#streaming_settings_user_profile_settings GET
+	#/users/:user_id/profile/settings/streaming_settings
+	def streaming_settings
+	end
+
 	#social_media_settings_user_profile_settings GET
 	#/users/:user_id/profile/settings/social_media_settings
 	def social_media_settings

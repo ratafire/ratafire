@@ -108,7 +108,7 @@ class Content::LikesController < ApplicationController
 						)
 					@activity = PublicActivity::Activity.create(
 						trackable_id: @liked_user.id,
-						trackable_type: "LikedUser",
+						trackable_type: "LikerUser",
 						owner_id: current_user.id,
 						owner_type: "User",
 						key: "liked_user.create",
@@ -116,7 +116,14 @@ class Content::LikesController < ApplicationController
 				end
 			end
 		end
+		#add score to user
 		add_score(@user,current_user)
+		#add streamlab
+		if @user.streamlab
+			@user.streamlab.post_alert(name:current_user.preferred_name, alert_type:'follow')
+		end
+	rescue
+		#rescue
 	end
 
 	#majorpost_user_content_likes DELETE
