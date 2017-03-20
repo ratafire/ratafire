@@ -4,8 +4,6 @@ class Connection::StreamlabsController < ApplicationController
 
 	require 'oauth2'
 
-	require 'rest-client'
-
 	#Before filters
 
 	#REST Methods -----------------------------------
