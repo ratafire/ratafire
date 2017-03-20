@@ -5,7 +5,7 @@ class Search::CreateIndex
 
 	def self.perform
 		#Update Majorpost Search Index
-		Majorpost.where(deleted: nil),__elasticsearch__.create_index!
+		Majorpost.where(deleted: nil).__elasticsearch__.create_index!
 		Majorpost.where(deleted: nil).__elasticsearch__.import
 		#Campaign
 		Campaign.where(status: 'Approved', deleted: nil).__elasticsearch__.create_index!
