@@ -13,7 +13,6 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-
 .trait-traditionalist:before { content: "\e603"; }
 
 .trait-cloud2:before { content: "\e604"; }
@@ -27,8 +26,6 @@
 .trait-27cloud:before { content: "\e607"; }
 
 .trait-spiritual:before { content: "\e608"; }
-
-.trait-cloud3:before { content: "\e60a"; }
 
 .trait-eco-friendly:before { content: "\e60b"; }
 
@@ -56,23 +53,15 @@
 
 .trait-researcher:before { content: "\e615"; }
 
-.trait-knowledgeable:before { content: "\e616"; }
-
-.trait-skeptic:before { content: "\e617"; }
-
 .trait-musician:before { content: "\e618"; }
 
 .trait-animal-lover:before { content: "\e619"; }
-
-.trait-gym-goer:before { content: "\e61a"; }
 
 .trait-conversationalist:before { content: "\e61b"; }
 
 .trait-gamer:before { content: "\e61c"; }
 
 .trait-poet:before { content: "\e61d"; }
-
-.trait-perfectionist:before { content: "\e61e"; }
 
 .trait-computer-whiz:before { content: "\e61f"; }
 
@@ -81,4 +70,12 @@
 .trait-cloud:before { content: "\e621"; }
 
 .trait-bookworm:before { content: "\e622"; }
+
+.trait-knowledgeable:before { content: "\e609"; }
+
+.trait-perfectionist:before { content: "\e60a"; }
+
+.trait-skeptic:before { content: "\e613"; }
+
+.trait-gym-goer:before { content: "\e616"; }
 
