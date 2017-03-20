@@ -13,13 +13,16 @@ class Search::SearchController < ApplicationController
 	# search GET
 	# search_ratafire/s/search
 	def search
-		@search = Elasticsearch::Model.search(params[:q], [Majorpost, Campaign, User]).page(params[:page]).per_page(10).records.where(deleted_at: nil)
+		@search = Elasticsearch::Model.search(params[:q], [Majorpost, Campaign, User]).page(params[:page]).per_page(10).records
 		if user_signed_in?
 			show_contacts
 			show_followed
 			show_liked
 		end
 		@site_activity = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,:abandoned => nil,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(5)
+	rescue
+	 	flash[:error] = t('errors.messages.not_saved')
+	 	redirect_to(:back)		
 	end
 
 protected
