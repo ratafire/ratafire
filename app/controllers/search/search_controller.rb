@@ -13,7 +13,7 @@ class Search::SearchController < ApplicationController
 	# search GET
 	# search_ratafire/s/search
 	def search
-		@search = Elasticsearch::Model.search(params[:q], [Majorpost, Campaign, User]).page(params[:page]).per_page(10).records
+		@search = Elasticsearch::Model.search(params[:q], [Majorpost, Campaign, User]).page(params[:page]).per_page(10).records.where(deleted_at: nil)
 		if user_signed_in?
 			show_contacts
 			show_followed

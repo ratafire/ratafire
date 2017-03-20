@@ -299,6 +299,8 @@ class Studio::CampaignsController < ApplicationController
 		end
 		flash['warning'] = I18n.t('views.campaign.you_abandoned_project') + @campaign.title
 		redirect_to campaigns_user_studio_creator_studio_path(@user.username)
+		#Remove search
+		Resque.enqueue(Search::ChangeIndex, 'campaign',@campaign.id,'delete')
 	end
 
 	def delete

@@ -20,7 +20,9 @@
 	<div class="row">
 		<!-- Search result -->
 		<div class="col-xs-12 col-md-8">
-			<%= render partial: "search/search_result", collection: @search, :as => :item %>
+			<% if @search %>
+				<%= render partial: "search/search_result", collection: @search, :as => :item %>
+			<% end %>
 			<%= will_paginate @search, class:"digg_pagination" %>
 		</div>
 		<!-- Side Area -->

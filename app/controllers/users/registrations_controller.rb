@@ -62,12 +62,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 			  		user_uid: user.uid,
 			  		skip_everafter: true
 			  	)
+			  	#add score
 			  	user.add_score("quest_sm")
 			  	if inviter = User.find(user.invited_by_id)
 			  		inviter.add_score("quest")
 			  	end
+				#Add search
+				Resque.enqueue(Search::ChangeIndex, 'user',user.id,'create')
 				sign_in(user, scope: :user)
-				redirect_to profile_url_path(user.username)			
+				redirect_to profile_url_path(user.username)	
 			end
 		else
 			build_resource(sign_up_params)
@@ -96,6 +99,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 			  		user_uid: resource.uid,
 			  		skip_everafter: true
 			  	)			
+				#Add search
+				Resque.enqueue(Search::ChangeIndex, 'user',resource.id,'create')
 			  if resource.active_for_authentication?
 			    #set_flash_message! :notice, :signed_up ???this shows an error when user signs up
 			    sign_up(resource_name, resource)

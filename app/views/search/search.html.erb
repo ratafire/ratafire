@@ -1,5 +1,5 @@
 <!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
-<% provide(:title)) %>
+<% provide(:title) %>
 <!-- Sidebar -->
 <% content_for :sidebar do %>
 	<% if user_signed_in? %>
@@ -10,6 +10,9 @@
     	<%= render 'utilities/sidebar/sidebar_profile_not_signed_in_users'%>
     <% end %>
 <% end %>
+<script type="text/javascript">
+	$('.pagination').show();
+</script>
 
 <!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
 
@@ -17,17 +20,26 @@
 	<div class="row">
 		<!-- Search result -->
 		<div class="col-xs-12 col-md-8">
-			<%= render partial: "search/search_result", collection: @search, :as => :item %>
+			<% if @search%>
+				<%= render partial: "search/search_result", collection: @search, :as => :item %>
+				<%= will_paginate @search, class:"digg_pagination" %>
+			<% end %>
 		</div>
 		<!-- Side Area -->
 		<div class="col-xs-6 col-md-4 pr-20" id="side-area">
 			<div class="sidebar-fixed sidebar-detached-home">
 				<div class="sidebar-detached-content">
-					<!-- Poster -->
-					<%= render partial:'profile/components/sidebar_poster', locals: {user: @user}%>
-					<!-- Recommended Tags -->
-					<%= render partial:'profile/components/recommended_tags', locals: {user: @user}%>
-					<% if @activities.any? %>
+					<div class="panel">
+						<div class="panel-body">
+							<div class="text-grey">
+								<%= @search.count %><%= t 'views.utilities.menu.search_results' %>
+							</div>
+							<h1>
+								<%= truncate(params[:q], length: 50) %>
+							</h1>
+						</div>
+					</div>
+					<% if @site_activity.any? %>
 						<%= render_activities(@site_activity, layout: :activity_site_updates) %>
 					<% end %>
 				</div>

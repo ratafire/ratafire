@@ -50,6 +50,8 @@ class Admin::CampaignsController < ApplicationController
 				creator: true,
 				creator_at: Time.now
 			)
+			#Add search
+			Resque.enqueue(Search::ChangeIndex, 'campaign',@campaign.id,'create')			
 		end
 		@campaign.rewards.last.update(
 			active: true

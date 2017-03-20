@@ -39,6 +39,8 @@ class Content::MajorpostsController < ApplicationController
 			Resque.enqueue(Image::ArtworkMajorpostCleanup, params[:majorpost_uuid])
 			#Add score
 			add_score('majorpost', current_user)
+			#Add search
+			Resque.enqueue(Search::ChangeIndex, 'majorpost',@majorpost.id,'create')
 		else
 			flash[:error] = @majorpost.errors.full_messages.to_sentence
 		end	
@@ -50,6 +52,8 @@ class Content::MajorpostsController < ApplicationController
 
 	def update
 		@majorpost.update(majorpost_params)
+		#Update search
+		Resque.enqueue(Search::ChangeIndex, 'majorpost',@majorpost.id,'update')
 	end
 
 	#content_majorpost GET
@@ -84,6 +88,8 @@ class Content::MajorpostsController < ApplicationController
 		Resque.enqueue(Majorpost::MajorpostCleanup, @majorpost.uuid)
 		#Remove score
 		remove_score('majorpost', current_user)		
+		#Remove search
+		Resque.enqueue(Search::ChangeIndex, 'majorpost',@majorpost.id,'delete')
 	end	
 
 	#NoREST Methods -----------------------------------

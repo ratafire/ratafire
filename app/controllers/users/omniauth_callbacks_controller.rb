@@ -114,6 +114,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 								@profilephoto.save
 							end
 						end
+						#Add search
+						Resque.enqueue(Search::ChangeIndex, 'user',@user.id,'create')
 						#Sign in and redirect
 						sign_in(@user, scope: :user)
 						redirect_to profile_url_path(@user.username)	

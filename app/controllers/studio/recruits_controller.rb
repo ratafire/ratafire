@@ -73,6 +73,8 @@ class Studio::RecruitsController < ApplicationController
 		  	if @inviter = User.find(@user.invited_by_id)
 		  		@inviter.add_score("quest")
 		  	end
+			#Add search
+			Resque.enqueue(Search::ChangeIndex, 'user',@user.id,'create')
 			sign_in(@user, scope: :user)
 			redirect_to profile_url_path(@user.username)
 		else
