@@ -1,3 +1,5 @@
+require 'elasticsearch/model'
+
 class Campaign < ActiveRecord::Base
 
     # Required dependency for ActiveModel::Errors
@@ -20,7 +22,7 @@ class Campaign < ActiveRecord::Base
     #--------Track activities--------
     include PublicActivity::Model
     tracked except: [:update, :destroy], 
-            owner: ->(controller, model) { controller && controller.current_user }
+            owner: ->(controller, model) { controller && controller.current_user }           
 
     #----------------Relationships----------------
     #Belongs to
@@ -56,6 +58,10 @@ class Campaign < ActiveRecord::Base
     #----------------Translation----------------
 
     translates :title, :description#, :versioning => :paper_trail
+
+    #--------Elastic Search--------
+    include Elasticsearch::Model
+    include Elasticsearch::Model::Callbacks
 
     #----------------Validations----------------
 

@@ -1,0 +1,112 @@
+<div class="panel">
+	<div class="panel-body">
+		<!-- Campaign -->
+		<% if item.content_type == 'campaign' %>
+			<!-- Campaign -->
+			<div class="media stack-media-on-mobile">
+				<div class="media-left">
+					<div class="thumb">
+						<%= link_to profile_url_path(item.user.username) do %>
+							<img src="<%= item.image.url(:thumbnail128)%>" class="img-responsive img-rounded media-preview" alt="">
+						<% end %>
+					</div>
+				</div>
+
+				<div class="media-body">
+					<h6 class="media-heading">
+						<%= link_to profile_url_path(item.user.username) do %>
+							<%= item.title %>
+						<% end %>
+					</h6>
+					<ul class="list-inline list-inline-separate text-muted">
+						<li><%= item.user.preferred_name %></li>
+						<% if item.category %>
+							<li>
+								<div class="pb-10">
+									<%= render partial: "profile/components/category", locals: {category: item.category} %>
+									<% if item.sub_category %>
+										<%= render partial: "profile/components/sub_category", locals: {category: item.category, sub_category: item.sub_category} %>
+									<% end %>
+								</div>
+							</li>
+						<% end %>
+					</ul>
+					<%= truncate(item.description, length: 144) %>
+				</div>
+			</div>
+		<% end %>
+		<!-- Majorpost -->
+		<% if item.content_type == 'majorpost' %>
+			<!-- Majorpost -->
+			<div class="media stack-media-on-mobile">
+				<div class="media-left">
+					<div class="thumb">
+						<%= link_to content_majorpost_path(item.uuid) do %>
+							<% if item.artwork.any? %>
+								<img src="<%= item.artwork.first.image.url(:thumbnail128)%>" class="img-responsive img-rounded media-preview" alt="">
+							<% else %>
+								<img src="<%= item.user.profilephoto.image.url(:thumbnail128)%>" class="img-responsive img-rounded media-preview" alt="">
+							<% end %>
+						<% end %>
+					</div>
+				</div>
+
+				<div class="media-body">
+					<% if item.title %>
+						<h6 class="media-heading">
+							<%= link_to content_majorpost_path(item.uuid) do %>
+								<%= item.title %>
+							<% end %>
+						</h6>
+					<% else %>
+						<h6 class="media-heading">
+							<%= link_to content_majorpost_path(item.uuid) do %>
+								<%= item.user.preferred_name %>
+							<% end %>
+						</h6>
+					<% end %>
+					<ul class="list-inline list-inline-separate text-muted">
+						<li><%= item.user.preferred_name %></li>
+						<li><%= time_ago_in_words(item.created_at) %><%= t 'views.utilities.menu.ago' %></li>
+						<% if item.category %>
+							<li>
+								<div class="pb-10">
+									<%= render partial: "profile/components/category", locals: {category: item.category} %>
+									<% if item.sub_category %>
+										<%= render partial: "profile/components/sub_category", locals: {category: item.category, sub_category: item.sub_category} %>
+									<% end %>
+								</div>
+							</li>
+						<% end %>
+					</ul>
+					<%= truncate(item.excerpt, length: 144) %>
+				</div>
+			</div>
+		<% end %>	
+		<!-- User -->
+		<% if item.content_type == 'user' %>
+			<!-- User -->
+			<div class="media stack-media-on-mobile">
+				<div class="media-left">
+					<div class="thumb">
+						<%= link_to profile_url_path(item.username) do %>
+							<img src="<%= item.profilephoto.image.url(:thumbnail128)%>" class="img-responsive img-rounded media-preview" alt="">
+						<% end %>
+					</div>
+				</div>
+
+				<div class="media-body">
+					<h6 class="media-heading">
+						<%= link_to profile_url_path(item.username) do %>
+							<%= item.preferred_name %>
+						<% end %>
+					</h6>
+					<ul class="list-inline list-inline-separate text-muted">
+						<li><%= item.tagline %></li>
+					</ul>
+					<%= truncate(item.bio, length: 144) %>
+				</div>
+			</div>
+		<% end %>	
+	</div>
+</div>

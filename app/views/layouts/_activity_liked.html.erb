@@ -16,7 +16,7 @@
 			<% else %>
 				<% if activity.trackable_type == "Majorpost" %>
 					<!-- Image Post -->
-					<% if activity.trackable.artwork.count > 0 %>
+					<% if activity.trackable.artwork.any? %>
 						<div class="thumb thumb-slide" style="border-radius: 3px 3px 0 0;">
 							<img src="<%= activity.trackable.artwork.first.image.url(:preview512)%>" style="width:100%;" alt="">
 							<div class="caption-overflow">

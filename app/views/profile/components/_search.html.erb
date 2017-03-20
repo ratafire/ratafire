@@ -1,0 +1,19 @@
+<%= form_tag('/search_ratafire/s/search', method: :get, id:"ratafire-search-form") do |f| %>
+	<p class="navbar-text no-padding col-sm-4 col-md-5 col-lg-6">
+		<span class="input-group pt-7">
+			<input type="text" name="q" value="<%= params[:q] %>" class="form-control height-30 masthead-search-terms-border no-border-radius">
+			<span type="submit", class="input-group-btn height-30" id="ratafire-search-btn">
+				<span class="input-group-btn height-30" >
+					<span class="btn btn-default pt-3 height-30" type="button" style="width:66px;">
+						<i class="fa fa-search text-grey-300"></i>
+					</span>
+				</span>
+			</span>
+		</span>
+	</p>
+<% end %>
+<script type="text/javascript">
+	$('#ratafire-search-btn').on('click',function() {
+		$('form#ratafire-search-form').trigger('submit.rails');
+	});
+</script>

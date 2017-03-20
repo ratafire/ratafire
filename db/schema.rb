@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170319052106) do
+ActiveRecord::Schema.define(version: 20170320042616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -424,8 +424,8 @@ ActiveRecord::Schema.define(version: 20170319052106) do
     t.boolean  "published"
     t.datetime "published_at"
     t.datetime "expiration"
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
     t.string   "sub_category"
     t.string   "country"
     t.string   "city"
@@ -458,13 +458,14 @@ ActiveRecord::Schema.define(version: 20170319052106) do
     t.decimal  "accumulated_fee",         precision: 10, scale: 2, default: 0.0
     t.decimal  "accumulated_ratafire",    precision: 10, scale: 2, default: 0.0
     t.string   "direct_upload_url"
-    t.boolean  "processed",                                        default: false, null: false
+    t.boolean  "processed",                                        default: false,      null: false
     t.datetime "content_updated_at"
     t.decimal  "predicted_total",         precision: 10, scale: 2, default: 0.0
     t.decimal  "predicted_receive",       precision: 10, scale: 2, default: 0.0
     t.decimal  "predicted_fee",           precision: 10, scale: 2, default: 0.0
     t.decimal  "predicted_ratafire",      precision: 10, scale: 2, default: 0.0
     t.decimal  "recurring_total",         precision: 10, scale: 2, default: 0.0
+    t.string   "content_type",                                     default: "campaign"
   end
 
   create_table "cards", id: :bigserial, force: :cascade do |t|
@@ -1367,6 +1368,7 @@ ActiveRecord::Schema.define(version: 20170319052106) do
     t.integer  "subscription_id"
     t.decimal  "recurring_total",                 precision: 10, scale: 2, default: 0.0
     t.boolean  "backers_only"
+    t.string   "content_type",                                             default: "majorpost"
   end
 
   create_table "masspay_batches", id: :bigserial, force: :cascade do |t|
@@ -2854,7 +2856,6 @@ ActiveRecord::Schema.define(version: 20170319052106) do
     t.text     "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "password_digest"
     t.text     "remember_token"
     t.boolean  "admin"
     t.string   "website"
@@ -2908,6 +2909,7 @@ ActiveRecord::Schema.define(version: 20170319052106) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",                                          default: 0
+    t.string   "content_type",                                               default: "user"
   end
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree

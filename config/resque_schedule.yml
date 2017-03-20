@@ -14,3 +14,5 @@ Admin::Keystone:
   cron: "20 4 * * *"
 Stripe::Events:
   cron: "0,30 * * * *"
+Search::CreateIndex:
+  cron: "30 5 * * *"

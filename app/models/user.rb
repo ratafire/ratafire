@@ -1,3 +1,5 @@
+require 'elasticsearch/model'
+
 class User < ActiveRecord::Base
 
 
@@ -274,6 +276,10 @@ class User < ActiveRecord::Base
 
     translates :tagline, :fullname, :website, :bio, :job_title ,:firstname, :lastname, :preferred_name, :country, :city, :fallbacks_for_empty_translations => true
 
+    #--------Elastic Search--------
+    include Elasticsearch::Model
+    include Elasticsearch::Model::Callbacks
+
     #----------------Validation----------------
     #Email
     validates :email, :presence => true, format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i}, uniqueness: { case_sensitive: false }
@@ -293,7 +299,6 @@ class User < ActiveRecord::Base
     #User Info
     validates :tagline, length: { in: 3..42 }
     validates :website, format: {with: /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix}
-
 
 
     #----------------Methods----------------

@@ -1,3 +1,5 @@
+require 'elasticsearch/model'
+
 class Majorpost < ActiveRecord::Base
     #----------------Utilities----------------
 
@@ -15,6 +17,11 @@ class Majorpost < ActiveRecord::Base
     include PublicActivity::Model
     tracked except: [:update, :destroy], 
             owner: ->(controller, model) { controller && controller.current_user }
+
+    #--------Elastic Search--------
+    include Elasticsearch::Model
+    include Elasticsearch::Model::Callbacks
+
 
     #----------------Relationships----------------
     #Belongs to

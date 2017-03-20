@@ -237,6 +237,10 @@ Rails.application.routes.draw do
 			get '/user/:user_id/editor/editor_audio/:majorpost_uuid' => 'editor/editor_audio#remove', method: :get, :as => 'remove_user_editor_editor_audio'
 			get '/user/:user_id/editor/editor_video/:majorpost_uuid' => 'editor/editor_video#remove', method: :get, :as => 'remove_user_editor_editor_video'
 
+	#Search -----------------------------------
+
+	get 'search_ratafire/s/search', to: 'search/search#search', as: :search
+
 	#Content -----------------------------------
 		
 		namespace :content do 

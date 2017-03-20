@@ -699,6 +699,7 @@ en:
         download: "Download"
         all: "All"
         is_new_to_ratafire: " is new to Ratafire!"
+        search_results: " search results"
       category:
         other: "Other"
         a_new_field: "A New Field"

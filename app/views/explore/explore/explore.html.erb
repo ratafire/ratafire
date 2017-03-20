@@ -60,7 +60,7 @@
 					<%= render partial:'profile/components/sidebar_poster', locals: {user: @user}%>
 					<!-- Recommended Tags -->
 					<%= render partial:'profile/components/recommended_tags', locals: {user: @user}%>
-					<% if @activities.any? %>
+					<% if @site_activity.any? %>
 						<%= render_activities(@site_activity, layout: :activity_site_updates) %>
 					<% end %>
 				</div>

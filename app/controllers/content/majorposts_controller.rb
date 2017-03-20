@@ -1,6 +1,7 @@
 class Content::MajorpostsController < ApplicationController
 
 	layout 'profile'
+	require 'rqrcode'
 
 	#Before filters
 	before_filter :load_majorpost, except: [:create]

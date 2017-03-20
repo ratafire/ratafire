@@ -697,6 +697,7 @@ zh:
         download: "下载"
         all: "全部"
         is_new_to_ratafire: "是火栗萌新！"
+        search_results: "条搜索结果"
       category:
         other: "其它"
         a_new_field: "新领域"

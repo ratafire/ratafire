@@ -37,7 +37,7 @@ class Explore::ExploreController < ApplicationController
 	# explore
 	def explore
 		@activities = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,:abandoned => nil,trackable_type: ["Majorpost","Campaign"], :featured_home => true).page(params[:page]).per_page(5)
-		@site_activity = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,:abandoned => nil,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(10)
+		@site_activity = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,:abandoned => nil,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(5)
 	end
 
 private
