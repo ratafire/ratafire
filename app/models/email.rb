@@ -9,8 +9,8 @@ private
 
     def generate_uuid!
         begin
-            self.uid = SecureRandom.hex(16)
-        end while Email.find_by_uid(self.uid).present?
+            self.uuid = SecureRandom.hex(16)
+        end while Email.find_by_uuid(self.uid).present?
     end
 
 end
