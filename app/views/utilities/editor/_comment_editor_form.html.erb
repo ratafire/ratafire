@@ -1,6 +1,10 @@
 <%= form_for [comment], url:content_comments_path, method: :post, :html =>{:id => 'comment-text-editor-form'},:remote => true do |f| %>
 	<div class="panel panel-speech" id="<%= majorpost.id %>_comment_editor_holder">
+		<!-- Post Panel -->
+		<div id="reply-to-holder">
+		</div>	
 		<%= f.hidden_field :majorpost_id, :value => majorpost.id %>
+		<%= f.hidden_field :reply_id, id: 'reply_id'%>
 		<div class="panel-body pb-5">
 			<%= f.text_area :content, class:"medium-editor-textarea editable-textarea medium-editor-insert-plugin form-transparent form-control", placeholder: t('views.utilities.editor.write_comment'), id:"comment_editor_content" %>
 		</div>

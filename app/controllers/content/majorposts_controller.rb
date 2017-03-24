@@ -66,7 +66,12 @@ class Content::MajorpostsController < ApplicationController
 			end
 		end
 		@comment = Comment.new
-		@majorpost_likers = @majorpost.liked_majorposts.order('created_at desc').limit(5)
+		@comment_activities = PublicActivity::Activity.order("created_at asc").where(:published => true, :majorpost_id => @majorpost.id,trackable_type: ["Comment"]).page(params[:page]).per_page(20)
+		if @majorpost.comments.any?
+			@majorpost_likers = @majorpost.liked_majorposts.order('created_at desc').limit(5)
+		else
+			@majorpost_likers = @majorpost.liked_majorposts.page(params[:page]).per_page(5)
+		end
 		@popoverclass = SecureRandom.hex(16)
 	end
 

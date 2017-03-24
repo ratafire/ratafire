@@ -31,11 +31,10 @@
 				<%= render_activities(@activities, layout: :activity_liked) %>
 			</div>
 		</div>
-		
 		<div class="like-pagination">
 			<div id="like-pagination-old">
-				<%= will_paginate(@activities) %>
+				<%= will_paginate @activities %>
 			</div>
-		</div>
+		</div>			
 	</div>
 </div>

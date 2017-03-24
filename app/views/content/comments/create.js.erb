@@ -1,20 +1,37 @@
-//Remove block ui
-$('.outer-space').unblock();
-$('#above-blockui').removeClass('above-blockui');
 //Remove text editor
-$('#editor-text-holder').remove();
-$('#editor-options-holder').velocity('fadeIn');
+$('#comment-text-editor-form').remove();
+$('#<%= @majorpost.id %>_comment_editor_holder').append("<%= j render(:partial => 'utilities/editor/comment_editor_form', :locals => {majorpost: @majorpost, comment: @new_comment}) %>");
+autosize($('textarea'));
+$('#editor-submition-block').block({message: null,overlayCSS: {
+backgroundColor: '#fff',
+opacity: 0.4,
+cursor: 'not-allowed'
+},});	
+$('#comment_editor_content').donetyping(function(){
+	if (this.value.length > 37) {
+		$('#editor-submition-block').unblock();
+	} else {
+		var data = $('#editor-submition-block').data();
+		if (data["blockUI.isBlocked"] == 0) {
+			$('#editor-submition-block').block({message: null,overlayCSS: {
+            backgroundColor: '#fff',
+            opacity: 0.4,
+            cursor: 'not-allowed'
+        	},});
+		}
+	}
+});	
 //Add new post
-$("#post-pagination").prepend("<div class='post-pagination'><%= j render_activities(@activity) %></div>");
+$("#majorpost-comment-activities-holder").prepend("<%= j render_activities(@activity) %>");
 initiate_plugins('<%= j @popoverclass %>_video_class');
 refreshUsercard('<%= j @popoverclass %>');
 $('.dropdown-toggle').dropdown();
 //Levelup
-<% if @level_xp %>
+<% if @level_xp_commenter %>
 	var xp = noty({
 		layout: 'center',
 	    template: '<div class="text-center"><div class="btn bg-rainbow-600 noty_text text-medium text-thin"></div></div>',	
-		text: 'XP <%= number_with_delimiter(@level_xp.majorpost)%>',
+		text: 'XP <%= number_with_delimiter(@level_xp_commenter.get_follower)%>',
 		addClass: 'noty-xp',
 		timeout: 800,
 		animation: {
@@ -25,7 +42,7 @@ $('.dropdown-toggle').dropdown();
 		}
 	});
 <% end %>
-<% if @levelup %>
+<% if @levelup_commenter %>
 	var levelup = noty({
 		layout: 'center',
 	    template: '<div class="text-center"><div class="btn bg-rainbow-600 noty_text text-giant text-thin pl-20 pr-20 pt-10 pb-10"></div></div>',	
@@ -46,11 +63,11 @@ $('.dropdown-toggle').dropdown();
 	//    $(this).remove();
 	// });
 <% end %>
-$('#<%= @user.id %>-level-cover').html('<%= @user.level %>');
-$('#<%= @user.id %>-xp-bar').html('<%= j render(:partial => "profile/components/xp_bar", :locals => {:user => @user}) %>');
-$('#<%= @user.id %>-about').mouseenter(function(){
-	$('#<%= @user.id %>-xp-bar').removeClass('progress-xxs');
+$('#<%= @majorpost.user.id %>-level-cover').html('<%= @majorpost.user.level %>');
+$('#<%= @majorpost.user.id %>-xp-bar').html('<%= j render(:partial => "profile/components/xp_bar", :locals => {:user => @majorpost.user}) %>');
+$('#<%= @majorpost.user.id %>-about').mouseenter(function(){
+	$('#<%= @majorpost.user.id %>-xp-bar').removeClass('progress-xxs');
 });
-$('#<%= @user.id %>-about').mouseleave(function(){
-	$('#<%= @user.id %>-xp-bar').addClass('progress-xxs');
+$('#<%= @majorpost.user.id %>-about').mouseleave(function(){
+	$('#<%= @majorpost.user.id %>-xp-bar').addClass('progress-xxs');
 });	

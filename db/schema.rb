@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324045822) do
+ActiveRecord::Schema.define(version: 20170324214041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20170324045822) do
     t.string   "category"
     t.string   "sub_category"
     t.boolean  "completed"
+    t.integer  "majorpost_id"
   end
 
   add_index "activities", ["owner_id", "owner_type"], name: "idx_16401_index_activities_on_owner_id_and_owner_type", using: :btree
@@ -590,16 +591,19 @@ ActiveRecord::Schema.define(version: 20170324045822) do
 
   create_table "comments", id: :bigserial, force: :cascade do |t|
     t.text     "content"
-    t.integer  "user_id",      limit: 8
-    t.integer  "majorpost_id", limit: 8
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "project_id",   limit: 8
+    t.integer  "user_id",           limit: 8
+    t.integer  "majorpost_id",      limit: 8
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.integer  "project_id",        limit: 8
     t.text     "excerpt"
     t.datetime "deleted_at"
-    t.boolean  "deleted",                default: false
+    t.boolean  "deleted",                     default: false
     t.string   "uuid"
     t.integer  "reply_id"
+    t.string   "locale"
+    t.integer  "majorpost_user_id"
+    t.integer  "campaign_id"
   end
 
   add_index "comments", ["user_id", "majorpost_id", "created_at"], name: "idx_16589_index_comments_on_user_id_and_majorpost_id_and_create", using: :btree

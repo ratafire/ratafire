@@ -30,10 +30,11 @@ class Majorpost < ActiveRecord::Base
 
     #Has many
     has_many :postimage
-    has_many :comments, dependent: :destroy
     has_many :artwork, foreign_key: "majorpost_uuid", primary_key: 'uuid', class_name:"Artwork", dependent: :destroy
     has_many :liked_majorposts
     has_many :likers, through: :liked_majorposts, source: :user
+    has_many :comments, 
+        -> { where( comments: { :deleted => false}) }, class_name: "Comment", dependent: :destroy, foreign_key: "majorpost_id"
     has_many :subscriptions, 
         -> { where( subscriptions: { :real_deleted => nil}) },
         class_name: "Subscription", 

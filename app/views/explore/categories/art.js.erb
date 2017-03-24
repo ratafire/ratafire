@@ -3,7 +3,7 @@ $('#like-pagination-old').remove();
 initiate_plugins('<%= j @popoverclass %>_video_class');
 refreshUsercard('<%= j @popoverclass %>');
 <% if @activities.next_page %>
-  $('.like-pagination').append('<%= j will_paginate(@activities) %>');
+  $('.like-pagination').append('<div id="like-pagination-old"><%= j will_paginate(@activities) %></div>');
 <% else %>
   $('.like-pagination').remove();
 <% end %>	

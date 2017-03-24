@@ -40,6 +40,9 @@ class Campaign < ActiveRecord::Base
     accepts_nested_attributes_for :rewards
     has_many :shippings, class_name: "Shipping", dependent: :destroy
     has_many :majorposts
+    has_many :comments, 
+        -> { where( comments: { :deleted => false}) },
+        dependent: :destroy        
     has_many :liked_campaigns
     has_many :likers, through: :liked_campaigns, source: :user
     has_many :subscriptions, 

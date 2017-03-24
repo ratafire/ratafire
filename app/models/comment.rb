@@ -23,6 +23,9 @@ class Comment < ActiveRecord::Base
     belongs_to :majorpost
     belongs_to :campaign
 
+    has_many :sub_comments, :class_name => "Comment"
+    belongs_to :main_comment, :class_name => "Comment", :foreign_key => :reply_id
+
     #----------------Validations----------------
 
     #uuid

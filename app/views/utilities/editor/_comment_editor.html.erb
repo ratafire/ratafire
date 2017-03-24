@@ -6,7 +6,6 @@
 			<img src="<%= current_user.profilephoto.image.url(:thumbnail64) %>" class="profile-thumb-panel">
 		<% end %>
 	</div>			
-	<!-- Post Panel -->
 	<%= render partial:'utilities/editor/comment_editor_form', locals: {majorpost: majorpost, comment: comment} %>
 </div><!-- end .col-xs-10 col-md-7-->
 <script type="text/javascript">

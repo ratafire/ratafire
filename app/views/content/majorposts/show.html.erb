@@ -39,15 +39,26 @@
 									<%= render partial:'utilities/editor/comment_editor', locals: {majorpost: @majorpost, comment: @comment} %>
 								</div>
 							<% end %>
+							<!-- List of comments -->
+							<div id="majorpost-comment-activities-holder">
+								<% if @majorpost.comments.any? %>
+									<%= render_activities(@comment_activities) %>
+									<div class="col-xs-12 col-md-12 col-offset-64 mb-20">
+										<%= will_paginate @comment_activities, class:"digg_pagination" %>
+									</div>
+								<% end %>
+							</div>
 							<!-- Latest likers -->
 							<div class="mt-20 col-offset-64">
-								<div class="col-fixed-64">
+								<div class="post-pagination">
+									<%= render partial:'profile/components/majorpost_likers', collection: @majorpost_likers, :as => :majorpost_liker %>
 								</div>
-								<div id="post-pagination">
-									<div class="post-pagination">
-										<%= render partial:'profile/components/majorpost_likers', collection: @majorpost_likers, :as => :majorpost_liker %>
+								<% unless @majorpost.comments.any? %>
+									<!-- Paginate -->
+									<div class="post-will-paginate">
+										<%= will_paginate @majorpost_likers %>
 									</div>
-								</div><!-- end #post-pagination-->		
+								<% end %>
 							</div>
 						</div>	
 					</div><!-- end .tab-content-->	

@@ -193,7 +193,9 @@ class User < ActiveRecord::Base
             has_many :audio_image
         has_many :video
             has_many :video_image
-
+    has_many :comments, 
+        -> { where( comments: { :deleted => false}) },
+        dependent: :destroy    
     #--------Campaign---------
     has_many :campaigns
         has_one :active_campaign,
