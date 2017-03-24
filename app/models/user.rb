@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
     #--------Traits---------
     has_many :achievement_relationships, :class_name => 'AchievementRelationship'
     has_many :achievements, 
-        :through => :achievement_relationships
+        :through => :achievement_relationships, :uniq => true
 
     #--------Followers---------
     has_many :liked_users, foreign_key: "liked_id", class_name: "LikedUser"
