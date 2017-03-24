@@ -101,10 +101,13 @@ class Facebook < ActiveRecord::Base
 					invitation_accepted_at: Time.now,
 					invitation_token: nil,
 	        	)
+	        	#Add score
 	        	user.add_score("quest_sm")
 			  	if inviter = User.find(user.invited_by_id)
 			  		inviter.add_score("quest")
 			  	end
+		  		#Check achievement
+		  		Resque.enqueue(Achievement::RecruitFriend, user.invited_by_id)	
 				proceed = true
 			end
 		else

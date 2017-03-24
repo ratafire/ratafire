@@ -1,0 +1,25 @@
+<div class="row pl-10 pr-10">
+	<!-- Achievements -->
+	<div class="col-lg-9 col-md-9">
+		<%= render partial: "studio/achievements/achievement", collection: @achievements, :as => :achievement, locals: {user: @user} %>
+		<div class="mt-20">
+			<% if @achievements %>
+				<%= will_paginate @achievements, class:"digg_pagination" %>
+			<% end %>
+		</div>
+	</div>
+	<!-- Sidebar -->
+	<div class="col-lg-3 col-md-3">
+		<div class="panel">
+			<!-- User thumbnail -->
+			<div class="thumb  thumb-slide" id="about-profilephoto-holder" style="border-radius: 3px 3px 0 0;">
+				<img src="<%= @user.profilephoto.image.url(:thumbnail512)%>" class="about-profilephoto-holder" alt="">
+			</div>	
+			<div class="text-center">
+				<h2><%= number_with_delimiter(@user.achievement_points)%></h2>
+				<div class="text-grey-300"><%= t 'views.admin.achievements.achievement_points' %></div>
+			</div>			
+			<%= render partial: "profile/components/sidebar_achievements", locals: {user: @user} %>
+		</div>
+	</div>
+</div>

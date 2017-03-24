@@ -700,6 +700,7 @@ en:
         all: "All"
         is_new_to_ratafire: " is new to Ratafire!"
         search_results: " search results"
+        achievements: "Achievements"
       category:
         other: "Other"
         a_new_field: "A New Field"
@@ -797,6 +798,8 @@ en:
         processing_meow: "Processing...meow"
         cancel: "Cancel"
         post_update: "Post Update"
+        post_comment: "Post Comment"
+        write_comment: "Write a comment..."
         submit_btn: "Submit"
         remove_btn: "Remove"
         back_btn: "Back"
@@ -874,6 +877,7 @@ en:
         posts: "Posts"
         transactions: "Transactions"
         social: "Social"
+        character: "Character"
       users:
         creator: "Creator"
         fullname: "Fullname"
@@ -898,6 +902,16 @@ en:
           tag_name: "Tag name"
           tagged: "Tagged"
           followers: "Followers"
+      achievements:
+        name: "Name"
+        description: "Description"
+        level: "Level"
+        iamge: "Image"
+        belongs_to_achievement: "Belongs to achievement id"
+        category: "Category"
+        sub_category: "Sub category"
+        achievement_points: "Achievement Points"
+        hidden: "Hidden"
       culture:
         historical_quotes:
           historical_quote: "Historical Quote"

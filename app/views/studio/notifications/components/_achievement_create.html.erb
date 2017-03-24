@@ -1,0 +1,31 @@
+<% if Achievement.find(notification.trackable_id) && AchievementRelationship.find_by_achievement_id_and_user_id(notification.trackable_id,notification.user_id) %>
+	<% if I18n.locale == :zh %>
+		<ul class="media-list dropdown-content-body <% unless notification.is_read %>bg-grey-100<% end %>">
+			<li class="media">
+				<div class="media-left">
+					<img src="<%= Achievement.find(notification.trackable_id).image %>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
+				</div>
+
+				<div class="media-body">
+					<div class="text-semibold"><%= Achievement.find(notification.trackable_id).name_zh %></div>
+					<span class="media-annotation pull-right"><%= time_ago_in_words(AchievementRelationship.find_by_achievement_id_and_user_id(notification.trackable_id,notification.user_id).created_at) %><%= t 'views.utilities.menu.ago'%></span>
+					<div class="text-grey"><%= Achievement.find(notification.trackable_id).description_zh %></div>
+				</div>
+			</li>
+		</ul>
+	<% else %>
+		<ul class="media-list dropdown-content-body <% unless notification.is_read %>bg-grey-100<% end %>">
+			<li class="media">
+				<div class="media-left">
+					<img src="<%= Achievement.find(notification.trackable_id).image %>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
+				</div>
+
+				<div class="media-body">
+					<div class="text-semibold"><%= Achievement.find(notification.trackable_id).name %></div>
+					<span class="media-annotation pull-right"><%= time_ago_in_words(AchievementRelationship.find_by_achievement_id_and_user_id(notification.trackable_id,notification.user_id).created_at) %><%= t 'views.utilities.menu.ago'%></span>
+					<div class="text-grey"><%= Achievement.find(notification.trackable_id).description %></div>
+				</div>
+			</li>
+		</ul>
+	<% end %>
+<% end %>

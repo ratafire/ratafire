@@ -46,3 +46,6 @@
 <% if notification.notification_type == "level_up" %>
 	<%= render partial:'studio/notifications/components/level_up', locals: {notification: notification} %>
 <% end %>
+<% if notification.notification_type == "achievement_create" %>
+	<%= render partial:'studio/notifications/components/achievement_create', locals: {notification: notification} %>
+<% end %>

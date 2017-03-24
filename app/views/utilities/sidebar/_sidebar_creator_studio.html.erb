@@ -87,6 +87,11 @@
 									<%= t 'views.creator_studio.community.traits'%>
 								<% end %>
 							</li>
+							<li id="achievements-show-sidebarsubactive" class="achievements-general-sidebarsubactive achievements-exploration-sidebarsubactive achievements-social-sidebarsubactive">
+								<%= link_to user_studio_achievements_path(current_user.username) do %>
+									<%= t 'views.utilities.menu.achievements'%>
+								<% end %>
+							</li>							
 						</ul>
 					</li>					
 					<li id="creator_studios-rewards-sidebaractive">
@@ -255,4 +260,7 @@
 	//Add active to specific tabs
 	$('#<%= controller_name %>-<%= action_name %>-sidebaractive').addClass('active');
 	$('#<%= controller_name %>-<%= action_name %>-sidebarsubactive').addClass('active');
+	//Add active to specific tabs
+	$('.<%= controller_name %>-<%= action_name %>-sidebaractive').addClass('active');
+	$('.<%= controller_name %>-<%= action_name %>-sidebarsubactive').addClass('active');	
 </script>

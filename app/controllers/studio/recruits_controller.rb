@@ -68,11 +68,14 @@ class Studio::RecruitsController < ApplicationController
 		  		user_id: @user.id,
 		  		user_uid: @user.uid,
 		  		skip_everafter: true
-		  	)				
+		  	)		
+		  	#Add score		
 		  	@user.add_score("quest_sm")
 		  	if @inviter = User.find(@user.invited_by_id)
 		  		@inviter.add_score("quest")
 		  	end
+		  	#Check achievement
+		  	Resque.enqueue(Achievement::RecruitFriend, @user.invited_by_id)		  	
 			#Add search
 			Resque.enqueue(Search::ChangeIndex, 'user',@user.id,'create')
 			sign_in(@user, scope: :user)

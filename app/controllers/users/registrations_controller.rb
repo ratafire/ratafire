@@ -67,6 +67,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 			  	if inviter = User.find(user.invited_by_id)
 			  		inviter.add_score("quest")
 			  	end
+			  	#Check achievement
+			  	Resque.enqueue(Achievement::RecruitFriend, user.invited_by_id)
 				#Add search
 				Resque.enqueue(Search::ChangeIndex, 'user',user.id,'create')
 				sign_in(user, scope: :user)

@@ -33,6 +33,12 @@
 							<div>
 									<%= render partial:'content/majorposts/majorpost', locals: {majorpost: @majorpost} %>
 							</div><!-- end #post-pagination-->
+							<!-- Comment Input -->
+							<% if user_signed_in? %>
+								<div id="majorpost-comment-editor-holder">
+									<%= render partial:'utilities/editor/comment_editor', locals: {majorpost: @majorpost, comment: @comment} %>
+								</div>
+							<% end %>
 							<!-- Latest likers -->
 							<div class="mt-20 col-offset-64">
 								<div class="col-fixed-64">
@@ -40,10 +46,6 @@
 								<div id="post-pagination">
 									<div class="post-pagination">
 										<%= render partial:'profile/components/majorpost_likers', collection: @majorpost_likers, :as => :majorpost_liker %>
-									</div>
-									<!-- Paginate -->
-									<div class="post-will-paginate">
-										<%= will_paginate @majorpost_likers %>
 									</div>
 								</div><!-- end #post-pagination-->		
 							</div>

@@ -322,6 +322,8 @@ protected
                         notification_type: "level_up"
                     )
                     @levelup_liker = true
+                    #Check level up achievement
+                    Resque.enqueue(Achievement::Level, liker.id)
 				end
 			end
 		end
@@ -347,6 +349,8 @@ protected
                         trackable_type: "Level",
                         notification_type: "level_up"
                     )
+                    #Check level up achievement
+                    Resque.enqueue(Achievement::Level, liked.id)
 				end
 			end
 		end

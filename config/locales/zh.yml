@@ -698,6 +698,7 @@ zh:
         all: "全部"
         is_new_to_ratafire: "是火栗萌新！"
         search_results: "条搜索结果"
+        achievements: "成就"
       category:
         other: "其它"
         a_new_field: "新领域"
@@ -795,6 +796,8 @@ zh:
         processing_meow: "正在处理……喵"
         cancel: "取消"
         post_update: "发布更新"
+        post_comment: "发布评论"
+        write_comment: "写评论……"
         submit_btn: "提交"
         remove_btn: "移除"
         back_btn: "上一步"
@@ -872,6 +875,7 @@ zh:
         posts: "帖子"
         transactions: "交易"
         social: "社交"
+        character: "角色"
       users:
         creator: "创作者"
         fullname: "名字"
@@ -896,6 +900,16 @@ zh:
           tag_name: "标签名"
           tagged: "使用量"
           followers: "关注者数"
+      achievements:
+        name: "成就名"
+        description: "获取条件"
+        level: "等级"
+        iamge: "图标"
+        belongs_to_achievement: "属于哪个成就"
+        category: "分类"
+        sub_category: "小分类"
+        achievement_points: "成就点数"      
+        hidden: "隐藏"    
       culture:
         historical_quotes:
           historical_quote: "古今名句"

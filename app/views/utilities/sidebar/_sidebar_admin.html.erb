@@ -52,6 +52,15 @@
                         </ul>
                     </li>
                     <% if current_user.id == 1 %>
+                        <!-- Character -->
+                        <li class="navigation-header"><span><%= t 'views.admin.menu.character' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.character' %>"></i></li>
+                            <!-- Achievements -->
+                            <li>
+                                <%= link_to admin_achievements_path do %>
+                                    <i class="ti-cup"></i> 
+                                    <span><%= t 'views.utilities.menu.achievements' %></span>
+                                <% end %>
+                            </li>
                         <!-- Social -->
                         <li class="navigation-header"><span><%= t 'views.admin.menu.social' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.social' %>"></i></li>
                         <!-- Email -->
@@ -69,7 +78,7 @@
                     <% if current_user.id == 1 %>
                         <li class="navigation-header"><span><%= t 'views.admin.menu.competitor' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.competitor' %>"></i></li>
                         <li>
-                            <a><i class="huaxia huaxia-lishi"></i> <span><%= t 'views.admin.menu.history' %></span></a>
+                            <a><i class="huaxia huaxia-book"></i> <span><%= t 'views.admin.menu.history' %></span></a>
                             <ul>
                                 <li id="historical_quotes-show-sidebaractive"><%= link_to user_admin_historical_quotes_path(current_user.id) do %><span><%= t 'views.admin.culture.historical_quotes.historical_quotes' %></span><% end %></li>
                             </ul>
@@ -78,7 +87,7 @@
                         <li class="navigation-header"><span><%= t 'views.admin.menu.development' %></span> <i class="icon-menu" title="<%= t 'views.admin.menu.development' %>"></i></li>
                         <li>
                             <%= link_to resque_path, target: '_blank' do %>
-                                <i class="huaxia huaxia-tanghulu"></i> <span><%= t 'views.admin.development.delayed_jobs' %></span>
+                                <i class="huaxia huaxia-share"></i> <span><%= t 'views.admin.development.delayed_jobs' %></span>
                             <% end %>
                         </li>
                     <% end %>

@@ -4,9 +4,9 @@ class Profile::TabsController < ApplicationController
 
 	#Before filters
 	before_filter :load_user
-	before_filter :show_contacts, only:[:friends, :gallery, :videos]
-	before_filter :show_followed, only:[:friends, :gallery, :videos]
-	before_filter :show_liked, only:[:friends, :gallery, :videos]
+	before_filter :show_contacts, only:[:friends, :gallery, :videos, :achievements, :achievement_general, :achievement_exploration, :achievement_social]
+	before_filter :show_followed, only:[:friends, :gallery, :videos, :achievements, :achievement_general, :achievement_exploration, :achievement_social]
+	before_filter :show_liked, only:[:friends, :gallery, :videos, :achievements, :achievement_general, :achievement_exploration, :achievement_social]
 
 	#NoREST Methods -----------------------------------
 	
@@ -33,10 +33,26 @@ class Profile::TabsController < ApplicationController
 		@videos = @user.video.where(:deleted => nil).paginate(:page => params[:page], :per_page => 9)
 	end
 
+	def achievements
+		@achievements = @user.achievements.where(level: 1).page(params[:page]).per_page(20)
+	end
+
+	def achievement_general
+		@achievements = @user.achievements.where(level: 1, category: 'general').page(params[:page]).per_page(20)
+	end
+
+	def achievement_exploration
+		@achievements = @user.achievements.where(level: 1, category: 'exploration').page(params[:page]).per_page(20)
+	end
+
+	def achievement_social
+		@achievements = @user.achievements.where(level: 1, category: 'social').page(params[:page]).per_page(20)
+	end
+
 protected
 
 	def load_user
-		unless @user = User.find(params[:user_id])
+		unless @user = User.find_by_username(params[:user_id])
 		end
 	end
 

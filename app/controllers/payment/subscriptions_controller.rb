@@ -843,6 +843,8 @@ private
                         notification_type: "level_up"
                     )
                     @levelup_subscriber = true
+                    #Check level up achievement
+                    Resque.enqueue(Achievement::Level, subscriber.id)
 				end
 			end
 		end
@@ -868,6 +870,8 @@ private
                         trackable_type: "Level",
                         notification_type: "level_up"
                     )
+                    #Check level up achievement
+                    Resque.enqueue(Achievement::Level, subscribed.id)
 				end
 			end
 		end

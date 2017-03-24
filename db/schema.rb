@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170320042616) do
+ActiveRecord::Schema.define(version: 20170324045822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,49 @@ ActiveRecord::Schema.define(version: 20170320042616) do
     t.integer  "user_id",    limit: 8
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "achievement_relationships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "achievement_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "achievement_translations", force: :cascade do |t|
+    t.integer  "achievement_id", null: false
+    t.string   "locale",         null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "name"
+    t.string   "description"
+  end
+
+  add_index "achievement_translations", ["achievement_id"], name: "index_achievement_translations_on_achievement_id", using: :btree
+  add_index "achievement_translations", ["locale"], name: "index_achievement_translations_on_locale", using: :btree
+
+  create_table "achievements", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "name"
+    t.string   "name_zh"
+    t.string   "uuid"
+    t.integer  "achievement_id"
+    t.string   "image",                 default: "/assets/logo/logoicon_water_large_flat.jpg"
+    t.string   "category"
+    t.string   "sub_category"
+    t.string   "description"
+    t.string   "description_zh"
+    t.string   "achievement_reward_zh"
+    t.string   "achievement_reward"
+    t.string   "achievement_reward_id"
+    t.integer  "level",                 default: 1
+    t.integer  "merit_id"
+    t.datetime "created_at",                                                                   null: false
+    t.datetime "updated_at",                                                                   null: false
+    t.integer  "achievement_points",    default: 0
+    t.boolean  "hidden",                default: false
   end
 
   create_table "activities", id: :bigserial, force: :cascade do |t|
@@ -555,6 +598,8 @@ ActiveRecord::Schema.define(version: 20170320042616) do
     t.text     "excerpt"
     t.datetime "deleted_at"
     t.boolean  "deleted",                default: false
+    t.string   "uuid"
+    t.integer  "reply_id"
   end
 
   add_index "comments", ["user_id", "majorpost_id", "created_at"], name: "idx_16589_index_comments_on_user_id_and_majorpost_id_and_create", using: :btree
@@ -2910,6 +2955,7 @@ ActiveRecord::Schema.define(version: 20170320042616) do
     t.string   "invited_by_type"
     t.integer  "invitations_count",                                          default: 0
     t.string   "content_type",                                               default: "user"
+    t.integer  "achievement_points",                                         default: 0
   end
 
   add_index "users", ["deactivated_at"], name: "idx_17362_index_users_on_deactivated_at", using: :btree

@@ -50,6 +50,10 @@ Rails.application.routes.draw do
 					get 'friends'
 					get 'gallery'
 					get 'videos'
+					get 'achievements'
+					get 'achievement_general'
+					get 'achievement_exploration'
+					get 'achievement_social'
 				end
 				#Settings
 				resource :settings, only:[] do
@@ -166,6 +170,12 @@ Rails.application.routes.draw do
 					post 'accept_invitation', to: 'recruits#accept_invitation', as: :accept_invitation
 					get 'recruited_datatable', to: 'recruits#recruited_datatable', as: :recruited_datatable
 				end
+				#Achievements
+				resource :achievements, only: [:show] do
+					get 'general', to: 'achievements#general', as: :general
+					get 'exploration', to: 'achievements#exploration', as: :exploration
+					get 'social', to: 'achievements#social', as: :social
+				end
 			end
 
 			#payment
@@ -268,6 +278,9 @@ Rails.application.routes.draw do
 				end
 					resources :video_images, only:[:create] do
 					end
+			#Comments
+			resources :comments, only:[:create,:destroy] do 
+			end
 		end
 		#Artworks -----------------
 			#Special url to upload artwork from medium editor for majorpost
@@ -425,6 +438,13 @@ Rails.application.routes.draw do
 		end
 		resource :emails, only: [:show, :create] do
 			get '/index', to: 'emails#index', as: :index
+		end
+
+		resource :achievements, only: [:show, :create] do 
+			get '/index', to: 'achievements#index', as: :index
+			get '/:id', to: 'achievements#edit', as: :edit
+			delete '/:id', to: 'achievements#destroy', as: :destroy
+			patch '/:id', to: 'achievements#update', as: :update
 		end
 	end
 

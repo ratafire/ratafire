@@ -98,6 +98,12 @@ class User < ActiveRecord::Base
     has_many :traits, 
         :through => :trait_relationships
 
+
+    #--------Traits---------
+    has_many :achievement_relationships, :class_name => 'AchievementRelationship'
+    has_many :achievements, 
+        :through => :achievement_relationships
+
     #--------Followers---------
     has_many :liked_users, foreign_key: "liked_id", class_name: "LikedUser"
     has_many :likers, through: :liked_users, source: :liker, class_name: 'User'
@@ -381,6 +387,8 @@ class User < ActiveRecord::Base
                         trackable_type: "Level",
                         notification_type: "level_up"
                     )
+                    #Check level up achievement
+                    Resque.enqueue(Achievement::Level, self.id)
                 end
             end
         end

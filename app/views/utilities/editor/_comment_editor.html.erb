@@ -1,0 +1,33 @@
+<!-- Post Holder -->
+<div class="col-xs-12 col-md-12 col-offset-64" id="<%= majorpost.id %>_comment_editor_holder">
+	<!-- User Image -->
+	<div class="col-fixed-64">
+		<%= link_to profile_url_path(current_user.username) do %>
+			<img src="<%= current_user.profilephoto.image.url(:thumbnail64) %>" class="profile-thumb-panel">
+		<% end %>
+	</div>			
+	<!-- Post Panel -->
+	<%= render partial:'utilities/editor/comment_editor_form', locals: {majorpost: majorpost, comment: comment} %>
+</div><!-- end .col-xs-10 col-md-7-->
+<script type="text/javascript">
+	autosize($('textarea'));
+	$('#editor-submition-block').block({message: null,overlayCSS: {
+    backgroundColor: '#fff',
+    opacity: 0.4,
+    cursor: 'not-allowed'
+	},});	
+    $('#comment_editor_content').donetyping(function(){
+    	if (this.value.length > 37) {
+    		$('#editor-submition-block').unblock();
+    	} else {
+    		var data = $('#editor-submition-block').data();
+    		if (data["blockUI.isBlocked"] == 0) {
+				$('#editor-submition-block').block({message: null,overlayCSS: {
+	            backgroundColor: '#fff',
+	            opacity: 0.4,
+	            cursor: 'not-allowed'
+	        	},});
+    		}
+    	}
+    });	
+</script>

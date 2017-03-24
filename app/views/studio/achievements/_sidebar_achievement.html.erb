@@ -1,0 +1,38 @@
+<!-- Detached Sidebar -->
+
+<!-- Sub navigation -->
+<div class="sidebar-category">
+	<div class="category-content no-padding">
+		<ul class="navigation navigation-alt navigation-accordion">
+			<li class="divider" style="height: 1px;display: block;background-color: #e5e5e5;margin-top: 5px;margin-bottom: 5px;"></li>
+			<li id="achievements-show-sidebar-achievement-active">
+				<%= link_to user_studio_achievements_path(user.username),class:"text-grey", id:"achievements-show-link" do %>
+					<i class="ti-cup"></i><%= t 'views.utilities.menu.achievements' %>
+				<% end %>
+			</li>
+			<li id="achievements-general-sidebar-achievement-active">
+				<%= link_to general_user_studio_achievements_path(user.username),class:"text-grey", id:"achievements-general-link" do %>
+					<i class="ti-medall"></i><%= t 'views.admin.achievements.general' %>
+				<% end %>
+			</li>
+			<li id="achievements-exploration-sidebar-achievement-active">
+				<%= link_to exploration_user_studio_achievements_path(user.username),class:"text-grey", id:"achievements-exploration-link" do %>
+					<i class="ti-flag-alt-2"></i><%= t 'views.admin.achievements.exploration' %>
+				<% end %>
+			</li>
+			<li id="achievements-social-sidebar-achievement-active">
+				<%= link_to social_user_studio_achievements_path(user.username),class:"text-grey", id:"achievements-social-link" do %>
+					<i class="ti-user"></i><%= t 'views.admin.achievements.social' %>
+				<% end %>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	//Add active to specific tabs
+	$('#<%= controller_name %>-<%= action_name %>-sidebar-achievement-active').addClass('active');
+	$('#<%= controller_name %>-<%= action_name %>-link').removeClass('text-grey');
+	$('#<%= controller_name %>-<%= action_name %>-sidebar-achievement-subactive').addClass('active');
+</script>

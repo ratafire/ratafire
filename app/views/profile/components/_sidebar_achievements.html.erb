@@ -1,0 +1,44 @@
+<!-- Detached Sidebar -->
+
+	<!-- Sub navigation -->
+	<div class="sidebar-category">
+		<div class="category-content no-padding">
+			<ul class="navigation navigation-alt navigation-accordion">
+				<li class="divider" style="height: 1px;display: block;background-color: #e5e5e5;margin-top: 5px;margin-bottom: 5px;"></li>
+				<li id="tabs-achievements-sidebar-achievement-active">
+					<%= link_to achievements_user_profile_tabs_path(user.username),class:"text-grey", id:"tabs-achievements-link" do %>
+						<i class="ti-cup"></i><%= t 'views.utilities.menu.achievements' %>
+					<% end %>
+				</li>
+				<% if user.achievements.where(level: 1, category: 'general').any? %>
+					<li id="tabs-achievement_general-sidebar-achievement-active">
+						<%= link_to achievement_general_user_profile_tabs_path(user.username),class:"text-grey", id:"tabs-achievement_general-link" do %>
+							<i class="ti-medall"></i><%= t 'views.admin.achievements.general' %>
+						<% end %>
+					</li>
+				<% end %>
+				<% if user.achievements.where(level: 1, category: 'exploration').any? %>
+					<li id="tabs-achievement_exploration-sidebar-achievement-active">
+						<%= link_to achievement_exploration_user_profile_tabs_path(user.username),class:"text-grey", id:"tabs-achievement_exploration-link" do %>
+							<i class="ti-flag-alt-2"></i><%= t 'views.admin.achievements.exploration' %>
+						<% end %>
+					</li>
+				<% end %>
+				<% if user.achievements.where(level: 1, category: 'social').any? %>
+					<li id="tabs-achievement_social-sidebar-achievement-active">
+						<%= link_to achievement_social_user_profile_tabs_path(user.username),class:"text-grey", id:"tabs-achievement_social-link" do %>
+							<i class="ti-user"></i><%= t 'views.admin.achievements.social' %>
+						<% end %>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+	//Add active to specific tabs
+	$('#<%= controller_name %>-<%= action_name %>-sidebar-achievement-active').addClass('active bg-rainbow-600');
+	$('#<%= controller_name %>-<%= action_name %>-link').removeClass('text-grey');
+	$('#<%= controller_name %>-<%= action_name %>-sidebar-achievement-subactive').addClass('active bg-rainbow-600');
+</script>

@@ -65,7 +65,8 @@ class Content::MajorpostsController < ApplicationController
 				@activity.mark_as_read! :for => current_user
 			end
 		end
-		@majorpost_likers = @majorpost.liked_majorposts.page(params[:page]).per_page(5)
+		@comment = Comment.new
+		@majorpost_likers = @majorpost.liked_majorposts.order('created_at desc').limit(5)
 		@popoverclass = SecureRandom.hex(16)
 	end
 
@@ -517,6 +518,8 @@ private
                             notification_type: "level_up"
                         )
                         @levelup = true
+                        #Check level up achievement
+                        Resque.enqueue(Achievement::Level, user.id)
                     end
                 end
             end
