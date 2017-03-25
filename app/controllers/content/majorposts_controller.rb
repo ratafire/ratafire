@@ -66,7 +66,15 @@ class Content::MajorpostsController < ApplicationController
 			end
 		end
 		@comment = Comment.new
-		@comment_activities = PublicActivity::Activity.order("created_at asc").where(:published => true, :majorpost_id => @majorpost.id,trackable_type: ["Comment"]).page(params[:page]).per_page(20)
+		if params[:comment_id]
+			if @comment_single = Comment.find(params[:comment_id])
+				@comment_activities = (PublicActivity::Activity.order("created_at desc").where(:published => true, :trackable_id => params[:comment_id],trackable_type: ["Comment"]) + PublicActivity::Activity.order("created_at asc").where(:published => true, :majorpost_id => @majorpost.id,trackable_type: ["Comment"])).uniq.paginate(page: params[:page], per_page: 20)
+			else
+				@comment_activities = PublicActivity::Activity.order("created_at asc").where(:published => true, :majorpost_id => @majorpost.id,trackable_type: ["Comment"]).page(params[:page]).per_page(20)
+			end
+		else
+			@comment_activities = PublicActivity::Activity.order("created_at asc").where(:published => true, :majorpost_id => @majorpost.id,trackable_type: ["Comment"]).page(params[:page]).per_page(20)
+		end
 		if @majorpost.comments.any?
 			@majorpost_likers = @majorpost.liked_majorposts.order('created_at desc').limit(5)
 		else
