@@ -799,8 +799,11 @@ en:
         processing_meow: "Processing...meow"
         cancel: "Cancel"
         post_update: "Post Update"
+        comment: "Comment"
         post_comment: "Post Comment"
         write_comment: "Write a comment..."
+        commented_on: " commented on "
+        replied_to_your_comment_on: " replied to your comment on "
         submit_btn: "Submit"
         remove_btn: "Remove"
         back_btn: "Back"
@@ -913,6 +916,10 @@ en:
         sub_category: "Sub category"
         achievement_points: "Achievement Points"
         hidden: "Hidden"
+        general: "General"
+        social: "Social"
+        exploration: "Exploration"
+        achievement_list: "Achievement List"
       culture:
         historical_quotes:
           historical_quote: "Historical Quote"

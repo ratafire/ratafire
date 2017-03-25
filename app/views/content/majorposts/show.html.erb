@@ -42,6 +42,11 @@
 							<!-- List of comments -->
 							<div id="majorpost-comment-activities-holder">
 								<% if @majorpost.comments.any? %>
+									<% if params[:comment_id]%>
+										<% if Comment.find(params[:comment_id])%>
+											<%= render partial:'content/comments/comment', locals: {comment: Comment.find(params[:comment_id])} %>
+										<% end %>
+									<% end %>
 									<%= render_activities(@comment_activities) %>
 									<div class="col-xs-12 col-md-12 col-offset-64 mb-20">
 										<%= will_paginate @comment_activities, class:"digg_pagination" %>

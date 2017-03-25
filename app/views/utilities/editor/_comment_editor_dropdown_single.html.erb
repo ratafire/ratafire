@@ -1,0 +1,11 @@
+<% if current_user == user || current_user.try(:admin) || current_user == majorpost.user %>
+	<span class="dropdown pull-right mr-20" id="<%= comment.id %>_editor_dropdown">
+		<a href="#" class="dropdown-toggle text-grey-200" data-toggle="dropdown">
+			<i class="ti-angle-down" style="font-size:11px;">
+			</i>
+		</a>
+		<ul class="dropdown-menu dropdown-menu-right bg-rainbow-600" style="z-index:5000;">
+			<li><%= link_to content_comment_path(comment.uuid), method: :delete,:remote => true do %><i class="ti-trash"></i><%= t 'views.utilities.editor.delete' %><% end %></li>
+		</ul>
+	</span>	
+<% end %><!-- end if current_user == @user || current_user.admin? -->		

@@ -31,6 +31,16 @@
 						<% end %>
 					</li>
 				<% end %>
+				<% if user_signed_in? %>
+					<li class="divider" style="height: 1px;display: block;background-color: #e5e5e5;margin-top: 5px;margin-bottom: 5px;"></li>
+					<% if current_user == user %>
+						<li id="tabs-achievement_social-sidebar-achievement-active">
+							<%= link_to user_studio_achievements_path(user.username),class:"text-grey", id:"tabs-achievement_social-link" do %>
+								<i class="ti-bookmark-alt"></i><%= t 'views.admin.achievements.achievement_list' %>
+							<% end %>
+						</li>
+					<% end %>
+				<% end %>
 			</ul>
 		</div>
 	</div>

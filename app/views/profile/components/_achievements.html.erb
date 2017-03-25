@@ -17,7 +17,7 @@
 			</div>	
 			<div class="text-center">
 				<h2><%= number_with_delimiter(@user.achievement_points)%></h2>
-				<div class="text-grey-300"><%= t 'views.admin.achievements.achievement_points' %></div>
+				<div class="text-grey-300"><%= t 'views.admin.achievements.achievement_points' %></div>			
 			</div>			
 			<%= render partial: "profile/components/sidebar_achievements", locals: {user: @user} %>
 		</div>

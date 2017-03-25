@@ -43,7 +43,7 @@
 	</div>
 <% else %>
 	<div class="panel" id="<%= achievement.id %>-achievement-media-holder">
-		<div class="panel-body disabled">	
+		<div class="panel-body">	
 			<div class="media stack-media-on-mobile" id="<%= achievement.id %>-achievement-holder">
 				
 				<!-- Achievement image -->
@@ -80,16 +80,7 @@
 					</div>
 				</div>
 			</div>
+			<div class="blockUI blockOverlay" style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(255, 255, 255); opacity: 0.6; cursor: auto; position: absolute;"></div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		$('#<%= achievement.id %>-achievement-media-holder').block({ 
-			message: null,
-		    overlayCSS:  { 
-		        backgroundColor: '#fff', 
-		        opacity:         0.6, 
-		        cursor:          'auto' 
-		    }, 
-		}); 
-	</script>
 <% end %>

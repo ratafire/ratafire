@@ -1,0 +1,27 @@
+<% if Comment.find(notification.trackable_id) %>
+	<ul class="media-list dropdown-content-body <% unless notification.is_read %>bg-grey-100<% end %>">
+		<li class="media">
+			<div class="media-left">
+				<img src="<%= Comment.find(notification.trackable_id).user.profilephoto.image.url(:thumbnail40)%>" class="profile-thumb-holder cover-profilephoto-holder img-sm" alt="">
+			</div>
+
+			<div class="media-body">
+				<%= link_to upcoming_user_studio_wallets_path(Comment.find(notification.trackable_id).user.username), class:"media-heading" do %>
+					<span class="text-semibold"><%= t 'ratafire' %></span>
+					<span class="media-annotation pull-right"><%= time_ago_in_words(notification.created_at) %><%= t 'views.utilities.menu.ago'%></span>
+				<% end %>
+				<span class="text-grey">
+					<%= Comment.find(notification.trackable_id).user.preferred_name %><%= t 'views.utilities.editor.commented_on'%>
+					<% if Comment.find(notification.trackable_id).majorpost.try(:title) %>
+						<%= truncate(Comment.find(notification.trackable_id).majorpost.title, length: 30) %>
+					<% else %>
+						<%= truncate(Comment.find(notification.trackable_id).majorpost.excerpt, length: 30) %>
+					<% end %>
+					<%= link_to content_majorpost_path(Comment.find(notification.trackable_id).majorpost.uuid, comment_id: notification.trackable_id ) do%>
+						<span class="btn btn-blue btn-xs height-30 pl-20 pr-20 ml-5"><%= t 'views.campaign.view' %></span>
+					<% end %>
+				</span>
+			</div>
+		</li>
+	</ul>
+<% end %>

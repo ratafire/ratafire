@@ -22,8 +22,35 @@ class Content::CommentsController < ApplicationController
 			excerpt: ActionView::Base.full_sanitizer.sanitize(@comment.content).squish.truncate(140)
 		)
 			@majorpost = Majorpost.find(@comment.majorpost_id)
+			#Update activity
 			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@comment.id,'Comment')
 				@activity.update_columns(majorpost_id: @comment.majorpost_id)
+			end
+			#Create notification
+			unless @comment.user == @majorpost.user
+				if @comment.main_comment
+					Notification.create(
+						user_id: @comment.main_comment.user_id,
+						trackable_id: @comment.id,
+						trackable_type: "Comment",
+						notification_type: "reply_create"
+					)
+					unless @majorpost.user_id == @comment.main_comment.user_id
+						Notification.create(
+							user_id: @majorpost.user_id,
+							trackable_id: @comment.id,
+							trackable_type: "Comment",
+							notification_type: "comment_create"
+						)
+					end
+				else
+					Notification.create(
+						user_id: @majorpost.user_id,
+						trackable_id: @comment.id,
+						trackable_type: "Comment",
+						notification_type: "comment_create"
+					)
+				end
 			end
 		end
 		@new_comment = Comment.new
@@ -50,6 +77,12 @@ class Content::CommentsController < ApplicationController
 		end
 		#Remove score
 		remove_score(@comment.majorpost.user, @comment.user)
+		#Remove notification
+		if @comment_notifications = Notification.where(trackable_id: @comment.id)
+			@comment_notifications.each do |comment_notification|
+				comment_notification.destroy
+			end
+		end
 	end
 
 private

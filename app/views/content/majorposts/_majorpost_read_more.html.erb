@@ -12,7 +12,9 @@
 	<div id="<%= majorpost.id %>_content_holder">
 		<!-- Title for Text Post Only  -->
 		<% if ['text', 'audio', 'image','video'].include?(majorpost.post_type) %>
-			<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= majorpost.title %></div>
+			<%= link_to content_majorpost_path(majorpost.uuid), class:"text-grey-700" do %>
+				<div class="panel-title text-light mt-10 ml-20 mr-20" style="font-size:25px;margin-bottom:-15px;"><%= majorpost.title %></div>
+			<% end %>
 		<% end %>
 		<!-- Content -->
 		<div class="panel-body pb-20">

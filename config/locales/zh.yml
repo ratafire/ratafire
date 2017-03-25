@@ -797,8 +797,11 @@ zh:
         processing_meow: "正在处理……喵"
         cancel: "取消"
         post_update: "发布更新"
+        comment: "评论"
         post_comment: "发布评论"
         write_comment: "写评论……"
+        commented_on: "评论了"
+        replied_to_your_comment_on: "回复了你的评论："
         submit_btn: "提交"
         remove_btn: "移除"
         back_btn: "上一步"
@@ -911,6 +914,10 @@ zh:
         sub_category: "小分类"
         achievement_points: "成就点数"      
         hidden: "隐藏"    
+        general: "综合"
+        social: "社交"
+        exploration: "探索发现"
+        achievement_list: "成就列表"
       culture:
         historical_quotes:
           historical_quote: "古今名句"

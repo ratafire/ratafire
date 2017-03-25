@@ -49,3 +49,9 @@
 <% if notification.notification_type == "achievement_create" %>
 	<%= render partial:'studio/notifications/components/achievement_create', locals: {notification: notification} %>
 <% end %>
+<% if notification.notification_type == "comment_create" %>
+	<%= render partial:'studio/notifications/components/comment_create', locals: {notification: notification} %>
+<% end %>
+<% if notification.notification_type == "reply_create" %>
+	<%= render partial:'studio/notifications/components/reply_create', locals: {notification: notification} %>
+<% end %>
