@@ -1,5 +1,5 @@
 <div class="pull-left" id="<%= majorpost.id %>_read_all_button">
-	<%= link_to content_majorpost_path(majorpost.uuid),remote: true do %>
+	<%= link_to content_majorpost_path(majorpost.uuid) do %>
 		<div class="ml-20 btn btn-xs bg-grey-100 btn-rounded"><%= t 'views.utilities.editor.comment' %></div>
 	<% end %>
 </div>
