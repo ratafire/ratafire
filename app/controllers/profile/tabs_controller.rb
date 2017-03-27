@@ -4,9 +4,9 @@ class Profile::TabsController < ApplicationController
 
 	#Before filters
 	before_filter :load_user
-	before_filter :show_contacts, only:[:friends, :gallery, :videos, :achievements, :achievement_general, :achievement_exploration, :achievement_social]
-	before_filter :show_followed, only:[:friends, :gallery, :videos, :achievements, :achievement_general, :achievement_exploration, :achievement_social]
-	before_filter :show_liked, only:[:friends, :gallery, :videos, :achievements, :achievement_general, :achievement_exploration, :achievement_social]
+	before_filter :show_contacts, except: [:updates]
+	before_filter :show_followed,except: [:updates]
+	before_filter :show_liked, except: [:updates]
 
 	#NoREST Methods -----------------------------------
 	

@@ -39,11 +39,13 @@
 											<%= t 'views.admin.achievements.all' %>
 										<% end %>
 									</li>
-									<li id="tabs-achievement_content_engineering-sidebar-achievement-subactive">
-										<%= link_to achievement_content_engineering_user_profile_tabs_path(user.username),class:"achievements-content_engineering-link", id:"achievements-content_engineering-link" do %>
-											<%= t 'views.admin.achievements.engineering' %>
-										<% end %>
-									</li>
+									<% if user.achievements.where(level: 1, category: 'content', sub_category: 'engineering').any? %>
+										<li id="tabs-achievement_content_engineering-sidebar-achievement-subactive">
+											<%= link_to achievement_content_engineering_user_profile_tabs_path(user.username),class:"achievements-content_engineering-link", id:"achievements-content_engineering-link" do %>
+												<%= t 'views.admin.achievements.engineering' %>
+											<% end %>
+										</li>
+									<% end %>
 								</ul>
 							</li>			
 						<% end %>
