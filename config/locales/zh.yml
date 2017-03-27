@@ -917,6 +917,10 @@ zh:
         general: "综合"
         social: "社交"
         exploration: "探索发现"
+        all: "全部"
+        content: "内容"
+        funding: "赞赏"
+        engineering: "工程"
         achievement_list: "成就列表"
       culture:
         historical_quotes:

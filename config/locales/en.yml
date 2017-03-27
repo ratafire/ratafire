@@ -919,6 +919,10 @@ en:
         general: "General"
         social: "Social"
         exploration: "Exploration"
+        all: "All"
+        content: "Content"
+        funding: "Funding"
+        engineering: "Engineering"
         achievement_list: "Achievement List"
       culture:
         historical_quotes:

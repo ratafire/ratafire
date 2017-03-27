@@ -45,9 +45,21 @@ class Profile::TabsController < ApplicationController
 		@achievements = @user.achievements.where(level: 1, category: 'exploration').page(params[:page]).per_page(20)
 	end
 
+	def achievement_content
+		@achievements = @user.achievements.where(level: 1, category: 'content').page(params[:page]).per_page(20)
+	end		
+
+	def achievement_content_engineering
+		@achievements = @user.achievements.where(level: 1, category: 'content', sub_category: 'engineering').page(params[:page]).per_page(20)
+	end			
+
 	def achievement_social
 		@achievements = @user.achievements.where(level: 1, category: 'social').page(params[:page]).per_page(20)
 	end
+
+	def achievement_funding
+		@achievements = @user.achievements.where(level: 1, category: 'funding').page(params[:page]).per_page(20)
+	end	
 
 protected
 

@@ -77,7 +77,8 @@ class Subscription::ConfirmPayment
 								accumulated_receive: ( @subscription.amount - @fee),
 								accumulated_fee: @fee,
 								counter: @subscription_record.counter+1,
-								credit: @subscription.amount
+								credit: @subscription.amount,
+								is_valid: true
 							)
 						else
 							@subscription_record.update(
@@ -85,7 +86,8 @@ class Subscription::ConfirmPayment
 								accumulated_receive: @subscription_record.accumulated_receive+( @subscription.amount - @fee),
 								accumulated_fee: @subscription_record.accumulated_fee+@fee,
 								counter: @subscription_record.counter+1,
-								credit: @subscription_record.credit+@subscription.amount
+								credit: @subscription_record.credit+@subscription.amount,
+								is_valid: true
 							)
 						end
 						#Campaign
@@ -181,6 +183,8 @@ class Subscription::ConfirmPayment
 								end
 							end
 						end
+						#Add achievement
+						Resque.enqueue(Achievement::SubscriptionsCreate, @subscription.id)
 					else
 						#Order error unsubscribe
 						order_subset.update(

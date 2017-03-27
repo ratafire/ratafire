@@ -35,6 +35,19 @@ class Studio::AchievementsController < ApplicationController
 		@achievements = (@user.achievements.where(level: 1, category: 'social') + Achievement.where(level: 1, hidden: false, category: 'social').order("created_at desc")).uniq.paginate(page: params[:page], per_page: 20)
 	end
 
+	def content
+		@achievements = (@user.achievements.where(level: 1, category: 'social') + Achievement.where(level: 1, hidden: false, category: 'content').order("created_at desc")).uniq.paginate(page: params[:page], per_page: 20)
+	end
+
+	def content_engineering
+		@achievements = (@user.achievements.where(level: 1, category: 'social') + Achievement.where(level: 1, hidden: false, category: 'content', sub_category: 'engineering').order("created_at desc")).uniq.paginate(page: params[:page], per_page: 20)
+	end
+
+	def funding
+		@achievements = (@user.achievements.where(level: 1, category: 'social') + Achievement.where(level: 1, hidden: false, category: 'funding').order("created_at desc")).uniq.paginate(page: params[:page], per_page: 20)
+	end
+
+
 protected
 
 	def load_user

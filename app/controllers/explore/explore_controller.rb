@@ -11,16 +11,8 @@ class Explore::ExploreController < ApplicationController
 	# /explore/explore/:explore_id/surprise_me
 	def surprise_me
 		if user_signed_in?
-			if cookies[:unstable_portal_visited] 
-				unstable_portal_visited = cookies[:unstable_portal_visited]
-				unstable_portal_visited = (unstable_portal_visited.to_f.to_i + 1)
-				cookies[:unstable_portal_visited] = (unstable_portal_visited.to_f.to_i + 1).to_s
-				if unstable_portal_visited >= 5
-					Resque.enqueue(Achievement::PageVisit, 'Drifting into The Void', current_user.id)
-				end
-			else
-				cookies[:unstable_portal_visited] = "1"
-			end
+			Resque.enqueue(Achievement::Counter, "Drifting into The Void", current_user.id, 1)
+			Resque.enqueue(Achievement::Counter, "Traveler of The Void", current_user.id, 1)
 		end
 		redirect_to profile_url_path(User.all.sample(1).first.username)
 	end

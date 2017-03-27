@@ -20,6 +20,10 @@ class Achievement::RecruitFriend
 					end
 				end
 			end
+			unless @user.achievements.where(name: "300").any?
+				#Friend recruit counter
+				Resque.enqueue(Achievement::Counter, "300", @user.id, 1) #300
+			end
 		end
 	end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324214041) do
+ActiveRecord::Schema.define(version: 20170327003221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,20 @@ ActiveRecord::Schema.define(version: 20170324214041) do
     t.integer  "user_id",    limit: 8
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "achievement_counters", force: :cascade do |t|
+    t.integer  "achievement_id"
+    t.integer  "user_id"
+    t.string   "uuid"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "achievement_relationship_id"
+    t.integer  "count",                       default: 0
+    t.integer  "count_goal"
+    t.boolean  "goal_reached",                default: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
   create_table "achievement_relationships", force: :cascade do |t|
@@ -65,6 +79,7 @@ ActiveRecord::Schema.define(version: 20170324214041) do
     t.datetime "updated_at",                                                                   null: false
     t.integer  "achievement_points",    default: 0
     t.boolean  "hidden",                default: false
+    t.integer  "count_goal"
   end
 
   create_table "activities", id: :bigserial, force: :cascade do |t|

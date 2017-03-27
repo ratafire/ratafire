@@ -100,7 +100,7 @@ private
 	end
 
 	def achievement_params
-		params.require(:achievement).permit(:achievement_id, :name, :name_zh, :description, :description_zh, :image, :category, :sub_category, :level, :achievement_points, :hidden)
+		params.require(:achievement).permit(:achievement_id, :name, :name_zh, :description, :description_zh, :image, :category, :sub_category, :level, :achievement_points, :hidden, :count_goal)
 	end
 
 	def is_admin?

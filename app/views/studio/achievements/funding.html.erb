@@ -1,0 +1,11 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, sanitize(@user.preferred_name)) %>
+
+<script type="text/javascript">
+	$('.pagination').show();
+</script>
+
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+
+<%= render partial: "studio/achievements/show" %>

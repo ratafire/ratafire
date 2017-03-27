@@ -1,0 +1,11 @@
+<div class="progress mt-10">
+	<% if AchievementCounter.find_by_user_id_and_achievement_id(user.id,achievement.id) %>
+		<div class="progress-bar bg-rainbow-600" style="width: <%= goals_count(AchievementCounter.find_by_user_id_and_achievement_id(user.id,achievement.id).try(:count),achievement.count_goal) %>%">
+			<div style="position:absolute;width:100%;" class="text-center text-shadow"><%= number_with_delimiter(AchievementCounter.find_by_user_id_and_achievement_id(user.id,achievement.id).try(:count)) %>/<%= number_with_delimiter(achievement.count_goal) %></div>
+		</div>
+	<% else %>
+		<div class="progress-bar bg-rainbow-600" style="width: 0%">
+			<div style="position:absolute;width:100%;" class="text-center text-shadow">0/<%= number_with_delimiter(achievement.count_goal) %></div>
+		</div>
+	<% end %>
+</div>

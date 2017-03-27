@@ -1,6 +1,6 @@
-<% if AchievementRelationship.find_by_user_id_and_achievement_id(user.id, achievement.id)%>
-	<div class="panel">
-		<div class="panel-body">
+<% if user.achievements.where(name: achievement.name).any? %>													
+	<div class="panel" >
+		<div class="panel-body collapsed cursor-pointer" data-toggle="collapse" data-parent="#accordion" href="#<%= achievement.id %>-accordion">
 			<div class="media stack-media-on-mobile" id="<%= achievement.id %>-achievement-media-holder">
 				<!-- Achievement image -->
 				<div class="media-left">
@@ -20,10 +20,17 @@
 					</h2>
 					<!-- Achievement description -->
 					<% if I18n.locale == :zh %>
-						<%= achievement.description_zh %>
+						<%= achievement.description_zh %><% if achievement.count_goal %><i class="fa fa-plus-circle ml-5 text-grey-100"></i><% end %>
 					<% else %>
-						<%= achievement.description %>
+						<%= achievement.description %><% if achievement.count_goal %><i class="fa fa-plus-circle ml-5 text-grey-100"></i><% end %>
 					<% end %>
+					<!-- Additional Info -->
+					<div id="<%= achievement.id %>-accordion" class="panel-collapse collapse">
+						<!-- Progress -->
+						<% if achievement.count_goal %>
+							<%= render partial: "studio/achievements/achievement_progress", locals: {user: user, achievement: achievement} %>
+						<% end %>
+					</div>						
 				</div>
 
 				<!-- Achievement points -->
@@ -36,14 +43,14 @@
 						<div class="">
 							<%= AchievementRelationship.find_by_user_id_and_achievement_id(user.id, achievement.id).created_at.strftime("%m/%d/%y")  %>
 						</div>
-					</div>
+					</div>					
 				</div>
-			</div>
+			</div>		
 		</div>
 	</div>
 <% else %>
 	<div class="panel" id="<%= achievement.id %>-achievement-media-holder">
-		<div class="panel-body">	
+		<div class="panel-body collapsed cursor-pointer" data-toggle="collapse" data-parent="#accordion" href="#<%= achievement.id %>-accordion">	
 			<div class="media stack-media-on-mobile" id="<%= achievement.id %>-achievement-holder">
 				
 				<!-- Achievement image -->
@@ -64,10 +71,17 @@
 					</h2>
 					<!-- Achievement description -->
 					<% if I18n.locale == :zh %>
-						<%= achievement.description_zh %>
+						<%= achievement.description_zh %><% if achievement.count_goal %><i class="fa fa-plus-circle ml-5 text-grey-100"></i><% end %>
 					<% else %>
-						<%= achievement.description %>
+						<%= achievement.description %><% if achievement.count_goal %><i class="fa fa-plus-circle ml-5 text-grey-100"></i><% end %>
 					<% end %>
+					<!-- Additional Info -->
+					<div id="<%= achievement.id %>-accordion" class="panel-collapse collapse">
+						<!-- Progress -->
+						<% if achievement.count_goal %>
+							<%= render partial: "studio/achievements/achievement_progress", locals: {user: user, achievement: achievement} %>
+						<% end %>
+					</div>	
 				</div>
 
 				<!-- Achievement points -->
@@ -80,7 +94,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="blockUI blockOverlay" style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(255, 255, 255); opacity: 0.6; cursor: auto; position: absolute;"></div>
+			<!-- Overlay -->
+			<div class="blockUI blockOverlay cursor-pointer" style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(255, 255, 255); opacity: 0.6; position: absolute;"></div>
 		</div>
 	</div>
 <% end %>

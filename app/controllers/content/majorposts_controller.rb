@@ -41,6 +41,8 @@ class Content::MajorpostsController < ApplicationController
 			add_score('majorpost', current_user)
 			#Add search
 			Resque.enqueue(Search::ChangeIndex, 'majorpost',@majorpost.id,'create')
+			#Add achievement
+			Resque.enqueue(Achievement::MajorpostsCreate, @majorpost.id)
 		else
 			flash[:error] = @majorpost.errors.full_messages.to_sentence
 		end	

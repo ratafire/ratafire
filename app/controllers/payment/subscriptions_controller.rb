@@ -324,6 +324,8 @@ private
 			subscription_update_active_reward
 			#Post to streamlabs
 			post_to_streamlabs
+			#Achievement
+			create_achievement
 			#Create receiver
 			if @subscription.get_reward == 'on'
 				#Create reward receiver
@@ -672,6 +674,12 @@ private
 					)
 				end
 			end
+		end
+	end
+
+	def create_achievement
+		if @subscription_record.try(:is_valid)
+			Resque.enqueue(Achievement::SubscriptionsCreate, @subscription.id)
 		end
 	end
 
