@@ -53,10 +53,10 @@ Rails.application.routes.draw do
 					get 'achievements'
 					get 'achievement_general'
 					get 'achievement_exploration'
-					get 'achievements_content'
-					get 'achievements_content_engineering'
+					get 'achievement_content'
+					get 'achievement_content_engineering'
 					get 'achievement_social'
-					get 'achievements_funding'
+					get 'achievement_funding'
 				end
 				#Settings
 				resource :settings, only:[] do
