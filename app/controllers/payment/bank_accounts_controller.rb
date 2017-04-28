@@ -47,6 +47,7 @@ private
 
 	def check_us_postal_code_and_create_bank_account
 		#Check if the user has entered a correct US postal code
+		currency
 		if @bank_account.country == "US"
 			if @zipcodes = ZipCodes.identify(@bank_account.postal_code)
 				@bank_account.state = @zipcodes[:state_code]
@@ -64,7 +65,7 @@ private
 		if @identity_verification = @user.identity_verification
 			if @bank_account.first_name != @identity_verification.first_name || @bank_account.last_name != @identity_verification.last_name || @bank_account.country != @identity_verification.country
 				#This person is lying, send back
-				if I18n.local == :zh
+				if I18n.locale == :zh
 					flash[:error] = t('activerecord.attributes.user.lastname')+t('activerecord.attributes.user.firstname')+t('errors.messages.not_matched')
 				else
 					flash[:error] = t('activerecord.attributes.user.firstname')+' and '+t('activerecord.attributes.user.lastname')+ ' ' + t('errors.messages.not_matched')
@@ -82,6 +83,7 @@ private
 		#Create stripe token
 		if @stripe_token = Stripe::Token.create(
 			    :bank_account => {
+			    :currency => @currency,
 			    :country => @bank_account.country,
 			    :account_holder_name => @bank_account.first_name + " " + @bank_account.last_name,
 			    :account_holder_type => "individual",
@@ -215,6 +217,53 @@ private
 		else
 			@user = current_user
 		end
-	end			
+	end		
+
+	def currency
+		case @bank_account.country
+		when 'US'
+			@currency = "USD"
+		when 'AU'
+			@currency = "AUD"
+		when 'CA'
+			@currency = "CAD"
+		when 'DK'
+			@currency = "DKK"
+		when 'FI'
+			@currency = "EUR"
+		when 'IE'
+			@currency = "EUR"
+		when 'NO'
+			@currency = "NOK"
+		when 'SE'
+			@currency = "SEK"
+		when 'GB'
+			@currency = "GBP"
+		when 'AT'
+			@currency = "EUR"
+		when 'BE'
+			@currency = "EUR"
+		when 'DE'
+			@currency = "EUR"
+		when 'IT'
+			@currency = "EUR"
+		when 'JP'
+			@currency = "JPY"
+		when 'LU'
+			@currency = "EUR"
+		when 'NL'
+			@currency = "EUR"
+		when 'SG'
+			@currency = "SGD"
+		when 'ES'
+			@currency = "EUR"
+		when 'FR'
+			@currency = "EUR"
+		when 'HK'
+			@currency = "HKD"
+		when 'NZ'
+			@currency = "NZD"
+		end
+	end	
 
 end
