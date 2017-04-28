@@ -106,7 +106,7 @@ private
 					@stripe_account.save
 					if @stripe_account.external_accounts.create(:external_account => @stripe_token.id)
 						#Save bank account and redirect
-						@stripe_account = Stripe::Account.retrieve(@user_stripe_account.stripe_id)
+						@stripe_account = Stripe::Account.retrieve(@user.stripe_account.stripe_id)
 						update_bank_account
 					else
 						redirect_to(:back)
