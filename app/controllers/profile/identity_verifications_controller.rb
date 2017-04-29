@@ -29,13 +29,13 @@ class Profile::IdentityVerificationsController < ApplicationController
 		else
 			process_identity_verification
 		end
-	rescue
-		flash[:error] = t('errors.messages.not_saved')
-		redirect_to(:back)
-		#Delete identity verification
-		if @identity_verification
-			@identity_verification.destroy
-		end
+	# rescue
+	# 	flash[:error] = t('errors.messages.not_saved')
+	# 	redirect_to(:back)
+	# 	#Delete identity verification
+	# 	if @identity_verification
+	# 		@identity_verification.destroy
+	# 	end
 	end
 
 	#noREST Methods -----------------------------------	
