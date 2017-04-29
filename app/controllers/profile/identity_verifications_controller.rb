@@ -102,32 +102,38 @@ protected
 				@stripe.save
 			else
 				if @identity_verification.verification_type == 'passport'
-					@identity_verification.passport_last4 = @identity_verification.passport.split(//).last(4).to_s
-					#Update Passport on stripe server
-					
-					@stripe.legal_entity.personal_id_number = @identity_verification.passport
-					@stripe.save
+					if @identity_verification.passport != ''
+						@identity_verification.passport_last4 = @identity_verification.passport.split(//).last(4).to_s
+						#Update Passport on stripe server
+						
+						@stripe.legal_entity.personal_id_number = @identity_verification.passport
+						@stripe.save
+					end
 				else
-					@identity_verification.passport_last4 = @identity_verification.id_card.split(//).last(4).to_s
-					#Update ID card on stripe server
-					@stripe = Stripe::Account.retrieve(@user_stripe_account.stripe_id)
-					@stripe.legal_entity.personal_id_number = @identity_verification.id_card
-					@stripe.save
+					if @identity_verification.id_card != ''
+						@identity_verification.passport_last4 = @identity_verification.id_card.split(//).last(4).to_s
+						#Update ID card on stripe server
+						@stripe = Stripe::Account.retrieve(@user_stripe_account.stripe_id)
+						@stripe.legal_entity.personal_id_number = @identity_verification.id_card
+						@stripe.save
+					end
 				end
 				@identity_verification.update(
 					user_id: @user.id,
-					status: 'Pending'
+					status: 'Approved'
 				)
-				#Upload document file to stripe
-				@stripe_file = Stripe::FileUpload.create(
-				  {
-				    :purpose => 'identity_document',
-				    :file => open(@identity_verification.identity_document.url(:preview1280))
-				  },
-				  {:stripe_account => @user.stripe_account.stripe_id}
-				)
-				@stripe.legal_entity.verification.document = @stripe_file.id
-				@stripe.save
+				if @identity_verification.identity_document.present?
+					#Upload document file to stripe
+					@stripe_file = Stripe::FileUpload.create(
+					  {
+					    :purpose => 'identity_document',
+					    :file => open(@identity_verification.identity_document.url(:preview1280))
+					  },
+					  {:stripe_account => @user.stripe_account.stripe_id}
+					)
+					@stripe.legal_entity.verification.document = @stripe_file.id
+					@stripe.save
+				end
 			end
 			if @user.campaigns.any?
 				if @user.active_campaign
@@ -138,13 +144,13 @@ protected
 			else
 				redirect_to(:back)
 			end
-		rescue
-			flash[:error] = t('errors.messages.not_saved')
-			redirect_to(:back)
-			#Delete identity verification
-			if @identity_verification
-				@identity_verification.destroy
-			end
+		# rescue
+		# 	flash[:error] = t('errors.messages.not_saved')
+		# 	redirect_to(:back)
+		# 	#Delete identity verification
+		# 	if @identity_verification
+		# 		@identity_verification.destroy
+		# 	end
 		end
 	end
 

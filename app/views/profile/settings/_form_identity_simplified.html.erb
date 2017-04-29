@@ -73,7 +73,7 @@
 					<div class="row mb-20">
 						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.country' %>:</label>
 						<div class="col-lg-9">
-							<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'),selected: @identity_verification.country, only: ["AU", "CA","DK", "FI", "IE", "NO", "SE", "GB", "US", "AT", "BE", "DE", "IT", "JP", "LU", "NL", "SG", "ES", "FR","HK","LU","NZ"] }, { class: 'simple-select-search required', id: 'verification-country-select' }) %>
+							<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'),selected: @identity_verification.country, only: ["AU", "CA","DK", "FI", "IE", "NO", "SE", "CH", "GB", "US", "AT", "BE", "DE", "IT", "LU", "NL", "SG", "ES", "FR","HK","LU","NZ","PT"] }, { class: 'simple-select-search required', id: 'verification-country-select' }) %>
 						</div>
 					</div>	
 					<!-- SSN -->
@@ -87,7 +87,7 @@
 <!-- 					<div class="row mb-20 display-none" id="verification-type-holder">
 						<label class="col-lg-3 control-label"><%= t 'views.profile.settings.identity_verification.verification_type' %>:</label>
 						<div class="col-lg-9">
-							<%= f.select(:verification_type, [[t('views.profile.settings.identity_verification.id_card'),'id_card'], [t('views.profile.settings.identity_verification.passport'),'passport']], {selected: 'id_card'}, { :class => 'simple-select', :id => 'verification-type-selection' }) %>
+							<%= f.select(:verification_type, [[t('views.profile.settings.identity_verification.id_card'),'id_card'], [t('views.profile.settings.identity_verification.passport'),'passport']], {selected: 'id_card'}, { :class => 'simple-select',:readonly => 'readonly', :id => 'verification-type-selection' }) %>
 						</div>
 					</div> -->
 					<!-- Id card number -->
@@ -165,7 +165,7 @@
 					} else {
 						$('#verification-type-holder').hide();
 						$('#id-card-holder').hide();
-						$('#upload-id-card-holder').show();
+						$('#upload-id-card-holder').hide();
 						$('#verification-type-selection').val('id_card');
 						$('#ssn-holder').hide();
 						$('#ssn-input').removeClass('required');

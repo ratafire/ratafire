@@ -203,8 +203,8 @@ zh:
           verification_type: "证件类型"
           id_card_number: "身份证号"
           passport_number: "护照号"
-          upload_id_card_image: "上传身份证正面"
-          upload_passport_image: "上传护照身份证明页"
+          upload_id_card_image: "上传身份证正面（可选）"
+          upload_passport_image: "上传护照身份证明页（可选）"
           verify_identity: "实名认证"
           verification_pending: "实名认证最多需要3个工作日，但验证并不妨碍你申请 "
           approved: "通过"
@@ -213,6 +213,9 @@ zh:
           status: "状态"
           resend_verification_help: "如果你的账号显示'未确认'，而你又无法将收入转入你的银行账号。请点击重新认证身份。"
           resend_identity_verification: "重新认证身份"
+          identity_verification_info_1: "火栗使用Stripe支付。Stripe要求有收入的账户进行身份验证。请查看Stripe的"
+          identity_verification_info_2: "身份验证"
+          identity_verification_info_3: "页面以获得详细信息。"          
     creator_studio:
       menu:
         creator_studio: "工作室"

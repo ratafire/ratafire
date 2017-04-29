@@ -8,39 +8,51 @@ $(".file-styled").uniform({
 });
 //Country selector
 $('#verification-country-select').on('change', function(){
-	if (this.value == 'US'){
-		$('#verification-type-holder').hide();
-		$('#id-card-holder').hide();
-		$('#upload-id-card-holder').hide();
-		$('#verification-type-selection').val('ssn');
-		$('#ssn-holder').show();
-		$('#ssn-input').addClass('required');
-		$('#id-card-input').removeClass('required');
-		$('#passport-input').removeClass('required');
-		$('#identity-document-input').removeClass('required');
-	} else {
-		if (this.value == '' ){
-			$('#verification-type-holder').hide();
-			$('#id-card-holder').hide();
-			$('#upload-id-card-holder').hide();
-			$('#verification-type-selection').val('id_card');
-			$('#ssn-holder').hide();
-			$('#ssn-input').removeClass('required');
-			$('#id-card-input').removeClass('required');
-			$('#passport-input').removeClass('required');
-			$('#identity-document-input').removeClass('required');
-		} else {
-			$('#verification-type-holder').show();
-			$('#id-card-holder').show();
-			$('#upload-id-card-holder').show();
-			$('#verification-type-selection').val('id_card');
-			$('#ssn-holder').hide();
-			$('#ssn-input').removeClass('required');
-			$('#id-card-input').addClass('required');
-			$('#passport-input').removeClass('required');
-			$('#identity-document-input').addClass('required');
-		}
-	}
+if (this.value == 'US'){
+    $('#verification-type-holder').hide();
+    $('#id-card-holder').hide();
+    $('#upload-id-card-holder').hide();
+    $('#verification-type-selection').val('ssn');
+    $('#ssn-holder').show();
+    $('#ssn-input').addClass('required');
+    $('#id-card-input').removeClass('required');
+    $('#passport-input').removeClass('required');
+    $('#identity-document-input').removeClass('required');
+} else {
+    if (this.value == 'CA' || this.value == 'HK' || this.value == 'SG'){
+        $('#verification-type-holder').show();
+        $('#id-card-holder').show();
+        $('#upload-id-card-holder').show();
+        $('#verification-type-selection').val('id_card');
+        $('#ssn-holder').hide();
+        $('#ssn-input').removeClass('required');
+        $('#id-card-input').addClass('required');
+        $('#passport-input').removeClass('required');
+        $('#identity-document-input').removeClass('required');
+    } else {
+        if (this.value == '' ){
+            $('#verification-type-holder').hide();
+            $('#id-card-holder').hide();
+            $('#upload-id-card-holder').hide();
+            $('#verification-type-selection').val('id_card');
+            $('#ssn-holder').hide();
+            $('#ssn-input').removeClass('required');
+            $('#id-card-input').removeClass('required');
+            $('#passport-input').removeClass('required');
+            $('#identity-document-input').removeClass('required');
+        } else {
+            $('#verification-type-holder').hide();
+            $('#id-card-holder').hide();
+            $('#upload-id-card-holder').show();
+            $('#verification-type-selection').val('id_card');
+            $('#ssn-holder').hide();
+            $('#ssn-input').removeClass('required');
+            $('#id-card-input').removeClass('required');
+            $('#passport-input').removeClass('required');
+            $('#identity-document-input').removeClass('required');
+        }
+    }
+}
 });
 //Type selector
 $('#verification-type-holder').on('change', function(){

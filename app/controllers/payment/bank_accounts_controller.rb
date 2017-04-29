@@ -247,8 +247,8 @@ private
 			@currency = "EUR"
 		when 'IT'
 			@currency = "EUR"
-		when 'JP'
-			@currency = "JPY"
+		when 'PT'
+			@currency = "EUR"
 		when 'LU'
 			@currency = "EUR"
 		when 'NL'
@@ -263,6 +263,8 @@ private
 			@currency = "HKD"
 		when 'NZ'
 			@currency = "NZD"
+		when 'CH'
+			@currency = "CHF"
 		end
 	end	
 

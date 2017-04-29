@@ -29,7 +29,7 @@
 				<!-- Password -->
 				<div id="identity-verification-holder">
 					<% unless @user.identity_verification %>
-						<%= render partial: "profile/settings/form_identity", locals: {user: @user} %>
+						<%= render partial: "profile/settings/form_identity_simplified", locals: {user: @user} %>
 					<% else %>
 						<% if @user.try(:identity_verification).try(:status) == 'Approved' %>
 							<!-- Approved -->
