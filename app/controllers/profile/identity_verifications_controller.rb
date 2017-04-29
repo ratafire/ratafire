@@ -29,13 +29,13 @@ class Profile::IdentityVerificationsController < ApplicationController
 		else
 			process_identity_verification
 		end
-	# rescue
-	# 	flash[:error] = t('errors.messages.not_saved')
-	# 	redirect_to(:back)
-	# 	#Delete identity verification
-	# 	if @identity_verification
-	# 		@identity_verification.destroy
-	# 	end
+	rescue
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to(:back)
+		#Delete identity verification
+		if @identity_verification
+			@identity_verification.destroy
+		end
 	end
 
 	#noREST Methods -----------------------------------	
@@ -89,9 +89,9 @@ protected
   				:legal_entity => {
   					:type => 'individual',
   					:dob => {
-  						:day => @identity_verification.birthday.split('-')[2],
-  						:month => @identity_verification.birthday.split('-')[1],
-  						:year => @identity_verification.birthday.split('-')[0]
+  						:day => @day,
+  						:month => @month,
+  						:year => @year
   					},
   					:first_name => @identity_verification.first_name,
   					:last_name => @identity_verification.last_name,
