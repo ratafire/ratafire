@@ -42,7 +42,22 @@ class Profile::IdentityVerificationsController < ApplicationController
 protected
 
 	def verify_birthday
-		unless @identity_verification.birthday.split('-')[2].to_i <= 31 && @identity_verification.birthday.split('-')[1].to_i <= 12 && @identity_verification.birthday.split('-')[0].to_i <= Time.now.year.to_i
+		if @identity_verification.birthday.split('-')[2].to_i == 0
+			@day = @identity_verification.birthday.split('/')[0].to_i
+		else
+			@day = @identity_verification.birthday.split('-')[2].to_i
+		end
+		if @identity_verification.birthday.split('-')[1].to_i == 0
+			@month = @identity_verification.birthday.split('/')[1].to_i
+		else
+			@month = @identity_verification.birthday.split('-')[1].to_i
+		end
+		if @identity_verification.birthday.split('-')[0].to_i == 0
+			@year = @identity_verification.birthday.split('/')[2].to_i
+		else
+			@year = @identity_verification.birthday.split('-')[0].to_i
+		end
+		if @day <= 31 && @month <= 12 && @year <= Time.now.year.to_i
 			redirect_to(:back)
 			flash[:error] = t('errors.messages.not_saved')
 			@identity_verification.destroy
@@ -57,9 +72,9 @@ protected
 				#Update a Stripe account
 				if @stripe_account = Stripe::Account.retrieve(@user.stripe_account.stripe_id)
 					@stripe_account.legal_entity.type = 'individual'
-					@stripe_account.legal_entity.dob.day = @identity_verification.birthday.split('-')[2]
-					@stripe_account.legal_entity.dob.month = @identity_verification.birthday.split('-')[1]
-					@stripe_account.legal_entity.dob.year = @identity_verification.birthday.split('-')[0]
+					@stripe_account.legal_entity.dob.day = @day
+					@stripe_account.legal_entity.dob.month = @month
+					@stripe_account.legal_entity.dob.year = @year
 					@stripe_account.legal_entity.first_name = @identity_verification.first_name
 					@stripe_account.legal_entity.last_name = @identity_verification.last_name
 					@stripe_account.save
