@@ -29,6 +29,13 @@ class Profile::IdentityVerificationsController < ApplicationController
 		else
 			process_identity_verification
 		end
+	rescue
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to(:back)
+		#Delete identity verification
+		if @identity_verification
+			@identity_verification.destroy
+		end
 	end
 
 	#noREST Methods -----------------------------------	
@@ -42,22 +49,16 @@ class Profile::IdentityVerificationsController < ApplicationController
 protected
 
 	def verify_birthday
-		if @identity_verification.birthday.split('-')[2].to_i == 0
-			@day = @identity_verification.birthday.split('/')[0].to_i
+		if @identity_verification.birthday.split('-')[2] == nil
+			@day = @identity_verification.birthday.split('/')[0]
+			@month = @identity_verification.birthday.split('/')[1]
+			@year = @identity_verification.birthday.split('/')[2]
 		else
-			@day = @identity_verification.birthday.split('-')[2].to_i
+			@day = @identity_verification.birthday.split('-')[2]
+			@month = @identity_verification.birthday.split('-')[1]
+			@year = @identity_verification.birthday.split('-')[0]
 		end
-		if @identity_verification.birthday.split('-')[1].to_i == 0
-			@month = @identity_verification.birthday.split('/')[1].to_i
-		else
-			@month = @identity_verification.birthday.split('-')[1].to_i
-		end
-		if @identity_verification.birthday.split('-')[0].to_i == 0
-			@year = @identity_verification.birthday.split('/')[2].to_i
-		else
-			@year = @identity_verification.birthday.split('-')[0].to_i
-		end
-		if @day <= 31 && @month <= 12 && @year <= Time.now.year.to_i
+		unless @day.to_i <= 31 && @month.to_i <= 12 && @year.to_i <= Time.now.year.to_i
 			redirect_to(:back)
 			flash[:error] = t('errors.messages.not_saved')
 			@identity_verification.destroy
@@ -65,107 +66,98 @@ protected
 	end
 
 	def process_identity_verification
-		begin
-			#Create Stripe Account if Stripe Account is not created
-			connect_to_stripe
-			if @user.stripe_account
-				#Update a Stripe account
-				if @stripe_account = Stripe::Account.retrieve(@user.stripe_account.stripe_id)
-					@stripe_account.legal_entity.type = 'individual'
-					@stripe_account.legal_entity.dob.day = @day
-					@stripe_account.legal_entity.dob.month = @month
-					@stripe_account.legal_entity.dob.year = @year
-					@stripe_account.legal_entity.first_name = @identity_verification.first_name
-					@stripe_account.legal_entity.last_name = @identity_verification.last_name
-					@stripe_account.save
-				end
-				#Update User Stripe Account on the Server
-				@user_stripe_account = StripeAccount.stripe_account_update(@stripe_account, @user.id) 
-			else
-				#Create a Stripe account
-				@stripe_account = Stripe::Account.create(
-	  				:managed => true,
-	  				:country => @identity_verification.country,
-	  				:legal_entity => {
-	  					:type => 'individual',
-	  					:dob => {
-	  						:day => @identity_verification.birthday.split('-')[2],
-	  						:month => @identity_verification.birthday.split('-')[1],
-	  						:year => @identity_verification.birthday.split('-')[0]
-	  					},
-	  					:first_name => @identity_verification.first_name,
-	  					:last_name => @identity_verification.last_name,
-	  				},
-	  				:tos_acceptance => {
-	  					:date => Time.now.to_time.to_i,
-	  					:ip => request.remote_ip
-	  				}
-				)
-				#Create user stripe account
-				@user_stripe_account = StripeAccount.stripe_account_create(@stripe_account, @user.id)
+		#Create Stripe Account if Stripe Account is not created
+		connect_to_stripe
+		if @user.stripe_account
+			#Update a Stripe account
+			if @stripe_account = Stripe::Account.retrieve(@user.stripe_account.stripe_id)
+				@stripe_account.legal_entity.type = 'individual'
+				@stripe_account.legal_entity.dob.day = @day
+				@stripe_account.legal_entity.dob.month = @month
+				@stripe_account.legal_entity.dob.year = @year
+				@stripe_account.legal_entity.first_name = @identity_verification.first_name
+				@stripe_account.legal_entity.last_name = @identity_verification.last_name
+				@stripe_account.save
 			end
-			#Get into pending
-			if @identity_verification.country == 'US'
-				@identity_verification.update(
-					user_id: @user.id,
-					ssn_last4: @identity_verification.ssn.to_s.split(//).last(4).join("").to_s,
-					status: 'Approved'
-				) 
-				#Update SSN on stripe server
-				@stripe = Stripe::Account.retrieve(@user_stripe_account.stripe_id)
-				@stripe.legal_entity.ssn_last_4 = @identity_verification.ssn.to_s.split(//).last(4).join("").to_s
-				@stripe.save
-			else
-				if @identity_verification.verification_type == 'passport'
-					if @identity_verification.passport != ''
-						@identity_verification.passport_last4 = @identity_verification.passport.split(//).last(4).to_s
-						#Update Passport on stripe server
-						
-						@stripe.legal_entity.personal_id_number = @identity_verification.passport
-						@stripe.save
-					end
-				else
-					if @identity_verification.id_card != ''
-						@identity_verification.passport_last4 = @identity_verification.id_card.split(//).last(4).to_s
-						#Update ID card on stripe server
-						@stripe = Stripe::Account.retrieve(@user_stripe_account.stripe_id)
-						@stripe.legal_entity.personal_id_number = @identity_verification.id_card
-						@stripe.save
-					end
+			#Update User Stripe Account on the Server
+			@user_stripe_account = StripeAccount.stripe_account_update(@stripe_account, @user.id) 
+		else
+			#Create a Stripe account
+			@stripe_account = Stripe::Account.create(
+  				:managed => true,
+  				:country => @identity_verification.country,
+  				:legal_entity => {
+  					:type => 'individual',
+  					:dob => {
+  						:day => @identity_verification.birthday.split('-')[2],
+  						:month => @identity_verification.birthday.split('-')[1],
+  						:year => @identity_verification.birthday.split('-')[0]
+  					},
+  					:first_name => @identity_verification.first_name,
+  					:last_name => @identity_verification.last_name,
+  				},
+  				:tos_acceptance => {
+  					:date => Time.now.to_time.to_i,
+  					:ip => request.remote_ip
+  				}
+			)
+			#Create user stripe account
+			@user_stripe_account = StripeAccount.stripe_account_create(@stripe_account, @user.id)
+		end
+		#Get into pending
+		if @identity_verification.country == 'US'
+			@identity_verification.update(
+				user_id: @user.id,
+				ssn_last4: @identity_verification.ssn.to_s.split(//).last(4).join("").to_s,
+				status: 'Approved'
+			) 
+			#Update SSN on stripe server
+			@stripe = Stripe::Account.retrieve(@user_stripe_account.stripe_id)
+			@stripe.legal_entity.ssn_last_4 = @identity_verification.ssn.to_s.split(//).last(4).join("").to_s
+			@stripe.save
+		else
+			if @identity_verification.verification_type == 'passport'
+				if @identity_verification.passport != ''
+					@identity_verification.passport_last4 = @identity_verification.passport.split(//).last(4).to_s
+					#Update Passport on stripe server
+					
+					@stripe.legal_entity.personal_id_number = @identity_verification.passport
+					@stripe.save
 				end
-				@identity_verification.update(
-					user_id: @user.id,
-					status: 'Approved'
-				)
-				if @identity_verification.identity_document.present?
-					#Upload document file to stripe
-					@stripe_file = Stripe::FileUpload.create(
-					  {
-					    :purpose => 'identity_document',
-					    :file => open(@identity_verification.identity_document.url(:preview1280))
-					  },
-					  {:stripe_account => @user.stripe_account.stripe_id}
-					)
-					@stripe.legal_entity.verification.document = @stripe_file.id
+			else
+				if @identity_verification.id_card != ''
+					@identity_verification.passport_last4 = @identity_verification.id_card.split(//).last(4).to_s
+					#Update ID card on stripe server
+					@stripe = Stripe::Account.retrieve(@user_stripe_account.stripe_id)
+					@stripe.legal_entity.personal_id_number = @identity_verification.id_card
 					@stripe.save
 				end
 			end
-			if @user.campaigns.any?
-				if @user.active_campaign
-					redirect_to(:back)
-				else
-					redirect_to apply_user_studio_campaigns_path(@user.username, @user.campaigns.first)
-				end
-			else
+			@identity_verification.update(
+				user_id: @user.id,
+				status: 'Approved'
+			)
+			if @identity_verification.identity_document.present?
+				#Upload document file to stripe
+				@stripe_file = Stripe::FileUpload.create(
+				  {
+				    :purpose => 'identity_document',
+				    :file => open(@identity_verification.identity_document.url(:preview1280))
+				  },
+				  {:stripe_account => @user.stripe_account.stripe_id}
+				)
+				@stripe.legal_entity.verification.document = @stripe_file.id
+				@stripe.save
+			end
+		end
+		if @user.campaigns.any?
+			if @user.active_campaign
 				redirect_to(:back)
+			else
+				redirect_to apply_user_studio_campaigns_path(@user.username, @user.campaigns.first)
 			end
-		rescue
-			flash[:error] = t('errors.messages.not_saved')
+		else
 			redirect_to(:back)
-			#Delete identity verification
-			if @identity_verification
-				@identity_verification.destroy
-			end
 		end
 	end
 
