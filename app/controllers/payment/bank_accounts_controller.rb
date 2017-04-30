@@ -13,9 +13,9 @@ class Payment::BankAccountsController < ActionController::Base
 		@bank_account.last4 = @bank_account.account_number.to_s.split(//).last(4).join("").to_s
 		#Check if the user has entered a correct US postal code
 		check_us_postal_code_and_create_bank_account
-	# rescue
-	#  	flash[:error] = t('errors.messages.not_saved')
-	#  	redirect_to(:back)		
+	rescue
+	 	flash[:error] = t('errors.messages.not_saved')
+	 	redirect_to(:back)		
 	end
 
 	# user_payment_bank_accounts PATCH
@@ -24,9 +24,9 @@ class Payment::BankAccountsController < ActionController::Base
 		@bank_account = BankAccount.new(bank_account_params)
 		@bank_account.last4 = @bank_account.account_number.to_s.split(//).last(4).join("").to_s
 		check_us_postal_code_and_create_bank_account
-	# rescue
-	#  	flash[:error] = t('errors.messages.not_saved')
-	#  	redirect_to(:back)		
+	rescue
+	 	flash[:error] = t('errors.messages.not_saved')
+	 	redirect_to(:back)		
 	end
 
 	# user_payment_bank_accounts DELETE
