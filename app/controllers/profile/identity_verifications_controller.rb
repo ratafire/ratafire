@@ -53,6 +53,9 @@ protected
 			@day = @identity_verification.birthday.split('/')[0]
 			@month = @identity_verification.birthday.split('/')[1]
 			@year = @identity_verification.birthday.split('/')[2]
+			@identity_verification.update(
+				birthday: @year+'-'+@month+'-'+@day
+			)
 		else
 			@day = @identity_verification.birthday.split('-')[2]
 			@month = @identity_verification.birthday.split('-')[1]
