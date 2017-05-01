@@ -321,7 +321,7 @@ private
 			#Make a follower
 			subscription_add_follower
 			#Update reward
-			subscription_update_active_reward
+			#subscription_update_active_reward
 			#Post to streamlabs
 			post_to_streamlabs
 			#Achievement
