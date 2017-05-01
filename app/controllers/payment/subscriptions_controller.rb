@@ -317,7 +317,7 @@ private
 			#Update Majorpost
 			subscription_update_active_majorpost
 			#Update billing artist
-			# subscription_update_billing_artist
+			subscription_update_billing_artist
 			#Make a follower
 			subscription_add_follower
 			#Update reward
@@ -594,23 +594,25 @@ private
 	end
 
 	def subscription_update_active_majorpost
-		if params[:subscription][:majorpost_id] && @majorpost = Majorpost.find(@subscription.majorpost_id)
-			if @transaction
-				@majorpost.update(
-					accumulated_total: @majorpost.accumulated_total+@transaction.total,
-					accumulated_receive: @majorpost.accumulated_total+@transaction.receive,
-					accumulated_fee: @majorpost.accumulated_fee+@transaction.fee,
-					predicted_total: @majorpost.predicted_total+@subscription.amount,
-					predicted_receive: @majorpost.predicted_receive+@transaction.fee,
-					predicted_fee: @majorpost.predicted_fee+@transaction.receive
-				)
-			else
-				#Update latest paid update
-				if @majorpost 
+		if @subscription.majorpost_id != nil
+			if params[:subscription][:majorpost_id] && @majorpost = Majorpost.find(@subscription.majorpost_id)
+				if @transaction
 					@majorpost.update(
+						accumulated_total: @majorpost.accumulated_total+@transaction.total,
+						accumulated_receive: @majorpost.accumulated_total+@transaction.receive,
+						accumulated_fee: @majorpost.accumulated_fee+@transaction.fee,
 						predicted_total: @majorpost.predicted_total+@subscription.amount,
-						recurring_total: @majorpost.recurring_total+@subscription.amount
+						predicted_receive: @majorpost.predicted_receive+@transaction.fee,
+						predicted_fee: @majorpost.predicted_fee+@transaction.receive
 					)
+				else
+					#Update latest paid update
+					if @majorpost 
+						@majorpost.update(
+							predicted_total: @majorpost.predicted_total+@subscription.amount,
+							recurring_total: @majorpost.recurring_total+@subscription.amount
+						)
+					end
 				end
 			end
 		end
