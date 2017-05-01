@@ -317,20 +317,20 @@ private
 			#Update Majorpost
 			subscription_update_active_majorpost
 			#Update billing artist
-			subscription_update_billing_artist
+			# subscription_update_billing_artist
 			#Make a follower
 			subscription_add_follower
 			#Update reward
-			# subscription_update_active_reward
+			subscription_update_active_reward
 			#Post to streamlabs
 			post_to_streamlabs
 			#Achievement
 			create_achievement
 			#Create receiver
-			# if @subscription.get_reward == 'on'
-			# 	#Create reward receiver
-			# 	subscription_create_receiver
-			# end
+			if @subscription.get_reward == 'on'
+				#Create reward receiver
+				subscription_create_receiver
+			end
 			#Unsubscribe the one time backer
 			if @subscription.funding_type == 'one_time'
 				Subscription.unsubscribe(reason_number:8, subscriber_id:@subscriber.id, subscribed_id: @subscribed_id)
