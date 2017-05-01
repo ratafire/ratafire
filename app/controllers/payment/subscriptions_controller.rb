@@ -42,46 +42,46 @@ class Payment::SubscriptionsController < ApplicationController
 			#Do not charge the card
 			subscription_post_payment
 		end
-	rescue Stripe::CardError => e
-		# Since it's a decline, Stripe::CardError will be caught
-		body = e.json_body
-		err  = body[:error]
+	# rescue Stripe::CardError => e
+	# 	# Since it's a decline, Stripe::CardError will be caught
+	# 	body = e.json_body
+	# 	err  = body[:error]
 
-		puts "Status is: #{e.http_status}"
-		puts "Type is: #{err[:type]}"
-		puts "Code is: #{err[:code]}"
-		# param is '' in this case
-		puts "Param is: #{err[:param]}"
-		puts "Message is: #{err[:message]}"
-		#Show to the user
-		flash[:error] = "#{err[:message]}"
-		redirect_to how_i_pay_user_studio_wallets_path(@subscriber.username)
-	rescue Stripe::RateLimitError => e
-		# Too many requests made to the API too quickly
-		flash[:error] = t('errors.messages.too_many_requests')
-		redirect_to profile_url_path(@subscribed.username)
-	rescue Stripe::InvalidRequestError => e
-		# Invalid parameters were supplied to Stripe's API
-		flash[:error] = t('errors.messages.not_saved')
-		redirect_to profile_url_path(@subscribed.username)
-	rescue Stripe::AuthenticationError => e
-		# Authentication with Stripe's API failed
-		# (maybe you changed API keys recently)
-		flash[:error] = t('errors.messages.not_saved')
-		redirect_to profile_url_path(@subscribed.username)
-	rescue Stripe::APIConnectionError => e
-		# Network communication with Stripe failed
-		flash[:error] = t('errors.messages.not_saved')
-		redirect_to profile_url_path(@subscribed.username)
-	rescue Stripe::StripeError => e
-		# Display a very generic error to the user, and maybe send
-		# yourself an email
-		flash[:error] = t('errors.messages.not_saved')
-		redirect_to profile_url_path(@subscribed.username)
-	rescue 
-		# General rescue
-		flash[:error] = t('errors.messages.not_saved')
-		redirect_to profile_url_path(@subscribed.username)
+	# 	puts "Status is: #{e.http_status}"
+	# 	puts "Type is: #{err[:type]}"
+	# 	puts "Code is: #{err[:code]}"
+	# 	# param is '' in this case
+	# 	puts "Param is: #{err[:param]}"
+	# 	puts "Message is: #{err[:message]}"
+	# 	#Show to the user
+	# 	flash[:error] = "#{err[:message]}"
+	# 	redirect_to how_i_pay_user_studio_wallets_path(@subscriber.username)
+	# rescue Stripe::RateLimitError => e
+	# 	# Too many requests made to the API too quickly
+	# 	flash[:error] = t('errors.messages.too_many_requests')
+	# 	redirect_to profile_url_path(@subscribed.username)
+	# rescue Stripe::InvalidRequestError => e
+	# 	# Invalid parameters were supplied to Stripe's API
+	# 	flash[:error] = t('errors.messages.not_saved')
+	# 	redirect_to profile_url_path(@subscribed.username)
+	# rescue Stripe::AuthenticationError => e
+	# 	# Authentication with Stripe's API failed
+	# 	# (maybe you changed API keys recently)
+	# 	flash[:error] = t('errors.messages.not_saved')
+	# 	redirect_to profile_url_path(@subscribed.username)
+	# rescue Stripe::APIConnectionError => e
+	# 	# Network communication with Stripe failed
+	# 	flash[:error] = t('errors.messages.not_saved')
+	# 	redirect_to profile_url_path(@subscribed.username)
+	# rescue Stripe::StripeError => e
+	# 	# Display a very generic error to the user, and maybe send
+	# 	# yourself an email
+	# 	flash[:error] = t('errors.messages.not_saved')
+	# 	redirect_to profile_url_path(@subscribed.username)
+	# rescue 
+	# 	# General rescue
+	# 	flash[:error] = t('errors.messages.not_saved')
+	# 	redirect_to profile_url_path(@subscribed.username)
 	end
 
 	# user_payment_subscriptions DELETE
@@ -802,28 +802,30 @@ private
 
 	def check_if_spam
 		if Rails.env.production?
-			#One time funding
-			if params[:subscription][:funding_type] == 'one_time'
-				if @one_time_history = Subscription.where(funding_type: 'one_time', subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
-					@days = ((Time.now - @one_time_history.created_at)/1.day).round
-					if @days <= 3 then
-						@indays = 3-@days
-						flash[:alert] = t('errors.messages.wait_3_days')
-						redirect_to profile_url_path(@subscribed.username)
+			unless @subscriber.admin == true
+				#One time funding
+				if params[:subscription][:funding_type] == 'one_time'
+					if @one_time_history = Subscription.where(funding_type: 'one_time', subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
+						@days = ((Time.now - @one_time_history.created_at)/1.day).round
+						if @days <= 3 then
+							@indays = 3-@days
+							flash[:alert] = t('errors.messages.wait_3_days')
+							redirect_to profile_url_path(@subscribed.username)
+						end
 					end
 				end
+				#Recurring
+				if params[:subscription][:funding_type] == 'recurring'
+					if @recurring_history = Subscription.where(funding_type: 'recurring', real_deleted: true, subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
+						@days = ((Time.now - @recurring_history.deleted_at)/1.day).round
+						if @days <= 15 then
+							@indays = 15-@days
+							flash[:alert] = t('errors.messages.wait_15_days')
+							redirect_to profile_url_path(@subscribed.username)
+						end
+					end
+				end	
 			end
-			#Recurring
-			if params[:subscription][:funding_type] == 'recurring'
-				if @recurring_history = Subscription.where(funding_type: 'recurring', real_deleted: true, subscribed_id: @subscribed.id, subscriber_id: @subscriber.id).try(:first)
-					@days = ((Time.now - @recurring_history.deleted_at)/1.day).round
-					if @days <= 15 then
-						@indays = 15-@days
-						flash[:alert] = t('errors.messages.wait_15_days')
-						redirect_to profile_url_path(@subscribed.username)
-					end
-				end
-			end	
 		end	
 	end
 
