@@ -319,7 +319,7 @@ private
 			#Update billing artist
 			# subscription_update_billing_artist
 			#Make a follower
-			subscription_add_follower
+			#subscription_add_follower
 			#Update reward
 			subscription_update_active_reward
 			#Post to streamlabs

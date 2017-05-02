@@ -269,10 +269,10 @@ class Subscription < ActiveRecord::Base
 				end
 				@billing_subscription.save
 			end	
-			if @billing_artist = @subscribed.billing_artist
-				@billing_artist.predicted_next_amount -= @subscription.amount
-				@billing_artist.save
-			end
+			# if @billing_artist = @subscribed.billing_artist
+			# 	@billing_artist.predicted_next_amount -= @subscription.amount
+			# 	@billing_artist.save
+			# end
 			#Remove order if any
 			if @order = @subscriber.order
 				if @order_subset = @subscriber.order.try(:order_subsets).where(order_id: @order.id,subscribed_id: @subscription.subscribed.id, transacted: nil, deleted: nil).first
