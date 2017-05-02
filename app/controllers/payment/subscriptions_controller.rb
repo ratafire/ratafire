@@ -313,7 +313,7 @@ private
 			#update subscription record
 			subscription_update_subscription_record
 			#Update campaign
-			subscription_update_active_campaign
+			#subscription_update_active_campaign
 			#Update Majorpost
 			# subscription_update_active_majorpost
 			#Update billing artist
