@@ -317,7 +317,7 @@ private
 			#Update Majorpost
 			# subscription_update_active_majorpost
 			#Update billing artist
-			subscription_update_billing_artist
+			# subscription_update_billing_artist
 			#Make a follower
 			subscription_add_follower
 			#Update reward
