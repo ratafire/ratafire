@@ -42,46 +42,46 @@ class Payment::SubscriptionsController < ApplicationController
 			#Do not charge the card
 			subscription_post_payment
 		end
-	# rescue Stripe::CardError => e
-	# 	# Since it's a decline, Stripe::CardError will be caught
-	# 	body = e.json_body
-	# 	err  = body[:error]
+	rescue Stripe::CardError => e
+		# Since it's a decline, Stripe::CardError will be caught
+		body = e.json_body
+		err  = body[:error]
 
-	# 	puts "Status is: #{e.http_status}"
-	# 	puts "Type is: #{err[:type]}"
-	# 	puts "Code is: #{err[:code]}"
-	# 	# param is '' in this case
-	# 	puts "Param is: #{err[:param]}"
-	# 	puts "Message is: #{err[:message]}"
-	# 	#Show to the user
-	# 	flash[:error] = "#{err[:message]}"
-	# 	redirect_to how_i_pay_user_studio_wallets_path(@subscriber.username)
-	# rescue Stripe::RateLimitError => e
-	# 	# Too many requests made to the API too quickly
-	# 	flash[:error] = t('errors.messages.too_many_requests')
-	# 	redirect_to profile_url_path(@subscribed.username)
-	# rescue Stripe::InvalidRequestError => e
-	# 	# Invalid parameters were supplied to Stripe's API
-	# 	flash[:error] = t('errors.messages.not_saved')
-	# 	redirect_to profile_url_path(@subscribed.username)
-	# rescue Stripe::AuthenticationError => e
-	# 	# Authentication with Stripe's API failed
-	# 	# (maybe you changed API keys recently)
-	# 	flash[:error] = t('errors.messages.not_saved')
-	# 	redirect_to profile_url_path(@subscribed.username)
-	# rescue Stripe::APIConnectionError => e
-	# 	# Network communication with Stripe failed
-	# 	flash[:error] = t('errors.messages.not_saved')
-	# 	redirect_to profile_url_path(@subscribed.username)
-	# rescue Stripe::StripeError => e
-	# 	# Display a very generic error to the user, and maybe send
-	# 	# yourself an email
-	# 	flash[:error] = t('errors.messages.not_saved')
-	# 	redirect_to profile_url_path(@subscribed.username)
-	# rescue 
-	# 	# General rescue
-	# 	flash[:error] = t('errors.messages.not_saved')
-	# 	redirect_to profile_url_path(@subscribed.username)
+		puts "Status is: #{e.http_status}"
+		puts "Type is: #{err[:type]}"
+		puts "Code is: #{err[:code]}"
+		# param is '' in this case
+		puts "Param is: #{err[:param]}"
+		puts "Message is: #{err[:message]}"
+		#Show to the user
+		flash[:error] = "#{err[:message]}"
+		redirect_to how_i_pay_user_studio_wallets_path(@subscriber.username)
+	rescue Stripe::RateLimitError => e
+		# Too many requests made to the API too quickly
+		flash[:error] = t('errors.messages.too_many_requests')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue Stripe::InvalidRequestError => e
+		# Invalid parameters were supplied to Stripe's API
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue Stripe::AuthenticationError => e
+		# Authentication with Stripe's API failed
+		# (maybe you changed API keys recently)
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue Stripe::APIConnectionError => e
+		# Network communication with Stripe failed
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue Stripe::StripeError => e
+		# Display a very generic error to the user, and maybe send
+		# yourself an email
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
+	rescue 
+		# General rescue
+		flash[:error] = t('errors.messages.not_saved')
+		redirect_to profile_url_path(@subscribed.username)
 	end
 
 	# user_payment_subscriptions DELETE
@@ -313,7 +313,7 @@ private
 			#update subscription record
 			subscription_update_subscription_record
 			#Update campaign
-			#subscription_update_active_campaign
+			subscription_update_active_campaign
 			#Update Majorpost
 			subscription_update_active_majorpost
 			#Update billing artist
@@ -574,22 +574,25 @@ private
 	end
 
 	def subscription_update_active_campaign
-		if @campaign = Campaign.find(@subscription.campaign_id)
-			if @transaction
-				@campaign.update(
-					accumulated_total: @campaign.accumulated_total+@transaction.total,
-					accumulated_receive: @campaign.accumulated_total+@transaction.receive,
-					accumulated_fee: @campaign.accumulated_fee+@transaction.fee,
-					predicted_total: @campaign.predicted_total+@subscription.amount,
-					predicted_receive: @campaign.predicted_receive+@transaction.fee,
-					predicted_fee: @campaign.predicted_fee+@transaction.receive
-				)
-			else
-				@campaign.update(
-					predicted_total: @campaign.predicted_total+@subscription.amount,
-					recurring_total: @campaign.recurring_total+@subscription.amount
-				)
+		begin
+			if @campaign = Campaign.find(@subscription.campaign_id)
+				if @transaction
+					@campaign.update(
+						accumulated_total: @campaign.accumulated_total+@transaction.total,
+						accumulated_receive: @campaign.accumulated_total+@transaction.receive,
+						accumulated_fee: @campaign.accumulated_fee+@transaction.fee,
+						predicted_total: @campaign.predicted_total+@subscription.amount,
+						predicted_receive: @campaign.predicted_receive+@transaction.fee,
+						predicted_fee: @campaign.predicted_fee+@transaction.receive
+					)
+				else
+					@campaign.update(
+						predicted_total: @campaign.predicted_total+@subscription.amount,
+						recurring_total: @campaign.recurring_total+@subscription.amount
+					)
+				end
 			end
+		rescue
 		end
 	end
 
