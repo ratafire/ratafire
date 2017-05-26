@@ -26,6 +26,9 @@ class Profile::UserController < ApplicationController
 		unless @activities.any?
 			@site_activity = PublicActivity::Activity.order("created_at desc").where(owner_type: "User", :published => true,trackable_type: ["Subscription","LikedUser"]).page(params[:page]).per_page(16)
 		end
+		#Top backers
+
+		@top_backers = @user.subscription_records.order(accumulated_total: :desc).page(params[:page]).per_page(5)
 	end
 
 protected

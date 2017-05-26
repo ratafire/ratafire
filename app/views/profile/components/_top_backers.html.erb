@@ -1,0 +1,5 @@
+<div class="mb-40">
+	<h2 class="mt-40 mb-20"><i class="ti-bolt mr-15"></i><%= t 'views.utilities.menu.top_fans' %></h2>
+	<!-- Top 5 fans -->
+	<%= render partial: "profile/components/top_backers_one", collection: @top_backers, :as => :subscription_record %>
+</div>

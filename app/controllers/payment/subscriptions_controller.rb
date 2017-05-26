@@ -683,8 +683,11 @@ private
 	end
 
 	def create_achievement
+		#Achievement for the subscribed
 		if @subscription_record.try(:is_valid)
 			Resque.enqueue(Achievement::SubscriptionsCreate, @subscription.id)
+			#Achievement for the subscriber
+			Resque.enqueue(Achievement::SubscriberCreate, @subscriber.id)
 		end
 	end
 

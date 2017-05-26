@@ -79,10 +79,19 @@
 					<div id="sticker" class="mt-40">
 						<!-- Current Goal -->
 						<%= render partial:'profile/components/current_goal', locals: {user: @user}%>			
+						
+						<!-- Latest updates -->
+						<% if @latest_updates.any? %>
+							<div class="mt-40">
+								<%= render partial: "profile/components/latest_updates_profile", collection: @latest_updates, :as => :notification %>
+							</div>
+						<% end %>
+						<!-- Top backers -->
+						<% if @top_backers.any? %>
+							<%= render partial:'profile/components/top_backers', locals: {user: @user}%>
+						<% end %>
 						<!-- Donation Button -->
 						<%= render partial:'profile/components/donation_button', locals: {user: @user}%>
-						<!-- Latest updates -->
-						<%= render partial: "profile/components/latest_updates_profile", collection: @latest_updates, :as => :notification %>
 					</div><!-- end #sticker -->	
 				<% end %>
 			</div>	

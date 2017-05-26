@@ -1,0 +1,7 @@
+<!-- One time -->
+<div class="text-grey-300 mb-20 mt-20">
+	<img class="mr-5" src="<%= subscription_record.subscriber.profilephoto.image.url(:thumbnail40)%>" style="height:24px;"><%= link_to profile_url_path(subscription_record.subscriber.username), class:"text-grey-300" do %>
+		<%= subscription_record.subscriber.preferred_name %>
+	<% end %><%= t 'views.payment.backs.backed' %>
+	<img class="ml-5 mr-5" src="/assets/icon/fruity/hazel_nut_thumbnail24.png" style="height:24px;"><span class="ml-5"><%= t 'views.payment.backs.hazelnut' %></span><span class="ml-5 mr-5">x</span><%= number_to_human(subscription_record.accumulated_total.to_i) %>
+</div>

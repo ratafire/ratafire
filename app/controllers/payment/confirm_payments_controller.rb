@@ -166,6 +166,9 @@ private
 				trackable_type: "Transaction",
 				notification_type: "receipt"
 			)
+			#Achievements
+			#Achievement for subscriber
+			Resque.enqueue(Achievement::SubscriberCreate, @subscriber.id)
 		else
 			flash[:error] = t('views.creator_studio.how_i_pay.card_info') + t('errors.messages.invalid')
 			redirect_to how_i_get_paid_user_studio_wallets_path(@subscriber.username)
