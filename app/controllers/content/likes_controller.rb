@@ -120,7 +120,7 @@ class Content::LikesController < ApplicationController
 					#liked record
 					update_liked_record(current_user.id,@user.id)
 					#achievement
-					Resque.enqueue(Achievement::FollowLess, @user.id, current_user.id)
+					Resque.enqueue(Achievement::FollowLess, current_user.id, @user.id)
 				end
 			end
 		end
