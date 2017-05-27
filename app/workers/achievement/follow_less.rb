@@ -7,7 +7,7 @@ class Achievement::FollowLess
 			if @liked = User.find(liked_id)
 				if @liked_record = LikedRecord.find_by_liker_id_and_liked_id(liker_id,liked_id)
 					@followers = @liked.likers.count
-					if @followers < 100 && @liked_record.count <= 1
+					if @followers < 100 && @liked_record.counter <= 1
 						unless @liker.achievements.where(name: "Scout").any?
 							Resque.enqueue(Achievement::Counter, "Scout", liker_id, 1) #50
 						end
