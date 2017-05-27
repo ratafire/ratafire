@@ -16,7 +16,7 @@ class Achievement::SubscriberCreate
 			end
 			if @different_creators >= 3
 				unless @user.achievements.where(name: "Ratafire Apprentice").any?
-					Resque.enqueue(Achievement::Setcounter, "Ratafire Apprentice", @subscription.subscribed_id, @different_creators) #10
+					Resque.enqueue(Achievement::Setcounter, "Ratafire Apprentice", subscriber_id, @different_creators) #10
 				end
 				unless @user.achievements.where(name: "Rare Backer").any?
 					if @accumulated_total >= 20
@@ -26,7 +26,7 @@ class Achievement::SubscriberCreate
 			end
 			if @different_creators >= 5
 				unless @user.achievements.where(name: "Ratafire Journeyman").any?
-					Resque.enqueue(Achievement::Setcounter, "Ratafire Journeyman", @subscription.subscribed_id, @different_creators)
+					Resque.enqueue(Achievement::Setcounter, "Ratafire Journeyman", subscriber_id, @different_creators)
 				end
 				unless @user.achievements.where(name: "Heroic Backer").any?
 					if @accumulated_total >= 40
@@ -36,7 +36,7 @@ class Achievement::SubscriberCreate
 			end
 			if @different_creators >= 10
 				unless @user.achievements.where(name: "Ratafire Adventurer").any?
-					Resque.enqueue(Achievement::Setcounter, "Ratafire Adventurer", @subscription.subscribed_id, @different_creators)
+					Resque.enqueue(Achievement::Setcounter, "Ratafire Adventurer", subscriber_id, @different_creators)
 				end
 				unless @user.achievements.where(name: "Epic Backer").any?
 					if @accumulated_total >= 80
@@ -46,7 +46,7 @@ class Achievement::SubscriberCreate
 			end
 			if @different_creators >= 20
 				unless @user.achievements.where(name: "Ratafire Expert").any?
-					Resque.enqueue(Achievement::Setcounter, "Ratafire Expert", @subscription.subscribed_id, @different_creators)
+					Resque.enqueue(Achievement::Setcounter, "Ratafire Expert", subscriber_id, @different_creators)
 				end
 				unless @user.achievements.where(name: "Legendary Backer").any?
 					if @accumulated_total >= 160
@@ -63,22 +63,22 @@ class Achievement::SubscriberCreate
 			end
 			if @different_creators >= 50
 				unless @user.achievements.where(name: "Ratafire Hero").any?
-					Resque.enqueue(Achievement::Setcounter, "Ratafire Hero", @subscription.subscribed_id, @different_creators)
+					Resque.enqueue(Achievement::Setcounter, "Ratafire Hero", subscriber_id, @different_creators)
 				end
 			end
 			if @different_creators >= 100
 				unless @user.achievements.where(name: "Ratafire Master").any?
-					Resque.enqueue(Achievement::Setcounter, "Ratafire Master", @subscription.subscribed_id, @different_creators)
+					Resque.enqueue(Achievement::Setcounter, "Ratafire Master", subscriber_id, @different_creators)
 				end
 			end
 			if @different_creators >= 200
 				unless @user.achievements.where(name: "Ratafire Grand Master").any?
-					Resque.enqueue(Achievement::Setcounter, "Ratafire Grand Master", @subscription.subscribed_id, @different_creators)
+					Resque.enqueue(Achievement::Setcounter, "Ratafire Grand Master", subscriber_id, @different_creators)
 				end
 			end
 			if @different_creators >= 300
 				unless @user.achievements.where(name: "Ratafire Legend").any?
-					Resque.enqueue(Achievement::Setcounter, "Ratafire Legend", @subscription.subscribed_id, @different_creators)
+					Resque.enqueue(Achievement::Setcounter, "Ratafire Legend", subscriber_id, @different_creators)
 				end
 			end
 		end

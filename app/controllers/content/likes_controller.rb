@@ -64,6 +64,10 @@ class Content::LikesController < ApplicationController
 							friendship_init: @campaign.user.id
 						)
 					end
+					#update liked record
+					update_liked_record
+					#achievement
+					Resque.enqueue(Achievement::FollowLess, @liker.id, @liked.id)
 				end
 			end
 		end
@@ -113,6 +117,10 @@ class Content::LikesController < ApplicationController
 						owner_type: "User",
 						key: "liked_user.create",
 						)
+					#liked record
+					update_liked_record
+					#achievement
+					Resque.enqueue(Achievement::FollowLess, @liker.id, @liked.id)
 				end
 			end
 		end
@@ -179,6 +187,8 @@ class Content::LikesController < ApplicationController
 			if @reverse_friendship = Friendship.find_by_user_id_and_friend_id(@campaign.user.id, current_user.id)
 				@reverse_friendship.destroy
 			end
+			#liked record
+			deactivate_liked_record
 		end
 		#Update activity
 		if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(params[:campaign_id],'Campaign')
@@ -210,6 +220,8 @@ class Content::LikesController < ApplicationController
 				if @reverse_friendship = Friendship.find_by_user_id_and_friend_id(@user.id, current_user.id)
 					@reverse_friendship.destroy
 				end
+				#liked record
+				deactivate_liked_record
 			end
 		end
 		remove_score(@user, current_user)
@@ -235,6 +247,8 @@ class Content::LikesController < ApplicationController
 				if @reverse_friendship = Friendship.find_by_user_id_and_friend_id(@user.id, current_user.id)
 					@reverse_friendship.destroy
 				end
+				#liked record
+				deactivate_liked_record
 			end
 			redirect_to(:back)
 		end
@@ -418,6 +432,30 @@ protected
                     end
 				end
 			end
+		end
+	end
+
+	def update_liked_record
+		if @liked_record = LikedRecord.find_by_liker_id_and_liked_id(@liker.id, @liked.id)
+			@liked_record.update(
+				counter: @liked_record.counter+1,
+				active: true
+			)
+		else
+			@liked_record = LikedRecord.create(
+				liker_id: @liker.id,
+				liked_id: @liked.id,
+				active: true,
+				counter: 1
+			)
+		end
+	end
+
+	def deactivate_liked_record
+		if @liked_record = LikedRecord.find_by_liker_id_and_liked_id(@liker.id, @liked.id)
+			@liked_record.update(
+				active: false
+			)
 		end
 	end
 

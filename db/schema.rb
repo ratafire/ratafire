@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327003221) do
+ActiveRecord::Schema.define(version: 20170527020036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1242,6 +1242,17 @@ ActiveRecord::Schema.define(version: 20170327003221) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "liker_id",   limit: 8
+  end
+
+  create_table "liked_records", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.integer  "liker_id"
+    t.integer  "liked_id"
+    t.integer  "count"
+    t.datetime "deleted_at"
+    t.boolean  "active",     default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "liked_users", force: :cascade do |t|
@@ -2478,6 +2489,7 @@ ActiveRecord::Schema.define(version: 20170327003221) do
     t.decimal  "accumulated_fee",                precision: 10, scale: 2, default: 0.0
     t.string   "is_valid",                                                default: "f"
     t.decimal  "credit",                         precision: 10, scale: 2, default: 0.0
+    t.boolean  "first_blood"
   end
 
   create_table "subscriptions", id: :bigserial, force: :cascade do |t|

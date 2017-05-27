@@ -684,11 +684,10 @@ private
 
 	def create_achievement
 		#Achievement for the subscribed
-		if @subscription_record.try(:is_valid)
-			Resque.enqueue(Achievement::SubscriptionsCreate, @subscription.id)
-			#Achievement for the subscriber
-			Resque.enqueue(Achievement::SubscriberCreate, @subscriber.id)
-		end
+		Resque.enqueue(Achievement::SubscriptionsCreate, @subscription.id)
+		Resque.enqueue(Achievement::SubscriberCreate, @subscriber.id)
+		Resque.enqueue(Achievement::AngelCreate, @subscriber.id)
+		Resque.enqueue(Achievement::BackLess, @subscriber.id, @subscription.id)
 	end
 
 	def subscription_update_billing_subscription

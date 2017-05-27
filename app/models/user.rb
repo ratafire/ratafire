@@ -111,6 +111,22 @@ class User < ActiveRecord::Base
     has_many :reverse_liked_users, foreign_key: "liker_id", class_name: "LikedUser"
     has_many :likeds, through: :reverse_liked_users, source: :liked, class_name: 'User'
 
+    has_many :liked_records, 
+        foreign_key: "liked_id", 
+        class_name: "LikedRecord", 
+        dependent: :destroy
+    has_many :record_likers, 
+        through: :liked_records, 
+        source: :liker
+
+    has_many :reverse_liked_records, 
+        foreign_key: "liker_id", 
+        class_name: "LikedRecord", 
+        dependent: :destroy
+    has_many :record_liked, 
+        through: :reverse_liked_records, 
+        source: :liked
+
     #--------Subscriptions---------
     has_many :subscriptions, 
         -> { where( subscriptions: { :deleted_at => nil, :activated => true, :real_deleted => nil }) },
