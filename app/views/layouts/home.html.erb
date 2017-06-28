@@ -51,24 +51,28 @@
 			</div>
 		</body>
 	<% else %>
-		<body>
-			<div class="outer-space" >
-				<!-- Page container -->
-				<div class="page-container no-padding">
-		            <div class="page-content">
-		            	<!-- Main sidebar -->
-		            	<%= yield :sidebar %>
-						<!-- Main content -->
-						<div class="content-wrapper no-padding-bottom">
-							<%= render 'shared/flash_messages', flash: flash %>
-							<!-- Content area -->
-							<!-- Javascript Core-->
-							<!-- Video JS -->
-							<%= render 'static_pages/home/signup_section' %> 
-						</div><!-- end .content-wrapper -->
-					</div><!-- end .page-content-->	
-				</div><!-- end .page-container -->	
-			</div>
-		</body>
+		<% if browser.device.mobile? %>
+			<%= render 'static_pages/home/mobile_signup_section' %>
+		<% else %>
+			<body>
+				<div class="outer-space" >
+					<!-- Page container -->
+					<div class="page-container no-padding">
+			            <div class="page-content">
+			            	<!-- Main sidebar -->
+			            	<%= yield :sidebar %>
+							<!-- Main content -->
+							<div class="content-wrapper no-padding-bottom">
+								<%= render 'shared/flash_messages', flash: flash %>
+								<!-- Content area -->
+								<!-- Javascript Core-->
+								<!-- Video JS -->
+								<%= render 'static_pages/home/signup_section' %> 
+							</div><!-- end .content-wrapper -->
+						</div><!-- end .page-content-->	
+					</div><!-- end .page-container -->	
+				</div>
+			</body>
+		<% end %>
 	<% end %>
 </html>

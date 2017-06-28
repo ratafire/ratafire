@@ -1,0 +1,39 @@
+<!-- Starfield Background -->
+<div class="background-image-holder" style="background-size: cover;height: 100%;background:url(/assets/static_pages/starfield_small3.jpg) no-repeat center center fixed;">
+</div>  
+<!-- Content -->
+<div class="col-md-12 col-sm-12" style="position: absolute;top: 15%;padding:0 80px 0 80px;">
+	<%= form_for(resource, as: resource_name, url: registration_path(resource_name),:html => { :id => ''}) do |f| %>
+		<!-- Logo -->
+		<%= link_to root_path do %>
+			<div class="text-center mt-20 row mt-80">
+				<img src="/assets/logo/ratafire_light_blue_<%= I18n.locale %>" class="animated_hover" data-action="rubberBand"></img>
+			</div>		
+		<% end %>	
+	    <div class="text-center text-grey-transparent mt-20 mb-20" style="font-size:50px;">
+	        <span class="text-thin"><%= t 'views.utilities.menu.rise_of_small_creators' %></span>
+	    </div>    		
+	    <div class="form-group">
+		    <% if I18n.locale == :zh %>
+		        <!-- Last Name -->
+		        <%= f.text_field :firstname,placeholder:t('views.profile.settings.profile_settings.last_name'), class:"form-control mt-40", style:"height:100px;font-size:30px;border-radius:10px;padding-left:20px;background-color: rgba(255,255,255,.9);" %>
+		        <!-- First Name -->
+		        <%= f.text_field :lastname,placeholder:t('views.profile.settings.profile_settings.first_name'), class:"form-control mt-40", style:"height:100px;font-size:30px;border-radius:10px;padding-left:20px;background-color: rgba(255,255,255,.9);" %>
+		    <% else %>
+		        <!-- First Name -->
+		        <%= f.text_field :firstname,placeholder:t('views.profile.settings.profile_settings.first_name'), class:"form-control mt-40", style:"height:100px;font-size:30px;border-radius:10px;padding-left:20px;background-color: rgba(255,255,255,.9);" %>
+		        <!-- Last Name -->
+		        <%= f.text_field :lastname,placeholder:t('views.profile.settings.profile_settings.last_name'), class:"form-control mt-40", style:"height:100px;font-size:30px;border-radius:10px;padding-left:20px;background-color: rgba(255,255,255,.9);" %>
+		    <% end %>
+		    <!-- Email -->
+		    <%= f.email_field :email,placeholder:t('views.profile.settings.profile_settings.your_email'), class:"form-control mt-40", style:"height:100px;font-size:30px;border-radius:10px;padding-left:20px;background-color: rgba(255,255,255,.9);" %>
+		    <!-- Password -->
+		    <%= f.password_field :password,placeholder:t('views.profile.settings.account_settings.password'), autocomplete: "off", class:"form-control mt-40", style:"height:100px;font-size:30px;border-radius:10px;padding-left:20px;background-color: rgba(255,255,255,.9);"%>
+		</div>
+	    <!-- Submit -->
+	    <div id="signup-submit-btn" style="height:200px !important;">
+	        <%= f.submit t('views.utilities.btn.sign_up'), class:"signup-input signup-input--submit text-uppercase mt-40", style:"height:200px !important;font-size:80px !important;border-radius:10px !important;margin-top:40px !important;"%>
+	    </div>
+	<% end %>
+</div>
+<%= render partial:'utilities/sessions/sessions_footer', locals: {switcher_type: 'up'}%>
