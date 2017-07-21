@@ -1,4 +1,9 @@
 class Icon < ActiveRecord::Base
+
+    #AWS S3
+    require 'aws-sdk-v1'
+    require 'aws-sdk'
+
     belongs_to :majorpost
     belongs_to :project	
   has_attached_file :image, :styles => { :pageview => "128x128#", :small => "40x40#"}, 

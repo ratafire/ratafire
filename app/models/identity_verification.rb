@@ -1,6 +1,10 @@
 class IdentityVerification < ActiveRecord::Base
 	#----------------Utilities----------------
 
+    #AWS S3
+    require 'aws-sdk-v1'
+    require 'aws-sdk'    
+
 	#--------Encryption--------
 	attr_encrypted :ssn, key: ENV['SSN_KEY']
     attr_encrypted :id_card, key: ENV['ID_CARD_KEY']

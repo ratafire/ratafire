@@ -3,6 +3,10 @@ class Artwork < ActiveRecord::Base
     #attr_accessible :majorpost_id, :name, :image, :project_id, :content_temp, :tags_temp, :direct_upload_url,:skip_everafter
     #----------------Utilities----------------
 
+    #AWS S3
+    require 'aws-sdk-v1'
+    require 'aws-sdk'
+
     #Environment-specific direct upload url verifier screens for malicious posted upload locations.
     DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 

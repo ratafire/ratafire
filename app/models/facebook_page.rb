@@ -1,5 +1,10 @@
 class FacebookPage < ActiveRecord::Base
     #----------------Utilities----------------
+
+    #AWS S3
+    require 'aws-sdk-v1'
+    require 'aws-sdk'
+
     #Generate uuid
     before_validation :generate_uuid!, :on => :create    
     #--------Friendlyid--------
