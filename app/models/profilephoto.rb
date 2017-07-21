@@ -2,6 +2,10 @@ class Profilephoto < ActiveRecord::Base
 
     #----------------Utilities----------------
 
+    #AWS S3
+    require 'aws-sdk-v1'
+    require 'aws-sdk'
+
     #Environment-specific direct upload url verifier screens for malicious posted upload locations.
     DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/Ratafire_#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
