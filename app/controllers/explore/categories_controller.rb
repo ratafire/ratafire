@@ -143,6 +143,8 @@ class Explore::CategoriesController < ApplicationController
 				redirect_to videos_documentary_path
 			when 'Tutorial'
 				redirect_to videos_tutorial_path
+			when 'Storytelling'
+				redirect_to videos_storytelling_path
 			when 'Other'
 				redirect_to videos_other_path
 			end
@@ -425,6 +427,11 @@ class Explore::CategoriesController < ApplicationController
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.tutorial'))
 		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Tutorial", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
+
+	def videos_storytelling
+		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.videos.storytelling'))
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Storytelling", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+	end	
 
 	def videos_other
 		meta_category(:category => I18n.t('views.utilities.menu.videos'), :sub_category => I18n.t('views.utilities.category.other'))

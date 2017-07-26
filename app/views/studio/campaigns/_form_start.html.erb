@@ -74,7 +74,7 @@
 				<% end %>
 				<!-- Videos -->
 				<% if @campaign.category == "Videos" %>
-					<%= f.select(:sub_category, [[t('views.utilities.category.a_new_field'),'A New Field'], [t('views.utilities.category.videos.gaming'),'Gaming'],[t('views.utilities.category.videos.animation'),'Animation'],[t('views.utilities.category.videos.cg'),'CG'],[t('views.utilities.category.videos.fashion'),'Fashion'],[t('views.utilities.category.videos.beauty'),'Beauty'],[t('views.utilities.category.videos.movies'),'Movies'],[t('views.utilities.category.videos.documentary'),'Documentary'],[t('views.utilities.category.videos.tutorial'),'Tutorial'],[t('views.utilities.category.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+					<%= f.select(:sub_category, [[t('views.utilities.category.a_new_field'),'A New Field'], [t('views.utilities.category.videos.gaming'),'Gaming'],[t('views.utilities.category.videos.animation'),'Animation'],[t('views.utilities.category.videos.cg'),'CG'],[t('views.utilities.category.videos.fashion'),'Fashion'],[t('views.utilities.category.videos.beauty'),'Beauty'],[t('views.utilities.category.videos.movies'),'Movies'],[t('views.utilities.category.videos.documentary'),'Documentary'],[t('views.utilities.category.videos.tutorial'),'Tutorial'],[t('views.utilities.category.videos.storytelling'),'Storytelling'],[t('views.utilities.category.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
 				<% end %>
 				<span class="help-block">
 					<%= render 'studio/campaigns/help_block/sub_category' %>

@@ -53,6 +53,12 @@
 			<%= t 'views.utilities.category.videos.tutorial' %>
 		<% end %>
 	</li>
+	<!-- Storytelling -->
+	<li>
+		<%= link_to content_majorpost_set_sub_category_path(activity.trackable.uuid, 'Videos', 'Storytelling'), method: :post, remote: true do %>
+			<%= t 'views.utilities.category.videos.storytelling' %>
+		<% end %>
+	</li>	
 	<!-- Other -->
 	<li>
 		<%= link_to content_majorpost_set_sub_category_path(activity.trackable.uuid, 'Videos', 'Other'), method: :post, remote: true do %>

@@ -368,6 +368,7 @@ Rails.application.routes.draw do
 			get 'explore/categories/videos/movies', to: 'explore/categories#videos_movies', as: :videos_movies
 			get 'explore/categories/videos/documentary', to: 'explore/categories#videos_documentary', as: :videos_documentary
 			get 'explore/categories/videos/tutorial', to: 'explore/categories#videos_tutorial', as: :videos_tutorial
+			get 'explore/categories/videos/storytelling', to: 'explore/categories#videos_storytelling', as: :videos_storytelling
 			get 'explore/categories/videos/other', to: 'explore/categories#videos_other', as: :videos_other			
 
 			#Back creators

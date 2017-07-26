@@ -188,6 +188,8 @@ module ApplicationHelper
 			return 'views.utilities.category.videos.documentary'
 		when 'Tutorial'
 			return 'views.utilities.category.videos.tutorial'
+		when 'Storytelling'
+			return 'views.utilities.category.videos.storytelling'			
 			#Math
 			#Science
 			#Huamnity

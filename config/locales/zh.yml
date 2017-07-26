@@ -754,6 +754,7 @@ zh:
           movies: "电影"
           documentary: "纪录片"
           tutorial: "教程"
+          storytelling: "故事"
       btn:
         save_changes: "保存"
         sign_up: "注册"
