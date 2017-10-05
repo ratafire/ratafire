@@ -31,9 +31,9 @@ class IdentityVerification < ActiveRecord::Base
             :thumbnail64 => ["64x64#",:jpg], 
         }, 
         :convert_options => { :all => '-background "#c8c8c8" -flatten +matte'},
-        :url =>  "/:class/uploads/:id/:style/:uuid_identity_filename",
+        :url =>  "/:class/uploads/:id/:style/:uuid_identity_filename.:extension",
         #If s3
-        :path => "/:class/uploads/:id/:style/:uuid_identity_filename",
+        :path => "/:class/uploads/:id/:style/:uuid_identity_filename.:extension",
         :bucket => "Ratafire_production",
         :storage => :s3,
         :s3_region => 'us-east-1',

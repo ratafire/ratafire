@@ -2,6 +2,7 @@ class Profile::IdentityVerificationsController < ApplicationController
 
 	extend AttrEncrypted
 	require "stripe"
+	require 'open-uri'
 
 	#Before filters
 	before_filter :load_user
@@ -141,14 +142,17 @@ protected
 				status: 'Approved'
 			)
 			if @identity_verification.identity_document.present?
+				#Get file from S3 first
+			    @s3file = open(@identity_verification.identity_document.url(:preview1280))
 				#Upload document file to stripe
 				@stripe_file = Stripe::FileUpload.create(
 				  {
 				    :purpose => 'identity_document',
-				    :file => open(@identity_verification.identity_document.url(:preview1280))
+				    :file => File.new(@s3file)
 				  },
 				  {:stripe_account => @user.stripe_account.stripe_id}
 				)
+				@stripe = Stripe::Account.retrieve(@user_stripe_account.stripe_id)
 				@stripe.legal_entity.verification.document = @stripe_file.id
 				@stripe.save
 			end
