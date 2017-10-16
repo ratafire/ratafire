@@ -73,6 +73,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 				Resque.enqueue(Search::ChangeIndex, 'user',user.id,'create')
 				sign_in(user, scope: :user)
 				redirect_to profile_url_path(user.username)	
+			else
+			 	flash[:error] = t('errors.messages.email_taken')
+			 	redirect_to(:back)				
 			end
 		else
 			build_resource(sign_up_params)

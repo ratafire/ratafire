@@ -1065,6 +1065,7 @@ zh:
       invalid: "无效"
       too_short: "太短（至少%{count}位）"
       too_long: "太长（至多%{count}位）" 
+      email_taken: "已被注册"      
       taken: "已被注册"          
       confirmation: "不匹配%{attribute}"  
       not_found: "不存在"

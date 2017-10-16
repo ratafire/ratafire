@@ -1068,6 +1068,7 @@ en:
       invalid: "is invalid"
       too_short: "is too short (minimum is %{count} characters)"
       too_long: "is too long (maximum is %{count} characters)"
+      email_taken: "Email is already taken."
       taken: "has already been taken"   
       confirmation: "doesn't match %{attribute}"   
       not_found: "not found"
