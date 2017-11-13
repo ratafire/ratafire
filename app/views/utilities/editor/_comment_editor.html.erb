@@ -16,7 +16,7 @@
     cursor: 'not-allowed'
 	},});	
     $('#comment_editor_content').donetyping(function(){
-    	if (this.value.length > 37) {
+    	if (this.value.length > 3) {
     		$('#editor-submition-block').unblock();
     	} else {
     		var data = $('#editor-submition-block').data();

@@ -20,12 +20,21 @@ private
 
     def data
         transfer.map do |transfer|
+            if transfer.currency != nil
             [
                 '<span class="bg-grey-100 pl-5 pr-5">'+transfer.uuid+"</span>",
                 transfer.created_at.strftime('%Y/%m/%d'),
                 number_to_currency(transfer.amount, unit: currency_signs(transfer.currency)),
                 '<span class="label '+transfer_color(transfer.status)+'">'+I18n.t(transfer_status(transfer.status))+'</span>',
             ]
+            else
+            [
+                '<span class="bg-grey-100 pl-5 pr-5">'+transfer.uuid+"</span>",
+                transfer.created_at.strftime('%Y/%m/%d'),
+                number_to_currency(transfer.amount),
+                '<span class="label '+transfer_color(transfer.status)+'">'+I18n.t(transfer_status(transfer.status))+'</span>',
+            ]
+            end
         end
     end
 
