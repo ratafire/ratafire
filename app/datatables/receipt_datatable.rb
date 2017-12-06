@@ -25,7 +25,7 @@ private
             link_to(User.find(transaction_subset.subscribed_id).preferred_name, profile_url_path(User.find(transaction_subset.subscribed_id).username),target:"_blank"),
             transaction_subset.updates.to_s,
             transaction_subset.description,
-            currency_signs(transaction_subset.currency)+transaction_subset.amount.to_s
+            currency_signs(transaction_subset.currency)+transaction_subset.amount.to_s,
           ]
         end
     end
