@@ -1,6 +1,6 @@
 <div class="row p-20 m-5">
 	<div class="col-md-3">
-		<span class="bg-grey-100 pl-5 pr-5"><%= transaction.uuid %></span>
+		<span class="bg-grey-100 pl-5 pr-5"><%= transaction.stripe_id %></span>
 	</div>
 	<div class="col-md-3">
 		<%= transaction.created_at.strftime('%Y/%m/%d')%>

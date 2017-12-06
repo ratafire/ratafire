@@ -13,7 +13,7 @@
 			</div>
 			<div class="panel-body" id="add-bank-account-panel-body">
 				<div class="row m-5">
-					<h2 class="text-thin text-grey"><%= t 'views.creator_studio.receipt.receipt'%> <%= @transaction.created_at.strftime('%Y/%m')%><span class="bg-grey-100 pl-10 pr-10 ml-10"><%= @transaction.uuid %></span></h2>
+					<h2 class="text-thin text-grey"><%= t 'views.creator_studio.receipt.receipt'%> <%= @transaction.created_at.strftime('%Y/%m')%><span class="bg-grey-100 pl-10 pr-10 ml-10"><%= @transaction.stripe_id %></span></h2>
 				</div>
 				<!-- Payment table -->
 				<%= render partial: 'studio/wallets/receipt_table', locals: {user: @user, transaction: @transaction} %>
