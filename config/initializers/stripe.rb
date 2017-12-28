@@ -47,6 +47,7 @@ StripeEvent.configure do |events|
 	# end		
 
 	events.all do |event|
+		# Transfer
 		if event.data.object.object == 'transfer'
 			if @transfer = Transfer.find_by_stripe_transfer_id(event.data.object.id)
 				Transfer.update_transfer(event.data.object)
@@ -57,6 +58,18 @@ StripeEvent.configure do |events|
 			if @stripe_account = StripeAccount.find_by_stripe_id(event.data.object.id)
 				StripeAccount.stripe_account_update(event.data.object, @stripe_account.user_id)
 			end
+		end
+		# Dispute
+		if event.data.object.object == 'dispute'
+			if @dispute = Dispute.find_by_stripe_dispute_id(event.data.object.id)
+				Dispute.update_dispute(event.data.object)
+			else
+				Dispute.create_dispute(event.data.object)
+			end
+		end
+		# Refund
+		if event.data.object.object == 'refund'
+			# Write later
 		end
 	end
 

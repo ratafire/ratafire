@@ -93,6 +93,9 @@ class Transaction < ActiveRecord::Base
     #Has many
     has_many :transaction_subsets, :foreign_key => 'transaction_id', class_name: "TransactionSubset"
 
+    #Has one
+    has_one :dispute
+
 private
 
     def generate_uuid!

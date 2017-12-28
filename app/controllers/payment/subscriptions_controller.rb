@@ -791,7 +791,7 @@ private
 
 	def check_if_all_gone
 		if params[:subscription][:get_reward] == 'on'
-			if @subscribed.active_reward.backers > 0 && @subscribed.active_reward.reward_receivers.count >= @subscribed.active_reward.backers
+			if @subscribed.active_reward.backers > 0 && @subscribed.active_reward.active_receivers.count >= @subscribed.active_reward.backers
 				flash[:alert] = t('errors.messages.all_gone')
 				redirect_to new_user_payment_backs_path(@subscribed.uid)
 			end

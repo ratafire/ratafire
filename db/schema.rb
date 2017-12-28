@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170527025532) do
+ActiveRecord::Schema.define(version: 20171221033823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -321,6 +321,32 @@ ActiveRecord::Schema.define(version: 20170527025532) do
     t.text     "test"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "balance_transactions", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "dispute_id"
+    t.string   "stripe_balance_transaction_id"
+    t.decimal  "amount",                        precision: 10, scale: 2
+    t.integer  "stripe_amount"
+    t.datetime "available_on"
+    t.datetime "stripe_created"
+    t.string   "currency"
+    t.string   "description"
+    t.integer  "stripe_fee"
+    t.decimal  "fee",                           precision: 10, scale: 2
+    t.string   "fee_description"
+    t.string   "fee_type"
+    t.integer  "stripe_net"
+    t.decimal  "net",                           precision: 10, scale: 2
+    t.string   "source"
+    t.string   "stripe_status"
+    t.string   "stripe_type"
+    t.string   "uuid"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.string   "stripe_object"
   end
 
   create_table "bank_accounts", force: :cascade do |t|
@@ -656,6 +682,35 @@ ActiveRecord::Schema.define(version: 20170527025532) do
     t.text     "uuid"
   end
 
+  create_table "debit_transfers", force: :cascade do |t|
+    t.string   "uuid"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.integer  "user_id"
+    t.integer  "subscription_id"
+    t.integer  "subscription_record_id"
+    t.integer  "dispute_id"
+    t.integer  "balance_transaction_id"
+    t.string   "stripe_id"
+    t.string   "stripe_object"
+    t.integer  "stripe_amount"
+    t.decimal  "amount",                        precision: 10, scale: 2
+    t.integer  "stripe_amount_reversed"
+    t.decimal  "amount_reversed",               precision: 10, scale: 2
+    t.string   "stripe_balance_transaction_id"
+    t.string   "currency"
+    t.string   "description"
+    t.string   "stripe_destination"
+    t.string   "stripe_destination_payment"
+    t.string   "livemode"
+    t.boolean  "reversed"
+    t.string   "stripe_source_transaction"
+    t.string   "stripe_source_type"
+    t.string   "stripe_transfer_group"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+  end
+
   create_table "deviantarts", id: :bigserial, force: :cascade do |t|
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -739,6 +794,77 @@ ActiveRecord::Schema.define(version: 20170527025532) do
     t.boolean  "abandoned"
     t.boolean  "featured_home",                   default: false
     t.boolean  "listed"
+  end
+
+  create_table "dispute_evidences", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "subscriber_id"
+    t.integer  "subscribed_id"
+    t.integer  "subscription_id"
+    t.integer  "dispute_id"
+    t.integer  "reward_id"
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "access_activity_log"
+    t.string   "billing_address"
+    t.string   "cancellation_policy"
+    t.string   "cancellation_policy_disclosure"
+    t.string   "cancellation_rebuttal"
+    t.string   "customer_communication"
+    t.string   "customer_email_address"
+    t.string   "customer_name"
+    t.string   "customer_purchase_ip"
+    t.string   "customer_signature"
+    t.string   "duplicate_charge_documentation"
+    t.string   "duplicate_charge_explanation"
+    t.string   "duplicate_charge_id"
+    t.string   "product_description"
+    t.string   "receipt"
+    t.string   "refund_policy"
+    t.string   "refund_policy_disclosure"
+    t.string   "refund_refusal_explanation"
+    t.string   "service_date"
+    t.string   "service_documentation"
+    t.string   "shipping_address"
+    t.string   "shipping_carrier"
+    t.string   "shipping_date"
+    t.string   "shipping_documentation"
+    t.string   "shipping_tracking_number"
+    t.string   "uncategorized_file"
+    t.string   "uncategorized_text"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  create_table "disputes", force: :cascade do |t|
+    t.string   "uuid"
+    t.integer  "subscriber_id"
+    t.integer  "subscribed_id"
+    t.integer  "subscription_id"
+    t.integer  "transaction_id"
+    t.string   "stripe_dispute_id"
+    t.string   "stripe_balance_transaction_id"
+    t.integer  "balance_transaction_id"
+    t.integer  "stripe_amount"
+    t.decimal  "amount",                        precision: 10, scale: 2
+    t.string   "stripe_charge_id"
+    t.datetime "stripe_created"
+    t.string   "currency"
+    t.boolean  "is_charge_refundable"
+    t.boolean  "livemode"
+    t.string   "reason"
+    t.string   "stripe_status"
+    t.integer  "dispute_evidence_id"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.datetime "deleted_at"
+    t.boolean  "deleted"
+    t.datetime "due_by"
+    t.boolean  "has_evidence"
+    t.boolean  "past_due"
+    t.integer  "submission_count"
+    t.integer  "reward_id"
+    t.integer  "reward_receiver_id"
   end
 
   create_table "donations", force: :cascade do |t|
@@ -2053,6 +2179,28 @@ ActiveRecord::Schema.define(version: 20170527025532) do
   add_index "redactor_assets", ["assetable_type", "assetable_id"], name: "idx_17182_idx_redactor_assetable", using: :btree
   add_index "redactor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_17182_idx_redactor_assetable_type", using: :btree
 
+  create_table "refunds", force: :cascade do |t|
+    t.boolean  "deleted"
+    t.datetime "deleted_at"
+    t.string   "uuid"
+    t.integer  "subscriber_id"
+    t.integer  "subscribed_id"
+    t.integer  "subscription_id"
+    t.integer  "transaction_id"
+    t.string   "stripe_refund_id"
+    t.integer  "stripe_amount"
+    t.decimal  "amount",                     precision: 10, scale: 2
+    t.string   "stripe_charge_id"
+    t.string   "stripe_balance_transaction"
+    t.datetime "stripe_created"
+    t.string   "currency"
+    t.string   "reason"
+    t.string   "stripe_receipt_number"
+    t.string   "stripe_status"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+  end
+
   create_table "renrens", force: :cascade do |t|
     t.text     "test"
     t.boolean  "deleted"
@@ -2099,6 +2247,9 @@ ActiveRecord::Schema.define(version: 20170527025532) do
     t.string   "shipping_address_id"
     t.boolean  "paid",                                            default: false
     t.decimal  "amount",                 precision: 10, scale: 2, default: 0.0
+    t.boolean  "disputed"
+    t.datetime "disputed_at"
+    t.integer  "dispute_id"
   end
 
   create_table "reward_translations", force: :cascade do |t|
@@ -2727,6 +2878,9 @@ ActiveRecord::Schema.define(version: 20170527025532) do
     t.integer  "reward_id"
     t.integer  "updates",                                                    default: 0
     t.integer  "order_subset_id"
+    t.boolean  "disputed"
+    t.datetime "disputed_at"
+    t.integer  "dispute_id"
   end
 
   create_table "transfer_subsets", force: :cascade do |t|

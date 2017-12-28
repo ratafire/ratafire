@@ -86,6 +86,11 @@ class Studio::WalletsController < ApplicationController
 		end
 	end
 
+	#disputes_user_studio_wallets GET
+	#/users/:user_id/studio/wallet/disputes
+	def disputes
+	end
+
 protected
 
 	def load_user

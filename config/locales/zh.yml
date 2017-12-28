@@ -410,6 +410,8 @@ zh:
         in_transit: "转账中"
         canceled: "已取消"
         failed: "失败"
+      dispute:
+        disputes: "争议"
     campaign:
       upload_project_image: "上传项目图片"
       upload_project_image_help: "请为你的项目上传一张大图"
@@ -582,6 +584,7 @@ zh:
         backed: "支持了"
         per_creation: "每件创作"
         per_month: "每月"
+        refund: "退款"
     game:
       level: "等级"
       you_have_reached_level: "你已到达等级"      
@@ -1051,6 +1054,12 @@ zh:
         ready_for_download: "可以下载了"
         shipping_payment_failed: "邮费付款失败"
         shipping_payment_failed_help: "你的邮费付款失败。请更新支付方式并重新确认付款."
+      dispute:
+        line1_1: payment from
+        line2_1: disputed as fraudulent
+        line3_1: The cardholder disputed this charge with their bank, and the bank decided to return the payment to them. This amount and a $15.00 fee will be deducted from your account within a day.
+        line2_2: received idspute inquiry
+        line2_2:  This is an inquiry. You have a chance to prevent a chargeback. The cardholder disputed this charge with their bank, who is requesting more information to decide whether to return the payment to them.
   flash:
     user:
       email_not_confirmed: "你必须验证邮箱。"

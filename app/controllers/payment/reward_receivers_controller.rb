@@ -278,4 +278,5 @@ private
 		params.require(:reward_receiver).permit(:shipping_company, :tracking_number)
 	end
 
+
 end

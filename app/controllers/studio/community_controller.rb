@@ -31,6 +31,11 @@ class Studio::CommunityController < ApplicationController
 	def followers
 	end
 
+	#charges_user_studio_community GET
+	#/users/:user_id/studio/community/:subscriber_id/charges
+	def charges
+	end
+
 	#ratafire_buttons_user_studio_community GET
 	#/users/:user_id/studio/community/ratafire_buttons
 	def ratafire_buttons
@@ -70,6 +75,11 @@ class Studio::CommunityController < ApplicationController
 			format.html
 			format.json { render json: FollowersDatatable.new(view_context) }
 		end
+	end
+
+	#charges_datatable_user_studio_community GET
+	#/users/:user_id/studio/community/:subscriber_id/charges_datatable
+	def charges_datatable
 	end
 
 protected

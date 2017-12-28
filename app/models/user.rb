@@ -148,6 +148,27 @@ class User < ActiveRecord::Base
         through: :reverse_subscriptions, 
         source: :subscribed
 
+    #--------Disputes---------
+    has_many :disputes, 
+        -> { where( disputes: { :deleted_at => nil }) },
+        foreign_key: "subscribed_id", 
+        class_name: "Dispute", 
+        dependent: :destroy
+    has_many :disputers,
+        -> { where( disputes: { :deleted_at => nil }) },
+        through: :disputes, 
+        source: :disputers
+
+    has_many :reverse_disputes, 
+        -> { where( disputes: { :deleted_at => nil }) },
+        foreign_key: "disputer_id", 
+        class_name: "Dispute", 
+        dependent: :destroy
+    has_many :disputed, 
+        -> { where( disputes: { :deleted_at => nil }) },
+        through: :reverse_disputes, 
+        source: :disputed 
+
     #--------Payment---------
     has_one :paypal_account,
         -> { where( paypal_accounts: { :deleted_at => nil, :organization_id => nil, :organization_application_id => nil }) }

@@ -23,6 +23,8 @@ class Reward < ActiveRecord::Base
     accepts_nested_attributes_for :shippings, :allow_destroy => true   
     has_many :reward_receivers,
         -> { where( reward_receivers: { :deleted => nil }) }
+    has_many :active_receivers,
+        -> { where( reward_receivers: { :disputed => nil, :deleted => nil }) }        
     has_many :shipping_orders
     #Has one
     has_one :shipping_anywhere, class_name: "ShippingAnywhere", dependent: :destroy

@@ -1,6 +1,6 @@
 class BackersDatatable
 
-    delegate :params, :t, :link_to,:image_tag,:user_payment_subscriptions_path,:subscribed_by?, :profile_url_path,:raw, to: :@view
+    delegate :params, :t, :link_to,:image_tag,:user_payment_subscriptions_path,:charges_user_studio_community_path,:subscribed_by?, :profile_url_path,:raw, to: :@view
 
     def initialize(view)
     	@view = view
@@ -25,14 +25,16 @@ private
             	link_to(image_tag(subscriber.profilephoto.image.url(:thumbnail40), class:"border-radius-3"), profile_url_path(subscriber.username)),
                 link_to(subscriber.preferred_name, profile_url_path(subscriber.username)),
                 "<img class='mr-5' src='/assets/icon/fruity/hazel_nut_thumbnail24.png' style='height:24px;'><span class='ml-5 mr-5'>x</span>"+SubscriptionRecord.find_by_subscribed_id_and_subscriber_id(user.id,subscriber.id).accumulated_total.to_i.to_s,
-                link_to(raw('<div class="btn btn-default">'+I18n.t('views.utilities.editor.remove_btn')+'</div>'),user_payment_subscriptions_path(subscriber.uid), method: :delete, data: { confirm: t('views.utilities.btn.are_you_sure_to')+t('views.utilities.btn.remove_backer')+'?'})
+                link_to(raw('<div class="btn btn-default">'+I18n.t('views.utilities.editor.remove_btn')+'</div>'),user_payment_subscriptions_path(subscriber.uid), method: :delete, data: { confirm: t('views.utilities.btn.are_you_sure_to')+t('views.utilities.btn.remove_backer')+'?'}),
+                link_to(raw('<div class="btn btn-default">'+I18n.t('views.payment.backs.refund')+'</div>'),charges_user_studio_community_path(user.id,subscriber.id))
             ]
         else
             [
                 link_to(image_tag(subscriber.profilephoto.image.url(:thumbnail40), class:"border-radius-3"), profile_url_path(subscriber.username)),
                 link_to(subscriber.preferred_name, profile_url_path(subscriber.username)),
                 "<img class='mr-5' src='/assets/icon/fruity/hazel_nut_thumbnail24.png' style='height:24px;'><span class='ml-5 mr-5'>x</span>"+SubscriptionRecord.find_by_subscribed_id_and_subscriber_id(user.id,subscriber.id).accumulated_total.to_i.to_s,
-                ""
+                "",
+                link_to(raw('<div class="btn btn-default">'+I18n.t('views.payment.backs.refund')+'</div>'),charges_user_studio_community_path(user.id,subscriber.id))
             ]
         end
         end

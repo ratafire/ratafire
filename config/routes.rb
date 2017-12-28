@@ -94,6 +94,7 @@ Rails.application.routes.draw do
 					get 'single_receipt/:transaction_id', to: 'wallets#single_receipt', as: :single_receipt
 					get 'single_receipt_datatable/:transaction_id', to: 'wallets#single_receipt_datatable', as: :single_receipt_datatable
 					get 'transfers'
+					get 'disputes'
 				end
 				#Shipping address
 				resource :shipping_addresses, only:[:create] do
@@ -151,11 +152,13 @@ Rails.application.routes.draw do
 					get 'backers', to: 'community#backers', as: :backers
 					get 'followed', to: 'community#followed', as: :followed
 					get 'followers', to: 'community#followers', as: :followers
+					get ':subscriber_id/charges', to: "community#charges", as: :charges
 					get 'ratafire_buttons', to: 'community#ratafire_buttons', as: :ratafire_buttons
 					get 'backed_datatable', to: 'community#backed_datatable', as: :backed_datatable
 					get 'backers_datatable', to: 'community#backers_datatable', as: :backers_datatable
 					get 'followed_datatable', to: 'community#followed_datatable', as: :followed_datatable
 					get 'followers_datatable', to: 'community#followers_datatable', as: :followers_datatable 
+					get ':subscriber_id/charges_datatable', to: "community#charges_datatable", as: :charges_datatable
 				end
 				#Traits
 				resource :traits, only: [:show] do
@@ -219,6 +222,10 @@ Rails.application.routes.draw do
 				resource :transfers, only:[:create] do 
 					get '/transfer_datatable', to: 'transfers#transfer_datatable', as: :tansfer_datatable
 					post '/transfer_schedule', to: "transfers#transfer_schedule", as: :transfer_schedule
+				end
+				#Refund
+				resource :refunds, only:[:create] do
+					#refund methods
 				end
 			end
 

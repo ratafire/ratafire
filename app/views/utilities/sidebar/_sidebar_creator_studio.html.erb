@@ -213,6 +213,7 @@
 							<% end %>
 						</a>
 						<ul>
+							<!-- Upcoming -->
 							<% if current_user.order && current_user.try(:order).try(:status) != 'Started' %>
 								<li id="wallets-upcoming-sidebaractive">
 									<%= link_to upcoming_user_studio_wallets_path(current_user.username) do %>
@@ -223,6 +224,7 @@
 									<% end %>
 								</li>
 							<% end %>
+							<!-- Receipts -->
 							<% if current_user.transactions.any? %>
 								<li id="wallets-receipts-sidebaractive">
 									<%= link_to receipts_user_studio_wallets_path(current_user.username) do %>
@@ -230,6 +232,7 @@
 									<% end %>
 								</li>
 							<% end %>
+							<!-- Trnasfers -->
 							<% if current_user.billing_artist %>
 								<li id="wallets-transfers-sidebaractive">
 									<%= link_to transfers_user_studio_wallets_path(current_user.username) do %>
@@ -238,6 +241,15 @@
 								</li>
 								<li class="navigation-divider"></li>
 							<% end %>
+							<!-- Disputes -->
+							<% if current_user.disputes.any? %>
+								<li id="wallets-disputes-sidebaractive">
+									<%= link_to disputes_user_studio_wallets_path(current_user.username) do %>
+										<%= t 'views.creator_studio.dispute.disputes' %>
+									<% end %>
+								</li>
+							<% end %>
+							<!-- Payment Methods -->
 							<li id="wallets-how_i_pay-sidebaractive">
 								<%= link_to how_i_pay_user_studio_wallets_path(current_user.username) do %>
 									<%= t 'views.creator_studio.menu.how_i_pay'%>

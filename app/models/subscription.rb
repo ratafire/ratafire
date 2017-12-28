@@ -37,6 +37,8 @@ class Subscription < ActiveRecord::Base
     has_many :shipping_addresses
     accepts_nested_attributes_for :shipping_addresses, limit: 1, :allow_destroy => true
 
+    has_many :disputes
+
 	#has_one :amazon_recurring
 
 	#Reasons a subscription stopped

@@ -411,6 +411,8 @@ en:
         in_transit: "In transit"
         canceled: "Canceled"
         failed: "Failed"
+      dispute:
+        disputes: "Disputes"
     campaign:
       upload_project_image: "Upload a project image"
       upload_project_image_help: "Please upload a large image to represent your project"
@@ -584,6 +586,7 @@ en:
         backed: " backed"
         per_creation: " per creation"
         per_month: " per month"
+        refund: "Refund"
     game:
       level: "Level"
       you_have_reached_level: "You've reached level "
@@ -1054,6 +1057,12 @@ en:
         ready_for_download: " is ready for download"
         shipping_payment_failed: "Shipping payment failed"
         shipping_payment_failed_help: "Your shipping fee payment failed. Please update your payment method and confirm the payment again."
+      dispute:
+        line1_1: payment from
+        line2_1: disputed as fraudulent
+        line3_1: The cardholder disputed this charge with their bank, and the bank decided to return the payment to them. This amount and a $15.00 fee will be deducted from your account within a day.
+        line2_2: received idspute inquiry
+        line2_2:  This is an inquiry. You have a chance to prevent a chargeback. The cardholder disputed this charge with their bank, who is requesting more information to decide whether to return the payment to them.
   flash:
     user:
       email_not_confirmed: "You need to confirm your email address first."
