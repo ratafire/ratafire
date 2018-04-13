@@ -178,30 +178,35 @@ class Campaign < ActiveRecord::Base
         end
         user = User.find(self.user_id)
         #Check if user profile photo presents
-        unless user.profilephoto.image.present?
-            errors.add(:profilephoto, I18n.t('views.campaign.error_user_profile_photo'))
-            campaign_status = false
-        end
+        # unless user.profilephoto.image.present?
+        #     errors.add(:profilephoto, I18n.t('views.campaign.error_user_profile_photo'))
+        #     campaign_status = false
+        # end
         #Check if user verification presents
-        unless user.identity_verification
-            errors.add(:profilephoto, I18n.t('views.campaign.error_user_identity_verification'))
-            campaign_status = false
-        end
+        # unless user.identity_verification
+        #     errors.add(:profilephoto, I18n.t('views.campaign.error_user_identity_verification'))
+        #     campaign_status = false
+        # end
         #Check if user bank account presents
-        unless user.bank_account
-            errors.add(:profilephoto, I18n.t('views.campaign.error_user_bank_account'))
-            campaign_status = false
-        end
+        # unless user.bank_account
+        #     errors.add(:profilephoto, I18n.t('views.campaign.error_user_bank_account'))
+        #     campaign_status = false
+        # end
         #Check if user has tagline
-        unless user.tagline
-            errors.add(:profilephoto, I18n.t('views.campaign.error_user_tagline'))
-            campaign_status = false
-        end
+        # unless user.tagline
+        #     errors.add(:profilephoto, I18n.t('views.campaign.error_user_tagline'))
+        #     campaign_status = false
+        # end
         #Check if user has short bio
-        unless user.bio
-            errors.add(:profilephoto, I18n.t('views.campaign.error_user_bio'))
+        # unless user.bio
+        #     errors.add(:profilephoto, I18n.t('views.campaign.error_user_bio'))
+        #     campaign_status = false
+        # end
+        #Check if user has paypal
+        unless user.paypal_account
+            errors.add(:paypal_email, I18n.t('views.campaign.error_paypal_account'))
             campaign_status = false
-        end
+        end        
         #Check if user has a campaign pending
         user.campaigns.each do |campaign|
             if campaign.status == "Pending"

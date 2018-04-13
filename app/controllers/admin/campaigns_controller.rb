@@ -35,10 +35,9 @@ class Admin::CampaignsController < ApplicationController
 	#/admin/campaigns/approve/:campaign_id
 	def approve
 		if @campaign.update(
-			status: "Approved",
-			published: true,
-			published_at: Time.now,
-			due: @campaign.duration.years.from_now
+			review_status: "Approved",
+			reviewed: true,
+			reviewed_at: Time.now
 		)
 			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@campaign.id,'Campaign')
 				@activity.update(
@@ -46,36 +45,30 @@ class Admin::CampaignsController < ApplicationController
 					status: "Approved"
 				)
 			end
-			@campaign.user.update(
-				creator: true,
-				creator_at: Time.now
-			)
 			#Add search
 			Resque.enqueue(Search::ChangeIndex, 'campaign',@campaign.id,'create')			
 		end
-		@campaign.rewards.last.update(
-			active: true
-		)
 		redirect_to user_admin_campaigns_path(current_user.id)
 		#Send email
-		Studio::CampaignsMailer.review(@campaign.id).deliver_now
-		#Create notification
-		Notification.create(
-			user_id: @campaign.user.id,
-			trackable_id: @campaign.id,
-			trackable_type: "Campaign",
-			notification_type: "project_approved"
-		)
-		#add score
-		@campaign.user.add_score("quest_lg")
+		#Studio::CampaignsMailer.review(@campaign.id).deliver_now
 	end
 
 	#disapprove_admin_campaigns GET
 	#/admin/campaigns/disapprove/:campaign_id
 	def disapprove
 		@campaign.update(
-			status: "Disapprove"
+			status: "Disapprove",
+			review_status: nil,
+			published: nil,
+			published_at: nil
 		)
+		@campaign.user.update(
+			creator: nil,
+			creator_at: nil
+		)			
+		@campaign.rewards.last.update(
+			active: nil
+		)			
 		redirect_to user_admin_campaigns_path(current_user.id)
 		#Send email
 		Studio::CampaignsMailer.review(@campaign.id).deliver_now
@@ -87,6 +80,27 @@ class Admin::CampaignsController < ApplicationController
 			notification_type: "project_declined"
 		)
 	end	
+
+	#hide_admin_campaigns GET
+	#/admin/campaigns/hide/:campaign_id	
+	def hide
+		if @campaign.update(
+			review_status: "Hide",
+			reviewed: true,
+			reviewed_at: Time.now
+		)
+			if @activity = PublicActivity::Activity.find_by_trackable_id_and_trackable_type(@campaign.id,'Campaign')
+				@activity.update(
+					published: true,
+					status: "Hide",
+					test: true
+				)
+			end		
+		end
+		redirect_to user_admin_campaigns_path(current_user.id)
+		#Send email
+		#Studio::CampaignsMailer.review(@campaign.id).deliver_now
+	end
 
 private
 

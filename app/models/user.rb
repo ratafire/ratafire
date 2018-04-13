@@ -175,6 +175,7 @@ class User < ActiveRecord::Base
     has_one :stripe_account
     has_one :customer
     has_one :bank_account
+    has_one :paypal_account
     has_one :card
     has_one :billing_subscription,
         -> { where(billing_subscriptions:{:deleted => nil})}

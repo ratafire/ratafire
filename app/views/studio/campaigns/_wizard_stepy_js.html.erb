@@ -169,7 +169,14 @@ $(function() {
     $('.save-button').click(function(){
         //submit form
         $("#campaign-wizard").trigger('submit.rails');
-    });     
+    });  
+
+    //Submit form
+    $('#add-paypal-account').click(function(){
+        //submit form
+        $("#campaign-wizard").trigger('submit.rails');
+    }); 
+
     <% if browser.platform.windows7? && browser.chrome? %>
         $('.stepy-navigator').prepend(
                                     '<%= link_to delete_user_studio_campaigns_path(@campaign.user.id, @campaign.id), method: :delete do %><span class="pull-left btn btn-default"><%= t 'views.utilities.editor.delete' %></span><% end %><button class=\"btn bg-green save-button\" >\

@@ -91,6 +91,16 @@ class Studio::WalletsController < ApplicationController
 	def disputes
 	end
 
+	#paypal_user_studio_wallets GET
+	#/users/:user_id/studio/wallet/paypal
+	def paypal
+		if @user.paypal_account
+			@paypal_account = @user.paypal_account
+		else
+			@paypal_account = PaypalAccount.new
+		end		
+	end
+
 protected
 
 	def load_user

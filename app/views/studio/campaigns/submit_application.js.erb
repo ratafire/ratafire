@@ -1,10 +1,11 @@
-<% if @campaign.status == "Pending" %>
+<% if @campaign.status == "Approved" %>
 	//scroll to top
 	$("html").velocity("scroll", {});
 	$('#application-form-holder').velocity("slideUp", { duration: 1000 });
 	//Start jummping around
 	$('#campaign-user-image').addClass("animated infinite bounce");
 	$('#application-text').html('<p><%= t "views.campaign.congratulations_line1" %></p><p><%= t "views.campaign.congratulations_line2" %></p><p><%= link_to root_path do %><span class="btn btn-blue btn-xlg"><i class="icon-enter mr-10"></i><%= t "views.utilities.editor.back" %></span><% end %></p>');
+	$('#guide-to-apply').hide();
 <% else %>
 	$('#error-messages-content').remove();
 	$('#error-messages').append("<%= j render(:partial => 'studio/campaigns/error_messages', :locals => {:campaign => @campaign}) %>");

@@ -119,7 +119,7 @@
 								<%= link_to dashboard_user_admin_dashboard_path(current_user.id),:data => {turbolinks: "false"} do %>
 									<i class="huaxia huaxia-tilong"></i><%= t 'views.utilities.menu.war_room' %>
 	                            	<% if Campaign.where(:status => "Pending").any? %>
-	                                	<span class="badge bg-warning"><%= Campaign.where(:status => "Pending").count %></span>
+	                                	<span class="badge bg-warning"><%= Campaign.where(:review_status => "Pending").count %></span>
 	                            	<% end %>
 								<% end %>
 							</li>

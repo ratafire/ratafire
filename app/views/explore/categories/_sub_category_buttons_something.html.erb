@@ -1,0 +1,7 @@
+<%= link_to something_category_path do %><span id="categories-something-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.menu.all' %></span><% end %>
+<%= link_to something_new_path do %><span id="categories-something_new-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.something.something_new' %></span><% end %>
+<%= link_to something_old_path do %><span id="categories-something_old-btn" class="btn btn-default btn-xs mt-5"><%= t 'views.utilities.category.something.something_old' %></span><% end %>
+<script type="text/javascript">
+	$('#<%= controller_name %>-<%= action_name %>-btn').removeClass('btn-default');
+	$('#<%= controller_name %>-<%= action_name %>-btn').addClass('btn-blue');
+</script>

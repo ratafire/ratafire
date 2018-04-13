@@ -1,0 +1,19 @@
+<!--~~~~~~~~~~~~~~~~~ Before ~~~~~~~~~~~~~~~~~-->
+<!-- Page Title -->
+<% provide(:title, sanitize(@user.preferred_name)) %>
+<!-- Page Specific JS -->
+<!--~~~~~~~~~~~~~~~~~ Page Content ~~~~~~~~~~~~~~~~~-->
+<div class="panel panel-blue bg-white-transparent">
+	<div class="panel-heading">
+		<h6 class="panel-title text-thin"><i class="fa fa-paypal mr-10"></i><%= t 'views.creator_studio.menu.paypal'%></h6>
+		<div class="heading-elements">
+    	</div>
+	</div>
+	<div class="panel-body" id="add-paypal-account-panel-body">
+		<% if @user.paypal_account %>
+			<%= render partial: "studio/wallets/paypal_account", locals: {user: @user, paypal_account: @paypal_account} %>
+		<% else %>
+			<%= render partial: "studio/wallets/add_paypal_account", locals: {user: @user, paypal_account: @paypal_account} %>
+		<% end %>
+	</div>
+</div>

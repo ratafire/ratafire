@@ -95,6 +95,7 @@ Rails.application.routes.draw do
 					get 'single_receipt_datatable/:transaction_id', to: 'wallets#single_receipt_datatable', as: :single_receipt_datatable
 					get 'transfers'
 					get 'disputes'
+					get 'paypal'
 				end
 				#Shipping address
 				resource :shipping_addresses, only:[:create] do
@@ -193,6 +194,15 @@ Rails.application.routes.draw do
 				resource :bank_accounts, only:[:create, :update, :destroy] do
 					get 'edit'
 				end
+
+				#PayPal account
+				resource :paypal_accounts, only:[:create, :update, :destroy] do
+					get 'edit'
+					get 'create_campaign'
+					get 'update_campaign'
+					get 'edit_campaign'
+				end
+
 				#card
 				resource :cards, only:[:create, :update, :destroy] do
 					get 'edit'
@@ -317,6 +327,7 @@ Rails.application.routes.draw do
 			get 'explore/categories/games', to: 'explore/categories#games', as: :games_category
 			get 'explore/categories/writing', to: 'explore/categories#writing', as: :writing_category
 			get 'explore/categories/videos', to: 'explore/categories#videos', as: :videos_category
+			get 'explore/categories/something', to: 'explore/categories#something', as: :something_category
 
 			#Art
 			get 'explore/categories/art/a_new_field', to: 'explore/categories#art_a_new_field', as: :art_a_new_field
@@ -378,6 +389,10 @@ Rails.application.routes.draw do
 			get 'explore/categories/videos/storytelling', to: 'explore/categories#videos_storytelling', as: :videos_storytelling
 			get 'explore/categories/videos/other', to: 'explore/categories#videos_other', as: :videos_other			
 
+			#Something
+			get 'explore/categories/something/something_new', to: 'explore/categories#something_new', as: :something_new
+			get 'explore/categories/something/something_old', to: 'explore/categories#something_old', as: :something_old
+
 			#Back creators
 			get 'explore/back_creators/', to: 'explore/explore#back_creators', as: :back_creators
 
@@ -428,6 +443,7 @@ Rails.application.routes.draw do
 			get '/review/:campaign_id', to: 'campaigns#review', as: :review 
 			get '/approve/:campaign_id', to: 'campaigns#approve', as: :approve
 			get '/disapprove/:campaign_id', to: 'campaigns#disapprove', as: :disapprove
+			get '/hide/:campaign_id', to: 'campaigns#hide', as: :hide
 		end
 		resource :tags, only:[:show] do 
 			get '/index', to: 'tags#index', as: :index

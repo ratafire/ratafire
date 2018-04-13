@@ -438,6 +438,23 @@ class Explore::CategoriesController < ApplicationController
 		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Videos", sub_category: "Other", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
 	end
 
+	#Something
+
+	def something
+		meta_category(:category => I18n.t('views.utilities.menu.something'))
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Something", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+	end
+
+	def something_new
+		meta_category(:category => I18n.t('views.utilities.menu.something'), :sub_category => I18n.t('views.utilities.category.something.something_new'))
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Something", sub_category: "Something New", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+	end
+
+	def something_old
+		meta_category(:category => I18n.t('views.utilities.menu.something'), :sub_category => I18n.t('views.utilities.category.something.something_old'))
+		@activities = PublicActivity::Activity.order("created_at desc").where(trackable_type: ["Majorpost","Campaign"], :published => true,category: "Something", sub_category: "Something Old", :test => false, :abandoned => nil).paginate(page: params[:page], :per_page => 6)
+	end
+
 private
 
 	def load_user

@@ -74,8 +74,8 @@ module ApplicationHelper
 			return 'views.utilities.menu.is_researching'
 		when 'Science'
 			return 'views.utilities.menu.is_researching'
-		when 'Humanity'
-			return 'views.utilities.menu.is_researching'
+		when 'Something'
+			return 'views.utilities.menu.is_creating'
 		when 'Engineering'
 			return 'views.utilities.menu.is_developing'
 		end
@@ -98,8 +98,8 @@ module ApplicationHelper
 			return 'views.utilities.menu.math'
 		when 'Science'
 			return 'views.utilities.menu.science'
-		when 'Humanity'
-			return 'views.utilities.menu.humanity'
+		when 'Something'
+			return 'views.utilities.menu.something'
 		when 'Engineering'
 			return 'views.utilities.menu.engineering'
 		end
@@ -192,7 +192,11 @@ module ApplicationHelper
 			return 'views.utilities.category.videos.storytelling'			
 			#Math
 			#Science
-			#Huamnity
+			#Something
+		when 'Something New'
+			return 'views.utilities.category.something.something_new'
+		when 'Something Old'
+			return 'views.utilities.category.something.something_old'
 			#Engineering
 		end
 	end
@@ -214,7 +218,7 @@ module ApplicationHelper
 			return 'bg-orange'
 		when 'Science'
 			return 'bg-brown'
-		when 'Humanity'
+		when 'Something'
 			return 'bg-purple'
 		when 'Engineering'
 			return 'bg-slate'

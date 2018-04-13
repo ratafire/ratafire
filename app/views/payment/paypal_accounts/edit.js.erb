@@ -1,0 +1,2 @@
+$('#current-paypal-account-holder').remove();
+$('#add-paypal-account-panel-body').append("<%= j render(:partial => 'studio/wallets/add_paypal_account', :locals => {user: @user, paypal_account: @paypal_account}) %>");

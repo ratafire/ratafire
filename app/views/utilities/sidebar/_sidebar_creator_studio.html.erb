@@ -232,25 +232,31 @@
 									<% end %>
 								</li>
 							<% end %>
+							<!-- PayPal -->
+							<li id="wallets-paypal-sidebaractive">
+								<%= link_to paypal_user_studio_wallets_path(current_user.username) do %>
+									<%= t 'views.creator_studio.menu.paypal'%>
+								<% end %>
+							</li>
 							<!-- Trnasfers -->
-							<% if current_user.billing_artist %>
+<!-- 							<% if current_user.billing_artist %>
 								<li id="wallets-transfers-sidebaractive">
 									<%= link_to transfers_user_studio_wallets_path(current_user.username) do %>
 										<%= t 'views.creator_studio.transfer.transfers'%>
 									<% end %>
 								</li>
 								<li class="navigation-divider"></li>
-							<% end %>
+							<% end %> -->
 							<!-- Disputes -->
-							<% if current_user.disputes.any? %>
+<!-- 							<% if current_user.disputes.any? %>
 								<li id="wallets-disputes-sidebaractive">
 									<%= link_to disputes_user_studio_wallets_path(current_user.username) do %>
 										<%= t 'views.creator_studio.dispute.disputes' %>
 									<% end %>
 								</li>
-							<% end %>
+							<% end %> -->
 							<!-- Payment Methods -->
-							<li id="wallets-how_i_pay-sidebaractive">
+<!-- 							<li id="wallets-how_i_pay-sidebaractive">
 								<%= link_to how_i_pay_user_studio_wallets_path(current_user.username) do %>
 									<%= t 'views.creator_studio.menu.how_i_pay'%>
 								<% end %>
@@ -259,7 +265,7 @@
 								<%= link_to how_i_get_paid_user_studio_wallets_path(current_user.username) do %>
 									<%= t 'views.creator_studio.menu.how_i_get_paid'%>
 								<% end %>
-							</li>						
+							</li>		 -->				
 						</ul>
 					</li>
 				</ul>

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.2"
+ruby "2.3.3"
 #------------------------ User ------------------------
 #Signups and sessions
 gem 'devise', '3.5.10'
@@ -24,6 +24,7 @@ gem 'omniauth-facebookposts', :git => 'git://github.com/ratafire/omniauth-facebo
 gem 'omniauth-paypal', :git => "git://github.com/ratafire/omniauth-paypal"
 gem 'open_uri_redirections' #To get Facebook image
 gem "koala", "~> 2.0" #To get Facebook realtime update
+#gem 'omniauth-paypal-oauth2'
 
 #Identity Verification
 gem 'identified'

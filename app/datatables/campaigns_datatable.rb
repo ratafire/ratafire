@@ -35,7 +35,7 @@ private
     end
 
     def fetch_campaigns
-        campaigns = Campaign.where(:status => "Pending").order("#{sort_column} #{sort_direction}")
+        campaigns = Campaign.where(:review_status => "Pending").order("#{sort_column} #{sort_direction}")
         campaigns = campaigns.page(page).per_page(per_page)
         if params[:sSearch].present?
           campaigns = campaigns.where("title like :search or user_id like :search or category like :search or sub_category like :search", search: "%#{params[:sSearch]}%")

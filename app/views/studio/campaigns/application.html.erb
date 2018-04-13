@@ -34,7 +34,9 @@
 						<% if @campaign.category == "Art" %>
 							<%= t 'views.campaign.become_an' %>
 						<% else %>
-							<%= t 'views.campaign.become_a' %>
+							<% if @campaign.category != "Something" %>
+								<%= t 'views.campaign.become_a' %>
+							<% end %>
 						<% end %>
 						<% if @campaign.category == "Art" %>
 							<%= t 'views.campaign.art_creator' %>
@@ -50,6 +52,9 @@
 						<% end %>
 						<% if @campaign.category == "Videos" %>
 							<%= t 'views.campaign.video_creator' %>
+						<% end %>
+						<% if @campaign.category == "Something" %>
+							<%= t 'views.campaign.something_creator' %>
 						<% end %>
 					</h2>
 				</div>
@@ -95,12 +100,13 @@
 						<%= render partial: "studio/campaigns/form_creation", locals: { f: f } %>
 
 						<!-- About You -->
-						<%= render partial: "studio/campaigns/form_artist_info", locals: { f: f } %>
+						<%= render partial: "studio/campaigns/form_creator_info", locals: { f: f } %>
 
 						<% if browser.platform.windows7? && browser.chrome? %>
 							<%= link_to I18n.t('views.utilities.editor.submit_btn'), submit_application_user_studio_campaigns_path(@user.id, @campaign.id), remote: true, class:"btn btn-blue stepy-finish" %>
 						<% else %>
-							<%= link_to I18n.t('views.utilities.editor.submit_btn'), submit_application_user_studio_campaigns_path(@user.id, @campaign.id), :data => { :confirm => t('views.campaign.please_confirm_your_application_submission') }, remote: true, class:"btn btn-blue stepy-finish" %>
+							<%= link_to I18n.t('views.utilities.editor.submit_btn'), submit_application_user_studio_campaigns_path(@user.id, @campaign.id), remote: true, class:"btn btn-blue stepy-finish" %>						
+<!-- 							<%= link_to I18n.t('views.utilities.editor.submit_btn'), submit_application_user_studio_campaigns_path(@user.id, @campaign.id), :data => { :confirm => t('views.campaign.please_confirm_your_application_submission') }, remote: true, class:"btn btn-blue stepy-finish" %> -->
 						<% end %>
 					
 					<% end %>
@@ -109,6 +115,19 @@
 			<div class="col-lg-2">
 			</div>
 		</div><!-- end row -->
+		<!-- Explaination -->
+		<div class="row" id="application-explaination">
+			<div class="col-lg-3">
+			</div>
+			<div class="col-lg-6 text-center text-grey-300 text-white" id="guide-to-apply">
+				<%= t 'views.campaign.application_explaination_1' %>
+				<%= link_to "/site/project-guidelines", target:"_blank", class:"text-grey-300" do %><u><%= t 'views.campaign.project_guidelines' %></u><% end %>
+				<%= t 'views.campaign.application_explaination_2' %>
+				<%= t 'views.campaign.application_explaination_3' %>
+			</div>			
+			<div class="col-lg-3">
+			</div>			
+		</div>
 	<% end %>
 </div><!-- end .content-->
 <!--~~~~~~~~~~~~~~~~~ Page Specific Javascript ~~~~~~~~~~~~~~~~~-->

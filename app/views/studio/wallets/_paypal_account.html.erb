@@ -1,0 +1,16 @@
+<div class="row bg-grey-100 p-20 m-5" id="current-paypal-account-holder">
+	<div class="col-lg-3">
+		<%= t 'views.creator_studio.paypal.paypal_email'%>
+	</div>
+	<div class="col-lg-7">
+		<%= @paypal_account.email %>
+	</div>
+	<div class="col-lg-2 text-right">
+		<%= link_to edit_user_payment_paypal_accounts_path(user.id), remote: true do %>
+			<div class="btn bg-blue btn-xs">
+				<b><i class="icon-pencil position-left"></i></b>
+				<%= t'views.utilities.editor.edit' %>
+			</div>
+		<% end %>
+	</div>
+</div>

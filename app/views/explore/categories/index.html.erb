@@ -188,15 +188,17 @@
 			</div>
 
 			<div class="col-lg-4 col-md-4 col-sm-6">
-				<div class="thumbnail developing_categories">
-					<div class="thumb">
-						<img src="/assets/default/categories/humanity_preview600.jpg" alt="">
-					</div>
-
-						<div class="panel-image-text position-absolute mt-40- ml-15">
-							<h4 class="no-margin text-thin"><%= t 'views.utilities.menu.humanity' %></h4>
+				<%= link_to something_category_path do %>
+					<div class="thumbnail">
+						<div class="thumb">
+							<img src="/assets/default/categories/humanity_preview600.jpg" alt="">
 						</div>
-				</div>
+
+							<div class="panel-image-text position-absolute mt-40- ml-15">
+								<h4 class="no-margin text-thin"><%= t 'views.utilities.menu.something' %></h4>
+							</div>
+					</div>
+				<% end %>
 			</div>
 
 			<div class="col-lg-4 col-md-4 col-sm-6">

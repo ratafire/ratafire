@@ -234,6 +234,7 @@ zh:
         upper_limits: "上限"
         inventory: "物品"
         character_progression: "角色面板"
+        paypal: "PayPal"
       projects:
         all_projects: "所有项目"
         new_project: "我有个新点子"
@@ -412,6 +413,10 @@ zh:
         failed: "失败"
       dispute:
         disputes: "争议"
+      paypal:
+        connect: "连接"
+        paypal_email: "PayPal Email"
+        add_paypal_message: "我们需要知道如何通过PayPal支付你。请输入一个有效的PayPal账户邮箱。"
     campaign:
       upload_project_image: "上传项目图片"
       upload_project_image_help: "请为你的项目上传一张大图"
@@ -429,6 +434,7 @@ zh:
       game_creator: "游戏创作者"
       writer: "作者"
       video_creator: "视频创作者"
+      something_creator: "造点什么！"
       upload_a_video_about_what_you_are_creating: "上传介绍视频"
       creators_with_a_video: "上传了视频的创作者赞赏成功率高一个数量级"
       start: "始于足下"
@@ -510,7 +516,7 @@ zh:
       show_them_a_cover_image: "首先给他们看一张封面图"
       a_long_description_for_your_creation: "为你的创作添加详细描述"
       long_description_creation_placeholder: "请详细描述你的创作。别忘记添加图片和视频。"
-      your_info_and_how_would_you_get_paid: "你的认证信息与收款方式"
+      your_info_and_how_would_you_get_paid: "你的收款方式"
       identity_verification: "实名认证"
       show_you_around: "以下部分不但重要，还会帮助你了解到哪修改你提交到火栗上的重要信息。"
       view: "查看"
@@ -527,11 +533,12 @@ zh:
       error_user_bank_account: "请添加银行账号。"
       error_user_tagline: "请添加个人一句话介绍。"
       error_user_bio: "请填写个人简介。"
+      error_paypal_account: "请填写PayPal邮箱。"
       you_have_a_pending_campaign: "你有项目正在审核中。提交新项目前请先等待审核结果。"
-      please_confirm_your_application_submission: "请确认提交申请。"
+      please_confirm_your_application_submission: "你的粉丝可以开始支持你了。"
       please_confirm_your_content_update: "你确定要更新本项目的长描述？每30天只能修改一次。"
-      congratulations_line1: "干得漂亮！你已提交申请。"
-      congratulations_line2: "我们需要至多24小时来审核。"
+      congratulations_line1: "干得漂亮！"
+      congratulations_line2: "你的粉丝可以开始支持你了。"
       upload_an_image_for_this_reward: "为这个奖励上传一张图片"
       upload_an_image_for_this_campaign: "为这个项目上传一张图片"
       you_completed_project: "很开心，完成了项目："
@@ -540,6 +547,10 @@ zh:
       are_you_sure_to_complete_project_2: "标记为已完成？"
       are_you_sure_to_abandon_project_2: "标记为已放弃？"
       are_you_sure_to_delete_project: "你确定要删除这个项目？此操作不可逆。"
+      application_explaination_1: "请阅读我们的"
+      project_guidelines: "项目要求"
+      application_explaination_2: "以确认你的项目被火栗允许。"
+      application_explaination_3: "填完这个表你就可以马上开始使用火栗。无需等待。"
     payment:
       backs:
         blank: ""
@@ -680,6 +691,7 @@ zh:
         math: "数学"
         science: "科学研究"
         humanity: "人文社科研究"
+        something: "东西"
         engineering: "工程"
         reward: "奖励"
         support: "支持"
@@ -758,6 +770,9 @@ zh:
           documentary: "纪录片"
           tutorial: "教程"
           storytelling: "故事"
+        something:
+          something_new: "新东西"
+          something_old: "旧东西"
       btn:
         save_changes: "保存"
         sign_up: "注册"

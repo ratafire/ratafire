@@ -76,6 +76,10 @@
 				<% if @campaign.category == "Videos" %>
 					<%= f.select(:sub_category, [[t('views.utilities.category.a_new_field'),'A New Field'], [t('views.utilities.category.videos.gaming'),'Gaming'],[t('views.utilities.category.videos.animation'),'Animation'],[t('views.utilities.category.videos.cg'),'CG'],[t('views.utilities.category.videos.fashion'),'Fashion'],[t('views.utilities.category.videos.beauty'),'Beauty'],[t('views.utilities.category.videos.movies'),'Movies'],[t('views.utilities.category.videos.documentary'),'Documentary'],[t('views.utilities.category.videos.tutorial'),'Tutorial'],[t('views.utilities.category.videos.storytelling'),'Storytelling'],[t('views.utilities.category.other'),'Other']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
 				<% end %>
+				<!-- Something -->
+				<% if @campaign.category == "Something" %>
+					<%= f.select(:sub_category, [[t('views.utilities.category.something.something_new'),'Something New'],[t('views.utilities.category.something.something_old'),'Something Old']], {prompt: t('views.campaign.select_a_sub_category')}, { :class => 'simple-select required', :id => 'category-selection' }) %>
+				<% end %>
 				<span class="help-block">
 					<%= render 'studio/campaigns/help_block/sub_category' %>
 				</span>
@@ -99,7 +103,7 @@
 	</div>
 
 	<!-- Country -->
-	<div class="row">
+<!-- 	<div class="row">
 		<div class="col-md-3">
 			<div><%= t 'views.campaign.based_country' %>: <span class="text-danger">*</span></div>
 		</div>
@@ -109,9 +113,9 @@
 				<%= f.country_select(:country, { include_blank: t('views.campaign.based_country_placeholder'),selected: @campaign.country, only: ["AU", "CA","DK", "FI", "IE", "NO", "SE", "CH", "GB", "US", "AT", "BE", "DE", "IT", "LU", "NL", "SG", "ES", "FR","HK","NZ","PT"] }, { class: 'simple-select-search required' }) %>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- Duration -->
-	<div class="row">
+<!-- 	<div class="row">
 		<div class="col-md-3">
 			<div><%= t 'views.campaign.duration' %>: <span class="text-danger">*</span></div>
 		</div>
@@ -129,7 +133,7 @@
 				</span>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- Funding type -->
 	<div class="row">
 		<div class="col-md-3">

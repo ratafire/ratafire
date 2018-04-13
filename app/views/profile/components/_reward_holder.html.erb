@@ -27,8 +27,8 @@
 			<p class="text-grey-200"><i class="ti-user"></i> <span ><%= number_to_human(user.active_reward.reward_receivers.count) %>/<%= number_to_human(user.active_reward.backers) %> <%= t 'views.utilities.menu.backers' %><% if user.active_reward.backers > 0 && user.active_reward.reward_receivers.count >= user.active_reward.backers %><span class="label label-blue ml-5"><%= t 'views.payment.backs.all_gone' %></span><% end %></span></p>
 		<% else %>
 			<!-- Show backer when there is more than 0 backer -->
-			<% if user.active_reward.active_receivers.count > 0 %>
-				<p class="text-grey-200"><i class="ti-user"></i> <span ><%= number_to_human(user.active_reward.active_receivers.count) %>
+			<% if user.active_reward.reward_receivers.count > 0 %>
+				<p class="text-grey-200"><i class="ti-user"></i> <span ><%= number_to_human(user.active_reward.reward_receivers.count) %>
 			<% end %>
 		<% end %>
 		<div class="text-grey mb-20"><%= user.active_reward.description %></div>

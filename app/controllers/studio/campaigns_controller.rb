@@ -46,6 +46,11 @@ class Studio::CampaignsController < ApplicationController
 	#/users/:user_id/studio/campaigns/:campaign_id/application
 	def application
 		@upload_url = '/content/artworks/medium_editor_upload_artwork_campaign/'+@campaign.uuid
+		if @user.paypal_account
+			@paypal_account = @user.paypal_account
+		else
+			@paypal_account = PaypalAccount.new
+		end
 	end
 
 	#update_user_studio_campaigns GET
@@ -133,6 +138,20 @@ class Studio::CampaignsController < ApplicationController
 			end
 		end
 		@campaign.update(campaign_params)
+		#Paypal Email
+		if @campaign.paypal_email && @campaign.paypal_email != ""
+			if @user.paypal_account
+				@paypal_account = @user.paypal_account
+				@paypal_account.update(
+					email: @campaign.paypal_email
+				)
+			else
+				@paypal_account = PaypalAccount.create(
+					user_id: @user.id,
+					email: @campaign.paypal_email
+				)
+			end
+		end
 		#Update activity
 		update_campaign_activity
 		if @campaign.sub_category
@@ -214,9 +233,30 @@ class Studio::CampaignsController < ApplicationController
 		if @campaign.validate_status!
 			#Update campaign status
 			@campaign.update(
-				status: "Pending",
-				applied_at: Time.now
+				status: "Approved",
+				review_status: "Pending",
+				applied_at: Time.now,
+				published: true,
+				published_at: Time.now				
 			)
+			@campaign.user.update(
+				creator: true,
+				creator_at: Time.now
+			)	
+			@campaign.rewards.last.update(
+				active: true
+			)		
+			#Send email
+			Studio::CampaignsMailer.review(@campaign.id).deliver_now		
+			#Create notification
+			Notification.create(
+				user_id: @campaign.user.id,
+				trackable_id: @campaign.id,
+				trackable_type: "Campaign",
+				notification_type: "project_approved"
+			)
+			#add score
+			@campaign.user.add_score("quest_lg")							
 		else
 			#render error messages
 		end
@@ -381,7 +421,7 @@ protected
 	end
 
 	def campaign_params
-		params.require(:campaign).permit(:user_id, :category, :title, :description, :sub_category, :tag_list, :country, :currency, :duration, :ratafirer, :estimated_delivery,:_destroy, :content, :image,:funding_type, :direct_upload_url, :content_updated_at )
+		params.require(:campaign).permit(:user_id, :category, :title, :description, :sub_category, :tag_list, :country, :currency, :duration, :ratafirer, :estimated_delivery,:_destroy, :content, :image,:funding_type, :direct_upload_url, :content_updated_at, :paypal_email )
 	end
 
 	def fetch_campaign_params

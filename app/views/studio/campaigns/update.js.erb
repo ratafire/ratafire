@@ -1,5 +1,5 @@
 //scroll to top
-$("html").velocity("scroll", {});
+$("#campaign-wizard-header").velocity("scroll", {});
 //refresh video
 <% if @campaign.video %>
 	$('#application-video-preview').remove();
@@ -14,3 +14,18 @@ $('.save-button').click(function(){
     //submit form
     $("#campaign-wizard").trigger('submit.rails');
 });     
+//Submit form for add paypal
+$('#add-paypal-account').click(function(){
+    //submit form
+    $("#campaign-wizard").trigger('submit.rails');
+}); 
+<% if @paypal_account %>
+	$('#input-paypal-holder').hide();
+	$('#connect-to-paypal').hide();
+	$('#paypal-update').show();
+	$('#paypal-update').html('<div class="col-lg-9" id="added-paypal-holder"><%= @paypal_account.email %></div>');
+	$('#connected-to-paypal').show();
+<% else %>
+	$('#connected-to-paypal').hide();
+	$('#connect-to-paypal').show();
+<% end %>

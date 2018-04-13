@@ -1,0 +1,55 @@
+<fieldset title="4">
+	<legend class="text-semibold"><%= t 'views.creator_studio.menu.paypal' %></legend>
+	<!-- Topic -->
+	<div class="row text-center p-40">
+		<div class="text-giant text-thin"><%= t 'views.campaign.your_info_and_how_would_you_get_paid' %></div>
+		<h3 class="text-thin text-grey-200"><%= render 'studio/campaigns/historical_quotes_artist_info', locals: { campaign: @campaign } %></h3>
+	</div>
+	<div id="error-messages">
+	</div>	
+	<!-- PayPal Account -->
+	<div class="row mb-20">
+		<div class="panel panel-blue bg-white-transparent">
+			<div class="panel-heading">
+				<h6 class="panel-title text-thin"><i class="fa fa-paypal mr-10"></i><%= t 'views.creator_studio.menu.paypal'%></h6>
+				<div class="heading-elements">
+		    	</div>
+			</div>
+			<div class="panel-body" id="add-paypal-account-panel-body">
+				<div class="form-group">
+					<div class="row mb-20">
+						<div class="col-lg-12 text-grey-300">
+							<%= t 'views.creator_studio.paypal.add_paypal_message' %>
+						</div>
+					</div>
+					<div class="row mb-20" id="input-paypal">
+						<label class="col-lg-3 control-label"><%= t 'views.creator_studio.paypal.paypal_email' %>: <span class="text-danger">*</span></label>
+						<div id="paypal-update">
+						</div>
+						<div class="col-lg-9" id="input-paypal-holder">
+							<%= f.email_field :paypal_email, class:"form-control required", id:"paypal-email", placeholder:'you@domain.com' %>
+						</div>							
+					</div>
+				</div>
+				<div class="text-right" id="connected-to-paypal">
+					<div class="btn btn-blue" id="edit-paypal-account">
+						<%= t'views.utilities.editor.edit' %>
+					</div>
+				</div>
+				<div class="text-right" id="connect-to-paypal">
+					<div class="btn btn-blue" id="add-paypal-account">
+						<%= t 'views.creator_studio.paypal.connect' %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+<script type="text/javascript">
+	$('#edit-paypal-account').click(function(){
+		$('#input-paypal-holder').show();
+		$('#paypal-update').hide();
+		$('#connected-to-paypal').hide();
+		$('#connect-to-paypal').show();		
+	});
+</script>

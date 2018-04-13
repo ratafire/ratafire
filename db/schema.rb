@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221033823) do
+ActiveRecord::Schema.define(version: 20180309142808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -551,6 +551,11 @@ ActiveRecord::Schema.define(version: 20171221033823) do
     t.decimal  "predicted_ratafire",      precision: 10, scale: 2, default: 0.0
     t.decimal  "recurring_total",         precision: 10, scale: 2, default: 0.0
     t.string   "content_type",                                     default: "campaign"
+    t.string   "paypal_email"
+    t.string   "review_status"
+    t.boolean  "test",                                             default: false
+    t.datetime "reviewed_at"
+    t.boolean  "reviewed"
   end
 
   create_table "cards", id: :bigserial, force: :cascade do |t|
